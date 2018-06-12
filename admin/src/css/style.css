@@ -1,0 +1,14 @@
+button:focus {
+  outline: none; }
+
+.dashboard .mat-card {
+  background: rgba(243, 240, 240, 0.87) !important; }
+.dashboard mat-card.mat-radius {
+  border-radius: 50px; }
+.dashboard .mat-card-header-text {
+  display: none; }
+
+.secondary-bg-color {
+  background-color: rgba(0, 0, 0, 0.12) !important; }
+
+/*# sourceMappingURL=style.css.map */
