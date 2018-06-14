@@ -56,7 +56,7 @@ form .mat-icon {
   margin-top: -8vh; }
 
 .dashbord-bg {
-  background: url("../assets/img/patient-slider.png");
+  background: url("./assets/img/patient-slider.png");
   background-color: #d72127 !important;
   width: 100%;
   background-size: cover;
