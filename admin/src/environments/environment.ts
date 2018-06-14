@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiHost: 'http://localhost/vizza/api/index.php/v2/',
+    webHost: 'http://localhost:4200',
+    imgUrl:  'http://13.127.24.123/vizza'
 };
