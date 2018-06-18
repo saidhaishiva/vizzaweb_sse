@@ -18,11 +18,8 @@ export class DashboardComponent implements OnInit {
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.form = this.fb.group({
-            'familymember': ['', Validators.required],
             'pincode': ['', Validators.required],
             'suminsure': ['', Validators.required],
-            'mobile': [''],
-            'email': [''],
 
         });
     }

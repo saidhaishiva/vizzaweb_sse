@@ -20,30 +20,33 @@
         </div>
         <div class="col-md-3">
 <mat-card>
+    <mat-card-header><h5>Health Insurance plans for..</h5></mat-card-header>
     <form [formGroup]="form" (ngSubmit)="insureList(form.value)">
-        <mat-form-field class="w-75">
-            <input matInput placeholder="FAMILY MEMBERS" required formControlName="familymember" >
-            <mat-error *ngIf="form.controls.familymember.errors?.required">Family member is required</mat-error>
-        </mat-form-field>
-        <mat-icon (click)="openDialog()">add_circle_outline</mat-icon>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="PIN CODE" required  formControlName="pincode">
-            <mat-error *ngIf="form.controls.pincode.errors?.required">Pincode is required</mat-error>
-            <mat-icon matSuffix>place</mat-icon>
-        </mat-form-field>
         <mat-form-field class="w-100">
             <input matInput placeholder="SUM INSURED" required formControlName="suminsure">
             <mat-error *ngIf="form.controls.suminsure.errors?.required">Sum insure is required</mat-error>
             <mat-icon matSuffix>mode_edit</mat-icon>
         </mat-form-field>
         <mat-form-field class="w-100">
-            <input matInput placeholder="MOBILE NUMBER (optional)" formControlName="mobile">
-            <mat-icon matSuffix>call</mat-icon>
+            <input matInput placeholder="FAMILY MEMBERS" formControlName="familymember" >
+            <!--<mat-error *ngIf="form.controls.familymember.errors?.required">Family member is required</mat-error>-->
+            <mat-icon (click)="openDialog()" matSuffix>add_circle_outline</mat-icon>
         </mat-form-field>
+
         <mat-form-field class="w-100">
-            <input matInput placeholder="EMAIL(optional)" formControlName="email">
-            <mat-icon matSuffix>mail</mat-icon>
+            <input matInput placeholder="PIN CODE / CITY" required  formControlName="pincode">
+            <mat-error *ngIf="form.controls.pincode.errors?.required">Pincode is required</mat-error>
+            <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
+
+        <!--<mat-form-field class="w-100">-->
+            <!--<input matInput placeholder="MOBILE NUMBER (optional)" formControlName="mobile">-->
+            <!--<mat-icon matSuffix>call</mat-icon>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field class="w-100">-->
+            <!--<input matInput placeholder="EMAIL(optional)" formControlName="email">-->
+            <!--<mat-icon matSuffix>mail</mat-icon>-->
+        <!--</mat-form-field>-->
         <div fxLayoutAlign="center center" class="mt-3">
         <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit">Submit</button>
         </div>
