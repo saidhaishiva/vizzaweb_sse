@@ -12,49 +12,32 @@ export class AuthService {
     }
 
     clearToken() {
-        sessionStorage.removeItem('mt-doctor-userid');
-        sessionStorage.removeItem('mt-doctor-doctorid');
-        sessionStorage.removeItem('mt-doctor-doctorname');
-        sessionStorage.removeItem('mt-doctor-accesstoken');
-        sessionStorage.removeItem('mt-doctor-roleid');
+        sessionStorage.removeItem('admin-id');
+        sessionStorage.removeItem('admin-roleid');
+        sessionStorage.removeItem('admin-name');
+        sessionStorage.removeItem('admin-accesstoken');
     }
 
-    setToken( doctorid, name, roleid, userid, accesstoken, assistantName  ) {
-        sessionStorage.setItem('mt-doctor-userid', userid);
-        sessionStorage.setItem('mt-doctor-doctorid', doctorid);
-        sessionStorage.setItem('mt-doctor-doctorname', name);
-        sessionStorage.setItem('mt-doctor-accesstoken', accesstoken);
-        sessionStorage.setItem('mt-doctor-roleid', roleid);
-        sessionStorage.setItem('mt-doctor-assistantname', assistantName);
-
+    setToken( adminid, adminroleid, name, accesstoken  ) {
+        sessionStorage.setItem('admin-id', adminid);
+        sessionStorage.setItem('admin-roleid', adminroleid);
+        sessionStorage.setItem('admin-name', name);
+        sessionStorage.setItem('admin-accesstoken', accesstoken);
     }
-    getUserId() {
-        return sessionStorage.getItem('mt-doctor-userid');
+    getAdminId() {
+        return sessionStorage.getItem('admin-id');
     }
-    getDoctorId() {
-        return sessionStorage.getItem('mt-doctor-doctorid');
+    getAdminRoleId() {
+        return sessionStorage.getItem('admin-roleid');
     }
-    getDoctorName() {
-        return sessionStorage.getItem('mt-doctor-doctorname');
+    getAdminName() {
+        return sessionStorage.getItem('admin-name');
     }
 
     getAccessToken() {
-        return sessionStorage.getItem('mt-doctor-accesstoken');
+        return sessionStorage.getItem('admin-accesstoken');
     }
 
-    getRoleId() {
-        return sessionStorage.getItem('mt-doctor-roleid');
-    }
-    getAssistantName() {
-        return sessionStorage.getItem('mt-doctor-assistantname');
-    }
-
-    getSessionData(variable) {
-        return sessionStorage.getItem(variable);
-    }
-    setSessionData(variable, value) {
-        return sessionStorage.setItem(variable, value);
-    }
 
 
 
