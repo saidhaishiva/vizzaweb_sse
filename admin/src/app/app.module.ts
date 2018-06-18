@@ -4,6 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
+import { LoginService } from './shared/services/login.service';
+import { ConfigurationService } from './shared/services/configuration.service';
+import { AuthService } from './shared/services/auth.service';
+import {HttpClientModule} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
+
 
 import { AgmCoreModule } from '@agm/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -42,7 +49,9 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
     BrowserAnimationsModule,     
     FormsModule, 
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({
+      HttpClientModule,
+      HttpModule,
+      AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }), 
     PerfectScrollbarModule, 
@@ -70,6 +79,9 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
   ],
   providers: [ 
     AppSettings,
+      ConfigurationService,
+      LoginService,
+      AuthService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
