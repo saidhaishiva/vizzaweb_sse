@@ -24,21 +24,22 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'pos/login';
+        const url = this.configurationService.getHost() + 'admin/login';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
     }
-    signUp(data) {
+    RegisterPos(data) {
         const json = JSON.stringify(data);
         console.log(json);
+        const token = this.authService.getAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Accesstoken: token})
         };
-        const url = this.configurationService.getHost() + 'pos/register';
+        const url = this.configurationService.getHost() + 'admin/create_pos';
         return this.http.post(url , json, httpOptions)
-        // .map(this.extractData )
-        // .catch(this.handleError);
+        .map(this.extractData )
+        .catch(this.handleError);
     }
     getVerifyAssistant(data){
         const json = JSON.stringify(data);

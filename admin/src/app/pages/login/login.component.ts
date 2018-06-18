@@ -22,16 +22,8 @@ export class LoginComponent implements OnInit {
     conps: boolean;
     newps: boolean;
     hide = true;
-    roleid: any;
-    clinicList: any;
-    public loginResponse: any;
-    public loginAssistantResponse: any;
-    public assistantRoleid: any;
-    public getSelfdoctor: any;
-    public selectedDoctor: any;
-    public getAssistantData: any;
-    public activeAssistantLists: any;
-    public getSelfDoctorDetails: Array<any>;
+    admin: any;
+
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
         this.settings = this.appSettings.settings;
@@ -201,7 +193,11 @@ export class LoginComponent implements OnInit {
      */
     public loginSuccess(successData) {
         console.log(successData);
-        this.router.navigate(['/dashboard']);
+        if (successData.IsSuccess) {
+            this.admin = successData.ResponseObject.adm_details;
+            this.authService.setToken(this.admin.adm_id, this.admin.adm_roleid, this.admin.adm_firstname, successData.ResponseObject.Accesstoken)
+            this.router.navigate(['/dashboard']);
+        }
     }
 
     public loginFailure(error) {

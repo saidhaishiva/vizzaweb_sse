@@ -7,8 +7,11 @@ import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import { LoginService } from './shared/services/login.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
+import { CommonService } from './shared/services/common.service';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ToastrModule } from 'ngx-toastr';
+
 
 
 
@@ -42,6 +45,7 @@ import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.co
 import { ApplicationsComponent } from './theme/components/applications/applications.component';
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
+import { AddposComponent } from './pages/addpos/addpos.component';
 
 @NgModule({
   imports: [
@@ -51,6 +55,7 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
     ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
+      ToastrModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }), 
@@ -76,12 +81,14 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
     ApplicationsComponent,
     MessagesComponent,
     UserMenuComponent,
+      AddposComponent
   ],
   providers: [ 
     AppSettings,
       ConfigurationService,
       LoginService,
       AuthService,
+      CommonService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
