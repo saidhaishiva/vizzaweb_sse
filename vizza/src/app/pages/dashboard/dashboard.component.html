@@ -21,35 +21,30 @@
         <div class="col-md-3">
 <mat-card>
     <mat-card-header><h5>Health Insurance plans for..</h5></mat-card-header>
-    <form [formGroup]="form" (ngSubmit)="insureList(form.value)">
+
         <mat-form-field class="w-100">
-            <input matInput placeholder="SUM INSURED" required formControlName="suminsure">
-            <mat-error *ngIf="form.controls.suminsure.errors?.required">Sum insure is required</mat-error>
+            <input matInput name="suminsure" [(ngModel)]="suminsure" placeholder="SUM INSURED" >
             <mat-icon matSuffix>mode_edit</mat-icon>
         </mat-form-field>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="FAMILY MEMBERS" formControlName="familymember" >
-            <!--<mat-error *ngIf="form.controls.familymember.errors?.required">Family member is required</mat-error>-->
-            <mat-icon  matSuffix>add_circle_outline</mat-icon>
-        </mat-form-field>
+        <div *ngIf="sumerror" class="ngError">Required</div>
+
      <div class="w-100 mb-2 son" >
          <div id="clonehead" >
             <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-                <div class="col-md-2"><mat-checkbox></mat-checkbox></div>
+                <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" (change)="deleteMembers(item.checked, i)" ></mat-checkbox></div>
                 <div class="col-md-3">{{item.name}}</div>
                 <div class="col-md-7"> <mat-form-field class="w-100">
-                    <input matInput placeholder="age">
-                </mat-form-field> <mat-icon class="closeRelation" *ngIf="item.disabled ">close</mat-icon></div>
-
-
-
+                    <input matInput placeholder="age" name="age" [(ngModel)]="item.age">
+                </mat-form-field>
+                    <div *ngIf="item.error != ''" class="ngError">Required</div>
+                </div>
             </div>
          </div>
          <div class="mt-3">
 
-         <button mat-raised-button color="accent" (click)="addClone('Son')" type="button"><i class="material-icons">add_circle_outline</i> ADD SON </button>
-         <button mat-raised-button color="accent" (click)="addClone('Daughter')" type="button"><i class="material-icons">add_circle_outline</i> ADD DAUGHTER</button>
-             <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> ADD OTHERS</button>
+         <button mat-raised-button color="accent" (click)="addClone('Son')" [disabled]="addonce4" type="button"><i class="material-icons">add_circle_outline</i> SON </button>
+         <button mat-raised-button color="accent" (click)="addClone('Daughter')" [disabled]="addonce5" type="button"><i class="material-icons">add_circle_outline</i> DAUGHTER</button>
+             <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> OTHERS</button>
              <mat-menu #menu="matMenu">
                  <button mat-menu-item (click)="addClone('Father')" [disabled]="addonce">Father</button>
                  <button mat-menu-item (click)="addClone('Mother')" [disabled]="addonce1">Mother</button>
@@ -59,28 +54,17 @@
                  <button mat-menu-item (click)="addClone('Sister1')">Sister</button>
              </mat-menu>
              </div>
-
      </div>
-
-
         <mat-form-field class="w-100">
-            <input matInput placeholder="PIN CODE / CITY" required  formControlName="pincode">
-            <mat-error *ngIf="form.controls.pincode.errors?.required">Pincode is required</mat-error>
+            <input matInput name="pin" name="pin" [(ngModel)]="pin" placeholder="PIN CODE / CITY"  >
             <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
+        <div *ngIf="pinerror" class="ngError">Required</div>
 
-        <!--<mat-form-field class="w-100">-->
-            <!--<input matInput placeholder="MOBILE NUMBER (optional)" formControlName="mobile">-->
-            <!--<mat-icon matSuffix>call</mat-icon>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field class="w-100">-->
-            <!--<input matInput placeholder="EMAIL(optional)" formControlName="email">-->
-            <!--<mat-icon matSuffix>mail</mat-icon>-->
-        <!--</mat-form-field>-->
         <div fxLayoutAlign="center center" class="mt-3">
-        <button mat-raised-button color="accent" [disabled]="!form.valid" type="submit">Submit</button>
+        <button mat-raised-button color="accent" type="submit" (click)="insureList(empty)">Submit</button>
         </div>
-    </form>
+
 </mat-card>
         </div>
     </div>
