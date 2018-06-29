@@ -31,27 +31,36 @@
      <div class="w-100 mb-2 son" >
          <div id="clonehead" >
             <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-                <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" (change)="deleteMembers(item.checked, i)" ></mat-checkbox></div>
+                <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i)" ></mat-checkbox></div>
                 <div class="col-md-3">{{item.name}}</div>
-                <div class="col-md-7"> <mat-form-field class="w-100">
+                <div class="col-md-5"> <mat-form-field class="w-100">
                     <input matInput placeholder="age" name="age" [(ngModel)]="item.age">
                 </mat-form-field>
                     <div *ngIf="item.error != ''" class="ngError">Required</div>
+                </div>
+                <div class="col-md-2">
+                    <button mat-button [hidden]="item.auto" matSuffix mat-icon-button aria-label="Clear" (click)="addUser(i)">
+                        <i class="material-icons">
+                            add
+                        </i>
+                    </button>
+
                 </div>
             </div>
          </div>
          <div class="mt-3">
 
-         <button mat-raised-button color="accent" (click)="addClone('Son')" [disabled]="addonce4" type="button"><i class="material-icons">add_circle_outline</i> SON </button>
-         <button mat-raised-button color="accent" (click)="addClone('Daughter')" [disabled]="addonce5" type="button"><i class="material-icons">add_circle_outline</i> DAUGHTER</button>
+         <!--<button mat-raised-button color="accent" (click)="addClone('Son')" [disabled]="sonBtn" type="button"><i class="material-icons">add_circle_outline</i> SON </button>-->
+         <!--<button mat-raised-button color="accent" (click)="addClone('Daughter')" [disabled]="daugtherBtn" type="button"><i class="material-icons">add_circle_outline</i> DAUGHTER</button>-->
+            <!---->
              <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> OTHERS</button>
              <mat-menu #menu="matMenu">
-                 <button mat-menu-item (click)="addClone('Father')" [disabled]="addonce">Father</button>
-                 <button mat-menu-item (click)="addClone('Mother')" [disabled]="addonce1">Mother</button>
-                 <button mat-menu-item (click)="addClone('Father In Law')" [disabled]="addonce2">Father-In-Law</button>
-                 <button mat-menu-item (click)="addClone('Mother In Law')" [disabled]="addonce3">Mother-In-Law</button>
-                 <button mat-menu-item (click)="addClone('Brother1')">Brother</button>
-                 <button mat-menu-item (click)="addClone('Sister1')">Sister</button>
+                 <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
+                 <button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>
+                 <button mat-menu-item (click)="addOthers('Father In Law')" [disabled]="fatherInLawBTn">Father-In-Law</button>
+                 <button mat-menu-item (click)="addOthers('Mother In Law')" [disabled]="motherInLawBtn">Mother-In-Law</button>
+                 <button mat-menu-item (click)="addOthers('Brother')">Brother</button>
+                 <button mat-menu-item (click)="addOthers('Sister')">Sister</button>
              </mat-menu>
              </div>
      </div>
