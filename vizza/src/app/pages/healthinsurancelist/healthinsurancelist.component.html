@@ -1,0 +1,52 @@
+<div fxLayout="column">
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="left left">
+        <mat-card-subtitle>
+          <h4><img  src="assets/img/hearticon.png" style="width: 30px;height: 30px;" alt="5"> Health Insurance</h4></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab *ngFor="let lists of allLists" label="{{lists.name}}">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>INSURER</th>
+                    <th>SUM INSURED</th>
+                    <th>NOTABLE FEATURES</th>
+                    <th></th>
+                    <th>PREMIMUM</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="" *ngFor="let plists of lists.product_lists">
+                    <td>
+                      <p>{{plists.company_name}}</p>
+                      <img  src="assets/img/app/5.jpg" style="width: 100px;height: 100px;" alt="5">
+                    </td>
+                    <td>
+                      <p>Rs. {{plists.suminsured_amount}}</p>
+                    </td>
+                    <td>Add</td>
+                    <td>
+                      <p><button mat-raised-button color="primary">Add to shortlist</button></p>
+                    <p><button mat-raised-button color="primary">Add to compare</button></p>
+                    </td>
+                    <td>
+                      <p>Rs. {{plists.premium_amount}}</p>
+                      <button mat-raised-button color="accent">Buy</button>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              <!--</mat-card-content>-->
+              <mat-divider></mat-divider>
+            <!--</mat-card>-->
+
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
