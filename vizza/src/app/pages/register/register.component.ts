@@ -312,42 +312,42 @@ export class RegisterComponent implements OnInit {
     //         );
     //     }
     // }
-    public getpostalSuccess(successData) {
-        this.response = successData.ResponseObject;
-        if (successData.IsSuccess == true) {
-            this.form.controls.contacts.patchValue({'city': this.response.city});
-            this.form.controls.contacts.patchValue({'state': this.response.state});
-            this.form.controls.contacts.patchValue({'country': this.response.country});
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-        // this.form = this.fb.group({
-        //     username: this.formdata.patientname ? this.formdata.patientname : '',
-        //     password: this.formdata.patientname ? this.formdata.patientname : '',
-        //     profile: this.fb.group({
-        //         name: this.formdata.patientname ? this.formdata.patientname : '',
-        //         relationship: this.formdata.relationship ? this.formdata.relationship : '',
-        //         surname: null,
-        //         birthday: this.formdata.dateofbirth ? this.formdata.dateofbirth : '',
-        //         gender: this.formdata.gender ? this.formdata.gender : '',
-        //         image: null
-        //     }),
-        //     contacts: this.fb.group({
-        //         email: this.formdata.emailid ? this.formdata.emailid : '',
-        //         phone: this.formdata.mobilenumber ? this.formdata.mobilenumber : '',
-        //         address1: this.formdata.address1 ? this.formdata.address1 : '',
-        //         address2: this.formdata.address2 ? this.formdata.address2 : '',
-        //         pincode: this.formdata.pincode ? this.formdata.pincode : this.pin,
-        //         city: this.formdata.city ? this.formdata.city : this.response.city,
-        //         state: this.formdata.state ? this.formdata.state : this.response.state,
-        //         country: this.formdata.country ? this.formdata.country : this.response.country
-        //     }),
-        // });
-    }
-
-    public getpostalFailure(error) {
-        console.log(error);
-    }
+    // public getpostalSuccess(successData) {
+    //     this.response = successData.ResponseObject;
+    //     if (successData.IsSuccess == true) {
+    //         this.form.controls.contacts.patchValue({'city': this.response.city});
+    //         this.form.controls.contacts.patchValue({'state': this.response.state});
+    //         this.form.controls.contacts.patchValue({'country': this.response.country});
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject, 'Failed');
+    //     }
+    //     // this.form = this.fb.group({
+    //     //     username: this.formdata.patientname ? this.formdata.patientname : '',
+    //     //     password: this.formdata.patientname ? this.formdata.patientname : '',
+    //     //     profile: this.fb.group({
+    //     //         name: this.formdata.patientname ? this.formdata.patientname : '',
+    //     //         relationship: this.formdata.relationship ? this.formdata.relationship : '',
+    //     //         surname: null,
+    //     //         birthday: this.formdata.dateofbirth ? this.formdata.dateofbirth : '',
+    //     //         gender: this.formdata.gender ? this.formdata.gender : '',
+    //     //         image: null
+    //     //     }),
+    //     //     contacts: this.fb.group({
+    //     //         email: this.formdata.emailid ? this.formdata.emailid : '',
+    //     //         phone: this.formdata.mobilenumber ? this.formdata.mobilenumber : '',
+    //     //         address1: this.formdata.address1 ? this.formdata.address1 : '',
+    //     //         address2: this.formdata.address2 ? this.formdata.address2 : '',
+    //     //         pincode: this.formdata.pincode ? this.formdata.pincode : this.pin,
+    //     //         city: this.formdata.city ? this.formdata.city : this.response.city,
+    //     //         state: this.formdata.state ? this.formdata.state : this.response.state,
+    //     //         country: this.formdata.country ? this.formdata.country : this.response.country
+    //     //     }),
+    //     // });
+    // }
+    //
+    // public getpostalFailure(error) {
+    //     console.log(error);
+    // }
     fees(data) {
         this.form.controls.payment.patchValue({'fees': data});
         if ( this.form.controls.payment.value.fees == 1) {
