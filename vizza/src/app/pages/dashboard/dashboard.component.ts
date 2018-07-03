@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {AddfamilymembersComponent} from './addfamilymembers/addfamilymembers.component';
 import {CommonService} from '../../shared/services/common.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -31,22 +32,24 @@ export class DashboardComponent implements OnInit {
     finalData: any;
     sumerror: boolean;
     pinerror: boolean;
-    suminsure: any;
-    pin: any;
+    selectedAmount: any;
+    pincoce: any;
     sonStatus: any;
     daugtherStatus: any;
+    sumInsuredAmountLists: any;
+    insuranceLists: any;
+    pageSettings: any;
+    firstPage: any;
+    secondPage: any;
+    compareArray: any;
+    addCompareBtn: any;
 
-
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService ) {
+    constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
-        this.form = this.fb.group({
-            'pincode': ['', Validators.required],
-            'suminsure': ['', Validators.required],
-            'familymember': ['', Validators.required],
-
-        });
+        this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;
+        this.addCompareBtn = false;
         this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
@@ -84,8 +87,12 @@ export class DashboardComponent implements OnInit {
                 error: ''
             }
             ];
+
+        this.compareArray = [];
     }
     ngOnInit() {
+        this.firstPage = true;
+        this.secondPage = false;
         this.fatherBTn = false;
         this.motherBtn = false;
         this.fatherInLawBTn = false;
@@ -95,8 +102,67 @@ export class DashboardComponent implements OnInit {
         this.closeIcon = true;
         this.sonStatus = 'false';
         this.daugtherStatus = 'false';
+        this.sumInsuredAmonut();
+        this.sessionData();
+        if (this.pageSettings == 2) {
+            this.firstPage = false;
+            this.secondPage = true;
 
+        }
+    }
 
+    sessionData() {
+        if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
+            console.log(JSON.parse(sessionStorage.setFamilyDetails), 'JSON.pars');
+            this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
+        }
+        if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
+            this.selectedAmount = sessionStorage.setInsuredAmount;
+        }
+        if (sessionStorage.setPincode != undefined && sessionStorage.setPincode != '') {
+            this.pincoce = sessionStorage.setPincode;
+        }
+        if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
+            this.pageSettings = sessionStorage.setPage;
+        }
+        if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
+            this.insuranceLists = JSON.parse(sessionStorage.policyLists);
+            this.setArray = this.insuranceLists[0].family_members;
+            for (let i = 0; i < this.setArray.length; i++) {
+                this.setArray[i].name = this.setArray[i].type;
+                this.setArray[i].age = this.setArray[i].age;
+                this.setArray[i].checked = true;
+                this.setArray[i].auto = true;
+                if (this.setArray[i].type == 'Son' || this.setArray[i].type == 'Daughter') {
+                    this.setArray[i].auto = false;
+                }
+            }
+            console.log(this.setArray, 'this.setArray');
+        }
+
+    }
+
+    public sumInsuredAmonut(): void {
+         const data = {
+            'platform': 'web'
+        };
+        this.common.getSumInsuredAmount(data).subscribe(
+            (successData) => {
+                this.getSumInsuredAmountSuccess(successData);
+            },
+            (error) => {
+                this.getSumInsuredAmountFailure(error);
+            }
+        );
+    }
+    public getSumInsuredAmountSuccess(successData) {
+        console.log(successData.IsSuccess, 'successData');
+        if (successData.IsSuccess) {
+            this.sumInsuredAmountLists = successData.ResponseObject;
+        }
+    }
+    public getSumInsuredAmountFailure(error) {
+        console.log(error, 'error');
     }
 
 
@@ -104,19 +170,17 @@ export class DashboardComponent implements OnInit {
     ckeckedUser(value, index) {
         this.memberLength = [];
         if (value) {
-            this.setArray[index].auto = false;
-
             for (let i = 0; i < this.setArray.length; i++) {
                 let length = this.setArray.length - 1;
                 console.log(length, 'length');
                 if (this.setArray[i].checked) {
                     console.log(this.setArray[i], 'this.setArray');
                     if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
+                        this.setArray[index].auto = false;
                         this.memberLength.push(this.setArray[i]);
                     }
                 }
             }
-
             console.log(this.memberLength.length, 'testy');
             if (this.memberLength.length >= 2) {
                 this.setArray[2].auto = true;
@@ -125,7 +189,6 @@ export class DashboardComponent implements OnInit {
 
         } else {
             this.setArray[index].auto = true;
-
                 if (this.setArray[index].name == 'Father') {
                     this.fatherBTn = false;
                 } else if (this.setArray[index].name == 'Mother') {
@@ -141,36 +204,33 @@ export class DashboardComponent implements OnInit {
                         console.log(length, 'length');
                         if (this.setArray[i].checked) {
                             console.log(this.setArray[i], 'this.setArray');
-
                             if (this.setArray[i].name == 'Son') {
                                 this.setArray[i].auto = false;
                                 this.setArray[length].disabled = false;
                                 this.setArray[i].disabled = false;
-
                                 // this.setArray[length].auto = false;
                             }
                             if (this.setArray[i].name == 'Daughter') {
                                 this.setArray[i].auto = false;
                                 this.setArray[length - 1].disabled = false;
                                 this.setArray[i].disabled = false;
-
                             }
                         } else {
-
-
                         }
                     }
                 }
-
-
-            if (index > 3) {
-                this.setArray.splice(index, 1);
-            }
-
-
-
-
+                if (index > 3) {
+                    this.setArray.splice(index, 1);
+                }
         }
+
+        sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
+    }
+    changeAmount() {
+        sessionStorage.setInsuredAmount = this.selectedAmount;
+    }
+    selectPincode() {
+        sessionStorage.setPincode = this.pincoce;
     }
     addUser(index) {
         console.log(index, 'index');
@@ -212,41 +272,39 @@ export class DashboardComponent implements OnInit {
 
 
     insureList() {
-        console.log(this.pin);
-        if (this.suminsure == '' || this.suminsure == undefined) {
+
+        console.log(this.pincoce, 'pincoce');
+        console.log(this.selectedAmount, 'selectedAmount');
+        if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
         } else {
             this.sumerror = false;
         }
-        if (this.pin == '' || this.pin == undefined) {
+        if (this.pincoce == '' || this.pincoce == undefined) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
         }
-
         this.finalData = [];
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i].checked) {
-
                 if (this.setArray[i].age == '') {
                     this.setArray[i].error = 'Required';
                 } else {
                     this.setArray[i].error = '';
-
                     this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-
                 }
             }
         }
-if(this.finalData != '' && this.suminsure != '' && this.pin != '' ){
-    console.log(this.finalData, 'total array');
-
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pin,
-            'sum_insured': this.suminsure,
-            'family_details': this.finalData
-        };
+        console.log(this.setArray, 'total setArraysetArray');
+    if (this.finalData != '' && this.selectedAmount != '' && this.pincoce != '' ) {
+            const data = {
+                'platform': 'web',
+                'postalcode': this.pincoce,
+                'sum_insured': this.selectedAmount,
+                'family_details': this.finalData
+            };
+            console.log(data, 'data');
         this.common.getPolicyQuotation(data).subscribe(
             (successData) => {
                 this.PolicyQuotationSuccess(successData);
@@ -255,17 +313,64 @@ if(this.finalData != '' && this.suminsure != '' && this.pin != '' ){
                 this.PolicyQuotationFailure(error);
             }
         );
-}
-
+    }
 
     }
     public PolicyQuotationSuccess(successData) {
         console.log(successData, 'successsssssssssssssssssssssss');
+        if (successData.IsSuccess) {
+            this.firstPage = false;
+            this.secondPage = true;
+            sessionStorage.setPage = 2;
+            this.insuranceLists = successData.ResponseObject;
+
+            this.setArray = this.insuranceLists[0].family_members;
+            for (let i = 0; i < this.setArray.length; i++) {
+                this.setArray[i].name = this.setArray[i].type;
+                this.setArray[i].age = this.setArray[i].age;
+                this.setArray[i].checked = true;
+                if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
+                    this.setArray[i].auto = false;
+                }
+            }
+
+            sessionStorage.policyLists = JSON.stringify(successData.ResponseObject);
+        } else {
+            // this.toast.error(successData.ErrorObject, 'Failed');
+        }
     }
 
     public PolicyQuotationFailure(error) {
         console.log(error);
     }
+
+    onSelectedIndexChange(index) {
+        console.log(index, 'index');
+        console.log(this.insuranceLists, 'yt');
+        console.log(this.insuranceLists[index]);
+        this.memberLength = [];
+
+        this.setArray = this.insuranceLists[index].family_members;
+        for (let i = 0; i < this.setArray.length; i++) {
+            this.setArray[i].name = this.setArray[i].type;
+            this.setArray[i].age = this.setArray[i].age;
+            this.setArray[i].checked = true;
+            if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
+                this.setArray[i].auto = false;
+            }
+        }
+    }
+
+    addCompare(value) {
+        this.addCompareBtn = true;
+        this.compareArray.push(value);
+        console.log(this.compareArray, 'value');
+    }
+    removeCompare(index) {
+        console.log(index);
+        this.compareArray.splice(index, 1);
+    }
+
     addClone(value) {
         this.closeIcon = false;
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: false, error: ''});
@@ -353,7 +458,6 @@ if(this.finalData != '' && this.suminsure != '' && this.pin != '' ){
             // }
        // }
         }
-
     deleteMembers(value, i) {
         console.log(value, 'value');
         if (value) {

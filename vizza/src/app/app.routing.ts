@@ -7,13 +7,15 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 import { ErrorComponent } from './pages/errors/error/error.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { 
-        path: '', 
+        path: '',
         component: PagesComponent, children: [
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
+            { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
             { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },

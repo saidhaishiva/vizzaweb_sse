@@ -6,6 +6,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import {ToastrModule} from 'ngx-toastr';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -19,7 +20,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
-  suppressScrollX: true               
+  suppressScrollX: true
 };
 import { CalendarModule } from 'angular-calendar';
 import { SharedModule } from './shared/shared.module';
@@ -44,19 +45,21 @@ import { ApplicationsComponent } from './theme/components/applications/applicati
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
+    BrowserAnimationsModule,
+      ToastrModule.forRoot(),
+      FormsModule,
     ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
-    }), 
-    PerfectScrollbarModule, 
+    }),
+    PerfectScrollbarModule,
     CalendarModule.forRoot(),
     SharedModule,
     PipesModule,
@@ -78,10 +81,11 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     ApplicationsComponent,
     MessagesComponent,
     UserMenuComponent,
-      ForgotPasswordComponent
+      ForgotPasswordComponent,
+      HealthinsurancelistComponent
   ],
-  providers: [ 
-    AppSettings,
+  providers: [
+      AppSettings,
       LoginService,
       ConfigurationService,
       AuthService,

@@ -49,6 +49,11 @@ export class LoginComponent implements OnInit {
      *
      */
     ngOnInit() {
+        sessionStorage.setFamilyDetails = '';
+        sessionStorage.setInsuredAmount = '';
+        sessionStorage.setPincode = '';
+        sessionStorage.setPage = '';
+        sessionStorage.policyLists = '';
         // this.settings.loadingSpinner = false;
         // this.authService.checkAuthentication();
     }

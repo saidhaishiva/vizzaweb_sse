@@ -25,137 +25,6 @@ export class CommonService {
         }
         return formBody.join('&');
     }
-    personalDetails() {
-        const data = {
-            'roleid': this.authService.getRoleId(),
-            'platform': 'web',
-            'doctorid': this.authService.getDoctorId(),
-            'userid': this.authService.getUserId()
-        };
-
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'doctor/personalDetails' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    professionalDetails() {
-        const data = {
-            'roleid': this.authService.getRoleId(),
-            'platform': 'web',
-            'doctorid': this.authService.getDoctorId(),
-            'userid': this.authService.getUserId()
-        };
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'doctor/professionalDetails' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getBookingStatus() {
-        const data = {
-            'roleid': this.authService.getRoleId(),
-            'platform': 'web',
-            'doctorid': this.authService.getDoctorId(),
-            'userid': this.authService.getUserId()
-        };
-
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'walkin/bookingListCount' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getQualifications(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'common/qualificationList' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getSpeciality() {
-        const data = {
-            'doctorid': this.authService.getDoctorId(),
-            'platform': 'web',
-            'roleid': this.authService.getRoleId(),
-            'userid': this.authService.getUserId()
-        };
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'common/specialityList' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getRegistrationType() {
-        const data = {
-            'doctorid': this.authService.getDoctorId(),
-            'platform': 'web',
-            'roleid': this.authService.getRoleId(),
-            'userid': this.authService.getUserId()
-        };
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'common/registrationList' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getPostal(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'common/checkPincode' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    sendReplyPatientQuery(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'doctor/answerForPatientQuery' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getPatientQueries(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'doctor/patientQueryAndAnswer' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
     getPolicyQuotation(data) {
         console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
@@ -164,6 +33,19 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/lists' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+// this function will get the sum insured amount lists
+    getSumInsuredAmount(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/suminsured_amount' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
