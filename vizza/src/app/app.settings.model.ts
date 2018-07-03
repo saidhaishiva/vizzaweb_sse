@@ -5,6 +5,7 @@ export class Settings {
                 public sidenavIsOpened: boolean,
                 public sidenavIsPinned: boolean,
                 public sidenavUserBlock: boolean,
+                public HomeSidenavUserBlock: boolean,
                 public menu: string,
                 public menuType: string,
                 public theme: string,

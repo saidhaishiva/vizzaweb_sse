@@ -292,26 +292,26 @@ export class RegisterComponent implements OnInit {
     signUpFailure(error) {
         console.log(error);
     }
-    getPostal(pin) {
-        this.pin = pin;
-        const data = {
-            'platform': 'web',
-            'roleid': this.auth.getRoleId(),
-            'doctorid': this.auth.getDoctorId(),
-            'userid': this.auth.getUserId(),
-            'pincode': this.pin
-        }
-        if (pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.getpostalSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalFailure(error);
-                }
-            );
-        }
-    }
+    // getPostal(pin) {
+    //     this.pin = pin;
+    //     const data = {
+    //         'platform': 'web',
+    //         'roleid': this.auth.getRoleId(),
+    //         'doctorid': this.auth.getDoctorId(),
+    //         'userid': this.auth.getUserId(),
+    //         'pincode': this.pin
+    //     }
+    //     if (pin.length == 6) {
+    //         this.common.getPostal(data).subscribe(
+    //             (successData) => {
+    //                 this.getpostalSuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.getpostalFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
     public getpostalSuccess(successData) {
         this.response = successData.ResponseObject;
         if (successData.IsSuccess == true) {

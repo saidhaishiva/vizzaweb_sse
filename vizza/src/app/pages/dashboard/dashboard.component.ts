@@ -46,6 +46,9 @@ export class DashboardComponent implements OnInit {
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
+     //   console.log(this.settings);
+        this.settings.HomeSidenavUserBlock = true;
+
         this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;

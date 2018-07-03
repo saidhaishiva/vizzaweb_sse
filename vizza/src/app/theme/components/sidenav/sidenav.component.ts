@@ -19,6 +19,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('okdfgdfgdgdggfd')
     this.menuItems = this.menuService.getVerticalMenuItems();
   }
 

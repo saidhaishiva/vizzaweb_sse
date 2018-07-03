@@ -52,8 +52,8 @@ export class PagesComponent implements OnInit {
         } 
       }                
     });
-    if(this.settings.menu == "vertical")
-      this.menuService.expandActiveSubMenu(this.menuService.getVerticalMenuItems());
+    if(this.settings.menu == "horizantal")
+      this.menuService.expandActiveSubMenu(this.menuService.getHorizontalMenuItems());
   }
 
   public chooseMenu(){
@@ -71,6 +71,7 @@ export class PagesComponent implements OnInit {
   }
    
   public toggleSidenav(){
+    console.log(this.sidenav);
     this.sidenav.toggle();
   }
   
