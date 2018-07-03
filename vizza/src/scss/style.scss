@@ -134,7 +134,7 @@ a:hover {
     margin-right: 10px;
     border-bottom: 1px solid #fff;
     img{
-      width: 20px;
+      width: 25px;
     }
   }
   h6{
@@ -146,6 +146,39 @@ a:hover {
   }
   .nav-link{
     border-bottom: 1px solid #ccc;
+  }
+
+  ul {
+    li:nth-child(1) .icon {
+      background: #3EA1F7;
+    }
+    li:nth-child(2) .icon {
+      background: #0CE884;
+    }
+    li:nth-child(3) .icon {
+      background: #0CC3E8;
+    }
+    li:nth-child(4) .icon {
+      background: #F75A9C;
+    }
+    li:nth-child(5) .icon {
+      background: #DE6925;
+    }
+    li:nth-child(6) .icon {
+      background: #993D64;
+    }
+    li:nth-child(7) .icon {
+      background: #18CCB4;
+    }
+    li:nth-child(8) .icon {
+      background: #FF4099;
+    }
+    li:nth-child(9) .icon {
+      background: #9E58B5;
+    }
+    li:nth-child(10) .icon {
+      background: #FFD840;
+    }
   }
 }
 .app.horizontal-menu .inner-sidenav-content{
@@ -164,4 +197,7 @@ a:hover {
 }
 .horizontal-menu-item .horizontal-menu-icon{
   display: none;
+}
+.options-icon{
+  display: none !important;
 }

@@ -24,9 +24,11 @@ export class PagesComponent implements OnInit {
   public toggleSearchBar:boolean = false;
   private defaultMenu:string; //declared for return default menu when window resized 
   public scrolledContent:any;
+  public breadcrumbHome: boolean;
 
   constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService){        
     this.settings = this.appSettings.settings;
+    this.breadcrumbHome = true;
   }
   
   ngOnInit() {
