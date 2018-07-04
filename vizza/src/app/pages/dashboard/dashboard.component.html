@@ -4,7 +4,7 @@
             <mat-card class="mat-radius">
                 <mat-card-header fxLayoutAlign="space-between center">
                 <h2>Health Insurance</h2>
-                    <button mat-icon-button color="warn">
+                    <button mat-icon-button color="accent">
                         <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
                     </button>
                 </mat-card-header>
@@ -81,19 +81,18 @@
 
 <!--second page-->
 
-<div class="row">
+<div class="row " id="product-list" fxLayoutAlign="center center">
     <div class="col-sm-9">
         <div fxLayout="column" *ngIf="secondPage">
             <div class="flex-p">
                 <mat-card>
                     <mat-card-header fxLayoutAlign="left left">
-                        <mat-card-subtitle>
-                            <h4 class="textColor"><img  src="assets/img/hearticon.png" style="width: 30px;height: 30px;" alt="5"> Health Insurance</h4></mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
+                        <h4 class="color-pink"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
                         <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
                             <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index" label="{{lists.name | uppercase}}" (click)="changeTab()">
-                                <table class="table">
+                                <table class="table health-table">
                                     <thead>
                                     <tr>
                                         <th>INSURER</th>
@@ -109,8 +108,8 @@
                                             {{plists.error}}
                                         </td>
                                         <td>
-                                            <p>{{plists.product_name}}</p>
-                                            <img  src="{{plists.company_logo}}" style="width: 100px;height: 100px;" alt="5">
+                                            <p class="color-green">{{plists.product_name}}</p>
+                                            <img  src="{{plists.company_logo}}" style="width: 100px;" alt="5">
                                         </td>
                                         <td>
                                             <p>Rs. {{plists.suminsured_amount}}</p>
@@ -142,18 +141,18 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 product-choose"  >
 
-        <div  *ngIf="secondPage">
+        <div  *ngIf="secondPage" >
             <div class="row" fxLayoutAlign="center center">
                 <div class="col-md-12">
                     <mat-card class="custom-card">
-                        <mat-card-header class="bg-primary p-1" >
+                        <mat-card-header class="p-2" >
                             <mat-card-title class="m-0">
                                 <h6>Your Selections</h6>
                             </mat-card-title>
                         </mat-card-header>
-                        <mat-card-content class="p-">
+                        <mat-card-content>
                             <div class="row" fxLayoutAlign="left center">
                                 <mat-radio-group><br>
                                     <mat-radio-button [checked]="true" value="1">Group A</mat-radio-button>

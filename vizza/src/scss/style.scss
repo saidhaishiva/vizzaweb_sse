@@ -1,7 +1,15 @@
 $theme-color:#02810E;
+$green-color:#18CCB4;
+$pink-color:#d81b60;
 
 button:focus{
   outline: none;
+}
+.color-green{
+ color: $green-color !important;
+}
+.color-pink{
+  color:$pink-color;
 }
 .dashboard{
   .mat-card{
@@ -199,8 +207,64 @@ a:hover {
 .options-icon{
   display: none !important;
 }
-//#clonehead{
-//  width: 100%;
-//  overflow-y: scroll;
-//  min-height: 250px;
-//}
+#product-list{
+  .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
+    background-color: rgba(24, 204, 180, 0.35);
+  }
+  .mat-tab-labels {
+    float: right;
+    .mat-ripple {
+      background-color: $green-color;
+      color: #fff;
+      opacity: 1;
+    }
+  }
+  .health-table {
+    text-align: center;
+    td{
+      vertical-align: middle;
+    }
+    .mat-raised-button.mat-accent, .mat-raised-button.mat-primary{
+      font-size: 12px;
+      padding: 0 10px;
+      line-height: 2;
+    }
+    .mat-raised-button.mat-primary {
+      background-color: $green-color;
+    }
+     thead th{
+      border: none;
+       vertical-align: bottom;
+       border-bottom: 2px solid #dee2e6;
+       background: #18ccb4;
+       color: #fff;
+       font-weight: normal;
+       font-size: 12px;
+    }
+
+  }
+  .mat-tab-label-container{
+    margin-bottom: 5px;
+  }
+  .h-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background: #d81b60;
+    padding: 6px;
+  }
+  .product-choose{
+    mat-card-header{
+      background: $green-color;
+    }
+    h6{
+      margin-bottom: 0;
+      color: #fff;
+
+
+    }
+    mat-card{
+      background: #18ccb417;
+    }
+  }
+}

@@ -1,6 +1,12 @@
 button:focus {
   outline: none; }
 
+.color-green {
+  color: #18CCB4 !important; }
+
+.color-pink {
+  color: #d81b60; }
+
 .dashboard .mat-card {
   background: rgba(243, 240, 240, 0.87) !important; }
 .dashboard mat-card.mat-radius {
@@ -154,5 +160,47 @@ a:hover {
 
 .options-icon {
   display: none !important; }
+
+#product-list .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
+  background-color: rgba(24, 204, 180, 0.35); }
+#product-list .mat-tab-labels {
+  float: right; }
+  #product-list .mat-tab-labels .mat-ripple {
+    background-color: #18CCB4;
+    color: #fff;
+    opacity: 1; }
+#product-list .health-table {
+  text-align: center; }
+  #product-list .health-table td {
+    vertical-align: middle; }
+  #product-list .health-table .mat-raised-button.mat-accent, #product-list .health-table .mat-raised-button.mat-primary {
+    font-size: 12px;
+    padding: 0 10px;
+    line-height: 2; }
+  #product-list .health-table .mat-raised-button.mat-primary {
+    background-color: #18CCB4; }
+  #product-list .health-table thead th {
+    border: none;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background: #18ccb4;
+    color: #fff;
+    font-weight: normal;
+    font-size: 12px; }
+#product-list .mat-tab-label-container {
+  margin-bottom: 5px; }
+#product-list .h-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background: #d81b60;
+  padding: 6px; }
+#product-list .product-choose mat-card-header {
+  background: #18CCB4; }
+#product-list .product-choose h6 {
+  margin-bottom: 0;
+  color: #fff; }
+#product-list .product-choose mat-card {
+  background: #18ccb417; }
 
 /*# sourceMappingURL=style.css.map */
