@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     secondPage: any;
     compareArray: any;
     addCompareBtn: any;
+    breadcrumbHome: boolean;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
@@ -94,6 +95,7 @@ export class DashboardComponent implements OnInit {
         this.compareArray = [];
     }
     ngOnInit() {
+        this.breadcrumbHome = false;
         this.firstPage = true;
         this.secondPage = false;
         this.fatherBTn = false;
