@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     setArray: any;
+    setArray1: any;
     fatherBTn: boolean;
     motherBtn: boolean;
     fatherInLawBTn: boolean;
@@ -42,7 +43,7 @@ export class DashboardComponent implements OnInit {
     firstPage: any;
     secondPage: any;
     compareArray: any;
-    addCompareBtn: any;
+    scount: any;
     breadcrumbHome: boolean;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
@@ -53,7 +54,6 @@ export class DashboardComponent implements OnInit {
         this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;
-        this.addCompareBtn = false;
         this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
@@ -95,7 +95,6 @@ export class DashboardComponent implements OnInit {
         this.compareArray = [];
     }
     ngOnInit() {
-        this.breadcrumbHome = false;
         this.firstPage = true;
         this.secondPage = false;
         this.fatherBTn = false;
@@ -120,6 +119,7 @@ export class DashboardComponent implements OnInit {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
             console.log(JSON.parse(sessionStorage.setFamilyDetails), 'JSON.pars');
             this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
+            console.log(this.setArray, 'tyyy');
         }
         if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
             this.selectedAmount = sessionStorage.setInsuredAmount;
@@ -131,18 +131,20 @@ export class DashboardComponent implements OnInit {
             this.pageSettings = sessionStorage.setPage;
         }
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            this.insuranceLists = JSON.parse(sessionStorage.policyLists);
-            this.setArray = this.insuranceLists[0].family_members;
-            for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].name = this.setArray[i].type;
-                this.setArray[i].age = this.setArray[i].age;
-                this.setArray[i].checked = true;
-                this.setArray[i].auto = true;
-                if (this.setArray[i].type == 'Son' || this.setArray[i].type == 'Daughter') {
-                    this.setArray[i].auto = false;
+            console.log(this.setArray, 'session');
+            this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
+            let index = JSON.parse(sessionStorage.policyLists).index;
+            this.setArray1 = this.insuranceLists[index].family_members;
+            for (let i = 0; i < this.setArray1.length; i++) {
+                this.setArray1[i].name = this.setArray1[i].type;
+                this.setArray1[i].age = this.setArray1[i].age;
+                this.setArray1[i].checked = true;
+                this.setArray1[i].auto = true;
+                if (this.setArray1[i].type == 'Son' || this.setArray1[i].type == 'Daughter') {
+                    this.setArray1[i].auto = false;
                 }
             }
-            console.log(this.setArray, 'this.setArray');
+            console.log(this.setArray1, 'this.setArray1');
         }
 
     }
@@ -260,7 +262,11 @@ export class DashboardComponent implements OnInit {
                 }
             }
         }
+        sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
 
+    }
+    typeAge() {
+        sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     addOthers(value) {
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
@@ -273,6 +279,7 @@ export class DashboardComponent implements OnInit {
         } else if (value == 'Mother In Law') {
             this.motherInLawBtn = true;
         }
+        sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
 }
 
 
@@ -312,7 +319,7 @@ export class DashboardComponent implements OnInit {
             console.log(data, 'data');
         this.common.getPolicyQuotation(data).subscribe(
             (successData) => {
-                this.PolicyQuotationSuccess(successData);
+                this.PolicyQuotationSuccess(successData, 0);
             },
             (error) => {
                 this.PolicyQuotationFailure(error);
@@ -321,261 +328,134 @@ export class DashboardComponent implements OnInit {
     }
 
     }
-    public PolicyQuotationSuccess(successData) {
-        console.log(successData, 'successsssssssssssssssssssssss');
-        if (successData.IsSuccess) {
-            this.firstPage = false;
-            this.secondPage = true;
-            sessionStorage.setPage = 2;
-            this.insuranceLists = successData.ResponseObject;
 
-            this.setArray = this.insuranceLists[0].family_members;
-            for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].name = this.setArray[i].type;
-                this.setArray[i].age = this.setArray[i].age;
-                this.setArray[i].checked = true;
-                if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
-                    this.setArray[i].auto = false;
-                }
-            }
-
-            sessionStorage.policyLists = JSON.stringify(successData.ResponseObject);
-        } else {
-            // this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public PolicyQuotationFailure(error) {
-        console.log(error);
-    }
 
     onSelectedIndexChange(index) {
-        console.log(index, 'index');
+        console.log(this.setArray, 'this.setArray');
         console.log(this.insuranceLists, 'yt');
         console.log(this.insuranceLists[index]);
-        this.memberLength = [];
+       // this.memberLength = [];
 
-        this.setArray = this.insuranceLists[index].family_members;
-        for (let i = 0; i < this.setArray.length; i++) {
-            this.setArray[i].name = this.setArray[i].type;
-            this.setArray[i].age = this.setArray[i].age;
-            this.setArray[i].checked = true;
-            if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
-                this.setArray[i].auto = false;
-            }
-        }
+        // this.setArray = this.insuranceLists[index].family_members;
+        // for (let i = 0; i < this.setArray.length; i++) {
+        //     this.setArray[i].name = this.setArray[i].type;
+        //     this.setArray[i].age = this.setArray[i].age;
+        //     this.setArray[i].checked = true;
+        //     if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
+        //         this.setArray[i].auto = false;
+        //     }
+        // }
+        this.updatePolicy(this.insuranceLists[index], index);
     }
 
-    addCompare(value) {
-        this.addCompareBtn = true;
+    addCompare(value, pi, index) {
+        this.insuranceLists[pi].product_lists[index].compare = true;
         this.compareArray.push(value);
         console.log(this.compareArray, 'value');
     }
     removeCompare(index) {
         console.log(index);
-        this.compareArray.splice(index, 1);
-    }
-
-    addClone(value) {
-        this.closeIcon = false;
-        this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: false, error: ''});
-        console.log(this.setArray, 'this.setArray');
-        this.memberLength = [];
-        for (let i = 0; i < this.setArray.length; i ++) {
-            if (this.setArray[i].checked) {
-                console.log(this.setArray[i].name, 'pop');
-
-                if (this.setArray[i].name == 'Son') {
-                    this.sonStatus = 'true';
-                    this.setArray[3].disabled = true;
-                }
-                if (this.setArray[i].name == 'Daughter') {
-                    this.daugtherStatus = 'true';
-                    this.setArray[2].disabled = true;
-                }
-                console.log(this.memberLength, 'this.memberLength');
-            }
-
-
-        }
-        if (this.sonStatus == 'true' && this.daugtherStatus == 'true') {
-            this.daugtherBtn = true;
-            this.sonBtn = true;
-
-        } else if (this.sonStatus == 'false' && this.daugtherStatus == 'false') {
-            this.daugtherBtn = true;
-            this.sonBtn = true;
-
-        } else if (this.sonStatus == 'true' && this.daugtherStatus == 'false') {
-            this.sonBtn = false;
-            this.daugtherBtn = true;
-
-        }  else if (this.sonStatus == 'false' && this.daugtherStatus == 'true') {
-            this.sonBtn = true;
-            this.daugtherBtn = false;
-
-        }
-
-
-
-
-
-
-            // if (this.memberLength.length >= 2) {
-            //     this.sonBtn = true;
-            //     this.daugtherBtn = true;
-            // } else {
-            //     this.sonBtn = false;
-            //     this.daugtherBtn = false;
-            // }
-            // if (this.setArray[i].name == value) {
-            //     if (this.setArray[i].name == 'Son' && this.memberLength.length <= 2) {
-            //         console.log(this.memberLength, 'length');
-            //         // this.memberLength.push(this.memberLength.length);
-            //         // if (this.memberLength.length == 2) {
-            //             this.setArray[2].checked = true;
-            //             this.setArray[3].checkdisabled = true;
-            //
-            //         // }
-            //     } else if (this.setArray[i].name == 'Daughter' && this.memberLength.length <= 2 ) {
-            //         // this.memberLength.push(this.memberLength.length);
-            //         // if (this.memberLength.length == 2) {
-            //             this.setArray[3].checked = true;
-            //             this.setArray[2].checkdisabled = true;
-            //         // }
-            //     }
-            //     if (value == 'Father') {
-            //         this.fatherBTn = true;
-            //     } else if (value == 'Mother') {
-            //         this.motherBtn = true;
-            //     } else if (value == 'Father In Law') {
-            //         this.fatherInLawBTn = true;
-            //     } else if (value == 'Mother In Law') {
-            //         this.motherInLawBtn = true;
-            //     }
-            //     // else if (value == 'Son') {
-            //     //     this.addonce4 = true;
-            //     //     this.addonce5 = true;
-            //     // } else if (value == 'Daughter') {
-            //     //     this.addonce5 = true;
-            //     //     this.addonce4 = true;
-            //     // }
-            // }
-       // }
-        }
-    deleteMembers(value, i) {
-        console.log(value, 'value');
-        if (value) {
-            console.log(this.setArray, 'this.setArray');
-            this.memberLength = [];
-            for (let j = 0; j < this.setArray.length; j++) {
-                if (this.setArray[j].checked) {
-                    console.log(this.setArray[j].name, 'pop');
-                    if (this.setArray[j].name == 'Son') {
-                        this.setArray[j].sonStatus = true;
-                        this.memberLength.push(this.setArray[j]);
-                    }  else if (this.setArray[j].name == 'Daughter') {
-                        // this.daugtherBtn = true;
-                        this.setArray[j].daugtherStatus = true;
-                        }
-                }
-            }
-        } else {
-
-            if (this.setArray.length > 4) {
-                this.setArray.splice(i, 1);
-            }
-            this.memberLength.splice(i, 1);
-            this.memberLength = [];
-            for (let j = 0; j < this.setArray.length; j++) {
-                if (this.setArray[j].checked) {
-                } else {
-                    if (this.setArray[j].name == 'Son') {
-                        this.setArray[j].sonStatus = false;
-                    }  else if (this.setArray[j].name == 'Daughter') {
-                        this.setArray[j].daugtherStatus = false;
+        for (let i = 0; i < this.insuranceLists.length; i++) {
+            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                for (let k = 0; k < this.compareArray.length; k++) {
+                    if (this.insuranceLists[i].product_lists[j].product_id == this.compareArray[k].product_id) {
+                        this.insuranceLists[i].product_lists[index].compare = false;
+                        this.insuranceLists[i].product_lists[j].shortlist = false;
                     }
-
                 }
             }
         }
-        console.log(this.setArray, 'this.setArray23');
-        for (let k = 0; k < this.setArray.length; k++) {
+        this.compareArray.splice(index, 1);
 
-            if (this.setArray[k].sonStatus == true && this.setArray[k].daugtherStatus == true) {
-                this.daugtherBtn = true;
-                this.sonBtn = true;
-                alert('a');
+    }
+    addShortlist(value, pi, index) {
+        this.scount = index + 1;
+        this.insuranceLists[pi].product_lists[index].shortlist = true;
+        this.insuranceLists[pi].product_lists[index].removebtn = true;
+        for (let i = 0; i < this.insuranceLists.length; i++) {
+            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                this.insuranceLists[pi].product_lists[j].shortlist = true;
+            }
+        }
+        console.log(this.insuranceLists, 'this.scount');
 
-            } else if (this.setArray[k].sonStatus == false && this.setArray[k].daugtherStatus == false) {
-                this.daugtherBtn = true;
-                this.sonBtn = true;
-                alert('b');
 
 
-            } else if (this.setArray[k].sonStatus == true && this.setArray[k].daugtherStatus== false) {
-                alert('c');
-                this.sonBtn = false;
-                this.daugtherBtn = true;
-
-            } else if (this.setArray[k].sonStatus == false && this.setArray[k].daugtherStatus == true) {
-                alert('d');
-
-                this.sonBtn = true;
-                this.daugtherBtn = false;
+    }
+    removeShortlist(value, pi, index) {
+        for (let i = 0; i < this.insuranceLists.length; i++) {
+            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                this.insuranceLists[pi].product_lists[j].removebtn = false;
+                this.insuranceLists[pi].product_lists[j].shortlist = false;
 
             }
-
         }
-
-        console.log(this.setArray, 'this.setArray2553');
-
-        // if (value == true) {
-        //     this.member = this.setArray[i].name;
-        //     this.auto = this.setArray[i].auto;
-        //     this.setArray[i].error = '';
-        //     if (this.member == 'Father') {
-        //         this.addonce = false;
-        //     } else if (this.member == 'Mother') {
-        //         this.addonce1 = false;
-        //     } else if (this.member == 'Father In Law') {
-        //         this.addonce2 = false;
-        //     } else if (this.member == 'Mother In Law') {
-        //         this.addonce3 = false;
-        //     } else if (this.member == 'Son' && this.auto == false) {
-        //         this.setArray[3].checkdisabled = false;
-        //         this.setArray[2].checked = false;
-        //         this.addonce4 = false;
-        //         this.addonce5 = false;
-        //     } else if (this.member == 'Daughter' && this.auto == false) {
-        //         this.setArray[2].checkdisabled = false;
-        //         this.setArray[3].checked = false;
-        //
-        //         this.addonce5 = false;
-        //         this.addonce4 = false;
-        //
-        //     }
-        //     if (!this.setArray[i].auto) {
-        //         this.setArray.splice(i, 1);
-        //
-        //     }
-        // } else {
-        //     console.log(this.memberLength, 'this.memberLength');
-        //     if (this.memberLength) {
-        //         this.addonce4 = false;
-        //         this.addonce5 = false;
-        //     }
-        //
-        //     this.memberLength = [];
-        // }
     }
-    openDialog() {
-        let dialogRef = this.dialog.open(AddfamilymembersComponent, {
-            width: '400px',
-        });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
+    updatePolicy(value, index) {
+        this.finalData = [];
+        for (let i = 0; i < this.setArray.length; i++) {
+            if (this.setArray[i].checked) {
+                if (this.setArray[i].age == '') {
+                    this.setArray[i].error = 'Required';
+                } else {
+                    this.setArray[i].error = '';
+                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+                }
+            }
+        }
+        const data = {
+            'platform': 'web',
+            'postalcode': value.postal_code,
+            'sum_insured': this.selectedAmount,
+            'family_details': this.finalData,
+            'family_group_name': value.name,
+            'enquiry_id': value.enquiry_id
+        };
+        console.log(data, 'data222');
+        this.common.updatePolicyQuotation(data).subscribe(
+            (successData) => {
+                this.PolicyQuotationSuccess(successData, index);
+            },
+            (error) => {
+                this.PolicyQuotationFailure(error);
+            }
+        );
+    }
+    public PolicyQuotationSuccess(successData, index) {
+        if (successData.IsSuccess) {
+            console.log(index, 'indexindex');
+            this.firstPage = false;
+            this.secondPage = true;
+            this.insuranceLists = successData.ResponseObject;
+            sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
+            console.log(this.insuranceLists, 'successsssssssssssssssssssssss');
+
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    this.insuranceLists[i].product_lists[j].compare = false;
+                    this.insuranceLists[i].product_lists[j].shortlist = false;
+                }
+            }
+            this.setArray1 = this.insuranceLists[index].family_members;
+            console.log(this.setArray1, 'this.setArray');
+            for (let i = 0; i < this.setArray1.length; i++) {
+                this.setArray1[i].name = this.setArray1[i].type;
+                this.setArray1[i].age = this.setArray1[i].age;
+                this.setArray1[i].checked = true;
+                this.setArray1[i].auto = true;
+                if (this.setArray1[i].name == 'Son' || this.setArray1[i].name == 'Daughter') {
+                    this.setArray1[i].auto = false;
+                }
+            }
+
+            sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+        } else {
+            this.toast.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public PolicyQuotationFailure(error) {
+        console.log(error);
     }
 }

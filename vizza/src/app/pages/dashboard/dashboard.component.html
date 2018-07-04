@@ -38,7 +38,7 @@
                 <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i)" ></mat-checkbox></div>
                 <div class="col-md-3">{{item.name}}</div>
                 <div class="col-md-5"> <mat-form-field class="w-100">
-                    <input matInput placeholder="age" name="age" [(ngModel)]="item.age">
+                    <input matInput placeholder="age" name="age" [(ngModel)]="item.age" (keyup)="typeAge()">
                 </mat-form-field>
                     <div *ngIf="item.error != ''" class="ngError">Required</div>
                 </div>
@@ -82,46 +82,44 @@
 <!--second page-->
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div fxLayout="column" *ngIf="secondPage">
             <div class="flex-p">
                 <mat-card>
                     <mat-card-header fxLayoutAlign="left left">
                         <mat-card-subtitle>
-                            <h4><img  src="assets/img/hearticon.png" style="width: 30px;height: 30px;" alt="5"> Health Insurance</h4></mat-card-subtitle>
+                            <h4 class="textColor"><img  src="assets/img/hearticon.png" style="width: 30px;height: 30px;" alt="5"> Health Insurance</h4></mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
                         <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
-                            <mat-tab *ngFor="let lists of insuranceLists" label="{{lists.name}}" (click)="changeTab()">
+                            <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index" label="{{lists.name | uppercase}}" (click)="changeTab()">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>INSURER</th>
-                                        <th>
-                                            SUM INSURED
-
-                                        </th>
+                                        <th>SUM INSURED</th>
                                         <th>KEY FEATURES</th>
                                         <th>SHORTLIST / COMPARE</th>
                                         <th>PREMIUM</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="" *ngFor="let plists of lists.product_lists">
+                                    <tr class="" *ngFor="let plists of lists.product_lists;let i = index">
                                         <td *ngIf="plists.error">
                                             {{plists.error}}
                                         </td>
                                         <td>
                                             <p>{{plists.product_name}}</p>
-                                            <img  src="assets/img/app/5.jpg" style="width: 100px;height: 100px;" alt="5">
+                                            <img  src="{{plists.company_logo}}" style="width: 100px;height: 100px;" alt="5">
                                         </td>
                                         <td>
                                             <p>Rs. {{plists.suminsured_amount}}</p>
                                         </td>
                                         <td>Add</td>
                                         <td>
-                                            <p><button mat-raised-button color="primary">Add to Shortlist</button></p>
-                                            <p><button mat-raised-button color="primary" [disabled]="addCompareBtn" (click)="addCompare(plists)">Add to Compare</button></p>
+                                            <p><button mat-raised-button color="primary" [disabled]="plists.shortlist" [hidden]="plists.removebtn" (click)="addShortlist(plists, pi, i)">Add to Shortlist</button></p>
+                                            <p><button mat-raised-button color="accent" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i)">Remove to Shortlist</button></p>
+                                            <p><button mat-raised-button color="primary" [disabled]="plists.compare" (click)="addCompare(plists, pi, i)">Add to Compare</button></p>
                                         </td>
                                         <td>
                                             <p>Rs. {{plists.premium_amount}}</p>
@@ -136,13 +134,15 @@
                                 <!--</mat-card>-->
 
                             </mat-tab>
+                            <mat-tab label="SHORLIST {{scount}}">
+                            </mat-tab>
                         </mat-tab-group>
                     </mat-card-content>
                 </mat-card>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
 
         <div  *ngIf="secondPage">
             <div class="row" fxLayoutAlign="center center">
@@ -161,24 +161,24 @@
                             </div>
 
                             <div class="row" fxLayoutAlign="left center">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <span>Sum Assured</span>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <mat-form-field class="w-100">
-                                        <mat-select  [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">
-                                            <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                                                {{amounts.si_amount}}
-                                            </mat-option>
-                                        </mat-select>
-                                </mat-form-field>
+                                    <mat-select [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">
+                                        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
+                                            {{amounts.si_amount}}
+                                        </mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
                                 </div>
                             </div>
 
-                            <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
+                            <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray1; let i = index">
                                 <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i)" ></mat-checkbox></div>
-                                <div class="col-md-3">{{item.name}}</div>
-                                <div class="col-md-5"> <mat-form-field class="w-100">
+                                <div class="col-md-4">{{item.name}}</div>
+                                <div class="col-md-6"> <mat-form-field class="w-100">
                                     <input matInput placeholder="age" name="age" [(ngModel)]="item.age">
                                 </mat-form-field>
 
@@ -192,64 +192,18 @@
                                     </div>
                             </div>
                             <div class="row" fxLayoutAlign="left center">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <span>City Pincode</span>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <mat-form-field class="w-100">
                                         <input matInput name="pin" name="pin" [(ngModel)]="pincoce">
                                     </mat-form-field>
                                 </div>
                             </div>
+
                         </mat-card-content>
                     </mat-card>
-
-
-
-
-
-                    <!--<mat-card>-->
-                        <!--<mat-card-header><h5>Health Insurance plans for..</h5></mat-card-header>-->
-
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">-->
-                                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
-                                    <!--{{amounts.si_amount}}-->
-                                <!--</mat-option>-->
-                            <!--</mat-select>-->
-                            <!--<mat-icon matSuffix>attach_money</mat-icon>-->
-                        <!--</mat-form-field>-->
-                        <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
-
-                        <!--<div class="w-100 mb-2 son" >-->
-                            <!--<div id="clonehead" >-->
-                                <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
-                                    <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i)" ></mat-checkbox></div>-->
-                                    <!--<div class="col-md-3">{{item.name}}</div>-->
-                                    <!--<div class="col-md-5"> <mat-form-field class="w-100">-->
-                                        <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age">-->
-                                    <!--</mat-form-field>-->
-
-                                    <!--</div>-->
-                                    <!--<div class="col-md-2">-->
-                                        <!--<button mat-button [hidden]="item.auto" matSuffix mat-icon-button aria-label="Clear" (click)="addUser(i)">-->
-                                            <!--<i class="material-icons">-->
-                                                <!--add-->
-                                            <!--</i>-->
-                                        <!--</button>-->
-
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput name="pin" name="pin" [(ngModel)]="pincoce" placeholder="PIN CODE / CITY"  (keyup)="selectPincode()">-->
-                            <!--<mat-icon matSuffix>place</mat-icon>-->
-                        <!--</mat-form-field>-->
-
-
-                    <!--</mat-card>-->
                 </div>
             </div>
 
@@ -273,8 +227,17 @@
         </div>
     </div>
     <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-        <!--<div fxLayout="column" class="flex-p">-->
-        <button mat-raised-button color="accent">COMPARE NOW</button>
-        <!--</div>-->
+        <button mat-raised-button color="accent" style="margin-top: 40px;">COMPARE NOW</button>
     </div>
 </div>
+
+<!--<style>-->
+    <!--.textColor{-->
+        <!--color:#F75A9C;-->
+    <!--}-->
+    <!--.mat-tab-labels {-->
+        <!--display: flex;-->
+        <!--background-color: #18CCB4;-->
+        <!--color: #ffff;-->
+    <!--}-->
+<!--</style>-->
