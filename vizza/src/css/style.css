@@ -169,24 +169,25 @@ a:hover {
     background-color: #18CCB4;
     color: #fff;
     opacity: 1; }
-#product-list .health-table {
-  text-align: center; }
-  #product-list .health-table td {
-    vertical-align: middle; }
-  #product-list .health-table .mat-raised-button.mat-accent, #product-list .health-table .mat-raised-button.mat-primary {
-    font-size: 12px;
-    padding: 0 10px;
-    line-height: 2; }
-  #product-list .health-table .mat-raised-button.mat-primary {
-    background-color: #18CCB4; }
-  #product-list .health-table thead th {
-    border: none;
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-    background: #18ccb4;
-    color: #fff;
-    font-weight: normal;
-    font-size: 12px; }
+#product-list .health-table td {
+  vertical-align: middle;
+  color: rgba(4, 78, 67, 0.87); }
+#product-list .health-table .mat-raised-button.mat-accent, #product-list .health-table .mat-raised-button.mat-primary, #product-list .health-table .mat-raised-button.mat-primary1 {
+  font-size: 12px;
+  padding: 0 10px;
+  line-height: 2; }
+#product-list .health-table .mat-raised-button.mat-primary {
+  background-color: #18CCB4; }
+#product-list .health-table .mat-raised-button.mat-primary1 {
+  background-color: #ca8845db; }
+#product-list .health-table thead th {
+  border: none;
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background: #18ccb4;
+  color: #fff;
+  font-weight: normal;
+  font-size: 12px; }
 #product-list .mat-tab-label-container {
   margin-bottom: 5px; }
 #product-list .h-icon {
@@ -202,5 +203,29 @@ a:hover {
   color: #fff; }
 #product-list .product-choose mat-card {
   background: #18ccb417; }
+#product-list .mat-tab-labels .mat-tab-label:first-child {
+  border-radius: 10px 0 0 0; }
+#product-list .mat-tab-labels .mat-tab-label:last-child {
+  border-radius: 0 10px 0 0; }
+
+.closeBtnClass {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer; }
+
+.content-color, .compare td {
+  color: rgba(4, 78, 67, 0.87); }
+
+.table-success1 {
+  background-color: #ebf7fb; }
+
+.table-warning1 {
+  background-color: #e8b7cc; }
+
+.compare-icon {
+  height: 140px; }
+  .compare-icon img {
+    width: 150px; }
 
 /*# sourceMappingURL=style.css.map */
