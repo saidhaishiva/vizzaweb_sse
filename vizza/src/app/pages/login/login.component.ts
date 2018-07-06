@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
         sessionStorage.setPincode = '';
         sessionStorage.setPage = '';
         sessionStorage.policyLists = '';
+        sessionStorage.fatherBTn = '';
+        sessionStorage.sideMenu = '';
         // this.settings.loadingSpinner = false;
         // this.authService.checkAuthentication();
     }

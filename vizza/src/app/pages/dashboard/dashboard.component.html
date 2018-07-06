@@ -38,7 +38,7 @@
                 <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i)" ></mat-checkbox></div>
                 <div class="col-md-3">{{item.name}}</div>
                 <div class="col-md-5"> <mat-form-field class="w-100">
-                    <input matInput placeholder="age" name="age" [(ngModel)]="item.age" (keyup)="typeAge()">
+                    <input matInput placeholder="age" name="age" [(ngModel)]="item.age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge()">
                 </mat-form-field>
                     <div *ngIf="item.error != ''" class="ngError">Required</div>
                 </div>
@@ -81,7 +81,7 @@
 
 <!--second page-->
 
-<div class="row " id="product-list" fxLayoutAlign="center center">
+<div class="row " id="product-list" fxLayoutAlign="center start">
     <div class="col-sm-9">
         <div fxLayout="column" *ngIf="secondPage">
             <div class="flex-p">
@@ -114,11 +114,20 @@
                                         <td>
                                             <p>Rs. {{plists.suminsured_amount}}</p>
                                         </td>
-                                        <td>Add</td>
                                         <td>
-                                            <p><button mat-raised-button color="primary" [disabled]="plists.shortlist" [hidden]="plists.removebtn" (click)="addShortlist(plists, pi, i)">Add to Shortlist</button></p>
+
+                                            <div class="row" fxLayoutAlign="left center" >
+                                                <div class="col-md-6 p-0" *ngFor="let keys of plists.key_features"><li>{{keys.key_features_name}}</li></div>
+                                            </div>
+                                            <div class="text-right" style="background-color: #eeeef3;">
+                                                <p class="color-green">View Details / Product Documents</p>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <p><button mat-raised-button color="primary" style="color:#fff;" [disabled]="plists.shortlist" [hidden]="plists.removebtn" (click)="addShortlist(plists, pi, i)">Add to Shortlist</button></p>
                                             <p><button mat-raised-button color="accent" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i)">Remove to Shortlist</button></p>
-                                            <p><button mat-raised-button color="primary" [disabled]="plists.compare" (click)="addCompare(plists, pi, i)">Add to Compare</button></p>
+                                            <p><button mat-raised-button color="primary" [disabled]="plists.compare" (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
                                         </td>
                                         <td>
                                             <p>Rs. {{plists.premium_amount}}</p>
@@ -144,7 +153,7 @@
     <div class="col-md-3 product-choose"  >
 
         <div  *ngIf="secondPage" >
-            <div class="row" fxLayoutAlign="center center">
+            <div class="row" fxLayoutAlign="left center">
                 <div class="col-md-12">
                     <mat-card class="custom-card">
                         <mat-card-header class="p-2" >
@@ -211,32 +220,20 @@
 </div>
 </div>
 <div class="row" *ngIf="compareArray != ''">
-    <div class="col-md-2" *ngFor="let clists of compareArray; let i = index">
+    <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
         <div fxLayout="column" class="flex-p">
-            <div class="text-right">
-                <button mat-button  mat-icon-button  (click)="removeCompare(i)">
-                    <mat-icon>close</mat-icon>
-                </button>
+        <mat-card class="custom-card compare-icon text-center">
+            <div class="text-right closeBtnClass">
+                <mat-icon (click)="removeCompare(i)">close</mat-icon>
             </div>
-        <mat-card class="custom-card" >
-            <mat-card-content class="p-">
-                <img mat-card-image src="assets/img/app/5.jpg" alt="5" style="width: 50px;height: 50px;">
+            <mat-card-content class="p-0">
+                <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+                <img mat-card-image  src="{{clists.company_logo}}" >
             </mat-card-content>
         </mat-card>
         </div>
     </div>
     <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-        <button mat-raised-button color="accent" style="margin-top: 40px;">COMPARE NOW</button>
+        <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
     </div>
 </div>
-
-<!--<style>-->
-    <!--.textColor{-->
-        <!--color:#F75A9C;-->
-    <!--}-->
-    <!--.mat-tab-labels {-->
-        <!--display: flex;-->
-        <!--background-color: #18CCB4;-->
-        <!--color: #ffff;-->
-    <!--}-->
-<!--</style>-->

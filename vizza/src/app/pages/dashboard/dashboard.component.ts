@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {AddfamilymembersComponent} from './addfamilymembers/addfamilymembers.component';
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
+import {ComparelistComponent} from './comparelist/comparelist.component';
 
 
 @Component({
@@ -44,13 +45,18 @@ export class DashboardComponent implements OnInit {
     secondPage: any;
     compareArray: any;
     scount: any;
+    productLists: any;
+    goupName: any;
+    equiryId: any;
+    tabIndex: number;
     breadcrumbHome: boolean;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
-     //   console.log(this.settings);
+        console.log(this.settings);
+        sessionStorage.sideMenu = true;
         this.settings.HomeSidenavUserBlock = true;
-
+        this.tabIndex = 0;
         this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;
@@ -114,7 +120,13 @@ export class DashboardComponent implements OnInit {
 
         }
     }
-
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
     sessionData() {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
             console.log(JSON.parse(sessionStorage.setFamilyDetails), 'JSON.pars');
@@ -130,6 +142,9 @@ export class DashboardComponent implements OnInit {
         if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
             this.pageSettings = sessionStorage.setPage;
         }
+        if (sessionStorage.fatherBTn != '') {
+            this.fatherBTn = sessionStorage.fatherBTn;
+        }
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             console.log(this.setArray, 'session');
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
@@ -141,10 +156,11 @@ export class DashboardComponent implements OnInit {
                 this.setArray1[i].checked = true;
                 this.setArray1[i].auto = true;
                 if (this.setArray1[i].type == 'Son' || this.setArray1[i].type == 'Daughter') {
-                    this.setArray1[i].auto = false;
+                    // this.setArray1[i].auto = false;
                 }
             }
             console.log(this.setArray1, 'this.setArray1');
+            this.tabIndex = index;
         }
 
     }
@@ -227,6 +243,7 @@ export class DashboardComponent implements OnInit {
                     }
                 }
                 if (index > 3) {
+                    sessionStorage.fatherBTn = '';
                     this.setArray.splice(index, 1);
                 }
         }
@@ -272,12 +289,17 @@ export class DashboardComponent implements OnInit {
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
         if (value == 'Father') {
             this.fatherBTn = true;
+            sessionStorage.fatherBTn = this.fatherBTn;
         } else if (value == 'Mother') {
             this.motherBtn = true;
+            sessionStorage.motherBtn = this.motherBtn;
         } else if (value == 'Father In Law') {
             this.fatherInLawBTn = true;
+            sessionStorage.fatherInLawBTn = this.fatherInLawBTn;
         } else if (value == 'Mother In Law') {
             this.motherInLawBtn = true;
+            sessionStorage.motherInLawBtn = this.motherInLawBtn;
+
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
 }
@@ -345,10 +367,15 @@ export class DashboardComponent implements OnInit {
         //         this.setArray[i].auto = false;
         //     }
         // }
+
+        this.settings.loadingSpinner = true;
         this.updatePolicy(this.insuranceLists[index], index);
     }
 
-    addCompare(value, pi, index) {
+    addCompare(value, pi, index, equiryId, name) {
+        console.log(equiryId, 'equiryId')
+        this.equiryId = equiryId;
+        this.goupName = name;
         this.insuranceLists[pi].product_lists[index].compare = true;
         this.compareArray.push(value);
         console.log(this.compareArray, 'value');
@@ -370,6 +397,7 @@ export class DashboardComponent implements OnInit {
     }
     addShortlist(value, pi, index) {
         this.scount = index + 1;
+        console.log(index + 1, 'index - 1');
         this.insuranceLists[pi].product_lists[index].shortlist = true;
         this.insuranceLists[pi].product_lists[index].removebtn = true;
         for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -383,6 +411,7 @@ export class DashboardComponent implements OnInit {
 
     }
     removeShortlist(value, pi, index) {
+        this.scount = '';
         for (let i = 0; i < this.insuranceLists.length; i++) {
             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                 this.insuranceLists[pi].product_lists[j].removebtn = false;
@@ -423,12 +452,16 @@ export class DashboardComponent implements OnInit {
         );
     }
     public PolicyQuotationSuccess(successData, index) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             console.log(index, 'indexindex');
             this.firstPage = false;
             this.secondPage = true;
             this.insuranceLists = successData.ResponseObject;
             sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
+            if (this.insuranceLists[index].enquiry_id != '') {
+                sessionStorage.sideMenu = false;
+            }
             console.log(this.insuranceLists, 'successsssssssssssssssssssssss');
 
             for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -445,17 +478,60 @@ export class DashboardComponent implements OnInit {
                 this.setArray1[i].checked = true;
                 this.setArray1[i].auto = true;
                 if (this.setArray1[i].name == 'Son' || this.setArray1[i].name == 'Daughter') {
-                    this.setArray1[i].auto = false;
+                    // this.setArray1[i].auto = false;
                 }
             }
 
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
         } else {
+
             this.toast.error(successData.ErrorObject, 'Failed');
         }
     }
 
     public PolicyQuotationFailure(error) {
         console.log(error);
+    }
+
+    compareList(value) {
+        console.log(value, 'value');
+        this.productLists = [];
+        let scheme = value[0].scheme;
+        for (let i = 0; i < value.length; i++) {
+            this.productLists.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+        }
+        console.log(this.productLists, 'this.productLists');
+        const data = {
+            'platform': 'web',
+            'scheme': scheme,
+            'group_name': this.goupName,
+            'enquiry_id': this.equiryId,
+            'product_lists': this.productLists
+
+        };
+        console.log(data, 'data222');
+        this.common.addtoCompare(data).subscribe(
+            (successData) => {
+                this.compareSuccess(successData);
+            },
+            (error) => {
+                this.compareFailure(error);
+            }
+        );
+    }
+    public compareSuccess(successData) {
+        console.log(successData, 'gety');
+        if (successData.IsSuccess) {
+            let dialogRef = this.dialog.open(ComparelistComponent, {
+                width: '1000px', data: {comparedata: successData.ResponseObject}});
+            dialogRef.disableClose = true;
+
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+            });
+        }
+    }
+    public compareFailure(error) {
+
     }
 }

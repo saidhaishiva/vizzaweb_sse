@@ -13,6 +13,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddfamilymembersComponent } from './addfamilymembers/addfamilymembers.component';
 
 
+
 export const routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
@@ -24,7 +25,7 @@ export const routes = [
     FormsModule,
     NgxChartsModule,
     PerfectScrollbarModule,
-    SharedModule,
+      SharedModule,
       ReactiveFormsModule
   ],
   declarations: [

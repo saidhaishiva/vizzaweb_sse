@@ -1,17 +1,17 @@
 <mat-sidenav-container>
     <mat-sidenav *ngIf="settings.menu == 'horizontal'" [opened]="settings.sidenavIsOpened" [mode]="(settings.sidenavIsPinned) ? 'side' : 'over'" #sidenav class="sidenav mat-elevation-z6">
-        <app-sidenav></app-sidenav>
-    </mat-sidenav>
+    <app-sidenav></app-sidenav>
+</mat-sidenav>
     <mat-sidenav-content perfectScrollbar [disabled]="settings.fixedHeader" (psScrollY)="onPsScrollY($event)">
         <mat-toolbar class="flex-p-x top-nav" style="border-bottom: 1px solid #ccc;">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">            
-                <div fxLayout="row" fxLayoutAlign="center center">                    
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+                <div fxLayout="row" fxLayoutAlign="center center">
                     <button *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="toggleSidenav()">
                         <mat-icon>menu</mat-icon>
-                    </button> 
+                    </button>
                     <button fxShow="false" fxShow.gt-xs *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="settings.sidenavUserBlock = !settings.sidenavUserBlock">
                         <mat-icon>person</mat-icon>
-                    </button> 
+                    </button>
                     <a *ngIf="settings.menu == 'vertical'" mat-raised-button color="accent" routerLink="/" (click)="closeSubMenus()" class="small-logo">G</a>
                     <a *ngIf="settings.menu == 'vertical'" class="logo" routerLink="/" (click)="closeSubMenus()">GRADUS</a>
                 </div>

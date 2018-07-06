@@ -6,7 +6,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import {ToastrModule} from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -46,6 +46,7 @@ import { MessagesComponent } from './theme/components/messages/messages.componen
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
+import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import { HealthinsurancelistComponent } from './pages/healthinsurancelist/health
     MessagesComponent,
     UserMenuComponent,
       ForgotPasswordComponent,
-      HealthinsurancelistComponent
+      HealthinsurancelistComponent,
+      ComparelistComponent
   ],
   providers: [
       AppSettings,
@@ -93,6 +95,9 @@ import { HealthinsurancelistComponent } from './pages/healthinsurancelist/health
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+        ComparelistComponent
+    ]
 })
 export class AppModule { }

@@ -1,0 +1,81 @@
+
+<div class="row mb-3" >
+
+    <div class="col-sm-12 text-right">
+        <mat-icon (click)="onNoClick()">close</mat-icon>
+    </div>
+  <div class="col-sm-12 text-center">
+    <h5 class="text-capitalize color-green" >
+        <div style="background-color: #d5f5f7; border-radius: 30px 30px 30px 30px;">
+        <p class="text-center text-capitalize">{{compareDetails.group_name}}</p>
+        <p class="text-center">{{compareDetails.scheme}}</p>
+        </div>
+
+    </h5>
+  </div>
+
+</div>
+<div mat-dialog-content class="compare">
+    <div class="row">
+        <div class="col">
+            <h5 class="content-color">Key Features</h5>
+            <div class="">
+                <p>
+                    <mat-radio-button class="example-radio-button"> All</mat-radio-button>
+                </p>
+                <p>
+                    <mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>
+                </p>
+                <p>
+                    <mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>
+                </p>
+            </div>
+        </div>
+        <div class="col" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">
+            <div class="">
+                <p class="content-color text-center">{{clists.product_name}}</p>
+                <img src="{{clists.product_logo}}" style="width: 150px;">
+            </div>
+        </div>
+    </div>
+  <div class="row">
+      <div class="col">
+          <table class="table compare">
+              <tbody>
+              <tr class="table-warning1" >
+                  <td>SUM INSURED</td>
+              </tr>
+              <tr class="table-warning1" >
+                  <td>PREMIUM</td>
+              </tr>
+              <tr class="table-success1" *ngFor="let names of keyFeatureNames" >
+                  <td>{{names}}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <div class="col" *ngFor="let clists of compareDetails.productdetails">
+          <table class="table compare">
+              <tbody>
+              <tr class="table-warning1" >
+                  <td>{{clists.suminsured_amount}}</td>
+              </tr>
+              <tr class="table-warning1" >
+                  <td>{{clists.premium_amount}}</td>
+              </tr>
+              <tr class="table-success1" *ngFor="let keyValues of clists.key_features;let i = index;" >
+                  <td *ngIf="keyValues.key_features_value != ''">{{keyValues.key_features_value}}</td>
+                  <td *ngIf="keyValues.key_features_value == ''"> -- </td>
+              </tr>
+
+
+              </tbody>
+          </table>
+      </div>
+
+    <!--<div class="col-md-12 text-right">-->
+      <!--<button mat-raised-button color="primary"  [mat-dialog-close]="addnotes" [disabled]="addButton">Ok</button>-->
+    <!--</div>-->
+  </div>
+</div>

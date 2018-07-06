@@ -220,11 +220,13 @@ a:hover {
     }
   }
   .health-table {
-    text-align: center;
+    // text-align: center;
     td{
       vertical-align: middle;
+      color: rgba(4, 78, 67, 0.87);
+
     }
-    .mat-raised-button.mat-accent, .mat-raised-button.mat-primary{
+    .mat-raised-button.mat-accent, .mat-raised-button.mat-primary, .mat-raised-button.mat-primary1{
       font-size: 12px;
       padding: 0 10px;
       line-height: 2;
@@ -232,6 +234,10 @@ a:hover {
     .mat-raised-button.mat-primary {
       background-color: $green-color;
     }
+    .mat-raised-button.mat-primary1 {
+      background-color: #ca8845db;
+    }
+
      thead th{
       border: none;
        vertical-align: bottom;
@@ -268,3 +274,27 @@ a:hover {
     }
   }
 }
+.closeBtnClass {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.content-color, .compare td{
+  color: rgba(4, 78, 67, 0.87);
+}
+.table-success1 {
+  background-color: #ebf7fb;
+}
+.table-warning1 {
+  background-color: #e8b7cc;
+}
+
+.compare-icon{
+  height: 140px;
+  img{
+    width:150px;
+
+  }
+}
+
