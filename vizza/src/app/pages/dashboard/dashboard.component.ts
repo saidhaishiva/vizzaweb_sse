@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
@@ -144,6 +144,12 @@ export class DashboardComponent implements OnInit {
         }
         if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
             this.pageSettings = sessionStorage.setPage;
+        }
+        if( sessionStorage.setPage != 1) {
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+
         }
         if (sessionStorage.fatherBTn != '') {
             this.fatherBTn = sessionStorage.fatherBTn;
@@ -456,12 +462,20 @@ export class DashboardComponent implements OnInit {
     }
     public PolicyQuotationSuccess(successData, index) {
         this.settings.loadingSpinner = false;
+
         if (successData.IsSuccess) {
             console.log(index, 'indexindex');
             this.firstPage = false;
             this.secondPage = true;
             this.insuranceLists = successData.ResponseObject;
             sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
+            if( sessionStorage.setPage != 1) {
+                this.settings.HomeSidenavUserBlock = false;
+                this.settings.sidenavIsOpened = false;
+                this.settings.sidenavIsPinned = false;
+
+            }
+
             if (this.insuranceLists[index].enquiry_id != '') {
                 sessionStorage.sideMenu = false;
             }
