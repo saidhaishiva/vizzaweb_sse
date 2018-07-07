@@ -7,6 +7,7 @@ import {AddfamilymembersComponent} from './addfamilymembers/addfamilymembers.com
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {ComparelistComponent} from './comparelist/comparelist.component';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 
 @Component({
@@ -48,12 +49,14 @@ export class DashboardComponent implements OnInit {
     productLists: any;
     goupName: any;
     equiryId: any;
+    webhost: any;
     tabIndex: number;
     breadcrumbHome: boolean;
 
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
+    constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
         console.log(this.settings);
+        this.webhost = this.config.getimgUrl();
         sessionStorage.sideMenu = true;
         this.settings.HomeSidenavUserBlock = true;
         this.tabIndex = 0;
