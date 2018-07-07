@@ -211,6 +211,9 @@ a:hover {
   .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
     background-color: rgba(24, 204, 180, 0.35);
   }
+  .mat-tab-label-active{
+    background-color: #f29a1d !important;
+  }
   .mat-tab-labels {
     float: right;
     .mat-ripple {
@@ -218,9 +221,12 @@ a:hover {
       color: #fff;
       opacity: 1;
     }
+    //.mat-tab-label{
+    //  border-right: 2px solid #fff;
+    //}
   }
   .health-table {
-    // text-align: center;
+    text-align: center;
     td{
       vertical-align: middle;
       color: rgba(4, 78, 67, 0.87);
@@ -262,7 +268,7 @@ a:hover {
   }
   .product-choose{
     mat-card-header{
-      background: $green-color;
+      background: #f29a1d;
     }
     h6{
       margin-bottom: 0;
@@ -271,7 +277,7 @@ a:hover {
 
     }
     mat-card{
-      background: #18ccb417;
+      background: rgba(242, 154, 29, 0.05);
     }
   }
 .mat-tab-labels{
@@ -306,5 +312,9 @@ a:hover {
     width:150px;
 
   }
+}
+.add-disable.mat-raised-button[disabled][disabled]{
+background: #ccc !important;
+  cursor: default;
 }
 
