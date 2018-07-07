@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ConfigurationService} from '../../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-comparelist',
@@ -9,10 +10,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class ComparelistComponent implements OnInit {
     compareDetails: any;
     keyFeatureNames: any;
+    webhost: any;
   constructor(
       public dialogRef: MatDialogRef<ComparelistComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.compareDetails = this.data.comparedata;
+      @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService) {
+      this.webhost = this.config.getimgUrl();
+      this.compareDetails = this.data.comparedata;
       console.log(this.compareDetails, 'this.data.comparedata');
 
       for (let i = 0; i < this.data.comparedata.productdetails.length; i++) {
