@@ -53,6 +53,12 @@ export class DashboardComponent implements OnInit {
     tabIndex: number;
     breadcrumbHome: boolean;
 
+    addSonItems: any;
+    count: any;
+    sonBTn: any;
+    daughterBTn: any;
+
+
     constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
         console.log(this.settings);
@@ -106,6 +112,9 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         this.firstPage = true;
         this.secondPage = false;
+        this.sonBTn = false;
+        this.daughterBTn = false;
+
         this.fatherBTn = false;
         this.motherBtn = false;
         this.fatherInLawBTn = false;
@@ -116,12 +125,13 @@ export class DashboardComponent implements OnInit {
         this.sonStatus = 'false';
         this.daugtherStatus = 'false';
         this.sumInsuredAmonut();
-        this.sessionData();
+        // this.sessionData();
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
 
         }
+        this.count = 0;
     }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
@@ -151,9 +161,20 @@ export class DashboardComponent implements OnInit {
             this.settings.sidenavIsPinned = false;
 
         }
-        if (sessionStorage.fatherBTn != '') {
+        if (sessionStorage.sonBTn != '') {
+            this.sonBTn = sessionStorage.sonBTn;
+        } else if (sessionStorage.daughterBTn != '') {
+            this.daughterBTn = sessionStorage.daughterBTn;
+        } else if (sessionStorage.fatherBTn != '') {
             this.fatherBTn = sessionStorage.fatherBTn;
+        } else if (sessionStorage.motherBtn != '') {
+            this.motherBtn = sessionStorage.motherBtn;
+        } else if (sessionStorage.fatherInLawBTn != '') {
+            this.fatherInLawBTn = sessionStorage.fatherInLawBTn;
+        } else if (sessionStorage.motherInLawBtn != '') {
+            this.motherInLawBtn = sessionStorage.motherInLawBtn;
         }
+
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             console.log(this.setArray, 'session');
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
@@ -199,64 +220,51 @@ export class DashboardComponent implements OnInit {
 
 
 
-    ckeckedUser(value, index) {
-        this.memberLength = [];
+    ckeckedUser(value, index, name) {
         if (value) {
-            for (let i = 0; i < this.setArray.length; i++) {
-                let length = this.setArray.length - 1;
-                console.log(length, 'length');
-                if (this.setArray[i].checked) {
-                    console.log(this.setArray[i], 'this.setArray');
-                    if (this.setArray[i].name == 'Son' || this.setArray[i].name == 'Daughter') {
-                        this.setArray[index].auto = false;
-                        this.memberLength.push(this.setArray[i]);
-                    }
-                }
+            console.log(name, 'value');
+            if (name == 'Son' || name == 'Daughter') {
+                console.log( 'value');
+
+                this.count++;
             }
-            console.log(this.memberLength.length, 'testy');
-            if (this.memberLength.length >= 2) {
-                this.setArray[2].auto = true;
-                this.setArray[3].auto = true;
+            if (this.count >= 2) {
+                this.sonBTn = true;
+                this.daughterBTn = true;
+                sessionStorage.sonBTn = true;
+                sessionStorage.daughterBTn = true;
+            } else {
+                this.sonBTn = false;
+                this.daughterBTn = false;
+                sessionStorage.sonBTn = false;
+                sessionStorage.daughterBTn = false;
             }
+
+            ////
+            console.log(this.setArray, 'this.setArray');
 
         } else {
-            this.setArray[index].auto = true;
-                if (this.setArray[index].name == 'Father') {
-                    this.fatherBTn = false;
-                } else if (this.setArray[index].name == 'Mother') {
-                    this.motherBtn = false;
-                } else if (this.setArray[index].name == 'Father In Law') {
-                    this.fatherInLawBTn = false;
-                } else if (this.setArray[index].name == 'Mother In Law') {
-                    this.motherInLawBtn = false;
-                } else {
-                    console.log(this.setArray, 'this.setArray');
-                    for (let i = 0; i < this.setArray.length; i++) {
-                        let length = this.setArray.length - 1;
-                        console.log(length, 'length');
-                        if (this.setArray[i].checked) {
-                            console.log(this.setArray[i], 'this.setArray');
-                            if (this.setArray[i].name == 'Son') {
-                                this.setArray[i].auto = false;
-                                this.setArray[length].disabled = false;
-                                this.setArray[i].disabled = false;
-                                // this.setArray[length].auto = false;
-                            }
-                            if (this.setArray[i].name == 'Daughter') {
-                                this.setArray[i].auto = false;
-                                this.setArray[length - 1].disabled = false;
-                                this.setArray[i].disabled = false;
-                            }
-                        } else {
-                        }
-                    }
-                }
-                if (index > 3) {
-                    sessionStorage.fatherBTn = '';
-                    this.setArray.splice(index, 1);
-                }
+            if (name == 'Son' || name == 'Daughter') {
+                this.count--;
+            }
+            console.log(this.count, 'this.count');
+            if (this.count >= 2) {
+                this.sonBTn = true;
+                this.daughterBTn = true;
+                sessionStorage.sonBTn = true;
+                sessionStorage.daughterBTn = true;
+            } else {
+                this.sonBTn = false;
+                this.daughterBTn = false;
+                sessionStorage.sonBTn = false;
+                sessionStorage.daughterBTn = false;
+            }
+            console.log(index, 'index');
+            if (index > 3 ) {
+                this.setArray.splice(index, 1);
+            }
+            console.log(this.setArray, 'this.setArray22');
         }
-
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     changeAmount() {
@@ -265,29 +273,32 @@ export class DashboardComponent implements OnInit {
     selectPincode() {
         sessionStorage.setPincode = this.pincoce;
     }
-    addUser(index) {
-        console.log(index, 'index');
-        this.setArray[index].auto = true;
-        this.setArray.push({name: (index == 2) ? 'Son' : 'Daughter', age: '', disabled: false, checked: true, auto: true, error: ''});
-        for (let i = 0; i < this.setArray.length; i ++) {
-            let length = this.setArray.length - 1;
-            console.log(length, 'length');
-            if (this.setArray[i].checked) {
-                if (this.setArray[length].name == 'Son') {
-                    this.setArray[index].disabled = true;
-                    this.setArray[index + 1].disabled = true;
-                    this.setArray[index + 1].checked = false;
-                    this.setArray[index + 1].auto = true;
+    addUser(value, index) {
+        if (value == 'Son' || value == 'Daughter') {
+            this.count++;
+            this.addSonItems = this.count;
+        }
+        if (this.addSonItems <= 2) {
+            if (this.setArray[index].checked) {
+                // this.setArray.splice(2, 0, {name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
+                this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
 
-                }
-                if (this.setArray[length].name == 'Daughter') {
-                    this.setArray[index].disabled = true;
-                    this.setArray[index - 1].disabled = true;
-                    this.setArray[index - 1].checked = false;
-                    this.setArray[index - 1].auto = true;
-                }
+            } else {
+                this.setArray[index].checked = true;
             }
         }
+        if (this.count >= 2) {
+            this.sonBTn = true;
+            this.daughterBTn = true;
+            sessionStorage.sonBTn = true;
+            sessionStorage.daughterBTn = true;
+        } else {
+            this.sonBTn = false;
+            this.daughterBTn = false;
+            sessionStorage.sonBTn = false;
+            sessionStorage.daughterBTn = false;
+        }
+        console.log(this.setArray, 'this.setArray');
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
 
     }
@@ -308,7 +319,6 @@ export class DashboardComponent implements OnInit {
         } else if (value == 'Mother In Law') {
             this.motherInLawBtn = true;
             sessionStorage.motherInLawBtn = this.motherInLawBtn;
-
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
 }
