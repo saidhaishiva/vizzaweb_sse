@@ -526,7 +526,7 @@ export class DashboardComponent implements OnInit {
         console.log(successData, 'gety');
         if (successData.IsSuccess) {
             let dialogRef = this.dialog.open(ComparelistComponent, {
-                width: '1000px', data: {comparedata: successData.ResponseObject}});
+                width: '1500px', data: {comparedata: successData.ResponseObject}});
             dialogRef.disableClose = true;
 
             dialogRef.afterClosed().subscribe(result => {

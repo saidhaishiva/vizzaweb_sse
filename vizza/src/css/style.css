@@ -171,7 +171,8 @@ a:hover {
     opacity: 1; }
 #product-list .health-table td {
   vertical-align: middle;
-  color: rgba(4, 78, 67, 0.87); }
+  color: rgba(4, 78, 67, 0.87);
+  font-size: 13px; }
 #product-list .health-table .mat-raised-button.mat-accent, #product-list .health-table .mat-raised-button.mat-primary, #product-list .health-table .mat-raised-button.mat-primary1 {
   font-size: 12px;
   padding: 0 10px;
