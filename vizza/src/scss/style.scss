@@ -34,6 +34,10 @@ button:focus{
       }
     }
   }
+  .accentDaughter{
+    background-color: #306eca !important;
+
+  }
   .ngError{
     color: red;
     font-size: 11px;
@@ -226,7 +230,9 @@ a:hover {
     //}
   }
   .health-table {
-    text-align: center;
+    th {
+      text-align: center;
+    }
     td{
       vertical-align: middle;
       color: rgba(4, 78, 67, 0.87);

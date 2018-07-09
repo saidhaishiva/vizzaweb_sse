@@ -114,18 +114,15 @@ export class DashboardComponent implements OnInit {
         this.secondPage = false;
         this.sonBTn = false;
         this.daughterBTn = false;
-
         this.fatherBTn = false;
         this.motherBtn = false;
         this.fatherInLawBTn = false;
         this.motherInLawBtn = false;
-        this.sonBtn = true;
-        this.daugtherBtn = true;
         this.closeIcon = true;
         this.sonStatus = 'false';
         this.daugtherStatus = 'false';
         this.sumInsuredAmonut();
-        // this.sessionData();
+        this.sessionData();
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
@@ -163,15 +160,20 @@ export class DashboardComponent implements OnInit {
         }
         if (sessionStorage.sonBTn != '') {
             this.sonBTn = sessionStorage.sonBTn;
-        } else if (sessionStorage.daughterBTn != '') {
+        }
+        if (sessionStorage.daughterBTn != '') {
             this.daughterBTn = sessionStorage.daughterBTn;
-        } else if (sessionStorage.fatherBTn != '') {
+        }
+        if (sessionStorage.fatherBTn != '') {
             this.fatherBTn = sessionStorage.fatherBTn;
-        } else if (sessionStorage.motherBtn != '') {
+        }
+        if (sessionStorage.motherBtn != '') {
             this.motherBtn = sessionStorage.motherBtn;
-        } else if (sessionStorage.fatherInLawBTn != '') {
+        }
+        if (sessionStorage.fatherInLawBTn != '') {
             this.fatherInLawBTn = sessionStorage.fatherInLawBTn;
-        } else if (sessionStorage.motherInLawBtn != '') {
+        }
+        if (sessionStorage.motherInLawBtn != '') {
             this.motherInLawBtn = sessionStorage.motherInLawBtn;
         }
 
@@ -225,7 +227,6 @@ export class DashboardComponent implements OnInit {
             console.log(name, 'value');
             if (name == 'Son' || name == 'Daughter') {
                 console.log( 'value');
-
                 this.count++;
             }
             if (this.count >= 2) {
@@ -260,6 +261,19 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.daughterBTn = false;
             }
             console.log(index, 'index');
+            if (value == 'Father') {
+                sessionStorage.fatherBTn = false;
+            }
+            if (value == 'Mother') {
+                sessionStorage.motherBtn = false;
+            }
+            if (value == 'Father In Law') {
+                sessionStorage.fatherInLawBTn = false;
+            }
+            if (value == 'Mother In Law') {
+                sessionStorage.motherInLawBtn = false;
+            }
+
             if (index > 3 ) {
                 this.setArray.splice(index, 1);
             }
