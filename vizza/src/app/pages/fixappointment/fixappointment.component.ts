@@ -22,9 +22,9 @@ export class FixappointmentComponent implements OnInit {
     this.fixapp = this.fb.group({
         'appdate': ['', Validators.required],
         'apptime': null,
-        'name': ['', Validators.required],
-        'mobile': ['', Validators.required],
-        'email': ['', Validators.required]
+        'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+        'mobile': ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+        'email': ['', Validators.compose([Validators.required, Validators.email])]
     });
     this.productName = '';
 
