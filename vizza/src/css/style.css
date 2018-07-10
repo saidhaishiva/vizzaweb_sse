@@ -22,7 +22,9 @@ button:focus {
     font-size: 10px;
     padding: 0 10px; }
     .dashboard .son button i {
-      font-size: 14px; }
+      font-size: 18px; }
+.dashboard .accentDaughter {
+  background-color: #306eca !important; }
 .dashboard .ngError {
   color: red;
   font-size: 11px;
@@ -171,28 +173,28 @@ a:hover {
     background-color: #18CCB4;
     color: #fff;
     opacity: 1; }
-#product-list .health-table {
+#product-list .health-table button {
+  font-size: 12px;
+  padding: 0 10px;
+  line-height: 2; }
+#product-list .health-table th {
   text-align: center; }
-  #product-list .health-table td {
-    vertical-align: middle;
-    color: rgba(4, 78, 67, 0.87);
-    font-size: 13px; }
-  #product-list .health-table .mat-raised-button.mat-accent, #product-list .health-table .mat-raised-button.mat-primary, #product-list .health-table .mat-raised-button.mat-primary1 {
-    font-size: 12px;
-    padding: 0 10px;
-    line-height: 2; }
-  #product-list .health-table .mat-raised-button.mat-primary {
-    background-color: #18CCB4; }
-  #product-list .health-table .mat-raised-button.mat-primary1 {
-    background-color: #ca8845db; }
-  #product-list .health-table thead th {
-    border: none;
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-    background: #18ccb4;
-    color: #fff;
-    font-weight: normal;
-    font-size: 12px; }
+#product-list .health-table td {
+  vertical-align: middle;
+  color: rgba(4, 78, 67, 0.87);
+  font-size: 13px; }
+#product-list .health-table .mat-raised-button.mat-primary {
+  background-color: #18CCB4; }
+#product-list .health-table .mat-raised-button.mat-primary1 {
+  background-color: #ca8845db; }
+#product-list .health-table thead th {
+  border: none;
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background: #18ccb4;
+  color: #fff;
+  font-weight: normal;
+  font-size: 12px; }
 #product-list .mat-tab-label-container {
   margin-bottom: 5px; }
 #product-list .h-icon {
@@ -212,6 +214,8 @@ a:hover {
   border-radius: 10px 0 0 0; }
 #product-list .mat-tab-labels .mat-tab-label:last-child {
   border-radius: 0 10px 0 0; }
+#product-list .linkClor {
+  color: #117ab7; }
 
 .closeBtnClass {
   position: absolute;
@@ -236,5 +240,13 @@ a:hover {
 .add-disable.mat-raised-button[disabled][disabled] {
   background: #ccc !important;
   cursor: default; }
+
+.horizontal-menu-item .horizontal-sub-menu {
+  background: #0b9444 !important;
+  color: #fff;
+  width: auto !important; }
+
+.horizontal-menu-item .horizontal-sub-menu a.mat-button {
+  color: #fff !important; }
 
 /*# sourceMappingURL=style.css.map */

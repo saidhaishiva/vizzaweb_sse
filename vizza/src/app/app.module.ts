@@ -7,6 +7,7 @@ import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -50,13 +51,16 @@ import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.c
 import { HomeComponent } from './pages/home/home.component';
 import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.component';
 
+import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
       ToastrModule.forRoot(),
       FormsModule,
-    ReactiveFormsModule,
+      ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
       AgmCoreModule.forRoot({
@@ -66,6 +70,8 @@ import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.compo
     CalendarModule.forRoot(),
     SharedModule,
     PipesModule,
+      NgxMaterialTimepickerModule.forRoot(),
+      AmazingTimePickerModule,
     routing
   ],
   declarations: [
@@ -88,7 +94,8 @@ import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.compo
       HealthinsurancelistComponent,
       ComparelistComponent,
       HomeComponent,
-      GrouppopupComponent
+      GrouppopupComponent,
+      FixappointmentComponent
   ],
   providers: [
       AppSettings,
@@ -96,12 +103,13 @@ import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.compo
       ConfigurationService,
       AuthService,
       CommonService,
+      DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent
+        ComparelistComponent
     ]
 })
 export class AppModule { }
