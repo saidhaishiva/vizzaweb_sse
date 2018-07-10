@@ -25,7 +25,7 @@
         <mat-form-field class="w-100">
             <mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                    {{amounts.si_amount}}
+                    {{amounts.si_amount | currency: 'INR'}}
                 </mat-option>
             </mat-select>
             <!--<mat-icon matSuffix>attach_money</mat-icon>-->
@@ -95,7 +95,10 @@
                         <h4 class="color-pink"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
                         <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
                             <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index" label="{{lists.name | uppercase}}" (click)="changeTab()">
-                                <table class="table health-table">
+                                <table class="table health-table" *ngIf="lists.product_lists =='' ">
+                                    <th class="text-center" class="color-pink"> No product matched your selection </th>
+                                </table>
+                                <table class="table health-table" *ngIf="lists.product_lists !='' ">
                                     <thead>
                                     <tr>
                                         <th>INSURER</th>
@@ -111,30 +114,34 @@
                                             {{plists.error}}
                                         </td>
                                         <td>
-                                            <p class="color-green">{{plists.product_name}}</p>
+                                            <p class="color-green">{{plists.product_name }}</p>
                                             <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 100px;" alt="5">
                                         </td>
                                         <td>
-                                            <p>Rs. {{plists.suminsured_amount}}</p>
+                                            <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
                                         </td>
-                                        <td>
+                                        <td style="width: 40%">
 
                                             <div class="row" fxLayoutAlign="left center" >
                                                 <div class="col-md-6 " *ngFor="let keys of plists.key_features"><li>{{keys.key_features_name}}</li></div>
                                             </div>
                                             <div class="text-right pr-2 pl-2">
-                                                <p class="color-green">View Details / Product Documents</p>
+                                                <p class="linkClor">View Details / Product Documents</p>
                                             </div>
 
                                         </td>
                                         <td>
-                                            <p><button mat-raised-button color="primary1" style="color:#fff;" [disabled]="plists.shortlist" [hidden]="plists.removebtn" (click)="addShortlist(plists, pi, i)">Add to Shortlist</button></p>
+                                            <p><button mat-raised-button color="primary1" style="color:#fff;" [hidden]="plists.shortlist" (click)="addShortlist(plists, pi, i)">Add to Shortlist</button></p>
+                                            <p><button mat-raised-button disabled *ngIf="plists.shortlist && plists.currentBtn">Add to Shortlist</button></p>
+
+
                                             <p><button mat-raised-button color="accent" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i)">Remove to Shortlist</button></p>
-                                            <p><button mat-raised-button color="primary" [disabled]="plists.compare" (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                                            <p><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                                            <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                                         </td>
                                         <td>
-                                            <p>Rs. {{plists.premium_amount}}</p>
-                                            <button mat-raised-button color="accent">Buy</button>
+                                            <p>{{plists.premium_amount | currency: 'INR'}}</p>
+                                            <p><button mat-raised-button color="accent">Buy</button></p>
                                         </td>
                                     </tr>
 
@@ -179,7 +186,7 @@
                                     <mat-form-field class="w-100">
                                     <mat-select [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">
                                         <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                                            {{amounts.si_amount}}
+                                            {{amounts.si_amount | currency: 'INR'}}
                                         </mat-option>
                                     </mat-select>
                                     </mat-form-field>
@@ -223,11 +230,11 @@
 </div>
 </div>
 <div class="row" *ngIf="compareArray != ''">
-    <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
+        <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
         <div fxLayout="column" class="flex-p">
         <mat-card class="custom-card compare-icon text-center">
             <div class="text-right closeBtnClass">
-                <mat-icon (click)="removeCompare(i)">close</mat-icon>
+                <mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>
             </div>
             <mat-card-content class="p-0">
                 <p class="color-green mb-0 text-center">{{clists.product_name}}</p>

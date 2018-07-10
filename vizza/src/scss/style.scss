@@ -30,7 +30,7 @@ button:focus{
       font-size: 10px;
       padding: 0 10px;
       i{
-        font-size: 14px;
+        font-size: 18px;
       }
     }
   }
@@ -229,6 +229,14 @@ a:hover {
     //  border-right: 2px solid #fff;
     //}
   }
+  .health-table{
+    button{
+      font-size: 12px;
+      padding: 0 10px;
+      line-height: 2;
+
+    }
+  }
   .health-table {
     th {
       text-align: center;
@@ -238,11 +246,6 @@ a:hover {
       color: rgba(4, 78, 67, 0.87);
       font-size: 13px;
 
-    }
-    .mat-raised-button.mat-accent, .mat-raised-button.mat-primary, .mat-raised-button.mat-primary1{
-      font-size: 12px;
-      padding: 0 10px;
-      line-height: 2;
     }
     .mat-raised-button.mat-primary {
       background-color: $green-color;
@@ -276,6 +279,7 @@ a:hover {
     mat-card-header{
       background: #f29a1d;
     }
+    // #f29a1d
     h6{
       margin-bottom: 0;
       color: #fff;
@@ -295,6 +299,9 @@ a:hover {
   }
 
 }
+ .linkClor {
+    color: #117ab7;
+  }
 }
 .closeBtnClass {
   position: absolute;
@@ -324,3 +331,5 @@ background: #ccc !important;
   cursor: default;
 }
 
+//#283593
+//#283593

@@ -8,6 +8,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {ComparelistComponent} from './comparelist/comparelist.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {CurrencyPipe} from '@angular/common';
 
 
 @Component({
@@ -61,10 +62,12 @@ export class DashboardComponent implements OnInit {
 
     constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
-        console.log(this.settings);
         this.webhost = this.config.getimgUrl();
-        sessionStorage.sideMenu = true;
+        sessionStorage.sideMenu = false;
         this.settings.HomeSidenavUserBlock = true;
+        this.settings.sidenavIsOpened = true;
+        this.settings.sidenavIsPinned = true;
+        console.log(this.settings);
         this.tabIndex = 0;
         this.pageSettings = 0;
         this.sumerror = false;
@@ -126,7 +129,6 @@ export class DashboardComponent implements OnInit {
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
-
         }
         this.count = 0;
     }
@@ -151,13 +153,16 @@ export class DashboardComponent implements OnInit {
         }
         if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
             this.pageSettings = sessionStorage.setPage;
+            // this.settings.HomeSidenavUserBlock = false;
+            // this.settings.sidenavIsOpened = false;
+            // this.settings.sidenavIsPinned = false;
+            if(sessionStorage.sideMenu == true) {
+                this.settings.HomeSidenavUserBlock = false;
+                this.settings.sidenavIsOpened = false;
+                this.settings.sidenavIsPinned = false;
+            }
         }
-        if( sessionStorage.setPage != 1) {
-            this.settings.HomeSidenavUserBlock = false;
-            this.settings.sidenavIsOpened = false;
-            this.settings.sidenavIsPinned = false;
 
-        }
         if (sessionStorage.sonBTn != '') {
             this.sonBTn = sessionStorage.sonBTn;
         }
@@ -241,8 +246,6 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.daughterBTn = false;
             }
 
-            ////
-            console.log(this.setArray, 'this.setArray');
 
         } else {
             if (name == 'Son' || name == 'Daughter') {
@@ -339,9 +342,6 @@ export class DashboardComponent implements OnInit {
 
 
     insureList() {
-
-        console.log(this.pincoce, 'pincoce');
-        console.log(this.selectedAmount, 'selectedAmount');
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
         } else {
@@ -386,11 +386,7 @@ export class DashboardComponent implements OnInit {
 
 
     onSelectedIndexChange(index) {
-        console.log(this.setArray, 'this.setArray');
-        console.log(this.insuranceLists, 'yt');
-        console.log(this.insuranceLists[index]);
        // this.memberLength = [];
-
         // this.setArray = this.insuranceLists[index].family_members;
         // for (let i = 0; i < this.setArray.length; i++) {
         //     this.setArray[i].name = this.setArray[i].type;
@@ -406,42 +402,28 @@ export class DashboardComponent implements OnInit {
     }
 
     addCompare(value, pi, index, equiryId, name) {
-        console.log(equiryId, 'equiryId')
+        console.log(value, 'valuevalue');
+        const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.equiryId = equiryId;
         this.goupName = name;
         this.insuranceLists[pi].product_lists[index].compare = true;
-        this.compareArray.push(value);
-        console.log(this.compareArray, 'value');
+        this.compareArray.push(data);
     }
-    removeCompare(index) {
-        console.log(index);
-        for (let i = 0; i < this.insuranceLists.length; i++) {
-            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                for (let k = 0; k < this.compareArray.length; k++) {
-                    if (this.insuranceLists[i].product_lists[j].product_id == this.compareArray[k].product_id) {
-                        this.insuranceLists[i].product_lists[index].compare = false;
-                        this.insuranceLists[i].product_lists[j].shortlist = false;
-                    }
-                }
-            }
-        }
+    removeCompare(index ,pindex, tabIndex) {
+        this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
         this.compareArray.splice(index, 1);
-
     }
     addShortlist(value, pi, index) {
-        this.scount = index + 1;
-        console.log(index + 1, 'index - 1');
-        this.insuranceLists[pi].product_lists[index].shortlist = true;
-        this.insuranceLists[pi].product_lists[index].removebtn = true;
+        this.scount = 1;
         for (let i = 0; i < this.insuranceLists.length; i++) {
             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                 this.insuranceLists[pi].product_lists[j].shortlist = true;
+                this.insuranceLists[pi].product_lists[j].currentBtn = true;
+
             }
         }
-        console.log(this.insuranceLists, 'this.scount');
-
-
-
+        this.insuranceLists[pi].product_lists[index].currentBtn = false;
+        this.insuranceLists[pi].product_lists[index].removebtn = true;
     }
     removeShortlist(value, pi, index) {
         this.scount = '';
@@ -501,7 +483,7 @@ export class DashboardComponent implements OnInit {
             }
 
             if (this.insuranceLists[index].enquiry_id != '') {
-                sessionStorage.sideMenu = false;
+                sessionStorage.sideMenu = true;
             }
             console.log(this.insuranceLists, 'successsssssssssssssssssssssss');
 

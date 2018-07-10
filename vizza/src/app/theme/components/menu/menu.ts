@@ -60,7 +60,7 @@ export const verticalMenuItems = [
 ]
 
 export const horizontalMenuItems = [ 
-    new Menu (1, 'Home', '/', null, 'home', null, false, 0),
+    new Menu (1, 'Home', '/home', null, 'home', null, false, 0),
     new Menu (2, 'Team Vizza', '/', null, null, null, false, 0),
     new Menu (3, 'Vizza Expertize', '/', null, null, null, false, 0),
     new Menu (4, 'Learning Centre', '/', null, null, null, false, 0),

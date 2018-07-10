@@ -8,12 +8,14 @@ import { ErrorComponent } from './pages/errors/error/error.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
+import { HomeComponent} from './pages/home/home.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { 
         path: '',
         component: PagesComponent, children: [
+            { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
