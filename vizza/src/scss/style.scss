@@ -327,9 +327,16 @@ a:hover {
   }
 }
 .add-disable.mat-raised-button[disabled][disabled]{
-background: #ccc !important;
+  background: #ccc !important;
   cursor: default;
 }
+.horizontal-menu-item .horizontal-sub-menu{
+  background: #0b9444 !important;
+  color: #fff;
+  width: auto !important;
+}
+.horizontal-menu-item .horizontal-sub-menu a.mat-button{
+  color: #fff !important;
+}
 
-//#283593
-//#283593
+

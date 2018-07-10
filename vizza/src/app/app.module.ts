@@ -7,6 +7,7 @@ import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -48,14 +49,16 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
       ToastrModule.forRoot(),
       FormsModule,
-    ReactiveFormsModule,
+      ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
       AgmCoreModule.forRoot({
@@ -65,6 +68,8 @@ import { HomeComponent } from './pages/home/home.component';
     CalendarModule.forRoot(),
     SharedModule,
     PipesModule,
+      NgxMaterialTimepickerModule.forRoot(),
+      AmazingTimePickerModule,
     routing
   ],
   declarations: [
@@ -86,7 +91,8 @@ import { HomeComponent } from './pages/home/home.component';
       ForgotPasswordComponent,
       HealthinsurancelistComponent,
       ComparelistComponent,
-      HomeComponent
+      HomeComponent,
+      FixappointmentComponent
   ],
   providers: [
       AppSettings,
@@ -94,6 +100,7 @@ import { HomeComponent } from './pages/home/home.component';
       ConfigurationService,
       AuthService,
       CommonService,
+      DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
