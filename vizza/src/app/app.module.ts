@@ -48,6 +48,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
+import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.component';
 
 @NgModule({
   imports: [
@@ -86,7 +87,8 @@ import { HomeComponent } from './pages/home/home.component';
       ForgotPasswordComponent,
       HealthinsurancelistComponent,
       ComparelistComponent,
-      HomeComponent
+      HomeComponent,
+      GrouppopupComponent
   ],
   providers: [
       AppSettings,
@@ -99,7 +101,7 @@ import { HomeComponent } from './pages/home/home.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent
+        ComparelistComponent, GrouppopupComponent
     ]
 })
 export class AppModule { }

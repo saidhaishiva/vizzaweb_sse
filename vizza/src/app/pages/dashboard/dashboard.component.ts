@@ -8,8 +8,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {ComparelistComponent} from './comparelist/comparelist.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {CurrencyPipe} from '@angular/common';
-
+import {GrouppopupComponent} from './grouppopup/grouppopup.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,12 +57,14 @@ export class DashboardComponent implements OnInit {
     count: any;
     sonBTn: any;
     daughterBTn: any;
+    changedTabDetails: any;
+    changedTabIndex: any;
 
 
     constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-        sessionStorage.sideMenu = false;
+       // sessionStorage.sideMenu = false;
         this.settings.HomeSidenavUserBlock = true;
         this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
@@ -156,7 +157,9 @@ export class DashboardComponent implements OnInit {
             // this.settings.HomeSidenavUserBlock = false;
             // this.settings.sidenavIsOpened = false;
             // this.settings.sidenavIsPinned = false;
-            if(sessionStorage.sideMenu == true) {
+
+            if(sessionStorage.sideMenu) {
+
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
@@ -384,6 +387,61 @@ export class DashboardComponent implements OnInit {
 
     }
 
+    public PolicyQuotationSuccess(successData, index) {
+        this.settings.loadingSpinner = false;
+
+        if (successData.IsSuccess) {
+
+            let dialogRef = this.dialog.open(GrouppopupComponent, {
+                width: '500px', data: {comparedata: successData.ResponseObject}});
+            dialogRef.disableClose = true;
+
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+            });
+
+
+            this.firstPage = false;
+            this.secondPage = true;
+            this.insuranceLists = successData.ResponseObject;
+            sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
+            if( sessionStorage.setPage != 1) {
+                this.settings.HomeSidenavUserBlock = false;
+                this.settings.sidenavIsOpened = false;
+                this.settings.sidenavIsPinned = false;
+
+            }
+            if (this.insuranceLists[index].enquiry_id != '') {
+                sessionStorage.sideMenu = true;
+            }
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    this.insuranceLists[i].product_lists[j].compare = false;
+                    this.insuranceLists[i].product_lists[j].shortlist = false;
+                }
+            }
+            this.setArray1 = this.insuranceLists[index].family_members;
+            console.log(this.setArray1, 'this.setArray');
+            for (let i = 0; i < this.setArray1.length; i++) {
+                this.setArray1[i].name = this.setArray1[i].type;
+                this.setArray1[i].age = this.setArray1[i].age;
+                this.setArray1[i].checked = true;
+                this.setArray1[i].auto = true;
+                if (this.setArray1[i].name == 'Son' || this.setArray1[i].name == 'Daughter') {
+                }
+            }
+
+            sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+        } else {
+
+            this.toast.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public PolicyQuotationFailure(error) {
+        console.log(error);
+    }
+
 
     onSelectedIndexChange(index) {
        // this.memberLength = [];
@@ -398,6 +456,10 @@ export class DashboardComponent implements OnInit {
         // }
 
         this.settings.loadingSpinner = true;
+
+        this.changedTabDetails = this.insuranceLists[index];
+        this.changedTabIndex = index;
+
         this.updatePolicy(this.insuranceLists[index], index);
     }
 
@@ -459,14 +521,51 @@ export class DashboardComponent implements OnInit {
         console.log(data, 'data222');
         this.common.updatePolicyQuotation(data).subscribe(
             (successData) => {
-                this.PolicyQuotationSuccess(successData, index);
+                this.updatePolicyQuotationSuccess(successData, index);
             },
             (error) => {
-                this.PolicyQuotationFailure(error);
+                this.updatePolicyQuotationFailure(error);
             }
         );
     }
-    public PolicyQuotationSuccess(successData, index) {
+
+    // updateDetails() {
+    //     console.log(this.changedTabDetails, 'this.changedTabDetails');
+    //     this.finalData = [];
+    //     for (let i = 0; i < this.setArray1.length; i++) {
+    //         if (this.setArray1[i].checked) {
+    //             if (this.setArray1[i].age == '') {
+    //                 this.setArray1[i].error = 'Required';
+    //             } else {
+    //                 this.setArray1[i].error = '';
+    //                 this.finalData.push({type: this.setArray1[i].name, age: this.setArray1[i].age });
+    //             }
+    //         }
+    //     }
+    //     const data = {
+    //         'platform': 'web',
+    //         'postalcode': this.changedTabDetails.postal_code,
+    //         'sum_insured': this.selectedAmount,
+    //         'family_details': this.finalData,
+    //         'family_group_name': this.changedTabDetails.name,
+    //         'enquiry_id': this.changedTabDetails.enquiry_id
+    //     };
+    //     console.log(data);
+    //     let index = this.changedTabIndex;
+    //     console.log(data, 'data222');
+    //     this.common.updatePolicyQuotation(data).subscribe(
+    //         (successData) => {
+    //             this.updatePolicyQuotationSuccess(successData, index);
+    //         },
+    //         (error) => {
+    //             this.updatePolicyQuotationFailure(error);
+    //         }
+    //     );
+    // }
+
+
+
+    public updatePolicyQuotationSuccess(successData, index) {
         this.settings.loadingSpinner = false;
 
         if (successData.IsSuccess) {
@@ -474,19 +573,6 @@ export class DashboardComponent implements OnInit {
             this.firstPage = false;
             this.secondPage = true;
             this.insuranceLists = successData.ResponseObject;
-            sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
-            if( sessionStorage.setPage != 1) {
-                this.settings.HomeSidenavUserBlock = false;
-                this.settings.sidenavIsOpened = false;
-                this.settings.sidenavIsPinned = false;
-
-            }
-
-            if (this.insuranceLists[index].enquiry_id != '') {
-                sessionStorage.sideMenu = true;
-            }
-            console.log(this.insuranceLists, 'successsssssssssssssssssssssss');
-
             for (let i = 0; i < this.insuranceLists.length; i++) {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                     this.insuranceLists[i].product_lists[j].compare = false;
@@ -501,7 +587,6 @@ export class DashboardComponent implements OnInit {
                 this.setArray1[i].checked = true;
                 this.setArray1[i].auto = true;
                 if (this.setArray1[i].name == 'Son' || this.setArray1[i].name == 'Daughter') {
-                    // this.setArray1[i].auto = false;
                 }
             }
 
@@ -512,7 +597,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public PolicyQuotationFailure(error) {
+    public updatePolicyQuotationFailure(error) {
         console.log(error);
     }
 

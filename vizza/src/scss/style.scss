@@ -229,6 +229,13 @@ a:hover {
     //  border-right: 2px solid #fff;
     //}
   }
+  .son{
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+    }
+  }
   .health-table{
     button{
       font-size: 12px;
@@ -330,6 +337,10 @@ a:hover {
 background: #ccc !important;
   cursor: default;
 }
+.card-group-pop {
+  background-color: #e8e8e8 !important;
+}
+
 
 //#283593
 //#283593

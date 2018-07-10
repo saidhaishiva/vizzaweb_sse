@@ -10,6 +10,20 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+      sessionStorage.setPage = '';
+      sessionStorage.sideMenu = false;
+      sessionStorage.setFamilyDetails = '';
+      sessionStorage.setInsuredAmount = '';
+      sessionStorage.setPincode = '';
+      sessionStorage.setPage = '';
+      sessionStorage.policyLists = '';
+      sessionStorage.sideMenu = '';
+      sessionStorage.sonBTn = '';
+      sessionStorage.daughterBTn = '';
+      sessionStorage.fatherBTn = '';
+      sessionStorage.motherBtn = '';
+      sessionStorage.fatherInLawBTn = '';
+      sessionStorage.motherInLawBtn = '';
   }
 
 }
