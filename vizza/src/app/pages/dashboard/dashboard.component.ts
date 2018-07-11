@@ -65,9 +65,11 @@ export class DashboardComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
        // sessionStorage.sideMenu = false;
-        this.settings.HomeSidenavUserBlock = true;
-        this.settings.sidenavIsOpened = true;
-        this.settings.sidenavIsPinned = true;
+        if(!sessionStorage.sideMenu) {
+            this.settings.HomeSidenavUserBlock = true;
+            this.settings.sidenavIsOpened = true;
+            this.settings.sidenavIsPinned = true;
+        }
         console.log(this.settings);
         this.tabIndex = 0;
         this.pageSettings = 0;
@@ -76,41 +78,12 @@ export class DashboardComponent implements OnInit {
         this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
-
-        this.setArray = [{
-                name: 'Self',
-                age: '',
-                disabled: false,
-                checked: false,
-                auto: true,
-                error: ''
-            },
-            {
-                name: 'Spouse',
-                age: '',
-                disabled: false,
-                checked: false,
-                auto: true,
-                error: ''
-            },
-            {
-                name: 'Son',
-                age: '',
-                disabled: false,
-                checked: false,
-                auto: true,
-                error: ''
-            },
-            {
-                name: 'Daughter',
-                age: '',
-                disabled: false,
-                checked: false,
-                auto: true,
-                error: ''
-            }
-            ];
-
+        this.setArray = [
+            {name: 'Self', age: '', disabled: false, checked: false, auto: true, error: ''},
+            {name: 'Spouse', age: '', disabled: false, checked: false, auto: true, error: ''},
+            {name: 'Son', age: '', disabled: false, checked: false, auto: true, error: ''},
+            {name: 'Daughter', age: '', disabled: false, checked: false, auto: true, error: ''}
+        ];
         this.compareArray = [];
     }
     ngOnInit() {
@@ -140,11 +113,11 @@ export class DashboardComponent implements OnInit {
         }
         return true;
     }
+    // this function will get the session data
     sessionData() {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
             console.log(JSON.parse(sessionStorage.setFamilyDetails), 'JSON.pars');
             this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
-            console.log(this.setArray, 'tyyy');
         }
         if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
             this.selectedAmount = sessionStorage.setInsuredAmount;
@@ -154,18 +127,12 @@ export class DashboardComponent implements OnInit {
         }
         if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
             this.pageSettings = sessionStorage.setPage;
-            // this.settings.HomeSidenavUserBlock = false;
-            // this.settings.sidenavIsOpened = false;
-            // this.settings.sidenavIsPinned = false;
-
             if(sessionStorage.sideMenu) {
-
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
             }
         }
-
         if (sessionStorage.sonBTn != '') {
             this.sonBTn = sessionStorage.sonBTn;
         }
@@ -184,7 +151,6 @@ export class DashboardComponent implements OnInit {
         if (sessionStorage.motherInLawBtn != '') {
             this.motherInLawBtn = sessionStorage.motherInLawBtn;
         }
-
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             console.log(this.setArray, 'session');
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
@@ -196,15 +162,13 @@ export class DashboardComponent implements OnInit {
                 this.setArray1[i].checked = true;
                 this.setArray1[i].auto = true;
                 if (this.setArray1[i].type == 'Son' || this.setArray1[i].type == 'Daughter') {
-                    // this.setArray1[i].auto = false;
                 }
             }
-            console.log(this.setArray1, 'this.setArray1');
             this.tabIndex = index;
         }
 
     }
-
+    // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
          const data = {
             'platform': 'web'
@@ -227,12 +191,9 @@ export class DashboardComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
-
-
-
+    // selected members
     ckeckedUser(value, index, name) {
         if (value) {
-            console.log(name, 'value');
             if (name == 'Son' || name == 'Daughter') {
                 console.log( 'value');
                 this.count++;
@@ -248,8 +209,6 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
-
-
         } else {
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
@@ -266,7 +225,6 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
-            console.log(index, 'index');
             if (value == 'Father') {
                 sessionStorage.fatherBTn = false;
             }
@@ -279,11 +237,9 @@ export class DashboardComponent implements OnInit {
             if (value == 'Mother In Law') {
                 sessionStorage.motherInLawBtn = false;
             }
-
             if (index > 3 ) {
                 this.setArray.splice(index, 1);
             }
-            console.log(this.setArray, 'this.setArray22');
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
@@ -293,6 +249,7 @@ export class DashboardComponent implements OnInit {
     selectPincode() {
         sessionStorage.setPincode = this.pincoce;
     }
+    // add new user
     addUser(value, index) {
         if (value == 'Son' || value == 'Daughter') {
             this.count++;
@@ -302,7 +259,6 @@ export class DashboardComponent implements OnInit {
             if (this.setArray[index].checked) {
                 // this.setArray.splice(2, 0, {name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
                 this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: true, error: ''});
-
             } else {
                 this.setArray[index].checked = true;
             }
@@ -318,9 +274,7 @@ export class DashboardComponent implements OnInit {
             sessionStorage.sonBTn = false;
             sessionStorage.daughterBTn = false;
         }
-        console.log(this.setArray, 'this.setArray');
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
-
     }
     typeAge() {
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
@@ -341,10 +295,9 @@ export class DashboardComponent implements OnInit {
             sessionStorage.motherInLawBtn = this.motherInLawBtn;
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
-}
-
-
-    insureList() {
+    }
+    // this function will get the policy quotation lists
+    getPolicyQuotationList() {
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
         } else {
@@ -367,24 +320,25 @@ export class DashboardComponent implements OnInit {
             }
         }
         console.log(this.setArray, 'total setArraysetArray');
-    if (this.finalData != '' && this.selectedAmount != '' && this.pincoce != '' ) {
-            const data = {
-                'platform': 'web',
-                'postalcode': this.pincoce,
-                'sum_insured': this.selectedAmount,
-                'family_details': this.finalData
-            };
-            console.log(data, 'data');
-        this.common.getPolicyQuotation(data).subscribe(
-            (successData) => {
-                this.PolicyQuotationSuccess(successData, 0);
-            },
-            (error) => {
-                this.PolicyQuotationFailure(error);
-            }
-        );
-    }
-
+        if (this.finalData != '' && this.selectedAmount != '' && this.pincoce != '' ) {
+                const data = {
+                    'platform': 'web',
+                    'postalcode': this.pincoce,
+                    'created_by': '0',
+                    'role_id': 4,
+                    'sum_insured': this.selectedAmount,
+                    'family_details': this.finalData
+                };
+                console.log(data, 'data');
+            this.common.getPolicyQuotation(data).subscribe(
+                (successData) => {
+                    this.PolicyQuotationSuccess(successData, 0);
+                },
+                (error) => {
+                    this.PolicyQuotationFailure(error);
+                }
+            );
+        }
     }
 
     public PolicyQuotationSuccess(successData, index) {
@@ -516,7 +470,9 @@ export class DashboardComponent implements OnInit {
             'sum_insured': this.selectedAmount,
             'family_details': this.finalData,
             'family_group_name': value.name,
-            'enquiry_id': value.enquiry_id
+            'enquiry_id': value.enquiry_id,
+            'created_by': 0,
+            'role_id': 4,
         };
         console.log(data, 'data222');
         this.common.updatePolicyQuotation(data).subscribe(
@@ -570,6 +526,13 @@ export class DashboardComponent implements OnInit {
 
         if (successData.IsSuccess) {
             console.log(index, 'indexindex');
+            let dialogRef = this.dialog.open(GrouppopupComponent, {
+                width: '1500px', data: {comparedata: successData.ResponseObject}});
+            dialogRef.disableClose = true;
+
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+            });
             this.firstPage = false;
             this.secondPage = true;
             this.insuranceLists = successData.ResponseObject;
@@ -614,7 +577,9 @@ export class DashboardComponent implements OnInit {
             'scheme': scheme,
             'group_name': this.goupName,
             'enquiry_id': this.equiryId,
-            'product_lists': this.productLists
+            'product_lists': this.productLists,
+            'created_by': 0,
+            'role_id': 4,
 
         };
         console.log(data, 'data222');

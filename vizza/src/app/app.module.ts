@@ -109,7 +109,7 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent
+        ComparelistComponent, GrouppopupComponent
     ]
 })
 export class AppModule { }

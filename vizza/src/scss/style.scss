@@ -338,7 +338,7 @@ background: #ccc !important;
   cursor: default;
 }
 .card-group-pop {
-  background-color: #e8e8e8 !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .horizontal-menu-item .horizontal-sub-menu{
@@ -349,6 +349,18 @@ background: #ccc !important;
 .horizontal-menu-item .horizontal-sub-menu a.mat-button{
   color: #fff !important;
 }
+div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
 
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
 //#283593
 //#283593
