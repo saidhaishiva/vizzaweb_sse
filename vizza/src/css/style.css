@@ -1,3 +1,6 @@
+* {
+  outline: none; }
+
 button:focus {
   outline: none; }
 
@@ -49,13 +52,13 @@ a:hover {
   margin: 4em auto 70px; }
 
 .bg-map {
-  background: url("./assets/img/map.png");
+  background: url("./assets/img/loginbg.jpg");
   background-color: #02810E !important;
   width: 100%;
-  background-size: contain;
+  background-size: cover;
   overflow: visible;
   padding: 11em 0;
-  height: auto; }
+  height: 100%; }
 
 .mt-login .login-logo {
   padding-bottom: 20px;
@@ -86,16 +89,22 @@ a:hover {
     font-size: 15px;
     margin-right: 10px;
     background: #3B5998;
-    padding: 10px 13px;
+    padding: 10px;
     border-radius: 50px;
     height: 37px;
     width: 37px;
     text-align: center;
     color: #fff; }
-  .social-icons i:first-child {
-    background: #db3236; }
-  .social-icons i:nth-child(2) {
-    background: #1DA1F2; }
+  .social-icons a:first-child i {
+    background: #3B5998; }
+  .social-icons a:nth-child(2) i {
+    background: #00aced; }
+  .social-icons a:nth-child(3) i {
+    background: #4875B4; }
+  .social-icons a:nth-child(4) i {
+    background: #FF3333; }
+  .social-icons a:nth-child(5) i {
+    background: #4E433C; }
 
 .home-nav .active {
   font-weight: bold !important;
@@ -173,6 +182,10 @@ a:hover {
     background-color: #18CCB4;
     color: #fff;
     opacity: 1; }
+#product-list .son button {
+  line-height: 28px;
+  font-size: 10px;
+  padding: 0 10px; }
 #product-list .health-table button {
   font-size: 12px;
   padding: 0 10px;
@@ -241,6 +254,9 @@ a:hover {
   background: #ccc !important;
   cursor: default; }
 
+.card-group-pop {
+  background-color: #e8e8e8 !important; }
+
 .horizontal-menu-item .horizontal-sub-menu {
   background: #0b9444 !important;
   color: #fff;
@@ -248,5 +264,24 @@ a:hover {
 
 .horizontal-menu-item .horizontal-sub-menu a.mat-button {
   color: #fff !important; }
+
+.horizontal-menu .inner-sidenav-content {
+  padding-top: 7px !important; }
+
+.btn-bs-file {
+  position: relative; }
+
+.btn-bs-file input[type="file"] {
+  position: absolute;
+  top: -9999999;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  width: 0;
+  height: 0;
+  outline: none;
+  cursor: inherit; }
+
+.nav-item.active {
+  background: #eaeaea; }
 
 /*# sourceMappingURL=style.css.map */

@@ -14,13 +14,21 @@ export class SidenavComponent implements OnInit {
   public userImage= '../assets/img/users/user.jpg';
   public menuItems:Array<any>;
   public settings: Settings;
+  public selectedItem: any;
+  public head: any;
+  public btns: any;
+  public current: any;
+
   constructor(public appSettings:AppSettings, public menuService:MenuService){
-      this.settings = this.appSettings.settings; 
+      this.settings = this.appSettings.settings;
+
+
   }
 
   ngOnInit() {
-    console.log('okdfgdfgdgdggfd')
     this.menuItems = this.menuService.getVerticalMenuItems();
+
+
   }
 
   public closeSubMenus(){
@@ -37,5 +45,8 @@ export class SidenavComponent implements OnInit {
       }
     }
   }
+
+
+
 
 }

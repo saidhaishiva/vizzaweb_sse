@@ -13,7 +13,7 @@
                         <mat-icon>person</mat-icon>
                     </button>
                     <a *ngIf="settings.menu == 'vertical'" mat-raised-button color="accent" routerLink="/" (click)="closeSubMenus()" class="small-logo">G</a>
-                    <a *ngIf="settings.menu == 'vertical'" class="logo" routerLink="/" (click)="closeSubMenus()">GRADUS</a>
+                    <a *ngIf="!settings.sidenavIsOpened" class="logo" routerLink="/" (click)="closeSubMenus()" class="ml-5"><img alt=""  src="assets/img/vizza-logo.png" style="width: 160px;" ></a>
                 </div>
                 <mat-toolbar  *ngIf="settings.menu == 'horizontal'"
                              class="horizontal-menu flex-p-x">
@@ -62,9 +62,11 @@
                     <!--</div>                -->
                     <!--<app-flags-menu fxShow="false" fxShow.gt-sm></app-flags-menu>-->
                     <div class="social-icons">
-                    <i class="fab fa-google-plus-g" ></i>
-                    <i class="fab fa-tumblr"></i>
-                    <i class="fab fa-facebook-f" routerLink="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour"></i>
+                        <a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-tumblr"></i></a>
+                        <a href="https://www.linkedin.com/in/vizza-insurance-broking-services-317656167/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCL6dApb7hpTyINrLLoHZY2w?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                     <app-fullscreen></app-fullscreen>
 
