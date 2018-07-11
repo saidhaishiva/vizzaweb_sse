@@ -9,6 +9,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent} from './pages/home/home.component';
+import {ContactComponent} from './pages/contact/contact.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
         path: '',
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
+            { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },

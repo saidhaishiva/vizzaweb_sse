@@ -48,6 +48,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   imports: [
@@ -86,7 +87,8 @@ import { HomeComponent } from './pages/home/home.component';
       ForgotPasswordComponent,
       HealthinsurancelistComponent,
       ComparelistComponent,
-      HomeComponent
+      HomeComponent,
+      ContactComponent
   ],
   providers: [
       AppSettings,
