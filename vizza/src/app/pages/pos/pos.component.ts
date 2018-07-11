@@ -7,12 +7,13 @@ import {Settings} from '../../app.settings.model';
 import { LoginService } from '../../shared/services/login.service';
 import { AuthService } from '../../shared/services/auth.service';
 
-
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html'
+  selector: 'app-pos',
+  templateUrl: './pos.component.html',
+  styleUrls: ['./pos.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class PosComponent implements OnInit {
+
     public form: FormGroup;
     public settings: Settings;
     public response: any;
@@ -80,7 +81,7 @@ export class LoginComponent implements OnInit {
     }
 
     public loginFailure(error) {
-   console.log(error);
+        console.log(error);
     }
     public changeTheme(theme) {
         this.settings.theme = theme;

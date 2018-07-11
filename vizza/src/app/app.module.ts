@@ -54,6 +54,9 @@ import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.compo
 import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { PosComponent } from './pages/pos/pos.component';
+import {RegisterComponent} from './pages/register/register.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -95,7 +98,9 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
       ComparelistComponent,
       HomeComponent,
       GrouppopupComponent,
-      FixappointmentComponent
+      FixappointmentComponent,
+      PosComponent,
+      RegisterComponent
   ],
   providers: [
       AppSettings,
@@ -109,7 +114,8 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent
+        ComparelistComponent,
+        GrouppopupComponent
     ]
 })
 export class AppModule { }

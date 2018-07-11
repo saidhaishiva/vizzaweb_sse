@@ -62,7 +62,7 @@ export const verticalMenuItems = [
 export const horizontalMenuItems = [ 
     new Menu (1, 'Home', '/home', null, 'home', null, false, 0),
     new Menu (2, 'Online Insurance', '/', null, null, null, true, 0),
-    new Menu (3, 'Health', 'fix-appointment/health', null, null, null, true, 2),
+    new Menu (3, 'Health', '/dashboard', null, null, null, true, 2),
     new Menu (4, 'Term Life', '/fix-appointment/term-life', null, null, null, true, 2),
     new Menu (5, 'Car', '/fix-appointment/car', null, null, null, true, 2),
     new Menu (6, 'Bike', '/fix-appointment/bike', null, null, null, true, 2),
@@ -92,7 +92,7 @@ export const horizontalMenuItems = [
     new Menu (30, 'Erection All rick Policy', '/', null, null, null, false, 22),
     new Menu (31, 'Directors and Officers Liability Policy', '/', null, null, null, false, 22),
     new Menu (32, 'Media', '/', null, null, null, false, 0),
-    new Menu (33, 'POS', '/', null, null, null, false, 0),
+    new Menu (33, 'POS', '/pos', null, null, null, false, 0),
     new Menu (34, 'Contact us', '/', null, null, null, false, 0)
 
 
