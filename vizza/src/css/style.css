@@ -1,3 +1,6 @@
+* {
+  outline: none; }
+
 button:focus {
   outline: none; }
 
@@ -277,5 +280,8 @@ a:hover {
   height: 0;
   outline: none;
   cursor: inherit; }
+
+.nav-item.active {
+  background: #eaeaea; }
 
 /*# sourceMappingURL=style.css.map */

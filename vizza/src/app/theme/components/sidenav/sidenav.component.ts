@@ -46,20 +46,7 @@ export class SidenavComponent implements OnInit {
     }
   }
 
-  listion(){
 
-      this.head = document.getElementById('myNav');
-      this.btns = this.head.getElementsByClassName('nav-item');
-      for (let i = 0; i < this.btns.length; i++) {
-
-          this.btns[i].addEventListener('click', function() {
-              alert();
-              this.current = document.getElementsByClassName('active');
-              this.current[0].className = this.current[0].className.replace(' active', '');
-              this.className += ' active';
-          });
-      }
-  }
 
 
 }

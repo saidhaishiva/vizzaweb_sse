@@ -1,7 +1,9 @@
 $theme-color:#02810E;
 $green-color:#18CCB4;
 $pink-color:#d81b60;
-
+*{
+ outline: none;
+}
 button:focus{
   outline: none;
 }
@@ -373,5 +375,8 @@ background: #ccc !important;
   height:0;
   outline: none;
   cursor: inherit;
+}
+.nav-item.active{
+ background: #eaeaea;
 }
 
