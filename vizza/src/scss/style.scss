@@ -1,7 +1,9 @@
 $theme-color:#02810E;
 $green-color:#18CCB4;
 $pink-color:#d81b60;
-
+*{
+ outline: none;
+}
 button:focus{
   outline: none;
 }
@@ -65,13 +67,13 @@ a:hover {
   margin: 4em auto 70px;
 }
 .bg-map{
-  background: url("./assets/img/map.png");
+  background: url("./assets/img/loginbg.jpg");
   background-color: $theme-color !important;
   width: 100%;
-  background-size: contain;
+  background-size: cover;
   overflow: visible;
   padding: 11em 0;
-  height: auto;
+  height: 100%;
 }
 .mt-login .login-logo {
   padding-bottom: 20px;
@@ -104,19 +106,31 @@ a:hover {
     font-size: 15px;
     margin-right: 10px;
     background: #3B5998;
-    padding: 10px 13px;
+    padding: 10px;
     border-radius: 50px;
     height: 37px;
     width: 37px;
     text-align: center;
     color: #fff;
   }
-  i:first-child{
-    background: #db3236;
+
+  a:first-child i{
+    background: #3B5998;
 }
-  i:nth-child(2){
-    background: #1DA1F2;
+  a:nth-child(2) i{
+    background: #00aced;
   }
+  a:nth-child(3) i{
+    background: #4875B4;
+  }
+  a:nth-child(4) i{
+    background: #FF3333;
+  }
+  a:nth-child(5) i{
+    background: #4E433C;
+  }
+
+
 
 }
 
@@ -225,9 +239,14 @@ a:hover {
       color: #fff;
       opacity: 1;
     }
-    //.mat-tab-label{
-    //  border-right: 2px solid #fff;
-    //}
+
+  }
+  .son{
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+    }
   }
   .health-table{
     button{
@@ -279,7 +298,6 @@ a:hover {
     mat-card-header{
       background: #f29a1d;
     }
-    // #f29a1d
     h6{
       margin-bottom: 0;
       color: #fff;
@@ -330,6 +348,37 @@ a:hover {
 background: #ccc !important;
   cursor: default;
 }
+.card-group-pop {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
 
-//#283593
-//#283593
+.horizontal-menu-item .horizontal-sub-menu{
+  background: #0b9444 !important;
+  color: #fff;
+  width: auto !important;
+}
+.horizontal-menu-item .horizontal-sub-menu a.mat-button{
+  color: #fff !important;
+}
+.horizontal-menu .inner-sidenav-content{
+  padding-top: 7px !important;
+}
+.btn-bs-file{
+  position:relative;
+}
+.btn-bs-file input[type="file"]{
+  position: absolute;
+  top: -9999999;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  width:0;
+  height:0;
+  outline: none;
+  cursor: inherit;
+}
+.nav-item.active{
+ background: #eaeaea;
+}
+.scrollmenu{
+  flex-wrap: nowrap;
+}

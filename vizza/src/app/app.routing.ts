@@ -10,6 +10,9 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent} from './pages/home/home.component';
 import {ContactComponent} from './pages/contact/contact.component';
+import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
+import {PosComponent} from './pages/pos/pos.component';
+import {RegisterComponent} from './pages/register/register.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },

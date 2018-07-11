@@ -7,6 +7,7 @@ import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -49,6 +50,13 @@ import { HealthinsurancelistComponent } from './pages/healthinsurancelist/health
 import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.component';
+
+import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { PosComponent } from './pages/pos/pos.component';
+import {RegisterComponent} from './pages/register/register.component';
 
 @NgModule({
   imports: [
@@ -56,7 +64,7 @@ import { ContactComponent } from './pages/contact/contact.component';
     BrowserAnimationsModule,
       ToastrModule.forRoot(),
       FormsModule,
-    ReactiveFormsModule,
+      ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
       AgmCoreModule.forRoot({
@@ -66,6 +74,8 @@ import { ContactComponent } from './pages/contact/contact.component';
     CalendarModule.forRoot(),
     SharedModule,
     PipesModule,
+      NgxMaterialTimepickerModule.forRoot(),
+      AmazingTimePickerModule,
     routing
   ],
   declarations: [
@@ -88,7 +98,12 @@ import { ContactComponent } from './pages/contact/contact.component';
       HealthinsurancelistComponent,
       ComparelistComponent,
       HomeComponent,
-      ContactComponent
+      ContactComponent,
+      HomeComponent,
+      GrouppopupComponent,
+      FixappointmentComponent,
+      PosComponent,
+      RegisterComponent
   ],
   providers: [
       AppSettings,
@@ -96,11 +111,13 @@ import { ContactComponent } from './pages/contact/contact.component';
       ConfigurationService,
       AuthService,
       CommonService,
+      DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
     bootstrap: [AppComponent],
     entryComponents: [
+        ComparelistComponent, GrouppopupComponent,
         ComparelistComponent
     ]
 })
