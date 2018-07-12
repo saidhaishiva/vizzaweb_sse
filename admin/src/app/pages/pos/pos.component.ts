@@ -13,7 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-
+import { CommonService } from '../../shared/services/common.service';
 
 declare var google: any;
 
@@ -26,12 +26,12 @@ declare var google: any;
 })
 export class PosComponent implements OnInit {
     @ViewChild(DatatableComponent) table: DatatableComponent;
-    pendingDoctorsList: Array<any>;
-    approvedDoctorsList: Array<any>;
-    holdDoctorsList: Array<any>;
-    rejectedDoctorsList: Array<any>;
+    pendingPOSList: Array<any>;
+    approvedPOSList: Array<any>;
+    holdPOSList: Array<any>;
+    rejectedPOSList: Array<any>;
     filters: string;
-    doctorStatus: number;
+    tabStatus: number;
     pageno: number;
     recordsperpage: any;
     public webhost: string;
@@ -42,11 +42,12 @@ export class PosComponent implements OnInit {
     loadingIndicator: boolean = true;
     reorderable: boolean = true;
     tabValue: string;
-    totalDoctors: any;
-    pendingDoctorsCount: number;
-    approvedDoctorsCount: number;
-    holdDoctorsCount: number;
-    rejectedDoctorsCount: number;
+    totalPOS: any;
+    pendingPOSCount: number;
+    approvedPOSCount: number;
+    holdPOSCount: number;
+    rejectedPOSCount: number;
+    POSStatus: any;
 
 
     pageOffSet: any;
@@ -63,26 +64,27 @@ export class PosComponent implements OnInit {
     constructor(public router: Router, public route: ActivatedRoute,
                 public appSettings: AppSettings, private toastr: ToastrService,
                 public dialog: MatDialog, public auth: AuthService,
-                public config: ConfigurationService, public doctorService: DoctorsService) {
+                public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService) {
 
         this.settings = this.appSettings.settings;
-        this.settings.loadingSpinner = true;
+        // this.settings.loadingSpinner = true;
         this.webhost = this.config.getimgUrl();
         this.filters = 'No';
-        this.doctorStatus = 0;
+        this.tabStatus = 0;
         this.pageno = 1;
         this.tabValue = 'pending';
         this.recordsperpage = 10;
-        this.pendingDoctorsList = [];
-        this.approvedDoctorsList = [];
-        this.holdDoctorsList = [];
-        this.rejectedDoctorsList = [];
-        this.totalDoctors = 0;
+        this.pendingPOSList = [];
+        this.approvedPOSList = [];
+        this.holdPOSList = [];
+        this.rejectedPOSList = [];
+        this.totalPOS = 0;
         this.searchTag = '';
-        this.pendingDoctorsCount = 0;
-        this.approvedDoctorsCount = 0;
-        this.holdDoctorsCount = 0;
-        this.rejectedDoctorsCount = 0;
+        this.pendingPOSCount = 0;
+        this.approvedPOSCount = 0;
+        this.holdPOSCount = 0;
+        this.rejectedPOSCount = 0;
+        this.POSStatus = 0;
 
 
     }
@@ -95,89 +97,157 @@ export class PosComponent implements OnInit {
     setPage(pageInfo) {
         this.pageno = pageInfo.offset + 1;
         this.pageOffSet = pageInfo.offset;
+        this.getPOSList()
     }
 
-
-
-    doctorProfile(id) {
-        console.log(id, 'skfkhsdkfhdkf');
+    getPOSList() {
         this.settings.loadingSpinner = true;
-        this.router.navigate(['/doctor-profile/' + id]);
-
+        if (this.tabStatus === 0) {
+            this.tabValue = 'inactive';
+        } else if (this.tabStatus === 1) {
+            this.tabValue = 'active';
+        } else if (this.tabStatus === 2) {
+            this.tabValue = 'rejected';
+        } else {
+            this.tabValue = 'onhold';
+        }
+        this.settings.loadingSpinner = true;
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId()
+        };
+        this.common.getPOSList(data).subscribe(
+            (successData) => {
+                this.getPOSListSuccess(successData);
+            },
+            (error) => {
+                this.getPOSListFailure(error);
+            }
+        );
     }
 
+    getPOSListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            console.log(successData);
+            let POS = [];
+            if (this.tabStatus === 0) {
+                this.pendingPOSList = successData.ResponseObject.details;
+                POS = [];
+                POS = this.pendingPOSList;
+                this.pendingPOSCount = successData.ResponseObject.total;
+                this.totalPOS = this.pendingPOSCount;
+
+            } else if (this.tabStatus === 1) {
+                this.approvedPOSList = successData.ResponseObject.details;
+                POS = [];
+                POS = this.approvedPOSList;
+                this.approvedPOSCount = successData.ResponseObject.total;
+                this.totalPOS = this.approvedPOSCount;
+
+            } else if (this.tabStatus === 2) {
+                this.rejectedPOSList = successData.ResponseObject.details;
+                POS = [];
+                POS = this.rejectedPOSList;
+                this.rejectedPOSCount = successData.ResponseObject.total;
+                this.totalPOS = this.rejectedPOSCount;
+            } else {
+                this.holdPOSList = successData.ResponseObject.details;
+                POS = [];
+                POS = this.holdPOSList;
+                this.holdPOSCount = successData.ResponseObject.total;
+                this.totalPOS = this.holdPOSCount;
+            }
+
+            this.temp = [...POS];
+            this.rows = POS;
+            setTimeout(() => {
+                this.loadingIndicator = false;
+            }, 1500);
+        }
+    }
+
+    getPOSListFailure(error) {
+        console.log(error);
+    }
 
     public tabChange(value) {
         this.tabValue = value;
         console.log(value);
-        let doctors = [];
-        if (value === 'pending') {
-            this.doctorStatus = 0;
-            if (this.pendingDoctorsList.length === 0) {
+        let POS = [];
+        if (value === 'inactive') {
+            this.POSStatus = 0;
+            if (this.pendingPOSList.length === 0) {
+                this.getPOSList();
             } else {
-                doctors = [];
-                this.totalDoctors = this.pendingDoctorsCount;
-                console.log(this.pendingDoctorsList);
-                doctors = this.pendingDoctorsList;
-                this.temp = [...doctors];
-                this.rows = doctors;
+                POS = [];
+                this.totalPOS = this.pendingPOSCount;
+                console.log(this.pendingPOSList);
+                POS = this.pendingPOSList;
+                this.temp = [...POS];
+                this.rows = POS;
                 setTimeout(() => {
                     this.loadingIndicator = false;
                 }, 1500);
             }
-        } else if (value === 'approved') {
-            this.doctorStatus = 1;
-            if (this.approvedDoctorsList.length === 0) {
+        } else if (value === 'active') {
+            this.POSStatus = 1;
+            if (this.approvedPOSList.length === 0) {
+                this.getPOSList();
             } else {
-                doctors = [];
-                this.totalDoctors = this.approvedDoctorsCount;
-                doctors = this.approvedDoctorsList;
-                this.temp = [...doctors];
-                this.rows = doctors;
+                POS = [];
+                this.totalPOS = this.approvedPOSCount;
+                POS = this.approvedPOSList;
+                this.temp = [...POS];
+                this.rows = POS;
                 setTimeout(() => {
                     this.loadingIndicator = false;
                 }, 1500);
             }
         } else if (value === 'onhold') {
-            this.doctorStatus = 3;
-            if (this.holdDoctorsList.length === 0) {
-                console.log(this.holdDoctorsList.length);
+            this.POSStatus = 3;
+            if (this.holdPOSList.length === 0) {
+                console.log(this.holdPOSList.length);
+                this.getPOSList();
             } else {
-                console.log(this.holdDoctorsList);
-                doctors = [];
-                this.totalDoctors = this.holdDoctorsCount;
-                doctors = this.holdDoctorsList;
-                this.temp = [...doctors];
-                this.rows = doctors;
+                console.log(this.holdPOSList);
+                POS = [];
+                this.totalPOS = this.holdPOSCount;
+                POS = this.holdPOSList;
+                this.temp = [...POS];
+                this.rows = POS;
                 setTimeout(() => {
                     this.loadingIndicator = false;
                 }, 1500);
             }
-        } else  {
-            this.doctorStatus = 2;
-            if (this.rejectedDoctorsList.length === 0) {
+        } else {
+            this.POSStatus = 2;
+            if (this.rejectedPOSList.length === 0) {
+                this.getPOSList();
             } else {
-                doctors = [];
-                this.totalDoctors = this.rejectedDoctorsCount;
-                doctors = this.rejectedDoctorsList;
-                this.temp = [...doctors];
-                this.rows = doctors;
+                POS = [];
+                this.totalPOS = this.rejectedPOSCount;
+                POS = this.rejectedPOSList;
+                this.temp = [...POS];
+                this.rows = POS;
                 setTimeout(() => {
                     this.loadingIndicator = false;
                 }, 1500);
             }
         }
-
+    }
+    POSProfile(id) {
+        console.log(id, 'skfkhsdkfhdkf');
+        this.settings.loadingSpinner = true;
+        this.router.navigate(['/pos-profile/' + id]);
 
     }
-
     public updateFilter(event) {
         this.searchTag = event.target.value.toLowerCase();
         this.loadingIndicator = true;
         this.setPage({offset: 0});
 
     }
-
-
 }
 

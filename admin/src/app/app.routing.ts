@@ -14,10 +14,10 @@ import {ConfirmPasswordComponent} from './pages/confirm-password/confirm-passwor
 import { FaqComponent} from './pages/faq/faq.component';
 import { AboutUsComponent} from './pages/about-us/about-us.component';
 import {ContactUsComponent} from './pages/contact-us/contact-us.component';
-import {DoctorprofileComponent} from './pages/doctorprofile/doctorprofile.component';
 // import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AddposComponent} from './pages/addpos/addpos.component';
 import { PosComponent } from './pages/pos/pos.component';
+import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,7 +30,7 @@ export const routes: Routes = [
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
-            { path: 'doctor-profile/:id', component: DoctorprofileComponent, data: { breadcrumb: 'Doctor Profile' } },
+            { path: 'pos-profile/:id', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
 
 
         ]

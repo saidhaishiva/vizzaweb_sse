@@ -16,6 +16,18 @@ export class CommonService {
         const url = this.configurationService.getHostOld() + '/auth/logout';
         return this.http.get(url);
     }
+    getPOSList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/getall_poslist';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     private extractData(res: Response) {
         const body = res;

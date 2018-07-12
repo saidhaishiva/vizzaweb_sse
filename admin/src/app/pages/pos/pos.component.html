@@ -2,17 +2,17 @@
   <div class="row pr-2 pl-2">
       <div class="col-md-6">
           <mat-button-toggle-group #group="matButtonToggleGroup" (change)="tabChange(group.value)" value="pending">
-              <mat-button-toggle value="pending">
-                  <mat-icon>timer</mat-icon>Pending
+              <mat-button-toggle value="inactive">
+                  <mat-icon>timer</mat-icon>InActive
               </mat-button-toggle>
-              <mat-button-toggle value="onhold">
-                  <mat-icon> touch_app</mat-icon> On hold
+              <mat-button-toggle value="active">
+                  <mat-icon> touch_app</mat-icon> Active
               </mat-button-toggle>
               <mat-button-toggle value="rejected">
                   <mat-icon>block</mat-icon> Rejected
               </mat-button-toggle>
-              <mat-button-toggle value="approved">
-                  <mat-icon>check</mat-icon> Approved
+              <mat-button-toggle value="onhold">
+                  <mat-icon>check</mat-icon> OnHold
               </mat-button-toggle>
           </mat-button-toggle-group>
       </div>
@@ -42,7 +42,7 @@
                                     [footerHeight]="50"
                                     [rowHeight]="'auto'"
                                     [externalPaging]="true"
-                                    [count]="totalDoctors"
+                                    [count]="totalPOS"
                                     [offset]="pageOffSet"
                                     [limit]="recordsperpage"
                                     (page)='setPage($event)'>
@@ -58,13 +58,13 @@
         </ul>
     </mat-card-header>
     <div class="row pt-2" fxLayoutAlign="center center"  style="cursor: pointer">
-        <div class="col-md-4" fxLayoutAlign="space-around center" (click)="doctorProfile(row.doctorid)">
+        <div class="col-md-4" fxLayoutAlign="space-around center" (click)="POSProfile(row.doctorid)">
             <img src="assets/img/users/default-user.jpg"  alt="" *ngIf="row.doctorprofile == ''">
             <img src="{{webhost + '/' + row.doctorprofile}}"  alt="" *ngIf="row.doctorprofile != ''">
         </div>
         <div class="col-md-6">
 
-                                             <p fxLayoutAlign="start center" class="text-capitalize" (click)="doctorProfile(row.doctorid)" style="cursor: pointer"><i class="fas fa-user mr-2">
+                                             <p fxLayoutAlign="start center" class="text-capitalize" (click)="POSProfile(row.doctorid)" style="cursor: pointer"><i class="fas fa-user mr-2">
 
                                              </i><strong> Dr. {{row.doctorname}}</strong></p>
                                              <p fxLayoutAlign="start center" class="text-capitalize"><i class="fas fa-stethoscope  mr-2"></i> {{row.speciality}}</p>

@@ -15,7 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule} from '@angular/material';
 
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {RejectDoctor} from './pages/doctorprofile/doctorprofile.component';
+import {RejectDoctor} from './pages/posprofile/posprofile.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -55,13 +55,13 @@ import { ConfirmPasswordComponent } from './pages/confirm-password/confirm-passw
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
-import {DoctorprofileComponent} from './pages/doctorprofile/doctorprofile.component';
-import {ClinicimageviewComponent} from './pages/doctorprofile/clinicimageview/clinicimageview.component';
+import {ClinicimageviewComponent} from './pages/posprofile/clinicimageview/clinicimageview.component';
 import { DoctorsService } from './shared/services/doctors.service';
-import { DoctornotesComponent } from './pages/doctorprofile/doctornotes/doctornotes.component';
+import { DoctornotesComponent } from './pages/posprofile/doctornotes/doctornotes.component';
 import {DashboardService} from './shared/services/dashboard.service';
 import { AddposComponent } from './pages/addpos/addpos.component';
 import { PosComponent } from './pages/pos/pos.component';
+import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 
 @NgModule({
     imports: [
@@ -103,12 +103,12 @@ import { PosComponent } from './pages/pos/pos.component';
         AboutUsComponent,
         FaqComponent,
         ContactUsComponent,
-        DoctorprofileComponent,
         ClinicimageviewComponent,
         DoctornotesComponent,
         RejectDoctor,
         AddposComponent,
-        PosComponent
+        PosComponent,
+        PosprofileComponent
     ],
     providers: [
         AppSettings,

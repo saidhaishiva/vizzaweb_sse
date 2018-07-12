@@ -2,8 +2,8 @@ import { Menu } from './menu.model';
 
 export const verticalMenuItems = [
     new Menu (0, 'Dashboard', '/dashboard', null, 'dashboard', null, false, 0),
-    // new Menu (1, 'Doctors', '/pos', null, 'supervisor_account', null, false, 0),
-    new Menu (1, 'Add POS', '/addpos', null, 'supervisor_account', null, false, 0),
+    new Menu (1, 'POS List', '/pos', null, 'supervisor_account', null, false, 0),
+    new Menu (2, 'Add POS', '/addpos', null, 'supervisor_account', null, false, 0),
     // new Menu (2, 'Qualification', '/qualification', null, 'supervisor_account', null, false, 0),
     // new Menu (3, 'Masters', '/masters', null, 'dashboard', null, false, 0),
     // new Menu (4, 'Me & MyFamily', '/users', null, 'supervisor_account', null, false, 0),

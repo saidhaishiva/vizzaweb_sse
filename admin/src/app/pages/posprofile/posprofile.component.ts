@@ -19,14 +19,14 @@ declare var google: any;
 
 @Component({
   selector: 'app-doctorprofile',
-  templateUrl: './doctorprofile.component.html',
-  styleUrls: ['./doctorprofile.component.scss'],
+  templateUrl: './posprofile.component.html',
+  styleUrls: ['./posprofile.component.scss'],
     animations: [ listTransition ],
     host: {
         '[@listTransition]': ''
     }
 })
-export class DoctorprofileComponent implements OnInit {
+export class PosprofileComponent implements OnInit {
     public settings: Settings;
     public personal: any;
     public clinicDetails: any;
