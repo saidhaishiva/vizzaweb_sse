@@ -1,10 +1,10 @@
 {
-  "name": "Vizza",
+  "name": "Meditimes-Superadmin",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 4203",
+    "start": "ng serve --host 0.0.0.0 --port 4205",
     "lint": "ng lint",
     "test": "ng test --code-coverage",
     "build": "ng build --target=production --environment=prod --aot=false",
@@ -27,6 +27,7 @@
     "@angular/platform-browser": "5.2.2",
     "@angular/platform-browser-dynamic": "5.2.2",
     "@angular/router": "5.2.2",
+    "@ng-select/ng-select": "^2.0.0",
     "@swimlane/ngx-charts": "7.0.1",
     "@swimlane/ngx-datatable": "11.1.7",
     "@types/html2canvas": "0.0.33",

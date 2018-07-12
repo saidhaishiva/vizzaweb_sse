@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { MenuService } from '../menu/menu.service';
+import {Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,8 +15,8 @@ export class SidenavComponent implements OnInit {
   public userImage= '../assets/img/users/user.jpg';
   public menuItems:Array<any>;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public menuService:MenuService){
-      this.settings = this.appSettings.settings; 
+  constructor(public appSettings: AppSettings, public menuService: MenuService, public router: Router) {
+      this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
@@ -36,5 +37,9 @@ export class SidenavComponent implements OnInit {
       }
     }
   }
+    logout() {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
+    }
 
 }

@@ -4,25 +4,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
-import { LoginService } from './shared/services/login.service';
-import { ConfigurationService } from './shared/services/configuration.service';
-import { AuthService } from './shared/services/auth.service';
-import { CommonService } from './shared/services/common.service';
 import {HttpClientModule} from '@angular/common/http';
-import { HttpModule } from '@angular/http';
-import { ToastrModule } from 'ngx-toastr';
-
-
-
-
 import { AgmCoreModule } from '@agm/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { HttpModule } from '@angular/http';
+import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule} from '@angular/material';
+
+import { NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {RejectDoctor} from './pages/doctorprofile/doctorprofile.component';
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  wheelPropagation: true,
-  suppressScrollX: true               
-};
+    wheelPropagation: true,
+    suppressScrollX: true};
 import { CalendarModule } from 'angular-calendar';
 import { SharedModule } from './shared/shared.module';
 import { PipesModule } from './theme/pipes/pipes.module';
@@ -30,8 +28,7 @@ import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { PagesComponent } from './pages/pages.component';
-import { BlankComponent } from './pages/blank/blank.component';
-import { SearchComponent } from './pages/search/search.component';
+// import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { AppSettings } from './app.settings';
@@ -45,54 +42,88 @@ import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.co
 import { ApplicationsComponent } from './theme/components/applications/applications.component';
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
+
+import { ConfigurationService } from './shared/services/configuration.service';
+import { AuthService } from './shared/services/auth.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
+
+import { LoginService } from './shared/services/login.service';
+import { UsersService } from './shared/services/users.service';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { CommonService } from './shared/services/common.service';
+import { ConfirmPasswordComponent } from './pages/confirm-password/confirm-password.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { FaqComponent } from './pages/faq/faq.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import {DoctorprofileComponent} from './pages/doctorprofile/doctorprofile.component';
+import {ClinicimageviewComponent} from './pages/doctorprofile/clinicimageview/clinicimageview.component';
+import { DoctorsService } from './shared/services/doctors.service';
+import { DoctornotesComponent } from './pages/doctorprofile/doctornotes/doctornotes.component';
+import {DashboardService} from './shared/services/dashboard.service';
 import { AddposComponent } from './pages/addpos/addpos.component';
+import { PosComponent } from './pages/pos/pos.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
-    ReactiveFormsModule,
-      HttpClientModule,
-      HttpModule,
-      ToastrModule.forRoot(),
-      AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
-    }), 
-    PerfectScrollbarModule, 
-    CalendarModule.forRoot(),
-    SharedModule,
-    PipesModule,
-    routing
-  ],
-  declarations: [
-    AppComponent,
-    PagesComponent,
-    BlankComponent,
-    SearchComponent,
-    NotFoundComponent,
-    ErrorComponent,
-    SidenavComponent,
-    VerticalMenuComponent,
-    HorizontalMenuComponent,
-    BreadcrumbComponent,
-    FlagsMenuComponent,
-    FullScreenComponent,
-    ApplicationsComponent,
-    MessagesComponent,
-    UserMenuComponent,
-      AddposComponent
-  ],
-  providers: [ 
-    AppSettings,
-      ConfigurationService,
-      LoginService,
-      AuthService,
-      CommonService,
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    { provide: OverlayContainer, useClass: CustomOverlayContainer }
-  ],
-  bootstrap: [AppComponent],
-
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        NgxDatatableModule,
+        ToastrModule.forRoot(),
+        FormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        HttpModule,
+        ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
+        }),
+        PerfectScrollbarModule,
+        CalendarModule.forRoot(),
+        SharedModule,
+        PipesModule,
+        NgxPaginationModule,
+        routing
+    ],
+    declarations: [
+        AppComponent,
+        PagesComponent,
+        NotFoundComponent,
+        ErrorComponent,
+        SidenavComponent,
+        VerticalMenuComponent,
+        HorizontalMenuComponent,
+        BreadcrumbComponent,
+        FlagsMenuComponent,
+        FullScreenComponent,
+        ApplicationsComponent,
+        MessagesComponent,
+        UserMenuComponent,
+        ForgotPasswordComponent,
+        ConfirmPasswordComponent,
+        AboutUsComponent,
+        FaqComponent,
+        ContactUsComponent,
+        DoctorprofileComponent,
+        ClinicimageviewComponent,
+        DoctornotesComponent,
+        RejectDoctor,
+        AddposComponent,
+        PosComponent
+    ],
+    providers: [
+        AppSettings,
+        ConfigurationService,
+        AuthService,
+        LoginService,
+        UsersService,
+        AuthGuardService,
+        DoctorsService,
+        CommonService,
+        DashboardService,
+        { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+        { provide: OverlayContainer, useClass: CustomOverlayContainer }
+    ],
+    bootstrap: [AppComponent],
+    entryComponents: [ ClinicimageviewComponent, DoctornotesComponent, RejectDoctor,  ]
 })
 export class AppModule { }

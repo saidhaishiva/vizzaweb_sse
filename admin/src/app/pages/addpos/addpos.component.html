@@ -122,7 +122,7 @@
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Address2" formControlName="address2">
                             </mat-form-field>
-                            <mat-form-field class="w-100">
+                            <mat-form-field cla     ss="w-100">
                                 <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (input)="getPostal($event.target.value)" formControlName="pincode" required >
                                 <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>

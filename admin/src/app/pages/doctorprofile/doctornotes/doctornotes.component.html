@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content >
+  <mat-form-field class="w-100">
+    <textarea matInput placeholder="{{data.title}}" rows="5" [(ngModel)]="notes"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="float-right">
+  <button mat-raised-button color="primary" (click)="onNoClick()"  cdkFocusInitial>Ok</button>
+</div>
+</div>
+</div>
+
+<div class="row mt-5" >
+  <div class="col-md-12" *ngIf="data.title == 'Notify'">
+    <div fxLayout="column">
+      <div class="flex-p">
+        <ngx-datatable
+                class="material"
+                [rows]="rows"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [externalPaging]="true"
+                [count]="totalNotes"
+                [offset]="pageOffSet"
+                [limit]="recordsperpage"
+                (page)='setPage($event)'>
+
+          <ngx-datatable-column name="createddate">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="note">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+      </div>
+    </div>
+
+  </div>
+</div>

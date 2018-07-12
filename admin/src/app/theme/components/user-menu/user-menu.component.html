@@ -10,7 +10,7 @@
                 <p>Emilio Verdines <br> <small>Web developer</small></p>
             </div>  
         </mat-toolbar>
-        <a mat-menu-item routerLink="profile"> 
+        <a mat-menu-item routerLink="profile" [routerLink]="['/users']">
             <mat-icon>person</mat-icon>
             <span>Profile</span> 
         </a>
@@ -27,7 +27,7 @@
             <span>Help</span> 
         </a>
         <div class="divider"></div>
-        <a mat-menu-item routerLink="/login"> 
+        <a mat-menu-item (click)="logout()">
             <mat-icon>power_settings_new</mat-icon>
             <span>Log out</span> 
         </a>

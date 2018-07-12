@@ -1,0 +1,107 @@
+<section id="appointment" class="doctorlist">
+  <div class="row pr-2 pl-2">
+      <div class="col-md-6">
+          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="tabChange(group.value)" value="pending">
+              <mat-button-toggle value="pending">
+                  <mat-icon>timer</mat-icon>Pending
+              </mat-button-toggle>
+              <mat-button-toggle value="onhold">
+                  <mat-icon> touch_app</mat-icon> On hold
+              </mat-button-toggle>
+              <mat-button-toggle value="rejected">
+                  <mat-icon>block</mat-icon> Rejected
+              </mat-button-toggle>
+              <mat-button-toggle value="approved">
+                  <mat-icon>check</mat-icon> Approved
+              </mat-button-toggle>
+          </mat-button-toggle-group>
+      </div>
+  </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div fxLayout="column">
+                        <div class="flex-p">
+                            <div fxLayout="column" class="mat-elevation-z8">
+                                <div class="row pr-2 pl-2 pt-2">
+                                    <div class="col-md-12 text-right">
+                                        <mat-form-field class="w-25">
+                                            <input matInput placeholder="Search By Doctor Name or Mobile..." (keyup)="updateFilter($event)">
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ngx-datatable
+                                    class="material"
+                                    [rows]="rows"
+                                    [columnMode]="'force'"
+                                    [headerHeight]="50"
+                                    [footerHeight]="50"
+                                    [rowHeight]="'auto'"
+                                    [externalPaging]="true"
+                                    [count]="totalDoctors"
+                                    [offset]="pageOffSet"
+                                    [limit]="recordsperpage"
+                                    (page)='setPage($event)'>
+
+                                <ngx-datatable-column name="doctorname">
+                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row"  >
+<mat-card class="main-card">
+    <mat-card-header class="mydoctor">
+        <ul class="row w-100">
+            <li class="col text-left">Exp: {{row.experience}}</li>
+            <li class="col text-center">~ {{row.distance}}</li>
+            <li class="col text-right"><i class="fas fa-rupee-sign"></i> {{row.minrate}} To <i class="fas fa-rupee-sign"></i> {{row.maxrate}}</li>
+        </ul>
+    </mat-card-header>
+    <div class="row pt-2" fxLayoutAlign="center center"  style="cursor: pointer">
+        <div class="col-md-4" fxLayoutAlign="space-around center" (click)="doctorProfile(row.doctorid)">
+            <img src="assets/img/users/default-user.jpg"  alt="" *ngIf="row.doctorprofile == ''">
+            <img src="{{webhost + '/' + row.doctorprofile}}"  alt="" *ngIf="row.doctorprofile != ''">
+        </div>
+        <div class="col-md-6">
+
+                                             <p fxLayoutAlign="start center" class="text-capitalize" (click)="doctorProfile(row.doctorid)" style="cursor: pointer"><i class="fas fa-user mr-2">
+
+                                             </i><strong> Dr. {{row.doctorname}}</strong></p>
+                                             <p fxLayoutAlign="start center" class="text-capitalize"><i class="fas fa-stethoscope  mr-2"></i> {{row.speciality}}</p>
+            <p fxLayoutAlign="start center" class="text-capitalize"> <i class="fas fa-hospital  mr-2"></i> {{row.hospitalname}}  <span *ngIf="row.count > 0">  +  {{row.count}}</span> </p>
+        </div>
+        <div class="col-md-2 ">
+            <i class="material-icons" *ngIf="group.value != 'alldoctors'" style="cursor: pointer" matTooltip="Queries" routerLink="/queries">
+                question_answer
+            </i>
+            <i class="material-icons" style="cursor: pointer" matTooltip="Book Appoinment">
+                event_available
+            </i>
+        </div>
+    </div>
+</mat-card>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+</section>
+<style>
+    datatable-header-cell{
+        display: block;
+    }
+    datatable-header{
+        height: auto !important;
+    }
+    .datatable-header-cell-wrapper{
+        display: none;
+    }
+</style>
+

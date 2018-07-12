@@ -1,46 +1,71 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {AddfamilymembersComponent} from './addfamilymembers/addfamilymembers.component';
-
+import {AuthService} from './../../shared/services/auth.service';
+import {DashboardService} from '../../shared/services/dashboard.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    public form: FormGroup;
+
     public settings: Settings;
+    response: any;
+    status: any;
+    data: any;
+    details: any;
 
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public dialog: MatDialog) {
+
+    constructor(public appSettings: AppSettings, public Dashboard: DashboardService, public authService: AuthService) {
         this.settings = this.appSettings.settings;
-        this.form = this.fb.group({
-            'familymember': ['', Validators.required],
-            'pincode': ['', Validators.required],
-            'suminsure': ['', Validators.required],
-            'mobile': [''],
-            'email': [''],
-
-        });
+        this.data = '';
+        this.details = '';
     }
 
     ngOnInit() {
+        // call service
+        this.settings.loadingSpinner = true;
+        this.doctorDetails();
+
     }
 
-    insureList(data) {
-        console.log(data);
-
+    public doctorDetails() {
+        // this.settings.loadingSpinner = false;
+        // const data = {
+        //     'platform': 'webadmin',
+        //     'roleid': this.authService.getRoleId(),
+        //     'userid' : this.authService.getUserId()
+        // };
+        // this.Dashboard.getDoctorDetails(data).subscribe(
+        //     (successData) => {
+        //         this.dashboardSuccess(successData);
+        //     },
+        //     (error) => {
+        //         this.dashboardFailure(error);
+        //     }
+        // );
     }
-    openDialog() {
-        let dialogRef = this.dialog.open(AddfamilymembersComponent, {
-            width: '400px',
-        });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
-    }
+    // handle success data
+
+    // public dashboardSuccess(successData) {
+    //     this.settings.loadingSpinner = false;
+    //     if (successData.IsSuccess) {
+    //         console.log(successData.ResponseObject, 'successData.ResponseObject');
+    //         this.data = successData.ResponseObject.count;
+    //         this.details = successData.ResponseObject.doctor;
+    //         console.log(this.data, 'count');
+    //         console.log(this.details, 'doc');
+    //     }
+    // }
+    //
+    // // handle error data
+    //
+    // public dashboardFailure(error) {
+    //     console.log(error);
+    //     this.settings.loadingSpinner = false;
+    // }
+
 }

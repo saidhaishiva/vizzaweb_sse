@@ -4,7 +4,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 
-
 @Injectable()
 export class LoginService {
 
@@ -34,7 +33,7 @@ export class LoginService {
         console.log(json);
         const token = this.authService.getAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Accesstoken: token})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'admin/create_pos';
         return this.http.post(url , json, httpOptions)

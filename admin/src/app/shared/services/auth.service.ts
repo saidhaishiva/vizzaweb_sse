@@ -50,6 +50,6 @@ export class AuthService {
             // route to home component
             // alert('checkAuthentication');
             this.router.navigate(['/dashboard']);
-        }   
+        }
     }
 }
