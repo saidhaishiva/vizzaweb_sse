@@ -49,6 +49,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ContactComponent } from './pages/contact/contact.component';
 import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.component';
 
 import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
@@ -96,6 +97,8 @@ import {RegisterComponent} from './pages/register/register.component';
       ForgotPasswordComponent,
       HealthinsurancelistComponent,
       ComparelistComponent,
+      HomeComponent,
+      ContactComponent,
       HomeComponent,
       GrouppopupComponent,
       FixappointmentComponent,
