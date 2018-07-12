@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <div class="row proposal">
+    <div class="col-md-12">
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+            <mat-accordion class="mt-4 w-100 float-left">
+              <mat-expansion-panel  expanded>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    GROUP A
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+<div class="row mt-3">
+  <div class="col-md-6 box-card pt-3">
+    <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+    <div class="row">
+      <div class="col-md-12">
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Name">
+    </mat-form-field>
+      </div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="DOB">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Age">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Occupation">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Annual Income">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Aadhar Number">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="PAN Number">
+      </mat-form-field></div>
+    </div>
+    </div>
+  <div class="col-md-6 box-card pt-3">
+    <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="w-100">
+          <textarea matInput placeholder="Address" rows="5"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="PIN Code">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="City">
+      </mat-form-field></div>
+      <div class="col-md-12"><mat-form-field class="w-100">
+        <input matInput placeholder="Email ID">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Mobile Number">
+      </mat-form-field></div>
+      <div class="col-md-6"><mat-form-field class="w-100">
+        <input matInput placeholder="Alternate Number">
+      </mat-form-field></div>
+    </div>
+    </div>
+  <div class="col-md-12 mt-3 box-card">
+    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="isAppUser = $event.checked" formControlName="appUserFlag">Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
+  </div>
+</div>
+
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    GROUP B
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <div class="proposal-buttom mt-3 float-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>INSURED DETAILS</ng-template>
+            kjlhjkhkljh
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>SUMMARY</ng-template>
+          You are now done.
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>

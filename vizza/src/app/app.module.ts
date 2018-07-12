@@ -57,6 +57,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
+import { ProposalComponent } from './pages/proposal/proposal.component';
 
 @NgModule({
   imports: [
@@ -103,7 +104,8 @@ import {RegisterComponent} from './pages/register/register.component';
       GrouppopupComponent,
       FixappointmentComponent,
       PosComponent,
-      RegisterComponent
+      RegisterComponent,
+      ProposalComponent
   ],
   providers: [
       AppSettings,
