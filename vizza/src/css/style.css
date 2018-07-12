@@ -255,7 +255,8 @@ a:hover {
   cursor: default; }
 
 .card-group-pop {
-  background-color: #e8e8e8 !important; }
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  height: 265px; }
 
 .horizontal-menu-item .horizontal-sub-menu {
   background: #0b9444 !important;
@@ -283,5 +284,8 @@ a:hover {
 
 .nav-item.active {
   background: #eaeaea; }
+
+.scrollmenu {
+  flex-wrap: nowrap; }
 
 /*# sourceMappingURL=style.css.map */
