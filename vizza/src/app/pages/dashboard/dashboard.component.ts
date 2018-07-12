@@ -24,12 +24,9 @@ export class DashboardComponent implements OnInit {
     motherBtn: boolean;
     fatherInLawBTn: boolean;
     motherInLawBtn: boolean;
-    sonBtn: boolean;
-    daugtherBtn: boolean;
     closeIcon: boolean;
 
     index: any;
-    member: any;
     memberLength: any;
     auto: boolean;
     finalData: any;
@@ -51,7 +48,6 @@ export class DashboardComponent implements OnInit {
     equiryId: any;
     webhost: any;
     tabIndex: number;
-    breadcrumbHome: boolean;
 
     addSonItems: any;
     count: any;
@@ -65,6 +61,7 @@ export class DashboardComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
        // sessionStorage.sideMenu = false;
+        // this.settings.loadingSpinner = true
         if(!sessionStorage.sideMenu) {
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
@@ -298,6 +295,8 @@ export class DashboardComponent implements OnInit {
     }
     // this function will get the policy quotation lists
     getPolicyQuotationList() {
+        this.settings.loadingSpinner = true;
+
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
         } else {
@@ -347,7 +346,7 @@ export class DashboardComponent implements OnInit {
         if (successData.IsSuccess) {
 
             let dialogRef = this.dialog.open(GrouppopupComponent, {
-                width: '500px', data: {comparedata: successData.ResponseObject}});
+                width: '1500px', data: {comparedata: successData.ResponseObject}});
             dialogRef.disableClose = true;
 
             dialogRef.afterClosed().subscribe(result => {
@@ -387,7 +386,7 @@ export class DashboardComponent implements OnInit {
 
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
         } else {
-
+alert('Invalid pincode');
             this.toast.error(successData.ErrorObject, 'Failed');
         }
     }
@@ -471,7 +470,7 @@ export class DashboardComponent implements OnInit {
             'family_details': this.finalData,
             'family_group_name': value.name,
             'enquiry_id': value.enquiry_id,
-            'created_by': 0,
+            'created_by': '0',
             'role_id': 4,
         };
         console.log(data, 'data222');
@@ -522,17 +521,11 @@ export class DashboardComponent implements OnInit {
 
 
     public updatePolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = false;
+        this.settings.loadingSpinner = true;
 
         if (successData.IsSuccess) {
             console.log(index, 'indexindex');
-            let dialogRef = this.dialog.open(GrouppopupComponent, {
-                width: '1500px', data: {comparedata: successData.ResponseObject}});
-            dialogRef.disableClose = true;
 
-            dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
-            });
             this.firstPage = false;
             this.secondPage = true;
             this.insuranceLists = successData.ResponseObject;
