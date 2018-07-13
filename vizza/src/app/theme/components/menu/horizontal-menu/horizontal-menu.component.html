@@ -19,7 +19,7 @@
         <a *ngIf="menu.hasSubMenu" mat-button
             fxLayout="row" [fxLayoutAlign]="(settings.menuType=='default') ? 'start center' : 'center center'"
             [matTooltip]="menu.title" matTooltipPosition="above" [matTooltipDisabled]="(settings.menuType=='mini') ? 'false' : 'true'"
-            [id]="'horizontal-menu-item-'+menu.id">
+            [id]="'horizontal-menu-item-'+menu.id" [routerLink]="[menu.routerLink]">
             <mat-icon class="horizontal-menu-icon">{{menu.icon}}</mat-icon>
             <span class="horizontal-menu-title">{{menu.title}}</span>
         </a>
