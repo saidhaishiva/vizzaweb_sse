@@ -13,6 +13,7 @@ import {ContactComponent} from './pages/contact/contact.component';
 import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
 import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
+import {ProposalComponent} from './pages/proposal/proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,11 +38,15 @@ export const routes: Routes = [
             { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
+            { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
+            { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
+            { path: 'fix-appointment', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
+            { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
+            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
+
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
-    { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
-    { path: 'register', loadChildren: 'app/pages/register/register.module#RegisterModule' },
     { path: 'error', component: ErrorComponent, data: { breadcrumb: 'Error' } },
     { path: '**', component: NotFoundComponent }
 ];

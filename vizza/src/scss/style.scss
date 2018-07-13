@@ -13,6 +13,9 @@ button:focus{
 .color-pink{
   color:$pink-color;
 }
+.bg-pink{
+  color:$pink-color;
+}
 .dashboard{
   .mat-card{
     background: rgba(243, 240, 240, 0.87) !important;
@@ -382,4 +385,25 @@ background: #ccc !important;
 }
 .scrollmenu{
   flex-wrap: nowrap;
+}
+.proposal{
+  mat-expansion-panel-header{
+    background: $green-color !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: #fff !important;
+    }
+  }
+  .mat-expansion-panel-body{
+    border: 1px solid $green-color;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: $pink-color !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: $pink-color !important;
+
+  }
+  .box-card{
+    background: #f5f5f5;
+  }
 }
