@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit {
       sessionStorage.motherBtn = '';
       sessionStorage.fatherInLawBTn = '';
       sessionStorage.motherInLawBtn = '';
+      sessionStorage.changedTabDetails = '';
+      sessionStorage.changeSuninsuredAmount = '';
+      sessionStorage.changedTabIndex = '';
   }
 
 }
