@@ -30,7 +30,7 @@ export const routes: Routes = [
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
-            { path: 'pos-profile/:id', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
+            { path: 'pos-profile/:id/:status', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
 
 
         ]

@@ -5,21 +5,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="user-img">
-                            <img [hidden]="personal.profileimagepath !=''" src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
-                            <img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"
-                                  class="rounded-circle">
-                            <h4 class="user-name mt-2">Dr.{{personal.doctorname}}</h4>
+                            <img  src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
+                            <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
+                                  <!--class="rounded-circle">-->
+                            <h4 class="user-name mt-2">{{posData.pos_firstname}}.{{posData.pos_lastname}}</h4>
 
                         </div>
                         <div class="card-footer">
                     <span class="float-left">
                          <div class="float-left"><i
                                  class="fas fa-user-md"></i>
-                                            <span >{{doctorExperience.exp}} Year(s), </span>
+                                            <span >{{doctorExperience.pos_email}} Year(s), </span>
                                             <span >{{doctorExperience.experiencemonths}} Month(s)</span>
                                         </div>
                     </span>
-                            <span class="float-right"><i class="fas fa-phone"></i> {{personal.mobilenumber}}</span>
+                            <span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -49,8 +49,8 @@
                             </p>
                             <p fxLayout="row" fxLayoutAlign="start center">
                                 <span>Address:</span>
-                                <span class="text-capitalize">{{personal.address1}}<span
-                                        [hidden]="personal.address2 == ''">, </span>{{personal.address2}}, {{personal.cityname}}<span
+                                <span class="text-capitalize">{{posData.pos_address1}}<span
+                                        [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}, {{personal.cityname}}<span
                                         [hidden]="personal.cityname == ''">-</span>{{personal.pincode}}</span>
                             </p>
                             <hr>
@@ -66,21 +66,21 @@
             <div class="col-md-6 pt-2" style="background: #f5f5f5">
                 <mat-tab-group #tabGroup [selectedIndex]="tabIndex"
                                (selectedIndexChange)="onSelectedIndexChange($event)">
-                    <mat-tab label="Physical verification">
-                        <div class="p-5 pt-2">
-                            <div class="row">
-                                <div class="col-md-6" *ngFor="let item of physical">
-                                    <mat-checkbox [(ngModel)]="item.checked">{{item.displayname}}</mat-checkbox>
-                                </div>
-                            </div>
+                    <!--<mat-tab label="Physical verification">-->
+                        <!--<div class="p-5 pt-2">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-6" *ngFor="let item of physical">-->
+                                    <!--<mat-checkbox [(ngModel)]="item.checked">{{item.displayname}}</mat-checkbox>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                        </div>
-                    </mat-tab>
+                        <!--</div>-->
+                    <!--</mat-tab>-->
                     <mat-tab label="Online verification">
                         <div class="p-5 pt-2">
                             <div class="row">
                                 <div class="col-md-6" *ngFor="let item of online">
-                                    <mat-checkbox [(ngModel)]="item.checked">{{item.displayname}}</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="item.checked" >{{item.doc_field_name}}</mat-checkbox>
                                 </div>
                             </div>
                         </div>
@@ -90,18 +90,18 @@
                 <div class="col-md-12 mt-4">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 1"
+                            <button mat-raised-button class="secondary-bg-color"
                                     (click)="getNotes('Notify')">Notify
                             </button>
-                            <button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"
-                                    (click)="getNotes('Physical Comments')">Comments
-                            </button>
-                            <button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 1"
+                            <!--<button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"-->
+                                    <!--(click)="getNotes('Physical Comments')">Comments-->
+                            <!--</button>-->
+                            <button mat-raised-button class="secondary-bg-color"
                                     (click)="getNotes('Online Comments')">Comments
                             </button>
                         </div>
                         <div class="col-md-6 text-right">
-                            <button mat-raised-button color="warn" *ngIf="currentTap == 1" (click)=" rejectConfirm()">
+                            <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
                                 Reject
                             </button>
                             <button mat-raised-button color="primary" (click)="verificationSubmit()">Submit</button>

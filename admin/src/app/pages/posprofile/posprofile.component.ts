@@ -8,11 +8,12 @@ import { listTransition } from '../../theme/utils/app-animation';
 import {ClinicimageviewComponent} from './clinicimageview/clinicimageview.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
-import { GoogleMapsAPIWrapper } from '@agm/core';
+// import { GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmCoreModule } from '@agm/core';
 import {DoctornotesComponent} from './doctornotes/doctornotes.component';
 import { ToastrService } from 'ngx-toastr';
 import {Router } from '@angular/router';
+import { CommonService } from '../../shared/services/common.service';
 
 
 declare var google: any;
@@ -33,7 +34,8 @@ export class PosprofileComponent implements OnInit {
     public professional: any;
     public signature: any;
     public webhost: any;
-    public doctorid: number;
+    public posid: any;
+    public posstatus: any;
     public lat: any;
     public lng: any;
     public zoom: any;
@@ -51,10 +53,12 @@ export class PosprofileComponent implements OnInit {
     public images: Array<any>;
     public doctor: Array<any>;
     public doctorExperience: Array<any>;
+    response: any;
+    posData: any;
 
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
-                public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog) {
+                public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
 
         this.physical = [];
         this.online = [];
@@ -76,7 +80,9 @@ export class PosprofileComponent implements OnInit {
       //   this.professional.doctorExperience.experiencemonths = 0;
 
         this.route.params.forEach((params: Params) => {
-            this.doctorid = params.id;
+            console.log(params, 'params');
+            this.posid = params.id;
+            this.posstatus = params.status;
         });
 
     }
@@ -87,7 +93,9 @@ export class PosprofileComponent implements OnInit {
       this.webhost = this.config.getimgUrl();
 
 
-      this.settings.loadingSpinner = false;
+      // this.settings.loadingSpinner = false;
+      this.getPOSList();
+      this.getFields();
 
   }
 
@@ -102,12 +110,73 @@ export class PosprofileComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
+    getPOSList() {
+        this.settings.loadingSpinner = true;
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+            'status': this.posstatus
+        };
+        this.common.getPOSList(data).subscribe(
+            (successData) => {
+                this.getPOSListSuccess(successData);
+            },
+            (error) => {
+                this.getPOSListFailure(error);
+            }
+        );
+    }
+    getPOSListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.response = successData.ResponseObject;
+            if (successData.ResponseObject.length > 0) {
+                for (let i = 0; i < this.response.length; i++) {
+                    if (this.response[i].pos_status == this.posstatus) {
+                        this.posData = this.response[i];
+                    }
+                }
+            } else {
+                this.posData = this.response;
+            }
+        } else {
+            this.settings.loadingSpinner = false;
+        }
+    }
+    getPOSListFailure(error) {
+        console.log(error);
+    }
+    getFields() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+        }
+        this.common.getFields(data).subscribe(
+            (successData) => {
+                this.getFieldsSuccess(successData);
+            },
+            (error) => {
+                this.getFieldsFailure(error);
+            }
+        );
+    }
+    getFieldsSuccess(successData) {
+        console.log(successData, 'filedlistsss');
+        if (successData.IsSuccess) {
+            this.online = successData.ResponseObject;
+        }
+    }
+    getFieldsFailure(error) {
+        console.log(error);
+    }
 
 
     getNotes(title) {
         const dialogRef = this.dialog.open(DoctornotesComponent, {
             width: '800px',
-            data: {title: title, doctorid: this.doctorid}
+            // data: {title: title, doctorid: this.doctorid}
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -122,48 +191,47 @@ export class PosprofileComponent implements OnInit {
 
         });
     }
-    getDoctorProfileSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.personal = successData.ResponseObject.personalDetails;
-      console.log(this.personal);
-      this.clinicDetails = successData.ResponseObject.clinicDetails;
-      this.professional = successData.ResponseObject.professionalDetails;
-      this.qualifications = this.professional.qualifications;
-      this.doctorExperience = this.professional.doctorExperience[0];
-      console.log(this.doctorExperience);
-      this.specialityDetails = this.professional.specialityDetails;
-      this.registrationDetails = this.professional.registrationDetails;
-      this.doctor = this.professional.doctor;
-      this.signature = successData.ResponseObject.signatureDetails;
-      this.images = this.professional.images;
-      this.lat = parseFloat(successData.ResponseObject.clinicDetails[0].latitude);
-      this.lng = parseFloat(successData.ResponseObject.clinicDetails[0].longitude);
-      }
-    }
-    VerificationStatusFailure(error) {
-    console.log(error);
-    }
+    verificationSubmit() {
+        this.field = [];
 
-
-    VerificationStatusSuccess(successData) {
-
-        this.verification = successData.ResponseObject.verificationData;
-        console.log(this.verification, 'verification');
-        for (let i = 0; i < this.verification.length; i++) {
-            if (this.verification[i].type == 'physical') {
-                this.verification[i].checked = (this.verification[i].verification_status == 1) ? true : false;
-                this.physical.push(this.verification[i]);
-                } else {
-                if (this.verification[i].type == 'online') {
-                    this.verification[i].checked = (this.verification[i].verification_status == 1) ? true : false;
-                    this.online.push(this.verification[i]);
-                }
-            }
+        for (let i=0; i < this.online.length; i++) {
+            // if (i == 0) {
+                this.field.push({
+                    verification_status: (this.online[i].checked == true) ? '1' : '0',
+                    // verifiedby: 1,
+                    fieldid: this.online[i].doc_field_id,
+                });
+            // } else {
+                // this.field.push({
+                //     verification_status: (this.online[i].checked == true) ? '1' : '0',
+                //     fieldid: this.online[i].doc_field_id,
+                // });
+            // }
         }
-        console.log(this.verification, 'llkl');
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id':  this.auth.getAdminId(),
+            'fields': this.field,
+            'online_verification_notes': this.onlineVerificationNotes,
+            'online_verification_message': this.onlineVerificationMessage,
+            'pos_id': this.posid
+        };
+        this.common.updateVerification(data).subscribe(
+            (successData) => {
+                this.verificationSuccess(successData);
+            },
+            (error) => {
+                this.verificationFailure(error);
+            }
+        );
     }
-    getDoctorProfileFailure(error) {
-        console.log(error);
+
+    verificationSuccess(successData) {
+        console.log(successData);
+    }
+    verificationFailure(error) {
+    console.log(error);
     }
     onSelectedIndexChange(newTabIndex) {
         this.currentTap = newTabIndex;
@@ -178,6 +246,30 @@ export class PosprofileComponent implements OnInit {
     updateVerificationFailure(error) {
         console.log(error);
     }
+    rejectPOS() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id':  this.auth.getAdminId(),
+            'online_verification_notes': this.onlineVerificationNotes,
+            'online_verification_message': this.onlineVerificationMessage,
+            'pos_id': this.posid
+        };
+        this.common.rejectPOS(data).subscribe(
+            (successData) => {
+                this.rejectPOSSuccess(successData);
+            },
+            (error) => {
+                this.rejectPOSFailure(error);
+            }
+        );
+    }
+    rejectPOSSuccess(successData) {
+        console.log(successData);
+    }
+    rejectPOSFailure(error) {
+        console.log(error);
+    }
     rejectConfirm() {
         const dialogRef = this.dialog.open(RejectDoctor, {
             width: '350px',
@@ -185,6 +277,7 @@ export class PosprofileComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result == 'Yes') {
+                this.rejectPOS();
                 this.toastr.success('Doctor rejected successfully');
                 this.router.navigate(['/pos']);
 

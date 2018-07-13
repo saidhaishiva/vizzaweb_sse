@@ -31,7 +31,7 @@ export class PosComponent implements OnInit {
     holdPOSList: Array<any>;
     rejectedPOSList: Array<any>;
     filters: string;
-    tabStatus: number;
+    tabStatus: any;
     pageno: number;
     recordsperpage: any;
     public webhost: string;
@@ -70,9 +70,9 @@ export class PosComponent implements OnInit {
         // this.settings.loadingSpinner = true;
         this.webhost = this.config.getimgUrl();
         this.filters = 'No';
-        this.tabStatus = 0;
+        this.tabStatus = '0';
         this.pageno = 1;
-        this.tabValue = 'pending';
+        this.tabValue = 'inactive';
         this.recordsperpage = 10;
         this.pendingPOSList = [];
         this.approvedPOSList = [];
@@ -84,7 +84,7 @@ export class PosComponent implements OnInit {
         this.approvedPOSCount = 0;
         this.holdPOSCount = 0;
         this.rejectedPOSCount = 0;
-        this.POSStatus = 0;
+        this.POSStatus = '0';
 
 
     }
@@ -102,20 +102,20 @@ export class PosComponent implements OnInit {
 
     getPOSList() {
         this.settings.loadingSpinner = true;
-        if (this.tabStatus === 0) {
+        if (this.tabStatus == '0') {
             this.tabValue = 'inactive';
-        } else if (this.tabStatus === 1) {
+        } else if (this.tabStatus == '1') {
             this.tabValue = 'active';
-        } else if (this.tabStatus === 2) {
+        } else if (this.tabStatus == '2') {
             this.tabValue = 'rejected';
         } else {
             this.tabValue = 'onhold';
         }
-        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
-            'admin_id': this.auth.getAdminId()
+            'admin_id': this.auth.getAdminId(),
+            'status': this.POSStatus
         };
         this.common.getPOSList(data).subscribe(
             (successData) => {
@@ -132,31 +132,31 @@ export class PosComponent implements OnInit {
             this.settings.loadingSpinner = false;
             console.log(successData);
             let POS = [];
-            if (this.tabStatus === 0) {
-                this.pendingPOSList = successData.ResponseObject.details;
+            if (this.tabStatus == '0') {
+                this.pendingPOSList = successData.ResponseObject;
                 POS = [];
                 POS = this.pendingPOSList;
-                this.pendingPOSCount = successData.ResponseObject.total;
+                this.pendingPOSCount = successData.ResponseObject.length;
                 this.totalPOS = this.pendingPOSCount;
 
-            } else if (this.tabStatus === 1) {
-                this.approvedPOSList = successData.ResponseObject.details;
+            } else if (this.tabStatus == '1') {
+                this.approvedPOSList = successData.ResponseObject;
                 POS = [];
                 POS = this.approvedPOSList;
-                this.approvedPOSCount = successData.ResponseObject.total;
+                this.approvedPOSCount = successData.ResponseObject.length;
                 this.totalPOS = this.approvedPOSCount;
 
-            } else if (this.tabStatus === 2) {
-                this.rejectedPOSList = successData.ResponseObject.details;
+            } else if (this.tabStatus == '2') {
+                this.rejectedPOSList = successData.ResponseObject;
                 POS = [];
                 POS = this.rejectedPOSList;
-                this.rejectedPOSCount = successData.ResponseObject.total;
+                this.rejectedPOSCount = successData.ResponseObject.length;
                 this.totalPOS = this.rejectedPOSCount;
             } else {
-                this.holdPOSList = successData.ResponseObject.details;
+                this.holdPOSList = successData.ResponseObject;
                 POS = [];
                 POS = this.holdPOSList;
-                this.holdPOSCount = successData.ResponseObject.total;
+                this.holdPOSCount = successData.ResponseObject.length;
                 this.totalPOS = this.holdPOSCount;
             }
 
@@ -165,6 +165,8 @@ export class PosComponent implements OnInit {
             setTimeout(() => {
                 this.loadingIndicator = false;
             }, 1500);
+        } else {
+            this.settings.loadingSpinner = false;
         }
     }
 
@@ -177,7 +179,7 @@ export class PosComponent implements OnInit {
         console.log(value);
         let POS = [];
         if (value === 'inactive') {
-            this.POSStatus = 0;
+            this.POSStatus = '0';
             if (this.pendingPOSList.length === 0) {
                 this.getPOSList();
             } else {
@@ -192,7 +194,7 @@ export class PosComponent implements OnInit {
                 }, 1500);
             }
         } else if (value === 'active') {
-            this.POSStatus = 1;
+            this.POSStatus = '1';
             if (this.approvedPOSList.length === 0) {
                 this.getPOSList();
             } else {
@@ -206,7 +208,7 @@ export class PosComponent implements OnInit {
                 }, 1500);
             }
         } else if (value === 'onhold') {
-            this.POSStatus = 3;
+            this.POSStatus = '3';
             if (this.holdPOSList.length === 0) {
                 console.log(this.holdPOSList.length);
                 this.getPOSList();
@@ -222,7 +224,7 @@ export class PosComponent implements OnInit {
                 }, 1500);
             }
         } else {
-            this.POSStatus = 2;
+            this.POSStatus = '2';
             if (this.rejectedPOSList.length === 0) {
                 this.getPOSList();
             } else {
@@ -239,8 +241,8 @@ export class PosComponent implements OnInit {
     }
     POSProfile(id) {
         console.log(id, 'skfkhsdkfhdkf');
-        this.settings.loadingSpinner = true;
-        this.router.navigate(['/pos-profile/' + id]);
+        // this.settings.loadingSpinner = true;
+        this.router.navigate(['/pos-profile/' + id + '/' + this.POSStatus]);
 
     }
     public updateFilter(event) {

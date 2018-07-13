@@ -47,37 +47,37 @@
                                     [limit]="recordsperpage"
                                     (page)='setPage($event)'>
 
-                                <ngx-datatable-column name="doctorname">
+                                <ngx-datatable-column name="pos_firstname">
                                     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row"  >
 <mat-card class="main-card">
     <mat-card-header class="mydoctor">
         <ul class="row w-100">
-            <li class="col text-left">Exp: {{row.experience}}</li>
-            <li class="col text-center">~ {{row.distance}}</li>
-            <li class="col text-right"><i class="fas fa-rupee-sign"></i> {{row.minrate}} To <i class="fas fa-rupee-sign"></i> {{row.maxrate}}</li>
+            <li class="col text-left">Education: {{row.doc_education}}</li>
+            <li class="col text-center">PanNO~ {{row.doc_pan_no}}</li>
+            <li class="col text-right"><i class="fas fa-rupee-sign"></i> {{row.pos_address2}}</li>
         </ul>
     </mat-card-header>
     <div class="row pt-2" fxLayoutAlign="center center"  style="cursor: pointer">
-        <div class="col-md-4" fxLayoutAlign="space-around center" (click)="POSProfile(row.doctorid)">
-            <img src="assets/img/users/default-user.jpg"  alt="" *ngIf="row.doctorprofile == ''">
-            <img src="{{webhost + '/' + row.doctorprofile}}"  alt="" *ngIf="row.doctorprofile != ''">
+        <div class="col-md-4" fxLayoutAlign="space-around center" (click)="POSProfile(row.pos_id)">
+            <!--<img src="assets/img/users/default-user.jpg"  alt="" *ngIf="row.doctorprofile == ''">-->
+            <!--<img src="{{webhost + '/' + row.doctorprofile}}"  alt="" *ngIf="row.doctorprofile != ''">-->
         </div>
         <div class="col-md-6">
 
-                                             <p fxLayoutAlign="start center" class="text-capitalize" (click)="POSProfile(row.doctorid)" style="cursor: pointer"><i class="fas fa-user mr-2">
+                                             <p fxLayoutAlign="start center" class="text-capitalize" (click)="POSProfile(row.pos_id)" style="cursor: pointer"><i class="fas fa-user mr-2">
 
-                                             </i><strong> Dr. {{row.doctorname}}</strong></p>
-                                             <p fxLayoutAlign="start center" class="text-capitalize"><i class="fas fa-stethoscope  mr-2"></i> {{row.speciality}}</p>
-            <p fxLayoutAlign="start center" class="text-capitalize"> <i class="fas fa-hospital  mr-2"></i> {{row.hospitalname}}  <span *ngIf="row.count > 0">  +  {{row.count}}</span> </p>
+                                             </i><strong>{{row.pos_firstname}}</strong></p>
+                                             <p fxLayoutAlign="start center" class="text-capitalize"><i class="fas fa-stethoscope  mr-2"></i> {{row.pos_email}}</p>
+            <p fxLayoutAlign="start center" class="text-capitalize"> <i class="fas fa-hospital  mr-2"></i> {{row.pos_mobileno}}  <span *ngIf="row.count > 0">  +  {{row.count}}</span> </p>
         </div>
-        <div class="col-md-2 ">
-            <i class="material-icons" *ngIf="group.value != 'alldoctors'" style="cursor: pointer" matTooltip="Queries" routerLink="/queries">
-                question_answer
-            </i>
-            <i class="material-icons" style="cursor: pointer" matTooltip="Book Appoinment">
-                event_available
-            </i>
-        </div>
+        <!--<div class="col-md-2 ">-->
+            <!--<i class="material-icons" *ngIf="group.value != 'alldoctors'" style="cursor: pointer" matTooltip="Queries" routerLink="/queries">-->
+                <!--question_answer-->
+            <!--</i>-->
+            <!--<i class="material-icons" style="cursor: pointer" matTooltip="Book Appoinment">-->
+                <!--event_available-->
+            <!--</i>-->
+        <!--</div>-->
     </div>
 </mat-card>
                                     </ng-template>

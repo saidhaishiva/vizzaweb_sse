@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         // call service
-        this.settings.loadingSpinner = true;
+        // this.settings.loadingSpinner = true;
         this.doctorDetails();
 
     }
