@@ -40,7 +40,7 @@
     "angular2-moment": "^1.8.0",
     "angular2-multiselect-dropdown": "^2.9.0",
     "angular2-signaturepad": "^2.8.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "4.1.1",
     "bootstrap-timepicker": "^0.5.2",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.3",
@@ -70,7 +70,7 @@
     "zone.js": "0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "^1.6.6",
+    "@angular/cli": "^1.7.4",
     "@angular/compiler-cli": "5.2.2",
     "@angular/language-service": "5.2.2",
     "@types/hammerjs": "2.0.35",
@@ -79,6 +79,7 @@
     "@types/jspdf": "^1.1.31",
     "@types/node": "9.4.0",
     "codelyzer": "4.1.0",
+    "css-loader": "^1.0.0",
     "jasmine-core": "2.9.1",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "2.0.0",
