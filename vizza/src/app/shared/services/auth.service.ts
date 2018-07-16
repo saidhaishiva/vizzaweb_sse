@@ -12,43 +12,45 @@ export class AuthService {
     }
 
     clearToken() {
-        sessionStorage.removeItem('mt-doctor-userid');
-        sessionStorage.removeItem('mt-doctor-doctorid');
-        sessionStorage.removeItem('mt-doctor-doctorname');
-        sessionStorage.removeItem('mt-doctor-accesstoken');
-        sessionStorage.removeItem('mt-doctor-roleid');
+        sessionStorage.removeItem('vizza-pos-email');
+        sessionStorage.removeItem('vizza-pos-firstname');
+        sessionStorage.removeItem('vizza-pos-userid');
+        sessionStorage.removeItem('vizza-pos-lastname');
+        sessionStorage.removeItem('vizza-pos-mobileno');
+        sessionStorage.removeItem('vizza-pos-roleid');
+        sessionStorage.removeItem('vizza-pos-accesstoken');
     }
 
-    setToken( doctorid, name, roleid, userid, accesstoken, assistantName  ) {
-        sessionStorage.setItem('mt-doctor-userid', userid);
-        sessionStorage.setItem('mt-doctor-doctorid', doctorid);
-        sessionStorage.setItem('mt-doctor-doctorname', name);
-        sessionStorage.setItem('mt-doctor-accesstoken', accesstoken);
-        sessionStorage.setItem('mt-doctor-roleid', roleid);
-        sessionStorage.setItem('mt-doctor-assistantname', assistantName);
-
+    setToken( email, firstname, userid, lastname, mobileno, roleid, accesstoken  ) {
+        sessionStorage.setItem('vizza-pos-email', email);
+        sessionStorage.setItem('vizza-pos-firstname', firstname);
+        sessionStorage.setItem('vizza-pos-userid', userid);
+        sessionStorage.setItem('vizza-pos-lastname', lastname);
+        sessionStorage.setItem('vizza-pos-mobileno', mobileno);
+        sessionStorage.setItem('vizza-pos-roleid', roleid);
+        sessionStorage.setItem('vizza-pos-accesstoken', accesstoken);
     }
-    getUserId() {
-        return sessionStorage.getItem('mt-doctor-userid');
+    getPosEmail() {
+        return sessionStorage.getItem('vizza-pos-email');
     }
-    getDoctorId() {
-        return sessionStorage.getItem('mt-doctor-doctorid');
+    getPosFirstName() {
+        return sessionStorage.getItem('vizza-pos-firstname');
     }
-    getDoctorName() {
-        return sessionStorage.getItem('mt-doctor-doctorname');
+    getPosUserId() {
+        return sessionStorage.getItem('vizza-pos-userid');
     }
-
+    getPosLastName() {
+        return sessionStorage.getItem('vizza-pos-lastname');
+    }
+    getPosMobileno() {
+        return sessionStorage.getItem('vizza-pos-mobileno');
+    }
+    getPosRoleId() {
+        return sessionStorage.getItem('vizza-pos-roleid');
+    }
     getAccessToken() {
-        return sessionStorage.getItem('mt-doctor-accesstoken');
+        return sessionStorage.getItem('vizza-pos-accesstoken');
     }
-
-    getRoleId() {
-        return sessionStorage.getItem('mt-doctor-roleid');
-    }
-    getAssistantName() {
-        return sessionStorage.getItem('mt-doctor-assistantname');
-    }
-
     getSessionData(variable) {
         return sessionStorage.getItem(variable);
     }
@@ -67,6 +69,6 @@ export class AuthService {
             // route to home component
             // alert('checkAuthentication');
             this.router.navigate(['/dashboard']);
-        }   
+        }
     }
 }

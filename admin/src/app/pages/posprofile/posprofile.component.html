@@ -26,38 +26,32 @@
                         <div class=" personaldetails mt-3">
                             <p fxLayout="row" fxLayoutAlign="start center">
                                 <span>Qualifications:</span>
-                                <span *ngIf="qualifications.length > 0">
-                                    <div *ngFor="let item of qualifications; let last = last"
-                                           class="float-left">
-                                        {{item.shortform}}{{last? '':', '}}
-                                    </div>
-                                </span>
+                                <span>{{posData.doc_education}}</span>
                             </p>
                             <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Speciality:</span>
-                                <span *ngIf="specialityDetails.length > 0"><div *ngFor="let item of specialityDetails,let last = last"
-                                           class="float-left">{{item.specialityname}}{{last? '':', '}}</div></span>
+                                <span>Email:</span>
+                                <span>{{posData.pos_email}}</span>
                             </p>
 
                             <p fxLayout="row" fxLayoutAlign="start center">
                                 <span *ngIf="registrationDetails.length > 0">>Registration:</span>
                                 <span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>
                             </p>
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Gender:</span>
-                                <span>{{personal.gender}}</span>
-                            </p>
+                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--<span>Gender:</span>-->
+                                <!--<span>{{personal.gender}}</span>-->
+                            <!--</p>-->
                             <p fxLayout="row" fxLayoutAlign="start center">
                                 <span>Address:</span>
                                 <span class="text-capitalize">{{posData.pos_address1}}<span
-                                        [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}, {{personal.cityname}}<span
-                                        [hidden]="personal.cityname == ''">-</span>{{personal.pincode}}</span>
+                                        [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span
+                                        [hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>
                             </p>
                             <hr>
-                            <agm-map style="height: 200px; width: 100%" [latitude]="lat" [longitude]="lng"
-                                     [scrollwheel]="false" [zoom]="zoom">
-                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                            </agm-map>
+                            <!--<agm-map style="height: 200px; width: 100%" [latitude]="lat" [longitude]="lng"-->
+                                     <!--[scrollwheel]="false" [zoom]="zoom">-->
+                                <!--<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>-->
+                            <!--</agm-map>-->
 
                         </div>
                     </div>
@@ -76,7 +70,7 @@
 
                         <!--</div>-->
                     <!--</mat-tab>-->
-                    <mat-tab label="Online verification">
+                    <mat-tab label="Verification">
                         <div class="p-5 pt-2">
                             <div class="row">
                                 <div class="col-md-6" *ngFor="let item of online">
@@ -113,33 +107,39 @@
         </div>
     </mat-card>
     <mat-accordion class="certificate">
+        <!--<mat-expansion-panel>-->
+            <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>-->
+                    <!--About Me-->
+                <!--</mat-panel-title>-->
+
+            <!--</mat-expansion-panel-header>-->
+            <!--<div class="row professional-cer">-->
+                <!--<div class="col-md-12">-->
+                    <!--<span><div *ngFor="let item of doctor" class="float-left text-capitalize">{{item.aboutme}}</div></span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</mat-expansion-panel>-->
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    About Me
+                    Aadhar Card
                 </mat-panel-title>
 
             </mat-expansion-panel-header>
             <div class="row professional-cer">
                 <div class="col-md-12">
-                    <span><div *ngFor="let item of doctor" class="float-left text-capitalize">{{item.aboutme}}</div></span>
-                </div>
-            </div>
-
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Certificate(s)
-                </mat-panel-title>
-
-            </mat-expansion-panel-header>
-            <div class="row professional-cer">
-                <div class="col-md-12">
-                    <span *ngIf="images.length > 0"><div *ngFor="let item of images"><img style="width: 100px; height: 100px;"
-                                                                             src="{{webhost +'/' + item.path}}"
+                                        <span *ngIf="posData.doc_aadhar_front_img != ''"><div ><img style="width: 100px; height: 100px;"
+                                                          src="{{webhost + posData.doc_aadhar_front_img}}"
+                                                          class="float-left img-thumbnail"
+                                                          (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')"></div></span>
+                    <span *ngIf="posData.doc_aadhar_back_img != ''"><div ><img style="width: 100px; height: 100px;"
+                                                                             src="{{webhost + posData.doc_aadhar_back_img}}"
                                                                              class="float-left img-thumbnail"
-                                                                             (click)="viewImage(item.path, 'Certificate')"></div></span>
+                                                                             (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')"></div></span>
+
+                    <span *ngIf="posData.doc_aadhar_front_img == '' && posData.doc_aadhar_back_img == '' "><div> Aadhar not available </div></span>
                 </div>
             </div>
 
@@ -147,17 +147,17 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Signature
+                    Educational Certificate(s)
                 </mat-panel-title>
 
             </mat-expansion-panel-header>
             <div class="row professional-cer">
                 <div class="col-md-12">
-                    <span *ngIf="signature.length > 0 "><div><img style="width: 100px; height: 100px;"
-                                                                      src="{{webhost +'/' + signature[0]['path']}}"
+                    <span *ngIf="posData.doc_edu_certificate_img != ''"><div><img style="width: 100px; height: 100px;"
+                                                                      src="{{webhost + posData.doc_edu_certificate_img}}"
                                                                       class="float-left img-thumbnail"
-                                                                      (click)="viewImage(signature[0]['path'], 'Signature')"></div></span>
-                    <span *ngIf="signature.length == 0 "><div> Signature not available </div></span>
+                                                                      (click)="viewImage(posData.doc_edu_certificate_img, 'Educational Certificate')"></div></span>
+                    <span *ngIf="posData.doc_edu_certificate_img == '' "><div> Educational Certificates not available </div></span>
                 </div>
             </div>
 
@@ -165,18 +165,19 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Clinic Image
+                    Pan Card
                 </mat-panel-title>
 
             </mat-expansion-panel-header>
             <div class="row professional-cer">
                 <div class="col-md-12">
 
-                    <span><div *ngFor="let item of clinicDetails">
-    <img src="{{webhost + '/' + item.hospitalimage}}" *ngIf="item.hospitalimage != null"
-         class="float-left img-thumbnail" (click)="viewImage(item.hospitalimage, 'Clinic Image')">
+                    <span *ngIf="posData.doc_pan_img != ''"><div>
+    <img src="{{webhost + '/' + posData.doc_pan_img}}"
+         class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
 
   </div></span>
+                    <span *ngIf="posData.doc_pan_img == ''"><div> Pan not available </div></span>
 
                 </div>
             </div>
