@@ -175,6 +175,7 @@ a:hover {
   }
   .nav-link{
     border-bottom: 1px solid #ccc;
+    width: 100%;
   }
 
   ul {
@@ -208,6 +209,9 @@ a:hover {
     li:nth-child(10) .icon {
       background: #FFD840;
     }
+  }
+  .nav-item{
+    height: 100px;
   }
 }
 
