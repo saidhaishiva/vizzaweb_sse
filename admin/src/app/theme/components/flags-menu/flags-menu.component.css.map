@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACI,UAAG;EACC,cAAc,EAAE,MAAM;EACtB,YAAY,EAAE,GAAG;AAErB,qBAAc;EACV,MAAM,EAAE,IAAI;EACZ,WAAW,EAAE,IAAI",
+"sources": ["flags-menu.component.scss"],
+"names": [],
+"file": "flags-menu.component.css"
+}

@@ -1,0 +1,16 @@
+.applications .mat-toolbar, .applications .mat-toolbar-row {
+  height: 40px !important;
+  min-height: 40px !important; }
+.applications .header {
+  width: 250px;
+  font-size: 16px; }
+.applications .mat-card {
+  padding: 0; }
+  .applications .mat-card .mat-button {
+    height: 100%; }
+    .applications .mat-card .mat-button .mat-button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+
+/*# sourceMappingURL=applications.component.css.map */

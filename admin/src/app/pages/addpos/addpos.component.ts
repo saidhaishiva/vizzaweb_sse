@@ -214,40 +214,35 @@ export class AddposComponent implements OnInit {
         }
 
     }
-    // onUploadFinished(event) {
-    //     this.getUrl = event[1];
-    //     const data = {
-    //         'platform': 'web',
-    //         'roleid': this.auth.getRoleId(),
-    //         'userid': this.auth.getUserId(),
-    //         'doctorid': this.auth.getDoctorId(),
-    //         'uploadfor': 3,
-    //         'uploadtype': 'multiple',
-    //         'image': this.getUrl,
-    //         'size': this.size
-    //     };
-    //     // this.clinic.fileUpload(data).subscribe(
-    //     //     (successData) => {
-    //     //         this.fileUploadSuccess(successData);
-    //     //     },
-    //     //     (error) => {
-    //     //         this.fileUploadFailure(error);
-    //     //     }
-    //     // );
+    onUploadFinished(event) {
+        this.getUrl = event[1];
+        // const data = {
+        //     'platform': 'web',
+        //     'images': this.getUrl,
+        //     'uploadtype': 'single'
+        // }
+        // this.clinic.fileUpload(data).subscribe(
+        //     (successData) => {
+        //         this.fileUploadSuccess(successData);
+        //     },
+        //     (error) => {
+        //         this.fileUploadFailure(error);
+        //     }
+        // );
+    }
+    // public fileUploadSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.fileUploadPath =  successData.ResponseObject.imagePath;
+    //         this.imagepath = this.fileUploadPath;
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject, 'Failed');
+    //     }
+    //
+    //
     // }
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath =  successData.ResponseObject.imagePath;
-            this.imagepath = this.fileUploadPath;
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-
-
-    }
-    public fileUploadFailure(error) {
-        console.log(error);
-    }
+    // public fileUploadFailure(error) {
+    //     console.log(error);
+    // }
     submit() {
         const data = {
             'admin_id': this.auth.getAdminId(),
@@ -262,7 +257,7 @@ export class AddposComponent implements OnInit {
             'pos_address2': this.form.value['contacts']['address2'],
             'pos_postalcode': this.form.value['contacts']['pincode'],
             'pos_cityid': '1',
-            'pos_stateid"': '1',
+            'pos_stateid': '1',
             'pos_countryid': '1',
             'pos_aadhar_no': this.form.value['documents']['aadharnumber'],
             'pos_aadhar_front_img': '/images/front.jpg',
@@ -271,14 +266,14 @@ export class AddposComponent implements OnInit {
             'pos_pan_img': '/images/pancard.jpg',
             'pos_education': this.form.value['education']['qualification'],
             'pos_education_doc_img': '/images/edu_certificate.jpg'
-        }
+        };
         console.log(data);
         this.login.RegisterPos(data).subscribe(
             (successData) => {
                 this.RegisterPosSuccess(successData);
             },
             (error) => {
-                this.signUpFailure(error);
+                this.RegisterPosFailure(error);
             }
         );
     }
@@ -289,7 +284,7 @@ export class AddposComponent implements OnInit {
             this.toastr.success('Registration Completed', 'Success!!!');
         }
     }
-    signUpFailure(error) {
+    RegisterPosFailure(error) {
         console.log(error);
     }
     // getPostal(pin) {

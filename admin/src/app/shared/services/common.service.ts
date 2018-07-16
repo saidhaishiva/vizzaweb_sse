@@ -3,59 +3,65 @@ import {ConfigurationService} from './configuration.service';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 
 @Injectable()
 export class CommonService {
-    bSubject: any;
+
     constructor(private http: HttpClient, private configurationService: ConfigurationService, private authService: AuthService) {
-         this.bSubject = new BehaviorSubject('');
+
     }
 
-    updateprofile(data) {
-    this.bSubject.next(data);
+    logout() {
+        const url = this.configurationService.getHostOld() + '/auth/logout';
+        return this.http.get(url);
     }
-    getFormUrlEncoded(toConvert) {
-        const formBody = [];
-        for (const property in toConvert) {
-            const encodedKey = encodeURIComponent(property);
-            const encodedValue = encodeURIComponent(toConvert[property]);
-            formBody.push(encodedKey + '=' + encodedValue);
-        }
-        return formBody.join('&');
-    }
-    getPostal(data) {
+    getPOSList(data) {
         const json = JSON.stringify(data);
+        console.log(json);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'common/checkPincode' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
+        const url = this.configurationService.getHost() + 'admin/getall_poslist';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
             .catch(this.handleError);
     }
-    sendReplyPatientQuery(data) {
+    getFields(data) {
         const json = JSON.stringify(data);
+        console.log(json);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'doctor/answerForPatientQuery' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
+        const url = this.configurationService.getHost() + 'admin/get_documentfields';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
             .catch(this.handleError);
     }
-    getPatientQueries(data) {
+    updateVerification(data) {
         const json = JSON.stringify(data);
+        console.log(json);
         const token = this.authService.getAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',  'Accesstoken': token})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'doctor/patientQueryAndAnswer' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
+        const url = this.configurationService.getHost() + 'admin/update_verification';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    rejectPOS(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/reject_verification';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
             .catch(this.handleError);
     }
 
@@ -65,7 +71,6 @@ export class CommonService {
     }
 
     private handleError(error: Response | any) {
-        console.log(error);
         let errMsg: string;
         if (error instanceof Response) {
             // const body = error.json() || '';

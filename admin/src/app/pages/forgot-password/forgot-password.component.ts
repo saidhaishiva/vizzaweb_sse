@@ -6,8 +6,6 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {AuthService} from './../../shared/services/auth.service';
 import {LoginService} from './../../shared/services/login.service';
-import { ToastrService } from 'ngx-toastr';
-
 
 
 @Component({
@@ -22,29 +20,24 @@ export class ForgotPasswordComponent implements OnInit {
     public status: any;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router,
-                public loginService: LoginService, public authService: AuthService, private route: ActivatedRoute, public toastr: ToastrService ) {
+                public loginService: LoginService, public authService: AuthService, private route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
         this.response = [];
 
         this.form = this.fb.group({
-            'mobilenumber': ['', Validators.compose([Validators.required, Validators.minLength(10)])]
+            'mobilenumber': ['', Validators.compose([Validators.required])]
         });
     }
 
-    ngAfterViewInit(){
-        this.settings.loadingSpinner = false;
-    }
-
-    ngOnInit() {
-  }
     public forgot(): void {
         if (this.form.valid) {
             this.settings.loadingSpinner = true;
             sessionStorage.username = this.form.controls['mobilenumber'].value;
             const data = {
-                'mobile': this.form.controls['mobilenumber'].value,
-                'platform': 'web',
-
+                'contact': this.form.controls['mobilenumber'].value,
+                "platform": "web",
+                "roleid": 2
+               // "patientid": 90
             };
 
             this.loginService.doForgot(data).subscribe(
@@ -59,24 +52,19 @@ export class ForgotPasswordComponent implements OnInit {
             );
         }
     }
+
+    ngOnInit() {
+  }
     public loginSuccess(successData) {
-
-        console.log(successData);
         this.settings.loadingSpinner = false;
-        if(successData.IsSuccess) {
-            this.toastr.success('OTP sent successfully');
-        }else{
-            this.toastr.warning('Invalid credential');
-        }
-
         this.response = successData;
         console.log(successData);
-        if (this.response.IsSuccess === true) {
-            this.router.navigate(['/confirmpassword']);
-        }
+        // this.authService.setToken(this.response.age, this.response.patientid, this.response.token, this.response.familycode, this.response.roleid);
+        this.router.navigate(['/confirmpassword']);
     }
 
     public loginFailure(error) {
+
         this.settings.loadingSpinner = false;
         console.log(error.status);
         if (error.status === 401) {
@@ -88,17 +76,6 @@ export class ForgotPasswordComponent implements OnInit {
         }
 
         // need to display a toast
-    }
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
-            }
-        }
     }
 
 }

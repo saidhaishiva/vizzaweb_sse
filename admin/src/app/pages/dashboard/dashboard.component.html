@@ -1,54 +1,63 @@
-<div class="container-fluid dashboard h-100" fxLayoutAlign="center center">
-    <div class="row" fxLayoutAlign="center center">
-        <div class="col-md-5">
-            <mat-card class="mat-radius">
-                <mat-card-header fxLayoutAlign="space-between center">
-                <h2>Health Insurance</h2>
-                    <button mat-icon-button color="warn">
-                        <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-                    </button>
-                </mat-card-header>
-                <mat-card-content>
-                <p>The Health Insurance plans that We at Vizza Provide are the best rated
-                    throughout the Insurance Market.</p>
-                   <p> We provide you with all the adequate and necessary information
-                    beforehand, so that you can choose the bbest plans to protect your
-                    loved ones, just as we would… <button mat-button color="primary">More</button></p>
-                <figure fxLayoutAlign="center center"><img src="assets/img/Vaidhini-&-Kid2.png" alt=""> </figure>
-                </mat-card-content>
-            </mat-card>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="dashbord-bg">
+
         </div>
-        <div class="col-md-3">
-<mat-card>
-    <form [formGroup]="form" (ngSubmit)="insureList(form.value)">
-        <mat-form-field class="w-75">
-            <input matInput placeholder="FAMILY MEMBERS" required formControlName="familymember" >
-            <mat-error *ngIf="form.controls.familymember.errors?.required">Family member is required</mat-error>
-        </mat-form-field>
-        <mat-icon (click)="openDialog()">add_circle_outline</mat-icon>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="PIN CODE" required  formControlName="pincode">
-            <mat-error *ngIf="form.controls.pincode.errors?.required">Pincode is required</mat-error>
-            <mat-icon matSuffix>place</mat-icon>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="SUM INSURED" required formControlName="suminsure">
-            <mat-error *ngIf="form.controls.suminsure.errors?.required">Sum insure is required</mat-error>
-            <mat-icon matSuffix>mode_edit</mat-icon>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="MOBILE NUMBER (optional)" formControlName="mobile">
-            <mat-icon matSuffix>call</mat-icon>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <input matInput placeholder="EMAIL(optional)" formControlName="email">
-            <mat-icon matSuffix>mail</mat-icon>
-        </mat-form-field>
-        <div fxLayoutAlign="center center" class="mt-3">
-        <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit">Submit</button>
-        </div>
-    </form>
-</mat-card>
-        </div>
+
+    </div>
+<div class="row dashbord-icon">
+    <div class="col-md-3">
+    <mat-card [routerLink]="['/my-doctor']"><img src="assets/img/stethoscope.png" alt=""> My Doctors</mat-card>
+    </div>
+    <div class="col-md-3">
+    <mat-card [routerLink]="['/order-medicine']"><img src="assets/img/pills.png" alt=""> Order Medicine</mat-card>
+    </div>
+    <div class="col-md-3">
+    <mat-card><img src="assets/img/science.png" alt=""> Lab & Diagnostics</mat-card>
+    </div>
+    <div class="col-md-3">
+    <mat-card [routerLink]="['/medical-record']"><img src="assets/img/report.png" alt=""> Medical Record</mat-card>
     </div>
 </div>
+</div>
+<!--<div class="row">-->
+    <!--<div class="col-md-6">-->
+        <!--<mat-card>-->
+            <!--Approved pos :{{data.doctor}}<br><br>-->
+            <!--Pending pos :{{data.pendingdoctor}}<br><br>-->
+            <!--Rejected pos :{{data.rejecteddoctor}}<br><br>-->
+
+        <!--</mat-card>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-6">-->
+        <!--<mat-card>-->
+            <!--Registered patient :{{data.patient}}<br><br>-->
+            <!--Walkin patient :{{data.walkinpatient}}<br><br>-->
+        <!--</mat-card>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="row" fxLayout="row"  class="h-100">-->
+    <!--<div class="col-md-6">-->
+        <!--<mat-card class="custom-card">-->
+            <!--Total prescription count :{{data.prescriptioncount}}<br><br>-->
+            <!--Total prescription count by today :{{data.prescriptioncountbytoday}}<br><br>-->
+        <!--</mat-card>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-6">-->
+        <!--<mat-card>-->
+           <!--<p *ngFor="let lists of details">-->
+               <!--Doctor Name :{{lists.doctorname}}-->
+           <!--</p>-->
+        <!--</mat-card>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+
+

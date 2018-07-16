@@ -1,0 +1,191 @@
+<div class="container-fluid doctorprofile">
+    <mat-card class="doctordetail mb-3">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="user-img">
+                            <img  src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
+                            <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
+                                  <!--class="rounded-circle">-->
+                            <h4 class="user-name mt-2">{{posData.pos_firstname}}.{{posData.pos_lastname}}</h4>
+
+                        </div>
+                        <div class="card-footer">
+                    <span class="float-left">
+                         <div class="float-left"><i
+                                 class="fas fa-user-md"></i>
+                                            <span >{{doctorExperience.pos_email}} Year(s), </span>
+                                            <span >{{doctorExperience.experiencemonths}} Month(s)</span>
+                                        </div>
+                    </span>
+                            <span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class=" personaldetails mt-3">
+                            <p fxLayout="row" fxLayoutAlign="start center">
+                                <span>Qualifications:</span>
+                                <span *ngIf="qualifications.length > 0">
+                                    <div *ngFor="let item of qualifications; let last = last"
+                                           class="float-left">
+                                        {{item.shortform}}{{last? '':', '}}
+                                    </div>
+                                </span>
+                            </p>
+                            <p fxLayout="row" fxLayoutAlign="start center">
+                                <span>Speciality:</span>
+                                <span *ngIf="specialityDetails.length > 0"><div *ngFor="let item of specialityDetails,let last = last"
+                                           class="float-left">{{item.specialityname}}{{last? '':', '}}</div></span>
+                            </p>
+
+                            <p fxLayout="row" fxLayoutAlign="start center">
+                                <span *ngIf="registrationDetails.length > 0">>Registration:</span>
+                                <span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>
+                            </p>
+                            <p fxLayout="row" fxLayoutAlign="start center">
+                                <span>Gender:</span>
+                                <span>{{personal.gender}}</span>
+                            </p>
+                            <p fxLayout="row" fxLayoutAlign="start center">
+                                <span>Address:</span>
+                                <span class="text-capitalize">{{posData.pos_address1}}<span
+                                        [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}, {{personal.cityname}}<span
+                                        [hidden]="personal.cityname == ''">-</span>{{personal.pincode}}</span>
+                            </p>
+                            <hr>
+                            <agm-map style="height: 200px; width: 100%" [latitude]="lat" [longitude]="lng"
+                                     [scrollwheel]="false" [zoom]="zoom">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pt-2" style="background: #f5f5f5">
+                <mat-tab-group #tabGroup [selectedIndex]="tabIndex"
+                               (selectedIndexChange)="onSelectedIndexChange($event)">
+                    <!--<mat-tab label="Physical verification">-->
+                        <!--<div class="p-5 pt-2">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-6" *ngFor="let item of physical">-->
+                                    <!--<mat-checkbox [(ngModel)]="item.checked">{{item.displayname}}</mat-checkbox>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</mat-tab>-->
+                    <mat-tab label="Online verification">
+                        <div class="p-5 pt-2">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let item of online">
+                                    <mat-checkbox [(ngModel)]="item.checked" >{{item.doc_field_name}}</mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+                <div class="col-md-12 mt-4">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <button mat-raised-button class="secondary-bg-color"
+                                    (click)="getNotes('Notify')">Notify
+                            </button>
+                            <!--<button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"-->
+                                    <!--(click)="getNotes('Physical Comments')">Comments-->
+                            <!--</button>-->
+                            <button mat-raised-button class="secondary-bg-color"
+                                    (click)="getNotes('Online Comments')">Comments
+                            </button>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
+                                Reject
+                            </button>
+                            <button mat-raised-button color="primary" (click)="verificationSubmit()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </mat-card>
+    <mat-accordion class="certificate">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    About Me
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <div class="row professional-cer">
+                <div class="col-md-12">
+                    <span><div *ngFor="let item of doctor" class="float-left text-capitalize">{{item.aboutme}}</div></span>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Certificate(s)
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <div class="row professional-cer">
+                <div class="col-md-12">
+                    <span *ngIf="images.length > 0"><div *ngFor="let item of images"><img style="width: 100px; height: 100px;"
+                                                                             src="{{webhost +'/' + item.path}}"
+                                                                             class="float-left img-thumbnail"
+                                                                             (click)="viewImage(item.path, 'Certificate')"></div></span>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Signature
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <div class="row professional-cer">
+                <div class="col-md-12">
+                    <span *ngIf="signature.length > 0 "><div><img style="width: 100px; height: 100px;"
+                                                                      src="{{webhost +'/' + signature[0]['path']}}"
+                                                                      class="float-left img-thumbnail"
+                                                                      (click)="viewImage(signature[0]['path'], 'Signature')"></div></span>
+                    <span *ngIf="signature.length == 0 "><div> Signature not available </div></span>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Clinic Image
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <div class="row professional-cer">
+                <div class="col-md-12">
+
+                    <span><div *ngFor="let item of clinicDetails">
+    <img src="{{webhost + '/' + item.hospitalimage}}" *ngIf="item.hospitalimage != null"
+         class="float-left img-thumbnail" (click)="viewImage(item.hospitalimage, 'Clinic Image')">
+
+  </div></span>
+
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+</div>
+
+
+
+

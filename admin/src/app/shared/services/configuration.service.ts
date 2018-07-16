@@ -8,28 +8,27 @@ export class ConfigurationService {
 
   apiHost: string = environment.apiHost;
   webHost: string = environment.webHost;
-  imgUrl: string = environment.imgUrl;
+    imgUrl: string = environment.imgUrl;
+
   host: string;
-  webhost: string;
-  imgurl: string;
-  apihost: string;
   datasetPath: string;
   floatFormat = '0,0.000';
   percentFormat = '0.000%'
   intFormat = '0,0';
 
   constructor() {
-    this.webhost = this.webHost;
-    this.imgurl = this.imgUrl;
-    this.apihost = this.apiHost;
+    this.host = this.apiHost;
   }
-    getHost() {
+
+  getHost() {
+    return this.apiHost;
+  }
+
+    getHostOld() {
         return this.apiHost;
     }
-    getwebHost() {
-        return this.webHost;
-    }
+
     getimgUrl() {
-    return this.imgUrl;
+        return this.imgUrl;
     }
 }

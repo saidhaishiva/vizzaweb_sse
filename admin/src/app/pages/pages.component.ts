@@ -106,11 +106,12 @@ export class PagesComponent implements OnInit {
   }
 
   @HostListener('window:resize')
+
   public onWindowResize():void {
     if(window.innerWidth <= 768){
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
-      this.settings.menu = 'vertical'
+      this.settings.menu = 'vertical';
     }
     else{
       (this.defaultMenu == 'horizontal') ? this.settings.menu = 'horizontal' : this.settings.menu = 'vertical'
