@@ -40,7 +40,7 @@ export const routes: Routes = [
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
             { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
-            { path: 'fix-appointment', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
+            { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
 
