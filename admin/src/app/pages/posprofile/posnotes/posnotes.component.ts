@@ -8,10 +8,10 @@ import { DoctorsService} from '../../../shared/services/doctors.service';
 
 @Component({
   selector: 'app-doctornotes',
-  templateUrl: './doctornotes.component.html',
-  styleUrls: ['./doctornotes.component.scss']
+  templateUrl: './posnotes.component.html',
+  styleUrls: ['./posnotes.component.scss']
 })
-export class DoctornotesComponent implements OnInit {
+export class PosnotesComponent implements OnInit {
     @ViewChild(DatatableComponent) table: DatatableComponent;
     editing = {};
     rows = [];
@@ -35,7 +35,7 @@ export class DoctornotesComponent implements OnInit {
     searchTag: string;
     totalNotes: any;
     constructor(
-        public dialogRef: MatDialogRef<DoctornotesComponent>,
+        public dialogRef: MatDialogRef<PosnotesComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any, public appSettings: AppSettings, public auth: AuthService, public doctorservice: DoctorsService, ) {
       this.title = data;
       this.notes = '';
