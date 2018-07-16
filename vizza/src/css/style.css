@@ -136,7 +136,8 @@ a:hover {
   .side-nav p {
     margin-bottom: 0; }
   .side-nav .nav-link {
-    border-bottom: 1px solid #ccc; }
+    border-bottom: 1px solid #ccc;
+    width: 100%; }
   .side-nav ul li:nth-child(1) .icon {
     background: #3EA1F7; }
   .side-nav ul li:nth-child(2) .icon {
@@ -157,6 +158,8 @@ a:hover {
     background: #9E58B5; }
   .side-nav ul li:nth-child(10) .icon {
     background: #FFD840; }
+  .side-nav .nav-item {
+    height: 100px; }
 
 .app.teal-light .horizontal-menu {
   background: #f5f5f5 !important; }
