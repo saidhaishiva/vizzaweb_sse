@@ -2,8 +2,8 @@
   <div class="row proposal">
     <div class="col-md-12">
       <mat-horizontal-stepper [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
+        <mat-step [stepControl]="proposalDetail">
+          <form [formGroup]="proposalDetail" (submit)="proposal(proposalDetail.value)">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
               <mat-expansion-panel  expanded>
@@ -11,34 +11,48 @@
                   <mat-panel-title>
                     GROUP A
                   </mat-panel-title>
-
                 </mat-expansion-panel-header>
-<div class="row mt-3">
+<div class="row mt-3" formGroupName="groupA">
   <div class="col-md-6 box-card pt-3">
     <h6 class="color-green text-center">PERSONAL DETAILS</h6>
     <div class="row">
       <div class="col-md-12">
     <mat-form-field class="w-100">
-      <input matInput placeholder="Name">
+      <input matInput placeholder="Name" formControlName="name" required>
+      <mat-error *ngIf="proposalDetail.controls.groupA.controls.name.errors?.required">Name is required</mat-error>
+
     </mat-form-field>
       </div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="DOB">
+          <input matInput [matDatepicker]="picker" placeholder="DOB" formControlName="dob" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.dob.errors?.required">DOB is required</mat-error>
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Age">
+        <input matInput placeholder="Age" formControlName="age" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.age.errors?.required">Age is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Occupation">
+        <input matInput placeholder="Occupation" formControlName="occupation" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.occupation.errors?.required">Occupation is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Annual Income">
+        <input matInput placeholder="Annual Income" formControlName="income" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.income.errors?.required">Annual Income is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Aadhar Number">
+        <input matInput placeholder="Aadhar Number" formControlName="aadhar" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.aadhar.errors?.required">Aadhar Number is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="PAN Number">
+        <input matInput placeholder="PAN Number" formControlName="pan" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pan.errors?.required">PAN Number is required</mat-error>
+
       </mat-form-field></div>
     </div>
     </div>
@@ -47,28 +61,39 @@
     <div class="row">
       <div class="col-md-12">
         <mat-form-field class="w-100">
-          <textarea matInput placeholder="Address" rows="5"></textarea>
+          <textarea matInput placeholder="Address" rows="3" formControlName="address" required></textarea>
+          <mat-error *ngIf="proposalDetail.controls.groupA.controls.address.errors?.required">Address is required</mat-error>
+
         </mat-form-field>
       </div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="PIN Code">
+        <input matInput placeholder="PIN Code" formControlName="pincode" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pincode.errors?.required">PIN Code is required</mat-error>
+
       </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="City">
+      <div class="col-md-6"><mat-form-field class="w-100" required>
+        <input matInput placeholder="City" formControlName="city" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pincode.errors?.required">City is required</mat-error>
       </mat-form-field></div>
       <div class="col-md-12"><mat-form-field class="w-100">
-        <input matInput placeholder="Email ID">
+        <input matInput placeholder="Email ID" formControlName="email" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.email.errors?.required">Email ID is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Mobile Number">
+        <input matInput placeholder="Mobile Number" formControlName="mobile" required>
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+
       </mat-form-field></div>
       <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Alternate Number">
+        <input matInput placeholder="Alternate Number" formControlName="altnumber">
+        <mat-error *ngIf="proposalDetail.controls.groupA.controls.altnumber.errors?.required">Alternate Number is required</mat-error>
+
       </mat-form-field></div>
     </div>
     </div>
   <div class="col-md-12 mt-3 box-card">
-    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="isAppUser = $event.checked" formControlName="appUserFlag">Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
+    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="applyToAll(proposalDetail.value)" >Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
   </div>
 </div>
 
@@ -80,16 +105,99 @@
                   </mat-panel-title>
 
                 </mat-expansion-panel-header>
-                <p>I'm visible because I am open</p>
+                <div class="row mt-3" formGroupName="groupB">
+                  <div class="col-md-6 box-card pt-3">
+                    <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Name" formControlName="name" required>
+                          <mat-error *ngIf="proposalDetail.controls.groupB.controls.name.errors?.required">Name is required</mat-error>
+
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput [matDatepicker]="dob" placeholder="DOB" formControlName="dob" required>
+                        <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                        <mat-datepicker #dob></mat-datepicker>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.dob.errors?.required">DOB is required</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Age" formControlName="age" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.age.errors?.required">Age is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Occupation" formControlName="occupation" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.occupation.errors?.required">Occupation is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Annual Income" formControlName="income" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.income.errors?.required">Annual Income is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Aadhar Number" formControlName="aadhar" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.aadhar.errors?.required">Aadhar Number is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="PAN Number" formControlName="pan" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pan.errors?.required">PAN Number is required</mat-error>
+
+                      </mat-form-field></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 box-card pt-3">
+                    <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="w-100">
+                          <textarea matInput placeholder="Address" rows="3" formControlName="address" required></textarea>
+                          <mat-error *ngIf="proposalDetail.controls.groupB.controls.address.errors?.required">Address is required</mat-error>
+
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="PIN Code" formControlName="pincode" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pincode.errors?.required">PIN Code is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100" required>
+                        <input matInput placeholder="City" formControlName="city" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pincode.errors?.required">City is required</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-12"><mat-form-field class="w-100">
+                        <input matInput placeholder="Email ID" formControlName="email" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.email.errors?.required">Email ID is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Mobile Number" formControlName="mobile" required>
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Alternate Number" formControlName="altnumber">
+                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.altnumber.errors?.required">Alternate Number is required</mat-error>
+
+                      </mat-form-field></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3 box-card">
+                    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="applyToAll(proposalDetail.value)" >Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
+                  </div>
+                </div>
               </mat-expansion-panel>
             </mat-accordion>
             <div class="proposal-buttom mt-3 float-right">
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <button mat-raised-button color="primary" matStepperNext type="submit" [disabled]="!proposalDetail.valid">Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+        <mat-step >
+          <form >
             <ng-template matStepLabel>INSURED DETAILS</ng-template>
             kjlhjkhkljh
             <div>
@@ -98,11 +206,11 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+        <mat-step >
+          <form >
             <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
             <mat-form-field>
-              <input matInput placeholder="Address" formControlName="secondCtrl" required>
+              <input matInput placeholder="Address"  required>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
@@ -110,11 +218,11 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+        <mat-step >
+          <form >
             <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
             <mat-form-field>
-              <input matInput placeholder="Address" formControlName="secondCtrl" required>
+              <input matInput placeholder="Address"  required>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>

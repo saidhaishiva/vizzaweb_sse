@@ -10,12 +10,11 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 // import { GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmCoreModule } from '@agm/core';
-import {DoctornotesComponent} from './doctornotes/doctornotes.component';
 import { ToastrService } from 'ngx-toastr';
 import {Router } from '@angular/router';
 import { CommonService } from '../../shared/services/common.service';
 
-
+import {PosnotesComponent} from './posnotes/posnotes.component';
 declare var google: any;
 
 @Component({
@@ -174,9 +173,9 @@ export class PosprofileComponent implements OnInit {
 
 
     getNotes(title) {
-        const dialogRef = this.dialog.open(DoctornotesComponent, {
+        const dialogRef = this.dialog.open(PosnotesComponent, {
             width: '800px',
-            // data: {title: title, doctorid: this.doctorid}
+            data: {title: title, posid: this.posid}
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -271,7 +270,7 @@ export class PosprofileComponent implements OnInit {
         console.log(error);
     }
     rejectConfirm() {
-        const dialogRef = this.dialog.open(RejectDoctor, {
+        const dialogRef = this.dialog.open(RejectPOS, {
             width: '350px',
         });
 
@@ -287,9 +286,9 @@ export class PosprofileComponent implements OnInit {
 }
 
 @Component({
-    selector: 'rejectdoctor',
+    selector: 'rejectpos',
     template: `
-        <h1 mat-dialog-title>Reject Doctor</h1>
+        <h1 mat-dialog-title>Reject POS</h1>
         <div mat-dialog-content>
             <label>Are you sure. Do you want to Reject?</label>
         </div>
@@ -299,10 +298,10 @@ export class PosprofileComponent implements OnInit {
         </div>
     `
 })
-export class RejectDoctor {
+export class RejectPOS {
 
     constructor(
-        public dialogRef: MatDialogRef<RejectDoctor>,
+        public dialogRef: MatDialogRef<RejectPOS>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
