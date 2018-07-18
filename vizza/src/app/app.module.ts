@@ -14,8 +14,7 @@ import { LoginService } from './shared/services/login.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
-import { proposalService } from './shared/services/proposal.service';
-
+import { ProposalService} from './shared/services/proposal.service';
 import { AgmCoreModule } from '@agm/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -116,7 +115,7 @@ import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
       ConfigurationService,
       AuthService,
       CommonService,
-      proposalService,
+      ProposalService,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

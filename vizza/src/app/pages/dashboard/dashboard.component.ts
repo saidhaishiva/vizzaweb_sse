@@ -9,6 +9,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ComparelistComponent} from './comparelist/comparelist.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {GrouppopupComponent} from './grouppopup/grouppopup.component';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit {
     sbtn: boolean;
 
 
-    constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
+    constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
        // sessionStorage.sideMenu = false;
@@ -208,8 +209,10 @@ export class DashboardComponent implements OnInit {
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
          const data = {
-            'platform': 'web'
+            'platform': 'web',
+             'role_id': this.auth.getPosRoleId()
         };
+         console.log(data, 'data');
         this.common.getSumInsuredAmount(data).subscribe(
             (successData) => {
                 this.getSumInsuredAmountSuccess(successData);
@@ -748,7 +751,7 @@ export class DashboardComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId(),
         };
         this.changedTabIndex = sessionStorage.changedTabIndex;
         this.common.changeAmountPolicyQuotation(data).subscribe(

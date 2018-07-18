@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {proposalService} from '../../shared/services/proposal.service'
+import {ProposalService} from '../../shared/services/proposal.service'
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
@@ -13,7 +13,7 @@ export class ProposalComponent implements OnInit {
     private isAppUser = false;
     totalProposal: any;
 
-  constructor(private formBuilder: FormBuilder, public proposalservice: proposalService) {
+  constructor(private formBuilder: FormBuilder, public proposalservice: ProposalService) {
       this.proposalDetail = this.formBuilder.group({
           groupA: this.formBuilder.group({
               name: ['', Validators.compose([Validators.required])],
