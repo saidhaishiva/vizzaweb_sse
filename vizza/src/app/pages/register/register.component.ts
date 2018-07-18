@@ -110,40 +110,40 @@ export class RegisterComponent implements OnInit {
                 this.url = event.target.result;
                 this.getUrl = this.url.split(',');
                 this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
+                // this.onUploadFinished(this.getUrl);
 
             }
             reader.readAsDataURL(event.target.files[0]);
         }
 
     }
-    onUploadFinished(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            'roleid': this.auth.getRoleId(),
-            'userid': this.auth.getUserId(),
-            'doctorid': this.auth.getDoctorId(),
-            'uploadfor': 3,
-            'uploadtype': 'multiple',
-            'image': this.getUrl,
-            'size': this.size
-        };
-
-    }
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath =  successData.ResponseObject.imagePath;
-            this.imagepath = this.fileUploadPath;
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-
-
-    }
-    public fileUploadFailure(error) {
-        console.log(error);
-    }
+    // onUploadFinished(event) {
+    //     this.getUrl = event[1];
+    //     const data = {
+    //         'platform': 'web',
+    //         'roleid': this.auth.getPosRoleId(),
+    //         'userid': this.auth.getPosUserId(),
+    //         'doctorid': this.auth.getDoctorId(),
+    //         'uploadfor': 3,
+    //         'uploadtype': 'multiple',
+    //         'image': this.getUrl,
+    //         'size': this.size
+    //     };
+    //
+    // }
+    // public fileUploadSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.fileUploadPath =  successData.ResponseObject.imagePath;
+    //         this.imagepath = this.fileUploadPath;
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject, 'Failed');
+    //     }
+    //
+    //
+    // }
+    // public fileUploadFailure(error) {
+    //     console.log(error);
+    // }
     submit() {
         const data = {
             "platform": "web",
