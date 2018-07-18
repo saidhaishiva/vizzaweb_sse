@@ -5,8 +5,8 @@
             [class.compact]="settings.menuType == 'compact'" 
             [class.mini]="settings.menuType == 'mini'" >
     <router-outlet></router-outlet>
-    <!--<div id="app-spinner" [class.hide]="!settings.loadingSpinner">-->
-        <!--<mat-spinner color="primary"></mat-spinner>-->
-        <!--<h4>loading...</h4>-->
-    <!--</div>-->
+    <div id="app-spinner" [class.hide]="!settings.loadingSpinner">
+        <mat-spinner color="primary"></mat-spinner>
+        <h4>loading...</h4>
+    </div>
 </div>
