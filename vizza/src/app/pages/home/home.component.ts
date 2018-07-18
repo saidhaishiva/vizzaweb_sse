@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import {Settings} from '../../app.settings.model';
 export class HomeComponent implements OnInit {
     public settings: Settings;
 
-  constructor(public appSettings: AppSettings) {
+  constructor(public appSettings: AppSettings, public toast: ToastrService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = true;
       this.settings.sidenavIsOpened = true;
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
       sessionStorage.changedTabIndex = '';
       sessionStorage.shorListTab = '';
       sessionStorage.enquiryId = '';
+
   }
 
 }
