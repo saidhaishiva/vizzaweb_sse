@@ -209,8 +209,8 @@ export class DashboardComponent implements OnInit {
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
          const data = {
-            'platform': 'web',
-             'role_id': this.auth.getPosRoleId()
+            'platform': 'web'
+             // 'role_id': this.auth.getPosRoleId()
         };
          console.log(data, 'data');
         this.common.getSumInsuredAmount(data).subscribe(
@@ -670,7 +670,7 @@ export class DashboardComponent implements OnInit {
         }
         const data = {
             'platform': 'web',
-            'postalcode': value.postal_code,
+            'postalcode': this.pincoce,
             'sum_insured': this.selectedAmount,
             'family_details': this.finalData,
             'family_group_name': value.name,
@@ -746,12 +746,12 @@ export class DashboardComponent implements OnInit {
         }
         const data = {
             'platform': 'web',
-            'postalcode': this.changedTabDetails.postal_code,
+            'postalcode': this.pincoce,
             'sum_insured': this.changeSuninsuredAmount,
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': this.auth.getPosRoleId(),
+            'role_id': 4,
         };
         this.changedTabIndex = sessionStorage.changedTabIndex;
         this.common.changeAmountPolicyQuotation(data).subscribe(
@@ -862,6 +862,7 @@ export class DashboardComponent implements OnInit {
 
     // this function will update base details
     updateDetails() {
+        console.log(this.pincoce, 'this.pincoce');
         console.log(this.changedTabDetails, 'his.changedTabDetails');
         this.getArray = this.changedTabDetails.family_members;
         for (let i = 0; i < this.setArray.length; i++) {
@@ -884,7 +885,7 @@ export class DashboardComponent implements OnInit {
         }
         const data = {
             'platform': 'web',
-            'postalcode': this.changedTabDetails.postal_code,
+            'postalcode': this.pincoce,
             'sum_insured': sessionStorage.setInsuredAmount,
             'family_details': this.finalData,
             'family_group_name': this.changedTabDetails.name,
