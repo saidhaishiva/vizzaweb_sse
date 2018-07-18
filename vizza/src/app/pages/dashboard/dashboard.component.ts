@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
     constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-       // sessionStorage.sideMenu = false;
+        // sessionStorage.sideMenu = false;
         // this.settings.loadingSpinner = true
         if (!sessionStorage.sideMenu) {
             this.settings.HomeSidenavUserBlock = true;
@@ -90,12 +90,10 @@ export class DashboardComponent implements OnInit {
         this.ageUpdateFlag = false;
         this.nonEditable = false;
         this.sbtn = false;
-
         this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
         this.indexList = [];
-       // this.shortlistArray = [];
         this.setArray = [
             {name: 'Self', age: '', disabled: false, checked: false, auto: false, error: ''},
             {name: 'Spouse', age: '', disabled: false, checked: false, auto: false, error: ''},
@@ -249,7 +247,6 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
-
             // for (let i = 0; i < this.setArray.length; i++) {
             //     if (this.setArray[i].name == 'Son') {
             //         this.sonCount.push(this.setArray[i]);
@@ -263,11 +260,9 @@ export class DashboardComponent implements OnInit {
             } else if (this.setArray[index].name == 'Daughter') {
                 this.setArray[2].disabled = false;
             }
-
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
             }
-            console.log(this.count, 'this.count');
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
@@ -299,7 +294,6 @@ export class DashboardComponent implements OnInit {
     }
     changeAmount() {
         sessionStorage.setInsuredAmount = this.selectedAmount;
-        // this.firstSelectedAmount = this.selectedAmount;
     }
     selectPincode() {
         sessionStorage.setPincode = this.pincoce;
@@ -340,7 +334,6 @@ export class DashboardComponent implements OnInit {
                 }
             }
         }
-
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     typeAge() {
@@ -365,8 +358,6 @@ export class DashboardComponent implements OnInit {
     }
     // this function will get the policy quotation lists
     getPolicyQuotationList() {
-
-
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
         } else {
@@ -414,7 +405,6 @@ export class DashboardComponent implements OnInit {
     public PolicyQuotationSuccess(successData, index) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-
             let dialogRef = this.dialog.open(GrouppopupComponent, {
                 width: '1500px', data: {comparedata: successData.ResponseObject}});
             dialogRef.disableClose = true;
@@ -437,8 +427,6 @@ export class DashboardComponent implements OnInit {
 
             sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
             if (sessionStorage.setPage != 1) {
-                console.log("FFFFFF");
-                console.log( this.settings);
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
@@ -446,7 +434,6 @@ export class DashboardComponent implements OnInit {
 
             }
             if (this.insuranceLists[index].enquiry_id != '') {
-                console.log("uuuuuuu");
                 sessionStorage.sideMenu = true;
             }
             for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -473,16 +460,10 @@ export class DashboardComponent implements OnInit {
     public PolicyQuotationFailure(error) {
         this.settings.loadingSpinner = false;
         this.toast.error(error, 'Failed');
-        console.log(error);
     }
-
-
     onSelectedIndexChange(index) {
-        console.log(index, 'index');
-
         if (this.insuranceLists.length == index) {
             this.getShortListDetails(this.enquiryId, index, name);
-
         } else {
             this.updateFlag = false;
             this.ageUpdateFlag = false;
@@ -496,7 +477,6 @@ export class DashboardComponent implements OnInit {
             this.updateTabPolicy(this.insuranceLists[index], index);
         }
     }
-
     addCompare(value, pi, index, equiryId, name) {
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.equiryId = equiryId;
@@ -509,13 +489,7 @@ export class DashboardComponent implements OnInit {
         this.compareArray.splice(index, 1);
     }
     addShortlist(value, pi, index, enqId, name) {
-        console.log(value, 'value');
-        console.log(name, 'name');
-        // this.shortlistArray.push(value);
         this.nonEditable = true;
-        // sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
-
-
         const data = {
             'platform': 'web',
             'scheme': value.scheme,
@@ -529,6 +503,7 @@ export class DashboardComponent implements OnInit {
 
         };
         console.log(data, 'data222');
+        this.settings.loadingSpinner = true;
         this.common.addShortList(data).subscribe(
             (successData) => {
                 this.shortListSuccess(successData, pi, index);
@@ -595,7 +570,6 @@ export class DashboardComponent implements OnInit {
         );
     }
     public removeShortListSuccess(successData, pi, index, enqId, name) {
-        console.log(successData, 're');
         if (successData.IsSuccess) {
             this.shortlistArray.splice(index, 1);
             this.shortListCount = this.shortlistArray.length;
@@ -605,7 +579,6 @@ export class DashboardComponent implements OnInit {
                 this.nonEditable = false;
 
             }
-
             for (let i = 0; i < this.insuranceLists.length; i++) {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                     this.insuranceLists[pi].product_lists[j].removebtn = false;
@@ -613,17 +586,12 @@ export class DashboardComponent implements OnInit {
 
                 }
             }
-
         }
-
-        // this.getShortListDetails(enqId, index, name);
-
     }
     public removeShortListFailure(successData) {
 
     }
     removeShortlistPage(value, pi, index, enqId, shortId) {
-        console.log(shortId, 'shortId');
         const data = {
             'platform': 'web',
             'shortlist_id': shortId,
@@ -631,7 +599,6 @@ export class DashboardComponent implements OnInit {
             'shortlisted_by': '0',
             'role_id': 4,
         };
-        console.log(data, 'data222');
         this.common.removeShortList(data).subscribe(
             (successData) => {
                 this.removeShortlistPageSuccess(successData, pi, index, enqId, value.group_name);
@@ -642,7 +609,6 @@ export class DashboardComponent implements OnInit {
         );
     }
     public removeShortlistPageSuccess(successData, pi, index, enqId, name) {
-        console.log(successData, 're');
         if (successData.IsSuccess) {
             this.shortlistArray.splice(index, 1);
             this.shortListCount = this.shortlistArray.length;
@@ -652,9 +618,6 @@ export class DashboardComponent implements OnInit {
                 this.nonEditable = false;
             }
         }
-
-        // this.getShortListDetails(enqId, index, name);
-
     }
     public removeShortListPageFailure(successData) {
 
@@ -685,7 +648,7 @@ export class DashboardComponent implements OnInit {
             'created_by': '0',
             'role_id': 4,
         };
-        console.log(data, 'data222');
+        this.settings.loadingSpinner = true;
         this.common.updateTabPolicyQuotation(data).subscribe(
             (successData) => {
                 this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
@@ -696,7 +659,7 @@ export class DashboardComponent implements OnInit {
         );
     }
     public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
-        this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.insuranceLists = successData.ResponseObject;
              this.getShortListDetails(enqId, index, name);
@@ -710,8 +673,6 @@ export class DashboardComponent implements OnInit {
                             }
                     }
                 }
-                console.log(this.insuranceLists, 'insuranceLists');
-
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }
@@ -725,13 +686,13 @@ export class DashboardComponent implements OnInit {
             }
             sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
         } else {
-
             this.toast.error(successData.ErrorObject, 'Failed');
         }
     }
 
     public updateTabPolicyQuotationFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
     }
     ageChange() {
         this.ageUpdateFlag = true;
@@ -760,6 +721,7 @@ export class DashboardComponent implements OnInit {
             'created_by': '0',
             'role_id': 4,
         };
+        this.settings.loadingSpinner = true;
         this.changedTabIndex = sessionStorage.changedTabIndex;
         this.common.changeAmountPolicyQuotation(data).subscribe(
             (successData) => {
@@ -771,7 +733,7 @@ export class DashboardComponent implements OnInit {
         );
     }
     public changeAmountPolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.insuranceLists = successData.ResponseObject;
             for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -794,13 +756,13 @@ export class DashboardComponent implements OnInit {
             }
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
         } else {
-
             this.toast.error(successData.ErrorObject, 'Failed');
         }
     }
 
     public changeAmountPolicyQuotationFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
     }
 
     getShortListDetails(enqId, index, name) {
@@ -821,7 +783,6 @@ export class DashboardComponent implements OnInit {
         );
     }
     public getShortListsSuccess(successData, index, name) {
-        console.log(successData);
         this.shortlistArray = successData.ResponseObject;
         this.shortListCount = this.shortlistArray.length;
         if (this.shortListCount > 0) {
@@ -832,8 +793,6 @@ export class DashboardComponent implements OnInit {
             this.nonEditable = false;
 
         }
-
-        console.log(this.shortlistArray, 'shortlistArray');
         for (let i = 0; i < this.shortlistArray.length; i++) {
             this.shortlistArray[i].removebtn = true;
         }
@@ -847,7 +806,6 @@ export class DashboardComponent implements OnInit {
                 }
             }
         }
-        console.log(this.insuranceLists, 'insuranceLists');
     }
     public getShortListsFailure(error) {
         console.log(error);
@@ -869,8 +827,6 @@ export class DashboardComponent implements OnInit {
 
     // this function will update base details
     updateDetails() {
-        console.log(this.pincoce, 'this.pincoce');
-        console.log(this.changedTabDetails, 'his.changedTabDetails');
         this.getArray = this.changedTabDetails.family_members;
         for (let i = 0; i < this.setArray.length; i++) {
             for (let j = 0; j < this.getArray.length; j++) {
@@ -901,7 +857,7 @@ export class DashboardComponent implements OnInit {
             'role_id': 4,
         };
         let index = this.changedTabIndex;
-        console.log(data, 'data222');
+        this.settings.loadingSpinner = true;
         this.common.updatePolicyQuotation(data).subscribe(
             (successData) => {
                 this.updatePolicyQuotationSuccess(successData, index);
@@ -912,7 +868,7 @@ export class DashboardComponent implements OnInit {
         );
     }
     public updatePolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             if (this.ageUpdateFlag) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
@@ -939,10 +895,10 @@ export class DashboardComponent implements OnInit {
 
     public updatePolicyQuotationFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
     }
 
     compareList(value) {
-        console.log(value, 'value');
         this.productLists = [];
         let scheme = value[0].scheme;
         for (let i = 0; i < value.length; i++) {
@@ -959,7 +915,7 @@ export class DashboardComponent implements OnInit {
             'role_id': 4,
 
         };
-        console.log(data, 'data222');
+        this.settings.loadingSpinner = true;
         this.common.addtoCompare(data).subscribe(
             (successData) => {
                 this.compareSuccess(successData);
@@ -970,7 +926,7 @@ export class DashboardComponent implements OnInit {
         );
     }
     public compareSuccess(successData) {
-        console.log(successData, 'gety');
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             let dialogRef = this.dialog.open(ComparelistComponent, {
                 width: '1500px', data: {comparedata: successData.ResponseObject}});
@@ -982,7 +938,7 @@ export class DashboardComponent implements OnInit {
         }
     }
     public compareFailure(error) {
-
+        this.settings.loadingSpinner = false;
     }
 }
 
