@@ -59,6 +59,7 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
 import { ProposalComponent } from './pages/proposal/proposal.component';
+import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -106,7 +107,8 @@ import { ProposalComponent } from './pages/proposal/proposal.component';
       FixappointmentComponent,
       PosComponent,
       RegisterComponent,
-      ProposalComponent
+      ProposalComponent,
+      GroupmembersAlert
   ],
   providers: [
       AppSettings,
@@ -122,7 +124,7 @@ import { ProposalComponent } from './pages/proposal/proposal.component';
     bootstrap: [AppComponent],
     entryComponents: [
         ComparelistComponent, GrouppopupComponent,
-        ComparelistComponent
+        ComparelistComponent, GroupmembersAlert
     ]
 })
 export class AppModule { }
