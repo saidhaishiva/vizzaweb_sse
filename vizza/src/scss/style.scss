@@ -279,6 +279,10 @@ a:hover {
     .mat-raised-button.mat-primary1 {
       background-color: #ca8845db;
     }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
+    }
 
      thead th{
       border: none;
@@ -410,4 +414,7 @@ background: #ccc !important;
   .box-card{
     background: #f5f5f5;
   }
+}
+.non-editable{
+  pointer-events: none;
 }
