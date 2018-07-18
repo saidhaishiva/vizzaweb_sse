@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
         }
-        console.log(this.settings);
+
         this.tabIndex = 0;
         this.pageSettings = 0;
         this.sumerror = false;
@@ -365,7 +365,7 @@ export class DashboardComponent implements OnInit {
     }
     // this function will get the policy quotation lists
     getPolicyQuotationList() {
-        this.settings.loadingSpinner = true;
+
 
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
@@ -399,6 +399,7 @@ export class DashboardComponent implements OnInit {
                     'family_details': this.finalData
                 };
                 console.log(data, 'data');
+            this.settings.loadingSpinner = true;
             this.common.getPolicyQuotation(data).subscribe(
                 (successData) => {
                     this.PolicyQuotationSuccess(successData, 0);
@@ -436,12 +437,16 @@ export class DashboardComponent implements OnInit {
 
             sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
             if (sessionStorage.setPage != 1) {
+                console.log("FFFFFF");
+                console.log( this.settings);
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
+                console.log( this.settings);
 
             }
             if (this.insuranceLists[index].enquiry_id != '') {
+                console.log("uuuuuuu");
                 sessionStorage.sideMenu = true;
             }
             for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -461,11 +466,13 @@ export class DashboardComponent implements OnInit {
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
         } else {
         alert('Invalid pincode');
-            this.toast.error(successData.ErrorObject, 'Failed');
+            this.toast.success("asdsadsadsadsad", 'Failed');
         }
     }
 
     public PolicyQuotationFailure(error) {
+        this.settings.loadingSpinner = false;
+        this.toast.error(error, 'Failed');
         console.log(error);
     }
 
