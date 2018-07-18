@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
     pinerror: boolean;
     selectedAmount: any;
     pincoce: any;
+    count: any;
     sonStatus: any;
     daugtherStatus: any;
     sumInsuredAmountLists: any;
@@ -51,17 +52,22 @@ export class DashboardComponent implements OnInit {
     tabIndex: number;
 
     addSonItems: any;
-    count: any;
+    totalSuminsured: any;
+    indexList: any;
+    shortListCount: any;
     sonBTn: any;
     daughterBTn: any;
     changedTabDetails: any;
     changedTabIndex: any;
     currentGroupName: any;
+    enquiryId: any;
     firstSelectedAmount: any;
     changeSuninsuredAmount: any;
     shortlistArray: any;
     updateFlag: boolean;
     ageUpdateFlag: boolean;
+    nonEditable: boolean;
+    sbtn: boolean;
 
 
     constructor(public appSettings: AppSettings, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService) {
@@ -69,7 +75,7 @@ export class DashboardComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
        // sessionStorage.sideMenu = false;
         // this.settings.loadingSpinner = true
-        if(!sessionStorage.sideMenu) {
+        if (!sessionStorage.sideMenu) {
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
@@ -81,10 +87,14 @@ export class DashboardComponent implements OnInit {
         this.pinerror = false;
         this.updateFlag = false;
         this.ageUpdateFlag = false;
+        this.nonEditable = false;
+        this.sbtn = false;
+
         this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
-        this.shortlistArray = [];
+        this.indexList = [];
+       // this.shortlistArray = [];
         this.setArray = [
             {name: 'Self', age: '', disabled: false, checked: false, auto: false, error: ''},
             {name: 'Spouse', age: '', disabled: false, checked: false, auto: false, error: ''},
@@ -158,19 +168,23 @@ export class DashboardComponent implements OnInit {
         if (sessionStorage.motherInLawBtn != '') {
             this.motherInLawBtn = sessionStorage.motherInLawBtn;
         }
+        if (sessionStorage.enquiryId != undefined && sessionStorage.enquiryId != '') {
+            this.enquiryId = sessionStorage.enquiryId;
+        }
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            console.log(this.setArray, 'session');
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
+            console.log(this.insuranceLists, 'insuranceListsinsuranceLists');
+
             console.log(this.insuranceLists, 'set');
             let index = JSON.parse(sessionStorage.policyLists).index;
             for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].disabled = false;
+                this.setArray[i].auto = false;
             }
             this.getArray = this.insuranceLists[index].family_members;
             for (let i = 0; i < this.setArray.length; i++) {
                 for (let j = 0; j < this.getArray.length; j++) {
                     if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].disabled = true;
+                        this.setArray[i].auto = true;
                     }
                 }
             }
@@ -232,7 +246,21 @@ export class DashboardComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
+
+            // for (let i = 0; i < this.setArray.length; i++) {
+            //     if (this.setArray[i].name == 'Son') {
+            //         this.sonCount.push(this.setArray[i]);
+            //     } else if (this.setArray[i].name == 'Daughter') {
+            //         this.daughterCount.push(this.setArray[i]);
+            //     }
+            // }
         } else {
+            if (this.setArray[index].name == 'Son') {
+                this.setArray[3].disabled = false;
+            } else if (this.setArray[index].name == 'Daughter') {
+                this.setArray[2].disabled = false;
+            }
+
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
             }
@@ -298,6 +326,18 @@ export class DashboardComponent implements OnInit {
             sessionStorage.sonBTn = false;
             sessionStorage.daughterBTn = false;
         }
+        for (let i = 0; i < this.setArray.length; i++) {
+            let length = this.setArray.length -1;
+            console.log(length, 'length');
+            if (this.setArray.length > 4) {
+                if (this.setArray[length].name == 'Son') {
+                    this.setArray[3].disabled = true;
+                } else if (this.setArray[length].name == 'Daughter') {
+                    this.setArray[2].disabled = true;
+                }
+            }
+        }
+
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     typeAge() {
@@ -383,6 +423,8 @@ export class DashboardComponent implements OnInit {
             this.insuranceLists = successData.ResponseObject;
             this.changedTabIndex = 0;
             sessionStorage.changedTabIndex = 0;
+            this.enquiryId = this.insuranceLists[index].enquiry_id;
+            sessionStorage.enquiryId = this.insuranceLists[index].enquiry_id;
 
             this.changedTabDetails = this.insuranceLists[index];
             this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
@@ -390,7 +432,7 @@ export class DashboardComponent implements OnInit {
             sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
 
             sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
-            if( sessionStorage.setPage != 1) {
+            if (sessionStorage.setPage != 1) {
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
@@ -409,7 +451,7 @@ export class DashboardComponent implements OnInit {
             for (let i = 0; i < this.setArray.length; i++) {
                 for (let j = 0; j < this.getArray.length; j++) {
                     if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].disabled = true;
+                        this.setArray[i].auto = true;
                     }
                 }
             }
@@ -426,17 +468,23 @@ export class DashboardComponent implements OnInit {
 
 
     onSelectedIndexChange(index) {
-        this.updateFlag = false;
-        this.ageUpdateFlag = false;
-        this.settings.loadingSpinner = true;
-        this.changedTabDetails = this.insuranceLists[index];
-        sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
-        this.currentGroupName = this.insuranceLists[index].name;
-        this.changedTabIndex = index;
-        sessionStorage.changedTabIndex = index;
-        this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+        console.log(index, 'index');
 
-        this.updateTabPolicy(this.insuranceLists[index], index);
+        if (this.insuranceLists.length == index) {
+            this.getShortListDetails(this.enquiryId, index, name);
+
+        } else {
+            this.updateFlag = false;
+            this.ageUpdateFlag = false;
+            this.settings.loadingSpinner = true;
+            this.changedTabDetails = this.insuranceLists[index];
+            sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
+            this.currentGroupName = this.insuranceLists[index].name;
+            this.changedTabIndex = index;
+            sessionStorage.changedTabIndex = index;
+            this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+            this.updateTabPolicy(this.insuranceLists[index], index);
+        }
     }
 
     addCompare(value, pi, index, equiryId, name) {
@@ -446,38 +494,160 @@ export class DashboardComponent implements OnInit {
         this.insuranceLists[pi].product_lists[index].compare = true;
         this.compareArray.push(data);
     }
-    removeCompare(index ,pindex, tabIndex) {
+    removeCompare(index , pindex, tabIndex) {
         this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
         this.compareArray.splice(index, 1);
     }
-    addShortlist(value, pi, index) {
-        this.count = 0;
-        this.scount = this.count ++;
+    addShortlist(value, pi, index, enqId, name) {
         console.log(value, 'value');
+        console.log(name, 'name');
+        // this.shortlistArray.push(value);
+        this.nonEditable = true;
+        // sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
 
-        this.shortlistArray.push(value);
-        sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
-        for (let i = 0; i < this.insuranceLists.length; i++) {
-            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                this.insuranceLists[pi].product_lists[j].shortlist = true;
-                this.insuranceLists[pi].product_lists[j].currentBtn = true;
 
+        const data = {
+            'platform': 'web',
+            'scheme': value.scheme,
+            'group_name': name,
+            'product_id': value.product_id,
+            'suminsured_amount': value.suminsured_amount,
+            'premium_amount': value.premium_amount,
+            'enquiry_id': enqId,
+            'shortlisted_by': '0',
+            'role_id': 4,
+
+        };
+        console.log(data, 'data222');
+        this.common.addShortList(data).subscribe(
+            (successData) => {
+                this.shortListSuccess(successData, pi, index);
+            },
+            (error) => {
+                this.shortListFailure(error);
             }
+        );
+    }
+    public shortListSuccess(successData, pi, index) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.shortlistArray = successData.ResponseObject;
+            console.log(this.shortlistArray, 'shortlistArray');
+            this.shortListCount = this.shortlistArray.length;
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    for (let k = 0; k < this.shortlistArray.length; k++) {
+                        this.insuranceLists[pi].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
+                        this.insuranceLists[pi].product_lists[j].shortlist = this.shortlistArray[k].shortlist_id == '' ? false : true;
+                        this.insuranceLists[pi].product_lists[j].currentBtn = this.shortlistArray[k].shortlist_id == '' ? false : true;
+                    }
+                }
+            }
+            console.log(this.insuranceLists, 'insuranceLists');
         }
+
+        // for (let i = 0; i < this.insuranceLists.length; i++) {
+        //     for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+        //         this.insuranceLists[pi].product_lists[j].shortlist = true;
+        //         this.insuranceLists[pi].product_lists[j].currentBtn = true;
+        //
+        //     }
+        // }
         this.insuranceLists[pi].product_lists[index].currentBtn = false;
         this.insuranceLists[pi].product_lists[index].removebtn = true;
-    }
-    removeShortlist(value, pi, index) {
-        this.scount = this.count--;
-        this.shortlistArray.splice(index, 1);
+        this.indexList.push({pi: pi, index: index});
+        // sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
+        sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
 
-        for (let i = 0; i < this.insuranceLists.length; i++) {
-            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                this.insuranceLists[pi].product_lists[j].removebtn = false;
-                this.insuranceLists[pi].product_lists[j].shortlist = false;
+
+
+    }
+    public shortListFailure(error) {
+
+    }
+    removeShortlist(value, pi, index, enqId, shortId) {
+        console.log(shortId, 'shortId');
+        const data = {
+            'platform': 'web',
+            'shortlist_id': shortId,
+            'enquiry_id': enqId,
+            'shortlisted_by': '0',
+            'role_id': 4,
+        };
+        console.log(data, 'data222');
+        this.common.removeShortList(data).subscribe(
+            (successData) => {
+                this.removeShortListSuccess(successData, pi, index, enqId, value.group_name);
+            },
+            (error) => {
+                this.removeShortListFailure(error);
+            }
+        );
+    }
+    public removeShortListSuccess(successData, pi, index, enqId, name) {
+        console.log(successData, 're');
+        if (successData.IsSuccess) {
+            this.shortlistArray.splice(index, 1);
+            this.shortListCount = this.shortlistArray.length;
+            if (this.shortListCount > 0) {
+                this.nonEditable = true;
+            } else {
+                this.nonEditable = false;
 
             }
+
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    this.insuranceLists[pi].product_lists[j].removebtn = false;
+                    this.insuranceLists[pi].product_lists[j].shortlist = false;
+
+                }
+            }
+
         }
+
+        // this.getShortListDetails(enqId, index, name);
+
+    }
+    public removeShortListFailure(successData) {
+
+    }
+    removeShortlistPage(value, pi, index, enqId, shortId) {
+        console.log(shortId, 'shortId');
+        const data = {
+            'platform': 'web',
+            'shortlist_id': shortId,
+            'enquiry_id': enqId,
+            'shortlisted_by': '0',
+            'role_id': 4,
+        };
+        console.log(data, 'data222');
+        this.common.removeShortList(data).subscribe(
+            (successData) => {
+                this.removeShortlistPageSuccess(successData, pi, index, enqId, value.group_name);
+            },
+            (error) => {
+                this.removeShortListPageFailure(error);
+            }
+        );
+    }
+    public removeShortlistPageSuccess(successData, pi, index, enqId, name) {
+        console.log(successData, 're');
+        if (successData.IsSuccess) {
+            this.shortlistArray.splice(index, 1);
+            this.shortListCount = this.shortlistArray.length;
+            if (this.shortListCount > 0) {
+                this.nonEditable = true;
+            } else {
+                this.nonEditable = false;
+            }
+        }
+
+        // this.getShortListDetails(enqId, index, name);
+
+    }
+    public removeShortListPageFailure(successData) {
+
     }
 
     updateTabPolicy(value, index) {
@@ -493,7 +663,7 @@ export class DashboardComponent implements OnInit {
             }
         }
         for (let i = 0; i < this.setArray.length; i++) {
-            this.setArray[i].disabled = false;
+            this.setArray[i].auto = false;
         }
         const data = {
             'platform': 'web',
@@ -508,36 +678,30 @@ export class DashboardComponent implements OnInit {
         console.log(data, 'data222');
         this.common.updateTabPolicyQuotation(data).subscribe(
             (successData) => {
-                this.updateTabPolicyQuotationSuccess(successData, index);
+                this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
             },
             (error) => {
                 this.updateTabPolicyQuotationFailure(error);
             }
         );
     }
-    public updateTabPolicyQuotationSuccess(successData, index) {
+    public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
         this.settings.loadingSpinner = true;
         if (successData.IsSuccess) {
             this.insuranceLists = successData.ResponseObject;
-            if (sessionStorage.shorListTab != '' && sessionStorage.shorListTab != undefined) {
-                let getValue = JSON.parse(sessionStorage.shorListTab);
+             this.getShortListDetails(enqId, index, name);
                 for (let i = 0; i < this.insuranceLists.length; i++) {
                     for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                        this.insuranceLists[getValue.pi].product_lists[j].shortlist = true;
-                        this.insuranceLists[getValue.pi].product_lists[j].currentBtn = true;
+                            this.insuranceLists[index].product_lists[j].shortlist =  this.insuranceLists[index].product_lists[j].shortlist_status;
+                            this.insuranceLists[index].product_lists[j].currentBtn =  this.insuranceLists[index].product_lists[j].shortlist_status;
+                            if (this.insuranceLists[index].product_lists[j].indiv_shortlist_status == true) {
+                                this.insuranceLists[index].product_lists[j].removebtn = this.insuranceLists[index].product_lists[j].indiv_shortlist_status;
+                                this.insuranceLists[index].product_lists[j].currentBtn = false;
+                            }
+                    }
+                }
+                console.log(this.insuranceLists, 'insuranceLists');
 
-                    }
-                }
-                this.insuranceLists[getValue.pi].product_lists[getValue.index].currentBtn = false;
-                this.insuranceLists[getValue.pi].product_lists[getValue.index].removebtn = true;
-            } else {
-                for (let i = 0; i < this.insuranceLists.length; i++) {
-                    for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                        this.insuranceLists[i].product_lists[j].compare = false;
-                        this.insuranceLists[i].product_lists[j].shortlist = false;
-                    }
-                }
-            }
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }
@@ -545,11 +709,11 @@ export class DashboardComponent implements OnInit {
             for (let i = 0; i < this.setArray.length; i++) {
                 for (let j = 0; j < this.getArray.length; j++) {
                     if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].disabled = true;
+                        this.setArray[i].auto = true;
                     }
                 }
             }
-            sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+            sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
         } else {
 
             this.toast.error(successData.ErrorObject, 'Failed');
@@ -575,7 +739,7 @@ export class DashboardComponent implements OnInit {
     // this function will change the sum insured amount
     changeSuminsuredFunction() {
         for (let i = 0; i < this.setArray.length; i++) {
-            this.setArray[i].disabled = false;
+            this.setArray[i].auto = false;
         }
         const data = {
             'platform': 'web',
@@ -614,7 +778,7 @@ export class DashboardComponent implements OnInit {
             for (let i = 0; i < this.setArray.length; i++) {
                 for (let j = 0; j < this.getArray.length; j++) {
                     if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].disabled = true;
+                        this.setArray[i].auto = true;
                     }
                 }
             }
@@ -629,9 +793,64 @@ export class DashboardComponent implements OnInit {
         console.log(error);
     }
 
+    getShortListDetails(enqId, index, name) {
+        const data = {
+            'platform': 'web',
+            'enquiry_id': enqId,
+            'shortlisted_by': '0',
+            'role_id': 4,
+        };
+        this.changedTabIndex = sessionStorage.changedTabIndex;
+        this.common.getShortLists(data).subscribe(
+            (successData) => {
+                this.getShortListsSuccess(successData, index, name);
+            },
+            (error) => {
+                this.getShortListsFailure(error);
+            }
+        );
+    }
+    public getShortListsSuccess(successData, index, name) {
+        console.log(successData);
+        this.shortlistArray = successData.ResponseObject;
+        this.shortListCount = this.shortlistArray.length;
+        if (this.shortListCount > 0) {
+            this.nonEditable = true;
+            let length = this.shortlistArray.length - 1;
+            this.totalSuminsured = this.shortlistArray[length].total_suminsured;
+        } else {
+            this.nonEditable = false;
+
+        }
+
+        console.log(this.shortlistArray, 'shortlistArray');
+        for (let i = 0; i < this.shortlistArray.length; i++) {
+            this.shortlistArray[i].removebtn = true;
+        }
+        for (let i = 0; i < this.insuranceLists.length; i++) {
+            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                for (let k = 0; k < this.shortlistArray.length; k++) {
+                    if (this.shortlistArray[k].group_name == name) {
+                        this.insuranceLists[index].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
+                    }
+
+                }
+            }
+        }
+        console.log(this.insuranceLists, 'insuranceLists');
+    }
+    public getShortListsFailure(error) {
+        console.log(error);
+    }
+
     updateFunction() {
         if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
-            alert('you lost all');
+            let dialogRef = this.dialog.open(GroupmembersAlert, {
+                width: '600px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+            });
             this.updateDetails();
         } else {
             this.changeSuminsuredFunction();
@@ -755,3 +974,30 @@ export class DashboardComponent implements OnInit {
 
     }
 }
+
+@Component({
+    selector: 'groupmembersalert',
+    template: `
+        <!--<h1 mat-dialog-title>Delete Assistant</h1>-->
+        <div mat-dialog-content>
+            <label>If you change in members age . Do you want to continue?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" tabindex="2">Ok</button>
+        </div>
+    `
+
+})
+export class GroupmembersAlert {
+
+    constructor(
+        public dialogRef: MatDialogRef<GroupmembersAlert>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+

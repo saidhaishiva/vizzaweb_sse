@@ -175,6 +175,7 @@ a:hover {
   }
   .nav-link{
     border-bottom: 1px solid #ccc;
+    width: 100%;
   }
 
   ul {
@@ -208,6 +209,9 @@ a:hover {
     li:nth-child(10) .icon {
       background: #FFD840;
     }
+  }
+  .nav-item{
+    height: 100px;
   }
 }
 
@@ -274,6 +278,10 @@ a:hover {
     }
     .mat-raised-button.mat-primary1 {
       background-color: #ca8845db;
+    }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
     }
 
      thead th{
@@ -406,4 +414,7 @@ background: #ccc !important;
   .box-card{
     background: #f5f5f5;
   }
+}
+.non-editable{
+  pointer-events: none;
 }

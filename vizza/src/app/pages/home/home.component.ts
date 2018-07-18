@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit {
       sessionStorage.changedTabDetails = '';
       sessionStorage.changeSuninsuredAmount = '';
       sessionStorage.changedTabIndex = '';
+      sessionStorage.shorListTab = '';
+      sessionStorage.enquiryId = '';
   }
 
 }

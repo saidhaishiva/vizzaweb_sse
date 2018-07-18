@@ -15,7 +15,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule} from '@angular/material';
 
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {RejectDoctor} from './pages/posprofile/posprofile.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -57,11 +56,12 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import {ClinicimageviewComponent} from './pages/posprofile/clinicimageview/clinicimageview.component';
 import { DoctorsService } from './shared/services/doctors.service';
-import { DoctornotesComponent } from './pages/posprofile/doctornotes/doctornotes.component';
 import {DashboardService} from './shared/services/dashboard.service';
 import { AddposComponent } from './pages/addpos/addpos.component';
 import { PosComponent } from './pages/pos/pos.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
+import { PosnotesComponent} from './pages/posprofile/posnotes/posnotes.component';
+import { RejectPOS } from './pages/posprofile/posprofile.component';
 
 @NgModule({
     imports: [
@@ -104,11 +104,11 @@ import { PosprofileComponent } from './pages/posprofile/posprofile.component';
         FaqComponent,
         ContactUsComponent,
         ClinicimageviewComponent,
-        DoctornotesComponent,
-        RejectDoctor,
+        RejectPOS,
         AddposComponent,
         PosComponent,
-        PosprofileComponent
+        PosprofileComponent,
+        PosnotesComponent
     ],
     providers: [
         AppSettings,
@@ -124,6 +124,6 @@ import { PosprofileComponent } from './pages/posprofile/posprofile.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, DoctornotesComponent, RejectDoctor,  ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS,  ]
 })
 export class AppModule { }
