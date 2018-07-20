@@ -206,6 +206,9 @@ a:hover {
   background-color: #18CCB4; }
 #product-list .health-table .mat-raised-button.mat-primary1 {
   background-color: #ca8845db; }
+#product-list .health-table .mat-raised-button.mat-accentRemove {
+  background-color: #2d8dc5;
+  color: #ffff; }
 #product-list .health-table thead th {
   border: none;
   vertical-align: bottom;
@@ -306,5 +309,38 @@ a:hover {
   color: #d81b60 !important; }
 .proposal .box-card {
   background: #f5f5f5; }
+
+.non-editable {
+  pointer-events: none; }
+
+.mat-placeholder-required {
+  color: red; }
+
+.carousel-indicators {
+  bottom: -12px; }
+  .carousel-indicators li {
+    background-color: rgba(0, 105, 92, 0.47);
+    height: 16px; }
+  .carousel-indicators .active {
+    background-color: #00695c; }
+
+.mat-button-toggle label {
+  margin-bottom: 0; }
+
+.mat-button-toggle-group .cdk-program-focused:first-child {
+  background-color: #18ccb4 !important;
+  color: #fff !important; }
+
+.mat-button-toggle-group .cdk-program-focused:last-child {
+  background-color: #d81b60 !important;
+  color: #fff !important; }
+
+.mat-button-toggle-group .mat-button-toggle-checked:first-child {
+  background-color: #18ccb4 !important;
+  color: #fff !important; }
+
+.mat-button-toggle-group .mat-button-toggle-checked:last-child {
+  background-color: #d81b60 !important;
+  color: #fff !important; }
 
 /*# sourceMappingURL=style.css.map */

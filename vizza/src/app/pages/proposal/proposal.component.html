@@ -2,243 +2,303 @@
   <div class="row proposal">
     <div class="col-md-12">
       <mat-horizontal-stepper [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="proposalDetail">
-          <form [formGroup]="proposalDetail" (submit)="proposal(proposalDetail.value)">
-            <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+        <mat-step [stepControl]="">
+
+          <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <mat-expansion-panel *ngFor="let list of totalGroup; let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{list.group_name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row mt-3">
+                <div class="col-md-6 box-card pt-3">
+                  <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+                  <div class="row" >
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Name" [(ngModel)]="list.pname" required >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker" placeholder="DOB" [(ngModel)]="list.pdob" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100" >
+                      <input matInput placeholder="Age" [(ngModel)]="list.page" required>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Occupation" [(ngModel)]="list.poccupation" required>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Annual Income" [(ngModel)]="list.pincome" required>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Aadhar Number" [(ngModel)]="list.paadhar" required>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="PAN Number" [(ngModel)]="list.ppan" required>
+                    </mat-form-field></div>
+                  </div>
+                </div>
+                <div class="col-md-6 box-card pt-3">
+                  <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Address" rows="3" [(ngModel)]="list.paddress" required></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="PIN Code" [(ngModel)]="list.ppincode" required>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="City" [(ngModel)]="list.pcity" required>
+                    </mat-form-field></div>
+                    <div class="col-md-12"><mat-form-field class="w-100">
+                      <input matInput placeholder="Email ID" [(ngModel)]="list.pemail" required>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile Number" [(ngModel)]="list.ppmobile" required>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Alternate Number" [(ngModel)]="list.paltnumber">
+                    </mat-form-field></div>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3 box-card" *ngIf="isFirstRow && totalGroupLength != 1">
+                  <p class="m-0 pt-2"><mat-checkbox (change)="applyToAll()" >Is the Proposer the same for {{totalGroupLength - 1}} groups? If no, please check the given box.</mat-checkbox> </p>
+                </div>
+                <div class="proposal-buttom mt-3 text-right w-100">
+                  <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Personal Details')"  >Next</button>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-step>
+
+        <mat-step [stepControl]="">
+
+            <ng-template matStepLabel >INSURED DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
-              <mat-expansion-panel  expanded>
+              <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    GROUP A
+                    {{list.group_name}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-<div class="row mt-3" formGroupName="groupA">
-  <div class="col-md-6 box-card pt-3">
-    <h6 class="color-green text-center">PERSONAL DETAILS</h6>
-    <div class="row">
-      <div class="col-md-12">
-    <mat-form-field class="w-100">
-      <input matInput placeholder="Name" formControlName="name" required>
-      <mat-error *ngIf="proposalDetail.controls.groupA.controls.name.errors?.required">Name is required</mat-error>
-
-    </mat-form-field>
-      </div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-          <input matInput [matDatepicker]="picker" placeholder="DOB" formControlName="dob" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.dob.errors?.required">DOB is required</mat-error>
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Age" formControlName="age" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.age.errors?.required">Age is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Occupation" formControlName="occupation" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.occupation.errors?.required">Occupation is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Annual Income" formControlName="income" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.income.errors?.required">Annual Income is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Aadhar Number" formControlName="aadhar" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.aadhar.errors?.required">Aadhar Number is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="PAN Number" formControlName="pan" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pan.errors?.required">PAN Number is required</mat-error>
-
-      </mat-form-field></div>
-    </div>
-    </div>
-  <div class="col-md-6 box-card pt-3">
-    <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
-    <div class="row">
-      <div class="col-md-12">
-        <mat-form-field class="w-100">
-          <textarea matInput placeholder="Address" rows="3" formControlName="address" required></textarea>
-          <mat-error *ngIf="proposalDetail.controls.groupA.controls.address.errors?.required">Address is required</mat-error>
-
-        </mat-form-field>
-      </div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="PIN Code" formControlName="pincode" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pincode.errors?.required">PIN Code is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100" required>
-        <input matInput placeholder="City" formControlName="city" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.pincode.errors?.required">City is required</mat-error>
-      </mat-form-field></div>
-      <div class="col-md-12"><mat-form-field class="w-100">
-        <input matInput placeholder="Email ID" formControlName="email" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.email.errors?.required">Email ID is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Mobile Number" formControlName="mobile" required>
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.mobile.errors?.required">Mobile Number is required</mat-error>
-
-      </mat-form-field></div>
-      <div class="col-md-6"><mat-form-field class="w-100">
-        <input matInput placeholder="Alternate Number" formControlName="altnumber">
-        <mat-error *ngIf="proposalDetail.controls.groupA.controls.altnumber.errors?.required">Alternate Number is required</mat-error>
-
-      </mat-form-field></div>
-    </div>
-    </div>
-  <div class="col-md-12 mt-3 box-card">
-    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="applyToAll(proposalDetail.value)" >Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
-  </div>
-</div>
-
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    GROUP B
-                  </mat-panel-title>
-
-                </mat-expansion-panel-header>
-                <div class="row mt-3" formGroupName="groupB">
-                  <div class="col-md-6 box-card pt-3">
-                    <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+                <ng-template matStepLabel>INSURED DETAILS</ng-template>
+                <div class="row mt-3" >
+                  <div class="col-md-6 box-card pt-3 mb-3" *ngFor="let item of list.family_members; let j = index">
+                    <h6 class="color-green text-center">INSURED DETAILS {{j+1}} ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name" formControlName="name" required>
-                          <mat-error *ngIf="proposalDetail.controls.groupB.controls.name.errors?.required">Name is required</mat-error>
-
+                          <input matInput placeholder="Name" [(ngModel)]="item.insurname"  required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="dob" placeholder="DOB" formControlName="dob" required>
-                        <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
-                        <mat-datepicker #dob></mat-datepicker>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.dob.errors?.required">DOB is required</mat-error>
+                        <input matInput [matDatepicker]="insureddob" placeholder="DOB" [(ngModel)]="item.insurdob" >
+                        <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
+                        <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" formControlName="age" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.age.errors?.required">Age is required</mat-error>
-
+                        <input matInput placeholder="Age" [(ngModel)]="item.insurage" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Occupation" formControlName="occupation" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.occupation.errors?.required">Occupation is required</mat-error>
-
+                        <input matInput placeholder="Height"  [(ngModel)]="item.insurheight" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Annual Income" formControlName="income" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.income.errors?.required">Annual Income is required</mat-error>
-
+                        <input matInput placeholder="Weight" [(ngModel)]="item.insurweight" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" formControlName="aadhar" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.aadhar.errors?.required">Aadhar Number is required</mat-error>
-
+                        <mat-select  placeholder="Occupation" [(ngModel)]="item.insuroccupation" required>
+                          <mat-option value="option1">Self Employed</mat-option>
+                        </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" formControlName="pan" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pan.errors?.required">PAN Number is required</mat-error>
-
+                        <input matInput placeholder="Annual Income" [(ngModel)]="item.insurincome" required >
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Relationship with Proposer" [(ngModel)]="item.insurrelationship" required>
                       </mat-form-field></div>
                     </div>
-                  </div>
-                  <div class="col-md-6 box-card pt-3">
-                    <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address" rows="3" formControlName="address" required></textarea>
-                          <mat-error *ngIf="proposalDetail.controls.groupB.controls.address.errors?.required">Address is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code" formControlName="pincode" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pincode.errors?.required">PIN Code is required</mat-error>
-
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100" required>
-                        <input matInput placeholder="City" formControlName="city" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.pincode.errors?.required">City is required</mat-error>
-                      </mat-form-field></div>
-                      <div class="col-md-12"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID" formControlName="email" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.email.errors?.required">Email ID is required</mat-error>
-
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number" formControlName="mobile" required>
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.mobile.errors?.required">Mobile Number is required</mat-error>
-
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number" formControlName="altnumber">
-                        <mat-error *ngIf="proposalDetail.controls.groupB.controls.altnumber.errors?.required">Alternate Number is required</mat-error>
-
-                      </mat-form-field></div>
+                    <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="list.family_members.length - 1 == j">
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Insured Details')"  >Next</button>
                     </div>
                   </div>
-                  <div class="col-md-12 mt-3 box-card">
-                    <p class="m-0 pt-2"><mat-checkbox  [checked]="isAppUser"  (change)="applyToAll(proposalDetail.value)" >Is the Proposer the same for all three groups? If no, please check the given box.</mat-checkbox> </p>
-                  </div>
+
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
-            <div class="proposal-buttom mt-3 float-right">
-              <button mat-raised-button color="primary" matStepperNext type="submit" [disabled]="!proposalDetail.valid">Next</button>
-            </div>
-          </form>
+
         </mat-step>
-        <mat-step >
-          <form >
-            <ng-template matStepLabel>INSURED DETAILS</ng-template>
-            kjlhjkhkljh
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step >
-          <form >
+
+        <mat-step [stepControl]="">
             <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
-            <mat-form-field>
-              <input matInput placeholder="Address"  required>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
+            <mat-accordion class="mt-4 w-100 float-left">
+              <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{list.group_name}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ng-template matStepLabel>INSURED DETAILS</ng-template>
+                <div class="row mt-3" >
+                  <div class="col-md-6 box-card pt-3" >
+                    <h6 class="color-green text-center">NOMINEE DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Name of Nominee" [(ngModel)]="list.nname"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-2"><mat-form-field class="w-100">
+                        <mat-select placeholder="Age"  [(ngModel)]="list.nnage" required>
+                          <mat-option value="option1">26</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="list.nrelationship" required>
+                          <mat-option value="option1">Brother</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
+                    </div>
+                    <h6 class="color-green text-center mt-4">APPOINTEE DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Name of Appointee" [(ngModel)]="list.aname"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-2"><mat-form-field class="w-100">
+                        <mat-select placeholder="Age"  [(ngModel)]="list.aage" required>
+                          <mat-option value="option1">26</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <mat-select placeholder="Name of Appointee"  [(ngModel)]="list.arelationship" required>
+                          <mat-option value="option1">Brother</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 box-card pt-3">
+                    <h6 class="color-green text-center">PREVIOUS INSURER DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Previous Policy Number" [(ngModel)]="policynumber"  required>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <mat-select placeholder="Previous Insurer" [(ngModel)]="list.previousinsurer"  required>
+                          <mat-option value="option1">Bajaj Alliance</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
+                      <div class="col-md-6">
+                        <p>Any Claims in the Past 3 Years?</p>
+                        <mat-radio-group [(ngModel)]="list.anyclaims" required>
+                          <mat-radio-button value="1" class="mr-3" checked>yes</mat-radio-button>
+                          <mat-radio-button value="0">No</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="proposal-buttom mt-3 text-right w-100">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Nominee Details')"  >Next</button>
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+
         </mat-step>
-        <mat-step >
-          <form >
-            <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
-            <mat-form-field>
-              <input matInput placeholder="Address"  required>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>SUMMARY</ng-template>
-          You are now done.
-          <div>
+        <mat-step [stepControl]="medicalDetails">
+          <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first"  [expanded]="isFirstRow">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{list.group_name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matStepLabel>INSURED DETAILS</ng-template>
+
+              <div class="row">
+                <div class="col-md-12 box-card pt-3 mt-3">
+                  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                    <!-- Indicators -->
+                    <ul class="carousel-indicators">
+                      <li data-target="#demo" data-slide-to="0" class="active"></li>
+                      <li data-target="#demo" data-slide-to="1"></li>
+                      <li data-target="#demo" data-slide-to="2"></li>
+                    </ul>
+
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                      <div class="carousel-item" [ngClass]="firstSlide? 'active' : ''" *ngFor="let slide of questionData; let firstSlide = first" >
+                        <div *ngFor="let ques of slide">
+                        <p class="w-100" >{{ques.question_heading}} <mat-radio-group>
+                          <mat-radio-button value="1" class="mr-1">Yes</mat-radio-button>
+                          <mat-radio-button value="0">No</mat-radio-button>
+                        </mat-radio-group></p>
+                        <table class="table table-hover w-100">
+                          <thead>
+                          <tr class="text-center color-green" >
+                            <th></th>
+                            <th *ngFor="let data of list.family_members">{{data.type}}</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let qlist of ques.questions_list; let i = index">
+                            <td>{{i+1}}) {{qlist.question}}</td>
+                            <td class="text-center" *ngFor="let data2 of list.family_members">
+                              <mat-button-toggle-group #group="matButtonToggleGroup">{{group.value}}
+                                <mat-button-toggle value="1">Yes</mat-button-toggle>
+                                <mat-button-toggle value="0">NO</mat-button-toggle>
+                              </mat-button-toggle-group>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="proposal-buttom mt-3 float-right">
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-raised-button color="primary" matStepperNext (click)="proposal()" >Next</button>
           </div>
+        </mat-step>
+        <mat-step [stepControl]="summary">
+          <form>
+            <ng-template matStepLabel>SUMMARY</ng-template>
+            <p>Summary</p>
+            <div class="proposal-buttom mt-3 float-right">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext type="submit" >Next</button>
+            </div>
+          </form>
         </mat-step>
       </mat-horizontal-stepper>
     </div>
   </div>
 </div>
+
+

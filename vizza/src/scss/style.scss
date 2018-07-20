@@ -418,3 +418,36 @@ background: #ccc !important;
 .non-editable{
   pointer-events: none;
 }
+.mat-placeholder-required{
+  color: red;
+}
+.carousel-indicators{
+  bottom: -12px;
+  li{
+    background-color: rgba(0, 105, 92, 0.47);
+    height: 16px;
+  }
+  .active {
+    background-color: #00695c;
+  }
+}
+.mat-button-toggle label{
+  margin-bottom: 0;
+}
+
+.mat-button-toggle-group .cdk-program-focused:first-child{
+  background-color:#18ccb4 !important;
+  color: #fff !important;
+}
+.mat-button-toggle-group .cdk-program-focused:last-child{
+  background-color: #d81b60 !important;
+  color: #fff !important;
+}
+.mat-button-toggle-group .mat-button-toggle-checked:first-child{
+  background-color:#18ccb4 !important;
+  color: #fff !important;
+}
+.mat-button-toggle-group .mat-button-toggle-checked:last-child{
+  background-color: #d81b60 !important;
+  color: #fff !important;
+}

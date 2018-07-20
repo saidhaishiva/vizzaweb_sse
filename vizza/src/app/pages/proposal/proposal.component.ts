@@ -1,170 +1,164 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service'
+import { MatStepper } from '@angular/material';
+import {ToastrService} from 'ngx-toastr';
+
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
   styleUrls: ['./proposal.component.scss']
 })
 export class ProposalComponent implements OnInit {
-    proposalDetail: FormGroup;
-    secondFormGroup: FormGroup;
     checked: boolean;
-    private isAppUser = false;
     totalProposal: any;
-
-  constructor(private formBuilder: FormBuilder, public proposalservice: ProposalService) {
-      this.proposalDetail = this.formBuilder.group({
-          groupA: this.formBuilder.group({
-              name: ['', Validators.compose([Validators.required])],
-              dob: ['', Validators.compose([Validators.required])],
-              age: ['', Validators.compose([Validators.required])],
-              occupation: ['', Validators.compose([Validators.required])],
-              income: ['', Validators.compose([Validators.required])],
-              aadhar: ['', Validators.compose([Validators.required])],
-              pan: ['', Validators.compose([Validators.required])],
-              address: ['', Validators.compose([Validators.required])],
-              pincode: ['', Validators.compose([Validators.required])],
-              city: ['', Validators.compose([Validators.required])],
-              email: ['', Validators.compose([Validators.required])],
-              mobile: ['', Validators.compose([Validators.required])],
-              altnumber: ''
-          }),
-          groupB: this.formBuilder.group({
-              name: ['', Validators.compose([Validators.required])],
-              dob: ['', Validators.compose([Validators.required])],
-              age: ['', Validators.compose([Validators.required])],
-              occupation: ['', Validators.compose([Validators.required])],
-              income: ['', Validators.compose([Validators.required])],
-              aadhar: ['', Validators.compose([Validators.required])],
-              pan: ['', Validators.compose([Validators.required])],
-              address: ['', Validators.compose([Validators.required])],
-              pincode: ['', Validators.compose([Validators.required])],
-              city: ['', Validators.compose([Validators.required])],
-              email: ['', Validators.compose([Validators.required])],
-              mobile: ['', Validators.compose([Validators.required])],
-              altnumber: ''
-          })
-      });
+    totalGroup: any;
+    totalGroupLength: any;
+    isLinear = false;
+    questionData: any;
+    checkQuestion: any;
+    totalCheckQues: any;
+    question: any;
+    totalQuestionList: any;
+  constructor(public proposalservice: ProposalService, private toastr: ToastrService) {
       this.totalProposal = [];
-
+      this.totalCheckQues = [];
+      this.totalQuestionList = [];
   }
-    ngOnInit() {
-        //
-        // this.secondFormGroup = this.formBuilder.group({
-        //     name: ['', Validators.compose([Validators.required])],
-        //     dob: ['', Validators.compose([Validators.required])],
-        //     age: ['', Validators.compose([Validators.required])],
-        //     occupation: ['', Validators.compose([Validators.required])],
-        //     income: ['', Validators.compose([Validators.required])],
-        //     aadhar: ['', Validators.compose([Validators.required])],
-        //     pan: ['', Validators.compose([Validators.required])],
-        //     address: ['', Validators.compose([Validators.required])],
-        //     pincode: ['', Validators.compose([Validators.required])],
-        //     city: ['', Validators.compose([Validators.required])],
-        //     email: ['', Validators.compose([Validators.required])],
-        //     mobile: ['', Validators.compose([Validators.required])],
-        //     altnumber: ''
-        // });
-    }
-  proposal(list) {
-      if (this.proposalDetail.valid) {
-          console.log(list);
-          this.totalProposal.push(list);
-         const data = {
-             'platform': 'web',
-             'product_id': '1',
-             'policy_type_name': 'MCINEW',
-             'policy_category': 'fresh',
-             'policy_started_on': '01-07-2018 10:00',
-             'policy_end_on': '01-07-2019 10:00',
-             'policy_period': '1',
-             'sum_insured_id': '1',
-             'scheme_id': '1',
-             'proposer_name': list.name,
-             'proposer_email': list.email,
-             'proposer_mobile': list.mobile,
-             'proposer_res_address1': list.address,
-             'proposer_res_address2': 'Anna Nagar West',
-             'proposer_res_area': 'Annanagar',
-             'proposer_res_city': list.city,
-             'proposer_res_state': 'Tamil Nadu',
-             'proposer_res_pincode': list.pincode,
-             'proposer_comm_address1': '12/2 New street',
-             'proposer_comm_address2': 'Anna Nagar West',
-             'proposer_comm_area': 'Annanagar',
-             'proposer_comm_city': 'Chennai',
-             'proposer_comm_state': 'Tamil Nadu',
-             'proposer_comm_pincode': '600026',
-             'prop_dob': list.dob,
-             'prop_occupation': list.occupation,
-             'prop_annual_income': list.income,
-             'prop_pan_no': list.pan,
-             'prop_aadhar_no': list.aadhar,
-             'gst_id_no': '32r234',
-             'exist_health_ins_covered_persons_details': '',
-             'have_eia_no': '1',
-             'eia_no': '',
-             'previous_medical_insurance': '',
-             'critical_illness': '',
-             'social_status': '',
-             'social_status_bpl': '',
-             'social_status_disabled': '',
-             'social_status_informal': '',
-             'social_status_unorganized': '',
-             'social_status_backwardclass': '',
-             'social_status_othercategories': '',
-             'nominee_name_one': '',
-             'nominee_age_one': '',
-             'nominee_relationship_one': '',
-             'nominee_percentclaim_one': '',
-             'appointee_name_one': '',
-             'appointee_age_one': '',
-             'appointee_relationship_one': '',
-             'nominee_name_two': '',
-             'nominee_age_two': '',
-             'nominee_relationship_two': '',
-             'nominee_percentclaim_two': '',
-             'appointee_name_two': '',
-             'appointee_age_two': '',
-             'appointee_relationship_two': '',
-             'created_type': 'self',
-             'created_by': '0',
-             'insured_details': [{
-                 'ins_name': 'Muthu',
-                 'ins_dob': '10-05-2000',
-                 'ins_age': '18',
-                 'ins_relationship': '1',
-                 'ins_gender': 'Male',
-                 'ins_illness': '',
-                 'ins_height': '170',
-                 'ins_weight': '60',
-                 'ins_suminsured_indiv': '1',
-                 'ins_occupation_id': '1',
-                 'ins_personal_accident_applicable': 'false',
-                 'ins_engage_manual_labour': '',
-                 'ins_engage_winter_sports': '',
-                 'ins_hospital_cash': ''
-             },
-                 {
-                     'ins_name': 'Kumar',
-                     'ins_dob': '10-05-2003',
-                     'ins_age': '15',
-                     'ins_relationship': '2',
-                     'ins_gender': 'Male',
-                     'ins_illness': '',
-                     'ins_height': '165',
-                     'ins_weight': '55',
-                     'ins_suminsured_indiv': '1',
-                     'ins_occupation_id': '1',
-                     'ins_personal_accident_applicable': 'false',
-                     'ins_engage_manual_labour': '',
-                     'ins_engage_winter_sports': '',
-                     'ins_hospital_cash': ''
-                 }
-             ]
 
-         }
+    ngOnInit() {
+      this.groupList();
+      this.questionList();
+    }
+    //MEDICAL AND LIFESTYLE DETAILS
+    questionList() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4'
+        }
+        this.proposalservice.getQuestionList(data).subscribe(
+            (successData) => {
+                this.questionListSuccess(successData);
+            },
+            (error) => {
+                this.questionListFailure(error);
+            }
+        );
+    }
+    public questionListSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.questionData = successData.ResponseObject;
+        for (let i = 0; i < successData.ResponseObject.length; i++ ) {
+            this.checkQuestion = successData.ResponseObject[i][0].question_heading;
+            this.totalCheckQues.push(this.checkQuestion);
+            for (let q = 0; q < successData.ResponseObject[i].length; q++ ) {
+                this.question = successData.ResponseObject[i][q].questions_list;
+                this.totalQuestionList.push( this.question);
+            }
+
+        }
+        console.log(this.totalCheckQues, 'jkhsdfkhsdkfhsdk');
+        console.log(this.totalQuestionList, 'jkhsdfkhsddfgdfgdfgdfgdfgkfhsdk');
+
+
+    }
+    public questionListFailure(error) {
+        console.log(error);
+    }
+
+    groupList() {
+       const data = {
+            'platform': 'web',
+            'enquiry_id': '10',
+            'shortlisted_by': '0',
+            'role_id': '4'
+        }
+        this.proposalservice.getShortlistedProduct(data).subscribe(
+            (successData) => {
+                this.shortlistedProductSuccess(successData);
+            },
+            (error) => {
+                this.shortlistedProductFailure(error);
+            }
+        );
+    }
+    public shortlistedProductSuccess(successData) {
+        this.totalGroup = successData.ResponseObject;
+        this.totalGroupLength = successData.ResponseObject.length;
+        for (let i = 0; i <  this.totalGroup.length; i++) {
+            //Personal Details
+            this.totalGroup[i].pname = '';
+            this.totalGroup[i].pdob = '';
+            this.totalGroup[i].page = '';
+            this.totalGroup[i].poccupation = '';
+            this.totalGroup[i].pincome = '';
+            this.totalGroup[i].paadhar = '';
+            this.totalGroup[i].ppan = '';
+            this.totalGroup[i].paddress = '';
+            this.totalGroup[i].ppincode = '';
+            this.totalGroup[i].pcity = '';
+            this.totalGroup[i].pemail = '';
+            this.totalGroup[i].ppmobile = '';
+            this.totalGroup[i].paltnumber = '';
+            //Nominee Details
+            this.totalGroup[i].nname = '';
+            this.totalGroup[i].nnage = '';
+            this.totalGroup[i].nrelationship = '';
+            this.totalGroup[i].aname = '';
+            this.totalGroup[i].aage = '';
+            this.totalGroup[i].arelationship = '';
+            this.totalGroup[i].policynumber = '';
+            this.totalGroup[i].previousinsurer = '';
+            this.totalGroup[i].anyclaims = '';
+            //Insured Details
+            for (let j = 0; j < this.totalGroup[i].family_members.length; j++) {
+                this.totalGroup[i].family_members[j].insurname = '';
+                this.totalGroup[i].family_members[j].insurdob = '';
+                this.totalGroup[i].family_members[j].insurage = '';
+                this.totalGroup[i].family_members[j].insurweight = '';
+                this.totalGroup[i].family_members[j].insurheight = '';
+                this.totalGroup[i].family_members[j].insuroccupation = '';
+                this.totalGroup[i].family_members[j].insurincome = '';
+                this.totalGroup[i].family_members[j].insurrelationship = '';
+            }
+        }
+    }
+    public shortlistedProductFailure(error) {
+        console.log(error);
+    }
+    nextStep(stepper: MatStepper, index, jindex, key){
+      //Personal Details
+        if (key == 'Personal Details') {
+            if (this.totalGroup[index].paltnumber != '' && this.totalGroup[index].ppmobile != '' && this.totalGroup[index].pemail != '' && this.totalGroup[index].pcity != '' && this.totalGroup[index].ppincode != '' && this.totalGroup[index].paddress != '' && this.totalGroup[index].ppan != '' && this.totalGroup[index].paadhar != '' && this.totalGroup[index].pname != '' && this.totalGroup[index].pdob != '' && this.totalGroup[index].page != '' && this.totalGroup[index].poccupation != '' && this.totalGroup[index].poccupation != '' && this.totalGroup[index].pincome != '') {
+                stepper.next();
+
+            } else {
+                this.toastr.error('Please fill the empty fields', key);
+            }
+        }
+    //Insured Details
+        if (key == 'Insured Details') {
+            if (this.totalGroup[index].family_members[jindex].insurname != '' && this.totalGroup[index].family_members[jindex].insurdob != '' && this.totalGroup[index].family_members[jindex].insurage != '' && this.totalGroup[index].family_members[jindex].insurweight != '' && this.totalGroup[index].family_members[jindex].insurheight != '' && this.totalGroup[index].family_members[jindex].insuroccupation != '' && this.totalGroup[index].family_members[jindex].insurincome != '' && this.totalGroup[index].family_members[jindex].insurrelationship != '') {
+                stepper.next();
+
+            } else {
+                this.toastr.error('Please fill the empty fields', key);
+            }
+        }
+        //Nominee Details
+        if (key == 'Nominee Details') {
+            if (this.totalGroup[index].nname != '' && this.totalGroup[index].nnage != '' && this.totalGroup[index].nrelationship != '' && this.totalGroup[index].aname != '' && this.totalGroup[index].aage != '' && this.totalGroup[index].arelationship != '' && this.totalGroup[index].policynumber != '' && this.totalGroup[index].previousinsurer != '' && this.totalGroup[index].anyclaims != '') {
+                stepper.next();
+
+            } else {
+                this.toastr.error('Please fill the empty fields', key);
+            }
+        }
+        console.log(this.totalGroup, 'totallllll');
+    }
+  proposal() {
+          const data = {}
 
           this.proposalservice.getProposal(data).subscribe(
               (successData) => {
@@ -174,8 +168,8 @@ export class ProposalComponent implements OnInit {
                   this.proposalFailure(error);
               }
           );
-      }
-      console.log(this.totalProposal, 'totallllll');
+
+      console.log(this.totalGroup, 'totallllll');
 
 }
     public proposalSuccess(successData) {
@@ -188,21 +182,7 @@ export class ProposalComponent implements OnInit {
     }
     applyToAll(value) {
       console.log(value);
-      this.proposalDetail.setValue({
-          name: value.groupa.name,
-          dob: value.groupa.dob,
-          age: value.groupa.age,
-          occupation: value.groupa.occupation,
-          income: value.groupa.income,
-          aadhar: value.groupa.aadhar,
-          pan: value.groupa.pan,
-          address: value.groupa.address,
-          pincode: value.groupa.pincode,
-          city: value.groupa.city,
-          email: value.groupa.email,
-          mobile: value.groupa.mobile,
-          altnumber: value.groupa.altnumber
-      });
+
     }
 
 }
