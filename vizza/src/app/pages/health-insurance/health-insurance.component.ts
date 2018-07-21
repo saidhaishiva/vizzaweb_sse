@@ -205,7 +205,7 @@ export class HealthInsuranceComponent implements OnInit {
     public sumInsuredAmonut(): void {
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getPosRoleId()
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         console.log(data, 'data');
         this.common.getSumInsuredAmount(data).subscribe(
@@ -394,7 +394,7 @@ export class HealthInsuranceComponent implements OnInit {
                         'platform': 'web',
                         'postalcode': this.pincoce ? this.pincoce : '',
                         'created_by': '0',
-                        'role_id': 4,
+                        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
                         'sum_insured': this.selectedAmount,
                         'family_details': this.finalData
                     };
@@ -437,6 +437,7 @@ export class HealthInsuranceComponent implements OnInit {
 
             this.changedTabDetails = this.insuranceLists[index];
             this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+            sessionStorage.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
             this.currentGroupName = this.insuranceLists[index].name;
             sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
 
@@ -515,7 +516,7 @@ export class HealthInsuranceComponent implements OnInit {
             'premium_amount': value.premium_amount,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
 
         };
         this.settings.loadingSpinner = true;
@@ -564,7 +565,7 @@ export class HealthInsuranceComponent implements OnInit {
             'shortlist_id': shortId,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         this.settings.loadingSpinner = true;
         this.common.removeShortList(data).subscribe(
@@ -606,7 +607,7 @@ export class HealthInsuranceComponent implements OnInit {
             'shortlist_id': shortId,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         this.common.removeShortList(data).subscribe(
             (successData) => {
@@ -656,7 +657,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': value.name,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         this.settings.loadingSpinner = true;
         this.common.updateTabPolicyQuotation(data).subscribe(
@@ -731,7 +732,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         this.settings.loadingSpinner = true;
         this.changedTabIndex = sessionStorage.changedTabIndex;
@@ -780,7 +781,7 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         this.changedTabIndex = sessionStorage.changedTabIndex;
         this.common.getShortLists(data).subscribe(
@@ -823,7 +824,7 @@ export class HealthInsuranceComponent implements OnInit {
     updateFunction() {
         if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
             let dialogRef = this.dialog.open(GroupmembersAlert, {
-                width: '600px',
+                width: '700px',
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
@@ -865,7 +866,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
         let index = this.changedTabIndex;
         // this.settings.loadingSpinner = true;
@@ -924,7 +925,7 @@ export class HealthInsuranceComponent implements OnInit {
             'enquiry_id': this.equiryId,
             'product_lists': this.productLists,
             'created_by': 0,
-            'role_id': 4,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
 
         };
         this.settings.loadingSpinner = true;
@@ -956,7 +957,7 @@ export class HealthInsuranceComponent implements OnInit {
     buyProduct(value, enqId, gname) {
         console.log(value, 'value');
         sessionStorage.productId = value.product_id;
-        sessionStorage.enquiryId = enqId;
+        // sessionStorage.enquiryId = enqId;
         sessionStorage.groupName = gname;
         this.router.navigate(['/proposal']);
     }
@@ -967,7 +968,7 @@ export class HealthInsuranceComponent implements OnInit {
     template: `
         <!--<h1 mat-dialog-title>Delete Assistant</h1>-->
         <div mat-dialog-content>
-            <label>If you change in members age . Do you want to continue?</label>
+            <label>All you Groups might get changed based on the changes made. Do you want to continue?</label>
         </div>
         <div mat-dialog-actions style="justify-content: center">
             <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
