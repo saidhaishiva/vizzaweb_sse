@@ -824,7 +824,7 @@ export class HealthInsuranceComponent implements OnInit {
     updateFunction() {
         if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
             let dialogRef = this.dialog.open(GroupmembersAlert, {
-                width: '600px',
+                width: '700px',
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
