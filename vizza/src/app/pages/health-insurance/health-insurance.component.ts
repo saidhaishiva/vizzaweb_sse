@@ -968,7 +968,7 @@ export class HealthInsuranceComponent implements OnInit {
     template: `
         <!--<h1 mat-dialog-title>Delete Assistant</h1>-->
         <div mat-dialog-content>
-            <label>If you change in members age . Do you want to continue?</label>
+            <label>All you Groups might get changed based on the changes made. Do you want to continue?</label>
         </div>
         <div mat-dialog-actions style="justify-content: center">
             <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
