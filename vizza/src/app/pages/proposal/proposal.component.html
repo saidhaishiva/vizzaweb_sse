@@ -6,19 +6,33 @@
 
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel *ngFor="let list of totalGroup; let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+            <mat-expansion-panel *ngFor="let list of totalGroup;  let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{list.group_name}}
+                  Group A
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-6 box-card pt-3">
-                  <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+                  <h6 class="color-green text-center">PROPOSER DETAILS</h6>
                   <div class="row" >
-                    <div class="col-md-12">
+                    <div class="col-md-2">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Name" [(ngModel)]="list.pname" required >
+                        <mat-select placeholder="Title" [(ngModel)]="ptitle">
+                          <mat-option value="Mr">Mr</mat-option>
+                          <mat-option value="Mrs">Mrs</mat-option>
+                          <mat-option value="option3">Miss</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="First Name" [(ngModel)]="list.pfirstname" required >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Last Name" [(ngModel)]="list.plastname" required >
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -38,16 +52,36 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" [(ngModel)]="list.paadhar" required>
+                      <input matInput placeholder="Aadhar Number" [(ngModel)]="list.paadhar">
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PAN Number" [(ngModel)]="list.ppan" required>
+                      <input matInput placeholder="PAN Number" [(ngModel)]="list.ppan">
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="GST Number" [(ngModel)]="list.pgst">
                     </mat-form-field></div>
                   </div>
                 </div>
+                <div class="col-md-6 p-3 box-card">
+                  <h6 class="color-green text-center ">SOCIAL STATUS</h6>
+                  <mat-radio-group [(ngModel)]="socialStatus">
+                    <mat-radio-button value="0" class="mr-3">Yes</mat-radio-button>
+                    <mat-radio-button value="1" >NO</mat-radio-button>
+                  </mat-radio-group>
+                  <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
+                  <div class="row">
+                    <div class="col-md-6 mb-4" *ngFor="let social of socialStatusData">
+                      <p>{{social.question}}</p>
+                      <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="social.answer" >
+                        <mat-button-toggle value="1" [disabled]="socialStatus == 1 ? true : false">Yes</mat-button-toggle>
+                        <mat-button-toggle value="0" [disabled]="socialStatus == 1 ? true : false">No</mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-6 box-card pt-3">
-                  <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
+                  <h6 class="color-green text-center">PROPOSER COMMUNICATION DETAILS</h6>
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
@@ -71,17 +105,52 @@
                     </mat-form-field></div>
                   </div>
                 </div>
-                <div class="col-md-12 mt-3 box-card" *ngIf="isFirstRow && totalGroupLength != 1">
-                  <p class="m-0 pt-2"><mat-checkbox (change)="applyToAll()" >Is the Proposer the same for {{totalGroupLength - 1}} groups? If no, please check the given box.</mat-checkbox> </p>
+                <div class="col-md-6 box-card pt-3">
+                  <h6 class="color-green text-center">PROPOSER RESIDENCE DETAILS</h6>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Address" rows="3" [(ngModel)]="list.raddress" ></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="PIN Code" [(ngModel)]="list.rpincode" >
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="City" [(ngModel)]="list.rcity" >
+                    </mat-form-field></div>
+                    <div class="col-md-12"><mat-form-field class="w-100">
+                      <input matInput placeholder="Email ID" [(ngModel)]="list.remail" >
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile Number" [(ngModel)]="list.rmobile" >
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Alternate Number" [(ngModel)]="list.raltnumber">
+                    </mat-form-field></div>
+                  </div>
                 </div>
+
+
+
+                <!--<div class="col-md-12 mt-3 box-card" *ngIf="isFirstRow && totalGroupLength != 1">-->
+                  <!--<p class="m-0 pt-2"><mat-checkbox (change)="applyToAll()" >Is the Proposer the same for {{totalGroupLength - 1}} groups? If no, please check the given box.</mat-checkbox> </p>-->
+                <!--</div>-->
+                <p class="w-100 mb-0"><mat-checkbox [(ngModel)]="illnessCheck" (change)="criticalIllness(illnessCheck)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
+
+                <!--<p class=" w-100 ">-->
+                  <!--<mat-radio-group [(ngModel)]="illnessCheck" (change)="criticalIllness(illnessCheck)">-->
+                  <!--<mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>-->
+                  <!--<mat-radio-button value="2">No</mat-radio-button>-->
+                <!--</mat-radio-group></p>-->
+
                 <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Personal Details')"  >Next</button>
+                  <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Personal Details')"   >Next</button>
                 </div>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
         </mat-step>
-
         <mat-step [stepControl]="">
 
             <ng-template matStepLabel >INSURED DETAILS</ng-template>
@@ -94,7 +163,7 @@
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
-                  <div class="col-md-6 box-card pt-3 mb-3" *ngFor="let item of list.family_members; let j = index">
+                  <div class="col-md-6 box-card pt-3" *ngFor="let item of list.family_members; let j = index">
                     <h6 class="color-green text-center">INSURED DETAILS {{j+1}} ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
@@ -103,7 +172,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" placeholder="DOB" [(ngModel)]="item.insurdob" >
+                        <input matInput [matDatepicker]="insureddob" placeholder="DOB" [(ngModel)]="item.insurdob"  required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
@@ -111,10 +180,16 @@
                         <input matInput placeholder="Age" [(ngModel)]="item.insurage" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Height"  [(ngModel)]="item.insurheight" required >
+                        <input matInput placeholder="Gender" [(ngModel)]="item.insurgender" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Weight" [(ngModel)]="item.insurweight" required >
+                        <input matInput placeholder="Illness" [(ngModel)]="item.insurillness" required >
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Height(cms)"  [(ngModel)]="item.insurheight" required >
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Weight(kgs)" [(ngModel)]="item.insurweight" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <mat-select  placeholder="Occupation" [(ngModel)]="item.insuroccupation" required>
@@ -126,6 +201,11 @@
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Relationship with Proposer" [(ngModel)]="item.insurrelationship" required>
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <mat-select placeholder="Previous Insurer" [(ngModel)]="list.previousinsurer"  required>
+                          <mat-option value="option1">Bajaj Alliance</mat-option>
+                        </mat-select>
                       </mat-form-field></div>
                     </div>
                     <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="list.family_members.length - 1 == j">
@@ -152,7 +232,7 @@
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
                   <div class="col-md-6 box-card pt-3" >
-                    <h6 class="color-green text-center">NOMINEE DETAILS</h6>
+                    <h6 class="color-green text-center mb-3">NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" class="float-right"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -168,6 +248,9 @@
                         <mat-select placeholder="Relationship with Proposer" [(ngModel)]="list.nrelationship" required>
                           <mat-option value="option1">Brother</mat-option>
                         </mat-select>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="% Of the Claim" [(ngModel)]="list.nclaim"  required>
                       </mat-form-field></div>
                     </div>
                     <h6 class="color-green text-center mt-4">APPOINTEE DETAILS</h6>
@@ -190,7 +273,7 @@
                     </div>
                   </div>
                   <div class="col-md-6 box-card pt-3">
-                    <h6 class="color-green text-center">PREVIOUS INSURER DETAILS</h6>
+                    <h6 class="color-green text-center mb-3">PREVIOUS INSURER DETAILS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -198,11 +281,7 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <mat-select placeholder="Previous Insurer" [(ngModel)]="list.previousinsurer"  required>
-                          <mat-option value="option1">Bajaj Alliance</mat-option>
-                        </mat-select>
-                      </mat-form-field></div>
+
                       <div class="col-md-6">
                         <p>Any Claims in the Past 3 Years?</p>
                         <mat-radio-group [(ngModel)]="list.anyclaims" required>
@@ -222,70 +301,96 @@
             </mat-accordion>
 
         </mat-step>
-        <mat-step [stepControl]="medicalDetails">
-          <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first"  [expanded]="isFirstRow">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{list.group_name}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
+        <!--<mat-step [stepControl]="medicalDetails">-->
+          <!--<ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>-->
+          <!--<mat-accordion class="mt-4 w-100 float-left">-->
+            <!--<mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first; let pi = index"  [expanded]="isFirstRow">-->
+              <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>-->
+                  <!--{{list.group_name}}-->
+                <!--</mat-panel-title>-->
+              <!--</mat-expansion-panel-header>-->
+              <!--<ng-template matStepLabel>INSURED DETAILS</ng-template>-->
 
-              <div class="row">
-                <div class="col-md-12 box-card pt-3 mt-3">
-                  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
+              <!--<div class="row">-->
+                <!--<div class="col-md-12 box-card pt-3 mt-3">-->
+                  <!--<div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">-->
 
-                    <!-- Indicators -->
-                    <ul class="carousel-indicators">
-                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo" data-slide-to="1"></li>
-                      <li data-target="#demo" data-slide-to="2"></li>
-                    </ul>
+                    <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+                    <!--<ul class="carousel-indicators">-->
+                      <!--<li data-target="#demo" data-slide-to="0" class="active"></li>-->
+                      <!--<li data-target="#demo" data-slide-to="1"></li>-->
+                      <!--<li data-target="#demo" data-slide-to="2"></li>-->
+                    <!--</ul>-->
 
-                    <!-- The slideshow -->
-                    <div class="carousel-inner">
-                      <div class="carousel-item" [ngClass]="firstSlide? 'active' : ''" *ngFor="let slide of questionData; let firstSlide = first" >
-                        <div *ngFor="let ques of slide">
-                        <p class="w-100" >{{ques.question_heading}} <mat-radio-group>
-                          <mat-radio-button value="1" class="mr-1">Yes</mat-radio-button>
-                          <mat-radio-button value="0">No</mat-radio-button>
-                        </mat-radio-group></p>
-                        <table class="table table-hover w-100">
-                          <thead>
-                          <tr class="text-center color-green" >
-                            <th></th>
-                            <th *ngFor="let data of list.family_members">{{data.type}}</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let qlist of ques.questions_list; let i = index">
-                            <td>{{i+1}}) {{qlist.question}}</td>
-                            <td class="text-center" *ngFor="let data2 of list.family_members">
-                              <mat-button-toggle-group #group="matButtonToggleGroup">{{group.value}}
-                                <mat-button-toggle value="1">Yes</mat-button-toggle>
-                                <mat-button-toggle value="0">NO</mat-button-toggle>
-                              </mat-button-toggle-group>
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      </div>
+                    <!--&lt;!&ndash; The slideshow &ndash;&gt;-->
+                    <!--<div class="carousel-inner">-->
+                      <!--<div class="carousel-item" [ngClass]="firstSlide? 'active' : ''" *ngFor="let slide of list.questions; let firstSlide = first" >-->
+                        <!--<div *ngFor="let ques of slide">-->
+                        <!--<p class="w-100" >{{ques.question_heading}} <mat-radio-group>-->
+                          <!--<mat-radio-button value="1" class="mr-1">Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="0">No</mat-radio-button>-->
+                        <!--</mat-radio-group></p>-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-12">-->
+                                    <!--<table class="table table-hover w-100">-->
+                                        <!--<thead>-->
+                                        <!--<tr class="text-center color-green" >-->
+                                            <!--<th></th>-->
+                                            <!--<th *ngFor="let data of list.family_members">{{data.type}}</th>-->
 
-                    </div>
-                  </div>
+                                        <!--</tr>-->
+                                        <!--</thead>-->
+                                        <!--<tbody>-->
+                                        <!--<tr *ngFor="let qlist of ques.questions_list; let i = index">-->
+                                            <!--<td>{{i+1}}) {{qlist.question}}</td>-->
+                                            <!--<td class="text-center" *ngFor="let ans of qlist.answer" >-->
+                                                <!--<mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="ans.insurname" >-->
+                                                <!--<mat-button-toggle value="1">Yes</mat-button-toggle>-->
+                                                <!--<mat-button-toggle value="0">NO</mat-button-toggle>-->
+                                                <!--</mat-button-toggle-group>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--</tbody>-->
+                                    <!--</table>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<table class="table table-hover w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<thead>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<tr class="text-center color-green" >&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<th *ngFor="let data of list.family_members">{{data.type}}</th>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</thead>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<tr *ngFor="let qlist of ques.questions_list; let i = index">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="text-center" *ngFor="let familtlist of qlist.family">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="familtlist.insurname" >&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<mat-button-toggle value="1">Yes</mat-button-toggle>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<mat-button-toggle value="0">NO</mat-button-toggle>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</mat-button-toggle-group>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</table>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <div class="proposal-buttom mt-3 float-right">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext (click)="proposal()" >Next</button>
-          </div>
-        </mat-step>
+                            <!--</div>-->
+
+                      <!--</div>-->
+                      <!--</div>-->
+
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</div>-->
+            <!--</mat-expansion-panel>-->
+          <!--</mat-accordion>-->
+          <!--<div class="proposal-buttom mt-3 float-right">-->
+            <!--<button mat-button matStepperPrevious>Back</button>-->
+            <!--<button mat-raised-button color="primary" matStepperNext (click)="proposal()" >Next</button>-->
+          <!--</div>-->
+        <!--</mat-step>-->
         <mat-step [stepControl]="summary">
           <form>
             <ng-template matStepLabel>SUMMARY</ng-template>

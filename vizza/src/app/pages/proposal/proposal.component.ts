@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service'
+import {ProposalService} from '../../shared/services/proposal.service';
 import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ProposalmessageComponent} from './proposalmessage/proposalmessage.component';
 
 @Component({
   selector: 'app-proposal',
@@ -16,58 +18,48 @@ export class ProposalComponent implements OnInit {
     totalGroupLength: any;
     isLinear = false;
     questionData: any;
-    checkQuestion: any;
-    totalCheckQues: any;
     question: any;
     totalQuestionList: any;
-  constructor(public proposalservice: ProposalService, private toastr: ToastrService) {
+    fArray: any;
+    illnessCheck: boolean;
+    personOption = 'Mr';
+    socialStatus: boolean;
+    socialStatusData: any;
+    personalDetails: any;
+  constructor(public proposalservice: ProposalService, private toastr: ToastrService, public dialog: MatDialog) {
       this.totalProposal = [];
-      this.totalCheckQues = [];
       this.totalQuestionList = [];
+      this.groupList();
+      this.illnessCheck = false;
+      this.socialStatus = true;
+
   }
 
-    ngOnInit() {
-      this.groupList();
-      this.questionList();
-    }
-    //MEDICAL AND LIFESTYLE DETAILS
-    questionList() {
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4'
-        }
-        this.proposalservice.getQuestionList(data).subscribe(
-            (successData) => {
-                this.questionListSuccess(successData);
-            },
-            (error) => {
-                this.questionListFailure(error);
-            }
-        );
-    }
-    public questionListSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.questionData = successData.ResponseObject;
-        for (let i = 0; i < successData.ResponseObject.length; i++ ) {
-            this.checkQuestion = successData.ResponseObject[i][0].question_heading;
-            this.totalCheckQues.push(this.checkQuestion);
-            for (let q = 0; q < successData.ResponseObject[i].length; q++ ) {
-                this.question = successData.ResponseObject[i][q].questions_list;
-                this.totalQuestionList.push( this.question);
-            }
+    ngOnInit() {}
 
-        }
-        console.log(this.totalCheckQues, 'jkhsdfkhsdkfhsdk');
-        console.log(this.totalQuestionList, 'jkhsdfkhsddfgdfgdfgdfgdfgkfhsdk');
+    criticalIllness(illness) {
+      if (illness) {
+          const dialogRef = this.dialog.open(ProposalmessageComponent, {
+              width: '250px',
+          });
 
-
-    }
-    public questionListFailure(error) {
-        console.log(error);
+          dialogRef.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+          });
+      }
     }
 
     groupList() {
+      this.personalDetails = [
+          {}
+      ];
+        this.socialStatusData = [
+            {question: 'Please choose "Yes" if you are working in UnOrganized Sector', answer: ''},
+            {question: 'Please choose "Yes" if you are working in informal Sector', answer: ''},
+            {question: 'Please choose "Yes" if you are Economically Vulnerable or Backward Classes', answer: ''},
+            {question: 'Please choose “Yes” if you are Other Categories of Persons', answer: ''}
+            ];
+
        const data = {
             'platform': 'web',
             'enquiry_id': '10',
@@ -88,13 +80,16 @@ export class ProposalComponent implements OnInit {
         this.totalGroupLength = successData.ResponseObject.length;
         for (let i = 0; i <  this.totalGroup.length; i++) {
             //Personal Details
-            this.totalGroup[i].pname = '';
+            this.totalGroup[i].ptitle = '';
+            this.totalGroup[i].pfirstname = '';
+            this.totalGroup[i].plastname = '';
             this.totalGroup[i].pdob = '';
             this.totalGroup[i].page = '';
             this.totalGroup[i].poccupation = '';
             this.totalGroup[i].pincome = '';
             this.totalGroup[i].paadhar = '';
             this.totalGroup[i].ppan = '';
+            this.totalGroup[i].pgst = '';
             this.totalGroup[i].paddress = '';
             this.totalGroup[i].ppincode = '';
             this.totalGroup[i].pcity = '';
@@ -109,13 +104,16 @@ export class ProposalComponent implements OnInit {
             this.totalGroup[i].aage = '';
             this.totalGroup[i].arelationship = '';
             this.totalGroup[i].policynumber = '';
-            this.totalGroup[i].previousinsurer = '';
             this.totalGroup[i].anyclaims = '';
+            this.totalGroup[i].nclaim = '';
             //Insured Details
             for (let j = 0; j < this.totalGroup[i].family_members.length; j++) {
                 this.totalGroup[i].family_members[j].insurname = '';
                 this.totalGroup[i].family_members[j].insurdob = '';
                 this.totalGroup[i].family_members[j].insurage = '';
+                this.totalGroup[i].family_members[j].insurgender = '';
+                this.totalGroup[i].family_members[j].insurillness = '';
+                this.totalGroup[i].family_members[j].previousinsurer = '';
                 this.totalGroup[i].family_members[j].insurweight = '';
                 this.totalGroup[i].family_members[j].insurheight = '';
                 this.totalGroup[i].family_members[j].insuroccupation = '';
@@ -123,10 +121,56 @@ export class ProposalComponent implements OnInit {
                 this.totalGroup[i].family_members[j].insurrelationship = '';
             }
         }
+
+        //this.questionList();
+
     }
     public shortlistedProductFailure(error) {
         console.log(error);
     }
+
+    // //MEDICAL AND LIFESTYLE DETAILS
+    // questionList() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': '0',
+    //         'role_id': '4'
+    //     }
+    //     this.proposalservice.getQuestionList(data).subscribe(
+    //         (successData) => {
+    //             this.questionListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.questionListFailure(error);
+    //         }
+    //     );
+    // }
+    // public questionListSuccess(successData) {
+    //     this.questionData = successData.ResponseObject;
+    //
+    //     for (let k = 0; k <  this.totalGroup.length; k++) {
+    //         this.totalGroup[k].questions = this.questionData;
+    //     }
+    //     this.fArray = [];
+    //     for (let k = 0; k <  this.totalGroup.length; k++) {
+    //         this.fArray.push(this.totalGroup[k].family_members);
+    //         for (let l = 0; l <  this.totalGroup[k].questions.length; l++) {
+    //             for (let m = 0; m <  this.totalGroup[k].questions[l].length; m++) {
+    //                 this.totalGroup[k].questions[l][m].family =  this.fArray[0];
+    //                 console.log(this.fArray, 'pop');
+    //                 for (let n = 0; n < this.totalGroup[k].questions[l][m].questions_list.length; n++) {
+    //                     this.totalGroup[k].questions[l][m].questions_list[n].answer = this.totalGroup[k].questions[l][m].family;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //
+    //     console.log(this.totalGroup, 'this.totalGroupthis.totalGroupthis.totalGroupthis.totalGroupthis.totalGroup');
+    //
+    // }
+    // public questionListFailure(error) {
+    //     console.log(error);
+    // }
     nextStep(stepper: MatStepper, index, jindex, key){
       //Personal Details
         if (key == 'Personal Details') {
