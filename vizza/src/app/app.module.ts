@@ -56,7 +56,6 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
 import { RegisterComponent} from './pages/register/register.component';
 import { ProposalComponent } from './pages/proposal/proposal.component';
-import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
 import { ProposalmessageComponent } from './pages/proposal/proposalmessage/proposalmessage.component';
 import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
@@ -110,7 +109,6 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
       PosComponent,
       RegisterComponent,
       ProposalComponent,
-      GroupmembersAlert,
       ProposalmessageComponent,
       GroupmembersAlert,
       HealthInsuranceComponent
