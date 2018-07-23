@@ -381,15 +381,16 @@ export class HealthInsuranceComponent implements OnInit {
         console.log(this.selectedAmount, 'total setArraysetArray');
 
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
+            console.log(this.finalData, 'pp');
             if (this.finalData != '') {
                 // if (this.setArray[index].age.length > 1) {
-                if (this.setArray[0].age < 18) {
-                    this.toast.error("Self age should not be less than 18");
-                } else if (this.setArray[1].age != '') {
-                    if (this.setArray[1].age < 18) {
-                        this.toast.error("Spouse age should not be less than 18");
-                    }
-                } else {
+                // if (this.setArray[0].age < 18) {
+                //     this.toast.error("Self age should not be less than 18");
+                // } else if (this.setArray[1].age != '') {
+                //     if (this.setArray[1].age < 18) {
+                //         this.toast.error("Spouse age should not be less than 18");
+                //     }
+                // } else {
                     const data = {
                         'platform': 'web',
                         'postalcode': this.pincoce ? this.pincoce : '',
@@ -408,7 +409,7 @@ export class HealthInsuranceComponent implements OnInit {
                             this.PolicyQuotationFailure(error);
                         }
                     );
-                }
+                // }
                 // }
 
             } else {
