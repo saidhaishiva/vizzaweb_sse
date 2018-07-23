@@ -27,7 +27,7 @@ export class ProposalComponent implements OnInit {
     public setDate: any;
     public selectDate: any;
     public stopNext: boolean;
-    public productId: any;
+    public buyProductdetails: any;
     public groupName: any;
     public getFamilyDetails: any;
     public enquiryId: any;
@@ -58,6 +58,7 @@ export class ProposalComponent implements OnInit {
           socialAnswer3: '',
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
+          previousinsurance: ['', Validators.required],
           personalAddress2: '',
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
@@ -77,7 +78,7 @@ export class ProposalComponent implements OnInit {
       });
   }
     ngOnInit() {
-        this.productId = sessionStorage.productId;
+        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
@@ -111,21 +112,20 @@ export class ProposalComponent implements OnInit {
       this.familyMembers = this.getFamilyDetails.family_members;
       console.log(this.familyMembers);
         for (let i = 0; i < this.familyMembers.length; i++ ) {
-            this.familyMembers[i].insurname = '';
-            this.familyMembers[i].insurdob = '';
-            this.familyMembers[i].insurage = '';
-            this.familyMembers[i].insurgender = '';
-            this.familyMembers[i].insurillness = '';
-            this.familyMembers[i].previousinsurer = '';
-            this.familyMembers[i].insurweight = '';
-            this.familyMembers[i].insurheight = '';
-            this.familyMembers[i].insuroccupation = '';
+            this.familyMembers[i].ins_name = '';
+            this.familyMembers[i].ins_dob = '';
+            this.familyMembers[i].ins_age = '';
+            this.familyMembers[i].ins_gender = '';
+            this.familyMembers[i].ins_illness = '';
+            this.familyMembers[i].ins_weight = '';
+            this.familyMembers[i].ins_height = '';
+            this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
-            this.familyMembers[i].insurrelationship = '';
-            this.familyMembers[i].hospitalcash = '';
-            this.familyMembers[i].manuallabour = '';
-            this.familyMembers[i].wintersports = '';
-            this.familyMembers[i].personalaccident = '';
+            this.familyMembers[i].ins_relationship = '';
+            this.familyMembers[i].ins_hospital_cash = '';
+            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_winter_sport = '';
+            this.familyMembers[i].ins_personal_accident_applicable = '';
         }
         this.nomineeDate = [{
             nominee: [{
@@ -189,26 +189,25 @@ export class ProposalComponent implements OnInit {
     InsureDetails(stepper: MatStepper, index, key) {
       console.log( this.familyMembers, 'pop');
         if (key == 'Insured Details') {
-            if (this.familyMembers[index].insurname != '' &&
-                this.familyMembers[index].insurdob != '' &&
-                this.familyMembers[index].insurage != '' &&
-                this.familyMembers[index].insurgender != '' &&
-                this.familyMembers[index].insurillness != '' &&
-                this.familyMembers[index].previousinsurer != '' &&
-                this.familyMembers[index].insurweight != '' &&
-                this.familyMembers[index].insurheight != '' &&
-                this.familyMembers[index].insuroccupation != '' &&
+            if (this.familyMembers[index].ins_name != '' &&
+                this.familyMembers[index].ins_dob != '' &&
+                this.familyMembers[index].ins_age != '' &&
+                this.familyMembers[index].ins_gender != '' &&
+                this.familyMembers[index].ins_illness != '' &&
+                this.familyMembers[index].ins_weight != '' &&
+                this.familyMembers[index].ins_height != '' &&
+                this.familyMembers[index].ins_occupation_id != '' &&
                 this.familyMembers[index].insurincome != '' &&
-                this.familyMembers[index].insurrelationship != '') {
-                if (this.productId == 6) {
-                    if (this.familyMembers[index].hospitalcash != '') {
+                this.familyMembers[index].ins_relationship != '') {
+                if (this.buyProductdetails.product_id == 6) {
+                    if (this.familyMembers[index].ins_hospital_cash != '') {
                         stepper.next();
                     }
                 } else {
                     stepper.next();
                 }
-                if (this.productId == 9) {
-                    if (this.familyMembers[index].manuallabour != '' && this.familyMembers[index].wintersports != '' && this.familyMembers[index].personalaccident != '') {
+                if (this.buyProductdetails.product_id == 9) {
+                    if (this.familyMembers[index].ins_engage_manual_labour != '' && this.familyMembers[index].ins_engage_winter_sport != '' && this.familyMembers[index].ins_personal_accident_applicable != '') {
                         stepper.next();
                     }
                 } else {
@@ -249,18 +248,19 @@ export class ProposalComponent implements OnInit {
         }
     }
   proposal() {
+
           const data = [{
               'platform': 'web',
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
-              'product_id': this.productId,
-              'policy_type_name': 'MCINEW',
+              'product_id': this.buyProductdetails.product_id,
+              'policy_type_name': this.buyProductdetails.prod_shortform,
               'policy_category': 'fresh',
               'policy_started_on': this.personalData.personalDob,
               'policy_end_on': this.personalData.personalDob,
               'policy_period': '1',
-              'sum_insured_id': '1',
-              'scheme_id': '2',
+              'sum_insured_id': this.buyProductdetails.suminsured_id,
+              'scheme_id': this.buyProductdetails.scheme,
               'proposer_name': this.personalData.personalFirstname,
               'proposer_email': this.personalData.personalEmail,
               'proposer_mobile': this.personalData.personalMobile,
@@ -285,9 +285,9 @@ export class ProposalComponent implements OnInit {
               'exist_health_ins_covered_persons_details': '',
               'have_eia_no': '1',
               'eia_no': '',
-              'previous_medical_insurance': this.personalData.previousinsurer,
-              'critical_illness': this.personalData.previousinsurer,
-              'social_status': this.personalData.socialStatus == false ? 1 : 0,
+              'previous_medical_insurance': this.personalData.previousinsurance,
+              'critical_illness': '0',
+              'social_status': this.personalData.socialStatus ? 0 : 1,
               'social_status_bpl': this.personalData. socialAnswer1,
               'social_status_disabled': this.personalData. socialAnswer2,
               'social_status_informal': this.personalData. socialAnswer3,
@@ -330,7 +330,7 @@ export class ProposalComponent implements OnInit {
     setOccupationList() {
         const data = {
             'platform': 'web',
-            'product_id': this.productId,
+            'product_id': this.buyProductdetails.product_id,
             'user_id': '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         }
@@ -355,7 +355,7 @@ export class ProposalComponent implements OnInit {
     setRelationship() {
         const data = {
             'platform': 'web',
-            'product_id': this.productId,
+            'product_id': this.buyProductdetails.product_id,
             'user_id': '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         }
