@@ -220,22 +220,26 @@ export class ProposalComponent implements OnInit {
         }
     }
     //Nominee Details
-    nomineeDetails(stepper: MatStepper, index, key) {
+    nomineeDetails(stepper: MatStepper, index, index2, key) {
         if (key == 'Nominee Details') {
-            if (this.nomineeDate[index].nname != '' &&
-                this.nomineeDate[index].nage != '' &&
-                this.nomineeDate[index].nrelationship != '' &&
-                this.nomineeDate[index].aname != '' &&
-                this.nomineeDate[index].aage != '' &&
-                this.nomineeDate[index].arelationship != '' &&
+            if (this.nomineeDate[index].nominee[index].nname != '' &&
+                this.nomineeDate[index].nominee[index].nage != '' &&
+                this.nomineeDate[index].nominee[index].nrelationship != '' &&
                 this.nomineeDate[index].policynumber != '' &&
-                this.nomineeDate[index].nclaim != '' &&
+                this.nomineeDate[index].nominee[index].nclaim != '' &&
                 this.nomineeDate[index].anyclaims != '') {
                 this.totalProposal.push(this.nomineeDate);
-                this.proposal();
+                if (this.nomineeDate[index].nominee[index].nage < 18) {
+                    if (this.nomineeDate[index].nominee[index].aname != '' && this.nomineeDate[index].nominee[index].aage != '' && this.nomineeDate[index].nominee[index].arelationship != '') {
+                        this.proposal();
+                    }
+                } else {
+                    this.proposal();
+                }
             } else {
                 this.toastr.error('Please fill the empty fields', key);
             }
+
         }
     }
     public keyPress(event: any) {
