@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProposalmessageComponent} from './proposalmessage/proposalmessage.component';
 import { DatePipe } from '@angular/common';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-proposal',
@@ -31,7 +32,9 @@ export class ProposalComponent implements OnInit {
     public getFamilyDetails: any;
     public enquiryId: any;
     public personalData: any;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public fb: FormBuilder) {
+    public occupationList: any;
+    public relationshipList: any;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public fb: FormBuilder, public auth: AuthService) {
       this.totalProposal = [];
       this.illnessCheck = false;
       this.socialStatus = true;
@@ -80,6 +83,8 @@ export class ProposalComponent implements OnInit {
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        this.setOccupationList()
+        this.setRelationship()
         this.groupList();
     }
     addEvent(event) {
@@ -244,10 +249,6 @@ export class ProposalComponent implements OnInit {
         }
     }
   proposal() {
-
-      console.log(this.personalData, 'this.totalProposalthis.totalProposalthis.totalProposal');
-      console.log(this.personalData.personalDob, 'this.totalProposalthis.totalProposalthis.totalProposal');
-      console.log(this.nomineeDate[0].nominee[0].nage, 'this.totalProposalthis.totalProposalthis.totalProposal');
           const data = [{
               'platform': 'web',
               'enquiry_id': this.enquiryId,
@@ -305,7 +306,7 @@ export class ProposalComponent implements OnInit {
               'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
               'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
               'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-              'role_id': '4',
+              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
@@ -323,6 +324,55 @@ export class ProposalComponent implements OnInit {
         console.log(successData);
     }
     public proposalFailure(error) {
+        console.log(error);
+    }
+
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productId,
+            'user_id': '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+        }
+        this.proposalservice.getOccupationList(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
+            }
+        );
+
+    }
+    public occupationListSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.occupationList = successData.ResponseObject;
+    }
+    public occupationListFailure(error) {
+        console.log(error);
+    }
+
+    setRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productId,
+            'user_id': '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+        }
+        this.proposalservice.getRelationshipList(data).subscribe(
+            (successData) => {
+                this.setRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setRelationshipFailure(error);
+            }
+        );
+    }
+    public setRelationshipSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.relationshipList = successData.ResponseObject;
+    }
+    public setRelationshipFailure(error) {
         console.log(error);
     }
 }

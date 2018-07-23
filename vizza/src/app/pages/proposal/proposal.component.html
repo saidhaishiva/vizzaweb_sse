@@ -52,12 +52,16 @@
                       <mat-error *ngIf="personal.controls.personalAge.errors?.required">Age is required</mat-error>
 
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Occupation" formControlName="personalOccupation" required>
-                      <mat-error *ngIf="personal.controls.personalOccupation.errors?.required">Occupation is required</mat-error>
-
-
-                    </mat-form-field></div>
+                    <div class="col-md-6">
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="Occupation" formControlName="personalOccupation">
+                          <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_name" required>
+                            {{occupation.occupation_name}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="personal.controls.personalOccupation.errors?.required">Occupation is required</mat-error>
+                      </mat-form-field>
+                    </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="6" formControlName="personalIncome" required>
                       <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
@@ -261,18 +265,25 @@
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Weight(kgs)" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.insurweight" required >
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <mat-select  placeholder="Occupation" [(ngModel)]="item.insuroccupation" required>
-                          <mat-option value="option1">Self Employed</mat-option>
-                        </mat-select>
-                      </mat-form-field></div>
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Occupation" [(ngModel)]="item.insuroccupation">
+                            <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_name" required>
+                              {{occupation.occupation_name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="10" [(ngModel)]="item.insurincome" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Relationship with Proposer" [(ngModel)]="item.insurrelationship" required>
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.insurrelationship">
+                          <mat-option *ngFor="let relationship of relationshipList" [value]="relationship.relationship_name" required>
+                            {{relationship.relationship_name}}
+                          </mat-option>
+                        </mat-select>
                     </mat-form-field></div>
-
                       <div class="col-md-6" *ngIf="productId == 6">
                         <p>Hospital Cash</p>
                         <mat-radio-group [(ngModel)]="item.hospitalcash" required >
@@ -338,7 +349,7 @@
                           <mat-option value="option1">Brother</mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100" *ngIf="p != 1">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
                       </mat-form-field></div>
                     </div>
