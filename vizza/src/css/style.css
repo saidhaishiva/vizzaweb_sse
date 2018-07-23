@@ -297,6 +297,16 @@ a:hover {
 .scrollmenu {
   flex-wrap: nowrap; }
 
+.proposal .mat-checkbox-layout {
+  white-space: pre-wrap; }
+.proposal .add-nominee {
+  position: absolute;
+  right: 10px;
+  top: 10px; }
+.proposal .mat-raised-button {
+  line-height: 30px;
+  padding: 0 6px;
+  font-size: 11px; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -308,7 +318,10 @@ a:hover {
 .proposal .mat-step-label.mat-step-label-active.mat-step-label-selected {
   color: #d81b60 !important; }
 .proposal .box-card {
-  background: #f5f5f5; }
+  background: #f5f5f5;
+  border-left: 5px solid #fff;
+  margin-bottom: 5px;
+  position: relative; }
 
 .non-editable {
   pointer-events: none; }

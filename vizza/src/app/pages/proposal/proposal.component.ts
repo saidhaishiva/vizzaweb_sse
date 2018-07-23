@@ -19,12 +19,25 @@ export class ProposalComponent implements OnInit {
     public isLinear = false;
     public illnessCheck: boolean;
     public socialStatus: boolean;
+    public nomineeAdd: boolean;
+    public nomineeRemove: boolean;
     public familyMembers: any;
     public nomineeDate: any;
     public setDate: any;
+    public selectDate: any;
+    public stopNext: boolean;
+    public productId: any;
+    public groupName: any;
+    public getFamilyDetails: any;
+    public enquiryId: any;
+    public personalData: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public fb: FormBuilder) {
       this.totalProposal = [];
       this.illnessCheck = false;
+      this.socialStatus = true;
+      this.stopNext = false;
+      this.nomineeAdd = false;
+      this.nomineeRemove = true;
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
@@ -33,54 +46,66 @@ export class ProposalComponent implements OnInit {
           personalAge: ['', Validators.required],
           personalOccupation: ['', Validators.required],
           personalIncome: ['', Validators.required],
-          personalAadhar: '',
-          personalPan: '',
-          personalGst: '',
+          personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+          personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+          personalGst: ['', Validators.compose([ Validators.minLength(15)])],
           socialStatus: '',
           socialAnswer1: '',
           socialAnswer2: '',
           socialAnswer3: '',
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
+          personalAddress2: '',
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
+          personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
-          personalMobile: ['', Validators.required],
-          personalAltnumber: '',
+          personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+          personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           residenceAddress: '',
+          residenceAddress2: '',
           residencePincode: '',
           residenceCity: '',
+          residenceState: '',
           residenceEmail: '',
-          residenceMobile: '',
-          residenceAltnumber: '',
+          residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
+          residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           illnessCheck: ''
       });
   }
-
     ngOnInit() {
-        this.groupList();
+        this.productId = sessionStorage.productId;
+        this.enquiryId = sessionStorage.enquiryId;
+        this.groupName = sessionStorage.groupName;
+        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        this.groupList();
     }
-    criticalIllness(illness) {
-      if (illness) {
+    addEvent(event) {
+        this.selectDate = event.value;
+        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    }
+    criticalIllness(values: any) {
+      if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
-              width: '250px',
+              width: '300px'
           });
-
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
+              this.stopNext = true;
           });
+      } else {
+          this.stopNext = false;
       }
     }
-
+    cgangeSocialStatus(result) {
+      this.socialStatus = this.personal.controls['socialStatus'].value;
+    }
     groupList() {
-      this.familyMembers = [
-          {type: 'Self'},
-          {type: 'Son'},
-          {type: 'Spose'}
-          ]
-        for(let i =0; i < this.familyMembers.length; i++ ) {
+      this.familyMembers = this.getFamilyDetails.family_members;
+      console.log(this.familyMembers);
+        for (let i = 0; i < this.familyMembers.length; i++ ) {
             this.familyMembers[i].insurname = '';
             this.familyMembers[i].insurdob = '';
             this.familyMembers[i].insurage = '';
@@ -92,22 +117,73 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].insuroccupation = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].insurrelationship = '';
+            this.familyMembers[i].hospitalcash = '';
+            this.familyMembers[i].manuallabour = '';
+            this.familyMembers[i].wintersports = '';
+            this.familyMembers[i].personalaccident = '';
         }
-        this.nomineeDate = [{nname: '', nnage: '', nrelationship: '', aname: '', arelationship: '', policynumber: '', anyclaims: '', nclaim: ''}]
+        this.nomineeDate = [{
+            nominee: [{
+                nname: '',
+                nage: '',
+                nrelationship: '',
+                nclaim: '',
+                aname: '',
+                aage: '',
+                arelationship: '',
+            }],
+            policynumber: '',
+            anyclaims: ''
+            }];
     }
+
+    addNominee(value) {
+      if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+          this.nomineeDate[0].nominee.push({
+              nname: '',
+              nage: '',
+              nrelationship: '',
+              nclaim: '',
+              aname: '',
+              aage: '',
+              arelationship: ''
+          });
+          this.nomineeAdd = true;
+          this.nomineeRemove = false;
+      } else if (value == 'delete') {
+          if (this.nomineeDate[0].nominee.length == 2)
+          this.nomineeDate[0].nominee.splice(0,1);
+          this.nomineeAdd = false;
+          this.nomineeRemove = true;
+      }
+    }
+    claimPercent(percent) {
+      if (percent >= 100) {
+          this.nomineeAdd = true;
+          this.nomineeRemove = true;
+
+      } else {
+          this.nomineeAdd = false;
+          this.nomineeRemove = true;
+      }
+    }
+
 
     //Personal Details
-    personalDetails(value){
-        if(this.personal.valid){
+    personalDetails(stepper: MatStepper, value) {
+      this.personalData = value;
+        if (this.personal.valid) {
             console.log(value, 'value');
-            this.totalProposal.push(value);
+            this.personalData.personalDob = this.setDate;
+            console.log(this.personalData.personalDob, 'this.personalData.personalDobthis.personalData.personalDob')
+            this.totalProposal.push(this.personalData);
+            stepper.next();
         }
     }
-
     //Insured Details
-    InsureDetails(stepper: MatStepper, index, key){
+    InsureDetails(stepper: MatStepper, index, key) {
+      console.log( this.familyMembers, 'pop');
         if (key == 'Insured Details') {
-
             if (this.familyMembers[index].insurname != '' &&
                 this.familyMembers[index].insurdob != '' &&
                 this.familyMembers[index].insurage != '' &&
@@ -119,29 +195,40 @@ export class ProposalComponent implements OnInit {
                 this.familyMembers[index].insuroccupation != '' &&
                 this.familyMembers[index].insurincome != '' &&
                 this.familyMembers[index].insurrelationship != '') {
-                stepper.next();
+                if (this.productId == 6) {
+                    if (this.familyMembers[index].hospitalcash != '') {
+                        stepper.next();
+                    }
+                } else {
+                    stepper.next();
+                }
+                if (this.productId == 9) {
+                    if (this.familyMembers[index].manuallabour != '' && this.familyMembers[index].wintersports != '' && this.familyMembers[index].personalaccident != '') {
+                        stepper.next();
+                    }
+                } else {
+                    stepper.next();
+                }
                 this.totalProposal.push(this.familyMembers);
-
             } else {
                 this.toastr.error('Please fill the empty fields', key);
             }
         }
     }
     //Nominee Details
-    nomineeDetails(stepper: MatStepper, index, key){
+    nomineeDetails(stepper: MatStepper, index, key) {
         if (key == 'Nominee Details') {
             if (this.nomineeDate[index].nname != '' &&
-                this.nomineeDate[index].nnage != '' &&
+                this.nomineeDate[index].nage != '' &&
                 this.nomineeDate[index].nrelationship != '' &&
                 this.nomineeDate[index].aname != '' &&
                 this.nomineeDate[index].aage != '' &&
                 this.nomineeDate[index].arelationship != '' &&
                 this.nomineeDate[index].policynumber != '' &&
-                this.nomineeDate[index].previousinsurer != '' &&
+                this.nomineeDate[index].nclaim != '' &&
                 this.nomineeDate[index].anyclaims != '') {
                 this.totalProposal.push(this.nomineeDate);
-                this.proposal()
-
+                this.proposal();
             } else {
                 this.toastr.error('Please fill the empty fields', key);
             }
@@ -156,10 +243,72 @@ export class ProposalComponent implements OnInit {
             }
         }
     }
-
   proposal() {
-      console.log(this.totalProposal, 'this.totalProposalthis.totalProposalthis.totalProposal');
-          const data = {}
+
+      console.log(this.personalData, 'this.totalProposalthis.totalProposalthis.totalProposal');
+      console.log(this.personalData.personalDob, 'this.totalProposalthis.totalProposalthis.totalProposal');
+      console.log(this.nomineeDate[0].nominee[0].nage, 'this.totalProposalthis.totalProposalthis.totalProposal');
+          const data = [{
+              'platform': 'web',
+              'enquiry_id': this.enquiryId,
+              'group_name':  this.groupName,
+              'product_id': this.productId,
+              'policy_type_name': 'MCINEW',
+              'policy_category': 'fresh',
+              'policy_started_on': this.personalData.personalDob,
+              'policy_end_on': this.personalData.personalDob,
+              'policy_period': '1',
+              'sum_insured_id': '1',
+              'scheme_id': '2',
+              'proposer_name': this.personalData.personalFirstname,
+              'proposer_email': this.personalData.personalEmail,
+              'proposer_mobile': this.personalData.personalMobile,
+              'proposer_res_address1': this.personalData.residenceAddress,
+              'proposer_res_address2': this.personalData.residenceAddress2,
+              'proposer_res_area': this.personalData.personalFirstname,
+              'proposer_res_city': this.personalData.residenceCity,
+              'proposer_res_state': this.personalData.residenceState,
+              'proposer_res_pincode': this.personalData.residencePincode,
+              'proposer_comm_address1': this.personalData.personalAddress,
+              'proposer_comm_address2': this.personalData.personalAddress2,
+              'proposer_comm_area': this.personalData.personalCity,
+              'proposer_comm_city': this.personalData.personalCity,
+              'proposer_comm_state': this.personalData.personalState,
+              'proposer_comm_pincode': this.personalData.personalPincode,
+              'prop_dob': this.personalData.personalDob,
+              'prop_occupation': this.personalData.personalOccupation,
+              'prop_annual_income': this.personalData.personalIncome,
+              'prop_pan_no': this.personalData.personalPan,
+              'prop_aadhar_no': this.personalData.personalAadhar,
+              'gst_id_no': this.personalData.personalGst,
+              'exist_health_ins_covered_persons_details': '',
+              'have_eia_no': '1',
+              'eia_no': '',
+              'previous_medical_insurance': this.personalData.previousinsurer,
+              'critical_illness': this.personalData.previousinsurer,
+              'social_status': this.personalData.socialStatus == false ? 1 : 0,
+              'social_status_bpl': this.personalData. socialAnswer1,
+              'social_status_disabled': this.personalData. socialAnswer2,
+              'social_status_informal': this.personalData. socialAnswer3,
+              'social_status_unorganized': this.personalData. socialAnswer4,
+              'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
+              'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
+              'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
+              'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
+              'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
+              'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
+              'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
+              'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
+              'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
+              'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ?  this.nomineeDate[0].nominee[1].nrelationship : '',
+              'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
+              'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
+              'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
+              'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
+              'role_id': '4',
+              'created_by': '0',
+              'insured_details': this.familyMembers
+          }];
 
           this.proposalservice.getProposal(data).subscribe(
               (successData) => {
