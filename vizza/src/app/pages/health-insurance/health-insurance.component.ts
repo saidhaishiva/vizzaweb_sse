@@ -957,8 +957,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     buyProduct(value, enqId, gname) {
         console.log(value, 'value');
-        sessionStorage.productId = value.product_id;
-        // sessionStorage.enquiryId = enqId;
+        sessionStorage.buyProductdetails = JSON.stringify(value);
         sessionStorage.groupName = gname;
         this.router.navigate(['/proposal']);
     }
