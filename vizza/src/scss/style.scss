@@ -395,6 +395,9 @@ background: #ccc !important;
   flex-wrap: nowrap;
 }
 .proposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
   .add-nominee{
     position: absolute;
     right: 10px;
@@ -403,6 +406,7 @@ background: #ccc !important;
  .mat-raised-button {
     line-height: 30px;
     padding: 0 6px;
+   font-size: 11px;
   }
   //.mat-horizontal-stepper-header{
   //  pointer-events: none !important;

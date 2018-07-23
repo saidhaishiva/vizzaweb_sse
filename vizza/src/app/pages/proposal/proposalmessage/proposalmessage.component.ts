@@ -8,7 +8,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class ProposalmessageComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<ProposalmessageComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {}
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    }
 
     ngOnInit() {
     }
