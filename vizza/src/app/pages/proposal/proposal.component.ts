@@ -232,6 +232,8 @@ export class ProposalComponent implements OnInit {
                 if (this.nomineeDate[index].nominee[index].nage < 18) {
                     if (this.nomineeDate[index].nominee[index].aname != '' && this.nomineeDate[index].nominee[index].aage != '' && this.nomineeDate[index].nominee[index].arelationship != '') {
                         this.proposal();
+                    } else{
+                        this.toastr.error('Please fill the empty fields', key);
                     }
                 } else {
                     this.proposal();
