@@ -1,11 +1,11 @@
 
 
 <div  class="bg-map">
-    <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+    <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
         <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-login">
-            <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
+            <mat-card fxLayout="column"  fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
                 <span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>
-                <mat-tab-group class="vertical-tabs" [selectedIndex]="selectedtab"  *ngIf="pdfpreview">
+                <mat-tab-group class="vertical-tabs" [selectedIndex]="selectedtab">
                     <mat-tab label="Personal">
                         <div fxLayout="column" class="form-field-outer">
                             <mat-form-field class="w-100">
@@ -16,7 +16,7 @@
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> Last name</mat-placeholder>
-                                <input matInput formControlName="lastname" maxlength="10" required>
+                                <input matInput formControlName="lastname" maxlength="50" required>
                                 <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
                             </mat-form-field>
 
@@ -31,21 +31,22 @@
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                             </mat-form-field>
                             <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
-                        </div>
-                        <mat-form-field class="w-100">
-                            <input matInput placeholder="New Password" autocomplete="off" formControlName="password"  required [type]="newps ? 'password' : 'text'" >
-                            <mat-icon style="cursor: pointer" matSuffix (click)="newps = !newps">{{newps ? 'visibility' : 'visibility_off'}}</mat-icon>
-                            <mat-error *ngIf="form.controls.password.errors?.required">New password is required</mat-error>
-                            <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="w-100">
-                            <input matInput placeholder="Confirm Password" autocomplete="off" (input)="checkPassword()" required formControlName="confirmpassword"  [type]="conps ? 'password' : 'text'">
-                            <mat-icon style="cursor: pointer" matSuffix (click)="conps = !conps">{{conps ? 'visibility' : 'visibility_off'}}</mat-icon>
-                            <mat-error *ngIf="form.controls.confirmpassword.errors?.required">Confirm password is required</mat-error>
-                            <mat-error *ngIf="form.controls.confirmpassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Password" autocomplete="off" formControlName="password"  required [type]="newps ? 'password' : 'text'" >
+                                <mat-icon style="cursor: pointer" matSuffix (click)="newps = !newps">{{newps ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                <mat-error *ngIf="form.controls.password.errors?.required">New password is required</mat-error>
+                                <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Retype Password" autocomplete="off" (input)="checkPassword()" required formControlName="confirmpassword"  [type]="conps ? 'password' : 'text'">
+                                <mat-icon style="cursor: pointer" matSuffix (click)="conps = !conps">{{conps ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                <mat-error *ngIf="form.controls.confirmpassword.errors?.required">Confirm password is required</mat-error>
+                                <mat-error *ngIf="form.controls.confirmpassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
 
-                        </mat-form-field>
-                        <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
+                            </mat-form-field>
+                            <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
+                        </div>
+
                     </mat-tab>
 
                     <mat-tab label="Contacts" formGroupName="contacts">
@@ -84,10 +85,15 @@
                     <mat-tab label="Documents" formGroupName="documents">
                         <div fxLayout="column" class="form-field-outer">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)" formControlName="aadharnumber">
+                                <input matInput placeholder="Aadhar Number" required maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
+                                <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Enter Valid Aadhar Number</mat-error>
+                                <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Enter Valid Aadhar Number</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Pan Number" formControlName="pannumber">
+                                <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
+                                <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Enter Valid Pan Number</mat-error>
+                                <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('maxlength')">Enter Valid Pan Number</mat-error>
+
                             </mat-form-field>
                             <div>
                                 <div>

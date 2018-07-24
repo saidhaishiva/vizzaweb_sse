@@ -5,6 +5,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {matchingPasswords} from "../../theme/utils/app-validators";
 import {LoginService} from "../../shared/services/login.service";
 import {ToastrService} from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-verifyassistant',
@@ -19,7 +20,7 @@ export class ConfirmpasswordComponent implements OnInit {
     messagelink: any;
     formhide: any;
 
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public loginService: LoginService, private toastr: ToastrService) {
+    constructor(public appSettings: AppSettings, public router: Router, public fb: FormBuilder, public loginService: LoginService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -41,41 +42,41 @@ export class ConfirmpasswordComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
-    verifyAssistant() {
-        if (this.form.valid) {
+    changePassword() {
             this.settings.loadingSpinner = true;
             const data = {
-                'mobile': this.form.controls['mobilenumber'].value,
-                'otpcode': this.form.controls['otp'].value,
+                'mobilenumber': this.form.controls['mobilenumber'].value,
+                'otp': this.form.controls['otp'].value,
                 'password': this.form.controls['newpassword'].value,
                 'platform': 'web',
             };
 
-            this.loginService.getVerifyAssistant(data).subscribe(
+            this.loginService.changePassword(data).subscribe(
                 (successData) => {
-                    this.verifyAssistantSuccess(successData);
+                    this.changePasswordSuccess(successData);
 
                     console.log(successData, 'successData');
                 },
                 (error) => {
-                    this.verifyAssistantFailure(error);
+                    this.changePasswordFailure(error);
                 }
             );
-        }
     }
 
-    public verifyAssistantSuccess(successData) {
+    public changePasswordSuccess(successData) {
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
             this.messagelink = false;
             this.formhide = true;
+            this.toastr.success(successData.ResponseObject.msg, 'Success');
+            this.router.navigate(['/pos'])
         } else {
-            this.toastr.error(successData.ErrorObject);
+            this.toastr.error(successData.ErrorObject, 'Failed');
             this.settings.loadingSpinner = false;
         }
     }
 
-    public verifyAssistantFailure(error) {
+    public changePasswordFailure(error) {
 
         this.settings.loadingSpinner = false;
     }
@@ -91,34 +92,50 @@ export class ConfirmpasswordComponent implements OnInit {
         }
     }
 
-    resendRequest() {
-        const data = {
-            'mobile': this.form.controls['mobilenumber'].value,
-            'platform': 'web',
-        };
-        this.loginService.getResendRequest(data).subscribe(
-            (successData) => {
-                this.resendRequestSuccess(successData);
+    public resendRequest(): void {
+            this.settings.loadingSpinner = true;
+            sessionStorage.username = this.form.controls['mobilenumber'].value;
+            const data = {
+                'mobile': this.form.controls['mobilenumber'].value,
+                'platform': 'web',
 
-                console.log(successData, 'successData');
-            },
-            (error) => {
-                this.resendRequestFailure(error);
-            }
-        );
+            };
 
+            this.loginService.doForgot(data).subscribe(
+                (successData) => {
+                    this.resendRequestSuccess(successData);
+
+                    console.log(successData,'successData');
+                },
+                (error) => {
+                    this.resendRequestFailure(error);
+                }
+            );
     }
-
     public resendRequestSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.toastr.success('Request Sent Successfully');
 
-        } else {
-            this.toastr.error(successData.ErrorObject);
+        console.log(successData);
+        this.settings.loadingSpinner = false;
+        this.response = successData;
+        if(successData.IsSuccess) {
+            this.toastr.success('OTP sent successfully');
+        }else{
+            this.toastr.warning(successData.ErrorObject, 'Failed');
         }
+
     }
 
     public resendRequestFailure(error) {
-        this.toastr.error('Invalid credentials', 'Request Failed');
+        this.settings.loadingSpinner = false;
+        console.log(error.status);
+        if (error.status === 401) {
+            this.status = error.status;
+            this.authService.clearToken();
+        } else if (error.status === 403) {
+            this.status = error.status;
+            this.authService.clearToken();
+        }
+
+        // need to display a toast
     }
 }
