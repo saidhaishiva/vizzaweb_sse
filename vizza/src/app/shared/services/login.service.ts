@@ -40,13 +40,13 @@ export class LoginService {
         // .map(this.extractData )
         // .catch(this.handleError);
     }
-    getVerifyAssistant(data){
+    changePassword(data){
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'assistant/verifyAccount' ;
+        const url = this.configurationService.getHost() + 'pos/forgotpassword' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -93,7 +93,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'doctor/forgotPassword';
+        const url = this.configurationService.getHost() + 'pos/generateOtp';
         return this.http.post(url , json, httpOptions)
 
             .map(this.extractData )

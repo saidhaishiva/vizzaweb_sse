@@ -52,34 +52,31 @@ export class ForgotPasswordComponent implements OnInit {
 
             this.loginService.doForgot(data).subscribe(
                 (successData) => {
-                    this.loginSuccess(successData);
+                    this.forgotSuccess(successData);
 
                     console.log(successData,'successData');
                 },
                 (error) => {
-                    this.loginFailure(error);
+                    this.forgotFailure(error);
                 }
             );
         }
     }
-    public loginSuccess(successData) {
+    public forgotSuccess(successData) {
 
         console.log(successData);
         this.settings.loadingSpinner = false;
+        this.response = successData;
         if(successData.IsSuccess) {
             this.toastr.success('OTP sent successfully');
+            this.router.navigate(['/confirmpassword']);
         }else{
-            this.toastr.warning('Invalid credential');
+            this.toastr.warning(successData.ErrorObject, 'Failed');
         }
 
-        this.response = successData;
-        console.log(successData);
-        if (this.response.IsSuccess === true) {
-            this.router.navigate(['/confirmpassword']);
-        }
     }
 
-    public loginFailure(error) {
+    public forgotFailure(error) {
         this.settings.loadingSpinner = false;
         console.log(error.status);
         if (error.status === 401) {

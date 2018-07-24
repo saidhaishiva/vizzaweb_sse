@@ -76,7 +76,7 @@ a:hover {
   left: 0;
   top: 5px;
   right: 0;
-  width: 450px;
+  width: 600px;
   margin: 4em auto 70px;
 }
 .bg-map{
@@ -145,6 +145,11 @@ a:hover {
 
 
 
+}
+.error {
+  color: #ec0505;
+  font-size: 11px;
+  width: 100%;
 }
 
 .home-nav {
@@ -241,6 +246,9 @@ a:hover {
 }
 .options-icon{
   display: none !important;
+}
+.mat-tab-label-active{
+  background-color: #00695c !important;
 }
 #product-list{
   .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
