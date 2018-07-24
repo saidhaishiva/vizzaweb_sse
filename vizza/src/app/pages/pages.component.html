@@ -61,7 +61,7 @@
                         <!--</form>-->
                     <!--</div>-->
                     <!--<app-flags-menu fxShow="false" fxShow.gt-sm></app-flags-menu>-->
-                    <app-user-menu></app-user-menu>
+
                     <div class="social-icons">
                         <a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-tumblr"></i></a>
@@ -70,6 +70,7 @@
                         <a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                     <app-fullscreen></app-fullscreen>
+                    <span [hidden]="settings.userId==0"><app-user-menu></app-user-menu></span>
 
                     <!--<app-applications fxShow="false" fxShow.gt-sm></app-applications>-->
                     <!--<app-messages fxShow="false" fxShow.gt-xs></app-messages>-->
