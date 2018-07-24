@@ -116,7 +116,6 @@ export class ConfirmpasswordComponent implements OnInit {
 
         console.log(successData);
         this.settings.loadingSpinner = false;
-        this.response = successData;
         if(successData.IsSuccess) {
             this.toastr.success('OTP sent successfully');
         }else{
@@ -127,15 +126,6 @@ export class ConfirmpasswordComponent implements OnInit {
 
     public resendRequestFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error.status);
-        if (error.status === 401) {
-            this.status = error.status;
-            this.authService.clearToken();
-        } else if (error.status === 403) {
-            this.status = error.status;
-            this.authService.clearToken();
+        console.log(error);
         }
-
-        // need to display a toast
-    }
 }
