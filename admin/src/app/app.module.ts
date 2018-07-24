@@ -62,6 +62,13 @@ import { PosComponent } from './pages/pos/pos.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { PosnotesComponent} from './pages/posprofile/posnotes/posnotes.component';
 import { RejectPOS } from './pages/posprofile/posprofile.component';
+import { LearningcenterComponent } from './pages/learningcenter/learningcenter.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { SubjectComponent } from './pages/subject/subject.component';
+import { QuestionComponent } from './pages/question/question.component';
+import {CategoryService} from './shared/services/category.service';
+import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.component';
+import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
 
 @NgModule({
     imports: [
@@ -108,7 +115,13 @@ import { RejectPOS } from './pages/posprofile/posprofile.component';
         AddposComponent,
         PosComponent,
         PosprofileComponent,
-        PosnotesComponent
+        PosnotesComponent,
+        LearningcenterComponent,
+        CategoryComponent,
+        SubjectComponent,
+        QuestionComponent,
+        AddsubjectComponent,
+        AddcategoryComponent
     ],
     providers: [
         AppSettings,
@@ -116,6 +129,7 @@ import { RejectPOS } from './pages/posprofile/posprofile.component';
         AuthService,
         LoginService,
         UsersService,
+        CategoryService,
         AuthGuardService,
         DoctorsService,
         CommonService,
@@ -124,6 +138,6 @@ import { RejectPOS } from './pages/posprofile/posprofile.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS,  ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent  ]
 })
 export class AppModule { }
