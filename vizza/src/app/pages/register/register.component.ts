@@ -141,7 +141,6 @@ export class RegisterComponent implements OnInit {
 
     }
     readUrl(event: any, type) {
-        alert();
         this.type = type;
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
@@ -160,7 +159,6 @@ export class RegisterComponent implements OnInit {
 
     }
     onUploadFinished(event) {
-        alert('inside');
         this.getUrl = event[1];
         const data = {
             'platform': 'web',
