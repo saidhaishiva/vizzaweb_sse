@@ -11,6 +11,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
+import {Settings} from '../../app.settings.model';
+import { AppSettings } from '../../app.settings';
 
 export const MY_FORMATS = {
     parse: {
@@ -41,6 +43,7 @@ export class RegisterComponent implements OnInit {
     range: boolean;
     header: boolean;
     pdfpreview: boolean;
+    public settings: Settings;
     previewheader: boolean;
     headersize: number;
     footersize: number;
@@ -83,7 +86,11 @@ export class RegisterComponent implements OnInit {
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
-                public fb: FormBuilder,public router: Router, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+                public fb: FormBuilder,public router: Router, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.fixed = false;
         this.range = false;
         this.subsequentError = '';

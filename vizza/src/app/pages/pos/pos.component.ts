@@ -23,6 +23,10 @@ export class PosComponent implements OnInit {
     hide = true;
     data: any;
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.response = [];
         this.conps = true;
         this.newps = true;
