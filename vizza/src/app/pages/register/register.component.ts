@@ -7,11 +7,30 @@ import { ConfigurationService} from '../../shared/services/configuration.service
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../shared/services/login.service';
 import { Router } from '@angular/router';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DatePipe} from '@angular/common';
+import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
 
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class RegisterComponent implements OnInit {
     public form: FormGroup;
@@ -50,6 +69,17 @@ export class RegisterComponent implements OnInit {
     fromtoValueError: string;
     selectedtab: number;
     headerError: boolean;
+    type: any;
+    aadharfront: any;
+    aadharback: any;
+    pancard: any;
+    education: any;
+    dob: any;
+    dobError: any;
+    today: any;
+    mismatchError: any;
+    newps = true;
+    conps = true;
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
@@ -66,13 +96,19 @@ export class RegisterComponent implements OnInit {
         this.defaultchecked = false;
         this.selectedtab = 0;
         this.imagepath = '';
+        this.today = new Date();
+        this.dob = '';
+        this.dobError = '';
+        this.mismatchError = '';
         this.form = this.fb.group({
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             lastname: ['', Validators.compose([Validators.required])],
 
-            birthday: null,
-            gender: null,
+            birthday: '',
+            gender: '',
+            password: ['', Validators.compose([Validators.required])],
+            confirmpassword: ['', Validators.compose([Validators.required])],
 
             contacts: this.fb.group({
                 email: '',
@@ -93,14 +129,20 @@ export class RegisterComponent implements OnInit {
             education: this.fb.group({
                 qualification: '',
 
-            })
+            }),
         });
+        this.aadharfront = '';
+        this.aadharback = '';
+        this.pancard = '';
+        this.education = '';
     }
 
     ngOnInit() {
 
     }
-    readUrl(event: any) {
+    readUrl(event: any, type) {
+        alert();
+        this.type = type;
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
@@ -110,65 +152,77 @@ export class RegisterComponent implements OnInit {
                 this.url = event.target.result;
                 this.getUrl = this.url.split(',');
                 this.getUrl1.push(this.url.split(','));
-                // this.onUploadFinished(this.getUrl);
+                this.onUploadFinished(this.getUrl);
 
-            }
+            };
             reader.readAsDataURL(event.target.files[0]);
         }
 
     }
-    // onUploadFinished(event) {
-    //     this.getUrl = event[1];
-    //     const data = {
-    //         'platform': 'web',
-    //         'roleid': this.auth.getPosRoleId(),
-    //         'userid': this.auth.getPosUserId(),
-    //         'doctorid': this.auth.getDoctorId(),
-    //         'uploadfor': 3,
-    //         'uploadtype': 'multiple',
-    //         'image': this.getUrl,
-    //         'size': this.size
-    //     };
-    //
-    // }
-    // public fileUploadSuccess(successData) {
-    //     if (successData.IsSuccess == true) {
-    //         this.fileUploadPath =  successData.ResponseObject.imagePath;
-    //         this.imagepath = this.fileUploadPath;
-    //     } else {
-    //         this.toastr.error(successData.ErrorObject, 'Failed');
-    //     }
-    //
-    //
-    // }
-    // public fileUploadFailure(error) {
-    //     console.log(error);
-    // }
+    onUploadFinished(event) {
+        alert('inside');
+        this.getUrl = event[1];
+        const data = {
+            'platform': 'web',
+            'uploadtype': 'single',
+            'images': this.getUrl,
+        };
+        console.log(data, 'dattattatata');
+        this.common.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'aadhar front') {
+                this.aadharfront = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar back') {
+                this.aadharback = this.fileUploadPath;
+            }
+            if (this.type == 'pancard') {
+                this.pancard = this.fileUploadPath;
+            }
+            if (this.type == 'education') {
+                this.education = this.fileUploadPath;
+            }
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+
+
+    }
+    public fileUploadFailure(error) {
+        console.log(error);
+    }
     submit() {
+        console.log(this.dob, 'dateeee');
         const data = {
             "platform": "web",
             "pos_hidden_id": "",
             "pos_firstname": this.form.controls['firstname'].value,
             "pos_lastname": this.form.controls['lastname'].value,
-            "pos_dob": "10-03-1988",
+            "pos_dob": this.dob,
             "pos_mobileno": this.form.value['contacts']['phone1'],
             "pos_email":  this.form.value['contacts']['email'],
             "pos_address1": this.form.value['contacts']['address1'],
             "pos_address2": this.form.value['contacts']['address2'],
             "pos_postalcode":  this.form.value['contacts']['pincode'],
-            "pos_cityid": "1",
-            "pos_stateid": "1",
-            "pos_countryid": "1",
-            "password": "admin",
+            "password": this.form.controls['confirmpassword'].value,
             "pos_aadhar_no":  this.form.value['documents']['aadharnumber'],
-            "pos_aadhar_front_img": "/images/front.jpg",
-            "pos_aadhar_back_img": "/images/back.jpg",
-            "pos_pan_no": this.form.value['documents']['pannumber'],
-            "pos_pan_img": "/images/pancard.jpg",
+            "pos_aadhar_front_img": this.aadharfront,
+            "pos_aadhar_back_img": this.aadharback,
+            "pos_pan_img": this.pancard,
             "pos_education": this.form.value['education']['qualification'],
-            "pos_education_doc_img": "/images/edu_certificate.jpg"
-        }
-        console.log(data);
+            "pos_education_doc_img": this.education
+        };
+        console.log(data, 'dattatta');
         this.login.signUp(data).subscribe(
             (successData) => {
                 this.signUpSuccess(successData);
@@ -188,17 +242,17 @@ export class RegisterComponent implements OnInit {
     signUpFailure(error) {
         console.log(error);
     }
-
-    fees(data) {
-        this.form.controls.payment.patchValue({'fees': data});
-        if ( this.form.controls.payment.value.fees == 1) {
-            this.fixed = true;
-            this.range = false;
+    checkPassword() {
+        if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
+            this.mismatchError = '';
         } else {
-            this.fixed = false;
-            this.range = true;
+            this.mismatchError = 'Passwords do not match ';
+        }
+        if (this.form.controls['password'].value == '') {
+            this.mismatchError = '';
         }
     }
+
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -211,85 +265,38 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    setHeader(e) {
-        this.checked = e.checked;
-        this.form.controls.prescriptionsettings.patchValue({'header': ''});
-        this.form.controls.prescriptionsettings.patchValue({'footer': ''});
-        if (this.checked == true) {
-            this.header = true;
-            this.previewheader = false;
-            this.form.get('prescriptionsettings.header').setValidators([Validators.required]);
-            this.form.get('prescriptionsettings.footer').setValidators([Validators.required]);
-            this.form.controls.prescriptionsettings.patchValue({'defaultheader': 'Yes'});
-            this.form.controls.prescriptionsettings.patchValue({'defaultfooter': 'Yes'});
 
-        } else {
-            this.header = false;
-            this.previewheader = false;
-            this.form.get('prescriptionsettings.header').setValidators(null);
-            this.form.get('prescriptionsettings.footer').setValidators(null);
-            this.form.controls.prescriptionsettings.patchValue({'defaultheader': 'No'});
-            this.form.controls.prescriptionsettings.patchValue({'defaultfooter': 'No'});
-        }
-        this.form.get('prescriptionsettings.footer').updateValueAndValidity();
-        this.form.get('prescriptionsettings.header').updateValueAndValidity();
-    }
-    setCreditCard(event) {
-        if (event.checked == true) {
-            this.creditCard = 'yes';
-            this.form.controls.payment.patchValue({'creditcard': 'Yes'});
-        } else {
-            this.creditCard = 'no';
-            this.form.controls.payment.patchValue({'creditcard': 'No'});
-        }
-    }
-    preview() {
-        this.pdfpreview = false;
-        this.previewheader = true;
-        this.headersize = this.headersize1;
-        this.footersize = this.footersize1;
-        this.pdfback = false;
-    }
-    previewClose() {
-        this.pdfpreview = true;
-        this.previewheader = false;
-        this.pdfback = true;
-        this.selectedtab = 3;
-        if (this.form.get('payment').get('creditcard').value == 'Yes') {
-            this.creditChecked = true;
-        } else {
-            this.creditChecked = false;
-        }
-        if (this.form.get('prescriptionsettings').get('defaultheader').value == 'Yes') {
-            this.defaultchecked = true;
-        } else {
-            this.defaultchecked = false;
-        }
-    }
-    setHeaderSize(size) {
-        this.headersize1 = size;
-    }
-    setFooterSize(size) {
-        this.footersize1 = size;
-    }
-    subsequentCheck() {
-        this.fromtoValueError = '';
-        this.initialValue = parseInt(this.form.get('payment').get('initialvisit').value);
-        this.subsequentValue = parseInt(this.form.get('payment').get('subsequentvisit').value);
-        if (this.initialValue >= this.subsequentValue) {
-            this.subsequentError = '';
-        } else {
-            this.subsequentError = 'Subsequent Value should be less than Initial Visit Value';
-        }
-    }
-    FromCheck() {
-        this.subsequentError = '';
-        this.fromValue = parseInt(this.form.get('payment').get('from').value);
-        this.toValue = parseInt(this.form.get('payment').get('to').value);
-        if (this.toValue > this.fromValue) {
-            this.fromtoValueError = '';
-        } else {
-            this.fromtoValueError = 'To value should be greater than From value';
+
+
+    addEvent(event) {
+        if (event.value != null) {
+            console.log(event.value._i,  'kjfhasdjfh');
+            let selectedDate = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                this.dob = event.value._i;
+            } else if (typeof event.value._i == 'object') {
+                console.log(event.value._i.date, 'objectttttt');
+                this.dobError = '';
+                let date = event.value._i.date;
+                if (date.toString().length == 1) {
+                    date = '0'+date;
+                }
+                let month =  (parseInt(event.value._i.month)+1).toString();
+
+                if (month.length == 1) {
+                    month = '0' + month;
+                }
+                let year = event.value._i.year;
+                this.dob = date + '-' + month + '-' + year;
+            }
         }
     }
 }

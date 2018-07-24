@@ -126,9 +126,7 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent,
-        ComparelistComponent, GroupmembersAlert, ProposalmessageComponent,
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent
     ]
 })
 export class AppModule { }

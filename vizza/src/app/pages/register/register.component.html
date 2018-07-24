@@ -26,11 +26,26 @@
                                 <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button>
                             </mat-radio-group>
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday" placeholder="Dateofbirth" formControlName="birthday">
+                                <input matInput [matDatepicker]="birthday" (keypress)="keyPress($event)" placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                             </mat-form-field>
+                            <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                         </div>
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="New Password" autocomplete="off" formControlName="password"  required [type]="newps ? 'password' : 'text'" >
+                            <mat-icon style="cursor: pointer" matSuffix (click)="newps = !newps">{{newps ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            <mat-error *ngIf="form.controls.password.errors?.required">New password is required</mat-error>
+                            <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Confirm Password" autocomplete="off" (input)="checkPassword()" required formControlName="confirmpassword"  [type]="conps ? 'password' : 'text'">
+                            <mat-icon style="cursor: pointer" matSuffix (click)="conps = !conps">{{conps ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            <mat-error *ngIf="form.controls.confirmpassword.errors?.required">Confirm password is required</mat-error>
+                            <mat-error *ngIf="form.controls.confirmpassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
+
+                        </mat-form-field>
+                        <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
                     </mat-tab>
 
                     <mat-tab label="Contacts" formGroupName="contacts">
@@ -58,27 +73,18 @@
                                 <input matInput placeholder="Address2" formControlName="address2">
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (input)="getPostal($event.target.value)" formControlName="pincode" required >
+                                <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keypress)="keyPress($event)"  formControlName="pincode" required >
                                 <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
                                 <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
 
-                            </mat-form-field>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="City"  formControlName="city" readonly>
-                            </mat-form-field>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="state" readonly>
-                            </mat-form-field>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Country" formControlName="country" readonly>
                             </mat-form-field>
                         </div>
                     </mat-tab>
                     <mat-tab label="Documents" formGroupName="documents">
                         <div fxLayout="column" class="form-field-outer">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Aadhar Number" formControlName="aadharnumber">
+                                <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)" formControlName="aadharnumber">
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Pan Number" formControlName="pannumber">
@@ -91,20 +97,20 @@
                                 </div>
                                 <label class="btn-bs-file btn btn-secondary">
                                     Browse
-                                    <input type='file' (change)="readUrl($event)">
+                                    <input type='file' (change)="readUrl($event, 'aadhar front')">
                                 </label>
                             </div>
-                            <div *ngIf="imagepath != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + imagepath}}" class="img-thumbnail" width="100" height="100" /></span></div>
+                            <div *ngIf="aadharfront != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" width="100" height="100" /></span></div>
                             <div>
                                 <div>
                                     <label>Upload Aadhar Back Image</label>
                                 </div>
                                 <label class="btn-bs-file btn btn-secondary">
                                     Browse
-                                    <input type='file' (change)="readUrl($event)">
+                                    <input type='file' (change)="readUrl($event, 'aadhar back')">
                                 </label>
                             </div>
-                            <div *ngIf="imagepath != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + imagepath}}" class="img-thumbnail" width="100" height="100" /></span></div>
+                            <div *ngIf="aadharback != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" width="100" height="100" /></span></div>
 
                             <div>
                                 <div>
@@ -112,10 +118,10 @@
                                 </div>
                                 <label class="btn-bs-file btn btn-secondary">
                                     Browse
-                                    <input type='file' (change)="readUrl($event)">
+                                    <input type='file' (change)="readUrl($event, 'pancard')">
                                 </label>
                             </div>
-                            <div *ngIf="imagepath != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + imagepath}}" class="img-thumbnail" width="100" height="100" /></span></div>
+                            <div *ngIf="pancard != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + pancard}}" class="img-thumbnail" width="100" height="100" /></span></div>
                         </div>
                     </mat-tab>
                     <mat-tab label="Education"  formGroupName="education">
@@ -132,10 +138,10 @@
                                 </div>
                                 <label class="btn-bs-file btn btn-secondary">
                                     Browse
-                                    <input type='file' (change)="readUrl($event)">
+                                    <input type='file' (change)="readUrl($event, 'education')">
                                 </label>
                             </div>
-                            <div *ngIf="imagepath != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + imagepath}}" class="img-thumbnail" width="100" height="100" /></span></div>
+                            <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" width="100" height="100" /></span></div>
                         </div>
                     </mat-tab>
                 </mat-tab-group>
