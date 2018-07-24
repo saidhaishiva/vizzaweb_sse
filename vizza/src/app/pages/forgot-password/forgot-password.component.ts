@@ -24,6 +24,9 @@ export class ForgotPasswordComponent implements OnInit {
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router,
                 public loginService: LoginService, public authService: AuthService, private route: ActivatedRoute, public toastr: ToastrService ) {
         this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.response = [];
 
         this.form = this.fb.group({
