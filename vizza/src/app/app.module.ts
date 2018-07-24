@@ -47,18 +47,20 @@ import { MessagesComponent } from './theme/components/messages/messages.componen
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
-import { ComparelistComponent} from './pages/dashboard/comparelist/comparelist.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import {GrouppopupComponent} from './pages/dashboard/grouppopup/grouppopup.component';
 
 import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
-import {RegisterComponent} from './pages/register/register.component';
+import { RegisterComponent} from './pages/register/register.component';
 import { ProposalComponent } from './pages/proposal/proposal.component';
-import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
+import { ProposalmessageComponent } from './pages/proposal/proposalmessage/proposalmessage.component';
+import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
+import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
+import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
+import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
 
 @NgModule({
   imports: [
@@ -107,7 +109,9 @@ import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
       PosComponent,
       RegisterComponent,
       ProposalComponent,
-      GroupmembersAlert
+      ProposalmessageComponent,
+      GroupmembersAlert,
+      HealthInsuranceComponent
   ],
   providers: [
       AppSettings,
@@ -123,7 +127,8 @@ import { GroupmembersAlert} from './pages/dashboard/dashboard.component';
     bootstrap: [AppComponent],
     entryComponents: [
         ComparelistComponent, GrouppopupComponent,
-        ComparelistComponent, GroupmembersAlert
+        ComparelistComponent, GroupmembersAlert, ProposalmessageComponent,
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert
     ]
 })
 export class AppModule { }

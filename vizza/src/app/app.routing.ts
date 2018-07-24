@@ -14,6 +14,7 @@ import {FixappointmentComponent} from './pages/fixappointment/fixappointment.com
 import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ProposalComponent} from './pages/proposal/proposal.component';
+import {HealthInsuranceComponent} from './pages/health-insurance/health-insurance.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -43,6 +44,7 @@ export const routes: Routes = [
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
+            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
 
         ]
     },

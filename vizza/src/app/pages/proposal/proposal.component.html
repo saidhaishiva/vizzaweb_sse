@@ -2,135 +2,321 @@
   <div class="row proposal">
     <div class="col-md-12">
       <mat-horizontal-stepper [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="">
-
+        <mat-step [stepControl]="personal">
+          <form [formGroup]="personal" (submit)="personalDetails(stepper, personal.value)">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel *ngFor="let list of totalGroup; let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+            <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{list.group_name}}
+                  {{groupName}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-6 box-card pt-3">
-                  <h6 class="color-green text-center">PERSONAL DETAILS</h6>
+                  <h6 class="color-green text-center">PROPOSER DETAILS</h6>
                   <div class="row" >
-                    <div class="col-md-12">
+                    <div class="col-md-2">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Name" [(ngModel)]="list.pname" required >
+                        <mat-select placeholder="Title" formControlName="personalTitle">
+                          <mat-option value="Mr">Mr</mat-option>
+                          <mat-option value="Mrs">Mrs</mat-option>
+                          <mat-option value="option3">Miss</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="First Name" formControlName="personalFirstname" required >
+                        <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Last Name" formControlName="personalLastname" required >
+                        <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
+
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" placeholder="DOB" [(ngModel)]="list.pdob" required>
+                      <input matInput [matDatepicker]="picker" placeholder="DOB" formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
+
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
-                      <input matInput placeholder="Age" [(ngModel)]="list.page" required>
+                      <input matInput placeholder="Age" formControlName="personalAge" (keypress)="keyPress($event)"   maxlength="3" required>
+                      <mat-error *ngIf="personal.controls.personalAge.errors?.required">Age is required</mat-error>
+
                     </mat-form-field></div>
+                    <div class="col-md-6">
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="Occupation" formControlName="personalOccupation">
+                          <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_name" required>
+                            {{occupation.occupation_name}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="personal.controls.personalOccupation.errors?.required">Occupation is required</mat-error>
+                      </mat-form-field>
+                    </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Occupation" [(ngModel)]="list.poccupation" required>
+                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="6" formControlName="personalIncome" required>
+                      <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
+
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Annual Income" [(ngModel)]="list.pincome" required>
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
+                      <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" [(ngModel)]="list.paadhar" required>
+                      <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="personalPan">
+                      <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
+                      <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Previous Medical insurance"  formControlName="previousinsurance" required>
+                      <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
+
+                    </mat-form-field></div>
+                  </div>
+                </div>
+                <div class="col-md-6 p-3 box-card">
+                  <h6 class="color-green text-center ">SOCIAL STATUS</h6>
+                  <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
+                    <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
+                    <mat-radio-button value="true" [checked]="true" >NO</mat-radio-button>
+                  </mat-radio-group>
+                  <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
+                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Please choose "Yes" if you are working in informal Sector</p>
+                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer2" >
+                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
+                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer3" >
+                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
+                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 box-card pt-3">
+                  <h6 class="color-green text-center">PROPOSER COMMUNICATION DETAILS</h6>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" required></textarea>
+                        <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address1 is required</mat-error>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2"></textarea>
+                        <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="PIN Code" (keypress)="keyPress($event)" minlength="6"  maxlength="6" formControlName="personalPincode" required>
+                      <mat-error *ngIf="personal.controls.personalPincode.errors?.required">PIN Code is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PAN Number" [(ngModel)]="list.ppan" required>
+                      <input matInput placeholder="City" formControlName="personalCity" required>
+                      <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="State" formControlName="personalState" required>
+                      <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Email ID" formControlName="personalEmail" required>
+                      <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Email ID is required</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="personalMobile" required>
+                      <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
+                      <mat-error *ngIf="personal.controls.personalMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10"  formControlName="personalAltnumber">
+                      <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
+                      <mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+
+
                     </mat-form-field></div>
                   </div>
                 </div>
                 <div class="col-md-6 box-card pt-3">
-                  <h6 class="color-green text-center">COMMUNICATION DETAILS</h6>
+                  <h6 class="color-green text-center">PROPOSER RESIDENCE DETAILS</h6>
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address" rows="3" [(ngModel)]="list.paddress" required></textarea>
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" ></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" ></textarea>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code" [(ngModel)]="list.ppincode" required>
+                      <input matInput placeholder="PIN Code" (keypress)="keyPress($event)" minlength="6"  maxlength="6" formControlName="residencePincode" >
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="City" [(ngModel)]="list.pcity" required>
-                    </mat-form-field></div>
-                    <div class="col-md-12"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID" [(ngModel)]="list.pemail" required>
+                      <input matInput placeholder="City" formControlName="residenceCity" >
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number" [(ngModel)]="list.ppmobile" required>
+                      <input matInput placeholder="State" formControlName="residenceState" >
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" [(ngModel)]="list.paltnumber">
+                      <input matInput placeholder="Email ID" formControlName="residenceEmail" >
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceMobile" >
+                      <mat-error *ngIf="personal.controls.residenceMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceAltnumber">
+                      <mat-error *ngIf="personal.controls.residenceAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+
                     </mat-form-field></div>
                   </div>
                 </div>
-                <div class="col-md-12 mt-3 box-card" *ngIf="isFirstRow && totalGroupLength != 1">
-                  <p class="m-0 pt-2"><mat-checkbox (change)="applyToAll()" >Is the Proposer the same for {{totalGroupLength - 1}} groups? If no, please check the given box.</mat-checkbox> </p>
-                </div>
+                <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
                 <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Personal Details')"  >Next</button>
+                  <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
                 </div>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
+          </form>
         </mat-step>
-
         <mat-step [stepControl]="">
 
             <ng-template matStepLabel >INSURED DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
-              <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+              <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{list.group_name}}
+                    {{groupName}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
-                  <div class="col-md-6 box-card pt-3 mb-3" *ngFor="let item of list.family_members; let j = index">
-                    <h6 class="color-green text-center">INSURED DETAILS {{j+1}} ({{item.type}})</h6>
+                  <div class="col-md-6 box-card pt-3" *ngFor="let item of familyMembers; let i = index">
+                    <h6 class="color-green text-center">INSURED DETAILS {{i+1}} ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name" [(ngModel)]="item.insurname"  required>
+                          <input matInput placeholder="Name" [(ngModel)]="item.ins_name"  required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" placeholder="DOB" [(ngModel)]="item.insurdob" >
+                        <input matInput [matDatepicker]="insureddob" placeholder="DOB" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" [(ngModel)]="item.ins_dob"  required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" [(ngModel)]="item.insurage" required >
+                        <input matInput placeholder="Age" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.ins_age" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Height"  [(ngModel)]="item.insurheight" required >
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Weight" [(ngModel)]="item.insurweight" required >
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <mat-select  placeholder="Occupation" [(ngModel)]="item.insuroccupation" required>
-                          <mat-option value="option1">Self Employed</mat-option>
+                        <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
+                          <mat-option value="Male">Male</mat-option>
+                          <mat-option value="Female">Female</mat-option>
                         </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Annual Income" [(ngModel)]="item.insurincome" required >
+                        <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" [(ngModel)]="item.insurrelationship" required>
+                        <input matInput placeholder="Height(cms)" (keypress)="keyPress($event)"  maxlength="3"  [(ngModel)]="item.ins_height" required >
                       </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Weight(kgs)" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.ins_weight" required >
+                      </mat-form-field></div>
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id">
+                            <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_name" required>
+                              {{occupation.occupation_name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="10" [(ngModel)]="item.insurincome" required >
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship">
+                          <mat-option *ngFor="let relationship of relationshipList" [value]="relationship.relationship_name" required>
+                            {{relationship.relationship_name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field></div>
+                      <div class="col-md-6" *ngIf="this.buyProductdetails.product_id == 6">
+                        <p>Hospital Cash</p>
+                        <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
+                          <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
+                          <mat-radio-button value="2">No</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="this.buyProductdetails.product_id == 9">
+                        <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="this.buyProductdetails.product_id == 9">
+                        <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sport" required>
+                      </mat-form-field></div>
+                      <div class="col-md-6" *ngIf="this.buyProductdetails.product_id == 9">
+                        <p>Hospital Cash</p>
+                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" required >
+                          <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
+                          <mat-radio-button value="2">No</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+
+                      <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Previous Insure" [(ngModel)]="item.previousinsurer" required>-->
+                      <!--</mat-form-field></div>-->
                     </div>
-                    <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="list.family_members.length - 1 == j">
+                    <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Insured Details')"  >Next</button>
+                      <button mat-raised-button color="primary"  type="submit" (click)="InsureDetails(stepper, i, 'Insured Details')"  >Next</button>
                     </div>
                   </div>
 
@@ -143,66 +329,68 @@
         <mat-step [stepControl]="">
             <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
-              <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first; let i = index"  [expanded]="isFirstRow">
+              <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{list.group_name}}
+                    {{groupName}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
-                <div class="row mt-3" >
+                <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
                   <div class="col-md-6 box-card pt-3" >
-                    <h6 class="color-green text-center">NOMINEE DETAILS</h6>
-                    <div class="row">
+                    <span *ngFor="let nomineeadd of list.nominee; let p = index">
+                    <h6 class="color-green text-center mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeAdd" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeRemove" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
+                    <div class="row"  >
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee" [(ngModel)]="list.nname"  required>
+                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname"  required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <mat-select placeholder="Age"  [(ngModel)]="list.nnage" required>
-                          <mat-option value="option1">26</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.nage"  required>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="list.nrelationship" required>
-                          <mat-option value="option1">Brother</mat-option>
+
+                       <div class="col-md-4"><mat-form-field class="w-100">
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
+                          <mat-option *ngFor="let relationship of relationshipList" [value]="relationship.relationship_name" required>
+                            {{relationship.relationship_name}}
+                          </mat-option>
                         </mat-select>
+                    </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
                       </mat-form-field></div>
                     </div>
-                    <h6 class="color-green text-center mt-4">APPOINTEE DETAILS</h6>
+                    <h6 class="color-green text-center mt-4" >APPOINTEE DETAILS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Appointee" [(ngModel)]="list.aname"  required>
+                          <input matInput placeholder="Name of Appointee" [(ngModel)]="nomineeadd.aname" [required]="nomineeadd.nage <= 18">
                         </mat-form-field>
                       </div>
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <mat-select placeholder="Age"  [(ngModel)]="list.aage" required>
-                          <mat-option value="option1">26</mat-option>
-                        </mat-select>
+                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage <= 18" >
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Name of Appointee"  [(ngModel)]="list.arelationship" required>
-                          <mat-option value="option1">Brother</mat-option>
+                       <div class="col-md-4"><mat-form-field class="w-100">
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage <= 18">
+                          <mat-option *ngFor="let relationship of relationshipList" [value]="relationship.relationship_name" required>
+                            {{relationship.relationship_name}}
+                          </mat-option>
                         </mat-select>
-                      </mat-form-field></div>
+                    </mat-form-field></div>
                     </div>
+                    </span>
                   </div>
                   <div class="col-md-6 box-card pt-3">
-                    <h6 class="color-green text-center">PREVIOUS INSURER DETAILS</h6>
+                    <h6 class="color-green text-center mb-3">PREVIOUS INSURER DETAILS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Previous Policy Number" [(ngModel)]="policynumber"  required>
+                          <input matInput placeholder="Previous Policy Number" [(ngModel)]="list.policynumber"  required>
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <mat-select placeholder="Previous Insurer" [(ngModel)]="list.previousinsurer"  required>
-                          <mat-option value="option1">Bajaj Alliance</mat-option>
-                        </mat-select>
-                      </mat-form-field></div>
+
                       <div class="col-md-6">
                         <p>Any Claims in the Past 3 Years?</p>
                         <mat-radio-group [(ngModel)]="list.anyclaims" required>
@@ -214,87 +402,11 @@
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-raised-button color="primary"  type="submit" (click)="nextStep(stepper, i, j, 'Nominee Details')"  >Next</button>
+                    <button mat-raised-button color="primary"  type="submit" (click)="nomineeDetails(stepper, i, p, 'Nominee Details')"  >Next</button>
                   </div>
                 </div>
-
               </mat-expansion-panel>
             </mat-accordion>
-
-        </mat-step>
-        <mat-step [stepControl]="medicalDetails">
-          <ng-template matStepLabel>MEDICAL AND LIFESTYLE DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel  *ngFor="let list of totalGroup;  let isFirstRow = first"  [expanded]="isFirstRow">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{list.group_name}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
-
-              <div class="row">
-                <div class="col-md-12 box-card pt-3 mt-3">
-                  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
-
-                    <!-- Indicators -->
-                    <ul class="carousel-indicators">
-                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo" data-slide-to="1"></li>
-                      <li data-target="#demo" data-slide-to="2"></li>
-                    </ul>
-
-                    <!-- The slideshow -->
-                    <div class="carousel-inner">
-                      <div class="carousel-item" [ngClass]="firstSlide? 'active' : ''" *ngFor="let slide of questionData; let firstSlide = first" >
-                        <div *ngFor="let ques of slide">
-                        <p class="w-100" >{{ques.question_heading}} <mat-radio-group>
-                          <mat-radio-button value="1" class="mr-1">Yes</mat-radio-button>
-                          <mat-radio-button value="0">No</mat-radio-button>
-                        </mat-radio-group></p>
-                        <table class="table table-hover w-100">
-                          <thead>
-                          <tr class="text-center color-green" >
-                            <th></th>
-                            <th *ngFor="let data of list.family_members">{{data.type}}</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let qlist of ques.questions_list; let i = index">
-                            <td>{{i+1}}) {{qlist.question}}</td>
-                            <td class="text-center" *ngFor="let data2 of list.family_members">
-                              <mat-button-toggle-group #group="matButtonToggleGroup">{{group.value}}
-                                <mat-button-toggle value="1">Yes</mat-button-toggle>
-                                <mat-button-toggle value="0">NO</mat-button-toggle>
-                              </mat-button-toggle-group>
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <div class="proposal-buttom mt-3 float-right">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext (click)="proposal()" >Next</button>
-          </div>
-        </mat-step>
-        <mat-step [stepControl]="summary">
-          <form>
-            <ng-template matStepLabel>SUMMARY</ng-template>
-            <p>Summary</p>
-            <div class="proposal-buttom mt-3 float-right">
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" matStepperNext type="submit" >Next</button>
-            </div>
-          </form>
         </mat-step>
       </mat-horizontal-stepper>
     </div>

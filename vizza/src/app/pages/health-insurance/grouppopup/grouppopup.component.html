@@ -1,0 +1,58 @@
+<div class="text-right ">
+  <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+</div>
+<div class="row scrollmenu">
+  <div class="col-md-3" *ngFor="let clists of compareDetails">
+    <!--<div fxLayoutWrap fxLayout="column" fxLayout.gt-sm="row">-->
+    <div>
+      <mat-card class="card-group-pop" >
+        <mat-card-header>
+          <mat-card-subtitle>
+            <h5>
+              <img style="width: 25px" src="data:image/png;base64,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">
+              <span class="color-pink"> {{clists.name}}</span>
+            </h5>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-nav-list>
+            <mat-list-item *ngFor="let family of clists.family_members">
+              <a matLine >
+                <img style="width: 20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJlSURBVGhD7ZhLaxRBFIUHfIEPdCWuXejKvcQXunKlLmyS7gkILuLalStp6KrxCcZkoUyImakadTEuFAQJhKAQdOsvcC3+At8m52YuRp07neqMUiXUBwdmpuueOre7qerpWiQSiUQmmvn2zOoktep+avVzUmb0vXq7OE/HeFjYpG11KTX6AxpZHqD3NIaHh0fS7W7CmbdCcFlGGarh8nBAuOm+sOvJ6LtcHgZZq3FEDOqgUatG2MY/mVXzUkgXYUF4wTZ+udDK9yDMFymki6g26d7YzXb+oFtDClhF9Y4+zHb+qHeKM1K4KiIPtvNH1lbHpXBVVO80jrGdP5JWvg/7x3cpoIuodtzme9nOL1i13kghnWT0a7bxT2qLc2JIFxl9lm3CAMvoMzFomYx+yuXhcHH25q5KtxhuqaSb7+TysDg9NbUNIadLN0ijP+P4JI3lsnDJHl3fj0f5q7hCr1Kj3pF6n/EbjvGwSCQSiQzPuL29I3tYHOKv60JjqYa/+uPEy3xz1m6cxP5wCxvcW2x0X3ubXnGZhwyExvQ2R/VttRYeY1adIk8e8u/Bn6CD2NjulL+7GtzMzyYEkSd5j5prB3j434cawFl/7P7fo7+ZsiZ+1eocmIvm5NLhocsN4yvQR2nScq0149rE71KfaO6hX+Th6XQrjJ7Ik7iKGthIE2uiDBPN5haOVR1c3jnJ2IfQzAzHqgaeWI9iVfkhmXoRsmzotRGWxQeioUfh5DY5nju4rRYlM69CJo7nDgqX+oz8a4njuUNFf5iEoNiIZOZT1RuhNx1YuxfCkprkeJFIJPJfU6utADQIvbFQu04iAAAAAElFTkSuQmCC">
+                {{ family.type }}</a>
+                {{ family.age }}
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+      </div>
+    <!--</div>-->
+  </div>
+</div>
+
+
+<!--<div mat-dialog-content class="compare" >-->
+  <!--<div class="row scrollmenu">-->
+    <!--<div class="col-md-3">-->
+      <!--<h5 class="content-color">Key Features</h5>-->
+      <!--<div class="">-->
+        <!--<p>-->
+          <!--<mat-radio-button class="example-radio-button"> All</mat-radio-button>-->
+        <!--</p>-->
+        <!--<p>-->
+          <!--<mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>-->
+        <!--</p>-->
+        <!--<p>-->
+          <!--<mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>-->
+        <!--</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">-->
+      <!--<div class="">-->
+        <!--<p class="content-color text-center">{{clists.product_name}}</p>-->
+        <!--<img src="{{webhost + '/' + clists.product_logo}}" style="width: 150px;">-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
