@@ -16,6 +16,16 @@ button:focus{
 .bg-pink{
   color:$pink-color;
 }
+.user-menu .user-info {
+  width: 130px !important;
+}
+.color-blue {
+  color :#2d64d2;
+}
+.matIclass{
+  font-size: 14px;
+}
+
 .dashboard{
   .mat-card{
     background: rgba(243, 240, 240, 0.87) !important;
