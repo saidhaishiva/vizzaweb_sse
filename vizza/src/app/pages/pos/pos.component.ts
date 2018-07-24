@@ -21,6 +21,7 @@ export class PosComponent implements OnInit {
     conps: boolean;
     newps: boolean;
     hide = true;
+    data: any;
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
         this.response = [];
         this.conps = true;
@@ -77,7 +78,11 @@ export class PosComponent implements OnInit {
     }
     public loginSuccess(successData) {
         console.log(successData);
-        this.router.navigate(['/dashboard']);
+        if (successData.IsSuccess) {
+            this.data = successData.ResponseObject.pos_details;
+            this.authService.setToken(this.data.pos_email, this.data.pos_firstname, this.data.pos_id, this.data.pos_lastname, this.data.pos_mobileno, this.data.pos_roleid, successData.ResponseObject.Accesstoken)
+            this.router.navigate(['/dashboard']);
+        }
     }
 
     public loginFailure(error) {
