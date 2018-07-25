@@ -3,6 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AuthService} from '../../../shared/services/auth.service';
 import {Settings} from '../../../app.settings.model';
 import {AppSettings} from '../../../app.settings';
+import { MatDialog } from '@angular/material';
+import { ChangepasswordComponent } from '../../../pages/changepassword/changepassword.component';
 
 @Component({
   selector: 'app-user-menu',
@@ -15,7 +17,7 @@ export class UserMenuComponent implements OnInit {
     firstname: string;
     lastname: string;
     public settings:Settings;
-  constructor(public auth: AuthService, public appSettings:AppSettings, public router:Router) {
+  constructor(public auth: AuthService, public dialog: MatDialog, public appSettings:AppSettings, public router:Router) {
       this.settings = this.appSettings.settings;
       this.firstname = this.auth.getPosFirstName();
       this.lastname = this.auth.getPosLastName();
@@ -31,6 +33,13 @@ export class UserMenuComponent implements OnInit {
       this.settings.userId = 0;
       this.settings.username = '';
         this.router.navigate(['/']);
+    }
+    passwordChange() {
+        let dialogRef = this.dialog.open(ChangepasswordComponent, {
+          width: '600px'
+        });
+
+        dialogRef.afterClosed().subscribe( user => {});
     }
 
 }
