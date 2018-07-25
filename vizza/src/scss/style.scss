@@ -84,9 +84,19 @@ a:hover {
   left: 0;
   top: 5px;
   right: 0;
-  width: 600px;
+  width: 700px;
   margin: 4em auto 70px;
+  .mat-tab-body.mat-tab-body-active{
+    overflow-y: hidden !important;
+  }
+  .mat-tab-body-content{
+    overflow: hidden;
+  }
 }
+//.app.teal-light .mat-raised-button, .app.teal-light .mat-fab, .app.teal-light .mat-mini-fab {
+//  color: rgba(0, 0, 0, 0.87);
+//  background-color: #ec9e6f!important;
+//}
 
 .bg-map{
   background: url("./assets/img/loginbg.jpg");
@@ -499,4 +509,14 @@ background: #ccc !important;
   color: #fff !important;
   // #81d8a0bf
 }
+.aadhar{
+  background-color: #f1b17a!important;
+}
+.pan {
+  background-color: #88c8e0!important;
+}
+.edu {
+  background-color: #78c795!important;
+}
+
 
