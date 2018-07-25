@@ -44,7 +44,10 @@
                                 <mat-icon style="cursor: pointer" matSuffix (click)="conps = !conps">{{conps ? 'visibility' : 'visibility_off'}}</mat-icon>
                                 <mat-error *ngIf="form.controls.confirmpassword.errors?.required">Confirm password is required</mat-error>
                                 <mat-error *ngIf="form.controls.confirmpassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
-
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <mat-placeholder>Referral Code</mat-placeholder>
+                                <input matInput formControlName="referralcode" maxlength="50" >
                             </mat-form-field>
                             <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
                         </div>

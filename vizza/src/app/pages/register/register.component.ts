@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
-                public fb: FormBuilder,public router: Router, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+                public fb: FormBuilder,public router: Router, private datePipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -95,11 +95,11 @@ export class RegisterComponent implements OnInit {
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             lastname: ['', Validators.compose([Validators.required])],
-
             birthday: '',
             gender: '',
             password: ['', Validators.compose([Validators.required])],
             confirmpassword: ['', Validators.compose([Validators.required])],
+            referralcode: '',
 
             contacts: this.fb.group({
                 email: '',
@@ -114,11 +114,11 @@ export class RegisterComponent implements OnInit {
             }),
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
-                pannumber: '',
+                pannumber: ['', Validators.compose([Validators.required])],
 
             }),
             education: this.fb.group({
-                qualification: '',
+                qualification: ['', Validators.compose([Validators.required])],
 
             }),
         });
@@ -191,13 +191,15 @@ export class RegisterComponent implements OnInit {
         console.log(error);
     }
     submit() {
+        let dob = this.datePipe.transform(this.form.controls['birthday'].value, 'yyyy-MM-dd');
         console.log(this.dob, 'dateeee');
         const data = {
             "platform": "web",
             "pos_hidden_id": "",
             "pos_firstname": this.form.controls['firstname'].value,
             "pos_lastname": this.form.controls['lastname'].value,
-            "pos_dob": this.dob,
+            "pos_dob": dob,
+            "pos_referralcode": this.form.controls['referralcode'].value != undefined && this.form.controls['referralcode'].value != '' ? this.form.controls['referralcode'].value : '',
             "pos_mobileno": this.form.value['contacts']['phone1'],
             "pos_email":  this.form.value['contacts']['email'],
             "pos_address1": this.form.value['contacts']['address1'],
@@ -205,6 +207,7 @@ export class RegisterComponent implements OnInit {
             "pos_postalcode":  this.form.value['contacts']['pincode'],
             "password": this.form.controls['confirmpassword'].value,
             "pos_aadhar_no":  this.form.value['documents']['aadharnumber'],
+            "pos_pan_no":  this.form.value['documents']['pannumber'],
             "pos_aadhar_front_img": this.aadharfront,
             "pos_aadhar_back_img": this.aadharback,
             "pos_pan_img": this.pancard,
