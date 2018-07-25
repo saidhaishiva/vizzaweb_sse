@@ -17,7 +17,9 @@ export class AddsubjectComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     public response: any;
-
+    categoryList: any;
+    rows = [];
+    temp = [];
   constructor(public dialogRef: MatDialogRef<AddsubjectComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any
               , public router: Router, public route: ActivatedRoute,
@@ -25,7 +27,6 @@ export class AddsubjectComponent implements OnInit {
               public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
       this.settings = this.appSettings.settings;
       this.dialogRef.disableClose = true;
-      console.log(data,'data');
       this.form = this.fb.group({
           'categoryid': ['', Validators.compose([Validators.required])],
           'subjectname': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
@@ -35,6 +36,7 @@ export class AddsubjectComponent implements OnInit {
         this.dialogRef.close();
     }
   ngOnInit() {
+      this.getCategoryList();
   }
     public addSubject(): void {
 
@@ -47,6 +49,7 @@ export class AddsubjectComponent implements OnInit {
                 'platform': 'web'
             };
             console.log(data);
+            this.settings.loadingSpinner = true;
             this.categoryService.addSubject(data).subscribe(
                 (successData) => {
                     this.getSubjectSuccess(successData);
@@ -69,5 +72,35 @@ export class AddsubjectComponent implements OnInit {
         }
     }
     public getSubjectFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+    public getCategoryList() {
+        // this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+        };
+        console.log(data);
+        this.settings.loadingSpinner = true;
+        this.categoryService.getCategoryList(data).subscribe(
+            (successData) => {
+                this.getCategorySuccess(successData);
+
+            },
+            (error) => {
+                this.getCategoryFailure(error);
+            }
+        );
+    }
+    public getCategorySuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        this.categoryList = successData.ResponseObject;
+        this.rows = this.categoryList;
+        console.log(this.rows, 'this.rowsthis.rowsthis.rows');
+
+    }
+    public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 }
