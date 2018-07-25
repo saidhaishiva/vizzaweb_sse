@@ -48,6 +48,32 @@ export class CategoryService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    editCategory(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'category/edit';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    deleteCategory(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'category/delete';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     addSubject(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -57,6 +83,32 @@ export class CategoryService {
         };
         console.log(token);
         const url = this.configurationService.getHost() + 'subject/addSubject';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    editSubject(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'subject/editSubject';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    deleteSubject(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'subject/deleteSubject';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

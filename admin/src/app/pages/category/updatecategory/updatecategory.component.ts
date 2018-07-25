@@ -4,51 +4,49 @@ import { AppSettings} from '../../../app.settings';
 import { ToastrService} from 'ngx-toastr';
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormGroup,FormBuilder,Validators} from '@angular/forms';
-import {AuthService} from '../../../shared/services/auth.service';
-import {ConfigurationService} from '../../../shared/services/configuration.service';
-import {CategoryService} from '../../../shared/services/category.service';
-import {ActivatedRoute,Router} from '@angular/router';
-import {AddsubjectComponent} from '../../subject/addsubject/addsubject.component';
+import { CategoryService} from '../../../shared/services/category.service';
+import { AuthService} from '../../../shared/services/auth.service';
+import { ActivatedRoute,Router} from '@angular/router';
+
 @Component({
-  selector: 'app-addcategory',
-  templateUrl: './addcategory.component.html',
-  styleUrls: ['./addcategory.component.scss']
+  selector: 'app-updatecategory',
+  templateUrl: './updatecategory.component.html',
+  styleUrls: ['./updatecategory.component.scss']
 })
-export class AddcategoryComponent implements OnInit {
+export class UpdatecategoryComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
+    rows = [];
     public response: any;
+    getDetails: any;
+    selectedValue: string;
 
-  constructor(public dialogRef: MatDialogRef<AddsubjectComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any
-      , public router: Router, public route: ActivatedRoute,
-              public appSettings: AppSettings, private toastr: ToastrService, public auth: AuthService,
-              public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<UpdatecategoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public categoryService: CategoryService, public auth: AuthService, public appSettings: AppSettings, private toastr: ToastrService  ) {
       this.settings = this.appSettings.settings;
       this.dialogRef.disableClose = true;
-      console.log(data,'data');
+      this.getDetails = this.data;
+      console.log(this.getDetails, 'this.getDetails');
       this.form = this.fb.group({
-          'categoryname': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
+          'categoryname': ['', Validators.compose([Validators.required])]
       });
   }
     onNoClick(): void {
         this.dialogRef.close();
     }
-
   ngOnInit() {
+      this.form.controls['categoryname'].patchValue(this.getDetails.category_name);
   }
-
-    public addCategory(): void {
+    public editCategory(): void {
         if (this.form.valid) {
-
             const data = {
                 'categoryname': this.form.controls['categoryname'].value,
-                'adminid': this.auth.getAdminId(),
+                'adminid':  this.auth.getAdminId(),
+                'categoryid': this.getDetails.category_id,
                 'platform': 'web'
             };
             console.log(data);
             this.settings.loadingSpinner = true;
-            this.categoryService.addCategory(data).subscribe(
+            this.categoryService.editCategory(data).subscribe(
                 (successData) => {
                     this.getCategorySuccess(successData);
                 },
@@ -65,7 +63,7 @@ export class AddcategoryComponent implements OnInit {
             this.dialogRef.close(true);
             this.response = successData.ResponseObject;
             this.toastr.success(successData.ResponseObject);
-        }else {
+        } else {
             this.toastr.error(successData.ResponseObject);
         }
     }
