@@ -6,10 +6,10 @@ import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute,Router} from '@angular/router';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {CategoryService} from '../../shared/services/category.service';
-import {AddsubjectComponent} from '../subject/addsubject/addsubject.component';
 import {AddcategoryComponent} from './addcategory/addcategory.component';
 import {MatDialog} from '@angular/material';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
+import {UpdatecategoryComponent} from './updatecategory/updatecategory.component';
 
 @Component({
   selector: 'app-category',
@@ -24,6 +24,7 @@ export class CategoryComponent implements OnInit {
     temp = [];
     categoryList: any;
     selected = [];
+    public response: any;
     loadingIndicator: boolean = true;
     pageOffSet: any;
     pageno: string;
@@ -44,7 +45,7 @@ export class CategoryComponent implements OnInit {
      this.getCategoryList();
   }
     public getCategoryList() {
-        // this.settings.loadingSpinner = true;
+         this.settings.loadingSpinner = true;
         const data = {
             'adminid': this.auth.getAdminId(),
             'platform': 'web',
@@ -70,6 +71,34 @@ export class CategoryComponent implements OnInit {
     }
     public getCategoryFailure(error) {
     }
+    public deleteCategory(value) {
+      this.settings.loadingSpinner = true;
+           const data = {
+             'adminid': this.auth.getAdminId(),
+               'platform': 'web',
+              'categoryid': value.category_id,
+            };
+           this.categoryService.deleteCategory(data).subscribe(
+              (successData) => {
+                  this.deleteCategorySuccess(successData);
+               },
+               (error) => {
+                    this.deleteCategoryFailure(error);
+               }
+            );
+  }
+         public deleteCategorySuccess(successData) {
+            console.log(successData, 'successData');
+            this.settings.loadingSpinner = false;
+            if (successData.IsSuccess) {
+               this.getCategoryList();
+                this.toastr.success(successData.ResponseObject);
+           }else {
+                this.toastr.error(successData.ResponseObject);
+            }
+        }
+         public deleteCategoryFailure(error) {
+         }
     openDialog(): void {
         let dialogRef = this.dialog.open(AddcategoryComponent, {
             width: '500px'
@@ -94,6 +123,20 @@ export class CategoryComponent implements OnInit {
         this.rows = temp;
         // Whenever the filter changes, always go back to the first page
         this.table.offset = 0;
+
+    }
+    openEdit(value): void {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(UpdatecategoryComponent, {
+            width: '500px',
+            data: value
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log(result);
+            if (result) {
+                this.getCategoryList();
+            }
+        });
 
     }
 
