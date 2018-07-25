@@ -41,18 +41,6 @@ export class PosComponent implements OnInit {
 
 
     ngOnInit() {
-        sessionStorage.setFamilyDetails = '';
-        sessionStorage.setInsuredAmount = '';
-        sessionStorage.setPincode = '';
-        sessionStorage.setPage = '';
-        sessionStorage.policyLists = '';
-        sessionStorage.sideMenu = '';
-        sessionStorage.sonBTn = '';
-        sessionStorage.daughterBTn = '';
-        sessionStorage.fatherBTn = '';
-        sessionStorage.motherBtn = '';
-        sessionStorage.fatherInLawBTn = '';
-        sessionStorage.motherInLawBtn = '';
 
     }
 

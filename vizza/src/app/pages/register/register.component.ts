@@ -227,7 +227,7 @@ export class RegisterComponent implements OnInit {
     signUpSuccess(successData) {
         console.log(successData);
         if (successData.IsSuccess) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/pos']);
             this.toastr.success('Registration Completed', 'Success!!!');
         }
     }

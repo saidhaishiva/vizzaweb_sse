@@ -105,56 +105,62 @@
                             </div>
 
                             <div class="row col-md-12">
-                                <p>Upload Aadhar Front Image</p>
                                 <div class="col-md-6">
-                                    <label class="btn-bs-file mat-mini-fab aadhar">
-                                        <i class="material-icons">
-                                            cloud_upload
-                                        </i>
-                                    <input type='file' (change)="readUrl($event, 'aadhar front')">
+                                    <p>Aadhar Front Image</p>
+                                </div>
+                                <div class="col-md-6 uploadBtn">
+                                    <label class="btn-bs-file btn btn-secondary">
+                                        Browse
+                                        <input type='file' (change)="readUrl($event, 'aadhar front')">
                                     </label>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div *ngIf="aadharfront != ''">
-                                        <span class="imageclose mr-2">
-                                            <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" width="100" height="100" />
-                                        </span>
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row col-md-12">
-                                <p>Upload Aadhar Back Image</p>
                                 <div class="col-md-6">
-                                    <label class="btn-bs-file mat-mini-fab aadhar">
-                                        <i class="material-icons">
-                                            cloud_upload
-                                        </i>
+                                    <p>Aadhar Back Image</p>
+                                </div>
+                                <div class="col-md-6 uploadBtn">
+                                    <label class="btn-bs-file btn btn-secondary">
+                                        Browse
                                         <input type='file' (change)="readUrl($event, 'aadhar back')">
                                     </label>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div *ngIf="aadharback != ''">
-                                        <span class="imageclose mr-2">
-                                            <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" width="100" height="100" />
-                                        </span>
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row col-md-12">
-                                <p>Upload Pancard Image Front</p>
                                 <div class="col-md-6">
-                                    <label class="btn-bs-file mat-mini-fab pan">
-                                        <i class="material-icons">
-                                            cloud_upload
-                                        </i>
+                                    <p>Pancard Image Front</p>
+                                </div>
+                                <div class="col-md-6 uploadBtn">
+                                    <label class="btn-bs-file btn btn-secondary">
+                                        Browse
                                         <input type='file' (change)="readUrl($event, 'pancard')">
                                     </label>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div *ngIf="pancard != ''">
-                                        <span class="imageclose mr-2">
-                                            <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" width="100" height="100" />
-                                        </span>
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -171,21 +177,22 @@
                                 <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
                             </div>
                             <div class="row col-md-12">
-                                <p>Upload Educational Documents</p>
-                                <div class="col-md-6">
-                                    <label class="btn-bs-file mat-mini-fab edu">
-                                        <i class="material-icons">
-                                            cloud_upload
-                                        </i>
+                                <div class="col-md-8">
+                                    <p>Educational Documents</p>
+                                </div>
+                                <div class="col-md-4 uploadBtn">
+                                    <label class="btn-bs-file btn btn-secondary">
+                                        Browse
                                         <input type='file' (change)="readUrl($event, 'education')">
                                     </label>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div *ngIf="education != ''">
-                                        <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" width="100" height="100" />
-                                        </span>
+                                    <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/>
+                                    </span>
                                     </div>
-
                                 </div>
                             </div>
 
