@@ -21,7 +21,7 @@ export class UserMenuComponent implements OnInit {
       this.settings = this.appSettings.settings;
       this.firstname = this.auth.getPosFirstName();
       this.lastname = this.auth.getPosLastName();
-      this.settings.username =  this.firstname + this.lastname;
+      this.settings.username =  this.firstname +' '+ this.lastname;
   }
 
   ngOnInit() {

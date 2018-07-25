@@ -7,7 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProposalmessageComponent} from './proposalmessage/proposalmessage.component';
 import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
-
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-proposal',
@@ -39,7 +39,9 @@ export class ProposalComponent implements OnInit {
     public declaration: boolean;
     public summaryData: any;
     public lastStepper: any;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public fb: FormBuilder, public auth: AuthService) {
+    public paymentGatewayData: any;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog,
+              public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.illnessCheck = false;
@@ -49,38 +51,82 @@ export class ProposalComponent implements OnInit {
       this.nomineeRemove = true;
       this.declaration = false;
       this.selectDate = '';
+      // this.personal = this.fb.group({
+      //     personalTitle: ['', Validators.required],
+      //     personalFirstname: ['', Validators.required],
+      //     personalLastname: ['', Validators.required],
+      //     personalDob: ['', Validators.required],
+      //     personalOccupation: ['', Validators.required],
+      //     personalIncome: ['', Validators.required],
+      //     personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+      //     personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+      //     personalGst: ['', Validators.compose([ Validators.minLength(15)])],
+      //     socialStatus: '',
+      //     socialAnswer1: '',
+      //     socialAnswer2: '',
+      //     socialAnswer3: '',
+      //     socialAnswer4: '',
+      //     personalAddress: ['', Validators.required],
+      //     previousinsurance: '',
+      //     personalAddress2: '',
+      //     personalPincode: ['', Validators.required],
+      //     personalCity: ['', Validators.required],
+      //     personalState: ['', Validators.required],
+      //     personalEmail: ['', Validators.required],
+      //     personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      //     personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
+      //     residenceAddress: '',
+      //     residenceAddress2: '',
+      //     residencePincode: '',
+      //     residenceCity: '',
+      //     residenceState: '',
+      //     residenceEmail: '',
+      //     residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
+      //     residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
+      //     illnessCheck: ''
+      //
+      // });
+      this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
+          (successData) => {
+              this.testProposalSuccess(successData);
+          },
+          (error) => {
+              this.proposalFailure(error);
+          }
+      );
+
       this.personal = this.fb.group({
-          personalTitle: ['', Validators.required],
-          personalFirstname: ['', Validators.required],
-          personalLastname: ['', Validators.required],
-          personalDob: ['', Validators.required],
-          personalOccupation: ['', Validators.required],
-          personalIncome: ['', Validators.required],
-          personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
-          personalPan: ['', Validators.compose([ Validators.minLength(10)])],
-          personalGst: ['', Validators.compose([ Validators.minLength(15)])],
+          personalTitle: [''],
+          personalFirstname: [''],
+          personalLastname: [''],
+          personalDob: [''],
+          personalOccupation: [''],
+          personalIncome: [''],
+          personalAadhar: [''],
+          personalPan: [''],
+          personalGst: [''],
           socialStatus: '',
           socialAnswer1: '',
           socialAnswer2: '',
           socialAnswer3: '',
           socialAnswer4: '',
-          personalAddress: ['', Validators.required],
+          personalAddress: [''],
           previousinsurance: '',
           personalAddress2: '',
-          personalPincode: ['', Validators.required],
-          personalCity: ['', Validators.required],
-          personalState: ['', Validators.required],
-          personalEmail: ['', Validators.required],
-          personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-          personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
+          personalPincode: [''],
+          personalCity: [''],
+          personalState: [''],
+          personalEmail: [''],
+          personalMobile: [''],
+          personalAltnumber: [''],
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
           residenceCity: '',
           residenceState: '',
           residenceEmail: '',
-          residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
-          residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
+          residenceMobile: [''],
+          residenceAltnumber: [''],
           illnessCheck: ''
 
       });
@@ -326,14 +372,15 @@ export class ProposalComponent implements OnInit {
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
-          this.proposalservice.getProposal(data).subscribe(
-              (successData) => {
-                  this.proposalSuccess(successData);
-              },
-              (error) => {
-                  this.proposalFailure(error);
-              }
-          );
+          // this.proposalservice.getProposal(data).subscribe(
+          //     (successData) => {
+          //         this.proposalSuccess(successData);
+          //     },
+          //     (error) => {
+          //         this.proposalFailure(error);
+          //     }
+          // );
+
 }
     public proposalSuccess( successData) {
         console.log(successData);
@@ -346,8 +393,55 @@ export class ProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+    public testProposalSuccess( successData) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData);
+            this.lastStepper.next();
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
     public proposalFailure(error) {
         console.log(error);
+    }
+
+    public payNow() {
+        const data = {
+            'platform': 'web',
+            'reference_id' : 'e20b6e29c78540ba91cb6f52cdc96b4f',
+            'proposal_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
+        }
+        this.proposalservice.getPolicyToken(data).subscribe(
+            (successData) => {
+                this.getPolicyTokenSuccess(successData);
+            },
+            (error) => {
+                this.getPolicyTokenFailure(error);
+            }
+        );
+    }
+
+    public getPolicyTokenSuccess(successData) {
+        if (successData.IsSuccess) {
+            //this.toastr.success('Proposal created successfully!!');
+            this.paymentGatewayData = successData.ResponseObject;
+            console.log(this.paymentGatewayData);
+            window.location.href = this.paymentGatewayData.payment_gateway_url;
+           // this.lastStepper.next();
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public getPolicyTokenFailure(error) {
+      console.log(error);
     }
 
     setOccupationList() {
