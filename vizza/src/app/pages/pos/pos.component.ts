@@ -6,6 +6,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import { LoginService } from '../../shared/services/login.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-pos',
