@@ -412,7 +412,7 @@ export class ProposalComponent implements OnInit {
     public payNow() {
         const data = {
             'platform': 'web',
-            'reference_id' : 'e20b6e29c78540ba91cb6f52cdc96b4f',
+            'reference_id' : '64483822c83f4036a4865cc260fb3f3c',
             'proposal_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
