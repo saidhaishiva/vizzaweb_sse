@@ -92,9 +92,9 @@ export class CategoryComponent implements OnInit {
             this.settings.loadingSpinner = false;
             if (successData.IsSuccess) {
                this.getCategoryList();
-                this.toastr.success(successData.ResponseObject);
+                this.toastr.success(successData.ResponseObject,'Deleted Succesfully');
            }else {
-                this.toastr.error(successData.ResponseObject);
+                this.toastr.error(successData.ErrorObject,'Failed');
             }
         }
          public deleteCategoryFailure(error) {
