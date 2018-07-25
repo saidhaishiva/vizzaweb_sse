@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
 import { MenuService } from '../theme/components/menu/menu.service';
+import { AuthService} from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-pages',
@@ -25,13 +26,18 @@ export class PagesComponent implements OnInit {
   private defaultMenu:string; //declared for return default menu when window resized 
   public scrolledContent:any;
   public breadcrumbHome: boolean;
+  public userId: any;
 
-  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService){        
+  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService){
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
+    this.userId = 0;
   }
   
   ngOnInit() {
+
+
+      this.settings.userId = this.auth.getPosUserId() !=null?this.auth.getPosUserId() : this.userId;
     if(window.innerWidth <= 768){
       this.settings.menu = 'vertical';
       this.settings.sidenavIsOpened = false;

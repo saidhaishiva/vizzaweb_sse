@@ -1,4 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { AuthService} from '../../../shared/services/auth.service';
+import {Settings} from '../../../app.settings.model';
+import {AppSettings} from '../../../app.settings';
 
 @Component({
   selector: 'app-user-menu',
@@ -8,9 +12,25 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class UserMenuComponent implements OnInit {
   public userImage = '../assets/img/users/user.jpg';
-  constructor() { }
+    firstname: string;
+    lastname: string;
+    public settings:Settings;
+  constructor(public auth: AuthService, public appSettings:AppSettings, public router:Router) {
+      this.settings = this.appSettings.settings;
+      this.firstname = this.auth.getPosFirstName();
+      this.lastname = this.auth.getPosLastName();
+      this.settings.username =  this.firstname + this.lastname;
+  }
 
   ngOnInit() {
+
   }
+
+    logout(){
+      sessionStorage.clear();
+      this.settings.userId = 0;
+      this.settings.username = '';
+        this.router.navigate(['/']);
+    }
 
 }

@@ -11,7 +11,7 @@ import { DiskSpaceComponent } from './disk-space/disk-space.component';
 import { TodoComponent } from './todo/todo.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddfamilymembersComponent } from './addfamilymembers/addfamilymembers.component';
-
+import { GrouppopupComponent } from './grouppopup/grouppopup.component';
 
 
 export const routes = [
@@ -34,8 +34,9 @@ export const routes = [
     DiskSpaceComponent,
     TodoComponent,
     AnalyticsComponent,
-    AddfamilymembersComponent
+    AddfamilymembersComponent,
+    GrouppopupComponent
   ],
-    entryComponents: [AddfamilymembersComponent]
+    entryComponents: [AddfamilymembersComponent, GrouppopupComponent]
 })
 export class DashboardModule { }

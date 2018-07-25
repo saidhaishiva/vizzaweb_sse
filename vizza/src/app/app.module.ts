@@ -61,6 +61,7 @@ import { HealthInsuranceComponent } from './pages/health-insurance/health-insura
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
 import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
 import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
+import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
 
 @NgModule({
   imports: [
@@ -111,7 +112,8 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
       ProposalComponent,
       ProposalmessageComponent,
       GroupmembersAlert,
-      HealthInsuranceComponent
+      HealthInsuranceComponent,
+      ConfirmpasswordComponent
   ],
   providers: [
       AppSettings,
@@ -126,9 +128,7 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent,
-        ComparelistComponent, GroupmembersAlert, ProposalmessageComponent,
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent
     ]
 })
 export class AppModule { }

@@ -21,7 +21,12 @@ export class PosComponent implements OnInit {
     conps: boolean;
     newps: boolean;
     hide = true;
+    data: any;
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.response = [];
         this.conps = true;
         this.newps = true;
@@ -77,7 +82,13 @@ export class PosComponent implements OnInit {
     }
     public loginSuccess(successData) {
         console.log(successData);
-        this.router.navigate(['/dashboard']);
+        if (successData.IsSuccess) {
+            this.data = successData.ResponseObject.pos_details;
+            this.authService.setToken(this.data.pos_email, this.data.pos_firstname, this.data.pos_id, this.data.pos_lastname, this.data.pos_mobileno, this.data.pos_roleid, successData.ResponseObject.Accesstoken)
+            this.settings.userId = this.authService.getPosUserId();
+            this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
+            this.router.navigate(['/dashboard']);
+        }
     }
 
     public loginFailure(error) {

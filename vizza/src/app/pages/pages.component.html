@@ -57,10 +57,11 @@
                             <!--<input type="text" placeholder="Type to search..." class="mat-elevation-z3"  [class.show]="toggleSearchBar">-->
                             <!--<button mat-icon-button (click)="toggleSearchBar = !toggleSearchBar" type="button">-->
                                 <!--<mat-icon>search</mat-icon>-->
-                            <!--</button> -->
+                            <!--</button>-->
                         <!--</form>-->
-                    <!--</div>                -->
+                    <!--</div>-->
                     <!--<app-flags-menu fxShow="false" fxShow.gt-sm></app-flags-menu>-->
+
                     <div class="social-icons">
                         <a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-tumblr"></i></a>
@@ -69,10 +70,11 @@
                         <a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                     <app-fullscreen></app-fullscreen>
+                    <span [hidden]="settings.userId==0"><app-user-menu></app-user-menu></span>
 
                     <!--<app-applications fxShow="false" fxShow.gt-sm></app-applications>-->
                     <!--<app-messages fxShow="false" fxShow.gt-xs></app-messages>-->
-                    <!--<app-user-menu></app-user-menu> -->
+
                 </div>
             </div>
         </mat-toolbar>
@@ -130,7 +132,7 @@
 
             <div fxLayout="column" class="control">
                 <h4>Choose theme skin</h4>        
-                <div fxLayout="row" fxLayoutAlign="space-around center"> 
+                <div fxLayout="row" fxLayoutAlign="space-around center">
                     <div class="skin-primary indigo-light" (click)="changeTheme('indigo-light')"><div class="skin-secondary"></div></div>  
                     <div class="skin-primary teal-light" (click)="changeTheme('teal-light')"><div class="skin-secondary"></div></div>  
                     <div class="skin-primary red-light" (click)="changeTheme('red-light')"><div class="skin-secondary"></div></div>  
@@ -155,6 +157,7 @@
                     <mat-slide-toggle [checked]="settings.sidenavUserBlock" (change)="settings.sidenavUserBlock = !settings.sidenavUserBlock" labelPosition="before"></mat-slide-toggle>
                 </div>
             </div>
+
 
         </div>
 

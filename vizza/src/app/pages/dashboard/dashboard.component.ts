@@ -452,7 +452,6 @@ export class DashboardComponent implements OnInit {
             }
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
         } else {
-        alert('Invalid pincode');
             this.toast.success("asdsadsadsadsad", 'Failed');
         }
     }

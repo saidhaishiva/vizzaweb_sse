@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiHost: 'http://localhost/vizza/api/index.php/v2/',
-    webHost: 'http://localhost:4203',
+    apiHost: 'http://13.127.24.123/vizza/api/index.php/v1/',
+    webHost: 'http://13.127.24.123',
     imgUrl: 'http://13.127.24.123/vizza'
 };

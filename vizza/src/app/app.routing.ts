@@ -15,6 +15,7 @@ import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ProposalComponent} from './pages/proposal/proposal.component';
 import {HealthInsuranceComponent} from './pages/health-insurance/health-insurance.component';
+import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,6 +41,7 @@ export const routes: Routes = [
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
             { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
+            { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
