@@ -72,7 +72,6 @@ export class RegisterComponent implements OnInit {
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
                 public fb: FormBuilder,public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
-                public fb: FormBuilder,public router: Router, private datePipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
