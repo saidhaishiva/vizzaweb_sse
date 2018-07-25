@@ -18,6 +18,10 @@ import {ContactUsComponent} from './pages/contact-us/contact-us.component';
 import { AddposComponent} from './pages/addpos/addpos.component';
 import { PosComponent } from './pages/pos/pos.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
+import {LearningcenterComponent} from './pages/learningcenter/learningcenter.component';
+import {CategoryComponent} from './pages/category/category.component';
+import {SubjectComponent} from './pages/subject/subject.component';
+import {QuestionComponent} from './pages/question/question.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +31,10 @@ export const routes: Routes = [
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule' },
             { path: 'faq', component: FaqComponent, data: { breadcrumb: 'FAQ' } },
             { path: 'about-us', component: AboutUsComponent, data: { breadcrumb: 'About Us' } },
+            { path: 'learningcenter', component: LearningcenterComponent, data: { breadcrumb: 'Learning Center' } },
+            { path: 'category', component: CategoryComponent, data: { breadcrumb: 'Category' } },
+            { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
+            { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },

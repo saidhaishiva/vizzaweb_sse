@@ -6,6 +6,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import { LoginService } from '../../shared/services/login.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-pos',
@@ -21,7 +22,12 @@ export class PosComponent implements OnInit {
     conps: boolean;
     newps: boolean;
     hide = true;
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
+    data: any;
+    constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService,  public toast: ToastrService,) {
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.response = [];
         this.conps = true;
         this.newps = true;
@@ -29,22 +35,13 @@ export class PosComponent implements OnInit {
             'username': ['', Validators.compose([Validators.required, Validators.minLength(10)])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
         });
+       if ( this.settings.userId > 0) {
+           this.router.navigate(['/pos-profile']);
+       }
     }
 
 
     ngOnInit() {
-        sessionStorage.setFamilyDetails = '';
-        sessionStorage.setInsuredAmount = '';
-        sessionStorage.setPincode = '';
-        sessionStorage.setPage = '';
-        sessionStorage.policyLists = '';
-        sessionStorage.sideMenu = '';
-        sessionStorage.sonBTn = '';
-        sessionStorage.daughterBTn = '';
-        sessionStorage.fatherBTn = '';
-        sessionStorage.motherBtn = '';
-        sessionStorage.fatherInLawBTn = '';
-        sessionStorage.motherInLawBtn = '';
 
     }
 
@@ -77,7 +74,15 @@ export class PosComponent implements OnInit {
     }
     public loginSuccess(successData) {
         console.log(successData);
-        this.router.navigate(['/dashboard']);
+        if (successData.IsSuccess) {
+            this.data = successData.ResponseObject.pos_details;
+            this.authService.setToken(this.data.pos_email, this.data.pos_firstname, this.data.pos_id, this.data.pos_lastname, this.data.pos_mobileno, this.data.pos_roleid, successData.ResponseObject.Accesstoken);
+            this.settings.userId = this.authService.getPosUserId();
+            this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
+            this.router.navigate(['/dashboard']);
+        } else {
+            this.toast.error(successData.ErrorObject);
+        }
     }
 
     public loginFailure(error) {

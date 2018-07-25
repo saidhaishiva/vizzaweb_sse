@@ -14,7 +14,10 @@ export class AppSettings {
         'horizontal', //horizontal , vertical
         'default',  //default, compact, mini
         'teal-light',   //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark
-        false       // true = rtl, false = ltr
+        false  ,
+         0,
+         ''// true = rtl, false = ltr
+
     )
 }
 

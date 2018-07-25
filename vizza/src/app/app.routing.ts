@@ -15,6 +15,9 @@ import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ProposalComponent} from './pages/proposal/proposal.component';
 import {HealthInsuranceComponent} from './pages/health-insurance/health-insurance.component';
+import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
+import { PosprofileComponent } from './pages/posprofile/posprofile.component';
+import { EditposComponent } from './pages/editpos/editpos.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,8 +41,11 @@ export const routes: Routes = [
             { path: 'charts', loadChildren: 'app/pages/charts/charts.module#ChartsModule', data: { breadcrumb: 'Charts' } },
             { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
+            { path: 'pos-profile', component: PosprofileComponent, data: { breadcrumb: 'Pos Profile' } },
+            { path: 'pos-edit', component: EditposComponent, data: { breadcrumb: 'Pos Profile Edit' } },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
             { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
+            { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },

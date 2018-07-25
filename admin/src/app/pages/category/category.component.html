@@ -1,0 +1,64 @@
+<div class="flex-p">
+    <div class="text-right">
+        <button mat-raised-button color="primary" (click)="openDialog()" ><i class="material-icons">
+            add
+        </i> Add</button>
+    </div>
+</div><br>
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <mat-form-field class="w-25">
+          <input matInput placeholder="Search By Category Name..." (keyup)="updateFilter($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'">
+            <ngx-datatable-column name="S.No">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row">
+                {{rowIndex+1}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Category Name"  >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.category_name}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Category Status" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.category_status}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [flexGrow]="4">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <i class="material-icons" style="cursor: pointer" (click)="openEdit(row)">
+                    edit
+                  </i>
+               <i class="material-icons" style="cursor: pointer" (click)="deleteCategory(row)" >
+                delete
+                </i>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

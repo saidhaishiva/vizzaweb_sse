@@ -16,6 +16,7 @@ import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
 import { AgmCoreModule } from '@agm/core';
+import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -61,6 +62,10 @@ import { HealthInsuranceComponent } from './pages/health-insurance/health-insura
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
 import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
 import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
+import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
+import { PosprofileComponent } from './pages/posprofile/posprofile.component';
+import { EditposComponent } from './pages/editpos/editpos.component';
+import { ChangepasswordComponent } from './pages/changepassword/changepassword.component';
 
 @NgModule({
   imports: [
@@ -71,6 +76,7 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
       ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
+      NgxDatatableModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -111,7 +117,11 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
       ProposalComponent,
       ProposalmessageComponent,
       GroupmembersAlert,
-      HealthInsuranceComponent
+      HealthInsuranceComponent,
+      ConfirmpasswordComponent,
+      PosprofileComponent,
+      EditposComponent,
+      ChangepasswordComponent
   ],
   providers: [
       AppSettings,
@@ -126,9 +136,7 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent,
-        ComparelistComponent, GroupmembersAlert, ProposalmessageComponent,
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent
     ]
 })
 export class AppModule { }
