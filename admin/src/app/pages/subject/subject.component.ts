@@ -125,9 +125,9 @@ export class SubjectComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.getSubjects('');
-            this.toastr.success(successData.ResponseObject);
+            this.toastr.success(successData.ResponseObject,'Deleted Successfully');
         }else {
-            this.toastr.error(successData.ResponseObject);
+            this.toastr.error(successData.ErrorObject,'Failed');
         }
     }
     public deleteCategoryFailure(error) {
