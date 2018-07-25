@@ -60,12 +60,12 @@ export class EditposComponent implements OnInit {
     type: any;
 
     constructor(public appSettings: AppSettings, public authService: AuthService , public fb: FormBuilder , public common: CommonService ,
-                public toastr: ToastrService , public datepipe: DatePipe,  public config: ConfigurationService) {
+                public toastr: ToastrService , public router: Router, public datepipe: DatePipe,  public config: ConfigurationService) {
 
         this.settings = this.appSettings.settings;
-        // this.settings.HomeSidenavUserBlock = false;
-        // this.settings.sidenavIsOpened = false;
-        // this.settings.sidenavIsPinned = false;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.mismatchError = '';
         this.form = this.fb.group({
             id: null,
@@ -354,7 +354,7 @@ export class EditposComponent implements OnInit {
         let date = this.datepipe.transform(this.form.controls['birthday'].value, 'dd-MM-yyyy');
         const data =  {
             "platform": "web",
-            "pos_hidden_id": "1",
+            "pos_hidden_id": this.authService.getPosUserId(),
             "pos_firstname": this.form.controls['firstname'].value,
             "pos_lastname": this.form.controls['lastname'].value ,
             "pos_dob": date,
@@ -377,6 +377,12 @@ export class EditposComponent implements OnInit {
     }
     updatePosProfileSuccess(successData) {
         console.log(successData);
+        if (successData.IsSuccess) {
+            this.router.navigate(['/pos-profile']);
+            this.settings.userId = this.authService.getPosUserId();
+            this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
+
+        }
     }
     updatePosProfileFailure(error) {
         console.log(error);

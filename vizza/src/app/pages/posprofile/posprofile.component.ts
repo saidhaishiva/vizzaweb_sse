@@ -44,6 +44,9 @@ export class PosprofileComponent implements OnInit {
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.recordsperpage = 10;
         this.pageno = 1;
     }
@@ -73,7 +76,7 @@ export class PosprofileComponent implements OnInit {
       console.log(this.settings, 'settings');
       const data = {
       'platform': 'web',
-        'roleid': '5',
+        'roleid': this.auth.getPosRoleId(),
         'userid': this.auth.getPosUserId(),
         'pos_id': this.auth.getPosUserId()
     };

@@ -34,6 +34,9 @@ export class PosComponent implements OnInit {
             'username': ['', Validators.compose([Validators.required, Validators.minLength(10)])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
         });
+       if ( this.settings.userId > 0) {
+           this.router.navigate(['/pos-profile']);
+       }
     }
 
 

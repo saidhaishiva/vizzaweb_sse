@@ -19,11 +19,11 @@
         <a mat-menu-item routerLink="settings">
             <mat-icon class="matIclass">remove_red_eye</mat-icon>
             <!--<i class="material-icons">remove_red_eye</i>-->
-            <span class="color-blue">View Profile</span>
+            <span class="color-blue" [routerLink]="['/pos-profile']">View Profile</span>
         </a>
         <a mat-menu-item >
             <mat-icon class="matIclass">lock</mat-icon>
-            <span class="color-blue">Change Password</span>
+            <span class="color-blue" (click)="passwordChange()">Change Password</span>
         </a>
         <!--<a mat-menu-item routerLink="help">-->
             <!--<mat-icon>help</mat-icon>-->

@@ -65,6 +65,7 @@ import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppop
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
+import { ChangepasswordComponent } from './pages/changepassword/changepassword.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import { EditposComponent } from './pages/editpos/editpos.component';
       HealthInsuranceComponent,
       ConfirmpasswordComponent,
       PosprofileComponent,
-      EditposComponent
+      EditposComponent,
+      ChangepasswordComponent
   ],
   providers: [
       AppSettings,
@@ -134,7 +136,7 @@ import { EditposComponent } from './pages/editpos/editpos.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent
     ]
 })
 export class AppModule { }
