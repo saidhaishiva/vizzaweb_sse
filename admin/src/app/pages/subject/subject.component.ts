@@ -9,6 +9,8 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {CategoryService} from '../../shared/services/category.service';
 import {AddsubjectComponent} from './addsubject/addsubject.component';
 import { DatatableComponent} from '@swimlane/ngx-datatable';
+import {UpdatecategoryComponent} from '../category/updatecategory/updatecategory.component';
+import {UpdatesubjectComponent} from './updatesubject/updatesubject.component';
 
 @Component({
   selector: 'app-subject',
@@ -49,7 +51,7 @@ export class SubjectComponent implements OnInit {
       // let selectedCid = values.toString();
         // console.log(selectedCid, 'values');
 
-        // this.settings.loadingSpinner = true;
+       this.settings.loadingSpinner = true;
         const data = {
             'adminid': this.auth.getAdminId(),
             'platform': 'web',
@@ -77,7 +79,7 @@ export class SubjectComponent implements OnInit {
     public getSubjectFailure(error) {
     }
     public getCategoryList() {
-        // this.settings.loadingSpinner = true;
+      //  this.settings.loadingSpinner = true;
         const data = {
             'adminid': this.auth.getAdminId(),
             'platform': 'web',
@@ -102,10 +104,37 @@ export class SubjectComponent implements OnInit {
     }
     public getCategoryFailure(error) {
     }
+    public deleteSubject(value) {
+       // this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+            'subjectid': value.subject_id,
+        };
+        this.categoryService.deleteSubject(data).subscribe(
+            (successData) => {
+                this.deleteCategorySuccess(successData);
+            },
+            (error) => {
+                this.deleteCategoryFailure(error);
+            }
+        );
+    }
+    public deleteCategorySuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.getSubjects('');
+            this.toastr.success(successData.ResponseObject);
+        }else {
+            this.toastr.error(successData.ResponseObject);
+        }
+    }
+    public deleteCategoryFailure(error) {
+    }
     openDialog(): void {
         let dialogRef = this.dialog.open(AddsubjectComponent, {
             width: '500px',
-            data: this.subList
         });
         dialogRef.afterClosed().subscribe((result) => {
             console.log(result);
@@ -127,6 +156,20 @@ export class SubjectComponent implements OnInit {
         this.rows = temp;
         // Whenever the filter changes, always go back to the first page
         this.table.offset = 0;
+
+    }
+    openEdit(value): void {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(UpdatesubjectComponent, {
+            width: '500px',
+            data: value
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log(result);
+            if (result) {
+                this.getSubjects('');
+            }
+        });
 
     }
 
