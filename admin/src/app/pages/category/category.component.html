@@ -46,6 +46,16 @@
                 {{row.category_status}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [flexGrow]="4">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <i class="material-icons" style="cursor: pointer" (click)="openEdit(row)">
+                    edit
+                  </i>
+               <i class="material-icons" style="cursor: pointer" (click)="deleteCategory(row)" >
+                delete
+                </i>
+              </ng-template>
+            </ngx-datatable-column>
           </ngx-datatable>
         </div>
       </div>
