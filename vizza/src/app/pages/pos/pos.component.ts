@@ -6,6 +6,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import { LoginService } from '../../shared/services/login.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-pos',
@@ -22,7 +23,7 @@ export class PosComponent implements OnInit {
     newps: boolean;
     hide = true;
     data: any;
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
+    constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService,  public toast: ToastrService,) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -79,6 +80,8 @@ export class PosComponent implements OnInit {
             this.settings.userId = this.authService.getPosUserId();
             this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
             this.router.navigate(['/dashboard']);
+        } else {
+            this.toast.error(successData.ErrorObject);
         }
     }
 

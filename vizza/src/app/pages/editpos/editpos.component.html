@@ -2,12 +2,14 @@
 
 <div  class="bg-map">
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
-    <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-login">
+    <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration">
       <mat-card fxLayout="column"  fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
         <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
+        <mat-card-subtitle><h3>Profile Edit</h3></mat-card-subtitle>
+
         <mat-tab-group class="vertical-tabs" [selectedIndex]="selectedtab">
           <mat-tab label="Personal">
-            <div fxLayout="column" class="form-field-outer">
+            <div >
               <mat-form-field class="w-100">
                 <mat-placeholder><mat-icon>person</mat-icon> First name</mat-placeholder>
                 <input matInput formControlName="firstname" minlength="3" required>
@@ -37,7 +39,7 @@
           </mat-tab>
 
           <mat-tab label="Contacts" formGroupName="contacts">
-            <div fxLayout="column" class="form-field-outer">
+            <div >
               <mat-form-field class="w-100">
                 <input matInput placeholder="Emailid" formControlName="email">
               </mat-form-field>
@@ -70,7 +72,7 @@
             </div>
           </mat-tab>
           <mat-tab label="Documents" formGroupName="documents">
-            <div fxLayout="column" class="form-field-outer">
+            <div >
               <mat-form-field class="w-100">
                 <input matInput placeholder="Aadhar Number" required maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
                 <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Enter Valid Aadhar Number</mat-error>
@@ -93,7 +95,7 @@
                   <input type='file' (change)="readUrl($event, 'aadhar front')">
                 </label>
               </div>
-              <div *ngIf="aadharfront != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" width="100" height="100" /></span></div>
+              <div *ngIf="aadharfront != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
               <div>
                 <div>
                   <label> Aadhar Back Image</label>
@@ -103,7 +105,7 @@
                   <input type='file' (change)="readUrl($event, 'aadhar back')">
                 </label>
               </div>
-              <div *ngIf="aadharback != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" width="100" height="100" /></span></div>
+              <div *ngIf="aadharback != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
 
               <div>
                 <div>
@@ -114,11 +116,11 @@
                   <input type='file' (change)="readUrl($event, 'pancard')">
                 </label>
               </div>
-              <div *ngIf="pancard != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + pancard}}" class="img-thumbnail" width="100" height="100" /></span></div>
+              <div *ngIf="pancard != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
             </div>
           </mat-tab>
           <mat-tab label="Education"  formGroupName="education">
-            <div fxLayout="column" class="form-field-outer">
+            <div >
               <mat-form-field class="w-100">
                 <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
                 <mat-hint align="end">{{message.value.length}} /300</mat-hint>
@@ -134,13 +136,13 @@
                   <input type='file' (change)="readUrl($event, 'education')">
                 </label>
               </div>
-              <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" width="100" height="100" /></span></div>
+              <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
             </div>
           </mat-tab>
         </mat-tab-group>
         <hr>
         <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
-          <button mat-raised-button color="primary" (click)="updatePosProfile()"  [disabled]="!form.valid">Save</button>
+          <button mat-raised-button color="primary" (click)="updatePosProfile()"  [disabled]="!form.valid">Update</button>
         </div>
       </mat-card>
 
