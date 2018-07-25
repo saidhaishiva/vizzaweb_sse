@@ -28,7 +28,7 @@
                                 <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button>
                             </mat-radio-group>
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday" (keypress)="keyPress($event)" placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
+                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                             </mat-form-field>

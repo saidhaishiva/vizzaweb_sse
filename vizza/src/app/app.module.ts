@@ -16,6 +16,7 @@ import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
 import { AgmCoreModule } from '@agm/core';
+import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -62,6 +63,8 @@ import { GroupmembersAlert} from './pages/health-insurance/health-insurance.comp
 import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
 import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
+import { PosprofileComponent } from './pages/posprofile/posprofile.component';
+import { EditposComponent } from './pages/editpos/editpos.component';
 
 @NgModule({
   imports: [
@@ -72,6 +75,7 @@ import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpasswor
       ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
+      NgxDatatableModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -113,7 +117,9 @@ import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpasswor
       ProposalmessageComponent,
       GroupmembersAlert,
       HealthInsuranceComponent,
-      ConfirmpasswordComponent
+      ConfirmpasswordComponent,
+      PosprofileComponent,
+      EditposComponent
   ],
   providers: [
       AppSettings,
