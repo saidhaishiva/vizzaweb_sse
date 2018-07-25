@@ -303,10 +303,12 @@ a:hover {
   position: absolute;
   right: 10px;
   top: 10px; }
-.proposal .mat-raised-button {
+.proposal .add-nominee .mat-raised-button {
   line-height: 30px;
   padding: 0 6px;
   font-size: 11px; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -355,5 +357,22 @@ a:hover {
 .mat-button-toggle-group .mat-button-toggle-checked:last-child {
   background-color: #d81b60 !important;
   color: #fff !important; }
+
+.summary-details .sub-title {
+  font-size: 14px; }
+.summary-details .box-card {
+  border: none; }
+.summary-details h6 {
+  text-align: center;
+  color: #18ccb4; }
+.summary-details h5 {
+  background: #18CCB4;
+  color: #fff;
+  padding: 8px;
+  margin-bottom: 0; }
+.summary-details ul {
+  list-style-type: none !important; }
+.summary-details li {
+  padding-bottom: 8px; }
 
 /*# sourceMappingURL=style.css.map */

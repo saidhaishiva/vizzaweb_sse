@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {Router, ActivatedRoute } from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 import {emailValidator} from '../../theme/utils/app-validators';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
     admin: any;
 
 
-    constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
+    constructor(public appSettings: AppSettings,private toastr: ToastrService, public fb: FormBuilder, public router: Router, private route: ActivatedRoute, public loginService: LoginService, public authService: AuthService) {
         this.settings = this.appSettings.settings;
         this.response = [];
         this.conps = true;
@@ -197,6 +198,9 @@ export class LoginComponent implements OnInit {
             this.admin = successData.ResponseObject.adm_details;
             this.authService.setToken(this.admin.adm_id, this.admin.adm_roleid, this.admin.adm_firstname, successData.ResponseObject.Accesstoken)
             this.router.navigate(['/dashboard']);
+        }
+        else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
         }
     }
 

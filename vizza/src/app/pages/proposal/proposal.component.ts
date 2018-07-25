@@ -8,6 +8,7 @@ import {ProposalmessageComponent} from './proposalmessage/proposalmessage.compon
 import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 
+
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
@@ -15,8 +16,8 @@ import {AuthService} from '../../shared/services/auth.service';
 })
 export class ProposalComponent implements OnInit {
     public personal: FormGroup;
+    public summary: FormGroup;
     public checked: boolean;
-    public totalProposal: any;
     public isLinear = false;
     public illnessCheck: boolean;
     public socialStatus: boolean;
@@ -34,19 +35,25 @@ export class ProposalComponent implements OnInit {
     public personalData: any;
     public occupationList: any;
     public relationshipList: any;
+    public today: any;
+    public declaration: boolean;
+    public summaryData: any;
+    public lastStepper: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public fb: FormBuilder, public auth: AuthService) {
-      this.totalProposal = [];
+      let today  = new Date();
+      this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.illnessCheck = false;
       this.socialStatus = true;
       this.stopNext = false;
       this.nomineeAdd = false;
       this.nomineeRemove = true;
+      this.declaration = false;
+      this.selectDate = '';
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
           personalLastname: ['', Validators.required],
           personalDob: ['', Validators.required],
-          personalAge: ['', Validators.required],
           personalOccupation: ['', Validators.required],
           personalIncome: ['', Validators.required],
           personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
@@ -58,7 +65,7 @@ export class ProposalComponent implements OnInit {
           socialAnswer3: '',
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
-          previousinsurance: ['', Validators.required],
+          previousinsurance: '',
           personalAddress2: '',
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
@@ -75,6 +82,7 @@ export class ProposalComponent implements OnInit {
           residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
           residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           illnessCheck: ''
+
       });
   }
     ngOnInit() {
@@ -83,14 +91,14 @@ export class ProposalComponent implements OnInit {
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
         this.setOccupationList()
         this.setRelationship()
         this.groupList();
     }
     addEvent(event) {
         this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
     }
     criticalIllness(values: any) {
       if (values.checked) {
@@ -114,7 +122,6 @@ export class ProposalComponent implements OnInit {
         for (let i = 0; i < this.familyMembers.length; i++ ) {
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
-            this.familyMembers[i].ins_age = '';
             this.familyMembers[i].ins_gender = '';
             this.familyMembers[i].ins_illness = '';
             this.familyMembers[i].ins_weight = '';
@@ -124,8 +131,9 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_hospital_cash = '';
             this.familyMembers[i].ins_engage_manual_labour = '';
-            this.familyMembers[i].ins_engage_winter_sport = '';
+            this.familyMembers[i].ins_engage_winter_sports = '';
             this.familyMembers[i].ins_personal_accident_applicable = '';
+            this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
         }
         this.nomineeDate = [{
             nominee: [{
@@ -136,12 +144,9 @@ export class ProposalComponent implements OnInit {
                 aname: '',
                 aage: '',
                 arelationship: '',
-            }],
-            policynumber: '',
-            anyclaims: ''
+            }]
             }];
     }
-
     addNominee(value) {
       if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
           this.nomineeDate[0].nominee.push({
@@ -181,67 +186,69 @@ export class ProposalComponent implements OnInit {
             console.log(value, 'value');
             this.personalData.personalDob = this.setDate;
             console.log(this.personalData.personalDob, 'this.personalData.personalDobthis.personalData.personalDob')
-            this.totalProposal.push(this.personalData);
             stepper.next();
         }
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
+      alert(this.setDate);
+        this.familyMembers[index].ins_dob = this.setDate;
       console.log( this.familyMembers, 'pop');
         if (key == 'Insured Details') {
             if (this.familyMembers[index].ins_name != '' &&
                 this.familyMembers[index].ins_dob != '' &&
-                this.familyMembers[index].ins_age != '' &&
                 this.familyMembers[index].ins_gender != '' &&
                 this.familyMembers[index].ins_illness != '' &&
                 this.familyMembers[index].ins_weight != '' &&
                 this.familyMembers[index].ins_height != '' &&
                 this.familyMembers[index].ins_occupation_id != '' &&
-                this.familyMembers[index].insurincome != '' &&
                 this.familyMembers[index].ins_relationship != '') {
                 if (this.buyProductdetails.product_id == 6) {
                     if (this.familyMembers[index].ins_hospital_cash != '') {
                         stepper.next();
                     }
-                } else {
-                    stepper.next();
-                }
-                if (this.buyProductdetails.product_id == 9) {
-                    if (this.familyMembers[index].ins_engage_manual_labour != '' && this.familyMembers[index].ins_engage_winter_sport != '' && this.familyMembers[index].ins_personal_accident_applicable != '') {
+                } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                    if (this.familyMembers[index].ins_engage_manual_labour != '' &&
+                        this.familyMembers[index].ins_engage_winter_sports != '' &&
+                        this.familyMembers[index].ins_personal_accident_applicable != '') {
                         stepper.next();
                     }
                 } else {
                     stepper.next();
                 }
-                this.totalProposal.push(this.familyMembers);
+
             } else {
                 this.toastr.error('Please fill the empty fields', key);
             }
         }
     }
     //Nominee Details
-    nomineeDetails(stepper: MatStepper, index, index2, key) {
+    nomineeDetails(stepper: MatStepper, index, key) {
+      this.lastStepper = stepper;
         if (key == 'Nominee Details') {
-            if (this.nomineeDate[index].nominee[index].nname != '' &&
-                this.nomineeDate[index].nominee[index].nage != '' &&
-                this.nomineeDate[index].nominee[index].nrelationship != '' &&
-                this.nomineeDate[index].policynumber != '' &&
-                this.nomineeDate[index].nominee[index].nclaim != '' &&
-                this.nomineeDate[index].anyclaims != '') {
-                this.totalProposal.push(this.nomineeDate);
-                if (this.nomineeDate[index].nominee[index].nage < 18) {
-                    if (this.nomineeDate[index].nominee[index].aname != '' && this.nomineeDate[index].nominee[index].aage != '' && this.nomineeDate[index].nominee[index].arelationship != '') {
+            for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
+                if (this.nomineeDate[index].nominee[i].nname != '' &&
+                    this.nomineeDate[index].nominee[i].nage != '' &&
+                    this.nomineeDate[index].nominee[i].nrelationship != '' &&
+                    this.nomineeDate[index].nominee[i].nclaim != '') {
+                    if (this.nomineeDate[index].nominee[i].nage < 18) {
+                        if (this.nomineeDate[index].nominee[i].aname != '' &&
+                            this.nomineeDate[index].nominee[i].aage != '' &&
+                            this.nomineeDate[index].nominee[i].arelationship != '') {
+                            this.proposal();
+
+                        } else {
+                            this.toastr.error('Please fill the empty fields', key);
+                        }
+                    } else {
                         this.proposal();
-                    } else{
-                        this.toastr.error('Please fill the empty fields', key);
+
                     }
                 } else {
-                    this.proposal();
+                    this.toastr.error('Please fill the empty fields', key);
                 }
-            } else {
-                this.toastr.error('Please fill the empty fields', key);
-            }
 
+            }
         }
     }
     public keyPress(event: any) {
@@ -254,11 +261,11 @@ export class ProposalComponent implements OnInit {
         }
     }
   proposal() {
-
           const data = [{
               'platform': 'web',
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
+              'company_name': this.buyProductdetails.company_name,
               'product_id': this.buyProductdetails.product_id,
               'policy_type_name': this.buyProductdetails.prod_shortform,
               'policy_category': 'fresh',
@@ -267,9 +274,12 @@ export class ProposalComponent implements OnInit {
               'policy_period': '1',
               'sum_insured_id': this.buyProductdetails.suminsured_id,
               'scheme_id': this.buyProductdetails.scheme,
-              'proposer_name': this.personalData.personalFirstname,
+              'title': this.personalData.personalTitle,
+              'proposer_fname': this.personalData.personalFirstname,
+              'proposer_lname': this.personalData.personalLastname,
               'proposer_email': this.personalData.personalEmail,
               'proposer_mobile': this.personalData.personalMobile,
+              'proposer_alternate_mobile': this.personalData.personalAltnumber,
               'proposer_res_address1': this.personalData.residenceAddress,
               'proposer_res_address2': this.personalData.residenceAddress2,
               'proposer_res_area': this.personalData.personalFirstname,
@@ -292,12 +302,12 @@ export class ProposalComponent implements OnInit {
               'have_eia_no': '1',
               'eia_no': '',
               'previous_medical_insurance': this.personalData.previousinsurance,
-              'critical_illness': '0',
-              'social_status': this.personalData.socialStatus ? 0 : 1,
-              'social_status_bpl': this.personalData. socialAnswer1,
-              'social_status_disabled': this.personalData. socialAnswer2,
-              'social_status_informal': this.personalData. socialAnswer3,
-              'social_status_unorganized': this.personalData. socialAnswer4,
+              'critical_illness': 'NO   ',
+              'social_status': this.personalData.socialStatus ? 1 : 0,
+              'social_status_bpl': this.personalData.socialAnswer1 == '' ? 0 : this.personalData. socialAnswer1,
+              'social_status_disabled': this.personalData.socialAnswer2 == '' ? 0 : this.personalData. socialAnswer2,
+              'social_status_informal': this.personalData.socialAnswer3 == '' ? 0 : this.personalData. socialAnswer3 ,
+              'social_status_unorganized': this.personalData.socialAnswer4 == '' ? 0 : this.personalData. socialAnswer4,
               'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
               'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
               'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
@@ -316,7 +326,6 @@ export class ProposalComponent implements OnInit {
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
-
           this.proposalservice.getProposal(data).subscribe(
               (successData) => {
                   this.proposalSuccess(successData);
@@ -326,8 +335,16 @@ export class ProposalComponent implements OnInit {
               }
           );
 }
-    public proposalSuccess(successData) {
+    public proposalSuccess( successData) {
         console.log(successData);
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            this.lastStepper.next();
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
     }
     public proposalFailure(error) {
         console.log(error);
@@ -381,4 +398,6 @@ export class ProposalComponent implements OnInit {
     public setRelationshipFailure(error) {
         console.log(error);
     }
+
+
 }
