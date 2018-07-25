@@ -69,6 +69,8 @@ import { QuestionComponent } from './pages/question/question.component';
 import {CategoryService} from './shared/services/category.service';
 import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.component';
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
+import { UpdatecategoryComponent } from './pages/category/updatecategory/updatecategory.component';
+import { UpdatesubjectComponent } from './pages/subject/updatesubject/updatesubject.component';
 
 @NgModule({
     imports: [
@@ -121,7 +123,9 @@ import { AddcategoryComponent } from './pages/category/addcategory/addcategory.c
         SubjectComponent,
         QuestionComponent,
         AddsubjectComponent,
-        AddcategoryComponent
+        AddcategoryComponent,
+        UpdatecategoryComponent,
+        UpdatesubjectComponent
     ],
     providers: [
         AppSettings,
@@ -138,6 +142,6 @@ import { AddcategoryComponent } from './pages/category/addcategory/addcategory.c
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent  ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent ]
 })
 export class AppModule { }
