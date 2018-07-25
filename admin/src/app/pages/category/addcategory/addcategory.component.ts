@@ -47,6 +47,7 @@ export class AddcategoryComponent implements OnInit {
                 'platform': 'web'
             };
             console.log(data);
+            this.settings.loadingSpinner = true;
             this.categoryService.addCategory(data).subscribe(
                 (successData) => {
                     this.getCategorySuccess(successData);
@@ -69,5 +70,6 @@ export class AddcategoryComponent implements OnInit {
         }
     }
     public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 }
