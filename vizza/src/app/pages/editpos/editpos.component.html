@@ -84,60 +84,107 @@
                 <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('maxlength')">Enter Valid Pan Number</mat-error>
 
               </mat-form-field>
-              <div>
-                <div>
-                  <p *ngIf="personal.doc_verified_status != 2"><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
 
-                  <label> Aadhar Front Image</label>
-                </div>
-                <label *ngIf="personal.doc_verified_status != 2" class="btn-bs-file btn btn-secondary">
-                  Browse
-                  <input type='file' (change)="readUrl($event, 'aadhar front')">
-                </label>
-              </div>
-              <div *ngIf="aadharfront != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
-              <div>
-                <div>
-                  <label> Aadhar Back Image</label>
-                </div>
-                <label *ngIf="personal.doc_verified_status != 2" class="btn-bs-file btn btn-secondary">
-                  Browse
-                  <input type='file' (change)="readUrl($event, 'aadhar back')">
-                </label>
-              </div>
-              <div *ngIf="aadharback != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
 
               <div>
-                <div>
-                  <label>Uplod Pancard Image</label>
-                </div>
-                <label *ngIf="personal.doc_verified_status != 2" class="btn-bs-file btn btn-secondary">
-                  Browse
-                  <input type='file' (change)="readUrl($event, 'pancard')">
-                </label>
+                <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
               </div>
-              <div *ngIf="pancard != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
+
+              <div class="row col-md-12">
+                <div class="col-md-6">
+                  <p>Aadhar Front Image</p>
+                </div>
+                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
+                  <label class="btn-bs-file btn btn-secondary">
+                    Browse
+                    <input type='file' (change)="readUrl($event, 'aadhar front')">
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="aadharfront != ''">
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-md-12">
+                <div class="col-md-6">
+                  <p>Aadhar Back Image</p>
+                </div>
+                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
+                  <label class="btn-bs-file btn btn-secondary">
+                    Browse
+                    <input type='file' (change)="readUrl($event, 'aadhar back')">
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="aadharback != ''">
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-md-12">
+                <div class="col-md-6">
+                  <p>Pancard Image Front</p>
+                </div>
+                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
+                  <label class="btn-bs-file btn btn-secondary">
+                    Browse
+                    <input type='file' (change)="readUrl($event, 'pancard')">
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="pancard != ''">
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </mat-tab>
           <mat-tab label="Education"  formGroupName="education">
-            <div >
               <mat-form-field class="w-100">
                 <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
                 <mat-hint align="end">{{message.value.length}} /300</mat-hint>
 
               </mat-form-field>
+
               <div>
-                <div>
-                  <label> Educational Documents</label>
-                  <p *ngIf="personal.doc_verified_status != 2"><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
-                </div>
-                <label *ngIf="personal.doc_verified_status != 2" class="btn-bs-file btn btn-secondary">
-                  Browse
-                  <input type='file' (change)="readUrl($event, 'education')">
-                </label>
+                <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
               </div>
-              <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;" /></span></div>
-            </div>
+              <div class="row col-md-12">
+                <div class="col-md-10">
+                  <p>Educational Documents</p>
+                </div>
+                <div class="col-md-2 uploadBtn" *ngIf="personal.doc_verified_status != 2">
+                  <label class="btn-bs-file btn btn-secondary">
+                    Browse
+                    <input type='file' (change)="readUrl($event, 'education')">
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="education != ''">
+                    <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+
           </mat-tab>
         </mat-tab-group>
         <hr>
