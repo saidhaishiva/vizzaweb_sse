@@ -23,17 +23,23 @@
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
+                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
+                                <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
                             </mat-form-field>
                             <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                            <mat-radio-group formControlName="gender" (change)="checkGender()" required>
+                                <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
+                                <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button> <span *ngIf="form.controls.gender.errors?.required " style="color: red"> &nbsp;*</span>
+                            </mat-radio-group>
+                            <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Referral Code</mat-placeholder>
                                 <input matInput formControlName="referralcode" maxlength="50" >
                             </mat-form-field>
-                            <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
+                            <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
                         </div>
 
                     </mat-tab>
@@ -45,15 +51,15 @@
                                 <mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone1" (keypress)="keyPress($event)" minlength="10" maxlength="13"  formControlName="phone1" required >
+                                <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength="10" maxlength="13"  formControlName="phone1" required >
                                 <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">Enter Valid Mobile Number</mat-error>
                                 <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">Mobile is required</mat-error>
 
 
                             </mat-form-field>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone2" (keypress)="keyPress($event)"  maxlength="13" formControlName="phone2">
-                            </mat-form-field>
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<input matInput placeholder="Phone2" (keypress)="keyPress($event)"  maxlength="13" formControlName="phone2">-->
+                            <!--</mat-form-field>-->
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Address1" formControlName="address1" required >
                                 <mat-error *ngIf="form.controls.contacts.controls.address1.errors?.required ">

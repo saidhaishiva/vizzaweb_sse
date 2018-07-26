@@ -71,30 +71,24 @@ export class EditposComponent implements OnInit {
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             lastname: ['', Validators.compose([Validators.required])],
-
-            birthday: '',
-            gender: '',
-            password: ['', Validators.compose([Validators.required])],
-            confirmpassword: ['', Validators.compose([Validators.required])],
+            birthday: ['', Validators.compose([Validators.required])],
+            gender: ['', Validators.compose([Validators.required])],
+            referralcode: '',
 
             contacts: this.fb.group({
-                email: '',
+                email: ['', Validators.compose([Validators.required])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-                phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
-                pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-                city: '',
-                state: '',
-                country: ''
+                pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
             }),
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
-                pannumber: '',
+                pannumber: ['', Validators.compose([Validators.required])],
 
             }),
             education: this.fb.group({
-                qualification: '',
+                qualification: ['', Validators.compose([Validators.required])],
 
             }),
         });
@@ -152,21 +146,19 @@ export class EditposComponent implements OnInit {
                 id: null,
                 firstname: this.personal.pos_firstname,
                 lastname: this.personal.pos_lastname,
-
                 birthday: date,
-                gender: '',
-                password: '',
-                confirmpassword: '',
+                gender: this.personal.pos_gender,
+                referralcode: this.personal.pos_referral_code,
                 contacts: this.fb.group({
                     email: this.personal.pos_email,
                     phone1: this.personal.pos_mobileno,
                     phone2: '',
                     address1: this.personal.pos_address1,
                     address2: this.personal.pos_address1,
-                    pincode: this.personal.pos_postalcode,
-                    city: this.personal.pos_cityid,
-                    state: this.personal.pos_stateid,
-                    country: this.personal.pos_countryid
+                    pincode: this.personal.pos_postalcode
+                    // city: this.personal.pos_cityid,
+                    // state: this.personal.pos_stateid,
+                    // country: this.personal.pos_countryid
                 }),
                 documents: this.fb.group({
                     aadharnumber: this.personal.doc_aadhar_no,
@@ -287,6 +279,7 @@ export class EditposComponent implements OnInit {
         this.getUrl = event[1];
         const data = {
             'platform': 'web',
+            "role_id": this.authService.getPosRoleId(),
             'uploadtype': 'single',
             'images': this.getUrl,
         };
@@ -355,16 +348,19 @@ export class EditposComponent implements OnInit {
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.authService.getPosUserId(),
+            "role_id": this.authService.getPosRoleId(),
+            "pos_referralcode": this.form.controls['referralcode'].value,
             "pos_firstname": this.form.controls['firstname'].value,
             "pos_lastname": this.form.controls['lastname'].value ,
             "pos_dob": date,
+            "pos_gender": this.form.controls['gender'].value,
             "pos_mobileno": this.form.value['contacts']['phone1'],
             "pos_email": this.form.value['contacts']['email'],
             "pos_address1": this.form.value['contacts']['address1'],
             "pos_address2": this.form.value['contacts']['address2'],
             "pos_postalcode": this.form.value['contacts']['pincode'],
-            "pos_referralcode": this.personal.pos_myreferral_code
         };
+        this.settings.loadingSpinner = true;
         this.common.updatePosProfile(data).subscribe(
             (successData) => {
                 this.updatePosProfileSuccess(successData);
@@ -377,16 +373,69 @@ export class EditposComponent implements OnInit {
     }
     updatePosProfileSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.router.navigate(['/pos-profile']);
+            this.toastr.success(successData.ResponseObject);
             this.settings.userId = this.authService.getPosUserId();
             this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
+             if (this.personal.doc_verified_status < 2) {
+                 const data = {
+                     "platform": "web",
+                     "pos_id": this.authService.getPosUserId(),
+                     "role_id": this.authService.getPosRoleId(),
+                     "pos_pan_no": this.form.value['documents']['pannumber'],
+                     "pos_education": this.form.value['education']['qualification'],
+                     "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
+                     "pos_aadhar_front_img": this.aadharfront,
+                     "pos_aadhar_back_img": this.aadharback,
+                     "pos_pan_img": this.pancard,
+                     "pos_education_doc_img": this.education
+                 }
+                 if (this.aadharfront == '') {
+                     this.toastr.error('Please upload aadhar front page');
+                 } else if (this.aadharback == '') {
+                     this.toastr.error('Please upload aadhar back page');
+                 } else if (this.pancard == '') {
+                     this.toastr.error('Please upload pancard');
+                 } else if (this.education == '') {
+                     this.toastr.error('Please upload educational documents');
+                 } else {
+                     this.updateDocuments(data);
+                 }
+
+             } else {
+                 this.router.navigate(['/pos-profile']);
+             }
 
         }
     }
     updatePosProfileFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
     }
+    updateDocuments(data) {
+        console.log(data);
+        this.common.updateDocDetails(data).subscribe(
+            (successData) => {
+                this.updateDocumentsSuccess(successData);
+            },
+            (error) => {
+                this.updateDocumentsProfileFailure(error);
+            }
+        );
+    }
+    public updateDocumentsSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.router.navigate(['/pos-profile']);
+            console.log(successData, 'in');
+        }
+    }
+    public updateDocumentsProfileFailure(error) {
+
+    }
+
+
+
     addEvent(event) {
         if (event.value != null) {
             console.log(event.value._i,  'kjfhasdjfh');

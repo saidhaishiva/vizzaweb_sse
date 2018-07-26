@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
                 'password': this.form.controls['password'].value,
                 'platform': 'web',
             };
+            this.settings.loadingSpinner = true;
             this.loginService.doLogin(data).subscribe(
                 (successData) => {
                     this.loginSuccess(successData);
@@ -81,6 +82,7 @@ export class LoginComponent implements OnInit {
     }
     public loginSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.data = successData.ResponseObject.pos_details;
             this.authService.setToken(this.data.pos_email, this.data.pos_firstname, this.data.pos_id, this.data.pos_lastname, this.data.pos_mobileno, this.data.pos_roleid, successData.ResponseObject.Accesstoken)
@@ -89,7 +91,8 @@ export class LoginComponent implements OnInit {
     }
 
     public loginFailure(error) {
-   console.log(error);
+        this.settings.loadingSpinner = false;
+        console.log(error);
     }
     public changeTheme(theme) {
         this.settings.theme = theme;
