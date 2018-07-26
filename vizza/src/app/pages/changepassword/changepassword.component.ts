@@ -22,6 +22,7 @@ export class ChangepasswordComponent implements OnInit {
     mismatchError: any;
     constructor(public auth: AuthService, public toast: ToastrService, public common: CommonService, public dialogRef: MatDialogRef<ChangepasswordComponent>, public fb: FormBuilder, public appSettings:AppSettings, public router:Router) {
         this.settings = this.appSettings.settings;
+        this.dialogRef.disableClose = true;
         console.log(this.settings);
         this.form = this.fb.group({
             currentpassword: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
@@ -45,10 +46,10 @@ export class ChangepasswordComponent implements OnInit {
             "old_password": this.form.controls['currentpassword'].value,
             "password": this.form.controls['confirmpassword'].value
         };
+        this.settings.loadingSpinner = true;
         this.common.updatePassword(data).subscribe(
             (successData) => {
                 this.updatePasswordSuccess(successData);
-
             },
             (error) => {
                 this.updatePasswordFailure(error);
@@ -57,6 +58,7 @@ export class ChangepasswordComponent implements OnInit {
     }
     updatePasswordSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toast.success(successData.ResponseObject, 'Success');
             this.dialogRef.close();
@@ -65,6 +67,7 @@ export class ChangepasswordComponent implements OnInit {
         }
     }
     updatePasswordFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     checkPassword() {

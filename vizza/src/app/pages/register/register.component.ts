@@ -95,22 +95,17 @@ export class RegisterComponent implements OnInit {
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             lastname: ['', Validators.compose([Validators.required])],
-            birthday: '',
-            gender: '',
-            password: ['', Validators.compose([Validators.required])],
-            confirmpassword: ['', Validators.compose([Validators.required])],
+            birthday: ['', Validators.compose([Validators.required])],
+            gender: ['', Validators.compose([Validators.required])],
             referralcode: '',
 
             contacts: this.fb.group({
-                email: '',
+                email: ['', Validators.compose([Validators.required])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
-                pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-                city: '',
-                state: '',
-                country: ''
+                pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
             }),
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
@@ -192,38 +187,50 @@ export class RegisterComponent implements OnInit {
     }
     submit() {
         console.log(this.dob, 'dateeee');
-        const data = {
-            "platform": "web",
-            "pos_hidden_id": "",
-            "pos_referralcode":  this.form.controls['referralcode'].value,
-            "pos_firstname": this.form.controls['firstname'].value,
-            "pos_lastname": this.form.controls['lastname'].value,
-            "pos_dob": this.dob,
-            "pos_mobileno": this.form.value['contacts']['phone1'],
-            "pos_email":  this.form.value['contacts']['email'],
-            "pos_address1": this.form.value['contacts']['address1'],
-            "pos_address2": this.form.value['contacts']['address2'],
-            "pos_postalcode":  this.form.value['contacts']['pincode'],
-            "password": this.form.controls['confirmpassword'].value,
-            "pos_aadhar_no":  this.form.value['documents']['aadharnumber'],
-            "pos_pan_no": this.form.value['documents']['pannumber'] ,
-            "pos_aadhar_front_img": this.aadharfront,
-            "pos_aadhar_back_img": this.aadharback,
-            "pos_pan_img": this.pancard,
-            "pos_education": this.form.value['education']['qualification'],
-            "pos_education_doc_img": this.education
-        };
-        console.log(data, 'dattatta');
-        this.login.signUp(data).subscribe(
-            (successData) => {
-                this.signUpSuccess(successData);
-            },
-            (error) => {
-                this.signUpFailure(error);
-            }
-        );
+        if (this.aadharfront == '') {
+            this.toastr.error('Please upload aadhar front page');
+        } else if (this.aadharback == '') {
+            this.toastr.error('Please upload aadhar back page');
+        } else if (this.pancard == '') {
+            this.toastr.error('Please upload pancard');
+        } else if (this.education == '') {
+            this.toastr.error('Please upload educational documents');
+        } else {
+            const data = {
+                "platform": "web",
+                "pos_hidden_id": "",
+                "pos_referralcode": this.form.controls['referralcode'].value,
+                "pos_firstname": this.form.controls['firstname'].value,
+                "pos_lastname": this.form.controls['lastname'].value,
+                "pos_gender": this.form.controls['gender'].value,
+                "pos_dob": this.dob,
+                "pos_mobileno": this.form.value['contacts']['phone1'],
+                "pos_email": this.form.value['contacts']['email'],
+                "pos_address1": this.form.value['contacts']['address1'],
+                "pos_address2": this.form.value['contacts']['address2'],
+                "pos_postalcode": this.form.value['contacts']['pincode'],
+                "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
+                "pos_pan_no": this.form.value['documents']['pannumber'],
+                "pos_aadhar_front_img": this.aadharfront,
+                "pos_aadhar_back_img": this.aadharback,
+                "pos_pan_img": this.pancard,
+                "pos_education": this.form.value['education']['qualification'],
+                "pos_education_doc_img": this.education
+            };
+            console.log(data, 'dattatta');
+            this.settings.loadingSpinner = true;
+            this.login.signUp(data).subscribe(
+                (successData) => {
+                    this.signUpSuccess(successData);
+                },
+                (error) => {
+                    this.signUpFailure(error);
+                }
+            );
+        }
     }
     signUpSuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData);
         if (successData.IsSuccess) {
             this.router.navigate(['/pos']);
@@ -233,18 +240,27 @@ export class RegisterComponent implements OnInit {
         }
     }
     signUpFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
-    checkPassword() {
-        if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
+
+    checkGender() {
+        if (this.form.controls['gender'].value != '' && this.form.controls['gender'].value != undefined) {
             this.mismatchError = '';
         } else {
-            this.mismatchError = 'Passwords do not match ';
-        }
-        if (this.form.controls['password'].value == '') {
-            this.mismatchError = '';
+            this.mismatchError = 'Gender is required ';
         }
     }
+    // checkPassword() {
+    //     if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
+    //         this.mismatchError = '';
+    //     } else {
+    //         this.mismatchError = 'Passwords do not match ';
+    //     }
+    //     if (this.form.controls['password'].value == '') {
+    //         this.mismatchError = '';
+    //     }
+    // }
 
 
     public keyPress(event: any) {
