@@ -8,6 +8,7 @@ import {ProposalmessageComponent} from './proposalmessage/proposalmessage.compon
 import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-proposal',
@@ -40,7 +41,8 @@ export class ProposalComponent implements OnInit {
     public summaryData: any;
     public lastStepper: any;
     public paymentGatewayData: any;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog,
+    public webhost: any;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService,
               public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -50,86 +52,87 @@ export class ProposalComponent implements OnInit {
       this.nomineeAdd = false;
       this.nomineeRemove = true;
       this.declaration = false;
+      this.webhost = this.config.getimgUrl();
       this.selectDate = '';
-      // this.personal = this.fb.group({
-      //     personalTitle: ['', Validators.required],
-      //     personalFirstname: ['', Validators.required],
-      //     personalLastname: ['', Validators.required],
-      //     personalDob: ['', Validators.required],
-      //     personalOccupation: ['', Validators.required],
-      //     personalIncome: ['', Validators.required],
-      //     personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
-      //     personalPan: ['', Validators.compose([ Validators.minLength(10)])],
-      //     personalGst: ['', Validators.compose([ Validators.minLength(15)])],
-      //     socialStatus: '',
-      //     socialAnswer1: '',
-      //     socialAnswer2: '',
-      //     socialAnswer3: '',
-      //     socialAnswer4: '',
-      //     personalAddress: ['', Validators.required],
-      //     previousinsurance: '',
-      //     personalAddress2: '',
-      //     personalPincode: ['', Validators.required],
-      //     personalCity: ['', Validators.required],
-      //     personalState: ['', Validators.required],
-      //     personalEmail: ['', Validators.required],
-      //     personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-      //     personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
-      //     residenceAddress: '',
-      //     residenceAddress2: '',
-      //     residencePincode: '',
-      //     residenceCity: '',
-      //     residenceState: '',
-      //     residenceEmail: '',
-      //     residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
-      //     residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
-      //     illnessCheck: ''
-      //
-      // });
-      this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-          (successData) => {
-              this.testProposalSuccess(successData);
-          },
-          (error) => {
-              this.proposalFailure(error);
-          }
-      );
-
       this.personal = this.fb.group({
-          personalTitle: [''],
-          personalFirstname: [''],
-          personalLastname: [''],
-          personalDob: [''],
-          personalOccupation: [''],
-          personalIncome: [''],
-          personalAadhar: [''],
-          personalPan: [''],
-          personalGst: [''],
+          personalTitle: ['', Validators.required],
+          personalFirstname: ['', Validators.required],
+          personalLastname: ['', Validators.required],
+          personalDob: ['', Validators.required],
+          personalOccupation: ['', Validators.required],
+          personalIncome: ['', Validators.required],
+          personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+          personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+          personalGst: ['', Validators.compose([ Validators.minLength(15)])],
           socialStatus: '',
           socialAnswer1: '',
           socialAnswer2: '',
           socialAnswer3: '',
           socialAnswer4: '',
-          personalAddress: [''],
+          personalAddress: ['', Validators.required],
           previousinsurance: '',
           personalAddress2: '',
-          personalPincode: [''],
-          personalCity: [''],
-          personalState: [''],
-          personalEmail: [''],
-          personalMobile: [''],
-          personalAltnumber: [''],
+          personalPincode: ['', Validators.required],
+          personalCity: ['', Validators.required],
+          personalState: ['', Validators.required],
+          personalEmail: ['', Validators.required],
+          personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+          personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
           residenceCity: '',
           residenceState: '',
           residenceEmail: '',
-          residenceMobile: [''],
-          residenceAltnumber: [''],
+          residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
+          residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           illnessCheck: ''
 
       });
+      // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
+      //     (successData) => {
+      //         this.testProposalSuccess(successData);
+      //     },
+      //     (error) => {
+      //         this.proposalFailure(error);
+      //     }
+      // );
+
+      // this.personal = this.fb.group({
+      //     personalTitle: [''],
+      //     personalFirstname: [''],
+      //     personalLastname: [''],
+      //     personalDob: [''],
+      //     personalOccupation: [''],
+      //     personalIncome: [''],
+      //     personalAadhar: [''],
+      //     personalPan: [''],
+      //     personalGst: [''],
+      //     socialStatus: '',
+      //     socialAnswer1: '',
+      //     socialAnswer2: '',
+      //     socialAnswer3: '',
+      //     socialAnswer4: '',
+      //     personalAddress: [''],
+      //     previousinsurance: '',
+      //     personalAddress2: '',
+      //     personalPincode: [''],
+      //     personalCity: [''],
+      //     personalState: [''],
+      //     personalEmail: [''],
+      //     personalMobile: [''],
+      //     personalAltnumber: [''],
+      //     residenceAddress: '',
+      //     residenceAddress2: '',
+      //     residencePincode: '',
+      //     residenceCity: '',
+      //     residenceState: '',
+      //     residenceEmail: '',
+      //     residenceMobile: [''],
+      //     residenceAltnumber: [''],
+      //     illnessCheck: ''
+      //
+      // });
   }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
@@ -142,10 +145,7 @@ export class ProposalComponent implements OnInit {
         this.setRelationship()
         this.groupList();
     }
-    addEvent(event) {
-        this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-    }
+
     criticalIllness(values: any) {
       if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
@@ -237,36 +237,46 @@ export class ProposalComponent implements OnInit {
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-      alert(this.setDate);
-        this.familyMembers[index].ins_dob = this.setDate;
-      console.log( this.familyMembers, 'pop');
-        if (key == 'Insured Details') {
-            if (this.familyMembers[index].ins_name != '' &&
-                this.familyMembers[index].ins_dob != '' &&
-                this.familyMembers[index].ins_gender != '' &&
-                this.familyMembers[index].ins_illness != '' &&
-                this.familyMembers[index].ins_weight != '' &&
-                this.familyMembers[index].ins_height != '' &&
-                this.familyMembers[index].ins_occupation_id != '' &&
-                this.familyMembers[index].ins_relationship != '') {
-                if (this.buyProductdetails.product_id == 6) {
-                    if (this.familyMembers[index].ins_hospital_cash != '') {
-                        stepper.next();
-                    }
-                } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                    if (this.familyMembers[index].ins_engage_manual_labour != '' &&
-                        this.familyMembers[index].ins_engage_winter_sports != '' &&
-                        this.familyMembers[index].ins_personal_accident_applicable != '') {
-                        stepper.next();
-                    }
-                } else {
-                    stepper.next();
-                }
 
-            } else {
-                this.toastr.error('Please fill the empty fields', key);
+        console.log( this.familyMembers, 'poppppppppppppppppppppppsdgdf');
+        if (key == 'Insured Details') {
+            for (let i = 0; i < this.familyMembers.length; i++ ) {
+                if (this.familyMembers[i].ins_name != '' &&
+                    this.familyMembers[i].ins_dob != '' &&
+                    this.familyMembers[i].ins_gender != '' &&
+                    this.familyMembers[i].ins_illness != '' &&
+                    this.familyMembers[i].ins_weight != '' &&
+                    this.familyMembers[i].ins_height != '' &&
+                    this.familyMembers[i].ins_occupation_id != '' &&
+                    this.familyMembers[i].ins_relationship != '') {
+                    if (this.buyProductdetails.product_id == 6) {
+                        if (this.familyMembers[i].ins_hospital_cash != '') {
+                            if (i == this.familyMembers.length - 1) {
+                                stepper.next();
+                            }
+                        }
+                    } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                        if (this.familyMembers[i].ins_engage_manual_labour != '' &&
+                            this.familyMembers[i].ins_engage_winter_sports != '' &&
+                            this.familyMembers[i].ins_personal_accident_applicable != '') {
+                            if (i == this.familyMembers.length - 1) {
+                                stepper.next();
+                            }
+                        }
+                    } else {
+                        if (i == this.familyMembers.length - 1) {
+                            stepper.next();
+                        }
+                    }
+
+                } else {
+                    if (i == this.familyMembers.length - 1) {
+                        this.toastr.error('Please fill the empty fields', key);
+                    }
+                }
             }
         }
+        console.log( this.familyMembers, 'popppppppppppppppppppppp');
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
@@ -305,6 +315,15 @@ export class ProposalComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    addEventInsurer(event, i) {
+        this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
+        console.log(this.familyMembers[i].ins_dob);
+    }
+    addEvent(event) {
+        this.selectDate = event.value;
+        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+
     }
   proposal() {
           const data = [{
@@ -372,14 +391,14 @@ export class ProposalComponent implements OnInit {
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
-          // this.proposalservice.getProposal(data).subscribe(
-          //     (successData) => {
-          //         this.proposalSuccess(successData);
-          //     },
-          //     (error) => {
-          //         this.proposalFailure(error);
-          //     }
-          // );
+          this.proposalservice.getProposal(data).subscribe(
+              (successData) => {
+                  this.proposalSuccess(successData);
+              },
+              (error) => {
+                  this.proposalFailure(error);
+              }
+          );
 
 }
     public proposalSuccess( successData) {
@@ -393,18 +412,18 @@ export class ProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
-    public testProposalSuccess( successData) {
-        console.log(successData);
-        if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
-            this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData);
-            this.lastStepper.next();
-
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
+    // public testProposalSuccess( successData) {
+    //     console.log(successData);
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success('Proposal created successfully!!');
+    //         this.summaryData = successData.ResponseObject;
+    //         console.log(this.summaryData);
+    //         this.lastStepper.next();
+    //
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    // }
     public proposalFailure(error) {
         console.log(error);
     }
@@ -429,11 +448,11 @@ export class ProposalComponent implements OnInit {
 
     public getPolicyTokenSuccess(successData) {
         if (successData.IsSuccess) {
-            //this.toastr.success('Proposal created successfully!!');
+            this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
             console.log(this.paymentGatewayData);
             window.location.href = this.paymentGatewayData.payment_gateway_url;
-           // this.lastStepper.next();
+            this.lastStepper.next();
 
         } else {
             this.toastr.error(successData.ErrorObject);

@@ -138,7 +138,7 @@ a:hover {
     font-size: 15px;
     margin-right: 10px;
     background: #3B5998;
-    padding: 8px;
+    padding: 7px;
     border-radius: 50px;
     height: 30px;
     width: 30px;
@@ -563,5 +563,27 @@ background: #ccc !important;
   }
   li{
     padding-bottom: 8px;
+    margin-right: 10px;
+
+    strong{
+      width: 150px;
+      float: left;
+    }
+  }
+  .summary-head{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0;
+    li{
+      font-size: 16px;
+    }
+    span{
+      font-weight: bold;
+    }
+    span:last-child{
+      color: #f16d0d;
+      font-size: 20px;
+    }
   }
 }
