@@ -42,6 +42,7 @@ export class ProposalComponent implements OnInit {
     public lastStepper: any;
     public paymentGatewayData: any;
     public webhost: any;
+    public proposalId: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService,
               public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
@@ -54,6 +55,7 @@ export class ProposalComponent implements OnInit {
       this.declaration = false;
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
+      this.proposalId= 0;
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
@@ -328,6 +330,7 @@ export class ProposalComponent implements OnInit {
   proposal() {
           const data = [{
               'platform': 'web',
+              'proposal_id' : this.proposalId,
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -406,6 +409,7 @@ export class ProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            this.proposalId = this.summaryData.prop_id;
             this.lastStepper.next();
 
         } else {
@@ -431,7 +435,7 @@ export class ProposalComponent implements OnInit {
     public payNow() {
         const data = {
             'platform': 'web',
-            'reference_id' : '64483822c83f4036a4865cc260fb3f3c',
+            'reference_id' :  this.summaryData.proposal_details[0].referenceId,
             'proposal_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
