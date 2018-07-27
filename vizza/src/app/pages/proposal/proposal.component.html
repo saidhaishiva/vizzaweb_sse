@@ -13,9 +13,9 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row mt-3">
-                <div class="col-md-6 box-card pt-3">
+                <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green text-center">PROPOSER DETAILS</h6>
-                  <div class="row" >
+                  <div class="row">
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Title" formControlName="personalTitle">
@@ -27,13 +27,13 @@
 
                       </mat-form-field>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="First Name" formControlName="personalFirstname" required >
                         <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                       </mat-form-field>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="Last Name" formControlName="personalLastname" required >
                         <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
@@ -47,10 +47,10 @@
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
 
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100" >
-                      <input matInput placeholder="Age" [value]="selectDate | age"  >
+                    <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
+                      <!--<input matInput placeholder="Age" [value]="selectDate | age"  >-->
 
-                    </mat-form-field></div>
+                    <!--</mat-form-field></div>-->
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Occupation" formControlName="personalOccupation">
@@ -85,51 +85,31 @@
                       <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
 
                     </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Email ID" formControlName="personalEmail" required>
+                      <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Email ID is required</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
+                      <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
+                      <!--<mat-error *ngIf="personal.controls.personalMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
+                      <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="personalAltnumber">
+                      <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
+                      <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
+                      <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+
+
+                    </mat-form-field></div>
                   </div>
                 </div>
-                <div class="col-md-6 p-3 box-card">
-                  <h6 class="color-green text-center ">SOCIAL STATUS</h6>
-                  <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
-                    <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                    <mat-radio-button value="true" [checked]="true" >NO</mat-radio-button>
-                  </mat-radio-group>
-                  <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
-                  <div class="row">
-                    <div class="col-md-6 ">
-                      <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
-                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
-                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
-                      </mat-button-toggle-group>
-                    </div>
-                    <div class="col-md-6">
-                      <p>Please choose "Yes" if you are working in informal Sector</p>
-                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer2" >
-                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
-                      </mat-button-toggle-group>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-md-6 ">
-                      <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
-                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer3" >
-                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
-                      </mat-button-toggle-group>
-                    </div>
-                    <div class="col-md-6">
-                      <p>Please choose “Yes” if you are Other Categories of Persons</p>
-                      <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
-                        <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                        <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
-                      </mat-button-toggle-group>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 box-card pt-3">
-                  <h6 class="color-green text-center">PROPOSER COMMUNICATION DETAILS</h6>
+
+                <div class="col-md-12 box-card pt-3">
+                  <h6 class="color-green text-center"> PROPOSER COMMUNICATION DETAILS</h6>
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
@@ -160,29 +140,15 @@
                       <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
 
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID" formControlName="personalEmail" required>
-                      <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Email ID is required</mat-error>
-
-                    </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="personalMobile" required>
-                      <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
-                      <mat-error *ngIf="personal.controls.personalMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
-
-                    </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10"  formControlName="personalAltnumber">
-                      <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
-                      <mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
 
 
-                    </mat-form-field></div>
+                  <div class="col-md-6"><mat-checkbox (change)="sameAddress($event)">Check me!</mat-checkbox></div>
                   </div>
                 </div>
-                <div class="col-md-6 box-card pt-3">
+                <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green text-center">PROPOSER RESIDENCE DETAILS</h6>
                   <div class="row">
+
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
                         <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" ></textarea>
@@ -202,22 +168,66 @@
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="State" formControlName="residenceState" >
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID" formControlName="residenceEmail" >
-                    </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceMobile" >
-                      <mat-error *ngIf="personal.controls.residenceMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+                    <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Email ID" formControlName="residenceEmail" >-->
+                    <!--</mat-form-field></div>-->
+                    <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Mobile Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceMobile" >-->
+                      <!--<mat-error *ngIf="personal.controls.residenceMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
 
-                    </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceAltnumber">
-                      <mat-error *ngIf="personal.controls.residenceAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+                    <!--</mat-form-field></div>-->
+                    <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Alternate Number" (keypress)="keyPress($event)" minlength="10"  maxlength="10" formControlName="residenceAltnumber">-->
+                      <!--<mat-error *ngIf="personal.controls.residenceAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
 
-                    </mat-form-field></div>
+                    <!--</mat-form-field></div>-->
                   </div>
                 </div>
-                <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
+
+
+              <div class="col-md-12 p-3 box-card">
+                <h6 class="color-green text-center ">SOCIAL STATUS</h6>
+                <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
+                  <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="true" >NO</mat-radio-button>
+                </mat-radio-group>
+                <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
+                <div class="row">
+                  <div class="col-md-6 ">
+                    <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                    <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
+                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Please choose "Yes" if you are working in informal Sector</p>
+                    <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer2" >
+                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6 ">
+                    <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
+                    <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer3" >
+                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                    <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
+                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                </div>
+
+              </div>
+              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
                 </div>
@@ -238,8 +248,8 @@
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
-                  <div class="col-md-6 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
-                    <h6 class="color-green text-center">INSURED DETAILS {{i+1}} ({{item.type}})</h6>
+                  <div class="col-md-12 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
+                    <h6 class="color-green text-center">INSURED DETAILS ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
@@ -251,16 +261,19 @@
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" (keypress)="keyPress($event)"  maxlength="3" [ngModel]="item.ins_dob | age " readonly >
-                      </mat-form-field></div>
+                      <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Age" (keypress)="keyPress($event)"  maxlength="3" [ngModel]="item.ins_dob | age " readonly >-->
+                      <!--</mat-form-field></div>-->
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
                           <mat-option value="Male">Male</mat-option>
                           <mat-option value="Female">Female</mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
+                      <div class="col-md-6" fxLayoutAlign="start center">
+                        <mat-checkbox (change)="illnessStatus($event, i)">Illness</mat-checkbox> &nbsp; &nbsp;
+
+                        <mat-form-field class="w-100" *ngIf="item.illness">
                         <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" required >
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -271,25 +284,25 @@
                       </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id">
-                            <mat-option *ngFor="let occupation of occupationList" value="{{occupation.occupation_code}}" required>
+                          <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required>
+                            <mat-option *ngFor="let occupation of occupationList" value="{{occupation.occupation_code}}">
                               {{occupation.occupation_name}}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="10" [(ngModel)]="item.insurincome" required >
+                        <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="15" [(ngModel)]="item.insurincome">
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship">
-                          <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" required>
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required>
+                          <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
                             {{relationship.relationship_name}}
                           </mat-option>
                         </mat-select>
                     </mat-form-field></div>
                       <div class="col-md-6" *ngIf="this.buyProductdetails.product_id == 6">
-                        <p>Hospital Cash</p>
+                        <p>Additional Cover</p>
                         <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
                           <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
@@ -431,7 +444,7 @@
            <ul class="m-0 list-group">
              <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_name}}</li>
              <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob}}</li>
-             <li class="list-group-item"><strong>Age:</strong> -</li>
+             <!--<li class="list-group-item"><strong>Age:</strong> -</li>-->
              <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.prop_occupation}}</li>
              <li class="list-group-item"><strong>Annual Income:</strong> {{summaryData.prop_annual_income}}</li>
              <li class="list-group-item"><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
@@ -515,7 +528,7 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{family.ins_name}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob}}</li>
-                    <li class="list-group-item"><strong>Age:</strong> {{family.ins_dob | age}}</li>
+                    <!--<li class="list-group-item"><strong>Age:</strong> {{family.ins_dob | age}}</li>-->
                     <li class="list-group-item"><strong>Gender:</strong> {{family.ins_gender}}</li>
                     <li class="list-group-item"><strong>Illness:</strong> {{family.ins_illness}}</li>
                     <li class="list-group-item"><strong>Height:</strong> {{family.ins_height}}</li>
@@ -548,11 +561,11 @@
                   <h6>APPOINTEE DETAILS  </h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
-                    <li class="list-group-item"><strong>Age:</strong> -</li>
+                    <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_one}}</li>
                     <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one}}</li>
                   </ul>
                   </div>
-                  </div>
+                                           </div>
                 </div>
               </div>
               <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">

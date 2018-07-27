@@ -8,19 +8,19 @@
                             <img  src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
                             <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
                                   <!--class="rounded-circle">-->
-                            <h4 class="user-name mt-2">{{posData.pos_firstname}}.{{posData.pos_lastname}}</h4>
+                            <h4 class="user-name mt-2">{{posData.pos_firstname}} {{posData.pos_lastname}}</h4>
 
                         </div>
-                        <div class="card-footer">
-                    <span class="float-left">
-                         <div class="float-left"><i
-                                 class="fas fa-user-md"></i>
-                                            <span >{{doctorExperience.pos_email}} Year(s), </span>
-                                            <span >{{doctorExperience.experiencemonths}} Month(s)</span>
-                                        </div>
-                    </span>
-                            <span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>
-                        </div>
+                        <!--<div class="card-footer">-->
+                        <!--<span class="float-left">-->
+                             <!--<div class="float-left"><i-->
+                                     <!--class="fas fa-user-md"></i>-->
+                                                <!--<span >{{doctorExperience.pos_email}} Year(s), </span>-->
+                                                <!--<span >{{doctorExperience.experiencemonths}} Month(s)</span>-->
+                                            <!--</div>-->
+                        <!--</span>-->
+                            <!--<span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>-->
+                        <!--</div>-->
                     </div>
                     <div class="col-md-12">
                         <div class=" personaldetails mt-3">
@@ -29,17 +29,16 @@
                                 <span>{{posData.doc_education}}</span>
                             </p>
                             <p fxLayout="row" fxLayoutAlign="start center">
+                                <span>Phone:</span>
+                                <span>{{posData.pos_mobileno}}</span>
+                            </p>
+                            <p fxLayout="row" fxLayoutAlign="start center">
                                 <span>Email:</span>
                                 <span>{{posData.pos_email}}</span>
                             </p>
-
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span *ngIf="registrationDetails.length > 0">>Registration:</span>
-                                <span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>
-                            </p>
                             <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span>Gender:</span>-->
-                                <!--<span>{{personal.gender}}</span>-->
+                                <!--<span *ngIf="registrationDetails.length > 0">>Registration:</span>-->
+                                <!--<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>-->
                             <!--</p>-->
                             <p fxLayout="row" fxLayoutAlign="start center">
                                 <span>Address:</span>
@@ -48,11 +47,6 @@
                                         [hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>
                             </p>
                             <hr>
-                            <!--<agm-map style="height: 200px; width: 100%" [latitude]="lat" [longitude]="lng"-->
-                                     <!--[scrollwheel]="false" [zoom]="zoom">-->
-                                <!--<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>-->
-                            <!--</agm-map>-->
-
                         </div>
                     </div>
                 </div>
@@ -84,13 +78,12 @@
                 <div class="col-md-12 mt-4">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <button mat-raised-button class="secondary-bg-color"
-                                    (click)="getNotes('Notify')">Notify
+                            <button mat-raised-button color="primary-notess" style="background-color: #e8a662!important; color:white" (click)="getNotes('Notify')">Notify
                             </button>
                             <!--<button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"-->
                                     <!--(click)="getNotes('Physical Comments')">Comments-->
                             <!--</button>-->
-                            <button mat-raised-button class="secondary-bg-color"
+                            <button mat-raised-button color="primary"
                                     (click)="getNotes('Online Comments')">Comments
                             </button>
                         </div>
@@ -98,7 +91,7 @@
                             <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
                                 Reject
                             </button>
-                            <button mat-raised-button color="primary" (click)="verificationSubmit()">Submit</button>
+                            <button mat-raised-button color="primary" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -107,20 +100,6 @@
         </div>
     </mat-card>
     <mat-accordion class="certificate">
-        <!--<mat-expansion-panel>-->
-            <!--<mat-expansion-panel-header>-->
-                <!--<mat-panel-title>-->
-                    <!--About Me-->
-                <!--</mat-panel-title>-->
-
-            <!--</mat-expansion-panel-header>-->
-            <!--<div class="row professional-cer">-->
-                <!--<div class="col-md-12">-->
-                    <!--<span><div *ngFor="let item of doctor" class="float-left text-capitalize">{{item.aboutme}}</div></span>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        <!--</mat-expansion-panel>-->
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -128,36 +107,17 @@
                 </mat-panel-title>
 
             </mat-expansion-panel-header>
-            <div class="row professional-cer">
-                <div class="col-md-12">
-                                        <span *ngIf="posData.doc_aadhar_front_img != ''"><div ><img style="width: 100px; height: 100px;"
-                                                          src="{{webhost + posData.doc_aadhar_front_img}}"
-                                                          class="float-left img-thumbnail"
-                                                          (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')"></div></span>
-                    <span *ngIf="posData.doc_aadhar_back_img != ''"><div ><img style="width: 100px; height: 100px;"
-                                                                             src="{{webhost + posData.doc_aadhar_back_img}}"
-                                                                             class="float-left img-thumbnail"
-                                                                             (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')"></div></span>
-
-                    <span *ngIf="posData.doc_aadhar_front_img == '' && posData.doc_aadhar_back_img == '' "><div> Aadhar not available </div></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
                 </div>
-            </div>
-
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Educational Certificate(s)
-                </mat-panel-title>
-
-            </mat-expansion-panel-header>
-            <div class="row professional-cer">
-                <div class="col-md-12">
-                    <span *ngIf="posData.doc_edu_certificate_img != ''"><div><img style="width: 100px; height: 100px;"
-                                                                      src="{{webhost + posData.doc_edu_certificate_img}}"
-                                                                      class="float-left img-thumbnail"
-                                                                      (click)="viewImage(posData.doc_edu_certificate_img, 'Educational Certificate')"></div></span>
-                    <span *ngIf="posData.doc_edu_certificate_img == '' "><div> Educational Certificates not available </div></span>
+                <div class="col-md-6">
+                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
+                </div>
+                <div class="no-data"  *ngIf="posData.doc_aadhar_front_img == '' && posData.doc_aadhar_back_img == ''" >
+                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
+                        cloud_off
+                    </i> &nbsp; No Aadhar card</p>
                 </div>
             </div>
 
@@ -167,21 +127,38 @@
                 <mat-panel-title>
                     Pan Card
                 </mat-panel-title>
-
             </mat-expansion-panel-header>
-            <div class="row professional-cer">
-                <div class="col-md-12">
-
-                    <span *ngIf="posData.doc_pan_img != ''"><div>
-    <img src="{{webhost + '/' + posData.doc_pan_img}}"
-         class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
-
-  </div></span>
-                    <span *ngIf="posData.doc_pan_img == ''"><div> Pan not available </div></span>
-
+            <div class="row">
+                <div class="col-md-12" *ngIf="posData.doc_pan_img == ''" >
+                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
+                        cloud_off
+                    </i> &nbsp; No Pan Card</p>
+                </div>
+                <div class="col-md-6" *ngIf="posData.doc_pan_img != ''" >
+                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
                 </div>
             </div>
         </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Educational Certificate(s)
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div *ngIf="posData.doc_edu_certificate_img == ''" >
+                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
+                        cloud_off
+                    </i> &nbsp; No Educational Certificated</p>
+                </div>
+
+                <div class="col-md-6" *ngIf="posData.doc_edu_certificate_img != ''" >
+                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_edu_certificate_img, 'Educational Certificate')">
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+
 
     </mat-accordion>
 

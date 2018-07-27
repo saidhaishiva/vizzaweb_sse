@@ -52,9 +52,9 @@
                 <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
                     <div class="user-img">
                         <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted">
-                        <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">  
+                        <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">
                         <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>
-                    </div>                                            
+                    </div>
                     <div class="user-social">
                         <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
                     </div>
@@ -87,10 +87,10 @@
 </div>
 
 <div *ngIf="viewType.value == 'list'" fxLayoutWrap fxLayout="row">
-    <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }" fxFlex="100" class="flex-p"> 
-        <mat-card class="p-0">  
+    <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }" fxFlex="100" class="flex-p">
+        <mat-card class="p-0">
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h3 *ngIf="!user.settings.isDeleted" class="user-name">{{user.profile.name}} {{user.profile.surname}}</h3> 
+                <h3 *ngIf="!user.settings.isDeleted" class="user-name">{{user.profile.name}} {{user.profile.surname}}</h3>
                 <h3 *ngIf="user.settings.isDeleted" class="user-name">User blocked</h3>
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
@@ -111,10 +111,10 @@
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
                     <div class="user-img">
-                        <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted"> 
-                        <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">  
-                        <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>   
-                    </div>                                            
+                        <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted">
+                        <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">
+                        <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>
+                    </div>
                     <div class="user-social">
                         <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
                     </div>
@@ -132,13 +132,13 @@
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">attach_money</mat-icon>
                             <span>{{user.work.salary}}</span>
-                        </p>                                               
+                        </p>
                     </div>
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">mail_outline</mat-icon>
                             <span>{{user.contacts.email}}</span>
-                        </p> 
+                        </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">call</mat-icon>
                             <span>{{user.contacts.phone}}</span>
@@ -146,7 +146,7 @@
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">location_on</mat-icon>
                             <span>{{user.contacts.address}}</span>
-                        </p>                        
+                        </p>
                     </div>
                     <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
@@ -156,12 +156,12 @@
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">date_range</mat-icon>
                             <span>Joined {{user.settings.joinedDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
-                        </p> 
+                        </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon *ngIf="user.settings.isDeleted" class="muted-text">person_outline</mat-icon>
                             <mat-icon *ngIf="!user.settings.isDeleted" class="muted-text">person</mat-icon>
                             <span>{{ (user.settings.isDeleted) ? 'Blocked' : 'Active' }}</span>
-                        </p>                       
+                        </p>
                     </div>
                 </div>
             </div>
@@ -170,14 +170,14 @@
 </div>
 
 <div *ngIf="users" fxLayoutWrap fxLayout="row">
-    <div fxFlex="100" class="flex-p"> 
-        <mat-card class="p-0 text-center">           
+    <div fxFlex="100" class="flex-p">
+        <mat-card class="p-0 text-center">
             <pagination-controls class="gradus-pagination" autoHide="true" maxSize="3" (pageChange)="onPageChanged($event)"></pagination-controls>
         </mat-card>
     </div>
 </div>
 
-<div *ngIf="!users" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">   
-    <mat-spinner color="primary"></mat-spinner>    
+<div *ngIf="!users" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+    <mat-spinner color="primary"></mat-spinner>
 </div>
 

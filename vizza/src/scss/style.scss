@@ -587,3 +587,21 @@ background: #ccc !important;
     }
   }
 }
+.mt-viwe-profile {
+  .user-name {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  .user-content .user-details .mat-icon {
+    padding: 0 !important;
+    margin-right: 10px;
+  }
+  .bg-primary{
+    background-color: #dcdcdc!important;
+    height: 40px;
+    color:#313131 !important;
+  }
+  p, label{
+    margin: 0;
+  }
+}

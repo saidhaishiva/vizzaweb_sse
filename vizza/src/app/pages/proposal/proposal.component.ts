@@ -43,6 +43,7 @@ export class ProposalComponent implements OnInit {
     public paymentGatewayData: any;
     public webhost: any;
     public proposalId: any;
+    public illness: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService,
               public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
@@ -53,6 +54,7 @@ export class ProposalComponent implements OnInit {
       this.nomineeAdd = false;
       this.nomineeRemove = true;
       this.declaration = false;
+      this.illness = false;
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
       this.proposalId= 0;
@@ -78,16 +80,13 @@ export class ProposalComponent implements OnInit {
           personalCity: ['', Validators.required],
           personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
-          personalMobile: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-          personalAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
+          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[789][0-9]{9}')])],
+          personalAltnumber: ['', Validators.compose([ Validators.pattern('[789][0-9]{9}')])],
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
           residenceCity: '',
           residenceState: '',
-          residenceEmail: '',
-          residenceMobile: ['', Validators.compose([ Validators.minLength(10)])],
-          residenceAltnumber: ['', Validators.compose([ Validators.minLength(10)])],
           illnessCheck: ''
 
       });
@@ -171,7 +170,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
             this.familyMembers[i].ins_gender = '';
-            this.familyMembers[i].ins_illness = '';
+            this.familyMembers[i].ins_illness = 'No';
             this.familyMembers[i].ins_weight = '';
             this.familyMembers[i].ins_height = '';
             this.familyMembers[i].ins_occupation_id = '';
@@ -220,9 +219,12 @@ export class ProposalComponent implements OnInit {
           this.nomineeAdd = true;
           this.nomineeRemove = true;
 
-      } else {
+      } else if (this.nomineeDate[0].nominee.length == 1){
           this.nomineeAdd = false;
           this.nomineeRemove = true;
+      } else{
+          this.nomineeAdd = false;
+
       }
     }
 
@@ -246,12 +248,20 @@ export class ProposalComponent implements OnInit {
                 if (this.familyMembers[i].ins_name != '' &&
                     this.familyMembers[i].ins_dob != '' &&
                     this.familyMembers[i].ins_gender != '' &&
-                    this.familyMembers[i].ins_illness != '' &&
                     this.familyMembers[i].ins_weight != '' &&
                     this.familyMembers[i].ins_height != '' &&
                     this.familyMembers[i].ins_occupation_id != '' &&
                     this.familyMembers[i].ins_relationship != '') {
-                    if (this.buyProductdetails.product_id == 6) {
+
+                    if (this.familyMembers[i].ins_illness.trim != 'No' ){
+                        console.log(this.familyMembers[i].ins_illness, 'pop');
+                        if (this.familyMembers[i].ins_illness != '') {
+                            if (i == this.familyMembers.length - 1) {
+                                stepper.next();
+                            }
+                        }
+                    } else if (this.buyProductdetails.product_id == 6) {
+                        console.log('in');
                         if (this.familyMembers[i].ins_hospital_cash != '') {
                             if (i == this.familyMembers.length - 1) {
                                 stepper.next();
@@ -265,9 +275,12 @@ export class ProposalComponent implements OnInit {
                                 stepper.next();
                             }
                         }
-                    } else {
+                    } else  {
                         if (i == this.familyMembers.length - 1) {
                             stepper.next();
+                        }
+                        if (i == this.familyMembers.length - 1) {
+                            this.toastr.error('Please fill the empty fields', key);
                         }
                     }
 
@@ -308,6 +321,33 @@ export class ProposalComponent implements OnInit {
 
             }
         }
+    }
+    illnessStatus(values: any, index) {
+        if (values.checked) {
+            this.familyMembers[index].ins_illness = '';
+            this.familyMembers[index].illness = true;
+        } else {
+            this.familyMembers[index].illness = false;
+            this.familyMembers[index].ins_illness = 'No';
+
+        }
+
+}
+    sameAddress(values: any){
+      if (values.checked) {
+          this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+          this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+          this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+          this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+      } else {
+          this.personal.controls['residenceAddress'].setValue('');
+          this.personal.controls['residenceAddress2'].setValue('');
+          this.personal.controls['residenceCity'].setValue('');
+          this.personal.controls['residencePincode'].setValue('');
+          this.personal.controls['residenceState'].setValue('');
+      }
+
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
