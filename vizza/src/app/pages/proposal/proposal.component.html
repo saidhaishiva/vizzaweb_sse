@@ -238,7 +238,7 @@
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
-                  <div class="col-md-6 box-card pt-3" *ngFor="let item of familyMembers; let i = index">
+                  <div class="col-md-6 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
                     <h6 class="color-green text-center">INSURED DETAILS {{i+1}} ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
@@ -247,7 +247,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" [(ngModel)]="item.ins_dob"  required>
+                        <input matInput [matDatepicker]="insureddob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
@@ -409,133 +409,171 @@
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARAY</ng-template>
-          <section class="summary-details">
-            <h4>{{summaryData.group_name}}</h4>
+          <section class="summary-details" *ngIf="summaryData">
+            <div class="row">
+              <div class="col-md-4"> <h4>{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-8">
+                <ul class="summary-head">
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].premium}}</span> /</li>
+                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].serviceTax}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].totalPremium}}</span> </li>
+                  <li></li>
+                </ul>
+              </div>
+            </div>
+
             <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
-          <div class="row">
-            <div class="col-md-6 ">
-              <div class="box-card  p-3 ">
+          <div class="row box-card">
+            <div class="col-md-6">
+              <div class="p-3">
               <h6>PROPOSER DETAILS</h6>
-           <ul class="m-0">
-             <li><strong>Name:</strong> {{summaryData.proposer_name}}</li>
-             <li><strong>D.O.B:</strong> {{summaryData.prop_dob}}</li>
-             <li><strong>Age:</strong> -</li>
-             <li><strong>Occupation:</strong> {{summaryData.prop_occupation}}</li>
-             <li><strong>Annual Income:</strong> {{summaryData.prop_annual_income}}</li>
-             <li><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
-             <li><strong>PAN Number:</strong> {{summaryData.prop_pan_no}}</li>
-             <li><strong>GST Number:</strong> {{summaryData.gst_id_no}}</li>
-             <li><strong>Previous Medical Insurence:</strong> {{summaryData.previous_medical_insurance}}</li>
+           <ul class="m-0 list-group">
+             <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_name}}</li>
+             <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob}}</li>
+             <li class="list-group-item"><strong>Age:</strong> -</li>
+             <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.prop_occupation}}</li>
+             <li class="list-group-item"><strong>Annual Income:</strong> {{summaryData.prop_annual_income}}</li>
+             <li class="list-group-item"><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
+             <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.prop_pan_no}}</li>
+             <li class="list-group-item"><strong>GST Number:</strong> {{summaryData.gst_id_no}}</li>
+             <li class="list-group-item"><strong>Previous Medical Insurence:</strong> {{summaryData.previous_medical_insurance}}</li>
            </ul>
               </div>
           </div>
+
             <div class="col-md-6">
-              <div class="box-card p-3">
-              <h6>SOCIAL STATUS</h6>
-              <ul class="m-0">
-                <li><strong>Social Status:</strong> {{summaryData.social_status}}</li>
-                <li><strong>status1:</strong> {{summaryData.social_status_bpl}}</li>
-                <li><strong>status2:</strong> {{summaryData.social_status_disabled}}</li>
-                <li><strong>status3:</strong> {{summaryData.social_status_informal}}</li>
-                <li><strong>status4:</strong> {{summaryData.social_status_unorganized}}</li>
-              </ul>
+              <h6 class="color-green text-center mt-3">SOCIAL STATUS</h6>
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="summaryData.social_status_bpl == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="summaryData.social_status_bpl == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="col-md-6">
+                  <p>Please choose "Yes" if you are working in informal Sector</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="summaryData.social_status_disabled == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="summaryData.social_status_disabled == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-6 ">
+                  <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="summaryData.social_status_informal == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="summaryData.social_status_informal == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="col-md-6">
+                  <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="summaryData.social_status_unorganized == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="summaryData.social_status_unorganized == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
-              <div class="box-card p-3 ">
+              <div class="p-3">
               <h6>PROPOSER COMMUNICATION DETAILS</h6>
-              <ul class="m-0">
-                <li><strong>Address 1:</strong> {{summaryData.prop_comm_address1}}</li>
-                <li><strong>Address 2:</strong> {{summaryData.prop_comm_address2}}</li>
-                <li><strong>PIN code:</strong>  {{summaryData.prop_comm_pincode}}</li>
-                <li><strong>City:</strong> {{summaryData.prop_comm_city}}</li>
-                <li><strong>State:</strong> {{summaryData.prop_comm_state}}</li>
-                <li><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
-                <li><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
-                <li><strong>Alternate Number:</strong> {{summaryData.proposer_alternate_mobile}}</li>
+              <ul class="m-0 list-group">
+                <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_comm_address1}}</li>
+                <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_comm_address2}}</li>
+                <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_comm_pincode}}</li>
+                <li class="list-group-item"><strong>City:</strong> {{summaryData.prop_comm_city}}</li>
+                <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_comm_state}}</li>
+                <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
+                <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
+                <li class="list-group-item"><strong>Alternate Number:</strong> {{summaryData.proposer_alternate_mobile}}</li>
               </ul>
               </div>
             </div>
-            <div class="col-md-6  ">
-              <div class="box-card p-3">
+            <div class="col-md-6">
+              <div class=" p-3">
                 <h6>PROPOSER RESIDENCE DETAILS</h6>
-                <ul class="m-0">
-                  <li><strong>Address 1:</strong> {{summaryData.prop_res_address1}}</li>
-                  <li><strong>Address 2:</strong> {{summaryData.prop_res_address2}}</li>
-                  <li><strong>PIN code:</strong>  {{summaryData.prop_res_pincode}}</li>
-                  <li><strong>City:</strong> {{summaryData.prop_res_city}}</li>
-                  <li><strong>State:</strong> {{summaryData.prop_res_state}}</li>
+                <ul class="m-0 list-group">
+                  <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_res_address1}}</li>
+                  <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_res_address2}}</li>
+                  <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_res_pincode}}</li>
+                  <li class="list-group-item"><strong>City:</strong> {{summaryData.prop_res_city}}</li>
+                  <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_res_state}}</li>
                 </ul>
               </div>
             </div>
           </div>
 
             <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
-            <div class="row">
+            <div class="row box-card">
               <div class="col-md-6 " *ngFor="let family of summaryData.insured_details">
-                <div class="box-card  p-3 ">
+                <div class="p-3">
                   <h6>INSURED DETAILS ({{family.ins_member_typename}}) </h6>
-                  <ul class="m-0">
-                    <li><strong>Name:</strong> {{family.ins_name}}</li>
-                    <li><strong>D.O.B:</strong> {{family.ins_dob}}</li>
-                    <li><strong>Age:</strong> {{family.ins_dob | age}}</li>
-                    <li><strong>Gender:</strong> {{family.ins_gender}}</li>
-                    <li><strong>Illness:</strong> {{family.ins_illness}}</li>
-                    <li><strong>Height:</strong> {{family.ins_height}}</li>
-                    <li><strong>Weight:</strong> {{family.ins_weight}}</li>
-                    <li><strong>Occupation:</strong> {{family.ins_occupation_id}}</li>
-                    <li><strong>Relationship with Proposer:</strong> -</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 6"><strong>Hospital Cash:</strong> {{family.ins_hospital_cash}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9"><strong>personal Accident Applicable:</strong> {{family.ins_is_personal_accident_applicable}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9"><strong>Engage Manual Labour:</strong> {{family.ins_engage_manual_labour}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9"><strong>Engage Winter Sports:</strong> {{family.ins_engage_winter_sports}}</li>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Name:</strong> {{family.ins_name}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob}}</li>
+                    <li class="list-group-item"><strong>Age:</strong> {{family.ins_dob | age}}</li>
+                    <li class="list-group-item"><strong>Gender:</strong> {{family.ins_gender}}</li>
+                    <li class="list-group-item"><strong>Illness:</strong> {{family.ins_illness}}</li>
+                    <li class="list-group-item"><strong>Height:</strong> {{family.ins_height}}</li>
+                    <li class="list-group-item"><strong>Weight:</strong> {{family.ins_weight}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{family.ins_occupation_id}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> -</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> {{family.ins_hospital_cash}}</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> {{family.ins_is_personal_accident_applicable}}</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{family.ins_engage_manual_labour}}</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{family.ins_engage_winter_sports}}</li>
                   </ul>
                 </div>
               </div>
             </div>
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-            <div class="row">
-              <div class="col-md-6 ">
-                <div class="box-card  p-3 ">
-                  <h6>NOMINEE DETAILS 1 </h6>
-                  <ul class="m-0">
-                    <li><strong>Nominee name:</strong> {{summaryData.nominee_name_one}}</li>
-                    <li><strong>Age:</strong> {{summaryData.nominee_age_one}}</li>
-                    <li><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_one}}</li>
-                    <li><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one}}</li>
+            <div class="row box-card">
+              <div class="col-md-12 ">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                  <h6>NOMINEE DETAILS  </h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_one}}</li>
+                    <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_one}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_one}}</li>
+                    <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one}}</li>
                   </ul>
-<span *ngIf=" summaryData.nominee_percentclaim_one < 100">
-                  <h6>NOMINEE DETAILS 2 </h6>
-                  <ul class="m-0">
-                    <li><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
-                    <li><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
-                    <li><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
-                    <li><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two}}</li>
+                    </div>
+                    <div class="col-md-6">
+                  <h6>APPOINTEE DETAILS  </h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
+                    <li class="list-group-item"><strong>Age:</strong> -</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one}}</li>
                   </ul>
-</span>
-                  <h6>APPOINTEE DETAILS 1 </h6>
-                  <ul class="m-0">
-                    <li><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
-                    <li><strong>Age:</strong> -</li>
-                    <li><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one}}</li>
-                  </ul>
-<span *ngIf=" summaryData.nominee_percentclaim_one < 100">
-                  <h6>APPOINTEE DETAILS 2 </h6>
-                  <ul class="m-0">
-                    <li><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>
-                    <li><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>
-                    <li><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two}}</li>
-                  </ul>
-</span>
+                  </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6  ">
-                <div class="box-card p-3">
-                  <h6>PREVIOUS INSURER DETAILS </h6>
-                  <ul class="m-0">
-                    <li><strong>Previous Policy Number:</strong> -</li>
-                    <li><strong>Any Claims in the Past 3 Years?:</strong> -</li>
-                  </ul>
+              <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">
+                <div class="row">
+                  <div class="col-md-6">
+                <h6>NOMINEE DETAILS 2 </h6>
+                <ul class="m-0 list-group">
+                  <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
+                  <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
+                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
+                  <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two}}</li>
+                </ul>
+                  </div>
+                  <div class="col-md-6">
+                <h6>APPOINTEE DETAILS 2 </h6>
+                <ul class="m-0 list-group">
+                  <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>
+                  <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>
+                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two}}</li>
+                </ul>
+              </div>
                 </div>
               </div>
 
