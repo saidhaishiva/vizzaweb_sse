@@ -408,7 +408,7 @@ export class ProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            this.proposalId = this.summaryData.prop_id;
+            this.proposalId = this.summaryData.proposal_id;
             this.lastStepper.next();
 
         } else {

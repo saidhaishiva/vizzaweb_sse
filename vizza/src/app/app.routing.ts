@@ -18,6 +18,7 @@ import {HealthInsuranceComponent} from './pages/health-insurance/health-insuranc
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
+import {PaymentSuccessComponent} from './pages/payment-success/payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,6 +52,7 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
+            { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Health' } },
 
         ]
     },
