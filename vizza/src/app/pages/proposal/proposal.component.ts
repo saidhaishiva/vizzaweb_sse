@@ -405,7 +405,6 @@ export class ProposalComponent implements OnInit {
 
 }
     public proposalSuccess( successData) {
-        console.log(successData);
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
@@ -436,7 +435,7 @@ export class ProposalComponent implements OnInit {
         const data = {
             'platform': 'web',
             'reference_id' :  this.summaryData.proposal_details[0].referenceId,
-            'proposal_id': '1',
+            'proposal_id': this.proposalId,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
         }
