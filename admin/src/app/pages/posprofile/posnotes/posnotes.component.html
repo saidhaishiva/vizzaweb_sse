@@ -1,15 +1,23 @@
+<div class="row mb-3" >
+  <!--<div class="col-sm-8 text-left">-->
+    <!--<h5 class="text-capitalize">{{data.title}}</h5>-->
+  <!--</div>-->
+  <div class="col-sm-12 text-right">
+    <i class="material-icons" style="cursor: pointer" (click)="onNoClick()">close</i>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
-<h1 mat-dialog-title>{{data.title}}</h1>
-<div mat-dialog-content >
-  <mat-form-field class="w-100">
-    <textarea matInput placeholder="{{data.title}}" rows="5" [(ngModel)]="notes"></textarea>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions class="float-right">
-  <button mat-raised-button color="primary" (click)="onNoClick()"  cdkFocusInitial>Ok</button>
-</div>
-</div>
+    <div mat-dialog-content >
+      <mat-form-field class="w-100">
+        <textarea matInput placeholder="{{data.title}}" rows="5" [(ngModel)]="notes"></textarea>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="float-right">
+      <button mat-raised-button color="primary" (click)="saveNotes()">Ok</button>
+    </div>
+  </div>
 </div>
 
 <div class="row mt-5" >
