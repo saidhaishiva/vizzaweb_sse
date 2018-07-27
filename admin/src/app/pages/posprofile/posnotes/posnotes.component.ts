@@ -37,16 +37,19 @@ export class PosnotesComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<PosnotesComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any, public appSettings: AppSettings, public auth: AuthService, public doctorservice: DoctorsService, ) {
-      this.title = data;
-      this.notes = '';
+        this.title = data;
         this.pageno = 1;
         this.recordsperpage = 5;
         this.totalNotes = 0;
         this.settings = this.appSettings.settings;
+        this.dialogRef.disableClose = true;
 
     }
     ngOnInit() {
       if (this.title.title == 'Notify') {
+      }
+      if (sessionStorage.notes != '' && sessionStorage.notes != undefined) {
+          this.notes = sessionStorage.notes;
       }
     }
     onNoClick(): void {
@@ -81,6 +84,11 @@ export class PosnotesComponent implements OnInit {
 
     onActivate(event) {
         console.log('Activate Event', event);
+    }
+    saveNotes() {
+        sessionStorage.notes = this.notes;
+        this.dialogRef.close({type: this.notes, title: this.title});
+
     }
 
 }

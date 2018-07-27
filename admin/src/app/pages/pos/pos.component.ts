@@ -88,156 +88,88 @@ export class PosComponent implements OnInit {
 
 
     }
-
     ngOnInit() {
-
-        this.setPage({offset: 0});
+        this.getPOSList('inactive');
     }
 
-    setPage(pageInfo) {
-        this.pageno = pageInfo.offset + 1;
-        this.pageOffSet = pageInfo.offset;
-        this.getPOSList()
-    }
-
-    getPOSList() {
+    getPOSList(value) {
         this.settings.loadingSpinner = true;
-        if (this.tabStatus == '0') {
-            this.tabValue = 'inactive';
-        } else if (this.tabStatus == '1') {
-            this.tabValue = 'active';
-        } else if (this.tabStatus == '2') {
-            this.tabValue = 'rejected';
-        } else {
-            this.tabValue = 'onhold';
-        }
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'status': this.POSStatus
+            'status': ''
         };
         this.common.getPOSList(data).subscribe(
             (successData) => {
-                this.getPOSListSuccess(successData);
+                this.getPOSListSuccess(successData, value);
             },
             (error) => {
                 this.getPOSListFailure(error);
             }
         );
     }
-
-    getPOSListSuccess(successData) {
+    getPOSListSuccess(successData, value) {
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
-            console.log(successData);
             let POS = [];
-            if (this.tabStatus == '0') {
-                this.pendingPOSList = successData.ResponseObject;
-                POS = [];
-                POS = this.pendingPOSList;
-                this.pendingPOSCount = successData.ResponseObject.length;
-                this.totalPOS = this.pendingPOSCount;
-
-            } else if (this.tabStatus == '1') {
-                this.approvedPOSList = successData.ResponseObject;
-                POS = [];
-                POS = this.approvedPOSList;
-                this.approvedPOSCount = successData.ResponseObject.length;
-                this.totalPOS = this.approvedPOSCount;
-
-            } else if (this.tabStatus == '2') {
-                this.rejectedPOSList = successData.ResponseObject;
-                POS = [];
-                POS = this.rejectedPOSList;
-                this.rejectedPOSCount = successData.ResponseObject.length;
-                this.totalPOS = this.rejectedPOSCount;
-            } else {
-                this.holdPOSList = successData.ResponseObject;
-                POS = [];
-                POS = this.holdPOSList;
-                this.holdPOSCount = successData.ResponseObject.length;
-                this.totalPOS = this.holdPOSCount;
+            if (value == 'inactive') {
+                for (let i =0; i < successData.ResponseObject.length; i++) {
+                    if (successData.ResponseObject[i].pos_status === '0') {
+                        POS.push(successData.ResponseObject[i]);
+                        this.temp = [...POS];
+                        this.rows = POS;
+                        this.totalPOS = successData.ResponseObject.length;
+                    }
+                }
+            } else if (value == 'active') {
+                for (let i =0; i < successData.ResponseObject.length; i++) {
+                    if (successData.ResponseObject[i].pos_status === '1') {
+                        POS.push(successData.ResponseObject[i]);
+                        this.temp = [...POS];
+                        this.rows = POS;
+                        this.totalPOS = successData.ResponseObject.length;
+                    }
+                }
+            } else if (value == 'rejected') {
+                for (let i =0; i < successData.ResponseObject.length; i++) {
+                    if (successData.ResponseObject[i].pos_status === '2') {
+                        POS.push(successData.ResponseObject[i]);
+                        this.temp = [...POS];
+                        this.rows = POS;
+                        this.totalPOS = successData.ResponseObject.length;
+                    }
+                }
+            } else if (value == 'onhold') {
+                for (let i =0; i < successData.ResponseObject.length; i++) {
+                    if (successData.ResponseObject[i].pos_status === '3') {
+                        POS.push(successData.ResponseObject[i]);
+                        this.temp = [...POS];
+                        this.rows = POS;
+                        this.totalPOS = successData.ResponseObject.length;
+                    }
+                }
             }
 
-            this.temp = [...POS];
-            this.rows = POS;
-            setTimeout(() => {
-                this.loadingIndicator = false;
-            }, 1500);
-        } else {
-            this.settings.loadingSpinner = false;
         }
     }
-
     getPOSListFailure(error) {
         console.log(error);
     }
-
     public tabChange(value) {
-        this.tabValue = value;
         console.log(value);
-        let POS = [];
-        if (value === 'inactive') {
-            this.POSStatus = '0';
-            if (this.pendingPOSList.length === 0) {
-                this.getPOSList();
-            } else {
-                POS = [];
-                this.totalPOS = this.pendingPOSCount;
-                console.log(this.pendingPOSList);
-                POS = this.pendingPOSList;
-                this.temp = [...POS];
-                this.rows = POS;
-                setTimeout(() => {
-                    this.loadingIndicator = false;
-                }, 1500);
-            }
-        } else if (value === 'active') {
-            this.POSStatus = '1';
-            if (this.approvedPOSList.length === 0) {
-                this.getPOSList();
-            } else {
-                POS = [];
-                this.totalPOS = this.approvedPOSCount;
-                POS = this.approvedPOSList;
-                this.temp = [...POS];
-                this.rows = POS;
-                setTimeout(() => {
-                    this.loadingIndicator = false;
-                }, 1500);
-            }
-        } else if (value === 'onhold') {
-            this.POSStatus = '3';
-            if (this.holdPOSList.length === 0) {
-                console.log(this.holdPOSList.length);
-                this.getPOSList();
-            } else {
-                console.log(this.holdPOSList);
-                POS = [];
-                this.totalPOS = this.holdPOSCount;
-                POS = this.holdPOSList;
-                this.temp = [...POS];
-                this.rows = POS;
-                setTimeout(() => {
-                    this.loadingIndicator = false;
-                }, 1500);
-            }
-        } else {
-            this.POSStatus = '2';
-            if (this.rejectedPOSList.length === 0) {
-                this.getPOSList();
-            } else {
-                POS = [];
-                this.totalPOS = this.rejectedPOSCount;
-                POS = this.rejectedPOSList;
-                this.temp = [...POS];
-                this.rows = POS;
-                setTimeout(() => {
-                    this.loadingIndicator = false;
-                }, 1500);
-            }
-        }
+        this.temp = [];
+        this.rows = [];
+        // if (value == 'inactive') {
+        //     this.getPOSList('inactive')
+        // } else if (value == 'active') {
+        //     this.getPOSList('active')
+        // } else if (value == 'rejected') {
+        //    this.getPOSList('rejected')
+        // } else if (value == 'onhold') {
+            this.getPOSList(value);
+        // }
+
     }
     POSProfile(id) {
         console.log(id, 'skfkhsdkfhdkf');
@@ -245,11 +177,13 @@ export class PosComponent implements OnInit {
         this.router.navigate(['/pos-profile/' + id + '/' + this.POSStatus]);
 
     }
-    public updateFilter(event) {
-        this.searchTag = event.target.value.toLowerCase();
-        this.loadingIndicator = true;
-        this.setPage({offset: 0});
-
+    updateFilter(event) {
+        const val = event.target.value.toLowerCase();
+        const temp = this.temp.filter(function(d) {
+            return d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        this.rows = temp;
+        this.table.offset = 0;
     }
 }
 

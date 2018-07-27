@@ -90,8 +90,6 @@ export class PosprofileComponent implements OnInit {
         this.zoom = 15;
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
-
-
       // this.settings.loadingSpinner = false;
       this.getPOSList();
       this.getFields();
@@ -110,7 +108,7 @@ export class PosprofileComponent implements OnInit {
         });
     }
     getPOSList() {
-        this.settings.loadingSpinner = true;
+        // this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
@@ -132,7 +130,7 @@ export class PosprofileComponent implements OnInit {
             this.response = successData.ResponseObject;
             if (successData.ResponseObject.length > 0) {
                 for (let i = 0; i < this.response.length; i++) {
-                    if (this.response[i].pos_status == this.posstatus) {
+                    if (this.response[i].pos_status == this.posstatus && this.response[i].pos_id == this.posid) {
                         this.posData = this.response[i];
                     }
                 }
@@ -179,12 +177,14 @@ export class PosprofileComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-
-            if (result.title === 'Notify') {
-                this.onlineVerificationMessage = result.type;
-            } if (result.title === 'Physical Comments') {
+            console.log(result);
+            if (result.title.title =='Notify') {
+                this.onlineVerificationNotes = result.type;
+            }
+            if (result.title.title == 'Physical Comments') {
                 this.physicalVerificationNotes = result.type;
-            } if (result.title === 'Online Comments') {
+            }
+            if (result.title.title == 'Online Comments') {
                 this.onlineVerificationNotes = result.type;
             }
 
@@ -265,6 +265,11 @@ export class PosprofileComponent implements OnInit {
     }
     rejectPOSSuccess(successData) {
         console.log(successData);
+        if (successData.IsSuccess) {
+            this.toastr.success('Doctor rejected successfully');
+            this.router.navigate(['/pos']);
+        }
+
     }
     rejectPOSFailure(error) {
         console.log(error);
@@ -277,8 +282,6 @@ export class PosprofileComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result == 'Yes') {
                 this.rejectPOS();
-                this.toastr.success('Doctor rejected successfully');
-                this.router.navigate(['/pos']);
 
             }
         });
@@ -288,7 +291,7 @@ export class PosprofileComponent implements OnInit {
 @Component({
     selector: 'rejectpos',
     template: `
-        <h1 mat-dialog-title>Reject POS</h1>
+        <!--<h1 mat-dialog-title>Reject POS</h1>-->
         <div mat-dialog-content>
             <label>Are you sure. Do you want to Reject?</label>
         </div>
