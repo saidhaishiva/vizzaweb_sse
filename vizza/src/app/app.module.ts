@@ -66,6 +66,7 @@ import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpasswor
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
 import { ChangepasswordComponent } from './pages/changepassword/changepassword.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { ChangepasswordComponent } from './pages/changepassword/changepassword.c
       ConfirmpasswordComponent,
       PosprofileComponent,
       EditposComponent,
-      ChangepasswordComponent
+      ChangepasswordComponent,
+      PaymentSuccessComponent
   ],
   providers: [
       AppSettings,
