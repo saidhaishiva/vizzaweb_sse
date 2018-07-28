@@ -449,6 +449,7 @@ export class ProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.proposalId = this.summaryData.proposal_id;
+            this.auth.setSessionData('proposalID',  this.proposalId );
             this.lastStepper.next();
 
         } else {
@@ -476,8 +477,8 @@ export class ProposalComponent implements OnInit {
             'platform': 'web',
             'reference_id' :  this.summaryData.proposal_details[0].referenceId,
             'proposal_id': this.proposalId,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getPolicyToken(data).subscribe(
             (successData) => {

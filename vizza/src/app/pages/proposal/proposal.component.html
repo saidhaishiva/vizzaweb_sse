@@ -14,7 +14,7 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3">
-                  <h6 class="color-green text-center">PROPOSER DETAILS</h6>
+                  <h6 class="color-green">PROPOSER DETAILS</h6>
                   <div class="row">
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="col-md-12 box-card pt-3">
-                  <h6 class="color-green text-center"> PROPOSER COMMUNICATION DETAILS</h6>
+                  <h6 class="color-green"> PROPOSER COMMUNICATION DETAILS</h6>
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
@@ -142,13 +142,13 @@
                     </mat-form-field></div>
 
 
-                  <div class="col-md-6"><mat-checkbox (change)="sameAddress($event)">Check me!</mat-checkbox></div>
+
                   </div>
                 </div>
                 <div class="col-md-12 box-card pt-3">
-                  <h6 class="color-green text-center">PROPOSER RESIDENCE DETAILS</h6>
+                  <h6 class="color-green">PROPOSER RESIDENCE DETAILS</h6>
                   <div class="row">
-
+                      <div class="col-md-12"><mat-checkbox (change)="sameAddress($event)">Check me!</mat-checkbox></div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
                         <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" ></textarea>
@@ -186,7 +186,7 @@
 
 
               <div class="col-md-12 p-3 box-card">
-                <h6 class="color-green text-center ">SOCIAL STATUS</h6>
+                <h6 class="color-green">SOCIAL STATUS</h6>
                 <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
                   <mat-radio-button value="true" [checked]="true" >NO</mat-radio-button>
@@ -249,7 +249,7 @@
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" >
                   <div class="col-md-12 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
-                    <h6 class="color-green text-center">INSURED DETAILS ({{item.type}})</h6>
+                    <h6 class="color-green">INSURED DETAILS ({{item.type}})</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
@@ -257,7 +257,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
+                        <input matInput [matDatepicker]="insureddob" [max]="today" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
@@ -351,7 +351,7 @@
                 <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
                   <div class="col-md-12 box-card pt-3" >
                     <span *ngFor="let nomineeadd of list.nominee">
-                    <h6 class="color-green text-center mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeAdd" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeRemove" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
+                    <h6 class="color-green mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeAdd" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeRemove" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
                     <div class="row"  >
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -373,7 +373,7 @@
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
                       </mat-form-field></div>
                     </div>
-                    <h6 class="color-green text-center mt-4" >APPOINTEE DETAILS</h6>
+                    <h6 class="color-green  mt-4" >APPOINTEE DETAILS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -456,7 +456,7 @@
           </div>
 
             <div class="col-md-6">
-              <h6 class="color-green text-center mt-3">SOCIAL STATUS</h6>
+              <h6 class="color-green  mt-3">SOCIAL STATUS</h6>
               <div class="row">
                 <div class="col-md-6">
                   <p>Please choose "Yes" if you are working in UnOrganized Sector</p>

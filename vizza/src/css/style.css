@@ -350,7 +350,7 @@ a:hover {
 .proposal .box-card {
   background: #f5f5f5;
   border-left: 5px solid #fff;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   position: relative; }
 
 .non-editable {
@@ -444,5 +444,32 @@ a:hover {
   .summary-details .summary-head span:last-child {
     color: #f16d0d;
     font-size: 20px; }
+
+.mt-viwe-profile .user-name {
+  font-size: 15px;
+  margin-bottom: 0; }
+.mt-viwe-profile .user-content .user-details .mat-icon {
+  padding: 0 !important;
+  margin-right: 10px; }
+.mt-viwe-profile .bg-primary {
+  background-color: #dcdcdc !important;
+  height: 40px;
+  color: #313131 !important; }
+.mt-viwe-profile p, .mt-viwe-profile label {
+  margin: 0; }
+
+.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  color: #ccc !important; }
+
+.success-message mat-card {
+  width: 500px;
+  border-radius: 10px; }
+.success-message img {
+  width: 100px;
+  margin-bottom: 15px; }
+.success-message h2 {
+  color: #0b9444; }
+.success-message .mat-raised-button.mat-primary {
+  background-color: #0b9444 !important; }
 
 /*# sourceMappingURL=style.css.map */
