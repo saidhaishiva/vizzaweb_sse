@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
+import {Settings} from '../../app.settings.model';
+import { AppSettings } from '../../app.settings';
+
 
 
 @Component({
@@ -13,10 +16,16 @@ export class PaymentSuccessComponent implements OnInit {
  public buyProductdetails: any;
  public purchastoken: any;
  public proposalid: any;
-  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public auth: AuthService) {
+ public settings: Settings;
+
+  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
       this.route.params.forEach((params) => {
           console.log(params.purchaseToken, 'tokennnnnnnnnnnnnnnnnnnnnnnnnnn');
           this.purchastoken = params.purchaseToken;
+          this.settings = this.appSettings.settings;
+          this.settings.HomeSidenavUserBlock = false;
+          this.settings.sidenavIsOpened = false;
+          this.settings.sidenavIsPinned = false;
       });
   }
 

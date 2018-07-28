@@ -609,6 +609,11 @@ background: #ccc !important;
   color:#ccc !important;
 }
 .success-message{
+  background: url('./assets/img/funky-lines.png');
+  background-repeat: repeat;
+  width: 100%;
+  padding: 11em 0;
+  height: 100%;
   mat-card{
     width: 500px;
     border-radius: 10px;
