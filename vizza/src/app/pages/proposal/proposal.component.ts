@@ -158,7 +158,7 @@ export class ProposalComponent implements OnInit {
     criticalIllness(values: any) {
       if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
-              width: '300px'
+              width: '600px'
           });
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
@@ -184,7 +184,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '';
+            this.familyMembers[i].ins_hospital_cash = '0';
             this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = '';
             this.familyMembers[i].ins_personal_accident_applicable = '';

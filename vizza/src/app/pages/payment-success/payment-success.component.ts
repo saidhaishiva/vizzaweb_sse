@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 
 
 
@@ -20,7 +21,7 @@ export class PaymentSuccessComponent implements OnInit {
  public settings: Settings;
  public purchaseStatus: any;
 
-  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -30,10 +31,10 @@ export class PaymentSuccessComponent implements OnInit {
 
   ngOnInit() {
       this.proposalid = sessionStorage.proposalId;
-      this.purchaseStatus();
+      this.setPurchaseStatus();
   }
 
-    purchaseStatus() {
+    setPurchaseStatus() {
         // const data = {
         //     'platform': 'web',
         //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -60,7 +61,6 @@ export class PaymentSuccessComponent implements OnInit {
     }
     public purchaseStatusSuccess(successData) {
        this.purchaseStatus = successData.ResponseObject;
-        //console.log(successData.ResponseObject);
     }
     public purchaseStatusFailure(error) {
         console.log(error);
@@ -68,6 +68,7 @@ export class PaymentSuccessComponent implements OnInit {
 
     DownloadPdf() {
         const data = {
+            'mail_status': '1',
             'proposal_id' : this.purchaseStatus.proposal_id,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -85,9 +86,43 @@ export class PaymentSuccessComponent implements OnInit {
     }
     public downloadPdfSuccess(successData) {
         console.log(successData.ResponseObject);
+        if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
+            this.downloadMessage();
+        }
     }
     public downloadPdfFailure(error) {
         console.log(error);
+    }
+
+    downloadMessage() {
+        const dialogRef = this.dialog.open(DownloadMessage, {
+            width: '400px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+
+}
+@Component({
+    selector: 'downloadmessage',
+    template: `<div mat-dialog-content class="text-center">
+        <label> Your policy is being prepared. A link has been shared to your registered emailID and Mobile number. </label>
+    </div>
+    <div mat-dialog-actions style="justify-content: center">
+        <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
+    </div>`,
+})
+export class DownloadMessage {
+
+    constructor(
+        public dialogRef: MatDialogRef<DownloadMessage>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }
