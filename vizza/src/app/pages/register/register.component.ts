@@ -41,21 +41,15 @@ export class RegisterComponent implements OnInit {
     fixed: boolean;
     range: boolean;
     header: boolean;
-    pdfpreview: boolean;
     public settings: Settings;
     checked: boolean;
-    pdfback: boolean;
     public fileUploadPath: any;
     getUrl: any;
-    imagepath: any;
     image: any;
     webhost: any;
-    defaultchecked: boolean;
     getUrl1: any;
     size: number;
     url: string;
-    subsequentError: string;
-    fromtoValueError: string;
     selectedtab: number;
     type: any;
     aadharfront: any;
@@ -66,8 +60,6 @@ export class RegisterComponent implements OnInit {
     dobError: any;
     today: any;
     mismatchError: any;
-    newps = true;
-    conps = true;
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
@@ -76,17 +68,8 @@ export class RegisterComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
-        this.fixed = false;
-        this.range = false;
-        this.subsequentError = '';
-        this.fromtoValueError = '';
         this.webhost = this.config.getimgUrl();
-        this.header = false;
-        this.pdfpreview = true;
-        this.pdfback = true;
-        this.defaultchecked = false;
         this.selectedtab = 0;
-        this.imagepath = '';
         this.today = new Date();
         this.dob = '';
         this.dobError = '';
