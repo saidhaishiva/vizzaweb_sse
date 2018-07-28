@@ -35,20 +35,20 @@ export class PaymentSuccessComponent implements OnInit {
   }
 
     setPurchaseStatus() {
-        // const data = {
-        //     'platform': 'web',
-        //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        //     'purchase_token' : this.purchasetoken,
-        //     'proposal_id' : this.proposalid
-        // }
         const data = {
-            "platform": "web",
-            "proposal_id": "14",
-            "purchase_token": "eb51645c48c65c63fa9ab0d5304c89d5",
-            "user_id": "0",
-            "role_id": "4"
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'purchase_token' : this.purchasetoken,
+            'proposal_id' : this.proposalid
         }
+        // const data = {
+        //     "platform": "web",
+        //     "proposal_id": "14",
+        //     "purchase_token": "eb51645c48c65c63fa9ab0d5304c89d5",
+        //     "user_id": "0",
+        //     "role_id": "4"
+        // }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
                 this. purchaseStatusSuccess(successData);
