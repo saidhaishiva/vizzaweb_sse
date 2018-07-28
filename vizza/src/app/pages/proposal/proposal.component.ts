@@ -9,6 +9,8 @@ import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Settings} from '../../app.settings.model';
+import { AppSettings } from '../../app.settings';
 
 @Component({
   selector: 'app-proposal',
@@ -44,7 +46,8 @@ export class ProposalComponent implements OnInit {
     public webhost: any;
     public proposalId: any;
     public illness: any;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService,
+    public settings: Settings;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog, public config: ConfigurationService,
               public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -55,6 +58,10 @@ export class ProposalComponent implements OnInit {
       this.nomineeRemove = true;
       this.declaration = false;
       this.illness = false;
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
       this.proposalId= 0;
@@ -136,6 +143,7 @@ export class ProposalComponent implements OnInit {
       // });
   }
     ngOnInit() {
+
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
@@ -309,14 +317,18 @@ export class ProposalComponent implements OnInit {
                             this.proposal();
 
                         } else {
-                            this.toastr.error('Please fill the empty fields', key);
+                            if (i == this.nomineeDate[index].nominee.length - 1) {
+                                this.toastr.error('Please fill the empty fields', key);
+                            }
                         }
                     } else {
                         this.proposal();
 
                     }
                 } else {
-                    this.toastr.error('Please fill the empty fields', key);
+                    if (i == this.nomineeDate[index].nominee.length - 1) {
+                        this.toastr.error('Please fill the empty fields', key);
+                    }
                 }
 
             }
@@ -449,6 +461,7 @@ export class ProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.proposalId = this.summaryData.proposal_id;
+            this.auth.setSessionData('proposalID',  this.proposalId );
             this.lastStepper.next();
 
         } else {
@@ -476,8 +489,8 @@ export class ProposalComponent implements OnInit {
             'platform': 'web',
             'reference_id' :  this.summaryData.proposal_details[0].referenceId,
             'proposal_id': this.proposalId,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : "0",
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : "4"
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getPolicyToken(data).subscribe(
             (successData) => {
