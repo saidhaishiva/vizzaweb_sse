@@ -59,7 +59,7 @@
 
                                      <mat-card class="mt-viwe-profile">
                                          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                                             <h3 class="user-name"><span>{{row.pos_firstname}} {{row.pos_lastname}}</span></h3>
+                                             <h3 class="user-name" (click)="POSProfile(row.pos_id)" style="cursor: pointer"><span>{{row.pos_firstname}} {{row.pos_lastname}}</span></h3>
                                              <!--<button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">-->
                                                  <!--<mat-icon>more_vert</mat-icon>-->
                                              <!--</button>-->
