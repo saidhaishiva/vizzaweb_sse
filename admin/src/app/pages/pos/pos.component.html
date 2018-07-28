@@ -17,8 +17,12 @@
           </mat-button-toggle-group>
       </div>
       <div class="col-md-6 text-right">
-          <button mat-raised-button color="primary"  >
-              Add POS
+          <button mat-raised-button color="primary"  [routerLink]="['/addpos']">
+              <i class="material-icons">
+                  add
+              </i>
+
+               Add POS
           </button>
       </div>
   </div>

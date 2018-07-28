@@ -7,8 +7,8 @@ import { ConfigurationService} from '../../shared/services/configuration.service
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../shared/services/login.service';
 import { Router } from '@angular/router';
-import {Settings} from '../../../../../vizza/src/app/app.settings.model';
-
+import { Settings} from '../../app.settings.model';
+import { AppSettings} from '../../app.settings';
 
 @Component({
     selector: 'app-addpos',
@@ -41,8 +41,8 @@ export class AddposComponent implements OnInit {
     today: any;
     mismatchError: any;
     constructor(public config: ConfigurationService,
-                public fb: FormBuilder,public router: Router, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
-
+                public fb: FormBuilder,public router: Router, public appSettings: AppSettings,public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+        this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         this.selectedtab = 0;
         this.today = new Date();
@@ -177,6 +177,7 @@ export class AddposComponent implements OnInit {
                 "pos_education": this.form.value['education']['qualification'],
                 "pos_education_doc_img": this.education
             };
+            console.log(data);
             this.settings.loadingSpinner = true;
             this.login.RegisterPos(data).subscribe(
                 (successData) => {
@@ -190,12 +191,14 @@ export class AddposComponent implements OnInit {
     }
     RegisterPosSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false
         if (successData.IsSuccess) {
-            // this.router.navigate(['/login']);
             this.toastr.success('Registration Completed', 'Success!!!');
+            this.router.navigate(['/pos']);
         }
     }
     RegisterPosFailure(error) {
+        this.settings.loadingSpinner = false
         console.log(error);
     }
     checkGender() {
