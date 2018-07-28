@@ -18,6 +18,7 @@ export class PaymentSuccessComponent implements OnInit {
  public purchasetoken: any;
  public proposalid: any;
  public settings: Settings;
+ public purchaseStatus: any;
 
   constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
@@ -33,20 +34,20 @@ export class PaymentSuccessComponent implements OnInit {
   }
 
     purchaseStatus() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'purchase_token' : this.purchasetoken,
-            'proposal_id' : this.proposalid
-        }
         // const data = {
-        //     "platform": "web",
-        //     "proposal_id": "8",
-        //     "purchase_token": "0d8c690510384d4f842d84defd34075c",
-        //     "user_id": "0",
-        //     "role_id": "4"
+        //     'platform': 'web',
+        //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        //     'purchase_token' : this.purchasetoken,
+        //     'proposal_id' : this.proposalid
         // }
+        const data = {
+            "platform": "web",
+            "proposal_id": "14",
+            "purchase_token": "eb51645c48c65c63fa9ab0d5304c89d5",
+            "user_id": "0",
+            "role_id": "4"
+        }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
                 this. purchaseStatusSuccess(successData);
@@ -58,7 +59,8 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public purchaseStatusSuccess(successData) {
-        console.log(successData.ResponseObject);
+       this.purchaseStatus = successData.ResponseObject;
+        //console.log(successData.ResponseObject);
     }
     public purchaseStatusFailure(error) {
         console.log(error);
@@ -66,7 +68,7 @@ export class PaymentSuccessComponent implements OnInit {
 
     DownloadPdf() {
         const data = {
-            'proposal_id' : this.proposalid,
+            'proposal_id' : this.purchaseStatus.proposal_id,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
