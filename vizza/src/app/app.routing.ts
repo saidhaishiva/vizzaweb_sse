@@ -52,7 +52,7 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
-            { path: 'paymentSuccess/:purchaseToken', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
+            { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
 
         ]
     },

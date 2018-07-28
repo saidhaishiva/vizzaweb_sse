@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
@@ -14,48 +15,52 @@ import { AppSettings } from '../../app.settings';
 })
 export class PaymentSuccessComponent implements OnInit {
  public buyProductdetails: any;
- public purchastoken: any;
+ public purchasetoken: any;
  public proposalid: any;
  public settings: Settings;
 
   constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
-      this.route.params.forEach((params) => {
-          console.log(params.purchaseToken, 'tokennnnnnnnnnnnnnnnnnnnnnnnnnn');
-          this.purchastoken = params.purchaseToken;
-          this.settings = this.appSettings.settings;
-          this.settings.HomeSidenavUserBlock = false;
-          this.settings.sidenavIsOpened = false;
-          this.settings.sidenavIsPinned = false;
-      });
+      this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
   }
 
   ngOnInit() {
       this.proposalid = sessionStorage.proposalId;
-      this.purchaceStatus();
+      this.purchaseStatus();
   }
 
-    purchaceStatus() {
+    purchaseStatus() {
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'purchas_token' : this.purchastoken,
+            'purchase_token' : this.purchasetoken,
             'proposal_id' : this.proposalid
         }
+        // const data = {
+        //     "platform": "web",
+        //     "proposal_id": "8",
+        //     "purchase_token": "0d8c690510384d4f842d84defd34075c",
+        //     "user_id": "0",
+        //     "role_id": "4"
+        // }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
-                this. purchaceStatusSuccess(successData);
+                this. purchaseStatusSuccess(successData);
             },
             (error) => {
-                this.purchaceStatusFailure(error);
+                this.purchaseStatusFailure(error);
             }
         );
 
     }
-    public purchaceStatusSuccess(successData) {
+    public purchaseStatusSuccess(successData) {
         console.log(successData.ResponseObject);
     }
-    public purchaceStatusFailure(error) {
+    public purchaseStatusFailure(error) {
         console.log(error);
     }
 
