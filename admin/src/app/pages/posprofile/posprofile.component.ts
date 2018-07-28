@@ -53,7 +53,13 @@ export class PosprofileComponent implements OnInit {
     public doctor: Array<any>;
     public doctorExperience: Array<any>;
     response: any;
+    documentslist: any;
+    notesList: any;
     posData: any;
+    comments: string;
+    notes: string;
+    rows = [];
+    temp = [];
 
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
@@ -93,6 +99,7 @@ export class PosprofileComponent implements OnInit {
       // this.settings.loadingSpinner = false;
       this.getPOSList();
       this.getFields();
+      this.getNotify();
 
   }
 
@@ -113,7 +120,8 @@ export class PosprofileComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'status': this.posstatus
+            'status': this.posstatus,
+            'pos_id': this.posid
         };
         this.common.getPOSList(data).subscribe(
             (successData) => {
@@ -149,6 +157,8 @@ export class PosprofileComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
+            'pos_id': this.posid
+
         }
         this.common.getFields(data).subscribe(
             (successData) => {
@@ -162,7 +172,16 @@ export class PosprofileComponent implements OnInit {
     getFieldsSuccess(successData) {
         console.log(successData, 'filedlistsss');
         if (successData.IsSuccess) {
-            this.online = successData.ResponseObject;
+            this.documentslist = successData.ResponseObject;
+            for (let i = 0; i < this.documentslist.length; i++) {
+                if (this.documentslist[i].doc_verified_status == "0") {
+                    this.documentslist[i].checked = false;
+                } else  if (this.documentslist[i].doc_verified_status == "1") {
+                    this.documentslist[i].checked = true;
+                }
+            }
+            console.log(this.documentslist);
+
         }
     }
     getFieldsFailure(error) {
@@ -207,30 +226,42 @@ export class PosprofileComponent implements OnInit {
                 // });
             // }
         }
-        const data = {
-            'platform': 'web',
-            'role_id': this.auth.getAdminRoleId(),
-            'admin_id':  this.auth.getAdminId(),
-            'fields': this.field,
-            'online_verification_notes': this.onlineVerificationNotes,
-            'online_verification_message': this.onlineVerificationMessage,
-            'pos_id': this.posid
-        };
-        this.common.updateVerification(data).subscribe(
-            (successData) => {
-                this.verificationSuccess(successData);
-            },
-            (error) => {
-                this.verificationFailure(error);
-            }
-        );
+        if (this.notes != '' && this.notes != undefined) {
+            const data = {
+                'platform': 'web',
+                'role_id': this.auth.getAdminRoleId(),
+                'admin_id':  this.auth.getAdminId(),
+                'fields': this.field,
+                'online_verification_notes': this.notes,
+                'online_verification_message': this.comments,
+                'pos_id': this.posid
+            };
+            this.settings.loadingSpinner = true;
+            this.common.updateVerification(data).subscribe(
+                (successData) => {
+                    this.verificationSuccess(successData);
+                },
+                (error) => {
+                    this.verificationFailure(error);
+                }
+            );
+        } else {
+            this.toastr.error('Please enter notes');
+        }
+
     }
 
     verificationSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success('Verification successfully');
+        }
+
     }
     verificationFailure(error) {
     console.log(error);
+        this.settings.loadingSpinner = false;
     }
     onSelectedIndexChange(newTabIndex) {
         this.currentTap = newTabIndex;
@@ -245,15 +276,52 @@ export class PosprofileComponent implements OnInit {
     updateVerificationFailure(error) {
         console.log(error);
     }
+
+    getNotify() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+            'pos_id': this.posid,
+            'message_type': 'notes'
+
+        }
+        this.common.getNotes(data).subscribe(
+            (successData) => {
+                this.getNotifySuccess(successData);
+            },
+            (error) => {
+                this.getNotifyFailure(error);
+            }
+        );
+    }
+    getNotifySuccess(successData) {
+        console.log(successData, 'filedlistsss');
+        if (successData.IsSuccess) {
+            this.notesList = successData.ResponseObject;
+            this.rows =  this.notesList;
+
+            console.log(this.notesList);
+
+        }
+    }
+    getNotifyFailure(error) {
+        console.log(error);
+    }
+
+
+
+
     rejectPOS() {
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id':  this.auth.getAdminId(),
-            'online_verification_notes': this.onlineVerificationNotes,
-            'online_verification_message': this.onlineVerificationMessage,
+            'online_verification_notes': this.notes,
+            'online_verification_message': this.comments,
             'pos_id': this.posid
         };
+        this.settings.loadingSpinner = true;
         this.common.rejectPOS(data).subscribe(
             (successData) => {
                 this.rejectPOSSuccess(successData);
@@ -265,6 +333,7 @@ export class PosprofileComponent implements OnInit {
     }
     rejectPOSSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Doctor rejected successfully');
             this.router.navigate(['/pos']);
@@ -273,6 +342,7 @@ export class PosprofileComponent implements OnInit {
     }
     rejectPOSFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
     }
     rejectConfirm() {
         const dialogRef = this.dialog.open(RejectPOS, {

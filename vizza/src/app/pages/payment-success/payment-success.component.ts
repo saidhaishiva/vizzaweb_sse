@@ -64,4 +64,28 @@ export class PaymentSuccessComponent implements OnInit {
         console.log(error);
     }
 
+    DownloadPdf() {
+        const data = {
+            'proposal_id' : this.proposalid,
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        }
+        this.proposalservice.getDownloadPdf(data).subscribe(
+            (successData) => {
+                this.downloadPdfSuccess(successData);
+            },
+            (error) => {
+                this.downloadPdfFailure(error);
+            }
+        );
+
+    }
+    public downloadPdfSuccess(successData) {
+        console.log(successData.ResponseObject);
+    }
+    public downloadPdfFailure(error) {
+        console.log(error);
+    }
+
 }

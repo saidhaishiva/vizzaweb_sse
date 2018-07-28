@@ -10,6 +10,31 @@
                                   <!--class="rounded-circle">-->
                             <h4 class="user-name mt-2">{{posData.pos_firstname}} {{posData.pos_lastname}}</h4>
 
+                            <div class="container personaldetails mt-3">
+                                <p fxLayout="row" fxLayoutAlign="start center">
+                                    <span>Qualifications :</span>
+                                    <span>{{posData.doc_education}}</span>
+                                </p>
+                                <p fxLayout="row" fxLayoutAlign="start center">
+                                    <span>Phone :</span>
+                                    <span>{{posData.pos_mobileno}}</span>
+                                </p>
+                                <p fxLayout="row" fxLayoutAlign="start center">
+                                    <span>Email :</span>
+                                    <span>{{posData.pos_email}}</span>
+                                </p>
+                                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--<span *ngIf="registrationDetails.length > 0">>Registration:</span>-->
+                                <!--<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>-->
+                                <!--</p>-->
+                                <p fxLayout="row" fxLayoutAlign="start center">
+                                    <span>Address :</span>
+                                    <span class="text-capitalize">{{posData.pos_address1}}<span
+                                            [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span
+                                            [hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>
+                                </p>
+                            </div>
+
                         </div>
                         <!--<div class="card-footer">-->
                         <!--<span class="float-left">-->
@@ -22,36 +47,35 @@
                             <!--<span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>-->
                         <!--</div>-->
                     </div>
-                    <div class="col-md-12">
-                        <div class=" personaldetails mt-3">
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Qualifications:</span>
-                                <span>{{posData.doc_education}}</span>
-                            </p>
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Phone:</span>
-                                <span>{{posData.pos_mobileno}}</span>
-                            </p>
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Email:</span>
-                                <span>{{posData.pos_email}}</span>
-                            </p>
+                    <!--<div class="col-md-12">-->
+                        <!--<div class=" personaldetails mt-3">-->
                             <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span *ngIf="registrationDetails.length > 0">>Registration:</span>-->
-                                <!--<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>-->
+                                <!--<span>Qualifications:</span>-->
+                                <!--<span>{{posData.doc_education}}</span>-->
                             <!--</p>-->
-                            <p fxLayout="row" fxLayoutAlign="start center">
-                                <span>Address:</span>
-                                <span class="text-capitalize">{{posData.pos_address1}}<span
-                                        [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span
-                                        [hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>
-                            </p>
-                            <hr>
-                        </div>
-                    </div>
+                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--<span>Phone:</span>-->
+                                <!--<span>{{posData.pos_mobileno}}</span>-->
+                            <!--</p>-->
+                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--<span>Email:</span>-->
+                                <!--<span>{{posData.pos_email}}</span>-->
+                            <!--</p>-->
+                            <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span *ngIf="registrationDetails.length > 0">>Registration:</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--<span>Address:</span>-->
+                                <!--<span class="text-capitalize">{{posData.pos_address1}}<span-->
+                                        <!--[hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span-->
+                                        <!--[hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>-->
+                            <!--</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
-            <div class="col-md-6 pt-2" style="background: #f5f5f5">
+            <div class="col-md-6 pt-2" >
                 <mat-tab-group #tabGroup [selectedIndex]="tabIndex"
                                (selectedIndexChange)="onSelectedIndexChange($event)">
                     <!--<mat-tab label="Physical verification">-->
@@ -67,7 +91,7 @@
                     <mat-tab label="Verification">
                         <div class="p-5 pt-2">
                             <div class="row">
-                                <div class="col-md-6" *ngFor="let item of online">
+                                <div class="col-md-6" *ngFor="let item of documentslist">
                                     <mat-checkbox [(ngModel)]="item.checked" >{{item.doc_field_name}}</mat-checkbox>
                                 </div>
                             </div>
@@ -75,17 +99,33 @@
                     </mat-tab>
 
                 </mat-tab-group>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div mat-dialog-content >
+                            <mat-form-field class="w-100">
+                                <textarea matInput placeholder="Notify" rows="4" [(ngModel)]="notes"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div mat-dialog-content >
+                            <mat-form-field class="w-100">
+                                <textarea matInput placeholder="Comments" rows="4" [(ngModel)]="comments"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="col-md-12 mt-4">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <button mat-raised-button color="primary-notess" style="background-color: #e8a662!important; color:white" (click)="getNotes('Notify')">Notify
-                            </button>
+                            <!--<button mat-raised-button color="primary-notess" style="background-color: #e8a662!important; color:white" (click)="getNotes('Notify')">Notify-->
+                            <!--</button>-->
                             <!--<button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"-->
                                     <!--(click)="getNotes('Physical Comments')">Comments-->
                             <!--</button>-->
-                            <button mat-raised-button color="primary"
-                                    (click)="getNotes('Online Comments')">Comments
-                            </button>
+                            <!--<button mat-raised-button color="primary"-->
+                                    <!--(click)="getNotes('Online Comments')">Comments-->
+                            <!--</button>-->
                         </div>
                         <div class="col-md-6 text-right">
                             <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
@@ -93,7 +133,7 @@
                             </button>
                             <button mat-raised-button color="primary" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
                         </div>
-                    </div>
+                    </div><br>
                 </div>
             </div>
 
@@ -162,6 +202,41 @@
 
     </mat-accordion>
 
+</div>
+
+<div class="row mt-5" >
+    <div class="col-md-12" >
+        <div fxLayout="column">
+            <div class="flex-p">
+                <ngx-datatable
+                        class="material"
+                        [rows]="rows"
+                        [columnMode]="'force'"
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [externalPaging]="true"
+                        [count]="totalNotes"
+                        [offset]="pageOffSet"
+                        [limit]="recordsperpage"
+                        (page)='setPage($event)'>
+
+                    <ngx-datatable-column name="createddate">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="note">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
