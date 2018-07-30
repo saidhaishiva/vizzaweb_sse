@@ -12,11 +12,33 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
+
+
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
-  styleUrls: ['./proposal.component.scss']
+  styleUrls: ['./proposal.component.scss'],
+    providers: [
+
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 export class ProposalComponent implements OnInit {
     public personal: FormGroup;
@@ -76,7 +98,7 @@ export class ProposalComponent implements OnInit {
       this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
-      this.proposalId= 0;
+      this.proposalId = 0;
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
