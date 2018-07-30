@@ -54,11 +54,13 @@ export class PosprofileComponent implements OnInit {
     public doctorExperience: Array<any>;
     response: any;
     documentslist: any;
-    notesList: any;
+    notesListCount: any;
+    commentsListCount: any;
     posData: any;
     comments: string;
     notes: string;
     rows = [];
+    rows1 = [];
     temp = [];
 
 
@@ -100,6 +102,7 @@ export class PosprofileComponent implements OnInit {
       this.getPOSList();
       this.getFields();
       this.getNotify();
+      this.getComments();
 
   }
 
@@ -282,7 +285,7 @@ export class PosprofileComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'pos_id': this.posid,
+            'pos_id': '4',
             'message_type': 'notes'
 
         }
@@ -298,14 +301,43 @@ export class PosprofileComponent implements OnInit {
     getNotifySuccess(successData) {
         console.log(successData, 'filedlistsss');
         if (successData.IsSuccess) {
-            this.notesList = successData.ResponseObject;
-            this.rows =  this.notesList;
+            this.notesListCount = successData.ResponseObject.length;
+            this.rows =  successData.ResponseObject;
 
-            console.log(this.notesList);
+            console.log(this.notesListCount);
 
         }
     }
     getNotifyFailure(error) {
+        console.log(error);
+    }
+
+    getComments() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+            'pos_id': '4',
+            'message_type': 'comments'
+
+        }
+        this.common.getNotes(data).subscribe(
+            (successData) => {
+                this.getCommentSuccess(successData);
+            },
+            (error) => {
+                this.getCommentFailure(error);
+            }
+        );
+    }
+    getCommentSuccess(successData) {
+        console.log(successData, 'filedlistsss');
+        if (successData.IsSuccess) {
+            this.commentsListCount = successData.ResponseObject.length;
+            this.rows1 =  successData.ResponseObject;
+        }
+    }
+    getCommentFailure(error) {
         console.log(error);
     }
 

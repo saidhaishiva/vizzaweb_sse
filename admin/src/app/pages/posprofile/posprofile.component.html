@@ -204,41 +204,78 @@
 
 </div>
 
-<div class="row mt-5" >
-    <div class="col-md-12" >
-        <div fxLayout="column">
-            <div class="flex-p">
-                <ngx-datatable
-                        class="material"
-                        [rows]="rows"
-                        [columnMode]="'force'"
-                        [headerHeight]="50"
-                        [footerHeight]="50"
-                        [rowHeight]="'auto'"
-                        [externalPaging]="true"
-                        [count]="totalNotes"
-                        [offset]="pageOffSet"
-                        [limit]="recordsperpage"
-                        (page)='setPage($event)'>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row mt-5" >
+            <div class="col-md-12" >
+                <div fxLayout="column">
+                    <div class="flex-p">
+                        <ngx-datatable
+                                class="material"
+                                [rows]="rows"
+                                [columnMode]="'force'"
+                                [headerHeight]="50"
+                                [footerHeight]="50"
+                                [rowHeight]="'auto'"
+                                [externalPaging]="true"
+                                [count]="notesListCount"
+                                [offset]="pageOffSet"
+                                (page)='setPage($event)'>
 
-                    <ngx-datatable-column name="createddate">
-                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                            {{value}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="note">
-                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                            {{value}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                </ngx-datatable>
+                            <ngx-datatable-column name="S.No">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    {{rowIndex +1}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Notify">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                    {{value}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row mt-5" >
+            <div class="col-md-12" >
+                <div fxLayout="column">
+                    <div class="flex-p">
+                        <ngx-datatable
+                                class="material"
+                                [rows]="rows1"
+                                [columnMode]="'force'"
+                                [headerHeight]="50"
+                                [footerHeight]="50"
+                                [rowHeight]="'auto'"
+                                [externalPaging]="true"
+                                [count]="commentsListCount"
+                                [offset]="pageOffSet"
+                                (page)='setPage($event)'>
+
+                            <ngx-datatable-column name="S.No">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    {{rowIndex +1}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Comments">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                    {{value}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+
+                    </div>
+                </div>
 
             </div>
         </div>
 
     </div>
 </div>
-
-
-
 
