@@ -226,15 +226,15 @@
                   <div class="col-md-6 ">
                     <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
-                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
                     <p>Please choose "Yes" if you are working in informal Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer2" >
-                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                 </div>
@@ -243,15 +243,15 @@
                   <div class="col-md-6 ">
                     <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer3" >
-                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
                     <p>Please choose “Yes” if you are Other Categories of Persons</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
-                      <mat-button-toggle value="1" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
+                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                 </div>
@@ -393,11 +393,7 @@
                       </mat-form-field></div>
 
                        <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
-                          <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_name}}" required>
-                            {{relationship.relationship_name}}
-                          </mat-option>
-                        </mat-select>
+                          <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
                     </mat-form-field></div>
                       <div class="col-md-2"><mat-form-field class="w-100">
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
@@ -414,11 +410,7 @@
                         <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18" >
                       </mat-form-field></div>
                        <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
-                          <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_name}}" required>
-                            {{relationship.relationship_name}}
-                          </mat-option>
-                        </mat-select>
+                            <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
                     </mat-form-field></div>
                     </div>
                     </span>

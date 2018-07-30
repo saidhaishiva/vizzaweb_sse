@@ -81,6 +81,7 @@ export class ProposalComponent implements OnInit {
     public rAreaNames: any;
     public rAreaName: any;
     public rResponse: any;
+    public socialNo: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
@@ -91,6 +92,7 @@ export class ProposalComponent implements OnInit {
       this.nomineeAdd = false;
       this.nomineeRemove = true;
       this.declaration = false;
+      //this.socialNo = true;
       this.illness = false;
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -194,7 +196,7 @@ export class ProposalComponent implements OnInit {
     criticalIllness(values: any) {
       if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
-              width: '600px'
+              width: '500px'
           });
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
@@ -206,6 +208,11 @@ export class ProposalComponent implements OnInit {
     }
     cgangeSocialStatus(result) {
       this.socialStatus = this.personal.controls['socialStatus'].value;
+      if (result == 'false') {
+          this.socialNo = false;
+      } else {
+          this.socialNo = '';
+      }
     }
     groupList() {
       this.familyMembers = this.getFamilyDetails.family_members;
@@ -266,7 +273,7 @@ export class ProposalComponent implements OnInit {
       } else if (this.nomineeDate[0].nominee.length == 1){
           this.nomineeAdd = false;
           this.nomineeRemove = true;
-      } else{
+      } else {
           this.nomineeAdd = false;
 
       }
@@ -411,7 +418,7 @@ export class ProposalComponent implements OnInit {
     }
 
 
-    getCityId( title) {
+    getCityId(title) {
       this.cityTitle = title;
         const data = {
             'platform': 'web',
@@ -516,13 +523,13 @@ export class ProposalComponent implements OnInit {
               'proposer_alternate_mobile': this.personalData.personalAltnumber,
               'proposer_res_address1': this.personalData.residenceAddress,
               'proposer_res_address2': this.personalData.residenceAddress2,
-              'proposer_res_area': this.personalData.personalFirstname,
+              'proposer_res_area': this.personalData.residenceArea,
               'proposer_res_city': this.personalData.residenceCity,
               'proposer_res_state': this.personalData.residenceState,
               'proposer_res_pincode': this.personalData.residencePincode,
               'proposer_comm_address1': this.personalData.personalAddress,
               'proposer_comm_address2': this.personalData.personalAddress2,
-              'proposer_comm_area': this.personalData.personalCity,
+              'proposer_comm_area': this.personalData.personalArea,
               'proposer_comm_city': this.personalData.personalCity,
               'proposer_comm_state': this.personalData.personalState,
               'proposer_comm_pincode': this.personalData.personalPincode,
