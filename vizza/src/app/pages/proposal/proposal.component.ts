@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-proposal',
@@ -47,8 +48,19 @@ export class ProposalComponent implements OnInit {
     public proposalId: any;
     public illness: any;
     public settings: Settings;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog, public config: ConfigurationService,
-              public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
+    public pin: any;
+    public response: any;
+    public personalCitys: any;
+    public areaName: any;
+    public areaNames: any;
+    public title: any;
+    public residenceCitys: any;
+    public cityTitle: any;
+    public rAreaNames: any;
+    public rAreaName: any;
+    public rResponse: any;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+              public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.illnessCheck = false;
@@ -72,6 +84,8 @@ export class ProposalComponent implements OnInit {
           personalDob: ['', Validators.required],
           personalOccupation: ['', Validators.required],
           personalIncome: ['', Validators.required],
+          personalArea: ['', Validators.required],
+          residenceArea: '',
           personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
           personalPan: ['', Validators.compose([ Validators.minLength(10)])],
           personalGst: ['', Validators.compose([ Validators.minLength(15)])],
@@ -249,8 +263,6 @@ export class ProposalComponent implements OnInit {
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-
-        console.log( this.familyMembers, 'poppppppppppppppppppppppsdgdf');
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++ ) {
                 if (this.familyMembers[i].ins_name != '' &&
@@ -299,7 +311,6 @@ export class ProposalComponent implements OnInit {
                 }
             }
         }
-        console.log( this.familyMembers, 'popppppppppppppppppppppp');
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
@@ -333,7 +344,85 @@ export class ProposalComponent implements OnInit {
 
             }
         }
+        console.log(this.nomineeDate, 'this.nomineeDate');
     }
+
+
+    getPostal(pin, title) {
+        this.pin = pin;
+        this.title = title;
+
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPostal(data).subscribe(
+                (successData) => {
+                    this.getpostalSuccess(successData);
+                },
+                (error) => {
+                    this.getpostalFailure(error);
+                }
+            );
+        }
+    }
+    public getpostalSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            console.log(this.title, 'titleeeeeeeeeeeeeee')
+            if (this.title == 'personal') {
+                this.response = successData.ResponseObject;
+                this.personal.controls['personalState'].setValue(this.response.state_name);
+                this.personalCitys = this.response.city;
+            } else if (this.title == 'residence') {
+                this.rResponse = successData.ResponseObject;
+                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
+                this.residenceCitys = this.rResponse.city;
+            }
+
+
+        }
+    }
+
+    public getpostalFailure(error) {
+        console.log(error);
+    }
+
+
+    getCityId( title) {
+      this.cityTitle = title;
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin,
+            'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
+        }
+
+            this.common.getArea(data).subscribe(
+                (successData) => {
+                    this.getCitySuccess(successData);
+                },
+                (error) => {
+                    this.getCityFailure(error);
+                }
+            );
+    }
+    public getCitySuccess(successData) {
+        if (successData.IsSuccess == true) {
+            if (this.cityTitle == 'personal') {
+                this.areaNames = successData.ResponseObject;
+                this.areaName = this.areaNames.area;
+            } else if (this.cityTitle == 'residence') {
+                this.rAreaNames = successData.ResponseObject;
+                this.rAreaName = this.rAreaNames.area;
+            }
+        }
+    }
+
+    public getCityFailure(error) {
+        console.log(error);
+    }
+
+
     illnessStatus(values: any, index) {
         if (values.checked) {
             this.familyMembers[index].ins_illness = '';
@@ -345,19 +434,22 @@ export class ProposalComponent implements OnInit {
         }
 
 }
-    sameAddress(values: any){
+    sameAddress(values: any) {
+      console.log(this.personal.controls['personalCity'].value);
       if (values.checked) {
           this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
           this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
           this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
           this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
           this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+          this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
       } else {
           this.personal.controls['residenceAddress'].setValue('');
           this.personal.controls['residenceAddress2'].setValue('');
           this.personal.controls['residenceCity'].setValue('');
           this.personal.controls['residencePincode'].setValue('');
           this.personal.controls['residenceState'].setValue('');
+          this.personal.controls['residenceArea'].setValue('');
       }
 
     }
@@ -523,8 +615,8 @@ export class ProposalComponent implements OnInit {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
-            'user_id': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getOccupationList(data).subscribe(
             (successData) => {
@@ -548,8 +640,8 @@ export class ProposalComponent implements OnInit {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
-            'user_id': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getRelationshipList(data).subscribe(
             (successData) => {
