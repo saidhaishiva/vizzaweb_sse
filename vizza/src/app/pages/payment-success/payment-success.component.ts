@@ -30,8 +30,9 @@ export class PaymentSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.proposalid = sessionStorage.proposalId;
+      this.proposalid = sessionStorage.proposalID;
       this.setPurchaseStatus();
+      console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
 
     setPurchaseStatus() {
