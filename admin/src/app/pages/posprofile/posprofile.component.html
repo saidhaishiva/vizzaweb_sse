@@ -8,30 +8,32 @@
                             <img  src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
                             <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
                                   <!--class="rounded-circle">-->
-                            <h4 class="user-name mt-2">{{posData.pos_firstname}} {{posData.pos_lastname}}</h4>
+                            <h4 class="mt-2">{{posData.pos_firstname}} {{posData.pos_lastname}}</h4>
 
-                            <div class="container personaldetails mt-3">
+                            <div class="container personaldetails ">
                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                    <span>Qualifications :</span>
-                                    <span>{{posData.doc_education}}</span>
+
+                                    <i class="material-icons user-name" >school</i>  <strong class="user-name">Qualifications : </strong>
+                                    <span> {{posData.doc_education | titlecase}}</span>
                                 </p>
                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                    <span>Phone :</span>
-                                    <span>{{posData.pos_mobileno}}</span>
+                                    <i class="material-icons user-name">phone</i>  <strong class="user-name">Phone : </strong>
+                                    <span> {{posData.pos_mobileno}}</span>
                                 </p>
                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                    <span>Email :</span>
-                                    <span>{{posData.pos_email}}</span>
+                                    <i class="material-icons user-name">mail</i>  <strong class="user-name">Email : </strong>
+                                    <span > {{posData.pos_email}}</span>
                                 </p>
                                 <!--<p fxLayout="row" fxLayoutAlign="start center">-->
                                 <!--<span *ngIf="registrationDetails.length > 0">>Registration:</span>-->
                                 <!--<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>-->
                                 <!--</p>-->
                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                    <span>Address :</span>
-                                    <span class="text-capitalize">{{posData.pos_address1}}<span
+                                    <i class="material-icons user-name">location_on</i>  <strong class="user-name">Address : </strong>
+                                    <span class="text-capitalize" >{{posData.pos_address1}}<span
                                             [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span
-                                            [hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>
+                                            [hidden]="posData.pos_postalcode == ''"> -</span><span >{{posData.pos_postalcode}}</span>
+                                    </span>
                                 </p>
                             </div>
 
@@ -131,7 +133,7 @@
                             <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
                                 Reject
                             </button>
-                            <button mat-raised-button color="primary" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
+                            <button mat-raised-button color="primary" *ngIf="posstatus != 1" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
                         </div>
                     </div><br>
                 </div>
@@ -204,41 +206,78 @@
 
 </div>
 
-<div class="row mt-5" >
-    <div class="col-md-12" >
-        <div fxLayout="column">
-            <div class="flex-p">
-                <ngx-datatable
-                        class="material"
-                        [rows]="rows"
-                        [columnMode]="'force'"
-                        [headerHeight]="50"
-                        [footerHeight]="50"
-                        [rowHeight]="'auto'"
-                        [externalPaging]="true"
-                        [count]="totalNotes"
-                        [offset]="pageOffSet"
-                        [limit]="recordsperpage"
-                        (page)='setPage($event)'>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row mt-5" >
+            <div class="col-md-12" >
+                <div fxLayout="column">
+                    <div class="flex-p">
+                        <ngx-datatable
+                                class="material"
+                                [rows]="rows"
+                                [columnMode]="'force'"
+                                [headerHeight]="50"
+                                [footerHeight]="50"
+                                [rowHeight]="'auto'"
+                                [externalPaging]="true"
+                                [count]="notesListCount"
+                                [offset]="pageOffSet"
+                                (page)='setPage($event)'>
 
-                    <ngx-datatable-column name="createddate">
-                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                            {{value}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="note">
-                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                            {{value}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                </ngx-datatable>
+                            <ngx-datatable-column name="S.No">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    {{rowIndex +1}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Notify">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                    {{value}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row mt-5" >
+            <div class="col-md-12" >
+                <div fxLayout="column">
+                    <div class="flex-p">
+                        <ngx-datatable
+                                class="material"
+                                [rows]="rows1"
+                                [columnMode]="'force'"
+                                [headerHeight]="50"
+                                [footerHeight]="50"
+                                [rowHeight]="'auto'"
+                                [externalPaging]="true"
+                                [count]="commentsListCount"
+                                [offset]="pageOffSet"
+                                (page)='setPage($event)'>
+
+                            <ngx-datatable-column name="S.No">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    {{rowIndex +1}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Comments">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                    {{value}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+
+                    </div>
+                </div>
 
             </div>
         </div>
 
     </div>
 </div>
-
-
-
 
