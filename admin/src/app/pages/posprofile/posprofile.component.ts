@@ -244,6 +244,8 @@ export class PosprofileComponent implements OnInit {
             this.toastr.success('Verification successfully');
             this.getNotify();
             this.getComments();
+            this.this.comments = '';
+            this.this.notes = '';
         }
 
     }
