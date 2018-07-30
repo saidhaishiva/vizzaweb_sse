@@ -205,20 +205,12 @@ export class PosprofileComponent implements OnInit {
     }
     verificationSubmit() {
         this.field = [];
-
-        for (let i=0; i < this.online.length; i++) {
-            // if (i == 0) {
+        for (let i=0; i < this.documentslist.length; i++) {
                 this.field.push({
-                    verification_status: (this.online[i].checked == true) ? '1' : '0',
+                    verification_status: (this.documentslist[i].checked == true) ? '1' : '0',
                     // verifiedby: 1,
-                    fieldid: this.online[i].doc_field_id,
+                    fieldid: this.documentslist[i].doc_field_id,
                 });
-            // } else {
-                // this.field.push({
-                //     verification_status: (this.online[i].checked == true) ? '1' : '0',
-                //     fieldid: this.online[i].doc_field_id,
-                // });
-            // }
         }
         if (this.notes != '' && this.notes != undefined) {
             const data = {
@@ -250,6 +242,8 @@ export class PosprofileComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Verification successfully');
+            this.getNotify();
+            this.getComments();
         }
 
     }
@@ -276,7 +270,7 @@ export class PosprofileComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'pos_id': '4',
+            'pos_id': this.posid,
             'message_type': 'notes'
 
         }
@@ -308,7 +302,7 @@ export class PosprofileComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'pos_id': '4',
+            'pos_id': this.posid,
             'message_type': 'comments'
 
         }
