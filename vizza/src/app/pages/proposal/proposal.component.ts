@@ -89,7 +89,7 @@ export class ProposalComponent implements OnInit {
       this.illnessCheck = false;
       this.socialStatus = true;
       this.stopNext = false;
-      this.nomineeAdd = false;
+      this.nomineeAdd = true;
       this.nomineeRemove = true;
       this.declaration = false;
       //this.socialNo = true;
@@ -210,6 +210,10 @@ export class ProposalComponent implements OnInit {
       this.socialStatus = this.personal.controls['socialStatus'].value;
       if (result == 'false') {
           this.socialNo = false;
+          this.personal.controls['socialAnswer1'].setValue('0');
+          this.personal.controls['socialAnswer2'].setValue('0');
+          this.personal.controls['socialAnswer3'].setValue('0');
+          this.personal.controls['socialAnswer4'].setValue('0');
       } else {
           this.socialNo = '';
       }
@@ -258,27 +262,29 @@ export class ProposalComponent implements OnInit {
           });
           this.nomineeAdd = true;
           this.nomineeRemove = false;
-      } else if (value == 'delete') {
-          if (this.nomineeDate[0].nominee.length == 2)
-          this.nomineeDate[0].nominee.splice(0,1);
-          this.nomineeAdd = false;
-          this.nomineeRemove = true;
+      } if (value == 'delete') {
+          if (this.nomineeDate[0].nominee.length == 2) {
+              this.nomineeDate[0].nominee.splice(1, 1);
+              this.nomineeAdd = false;
+              this.nomineeRemove = true;
+          }
       }
     }
     claimPercent(percent) {
-      if (percent >= 100) {
-          this.nomineeAdd = true;
-          this.nomineeRemove = true;
+      console.log(this.nomineeDate[0].nominee.length);
+        if (this.nomineeDate[0].nominee.length == 1) {
+            if (percent >= 100) {
+                this.nomineeAdd = true;
+                this.nomineeRemove = true;
+            } else {
+                this.nomineeAdd = false;
+            }
 
-      } else if (this.nomineeDate[0].nominee.length == 1){
-          this.nomineeAdd = false;
-          this.nomineeRemove = true;
-      } else {
-          this.nomineeAdd = false;
+        } else {
+            this.nomineeAdd = true;
 
-      }
+        }
     }
-
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
@@ -532,7 +538,7 @@ export class ProposalComponent implements OnInit {
   proposal() {
           const data = [{
               'platform': 'web',
-              'proposal_id' : this.proposalId,
+              'proposal_id' : this.proposalId.toString(),
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -552,14 +558,14 @@ export class ProposalComponent implements OnInit {
               'proposer_alternate_mobile': this.personalData.personalAltnumber,
               'proposer_res_address1': this.personalData.residenceAddress,
               'proposer_res_address2': this.personalData.residenceAddress2,
-              'proposer_res_area': this.personalData.residenceArea,
-              'proposer_res_city': this.personalData.residenceCity,
+              'proposer_res_area': this.personalData.residenceArea.toString(),
+              'proposer_res_city': this.personalData.residenceCity.toString(),
               'proposer_res_state': this.personalData.residenceState,
               'proposer_res_pincode': this.personalData.residencePincode,
               'proposer_comm_address1': this.personalData.personalAddress,
               'proposer_comm_address2': this.personalData.personalAddress2,
-              'proposer_comm_area': this.personalData.personalArea,
-              'proposer_comm_city': this.personalData.personalCity,
+              'proposer_comm_area': this.personalData.personalArea.toString(),
+              'proposer_comm_city': this.personalData.personalCity.toString(),
               'proposer_comm_state': this.personalData.personalState,
               'proposer_comm_pincode': this.personalData.personalPincode,
               'prop_dob': this.personalData.personalDob,
@@ -592,7 +598,7 @@ export class ProposalComponent implements OnInit {
               'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
               'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
               'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
