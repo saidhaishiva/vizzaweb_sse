@@ -99,7 +99,7 @@ export class PosprofileComponent implements OnInit {
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
       // this.settings.loadingSpinner = false;
-      this.getPOSList();
+      this.getPosProfile();
       this.getFields();
       this.getNotify();
       this.getComments();
@@ -117,42 +117,33 @@ export class PosprofileComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
-    getPOSList() {
+    getPosProfile() {
         // this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getAdminRoleId(),
-            'admin_id': this.auth.getAdminId(),
-            'status': this.posstatus,
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
             'pos_id': this.posid
         };
-        this.common.getPOSList(data).subscribe(
+        this.common.getPosProfileList(data).subscribe(
             (successData) => {
-                this.getPOSListSuccess(successData);
+                this.getPosProfileSuccess(successData);
             },
             (error) => {
-                this.getPOSListFailure(error);
+                this.getPosProfileFailure(error);
             }
         );
     }
-    getPOSListSuccess(successData) {
+    getPosProfileSuccess(successData) {
+        console.log(successData, 'successDatasuccessData');
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
-            this.response = successData.ResponseObject;
-            if (successData.ResponseObject.length > 0) {
-                for (let i = 0; i < this.response.length; i++) {
-                    if (this.response[i].pos_status == this.posstatus && this.response[i].pos_id == this.posid) {
-                        this.posData = this.response[i];
-                    }
-                }
-            } else {
-                this.posData = this.response;
-            }
+            this.posData = successData.ResponseObject;
         } else {
             this.settings.loadingSpinner = false;
         }
     }
-    getPOSListFailure(error) {
+    getPosProfileFailure(error) {
         console.log(error);
     }
     getFields() {

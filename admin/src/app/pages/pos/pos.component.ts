@@ -171,10 +171,10 @@ export class PosComponent implements OnInit {
         // }
 
     }
-    POSProfile(id) {
+    POSProfile(id, status) {
         console.log(id, 'skfkhsdkfhdkf');
         // this.settings.loadingSpinner = true;
-        this.router.navigate(['/pos-profile/' + id + '/' + this.POSStatus]);
+        this.router.navigate(['/pos-profile/' + id + '/' + status]);
 
     }
     updateFilter(event) {
