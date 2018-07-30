@@ -89,7 +89,18 @@ export class ProposalService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_policy_purchasetoken_post';
+        const url = this.configurationService.getHost() + 'quote/get_policy_purchasetoken';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/get_policy_schedule';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

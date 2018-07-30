@@ -19,6 +19,7 @@ import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpasswor
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
 import {PaymentSuccessComponent} from './pages/payment-success/payment-success.component';
+import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -52,7 +53,8 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
-            { path: 'paymentSuccess/:purchaseToken', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
+            { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
+            { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
 
         ]
     },
