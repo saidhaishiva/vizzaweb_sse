@@ -389,7 +389,7 @@ export class ProposalComponent implements OnInit {
     }
 
 
-    getCityId( title) {
+    getCityId(title) {
       this.cityTitle = title;
         const data = {
             'platform': 'web',
@@ -437,11 +437,14 @@ export class ProposalComponent implements OnInit {
     sameAddress(values: any) {
       console.log(this.personal.controls['personalCity'].value);
       if (values.checked) {
+          this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
+          this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
           this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
           this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
           this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
           this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
           this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
           this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
       } else {
           this.personal.controls['residenceAddress'].setValue('');
@@ -453,6 +456,32 @@ export class ProposalComponent implements OnInit {
       }
 
     }
+    getCityIdF2(title, cid, pincode) {
+        const data = {
+            'platform': 'web',
+            'pincode': pincode,
+            'city_id': cid
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCityResistSuccess(successData);
+            },
+            (error) => {
+                this.getCityResistFailure(error);
+            }
+        );
+    }
+    public getCityResistSuccess(successData) {
+        if (successData.IsSuccess == true) {
+                this.rAreaNames = successData.ResponseObject;
+                this.rAreaName = this.rAreaNames.area;
+        }
+    }
+
+    public getCityResistFailure(error) {
+        console.log(error);
+    }
+
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
