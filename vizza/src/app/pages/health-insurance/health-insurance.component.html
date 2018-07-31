@@ -145,7 +145,7 @@
                       <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     </td>
                     <td>
-                      <p>{{plists.premium_amount | currency: 'INR'}}</p>
+                      <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
                       <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                     </td>
                   </tr>
