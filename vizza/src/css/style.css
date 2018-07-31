@@ -211,7 +211,8 @@ a:hover {
 #product-list .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
   background-color: rgba(24, 204, 180, 0.35); }
 #product-list .mat-tab-label-active {
-  background-color: #f29a1d !important; }
+  background-color: #f29a1d !important;
+  color: #fff !important; }
 #product-list .mat-tab-labels {
   float: right; }
   #product-list .mat-tab-labels .mat-ripple {
@@ -337,6 +338,8 @@ a:hover {
   line-height: 30px;
   padding: 0 6px;
   font-size: 11px; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -351,7 +354,9 @@ a:hover {
   background: #f5f5f5;
   border-left: 5px solid #fff;
   margin-bottom: 15px;
-  position: relative; }
+  position: relative;
+  text-transform: capitalize;
+  text-transform: capitalize; }
 
 .non-editable {
   pointer-events: none; }
