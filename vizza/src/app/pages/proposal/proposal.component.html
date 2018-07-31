@@ -45,7 +45,8 @@
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
-                    <!--</mat-form-field><div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+                    </mat-form-field>
+                        <!-- <div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
