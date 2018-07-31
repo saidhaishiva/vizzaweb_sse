@@ -137,10 +137,16 @@ export class EditposComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
-            this.personal = successData.ResponseObject[0];
-            let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
+            this.personal = successData.ResponseObject;
+            console.log(this.personal);
+           // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
+            let date;
+            date = this.personal.pos_dob.split('/');
+            date = date[2] + '-' + date[1] + '-' + date[0];
+            date = this.datepipe.transform(date, 'y-MM-dd');
+          //  let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
 
-            console.log(date, 'dateee');
+          console.log(date, 'dateee');
 
             this.form = this.fb.group({
                 id: null,
@@ -344,7 +350,7 @@ export class EditposComponent implements OnInit {
         });
     }
     updatePosProfile() {
-        let date = this.datepipe.transform(this.form.controls['birthday'].value, 'dd-MM-yyyy');
+        let date = this.datepipe.transform(this.form.controls['birthday'].value, 'y-MM-dd');
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.authService.getPosUserId(),

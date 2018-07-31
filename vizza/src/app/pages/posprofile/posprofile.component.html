@@ -16,7 +16,7 @@
 
                 <p fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon class="muted-text">person</mat-icon>&nbsp;
-                    <span>{{personal.pos_firstname}} {{personal.pos_lastname}}</span>
+                    <span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</span>
                 </p>
                 <p fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon class="muted-text">phone</mat-icon>&nbsp;
