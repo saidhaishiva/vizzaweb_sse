@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         if (successData.IsSuccess) {
             this.data = successData.ResponseObject.pos_details;
             this.authService.setToken(this.data.pos_email, this.data.pos_firstname, this.data.pos_id, this.data.pos_lastname, this.data.pos_mobileno, this.data.pos_roleid, successData.ResponseObject.Accesstoken)
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/home']);
         }
     }
 
