@@ -95,9 +95,7 @@
             <h4 class="color-pink"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
             <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
               <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index" label="{{lists.name | uppercase}}" (click)="changeTab()">
-                <!--<table class="table health-table" *ngIf="lists.product_lists =='' ">-->
-                <!--<th class="text-center" class="color-pink"> No product matched your selection </th>-->
-                <!--</table>-->
+
                 <table class="table health-table" *ngIf="lists.product_lists !='' ">
                   <thead>
                   <tr>
@@ -147,12 +145,15 @@
                       <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     </td>
                     <td>
-                      <p>{{plists.premium_amount | currency: 'INR'}}</p>
+                      <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
                       <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                     </td>
                   </tr>
 
                   </tbody>
+                </table>
+                <table class="table health-table" *ngIf="lists.product_lists =='' ">
+                  <th class="text-center" class="color-pink"> No product matched your selection </th>
                 </table>
                 <!--</mat-card-content>-->
                 <mat-divider></mat-divider>
@@ -248,7 +249,7 @@
               </div>
 
               <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-                <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>
+                <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>
                 <div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>
                 <div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >
                   <input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">

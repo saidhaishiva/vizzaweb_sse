@@ -11,11 +11,34 @@ import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
+import {CommonService} from '../../shared/services/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
+
+
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
-  styleUrls: ['./proposal.component.scss']
+  styleUrls: ['./proposal.component.scss'],
+    providers: [
+
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 export class ProposalComponent implements OnInit {
     public personal: FormGroup;
@@ -47,16 +70,29 @@ export class ProposalComponent implements OnInit {
     public proposalId: any;
     public illness: any;
     public settings: Settings;
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog, public config: ConfigurationService,
-              public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
+    public pin: any;
+    public response: any;
+    public personalCitys: any;
+    public areaName: any;
+    public areaNames: any;
+    public title: any;
+    public residenceCitys: any;
+    public cityTitle: any;
+    public rAreaNames: any;
+    public rAreaName: any;
+    public rResponse: any;
+    public socialNo: any;
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+              public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.illnessCheck = false;
       this.socialStatus = true;
       this.stopNext = false;
-      this.nomineeAdd = false;
+      this.nomineeAdd = true;
       this.nomineeRemove = true;
       this.declaration = false;
+      //this.socialNo = true;
       this.illness = false;
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -64,7 +100,7 @@ export class ProposalComponent implements OnInit {
       this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
-      this.proposalId= 0;
+      this.proposalId = 0;
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
@@ -72,6 +108,8 @@ export class ProposalComponent implements OnInit {
           personalDob: ['', Validators.required],
           personalOccupation: ['', Validators.required],
           personalIncome: ['', Validators.required],
+          personalArea: ['', Validators.required],
+          residenceArea: '',
           personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
           personalPan: ['', Validators.compose([ Validators.minLength(10)])],
           personalGst: ['', Validators.compose([ Validators.minLength(15)])],
@@ -87,8 +125,8 @@ export class ProposalComponent implements OnInit {
           personalCity: ['', Validators.required],
           personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
-          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[789][0-9]{9}')])],
-          personalAltnumber: ['', Validators.compose([ Validators.pattern('[789][0-9]{9}')])],
+          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+          personalAltnumber: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
@@ -158,7 +196,7 @@ export class ProposalComponent implements OnInit {
     criticalIllness(values: any) {
       if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
-              width: '300px'
+              width: '500px'
           });
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
@@ -170,6 +208,15 @@ export class ProposalComponent implements OnInit {
     }
     cgangeSocialStatus(result) {
       this.socialStatus = this.personal.controls['socialStatus'].value;
+      if (result == 'false') {
+          this.socialNo = false;
+          this.personal.controls['socialAnswer1'].setValue('0');
+          this.personal.controls['socialAnswer2'].setValue('0');
+          this.personal.controls['socialAnswer3'].setValue('0');
+          this.personal.controls['socialAnswer4'].setValue('0');
+      } else {
+          this.socialNo = '';
+      }
     }
     groupList() {
       this.familyMembers = this.getFamilyDetails.family_members;
@@ -184,7 +231,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '';
+            this.familyMembers[i].ins_hospital_cash = '0';
             this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = '';
             this.familyMembers[i].ins_personal_accident_applicable = '';
@@ -215,27 +262,29 @@ export class ProposalComponent implements OnInit {
           });
           this.nomineeAdd = true;
           this.nomineeRemove = false;
-      } else if (value == 'delete') {
-          if (this.nomineeDate[0].nominee.length == 2)
-          this.nomineeDate[0].nominee.splice(0,1);
-          this.nomineeAdd = false;
-          this.nomineeRemove = true;
+      } if (value == 'delete') {
+          if (this.nomineeDate[0].nominee.length == 2) {
+              this.nomineeDate[0].nominee.splice(1, 1);
+              this.nomineeAdd = false;
+              this.nomineeRemove = true;
+          }
       }
     }
     claimPercent(percent) {
-      if (percent >= 100) {
-          this.nomineeAdd = true;
-          this.nomineeRemove = true;
+      console.log(this.nomineeDate[0].nominee.length);
+        if (this.nomineeDate[0].nominee.length == 1) {
+            if (percent >= 100) {
+                this.nomineeAdd = true;
+                this.nomineeRemove = true;
+            } else {
+                this.nomineeAdd = false;
+            }
 
-      } else if (this.nomineeDate[0].nominee.length == 1){
-          this.nomineeAdd = false;
-          this.nomineeRemove = true;
-      } else{
-          this.nomineeAdd = false;
+        } else {
+            this.nomineeAdd = true;
 
-      }
+        }
     }
-
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
@@ -249,8 +298,6 @@ export class ProposalComponent implements OnInit {
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-
-        console.log( this.familyMembers, 'poppppppppppppppppppppppsdgdf');
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++ ) {
                 if (this.familyMembers[i].ins_name != '' &&
@@ -299,7 +346,6 @@ export class ProposalComponent implements OnInit {
                 }
             }
         }
-        console.log( this.familyMembers, 'popppppppppppppppppppppp');
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
@@ -333,7 +379,85 @@ export class ProposalComponent implements OnInit {
 
             }
         }
+        console.log(this.nomineeDate, 'this.nomineeDate');
     }
+
+
+    getPostal(pin, title) {
+        this.pin = pin;
+        this.title = title;
+
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPostal(data).subscribe(
+                (successData) => {
+                    this.getpostalSuccess(successData);
+                },
+                (error) => {
+                    this.getpostalFailure(error);
+                }
+            );
+        }
+    }
+    public getpostalSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            console.log(this.title, 'titleeeeeeeeeeeeeee')
+            if (this.title == 'personal') {
+                this.response = successData.ResponseObject;
+                this.personal.controls['personalState'].setValue(this.response.state_name);
+                this.personalCitys = this.response.city;
+            } else if (this.title == 'residence') {
+                this.rResponse = successData.ResponseObject;
+                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
+                this.residenceCitys = this.rResponse.city;
+            }
+
+
+        }
+    }
+
+    public getpostalFailure(error) {
+        console.log(error);
+    }
+
+
+    getCityId(title) {
+      this.cityTitle = title;
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin,
+            'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
+        }
+
+            this.common.getArea(data).subscribe(
+                (successData) => {
+                    this.getCitySuccess(successData);
+                },
+                (error) => {
+                    this.getCityFailure(error);
+                }
+            );
+    }
+    public getCitySuccess(successData) {
+        if (successData.IsSuccess == true) {
+            if (this.cityTitle == 'personal') {
+                this.areaNames = successData.ResponseObject;
+                this.areaName = this.areaNames.area;
+            } else if (this.cityTitle == 'residence') {
+                this.rAreaNames = successData.ResponseObject;
+                this.rAreaName = this.rAreaNames.area;
+            }
+        }
+    }
+
+    public getCityFailure(error) {
+        console.log(error);
+    }
+
+
     illnessStatus(values: any, index) {
         if (values.checked) {
             this.familyMembers[index].ins_illness = '';
@@ -345,22 +469,54 @@ export class ProposalComponent implements OnInit {
         }
 
 }
-    sameAddress(values: any){
+    sameAddress(values: any) {
+      console.log(this.personal.controls['personalCity'].value);
       if (values.checked) {
+          this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
+          this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
           this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
           this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
           this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
           this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
           this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+          this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
       } else {
           this.personal.controls['residenceAddress'].setValue('');
           this.personal.controls['residenceAddress2'].setValue('');
           this.personal.controls['residenceCity'].setValue('');
           this.personal.controls['residencePincode'].setValue('');
           this.personal.controls['residenceState'].setValue('');
+          this.personal.controls['residenceArea'].setValue('');
       }
 
     }
+    getCityIdF2(title, cid, pincode) {
+        const data = {
+            'platform': 'web',
+            'pincode': pincode,
+            'city_id': cid
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCityResistSuccess(successData);
+            },
+            (error) => {
+                this.getCityResistFailure(error);
+            }
+        );
+    }
+    public getCityResistSuccess(successData) {
+        if (successData.IsSuccess == true) {
+                this.rAreaNames = successData.ResponseObject;
+                this.rAreaName = this.rAreaNames.area;
+        }
+    }
+
+    public getCityResistFailure(error) {
+        console.log(error);
+    }
+
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
@@ -382,7 +538,7 @@ export class ProposalComponent implements OnInit {
   proposal() {
           const data = [{
               'platform': 'web',
-              'proposal_id' : this.proposalId,
+              'proposal_id' : this.proposalId.toString(),
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -402,14 +558,14 @@ export class ProposalComponent implements OnInit {
               'proposer_alternate_mobile': this.personalData.personalAltnumber,
               'proposer_res_address1': this.personalData.residenceAddress,
               'proposer_res_address2': this.personalData.residenceAddress2,
-              'proposer_res_area': this.personalData.personalFirstname,
-              'proposer_res_city': this.personalData.residenceCity,
+              'proposer_res_area': this.personalData.residenceArea.toString(),
+              'proposer_res_city': this.personalData.residenceCity.toString(),
               'proposer_res_state': this.personalData.residenceState,
               'proposer_res_pincode': this.personalData.residencePincode,
               'proposer_comm_address1': this.personalData.personalAddress,
               'proposer_comm_address2': this.personalData.personalAddress2,
-              'proposer_comm_area': this.personalData.personalCity,
-              'proposer_comm_city': this.personalData.personalCity,
+              'proposer_comm_area': this.personalData.personalArea.toString(),
+              'proposer_comm_city': this.personalData.personalCity.toString(),
               'proposer_comm_state': this.personalData.personalState,
               'proposer_comm_pincode': this.personalData.personalPincode,
               'prop_dob': this.personalData.personalDob,
@@ -442,7 +598,7 @@ export class ProposalComponent implements OnInit {
               'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
               'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
               'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
@@ -523,8 +679,8 @@ export class ProposalComponent implements OnInit {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
-            'user_id': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getOccupationList(data).subscribe(
             (successData) => {
@@ -548,8 +704,8 @@ export class ProposalComponent implements OnInit {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
-            'user_id': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.proposalservice.getRelationshipList(data).subscribe(
             (successData) => {

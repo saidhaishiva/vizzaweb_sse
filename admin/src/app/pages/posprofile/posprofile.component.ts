@@ -54,11 +54,13 @@ export class PosprofileComponent implements OnInit {
     public doctorExperience: Array<any>;
     response: any;
     documentslist: any;
-    notesList: any;
+    notesListCount: any;
+    commentsListCount: any;
     posData: any;
     comments: string;
     notes: string;
     rows = [];
+    rows1 = [];
     temp = [];
 
 
@@ -97,9 +99,10 @@ export class PosprofileComponent implements OnInit {
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
       // this.settings.loadingSpinner = false;
-      this.getPOSList();
+      this.getPosProfile();
       this.getFields();
       this.getNotify();
+      this.getComments();
 
   }
 
@@ -114,42 +117,33 @@ export class PosprofileComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
-    getPOSList() {
+    getPosProfile() {
         // this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getAdminRoleId(),
-            'admin_id': this.auth.getAdminId(),
-            'status': this.posstatus,
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
             'pos_id': this.posid
         };
-        this.common.getPOSList(data).subscribe(
+        this.common.getPosProfileList(data).subscribe(
             (successData) => {
-                this.getPOSListSuccess(successData);
+                this.getPosProfileSuccess(successData);
             },
             (error) => {
-                this.getPOSListFailure(error);
+                this.getPosProfileFailure(error);
             }
         );
     }
-    getPOSListSuccess(successData) {
+    getPosProfileSuccess(successData) {
+        console.log(successData, 'successDatasuccessData');
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
-            this.response = successData.ResponseObject;
-            if (successData.ResponseObject.length > 0) {
-                for (let i = 0; i < this.response.length; i++) {
-                    if (this.response[i].pos_status == this.posstatus && this.response[i].pos_id == this.posid) {
-                        this.posData = this.response[i];
-                    }
-                }
-            } else {
-                this.posData = this.response;
-            }
+            this.posData = successData.ResponseObject;
         } else {
             this.settings.loadingSpinner = false;
         }
     }
-    getPOSListFailure(error) {
+    getPosProfileFailure(error) {
         console.log(error);
     }
     getFields() {
@@ -211,20 +205,12 @@ export class PosprofileComponent implements OnInit {
     }
     verificationSubmit() {
         this.field = [];
-
-        for (let i=0; i < this.online.length; i++) {
-            // if (i == 0) {
+        for (let i=0; i < this.documentslist.length; i++) {
                 this.field.push({
-                    verification_status: (this.online[i].checked == true) ? '1' : '0',
+                    verification_status: (this.documentslist[i].checked == true) ? '1' : '0',
                     // verifiedby: 1,
-                    fieldid: this.online[i].doc_field_id,
+                    fieldid: this.documentslist[i].doc_field_id,
                 });
-            // } else {
-                // this.field.push({
-                //     verification_status: (this.online[i].checked == true) ? '1' : '0',
-                //     fieldid: this.online[i].doc_field_id,
-                // });
-            // }
         }
         if (this.notes != '' && this.notes != undefined) {
             const data = {
@@ -256,6 +242,10 @@ export class PosprofileComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Verification successfully');
+            this.getNotify();
+            this.getComments();
+            this.comments = '';
+            this.notes = '';
         }
 
     }
@@ -298,14 +288,43 @@ export class PosprofileComponent implements OnInit {
     getNotifySuccess(successData) {
         console.log(successData, 'filedlistsss');
         if (successData.IsSuccess) {
-            this.notesList = successData.ResponseObject;
-            this.rows =  this.notesList;
+            this.notesListCount = successData.ResponseObject.length;
+            this.rows =  successData.ResponseObject;
 
-            console.log(this.notesList);
+            console.log(this.notesListCount);
 
         }
     }
     getNotifyFailure(error) {
+        console.log(error);
+    }
+
+    getComments() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+            'pos_id': this.posid,
+            'message_type': 'comments'
+
+        }
+        this.common.getNotes(data).subscribe(
+            (successData) => {
+                this.getCommentSuccess(successData);
+            },
+            (error) => {
+                this.getCommentFailure(error);
+            }
+        );
+    }
+    getCommentSuccess(successData) {
+        console.log(successData, 'filedlistsss');
+        if (successData.IsSuccess) {
+            this.commentsListCount = successData.ResponseObject.length;
+            this.rows1 =  successData.ResponseObject;
+        }
+    }
+    getCommentFailure(error) {
         console.log(error);
     }
 

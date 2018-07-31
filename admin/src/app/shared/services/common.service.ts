@@ -28,6 +28,18 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getPosProfileList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/viewprofile';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getFields(data) {
         const json = JSON.stringify(data);
         console.log(json);
