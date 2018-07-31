@@ -207,7 +207,6 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
         };
-        console.log(data, 'data');
         this.common.getSumInsuredAmount(data).subscribe(
             (successData) => {
                 this.getSumInsuredAmountSuccess(successData);
@@ -218,7 +217,6 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public getSumInsuredAmountSuccess(successData) {
-        console.log(successData.IsSuccess, 'successData');
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
         }
@@ -230,7 +228,6 @@ export class HealthInsuranceComponent implements OnInit {
     ckeckedUser(value, index, name) {
         if (value) {
             if (name == 'Son' || name == 'Daughter') {
-                console.log( 'value');
                 this.count++;
             }
             if (this.count >= 2) {
@@ -271,17 +268,21 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
-            if (value == 'Father') {
+            if (name == 'Father') {
                 sessionStorage.fatherBTn = false;
+                this.fatherBTn = false;
             }
-            if (value == 'Mother') {
+            if (name == 'Mother') {
                 sessionStorage.motherBtn = false;
+                this.motherBtn = false;
             }
-            if (value == 'Father In Law') {
+            if (name == 'Father In Law') {
                 sessionStorage.fatherInLawBTn = false;
+                this.fatherInLawBTn = false;
             }
-            if (value == 'Mother In Law') {
+            if (name == 'Mother In Law') {
                 sessionStorage.motherInLawBtn = false;
+                this.motherInLawBtn = false;
             }
             if (index > 3 ) {
                 this.setArray.splice(index, 1);
@@ -322,7 +323,6 @@ export class HealthInsuranceComponent implements OnInit {
         }
         for (let i = 0; i < this.setArray.length; i++) {
             let length = this.setArray.length -1;
-            console.log(length, 'length');
             if (this.setArray.length > 4) {
                 if (this.setArray[length].name == 'Son') {
                     this.setArray[3].disabled = true;
@@ -334,7 +334,6 @@ export class HealthInsuranceComponent implements OnInit {
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     typeAge(index) {
-        console.log(this.setArray[0].age);
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     addOthers(value) {
@@ -378,10 +377,8 @@ export class HealthInsuranceComponent implements OnInit {
                 }
             }
         }
-        console.log(this.selectedAmount, 'total setArraysetArray');
 
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
-            console.log(this.finalData, 'pp');
             if (this.finalData != '') {
                 // if (this.setArray[index].age.length > 1) {
                 // if (this.setArray[0].age < 18) {
@@ -399,7 +396,6 @@ export class HealthInsuranceComponent implements OnInit {
                         'sum_insured': this.selectedAmount,
                         'family_details': this.finalData
                     };
-                    console.log(data, 'data');
                     this.settings.loadingSpinner = true;
                     this.common.getPolicyQuotation(data).subscribe(
                         (successData) => {
@@ -447,7 +443,6 @@ export class HealthInsuranceComponent implements OnInit {
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
-                console.log( this.settings);
 
             }
             if (this.insuranceLists[index].enquiry_id != '') {
@@ -545,7 +540,6 @@ export class HealthInsuranceComponent implements OnInit {
                     }
                 }
             }
-            console.log(this.insuranceLists, 'insuranceLists');
         }
         this.insuranceLists[pi].product_lists[index].currentBtn = false;
         this.insuranceLists[pi].product_lists[index].removebtn = true;
@@ -560,7 +554,6 @@ export class HealthInsuranceComponent implements OnInit {
 
     }
     removeShortlist(value, pi, index, enqId, shortId) {
-        console.log(shortId, 'shortId');
         const data = {
             'platform': 'web',
             'shortlist_id': shortId,
@@ -698,7 +691,6 @@ export class HealthInsuranceComponent implements OnInit {
                 }
             }
             // }
-            console.log(this.insuranceLists, 'this.insuranceLists');
             sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
         } else {
             this.toast.error(successData.ErrorObject, 'Failed');
@@ -956,7 +948,6 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
-        console.log(value, 'value');
         sessionStorage.buyProductdetails = JSON.stringify(value);
         sessionStorage.groupName = gname;
         this.router.navigate(['/proposal']);
