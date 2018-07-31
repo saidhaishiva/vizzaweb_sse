@@ -15,29 +15,29 @@
   </div>
 
 </div>
-<div mat-dialog-content class="compare" >
     <div class="row scrollmenu">
         <div class="col-md-3">
             <h5 class="content-color">Key Features</h5>
             <div class="">
-                <p>
-                    <mat-radio-button class="example-radio-button"> All</mat-radio-button>
-                </p>
-                <p>
-                    <mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>
-                </p>
-                <p>
-                    <mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>
-                </p>
+                <!--<p>-->
+                    <!--<mat-radio-button class="example-radio-button"> All</mat-radio-button>-->
+                <!--</p>-->
+                <!--<p>-->
+                    <!--<mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>-->
+                <!--</p>-->
+                <!--<p>-->
+                    <!--<mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>-->
+                <!--</p>-->
             </div>
         </div>
         <div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">
             <div class="">
                 <p class="content-color text-center">{{clists.product_name}}</p>
-                <img src="{{webhost + '/' + clists.product_logo}}" style="width: 150px;">
+                <img src="{{webhost + '/' + clists.product_logo}}" style="width: 100px;">
             </div>
         </div>
     </div>
+<div mat-dialog-content class="compare" >
   <div class="row  scrollmenu">
       <div class="col-md-3">
           <table class="table compare">
