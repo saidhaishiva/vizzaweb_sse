@@ -82,8 +82,19 @@ export class ProposalComponent implements OnInit {
     public rAreaName: any;
     public rResponse: any;
     public socialNo: any;
+    public summaryCity: any;
+    public rSummaryCity: any;
+    public sumTitle: any;
+    public sumPin: any;
+    public sumAreaName: any;
+    public sumAreaNameComm: any;
+    public dobError: any;
+    public dateVali: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
+
+
+
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.illnessCheck = false;
@@ -120,7 +131,7 @@ export class ProposalComponent implements OnInit {
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
           previousinsurance: '',
-          personalAddress2: '',
+          personalAddress2: ['', Validators.required],
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
           personalState: ['', Validators.required],
@@ -383,45 +394,6 @@ export class ProposalComponent implements OnInit {
     }
 
 
-    getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
-
-        const data = {
-            'platform': 'web',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.getpostalSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalFailure(error);
-                }
-            );
-        }
-    }
-    public getpostalSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            console.log(this.title, 'titleeeeeeeeeeeeeee')
-            if (this.title == 'personal') {
-                this.response = successData.ResponseObject;
-                this.personal.controls['personalState'].setValue(this.response.state_name);
-                this.personalCitys = this.response.city;
-            } else if (this.title == 'residence') {
-                this.rResponse = successData.ResponseObject;
-                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
-                this.residenceCitys = this.rResponse.city;
-            }
-
-
-        }
-    }
-
-    public getpostalFailure(error) {
-        console.log(error);
-    }
 
 
     getCityId(title) {
@@ -491,31 +463,6 @@ export class ProposalComponent implements OnInit {
       }
 
     }
-    getCityIdF2(title, cid, pincode) {
-        const data = {
-            'platform': 'web',
-            'pincode': pincode,
-            'city_id': cid
-        }
-        this.common.getArea(data).subscribe(
-            (successData) => {
-                this.getCityResistSuccess(successData);
-            },
-            (error) => {
-                this.getCityResistFailure(error);
-            }
-        );
-    }
-    public getCityResistSuccess(successData) {
-        if (successData.IsSuccess == true) {
-                this.rAreaNames = successData.ResponseObject;
-                this.rAreaName = this.rAreaNames.area;
-        }
-    }
-
-    public getCityResistFailure(error) {
-        console.log(error);
-    }
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -535,6 +482,40 @@ export class ProposalComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
 
     }
+
+
+    public addEvent1(type, event) {
+      this.dateVali = event.value;
+        if (event.value != null) {
+            let selectedDate  = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+                if (pattern.test(event.value._i)) {
+                    this.dobError = '';
+                } else {
+                    this.dobError = 'Enter Valid Dob';
+                }
+                selectedDate = event.value._i;
+            } else if (typeof event.value._i == 'object') {
+                console.log(event.value._i.date, 'objectttttt');
+                this.dobError = '';
+                let date = event.value._i.date;
+                if (date.toString().length == 1) {
+                    date = '0'+date;
+                }
+                let month =  (parseInt(event.value._i.month)+1).toString();
+
+                if (month.length == 1) {
+                    month = '0' + month;
+                }
+                let year = event.value._i.year;
+                selectedDate = date + '/' + month + '/' + year;
+            }
+        }
+    }
+
+    //Create Proposal
   proposal() {
           const data = [{
               'platform': 'web',
@@ -619,11 +600,182 @@ export class ProposalComponent implements OnInit {
             this.proposalId = this.summaryData.proposal_id;
             this.auth.setSessionData('proposalID',  this.proposalId );
             this.lastStepper.next();
+            if (this.summaryData.prop_res_pincode) {
+                this.getPostalSummary(this.summaryData.prop_res_pincode, 'residence');
+                this.getCityIdF2(this.sumTitle, this.summaryData.prop_res_city, this.sumPin);
+            }
+            if (this.summaryData.prop_comm_pincode) {
+                this.getPostal(this.summaryData.prop_comm_pincode, 'personal');
+                this.getCityIdSumm(this.title, this.summaryData.prop_comm_city, this.pin);
+            }
 
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
+//Summary residence detail
+    public proposalFailure(error) {
+        console.log(error);
+    }
+
+    getCityIdF2(title, cid, pincode) {
+        const data = {
+            'platform': 'web',
+            'pincode': pincode,
+            'city_id': cid
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCityResistSuccess(successData);
+            },
+            (error) => {
+                this.getCityResistFailure(error);
+            }
+        );
+    }
+    public getCityResistSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.rAreaNames = successData.ResponseObject;
+            this.rAreaName = this.rAreaNames.area;
+            if (this.sumTitle == 'residence') {
+                for (let i =0; i < this.rAreaName.length; i++) {
+                    if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
+                        this.sumAreaName = this.rAreaName[i].areaName;
+                    }
+
+                }
+            }
+        }
+    }
+
+    public getCityResistFailure(error) {
+        console.log(error);
+    }
+
+//Summary personal detail
+    getCityIdSumm(title, cid, pincode) {
+        const data = {
+            'platform': 'web',
+            'pincode': pincode,
+            'city_id': cid
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCityIdSummSuccess(successData);
+            },
+            (error) => {
+                this.getCityIdSummFailure(error);
+            }
+        );
+    }
+    public getCityIdSummSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.rAreaNames = successData.ResponseObject;
+            this.rAreaName = this.rAreaNames.area;
+            if (this.title == 'personal') {
+                for (let i =0; i < this.rAreaName.length; i++) {
+                    if (this.rAreaName[i].areaID == this.summaryData.prop_comm_area) {
+                        this.sumAreaNameComm = this.rAreaName[i].areaName;
+                    }
+
+                }
+            }
+        }
+    }
+
+    public getCityIdSummFailure(error) {
+        console.log(error);
+    }
+
+
+//personal city detail
+    getPostal(pin, title) {
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPostal(data).subscribe(
+                (successData) => {
+                    this.getpostalSuccess(successData);
+                },
+                (error) => {
+                    this.getpostalFailure(error);
+                }
+            );
+        }
+    }
+    public getpostalSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            if (this.title == 'personal') {
+                this.response = successData.ResponseObject;
+                this.personal.controls['personalState'].setValue(this.response.state_name);
+                this.personalCitys = this.response.city;
+                for (let i = 0; i < this.personalCitys.length; i++) {
+                    if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
+                        this.summaryCity = this.personalCitys[i].city_name;
+                    }
+                }
+            }
+            if (this.title == 'residence') {
+                this.rResponse = successData.ResponseObject;
+                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
+                this.residenceCitys = this.rResponse.city;
+            }
+
+
+        }
+    }
+
+    public getpostalFailure(error) {
+        console.log(error);
+    }
+
+
+//summary city detail
+    getPostalSummary(pin, title) {
+        this.sumPin = pin;
+        this.sumTitle = title;
+        console.log(this.sumPin, 'pin');
+        console.log(this.title, 'sumTitle1');
+        const data = {
+            'platform': 'web',
+            'pincode': this.sumPin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPostal(data).subscribe(
+                (successData) => {
+                    this.PostalSummarySuccess(successData);
+                },
+                (error) => {
+                    this.PostalSummaryFailure(error);
+                }
+            );
+        }
+    }
+    public PostalSummarySuccess(successData) {
+        if (successData.IsSuccess == true) {
+            if (this.sumTitle == 'residence') {
+                this.rResponse = successData.ResponseObject;
+                this.residenceCitys = this.rResponse.city;
+                for (let i = 0; i < this.residenceCitys.length; i++) {
+                    if ( this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
+                        this.rSummaryCity = this.residenceCitys[i].city_name;
+
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    public PostalSummaryFailure(error) {
+        console.log(error);
+    }
+
     // public testProposalSuccess( successData) {
     //     console.log(successData);
     //     if (successData.IsSuccess) {
@@ -636,9 +788,7 @@ export class ProposalComponent implements OnInit {
     //         this.toastr.error(successData.ErrorObject);
     //     }
     // }
-    public proposalFailure(error) {
-        console.log(error);
-    }
+
 
     public payNow() {
         const data = {
