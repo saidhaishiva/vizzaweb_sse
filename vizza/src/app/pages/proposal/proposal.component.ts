@@ -93,6 +93,7 @@ export class ProposalComponent implements OnInit {
     public dateVali: any;
     public ageCheck: any;
     public getStepper1: any;
+    public hideStatus: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
@@ -612,14 +613,29 @@ export class ProposalComponent implements OnInit {
 
 
     personalAccident(values: any, index) {
+      this.hideStatus = index + 1;
+        if(this.hideStatus) {
+            for (let i =0; i < this.familyMembers.length; i++) {
+                if (i + 1 != this.hideStatus) {
+                    this.familyMembers[index].ins_accident_status = true;
+                } else if (i + 1 == this.hideStatus) {
+                    this.familyMembers[i].ins_accident_status = false;
+                }
+
+            }
+        }
+
         if (values.value == '1') {
             this.familyMembers[index].ins_engage_manual_labour = '';
             this.familyMembers[index].ins_engage_winter_sports = '';
-        } else {
+
+        }else {
             this.familyMembers[index].ins_engage_manual_labour = 'Nill';
             this.familyMembers[index].ins_engage_winter_sports = 'Nill';
 
         }
+
+
 
     }
     sameAddress(values: any) {

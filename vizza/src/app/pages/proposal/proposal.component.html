@@ -336,7 +336,7 @@
                       </div>
                       <div class="col-md-12" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>personal Accident Applicable</p>
-                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required >
+                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required [disabled]="item.ins_accident_status" >
                           <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
