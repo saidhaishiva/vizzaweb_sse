@@ -40,7 +40,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"  formControlName="personalDob" (dateInput)="addEvent1( $event)" (dateChange)="addEvent1( $event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"  formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -334,19 +334,20 @@
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
-                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8">
-                        <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8">
-                        <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sport" required>
-                      </mat-form-field></div>
-                      <div class="col-md-6" *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8">
+                      <div class="col-md-12" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>personal Accident Applicable</p>
-                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" required >
+                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required >
                           <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
+                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
+                        <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
+                        <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sports" required>
+                      </mat-form-field></div>
+
 
                       <!--<div class="col-md-6"><mat-form-field class="w-100">-->
                         <!--<input matInput placeholder="Previous Insure" [(ngModel)]="item.previousinsurer" required>-->

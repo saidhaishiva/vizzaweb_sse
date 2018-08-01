@@ -338,8 +338,6 @@ a:hover {
   line-height: 30px;
   padding: 0 6px;
   font-size: 11px; }
-.proposal .mat-horizontal-stepper-header {
-  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -482,5 +480,25 @@ a:hover {
     color: #0b9444; }
   .success-message .mat-raised-button.mat-primary {
     background-color: #0b9444 !important; }
+
+.vizza-home {
+  width: 100%;
+  float: left; }
+  .vizza-home .h-product {
+    margin-top: 30px; }
+    .vizza-home .h-product figure {
+      -webkit-box-shadow: 0px 0px 10px 0px #999999;
+      -moz-box-shadow: 0px 0px 10px 0px #999999;
+      box-shadow: 0px 0px 10px 0px #999999;
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 260px; }
+      .vizza-home .h-product figure img {
+        width: 100px; }
+  .vizza-home .h-plans {
+    margin-top: 20px;
+    text-align: center; }
+    .vizza-home .h-plans img {
+      width: 100%; }
 
 /*# sourceMappingURL=style.css.map */

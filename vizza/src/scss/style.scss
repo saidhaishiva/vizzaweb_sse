@@ -450,9 +450,9 @@ background: #ccc !important;
       font-size: 11px;
     }
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -631,5 +631,31 @@ background: #ccc !important;
   }
   .mat-raised-button.mat-primary{
     background-color: #0b9444 !important;
+  }
+}
+//Home Page
+.vizza-home{
+  width: 100%;
+  float: left;
+  .h-product{
+    margin-top: 30px;
+    figure{
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(153,153,153,1);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(153,153,153,1);
+      box-shadow: 0px 0px 10px 0px rgba(153,153,153,1);
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 260px;
+      img{
+        width: 100px;
+      }
+    }
+  }
+  .h-plans{
+    margin-top: 20px;
+    text-align: center;
+    img{
+      width: 100%;
+    }
   }
 }
