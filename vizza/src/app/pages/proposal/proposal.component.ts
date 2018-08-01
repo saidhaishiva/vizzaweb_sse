@@ -195,10 +195,7 @@ export class ProposalComponent implements OnInit {
       // });
   }
     ngOnInit() {
-       // sessionStorage.nomineeDate = '';
-       // sessionStorage.familyMembers = '';
-        // sessionStorage.checkedSameas = '';
-        // sessionStorage.stepper1Details = '';
+
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;

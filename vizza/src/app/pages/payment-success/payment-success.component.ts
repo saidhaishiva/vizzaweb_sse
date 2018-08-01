@@ -33,6 +33,29 @@ export class PaymentSuccessComponent implements OnInit {
       this.proposalid = sessionStorage.proposalID;
       this.setPurchaseStatus();
       console.log(this.proposalid, 'this.proposalidthis.proposalid');
+      sessionStorage.nomineeDate = '';
+      sessionStorage.familyMembers = '';
+      sessionStorage.stepper1Details = '';
+
+      sessionStorage.setPage = '';
+      sessionStorage.sideMenu = false;
+      sessionStorage.setFamilyDetails = '';
+      sessionStorage.setInsuredAmount = '';
+      sessionStorage.setPincode = '';
+      sessionStorage.setPage = '';
+      sessionStorage.policyLists = '';
+      sessionStorage.sideMenu = '';
+      sessionStorage.sonBTn = '';
+      sessionStorage.daughterBTn = '';
+      sessionStorage.fatherBTn = '';
+      sessionStorage.motherBtn = '';
+      sessionStorage.fatherInLawBTn = '';
+      sessionStorage.motherInLawBtn = '';
+      sessionStorage.changedTabDetails = '';
+      sessionStorage.changeSuninsuredAmount = '';
+      sessionStorage.changedTabIndex = '';
+      sessionStorage.shorListTab = '';
+      sessionStorage.enquiryId = '';
   }
 
     setPurchaseStatus() {
