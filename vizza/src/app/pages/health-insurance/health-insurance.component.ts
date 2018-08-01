@@ -360,7 +360,7 @@ export class HealthInsuranceComponent implements OnInit {
         } else {
             this.sumerror = false;
         }
-        if (this.pincoce == '' || this.pincoce == undefined) {
+        if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
