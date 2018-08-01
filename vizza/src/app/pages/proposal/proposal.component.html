@@ -158,7 +158,7 @@
                 <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green">PROPOSER RESIDENCE ADDRESS</h6>
                   <div class="row">
-                      <div class="col-md-12"><mat-checkbox (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
+                      <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
                         <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" ></textarea>
@@ -215,7 +215,7 @@
                 <h6 class="color-green">SOCIAL STATUS</h6>
                 <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                  <mat-radio-button value="true" [checked]="true" >NO</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="socialStatus === 'true'" >NO</mat-radio-button>
                 </mat-radio-group>
                 <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
                 <div class="row">
@@ -223,7 +223,7 @@
                     <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="2" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
@@ -283,7 +283,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" [max]="today" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
+                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="changeEventInsurer($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field></div>
@@ -297,7 +297,7 @@
                         </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-6" fxLayoutAlign="start center">
-                        <mat-checkbox (change)="illnessStatus($event, i)">Illness</mat-checkbox> &nbsp; &nbsp;
+                        <mat-checkbox [(ngModel)]="item.illness" (change)="illnessStatus($event, i)">Illness</mat-checkbox> &nbsp; &nbsp;
 
                         <mat-form-field class="w-100" *ngIf="item.illness">
                         <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" required >
@@ -377,7 +377,7 @@
                 <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
                   <div class="col-md-12 box-card pt-3" >
                     <span *ngFor="let nomineeadd of list.nominee">
-                    <h6 class="color-green mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeAdd" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeRemove" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
+                    <h6 class="color-green mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
                     <div class="row"  >
                       <div class="col-md-4">
                         <mat-form-field class="w-100">

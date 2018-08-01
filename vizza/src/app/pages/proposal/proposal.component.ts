@@ -90,6 +90,7 @@ export class ProposalComponent implements OnInit {
     public sumAreaNameComm: any;
     public dobError: any;
     public dateVali: any;
+    public getStepper1: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient) {
 
@@ -143,9 +144,11 @@ export class ProposalComponent implements OnInit {
           residencePincode: '',
           residenceCity: '',
           residenceState: '',
-          illnessCheck: ''
+          illnessCheck: '',
+          sameas: ''
 
       });
+      this.personal.controls['socialStatus'].setValue('true');
       // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
       //     (successData) => {
       //         this.testProposalSuccess(successData);
@@ -192,16 +195,39 @@ export class ProposalComponent implements OnInit {
       // });
   }
     ngOnInit() {
-
+       // sessionStorage.nomineeDate = '';
+       // sessionStorage.familyMembers = '';
+        // sessionStorage.checkedSameas = '';
+        // sessionStorage.stepper1Details = '';
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        this.setOccupationList()
-        this.setRelationship()
-        this.groupList();
+        this.setOccupationList();
+        this.setRelationship();
+        console.log(sessionStorage.familyMembers, 'sessionStorage.familyMembers');
+        if (sessionStorage.familyMembers.trim() == '') {
+            this.groupList();
+        }
+        console.log(sessionStorage.nomineeDate, 'sessionStorage.nomineeDate');
+        if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
+            this.nomineeDate = [{
+                nominee: [{
+                    nname: '',
+                    nage: '',
+                    nrelationship: '',
+                    nclaim: '',
+                    aname: '',
+                    aage: '',
+                    arelationship: '',
+                    removeBtn: true,
+                    addBtn: false
+                }]
+            }];
+        }
+        this.sessionData();
     }
 
     criticalIllness(values: any) {
@@ -248,17 +274,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_personal_accident_applicable = '';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
         }
-        this.nomineeDate = [{
-            nominee: [{
-                nname: '',
-                nage: '',
-                nrelationship: '',
-                nclaim: '',
-                aname: '',
-                aage: '',
-                arelationship: '',
-            }]
-            }];
+
     }
     addNominee(value) {
       if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
@@ -269,7 +285,9 @@ export class ProposalComponent implements OnInit {
               nclaim: '',
               aname: '',
               aage: '',
-              arelationship: ''
+              arelationship: '',
+              removeBtn: false,
+              addBtn: true
           });
           this.nomineeAdd = true;
           this.nomineeRemove = false;
@@ -278,8 +296,12 @@ export class ProposalComponent implements OnInit {
               this.nomineeDate[0].nominee.splice(1, 1);
               this.nomineeAdd = false;
               this.nomineeRemove = true;
+              this.nomineeDate[0].nominee[0].removeBtn = true;
+              this.nomineeDate[0].nominee[0].addBtn = false;
           }
       }
+        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+
     }
     claimPercent(percent) {
       console.log(this.nomineeDate[0].nominee.length);
@@ -297,18 +319,114 @@ export class ProposalComponent implements OnInit {
         }
     }
 
+    sessionData() {
+        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+        console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
+            this.personal = this.fb.group({
+                personalTitle: this.getStepper1.personalTitle,
+                personalFirstname: this.getStepper1.personalFirstname,
+                personalLastname: this.getStepper1.personalLastname,
+                personalDob: this.getStepper1.personalDob,
+                personalOccupation: this.getStepper1.personalOccupation,
+                personalIncome: this.getStepper1.personalIncome,
+                personalArea: this.getStepper1.personalArea,
+                residenceArea: this.getStepper1.residenceArea,
+                personalAadhar: this.getStepper1.personalAadhar,
+                personalPan: this.getStepper1.personalPan,
+                personalGst: this.getStepper1.personalGst,
+                socialStatus: this.getStepper1.socialStatus,
+                socialAnswer1: this.getStepper1.socialAnswer1,
+                socialAnswer2: this.getStepper1.socialAnswer2,
+                socialAnswer3: this.getStepper1.socialAnswer3,
+                socialAnswer4: this.getStepper1.socialAnswer4,
+                personalAddress: this.getStepper1.personalAddress,
+                previousinsurance: this.getStepper1.previousinsurance,
+                personalAddress2: this.getStepper1.personalAddress2,
+                personalPincode: this.getStepper1.personalPincode,
+                personalCity: this.getStepper1.personalCity,
+                personalState: this.getStepper1.personalState,
+                personalEmail: this.getStepper1.personalEmail,
+                personalMobile: this.getStepper1.personalMobile,
+                personalAltnumber: this.getStepper1.personalAltnumber,
+                residenceAddress: this.getStepper1.residenceAddress,
+                residenceAddress2: this.getStepper1.residenceAddress2,
+                residencePincode: this.getStepper1.residencePincode,
+                residenceCity: this.getStepper1.residenceCity,
+                residenceState: this.getStepper1.residenceState,
+                illnessCheck: this.getStepper1.illnessCheck,
+                sameas: this.getStepper1.sameas
+
+            });
+            if (JSON.parse(this.getStepper1.socialStatus)) {
+                this.socialStatus = true;
+            } else {
+                this.socialStatus = false;
+            }
+            if (this.getStepper1.personalPincode != '') {
+                this.getPostal(this.getStepper1.personalPincode, 'personal');
+                this.getCityId('personal');
+                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
+                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
+                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
+                this.personal.controls['personalArea'].setValue(this.getStepper1.personalArea);
+
+                setTimeout(() =>{
+                    if (this.getStepper1.sameas) {
+                        this.getPostal(this.getStepper1.personalPincode, 'residence');
+                        this.getCityIdF2('residence', this.getStepper1.personalCity, this.getStepper1.personalPincode);
+                        this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
+                        this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
+                        this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
+                        this.personal.controls['residenceArea'].setValue(this.getStepper1.personalArea);
+                    }
+                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
+                        this.getPostal(this.getStepper1.residencePincode, 'residence');
+                        this.getCityIdF2('residence', this.getStepper1.residenceCity, this.getStepper1.residencePincode);
+                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
+                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
+                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
+                        this.personal.controls['residenceArea'].setValue(this.getStepper1.residenceArea);
+                    }
+                    // else {
+                    //     this.personal.controls['residenceAddress'].setValue('');
+                    //     this.personal.controls['residenceAddress2'].setValue('');
+                    //     this.personal.controls['residenceCity'].setValue('');
+                    //     this.personal.controls['residencePincode'].setValue('');
+                    //     this.personal.controls['residenceState'].setValue('');
+                    //     this.personal.controls['residenceArea'].setValue('');
+                    // }
+                },2000);
+
+            }
+
+        }
+        if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
+            this.familyMembers = JSON.parse(sessionStorage.familyMembers);
+           // let date = this.familyMembers[0].ins_dob.split('-');
+           // date = date[0] +'/'+ date[1] +'/'+ date[2];
+            console.log(this.familyMembers, 'this.date');
+        }
+        if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
+            this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
+        }
+    }
+
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
+      console.log(value, 'values');
+      sessionStorage.stepper1Details = JSON.stringify(value);
       this.personalData = value;
         if (this.personal.valid) {
             console.log(value, 'value');
-            this.personalData.personalDob = this.setDate;
-            console.log(this.personalData.personalDob, 'this.personalData.personalDobthis.personalData.personalDob')
+           // this.personalData.personalDob = this.setDate;
+          //  console.log(this.personalData.personalDob, 'this.personalData.personalDobthis.personalData.personalDob')
             stepper.next();
         }
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
+        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++ ) {
                 if (this.familyMembers[i].ins_name != '' &&
@@ -360,6 +478,7 @@ export class ProposalComponent implements OnInit {
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
+      sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
       this.lastStepper = stepper;
         if (key == 'Nominee Details') {
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
@@ -400,7 +519,7 @@ export class ProposalComponent implements OnInit {
       this.cityTitle = title;
         const data = {
             'platform': 'web',
-            'pincode': this.pin,
+            'pincode': this.personal.controls['personalPincode'].value,
             'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
         }
 
@@ -474,8 +593,20 @@ export class ProposalComponent implements OnInit {
         }
     }
     addEventInsurer(event, i) {
-        this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
-        console.log(this.familyMembers[i].ins_dob);
+      console.log(event.value);
+      if (event.value.length == 10) {
+          this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
+          console.log(this.familyMembers[i].ins_dob);
+      }
+
+    }
+    changeEventInsurer(event, i) {
+        console.log(event.value, 'pop');
+        if (event.value.length == 10) {
+            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
+            console.log(this.familyMembers[i].ins_dob);
+        }
+
     }
     addEvent(event) {
         this.selectDate = event.value;
@@ -517,7 +648,8 @@ export class ProposalComponent implements OnInit {
 
     //Create Proposal
   proposal() {
-          const data = [{
+
+      const data = [{
               'platform': 'web',
               'proposal_id' : this.proposalId.toString(),
               'enquiry_id': this.enquiryId,
@@ -549,7 +681,7 @@ export class ProposalComponent implements OnInit {
               'proposer_comm_city': this.personalData.personalCity.toString(),
               'proposer_comm_state': this.personalData.personalState,
               'proposer_comm_pincode': this.personalData.personalPincode,
-              'prop_dob': this.personalData.personalDob,
+              'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
               'prop_occupation': this.personalData.personalOccupation,
               'prop_annual_income': this.personalData.personalIncome,
               'prop_pan_no': this.personalData.personalPan,
@@ -709,10 +841,12 @@ export class ProposalComponent implements OnInit {
     }
     public getpostalSuccess(successData) {
         if (successData.IsSuccess == true) {
+
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
                 this.personal.controls['personalState'].setValue(this.response.state_name);
                 this.personalCitys = this.response.city;
+                console.log(this.personalCitys, 'this.personalCitys');
                 for (let i = 0; i < this.personalCitys.length; i++) {
                     if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
                         this.summaryCity = this.personalCitys[i].city_name;
@@ -798,6 +932,7 @@ export class ProposalComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
+        this.settings.loadingSpinner = true;
         this.proposalservice.getPolicyToken(data).subscribe(
             (successData) => {
                 this.getPolicyTokenSuccess(successData);
@@ -809,6 +944,7 @@ export class ProposalComponent implements OnInit {
     }
 
     public getPolicyTokenSuccess(successData) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
@@ -822,7 +958,8 @@ export class ProposalComponent implements OnInit {
     }
 
     public getPolicyTokenFailure(error) {
-      console.log(error);
+        this.settings.loadingSpinner = false;
+        console.log(error);
     }
 
     setOccupationList() {
