@@ -21,7 +21,6 @@
                         <mat-select placeholder="Title" formControlName="personalTitle">
                           <mat-option value="Mr">Mr</mat-option>
                           <mat-option value="Mrs">Mrs</mat-option>
-                          <mat-option value="option3">Miss</mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
@@ -254,7 +253,7 @@
                 </div>
 
               </div>
-              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
+              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
                 </div>
