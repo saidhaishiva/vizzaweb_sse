@@ -69,6 +69,7 @@ import { ChangepasswordComponent } from './pages/changepassword/changepassword.c
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
+import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 
 @NgModule({
   imports: [
@@ -127,7 +128,8 @@ import {DownloadMessage} from './pages/payment-success/payment-success.component
       ChangepasswordComponent,
       PaymentSuccessComponent,
       DownloadPolicyComponent,
-      DownloadMessage
+      DownloadMessage,
+      PosstatusAlert
   ],
   providers: [
       AppSettings,
@@ -142,7 +144,7 @@ import {DownloadMessage} from './pages/payment-success/payment-success.component
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert
     ]
 })
 export class AppModule { }

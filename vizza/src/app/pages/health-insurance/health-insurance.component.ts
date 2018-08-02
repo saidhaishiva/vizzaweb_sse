@@ -205,7 +205,8 @@ export class HealthInsuranceComponent implements OnInit {
     public sumInsuredAmonut(): void {
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.common.getSumInsuredAmount(data).subscribe(
             (successData) => {
@@ -241,13 +242,7 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
-            // for (let i = 0; i < this.setArray.length; i++) {
-            //     if (this.setArray[i].name == 'Son') {
-            //         this.sonCount.push(this.setArray[i]);
-            //     } else if (this.setArray[i].name == 'Daughter') {
-            //         this.daughterCount.push(this.setArray[i]);
-            //     }
-            // }
+
         } else {
             if (this.setArray[index].name == 'Son') {
                 this.setArray[3].disabled = false;
@@ -393,6 +388,7 @@ export class HealthInsuranceComponent implements OnInit {
                         'postalcode': this.pincoce ? this.pincoce : '',
                         'created_by': '0',
                         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                         'sum_insured': this.selectedAmount,
                         'family_details': this.finalData
                     };
@@ -512,7 +508,8 @@ export class HealthInsuranceComponent implements OnInit {
             'premium_amount': value.premium_amount,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
 
         };
         this.settings.loadingSpinner = true;
@@ -559,7 +556,8 @@ export class HealthInsuranceComponent implements OnInit {
             'shortlist_id': shortId,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.settings.loadingSpinner = true;
         this.common.removeShortList(data).subscribe(
@@ -601,7 +599,8 @@ export class HealthInsuranceComponent implements OnInit {
             'shortlist_id': shortId,
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.common.removeShortList(data).subscribe(
             (successData) => {
@@ -651,7 +650,8 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': value.name,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.settings.loadingSpinner = true;
         this.common.updateTabPolicyQuotation(data).subscribe(
@@ -725,7 +725,8 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.settings.loadingSpinner = true;
         this.changedTabIndex = sessionStorage.changedTabIndex;
@@ -774,7 +775,8 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'enquiry_id': enqId,
             'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.changedTabIndex = sessionStorage.changedTabIndex;
         this.common.getShortLists(data).subscribe(
@@ -859,7 +861,8 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         let index = this.changedTabIndex;
         // this.settings.loadingSpinner = true;
@@ -918,7 +921,8 @@ export class HealthInsuranceComponent implements OnInit {
             'enquiry_id': this.equiryId,
             'product_lists': this.productLists,
             'created_by': 0,
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
 
         };
         this.settings.loadingSpinner = true;
@@ -948,9 +952,24 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
-        sessionStorage.buyProductdetails = JSON.stringify(value);
-        sessionStorage.groupName = gname;
-        this.router.navigate(['/proposal']);
+        if (this.auth.getPosStatus() == '0') {
+            let dialogRef = this.dialog.open(PosstatusAlert, {
+                width: '700px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    sessionStorage.buyProductdetails = JSON.stringify(value);
+                    sessionStorage.groupName = gname;
+                    this.router.navigate(['/proposal']);
+                } else {
+                }
+            });
+        } else {
+            sessionStorage.buyProductdetails = JSON.stringify(value);
+            sessionStorage.groupName = gname;
+            this.router.navigate(['/proposal']);
+        }
     }
 }
 
@@ -972,6 +991,30 @@ export class GroupmembersAlert {
 
     constructor(
         public dialogRef: MatDialogRef<GroupmembersAlert>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+@Component({
+    selector: 'posstatusalert',
+    template: `
+        <div mat-dialog-content class="text-center">
+            <label>You're not verified. Do you want to continue?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
+        </div>
+    `
+
+})
+export class PosstatusAlert {
+
+    constructor(
+        public dialogRef: MatDialogRef<PosstatusAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {
