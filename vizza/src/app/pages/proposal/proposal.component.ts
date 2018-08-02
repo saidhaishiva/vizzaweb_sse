@@ -89,11 +89,11 @@ export class ProposalComponent implements OnInit {
     public sumPin: any;
     public sumAreaName: any;
     public sumAreaNameComm: any;
-    public dobError: any;
-    public dateVali: any;
     public ageCheck: any;
     public getStepper1: any;
-    public hideStatus: any;
+    public illnesStatus: any;
+    public insureStatus: any;
+    public errorMessage: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
@@ -427,103 +427,179 @@ export class ProposalComponent implements OnInit {
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
+        this.illnesStatus = false
         if (key == 'Insured Details') {
-            for (let i = 0; i < this.familyMembers.length; i++ ) {
-                if (this.familyMembers[i].ins_name != '' &&
-                    this.familyMembers[i].ins_dob != '' &&
-                    this.familyMembers[i].ins_gender != '' &&
-                    this.familyMembers[i].ins_weight != '' &&
-                    this.familyMembers[i].ins_height != '' &&
-                    this.familyMembers[i].ins_occupation_id != '' &&
-                    this.familyMembers[i].ins_relationship != '') {
-
-                       let res = this.familyMembers[i].ins_illness.indexOf('No');
-                       console.log(res, 'indexof');
-                    if (this.familyMembers[i].ins_illness != 'No' || this.familyMembers[i].ins_illness == ''  ) {
-                        alert('if');
-                        if (this.familyMembers[i].ins_illness != '') {
-                                if (this.buyProductdetails.product_id == 6) {
-                                    console.log('in');
-                                    if (this.familyMembers[i].ins_hospital_cash != '') {
-                                        if (i == this.familyMembers.length - 1) {
-                                            stepper.next();
-                                        }
-                                    }
-
-                                } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                                        if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                                            if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
-                                                if (this.familyMembers[i].ins_engage_manual_labour != '' &&
-                                                    this.familyMembers[i].ins_engage_winter_sports != '' &&
-                                                    this.familyMembers[i].ins_personal_accident_applicable != '') {
-                                                    if (i == this.familyMembers.length - 1) {
-                                                        stepper.next();
-                                                    }
-                                                }
-                                            } else {
-                                                    if (i == this.familyMembers.length - 1) {
-                                                        stepper.next();
-                                                    }
-                                                }
-                                        } else {
-                                            if (i == this.familyMembers.length - 1) {
-                                                stepper.next();
-                                            }
-                                    }
-                                }
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
+                    this.errorMessage = false;
+                    if (this.familyMembers[i].ins_illness != 'No') {
+                        this.illnesStatus = true;
+                        break;
+                    } else {
+                        this.illnesStatus = false;
+                    }
+                } else {
+                    this.errorMessage = true;
+                    break;
+                }
+            }
+            if (this.errorMessage) {
+                this.toastr.error('Please fill the empty fields', key);
+            } else if (this.illnesStatus) {
+                this.toastr.error('Please fill the empty fields', key);
+            } else if (this.illnesStatus == false) {
+                for (let i = 0; i < this.familyMembers.length; i++) {
+                    if (this.buyProductdetails.product_id == 6) {
+                        this.insureStatus = false;
+                        console.log('p6');
+                        if (this.familyMembers[i].ins_hospital_cash != '') {
+                            if (i == this.familyMembers.length - 1) {
+                                this.insureStatus = true;
+                            }
+                        } else {
+                            this.errorMessage = true;
+                            break;
                         }
 
-                    } else  {
-                        alert('else');
-                        if (this.buyProductdetails.product_id == 6) {
-                            console.log('in');
-                            if (this.familyMembers[i].ins_hospital_cash != '') {
-                                if (i == this.familyMembers.length - 1) {
-                                    stepper.next();
-                                }
-                            }
-
-                        } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                    } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                        console.log('p8 || p9');
+                        this.errorMessage = false;
+                        this.insureStatus = false;
                             if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                                console.log(this.familyMembers[i].ins_personal_accident_applicable, 'this.familyMembers[i].ins_personal_accident_applicable')
-                                if (this.familyMembers[i].ins_personal_accident_applicable == '1' ) {
-                                    this.familyMembers[i].mat = true;
-                                    if (this.familyMembers[i].ins_engage_manual_labour != '' &&
-                                        this.familyMembers[i].ins_engage_winter_sports != '' ) {
-                                        this.familyMembers[i].mat = false;
+                                if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                                    if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
                                         if (i == this.familyMembers.length - 1) {
-                                            stepper.next();
+                                            this.insureStatus = true;
                                         }
                                     } else {
-                                        alert('rr');
-                                        this.toastr.error('Please fill the empty fields', key);
+                                        this.errorMessage = true;
                                         break;
                                     }
                                 } else {
                                     if (i == this.familyMembers.length - 1) {
-                                        stepper.next();
+                                        this.insureStatus = true;
                                     }
                                 }
                             } else {
                                 if (i == this.familyMembers.length - 1) {
-                                    stepper.next();
+                                    this.insureStatus = true;
                                 }
                             }
+                    } else {
+                        if (i == this.familyMembers.length - 1) {
+                            this.insureStatus = true;
                         }
-                        // if (i == this.familyMembers.length - 1) {
-                        //     stepper.next();
-                        // }
-                        // if (i == this.familyMembers.length - 1) {
-                        //     this.toastr.error('Please fill the empty fields', key);
-                        // }
-                    }
-                } else {
-                    if (i == this.familyMembers.length - 1) {
-                        this.toastr.error('Please fill the empty fields', key);
                     }
                 }
             }
         }
+        if (this.errorMessage) {
+            this.toastr.error('Please fill the empty fields', key);
+        }
+        if (this.insureStatus) {
+            stepper.next();
+        }
+        console.log(this.illnesStatus, 'ilness');
+        console.log(this.errorMessage, 'errorMessage');
+        console.log(this.insureStatus, 'insureStatus');
+
+
+            // for (let i = 0; i < this.familyMembers.length; i++ ) {
+            //     if (this.familyMembers[i].ins_name != '' &&
+            //         this.familyMembers[i].ins_dob != '' &&
+            //         this.familyMembers[i].ins_gender != '' &&
+            //         this.familyMembers[i].ins_weight != '' &&
+            //         this.familyMembers[i].ins_height != '' &&
+            //         this.familyMembers[i].ins_occupation_id != '' &&
+            //         this.familyMembers[i].ins_relationship != '') {
+            //
+            //            let res = this.familyMembers[i].ins_illness.indexOf('No');
+            //            console.log(res, 'indexof');
+            //         if (this.familyMembers[i].ins_illness != 'No' || this.familyMembers[i].ins_illness == ''  ) {
+            //             alert('if');
+            //             if (this.familyMembers[i].ins_illness != '') {
+            //                     if (this.buyProductdetails.product_id == 6) {
+            //                         console.log('in');
+            //                         if (this.familyMembers[i].ins_hospital_cash != '') {
+            //                             if (i == this.familyMembers.length - 1) {
+            //                                 stepper.next();
+            //                             }
+            //                         }
+            //
+            //                     } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+            //                             if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+            //                                 if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+            //                                     if (this.familyMembers[i].ins_engage_manual_labour != '' &&
+            //                                         this.familyMembers[i].ins_engage_winter_sports != '' &&
+            //                                         this.familyMembers[i].ins_personal_accident_applicable != '') {
+            //                                         if (i == this.familyMembers.length - 1) {
+            //                                             stepper.next();
+            //                                         }
+            //                                     }
+            //                                 } else {
+            //                                         if (i == this.familyMembers.length - 1) {
+            //                                             stepper.next();
+            //                                         }
+            //                                     }
+            //                             } else {
+            //                                 if (i == this.familyMembers.length - 1) {
+            //                                     stepper.next();
+            //                                 }
+            //                         }
+            //                     }
+            //             }
+            //
+            //         } else  {
+            //             alert('else');
+            //             if (this.buyProductdetails.product_id == 6) {
+            //                 console.log('in');
+            //                 if (this.familyMembers[i].ins_hospital_cash != '') {
+            //                     if (i == this.familyMembers.length - 1) {
+            //                         stepper.next();
+            //                     }
+            //                 }
+            //
+            //             } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+            //                 if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+            //                     console.log(this.familyMembers[i].ins_personal_accident_applicable, 'this.familyMembers[i].ins_personal_accident_applicable')
+            //                     if (this.familyMembers[i].ins_personal_accident_applicable == '1' ) {
+            //                         this.familyMembers[i].mat = true;
+            //                         if (this.familyMembers[i].ins_engage_manual_labour != '' &&
+            //                             this.familyMembers[i].ins_engage_winter_sports != '' ) {
+            //                             this.familyMembers[i].mat = false;
+            //                             if (i == this.familyMembers.length - 1) {
+            //                                 stepper.next();
+            //                             }
+            //                         } else {
+            //                             alert('rr');
+            //                             this.toastr.error('Please fill the empty fields', key);
+            //                             break;
+            //                         }
+            //                     } else {
+            //                         if (i == this.familyMembers.length - 1) {
+            //                             stepper.next();
+            //                         }
+            //                     }
+            //                 } else {
+            //                     if (i == this.familyMembers.length - 1) {
+            //                         stepper.next();
+            //                     }
+            //                 }
+            //             }
+            //             // if (i == this.familyMembers.length - 1) {
+            //             //     stepper.next();
+            //             // }
+            //             // if (i == this.familyMembers.length - 1) {
+            //             //     this.toastr.error('Please fill the empty fields', key);
+            //             // }
+            //         }
+            //     } else {
+            //         if (i == this.familyMembers.length - 1) {
+            //             this.toastr.error('Please fill the empty fields', key);
+            //         }
+            //     }
+            // }
+      //  }
         console.log(this.familyMembers);
     }
     //Nominee Details
