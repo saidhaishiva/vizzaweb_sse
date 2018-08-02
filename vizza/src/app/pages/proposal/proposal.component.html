@@ -82,8 +82,9 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID" formControlName="personalEmail" required>
-                      <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Email ID is required</mat-error>
+                      <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
+                      <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
+                      <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -223,7 +224,7 @@
                     <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
-                      <mat-button-toggle value="2" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
+                      <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
@@ -464,7 +465,7 @@
              <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_name}}</li>
              <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob}}</li>
              <!--<li class="list-group-item"><strong>Age:</strong> -</li>-->
-             <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.occupation_name}}</li>
+             <!--<li class="list-group-item"><strong>Occupation:</strong> {{summaryData.occupation_name}}</li>-->
              <li class="list-group-item"><strong>Annual Income:</strong> {{summaryData.prop_annual_income | currency: 'INR'}}</li>
              <li class="list-group-item"><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
              <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.prop_pan_no}}</li>

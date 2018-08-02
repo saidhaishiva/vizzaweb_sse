@@ -107,7 +107,6 @@ export class ProposalComponent implements OnInit {
       this.nomineeAdd = true;
       this.nomineeRemove = true;
       this.declaration = false;
-      //this.socialNo = true;
       this.illness = false;
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -245,6 +244,7 @@ export class ProposalComponent implements OnInit {
     }
     cgangeSocialStatus(result) {
       this.socialStatus = this.personal.controls['socialStatus'].value;
+      console.log(result, 'this.result');
       if (result == 'false') {
           this.socialNo = false;
           this.personal.controls['socialAnswer1'].setValue('0');
@@ -307,16 +307,16 @@ export class ProposalComponent implements OnInit {
       console.log(this.nomineeDate[0].nominee.length);
         if (this.nomineeDate[0].nominee.length == 1) {
             if (percent >= 100) {
-                this.nomineeAdd = true;
-                this.nomineeRemove = true;
+                this.nomineeDate[0].nominee[0].addBtn = true;
             } else {
-                this.nomineeAdd = false;
+                this.nomineeDate[0].nominee[0].addBtn = false;
             }
 
         } else {
             this.nomineeAdd = true;
 
         }
+        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
     }
 
     sessionData() {
@@ -790,36 +790,36 @@ export class ProposalComponent implements OnInit {
     }
 
 
-    public addEvent1(type, event) {
-      this.dateVali = event.value;
-        if (event.value != null) {
-            let selectedDate  = '';
-            if (typeof event.value._i == 'string') {
-                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-
-                if (pattern.test(event.value._i)) {
-                    this.dobError = '';
-                } else {
-                    this.dobError = 'Enter Valid Dob';
-                }
-                selectedDate = event.value._i;
-            } else if (typeof event.value._i == 'object') {
-                console.log(event.value._i.date, 'objectttttt');
-                this.dobError = '';
-                let date = event.value._i.date;
-                if (date.toString().length == 1) {
-                    date = '0'+date;
-                }
-                let month =  (parseInt(event.value._i.month)+1).toString();
-
-                if (month.length == 1) {
-                    month = '0' + month;
-                }
-                let year = event.value._i.year;
-                selectedDate = date + '/' + month + '/' + year;
-            }
-        }
-    }
+    // public addEvent1(type, event) {
+    //   this.dateVali = event.value;
+    //     if (event.value != null) {
+    //         let selectedDate  = '';
+    //         if (typeof event.value._i == 'string') {
+    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+    //
+    //             if (pattern.test(event.value._i)) {
+    //                 this.dobError = '';
+    //             } else {
+    //                 this.dobError = 'Enter Valid Dob';
+    //             }
+    //             selectedDate = event.value._i;
+    //         } else if (typeof event.value._i == 'object') {
+    //             console.log(event.value._i.date, 'objectttttt');
+    //             this.dobError = '';
+    //             let date = event.value._i.date;
+    //             if (date.toString().length == 1) {
+    //                 date = '0'+date;
+    //             }
+    //             let month =  (parseInt(event.value._i.month)+1).toString();
+    //
+    //             if (month.length == 1) {
+    //                 month = '0' + month;
+    //             }
+    //             let year = event.value._i.year;
+    //             selectedDate = date + '/' + month + '/' + year;
+    //         }
+    //     }
+    // }
 
     //Create Proposal
   proposal() {
