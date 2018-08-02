@@ -437,7 +437,10 @@ export class ProposalComponent implements OnInit {
                     this.familyMembers[i].ins_occupation_id != '' &&
                     this.familyMembers[i].ins_relationship != '') {
 
-                    if (this.familyMembers[i].ins_illness != 'No' ) {
+                       let res = this.familyMembers[i].ins_illness.indexOf('No');
+                       console.log(res, 'indexof');
+                    if (this.familyMembers[i].ins_illness != 'No' || this.familyMembers[i].ins_illness == ''  ) {
+                        alert('if');
                         if (this.familyMembers[i].ins_illness != '') {
                                 if (this.buyProductdetails.product_id == 6) {
                                     console.log('in');
@@ -468,10 +471,10 @@ export class ProposalComponent implements OnInit {
                                             }
                                     }
                                 }
-
                         }
+
                     } else  {
-                        alert();
+                        alert('else');
                         if (this.buyProductdetails.product_id == 6) {
                             console.log('in');
                             if (this.familyMembers[i].ins_hospital_cash != '') {
@@ -482,14 +485,11 @@ export class ProposalComponent implements OnInit {
 
                         } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
                             if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                                alert('inn');
                                 console.log(this.familyMembers[i].ins_personal_accident_applicable, 'this.familyMembers[i].ins_personal_accident_applicable')
                                 if (this.familyMembers[i].ins_personal_accident_applicable == '1' ) {
-                                    alert('in');
                                     this.familyMembers[i].mat = true;
                                     if (this.familyMembers[i].ins_engage_manual_labour != '' &&
                                         this.familyMembers[i].ins_engage_winter_sports != '' ) {
-                                        alert('intt');
                                         this.familyMembers[i].mat = false;
                                         if (i == this.familyMembers.length - 1) {
                                             stepper.next();
@@ -613,15 +613,15 @@ export class ProposalComponent implements OnInit {
 
 
     personalAccident(values: any, index) {
-      this.hideStatus = index + 1;
-        if(this.hideStatus) {
-            for (let i =0; i < this.familyMembers.length; i++) {
-                if (i + 1 != this.hideStatus) {
-                    this.familyMembers[index].ins_accident_status = true;
-                } else if (i + 1 == this.hideStatus) {
-                    this.familyMembers[i].ins_accident_status = false;
+        if (values.value == 1) {
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                if (i != index) {
+                    this.familyMembers[i].ins_accident_status = true;
                 }
-
+            }
+        } else {
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                this.familyMembers[i].ins_accident_status = false;
             }
         }
 
@@ -629,7 +629,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[index].ins_engage_manual_labour = '';
             this.familyMembers[index].ins_engage_winter_sports = '';
 
-        }else {
+        } else {
             this.familyMembers[index].ins_engage_manual_labour = 'Nill';
             this.familyMembers[index].ins_engage_winter_sports = 'Nill';
 
