@@ -36,8 +36,8 @@ export class ContactComponent implements OnInit {
                 'email': this.form.controls['email'].value,
                 'subject': this.form.controls['subject'].value,
                 'message': this.form.controls['message'].value,
-                // 'roleid':  this.auth.getRoleId(),
-                // 'userid':  this.auth.getUserId(),
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                 'platform': 'web'
             };
             console.log(data);
@@ -56,9 +56,7 @@ export class ContactComponent implements OnInit {
         if (successData.IsSuccess) {
             console.log(successData.ResponseObject, 'successData.ResponseObject');
             this.data = successData.ResponseObject;
-            console.log(this.data, 'this.data');
         } else {
-            console.log('hdfhjdfhj');
             this.toastr.success('Contact details added successfully');
         }
     }

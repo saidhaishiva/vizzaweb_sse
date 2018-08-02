@@ -153,7 +153,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + '/contact/addContactDetails' ;
+        const url = this.configurationService.getHost() + 'contact/addContactDetails' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

@@ -245,15 +245,17 @@ export class ProposalComponent implements OnInit {
     }
     cgangeSocialStatus(result) {
       this.socialStatus = this.personal.controls['socialStatus'].value;
-      console.log(result, 'this.result');
-      if (result == 'false') {
-          this.socialNo = false;
+        let btn = this.personal.controls['socialStatus'].value;
+      console.log(btn, 'this.result');
+      if (btn) {
+          this.socialNo = '';
           this.personal.controls['socialAnswer1'].setValue('0');
           this.personal.controls['socialAnswer2'].setValue('0');
           this.personal.controls['socialAnswer3'].setValue('0');
           this.personal.controls['socialAnswer4'].setValue('0');
       } else {
-          this.socialNo = '';
+          this.socialNo = false;
+
       }
     }
     groupList() {
@@ -415,6 +417,7 @@ export class ProposalComponent implements OnInit {
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
+        sessionStorage.stepper1Details = '';
       console.log(value, 'values');
       sessionStorage.stepper1Details = JSON.stringify(value);
       this.personalData = value;
