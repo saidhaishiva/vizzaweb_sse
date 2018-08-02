@@ -94,6 +94,7 @@ export class ProposalComponent implements OnInit {
     public illnesStatus: any;
     public insureStatus: any;
     public errorMessage: any;
+    public dobError: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
@@ -791,7 +792,7 @@ export class ProposalComponent implements OnInit {
 
 
     public addEvent1(type, event) {
-      this.dateVali = event.value;
+      //this.dateVali = event.value;
         if (event.value != null) {
             let selectedDate  = '';
             if (typeof event.value._i == 'string') {

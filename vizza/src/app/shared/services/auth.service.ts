@@ -21,7 +21,7 @@ export class AuthService {
         sessionStorage.removeItem('vizza-pos-accesstoken');
     }
 
-    setToken( email, firstname, userid, lastname, mobileno, roleid, accesstoken  ) {
+    setToken( email, firstname, userid, lastname, mobileno, roleid, accesstoken, posStatus ) {
         sessionStorage.setItem('vizza-pos-email', email);
         sessionStorage.setItem('vizza-pos-firstname', firstname);
         sessionStorage.setItem('vizza-pos-userid', userid);
@@ -29,6 +29,7 @@ export class AuthService {
         sessionStorage.setItem('vizza-pos-mobileno', mobileno);
         sessionStorage.setItem('vizza-pos-roleid', roleid);
         sessionStorage.setItem('vizza-pos-accesstoken', accesstoken);
+        sessionStorage.setItem('vizza-pos-status', posStatus);
     }
     getPosEmail() {
         return sessionStorage.getItem('vizza-pos-email');
@@ -47,6 +48,9 @@ export class AuthService {
     }
     getPosRoleId() {
         return sessionStorage.getItem('vizza-pos-roleid');
+    }
+    getPosStatus() {
+        return sessionStorage.getItem('vizza-pos-status');
     }
     getAccessToken() {
         return sessionStorage.getItem('vizza-pos-accesstoken');
