@@ -1,0 +1,68 @@
+<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="60" class="flex-p">
+    <mat-card class="list">
+      <mat-card-content>
+        <form [formGroup]="form"  (ngSubmit)="addRelationlManager()">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="First Name" formControlName="firstname">
+            <mat-error *ngIf="form.controls.firstname.errors?.required">First Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Last Name" formControlName="lastname">
+            <mat-error *ngIf="form.controls.lastname.errors?.required">Last Name is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Mobile Number" formControlName="mobilenumber">
+            <mat-error *ngIf="form.controls.mobilenumber.errors?.required">Mobile Number is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)" formControlName="dob" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.controls.dob.errors?.required">DOB is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput formControlName="gender"placeholder="Gender">
+
+            <mat-radio-group formControlName="gender">
+              <mat-radio-button value="male">male</mat-radio-button>
+              <mat-radio-button value="female">female</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="form.controls.gender.errors?.required">Gender is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+
+            <mat-select placeholder="Branch" formControlName="branch" >
+              <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
+                {{list.branch_name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>
+
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <div class="col-md-2">
+              <button mat-raised-button color="default"  type="Reset">Reset</button>
+            </div>
+            <div class="col-md-2">
+              <button mat-raised-button color="primary"  type="submit">Submit</button>
+
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+
