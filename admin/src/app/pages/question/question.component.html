@@ -1,3 +1,37 @@
-<p>
-  question works!
-</p>
+<div class="container">
+<div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+  <form [formGroup]=""  >
+    <mat-form-field class="w-100">
+      <textarea matInput placeholder="Enter Questions" formControlName="question" ></textarea>
+      <mat-error *ngIf="form.controls.question.errors?.required">Enter Questions is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter Answer1" formControlName="optionA" >
+      <mat-error *ngIf="form.controls.optionA.errors?.required">Enter Answer1 is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter Answer2" formControlName="optionB" >
+      <mat-error *ngIf="form.controls.optionB.errors?.required">Enter Answer2 is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter Answer3" formControlName="optionC" >
+      <mat-error *ngIf="form.controls.optionC.errors?.required">Enter Answer3 is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter Answer4" formControlName="optionD" >
+      <mat-error *ngIf="form.controls.optionD.errors?.required">Enter Answer4 is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter Answer5" formControlName="optionE" >
+      <mat-error *ngIf="form.controls.optionE.errors?.required">Enter Answer5 is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Enter True Answer" formControlName="correctanswer" >
+      <mat-error *ngIf="form.controls.correctanswer.errors?.required">Enter Correct Answer is required</mat-error>
+    </mat-form-field>
+    <div class="text-center">
+      <button mat-raised-button color="primary"  type="submit">Save</button>
+    </div>
+  </form>
+</div>
+</div>
