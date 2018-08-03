@@ -55,12 +55,12 @@ export class AddbranchmanagerComponent implements OnInit {
                 'roleid': this.auth.getAdminRoleId(),
                 'userid': this.auth.getAdminId(),
                 'platform': 'web',
-                'bm_fname': this.form.controls['firstname'].value,
-                'bm_lname': this.form.controls['lastname'].value,
+                'firstname': this.form.controls['firstname'].value,
+                'lastname': this.form.controls['lastname'].value,
                 'mobile': this.form.controls['mobilenumber'].value,
                 'dateofbirth': date,
                 'gender': this.form.controls['gender'].value,
-                'bm_email': this.form.controls['email'].value,
+                'email': this.form.controls['email'].value,
                 'branch_id': this.form.controls['branch'].value
             };
             console.log(data, 'aaa');

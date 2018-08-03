@@ -837,7 +837,8 @@ export class ProposalComponent implements OnInit {
 
       const data = [{
               'platform': 'web',
-              'proposal_id' : this.proposalId.toString(),
+          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+          'proposal_id' : this.proposalId.toString(),
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -897,7 +898,7 @@ export class ProposalComponent implements OnInit {
               'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
               'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
               'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
               'created_by': '0',
               'insured_details': this.familyMembers
           }];
