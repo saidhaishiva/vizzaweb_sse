@@ -151,7 +151,7 @@ export class ProposalComponent implements OnInit {
           sameas: ''
 
       });
-      this.personal.controls['socialStatus'].setValue('true');
+
       // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
       //     (successData) => {
       //         this.testProposalSuccess(successData);
@@ -247,15 +247,14 @@ export class ProposalComponent implements OnInit {
       this.socialStatus = this.personal.controls['socialStatus'].value;
         let btn = this.personal.controls['socialStatus'].value;
       console.log(btn, 'this.result');
-      if (btn) {
-          this.socialNo = '';
+      if (btn == 'true') {
           this.personal.controls['socialAnswer1'].setValue('0');
           this.personal.controls['socialAnswer2'].setValue('0');
           this.personal.controls['socialAnswer3'].setValue('0');
           this.personal.controls['socialAnswer4'].setValue('0');
+          this.socialNo = '';
       } else {
           this.socialNo = false;
-
       }
     }
     groupList() {
@@ -361,6 +360,14 @@ export class ProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
+
+            if (JSON.parse(this.getStepper1.socialStatus)) {
+                this.personal.controls['socialAnswer1'].reset();
+                this.personal.controls['socialAnswer2'].reset();
+                this.personal.controls['socialAnswer3'].reset();
+                this.personal.controls['socialAnswer4'].reset();
+            }
+            console.log(this.getStepper1.socialStatus, 'socialStatus');
             if (JSON.parse(this.getStepper1.socialStatus)) {
                 this.socialStatus = true;
             } else {
@@ -872,10 +879,10 @@ export class ProposalComponent implements OnInit {
               'previous_medical_insurance': this.personalData.previousinsurance,
               'critical_illness': 'NO   ',
               'social_status': this.personalData.socialStatus ? 1 : 0,
-              'social_status_bpl': this.personalData.socialAnswer1 == '' ? 0 : this.personalData. socialAnswer1,
-              'social_status_disabled': this.personalData.socialAnswer2 == '' ? 0 : this.personalData. socialAnswer2,
-              'social_status_informal': this.personalData.socialAnswer3 == '' ? 0 : this.personalData. socialAnswer3 ,
-              'social_status_unorganized': this.personalData.socialAnswer4 == '' ? 0 : this.personalData. socialAnswer4,
+              'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
+              'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData. socialAnswer2,
+              'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? 0 : this.personalData. socialAnswer3 ,
+              'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? 0 : this.personalData. socialAnswer4,
               'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
               'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
               'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,

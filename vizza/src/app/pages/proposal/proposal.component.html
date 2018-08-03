@@ -216,7 +216,7 @@
                 <h6 class="color-green">SOCIAL STATUS</h6>
                 <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                  <mat-radio-button value="true" [checked]="socialStatus === 'true'" >NO</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="socialStatus == 'true'" >NO</mat-radio-button>
                 </mat-radio-group>
                 <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
                 <div class="row">
