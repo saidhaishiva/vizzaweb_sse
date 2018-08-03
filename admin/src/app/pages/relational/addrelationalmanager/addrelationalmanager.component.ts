@@ -21,6 +21,7 @@ export class AddrelationalmanagerComponent implements OnInit {
     loadingIndicator: boolean = true;
     public branchLists: any;
     public responsedata: any;
+    public smList: any;
   constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchservice: BranchService,
               public datepipe: DatePipe, public toastr: ToastrService) {
       this.form = this.forms.group ({
@@ -31,6 +32,7 @@ export class AddrelationalmanagerComponent implements OnInit {
           'gender': ['', Validators.compose([Validators.required])],
           'email': ['', Validators.compose([Validators.required])],
           'branch': ['', Validators.compose([Validators.required])],
+          'salesmanager': ['', Validators.compose([Validators.required])],
 
       });
   }
@@ -38,6 +40,7 @@ export class AddrelationalmanagerComponent implements OnInit {
 
   ngOnInit() {
     this.branchList();
+    this.salesManagerList([]);
   }
     public addRelationlManager(): void {
         if (this.form.valid) {
@@ -53,13 +56,16 @@ export class AddrelationalmanagerComponent implements OnInit {
                 'dateofbirth': date,
                 'gender': this.form.controls['gender'].value,
                 'email': this.form.controls['email'].value,
-                'branch_id': this.form.controls['branch'].value,
+                'branchid': this.form.controls['branch'].value,
+                'salesmanagerid': this.form.controls['salesmanager'].value,
+
+
 
             };
             alert();
             console.log(data, 'aaa');
 
-            // this.settings.loadingSpinner = true;
+             this.settings.loadingSpinner = true;
             this.branchservice.addRelationlManagerList(data).subscribe(
                 (successData) => {
                     this.addRelationalSuccess(successData);
@@ -72,26 +78,27 @@ export class AddrelationalmanagerComponent implements OnInit {
     }
     public addRelationalSuccess(success) {
         console.log(success);
-        // this.settings.loadingSpinner = false;
+        this.settings.loadingSpinner = false;
         if (success.IsSuccess) {
-            alert();
             this.responsedata = success.ResponseObject;
             this.toastr.success(success.ResponseObject);
-
         } else {
-            this.toastr.error(success.ResponseObject);
+            this.toastr.error(success.ErrorObject);
 
         }
     }
 
     public addRelationalFailure(error) {
+        this.settings.loadingSpinner = false;
 
     }
     public branchList() {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
+            'userid': this.auth.getAdminId(),
+            'branchmanagerid': '',
+
         };
         this.loadingIndicator = true;
         this.branchservice.branchList(data).subscribe(
@@ -113,6 +120,37 @@ export class AddrelationalmanagerComponent implements OnInit {
     }
 
     public branchListFailure(error) {
+
+    }
+    public salesManagerList(value) {
+
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'userid': this.auth.getAdminId(),
+            'bm_id': '',
+            'branch_id': [],
+        };
+
+        this.branchservice.salesManagerList(data).subscribe(
+            (successData) => {
+                this.salesSuccess(successData);
+            },
+            (error) => {
+                this.salesFailure(error);
+            }
+        );
+    }
+    public salesSuccess(success) {
+        console.log(success);
+        this.loadingIndicator = false;
+        if (success.IsSuccess) {
+            this.smList = success.ResponseObject;
+        } else {
+        }
+    }
+
+    public salesFailure(error) {
 
     }
 }

@@ -62,7 +62,7 @@
 
             <mat-select placeholder="Branch" formControlName="branch" multiple>
               <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
-                {{list.branch_name}}
+                {{list.branchname}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>

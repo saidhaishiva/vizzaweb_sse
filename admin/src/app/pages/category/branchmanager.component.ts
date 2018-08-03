@@ -23,8 +23,8 @@ export const MY_FORMATS = {
 };
 @Component({
   selector: 'app-branchmanager',
-  templateUrl: './branchmanager.component.html',
-  styleUrls: ['./branchmanager.component.scss'],
+  templateUrl: '../branchmanager/branchmanager.component.html',
+  styleUrls: ['../branchmanager/branchmanager.component.scss'],
     providers: [
 {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
 {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},

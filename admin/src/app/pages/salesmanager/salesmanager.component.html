@@ -1,24 +1,35 @@
 
 <div class="flex-p text-right">
-  <button mat-raised-button color="primary" type="button" class="button-right" [routerLink]="['/addbranchmanager']"><i class="material-icons">
+  <button mat-raised-button color="primary" type="button" class="button-right" [routerLink]="['/addsalesmanager']"><i class="material-icons">
     add
   </i> Add</button>
 
 </div>
 <section id="appointment" class="pagecount">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="text-left">
         <mat-form-field class="w-50">
-          <mat-select placeholder="Branch" [(ngModel)]="selectedBranch" multiple (change)= "changeList()">
-            <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
-              {{list.branch_name}}
+          <mat-select placeholder="Branch" [(ngModel)]="selectedBranch" multiple (change)= "changeManagerList()">
+            <mat-option *ngFor="let list of bmList" [value]="list.bm_id">
+              {{list.firstname}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
+      <div class="text-left">
+        <mat-form-field class="w-50">
+          <mat-select placeholder="Branch" [(ngModel)]="selectedBranch" multiple (change)= "changeList()">
+            <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
+              {{list.branchname}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-4">
       <div class="text-right">
         <mat-form-field class="w-50">
           <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">

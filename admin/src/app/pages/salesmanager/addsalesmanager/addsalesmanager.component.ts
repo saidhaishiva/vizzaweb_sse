@@ -21,7 +21,7 @@ export class AddsalesmanagerComponent implements OnInit {
     public responsedata: any;
     public branchLists: any;
     loadingIndicator: boolean = true;
-    public saleslist: any;
+    public bmList: any;
 
   constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchservice: BranchService,
               public datepipe: DatePipe, public toastr: ToastrService) {
@@ -39,7 +39,6 @@ export class AddsalesmanagerComponent implements OnInit {
       });
   }
   ngOnInit() {
-      alert();
       this.branchList();
       this.branchManagerList([]);
 
@@ -93,11 +92,12 @@ export class AddsalesmanagerComponent implements OnInit {
 
     }
     public branchList() {
-alert();
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
+            'userid': this.auth.getAdminId(),
+            'branchmanagerid': '',
+
         };
         this.loadingIndicator = true;
         this.branchservice.branchList(data).subscribe(
@@ -122,7 +122,6 @@ alert();
 
     }
     public branchManagerList(value) {
-      alert();
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
@@ -143,7 +142,7 @@ alert();
         console.log(success);
         this.loadingIndicator = false;
         if (success.IsSuccess) {
-            this.saleslist = success.ResponseObject;
+            this.bmList = success.ResponseObject;
         } else {
         }
     }
