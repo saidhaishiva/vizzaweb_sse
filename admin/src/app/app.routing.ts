@@ -22,7 +22,7 @@ import {LearningcenterComponent} from './pages/learningcenter/learningcenter.com
 import {CategoryComponent} from './pages/category/category.component';
 import {SubjectComponent} from './pages/subject/subject.component';
 import {QuestionComponent} from './pages/question/question.component';
-import {BranchmanagerComponent} from './pages/category/branchmanager.component';
+import { BranchmanagerComponent } from './pages/branchmanager/branchmanager.component';
 import {AddbranchmanagerComponent} from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component';
 import {AddsalesmanagerComponent} from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
