@@ -45,6 +45,30 @@ export class BranchService {
             .catch(this.handleError);
 
     }
+    salesManagerList(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'salesmanager/sm_list' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
+    addsalesManagerList(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + '' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
     private extractData(res: Response) {
         const body = res;
         return body || {};

@@ -22,8 +22,10 @@ import {LearningcenterComponent} from './pages/learningcenter/learningcenter.com
 import {CategoryComponent} from './pages/category/category.component';
 import {SubjectComponent} from './pages/subject/subject.component';
 import {QuestionComponent} from './pages/question/question.component';
-import {BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
+import {BranchmanagerComponent} from './pages/category/branchmanager.component';
 import {AddbranchmanagerComponent} from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
+import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component';
+import {AddsalesmanagerComponent} from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -37,6 +39,8 @@ export const routes: Routes = [
             { path: 'category', component: CategoryComponent, data: { breadcrumb: 'Category' } },
             { path: 'branchmanager', component: BranchmanagerComponent, data: { breadcrumb: 'Branch Manager' } },
             { path: 'addbranchmanager', component: AddbranchmanagerComponent, data: { breadcrumb: ' Add Branch Manager' } },
+            { path: 'salesmanager', component: SalesmanagerComponent, data: { breadcrumb: 'Sales Manager' } },
+            { path: 'addsalesmanager', component: AddsalesmanagerComponent, data: { breadcrumb: ' Add Sales Manager' } },
             { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
             { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
