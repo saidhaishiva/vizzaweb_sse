@@ -49,7 +49,7 @@ export class AddsubjectComponent implements OnInit {
                 'platform': 'web'
             };
             console.log(data);
-            this.settings.loadingSpinner = true;
+            this.settings.loadingSpinner = true ;
             this.categoryService.addSubject(data).subscribe(
                 (successData) => {
                     this.getSubjectSuccess(successData);

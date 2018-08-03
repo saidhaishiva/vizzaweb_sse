@@ -51,7 +51,7 @@ export class SubjectComponent implements OnInit {
       // let selectedCid = values.toString();
         // console.log(selectedCid, 'values');
 
-       this.settings.loadingSpinner = true;
+       //    this.settings.loadingSpinner = true;
         const data = {
             'adminid': this.auth.getAdminId(),
             'platform': 'web',
