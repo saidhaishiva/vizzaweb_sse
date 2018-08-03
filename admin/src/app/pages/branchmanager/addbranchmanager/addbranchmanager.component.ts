@@ -97,7 +97,9 @@ export class AddbranchmanagerComponent implements OnInit {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
+            'userid': this.auth.getAdminId(),
+            'branchmanagerid': '',
+
         };
         this.loadingIndicator = true;
         this.branchs.branchList(data).subscribe(

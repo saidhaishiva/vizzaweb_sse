@@ -35,6 +35,7 @@ export class SalesmanagerComponent implements OnInit {
     public status: any;
     public selectedBranch: any;
     public branchLists: any;
+    public bmList: any;
     public total: any;
     public settings: Settings;
     constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
@@ -42,6 +43,9 @@ export class SalesmanagerComponent implements OnInit {
 
     ngOnInit() {
         this.salesManagerList([]);
+        this.branchList();
+        this.branchManagerList([]);
+        alert();
     }
 
     public salesManagerList(value) {
@@ -50,7 +54,8 @@ export class SalesmanagerComponent implements OnInit {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'bm_id': value,
+            'bm_id': '',
+            'branch_id': [],
         };
 
         this.branchservice.salesManagerList(data).subscribe(
@@ -91,7 +96,8 @@ export class SalesmanagerComponent implements OnInit {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
+            'userid': this.auth.getAdminId(),
+            'branchmanagerid': '',
         };
         this.loadingIndicator = false;
 
@@ -119,6 +125,39 @@ export class SalesmanagerComponent implements OnInit {
 
     }
     changeList() {
+        this.salesManagerList(this.selectedBranch);
+
+    }
+    public branchManagerList(value) {
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'userid': this.auth.getAdminId(),
+            'branch_id': value,
+
+        };
+
+        this.branchservice.branchManagerList(data).subscribe(
+            (successData) => {
+                this.branchSuccess(successData);
+            },
+            (error) => {
+                this.branchFailure(error);
+            }
+        );
+    }
+    public branchSuccess(success) {
+        console.log(success);
+        this.loadingIndicator = false;
+        if (success.IsSuccess) {
+            this.bmList = success.ResponseObject;
+        } else {
+        }
+    }
+    public branchFailure(error) {
+
+    }
+    changeManagerList() {
         this.salesManagerList(this.selectedBranch);
 
     }
