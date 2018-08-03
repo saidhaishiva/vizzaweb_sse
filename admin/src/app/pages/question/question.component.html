@@ -1,6 +1,24 @@
-<div class="container">
+<div class="flex-p" >
+<div class="row">
+    <div class="col-md-6 text-left">
+      <mat-form-field fxLayoutAlign="start  start">
+          <mat-select  placeholder="All Category" (change)="getCategory(categoryid)" [(ngModel)]="categoryid"  [(value)]='selected'>
+          <mat-option *ngFor="let list of categoryList" value="{{list.category_id}}">{{list.category_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 text-right">
+      <mat-form-field  class="w-25">
+        <mat-select  placeholder="All Subjects" (change)="getSubjects(subjectid)" [(ngModel)]="subjectid" >
+          <mat-option *ngFor="let list of subjectList" value="{{list.subject_id}}">{{list.subject_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+</div>
+</div>
+<div class="flex-p">
 <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-  <form [formGroup]=""  >
+  <form [formGroup]="form" (ngSubmit)="addQuestions()" >
     <mat-form-field class="w-100">
       <textarea matInput placeholder="Enter Questions" formControlName="question" ></textarea>
       <mat-error *ngIf="form.controls.question.errors?.required">Enter Questions is required</mat-error>
