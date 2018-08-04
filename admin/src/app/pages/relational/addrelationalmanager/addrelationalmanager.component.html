@@ -43,10 +43,20 @@
 
             <mat-select placeholder="Branch" formControlName="branch" >
               <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
-                {{list.branch_name}}
+                {{list.branchname}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="w-100">
+
+          <mat-select placeholder="Sales Manager" formControlName="salesmanager">
+            <mat-option *ngFor="let list of smList" [value]="list.sm_id">
+              {{list.firstname}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>
 
           </mat-form-field>
           <div fxLayout="row" fxLayoutAlign="center">

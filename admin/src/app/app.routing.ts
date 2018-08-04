@@ -22,10 +22,12 @@ import {LearningcenterComponent} from './pages/learningcenter/learningcenter.com
 import {CategoryComponent} from './pages/category/category.component';
 import {SubjectComponent} from './pages/subject/subject.component';
 import {QuestionComponent} from './pages/question/question.component';
-import { BranchmanagerComponent } from './pages/branchmanager/branchmanager.component';
+import { BranchmanagerComponent} from './pages/category/branchmanager.component';
 import {AddbranchmanagerComponent} from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component';
 import {AddsalesmanagerComponent} from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
+import {RelationalComponent} from './pages/relational/relational.component';
+import {AddrelationalmanagerComponent} from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -40,6 +42,8 @@ export const routes: Routes = [
             { path: 'branchmanager', component: BranchmanagerComponent, data: { breadcrumb: 'Branch Manager' } },
             { path: 'addbranchmanager', component: AddbranchmanagerComponent, data: { breadcrumb: ' Add Branch Manager' } },
             { path: 'salesmanager', component: SalesmanagerComponent, data: { breadcrumb: 'Sales Manager' } },
+            { path: 'relationalmanager', component: RelationalComponent, data: { breadcrumb: 'Relational Manager' } },
+            { path: 'addrelationalmanager', component: AddrelationalmanagerComponent, data: { breadcrumb: ' Add Relational Manager' } },
             { path: 'addsalesmanager', component: AddsalesmanagerComponent, data: { breadcrumb: ' Add Sales Manager' } },
             { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
             { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },

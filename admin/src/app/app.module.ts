@@ -71,12 +71,14 @@ import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.compo
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
 import { UpdatecategoryComponent } from './pages/category/updatecategory/updatecategory.component';
 import { UpdatesubjectComponent } from './pages/subject/updatesubject/updatesubject.component';
-import { BranchmanagerComponent } from './pages/branchmanager/branchmanager.component';
+import { BranchmanagerComponent} from './pages/category/branchmanager.component';
 import { BranchService} from './shared/services/branch.service';
 import { AddbranchmanagerComponent } from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {DatePipe} from '@angular/common';
 import { SalesmanagerComponent } from './pages/salesmanager/salesmanager.component';
 import { AddsalesmanagerComponent } from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
+import { RelationalComponent } from './pages/relational/relational.component';
+import { AddrelationalmanagerComponent } from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 
 @NgModule({
     imports: [
@@ -135,7 +137,10 @@ import { AddsalesmanagerComponent } from './pages/salesmanager/addsalesmanager/a
         BranchmanagerComponent,
         AddbranchmanagerComponent,
         SalesmanagerComponent,
-        AddsalesmanagerComponent
+        AddsalesmanagerComponent,
+        RelationalComponent,
+        AddrelationalmanagerComponent,
+
     ],
     providers: [
         AppSettings,

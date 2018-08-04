@@ -45,7 +45,7 @@ export class CategoryComponent implements OnInit {
      this.getCategoryList();
   }
     public getCategoryList() {
-         this.settings.loadingSpinner = true;
+         // this.settings.loadingSpinner = true;
         const data = {
             'adminid': this.auth.getAdminId(),
             'platform': 'web',
