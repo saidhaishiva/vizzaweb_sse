@@ -1,15 +1,15 @@
 <div class="flex-p" >
 <div class="row">
     <div class="col-md-6 text-left">
-      <mat-form-field fxLayoutAlign="start  start">
+      <mat-form-field  class="w-100">
           <mat-select  placeholder="All Category" (change)="getCategory(categoryid)" [(ngModel)]="categoryid"  [(value)]='selected'>
           <mat-option *ngFor="let list of categoryList" value="{{list.category_id}}">{{list.category_name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-md-6 text-right">
-      <mat-form-field  class="w-25">
-        <mat-select  placeholder="All Subjects" (change)="getSubjects(subjectid)" [(ngModel)]="subjectid" >
+      <mat-form-field  class="w-100">
+        <mat-select  placeholder="All Subjects" (change)="getSubjects(subjectid)" [(ngModel)]="subjectid" [(value)]='selected' >
           <mat-option *ngFor="let list of subjectList" value="{{list.subject_id}}">{{list.subject_name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -46,6 +46,12 @@
     <mat-form-field class="w-100">
       <input matInput placeholder="Enter True Answer" formControlName="correctanswer" >
       <mat-error *ngIf="form.controls.correctanswer.errors?.required">Enter Correct Answer is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Status" formControlName="status"  name="status">
+        <mat-option *ngFor="let list of Status" [value]="list.value">{{list.viewValue}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.status.errors?.required">status is required</mat-error>
     </mat-form-field>
     <div class="text-center">
       <button mat-raised-button color="primary"  type="submit">Save</button>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
@@ -95,6 +95,9 @@ export class ProposalComponent implements OnInit {
     public insureStatus: any;
     public errorMessage: any;
     public dobError: any;
+    public setDateAge: any;
+    public personalAge: any;
+
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
@@ -120,7 +123,7 @@ export class ProposalComponent implements OnInit {
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
           personalLastname: ['', Validators.required],
-          personalDob: ['', Validators.required],
+          personalDob: ['', Validators.compose([Validators.required])],
           personalOccupation: ['', Validators.required],
           personalIncome: ['', Validators.required],
           personalArea: ['', Validators.required],
@@ -197,6 +200,9 @@ export class ProposalComponent implements OnInit {
       //
       // });
   }
+
+
+
     ngOnInit() {
 
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
@@ -230,6 +236,9 @@ export class ProposalComponent implements OnInit {
         this.sessionData();
     }
 
+
+
+
     criticalIllness(values: any) {
       if (values.checked) {
           const dialogRef = this.dialog.open(ProposalmessageComponent, {
@@ -243,7 +252,7 @@ export class ProposalComponent implements OnInit {
           this.stopNext = false;
       }
     }
-    cgangeSocialStatus(result) {
+    changeSocialStatus(result) {
       this.socialStatus = this.personal.controls['socialStatus'].value;
         let btn = this.personal.controls['socialStatus'].value;
       console.log(btn, 'this.result');
@@ -424,15 +433,17 @@ export class ProposalComponent implements OnInit {
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
+        console.log(value, 'value');
         sessionStorage.stepper1Details = '';
-      console.log(value, 'values');
-      sessionStorage.stepper1Details = JSON.stringify(value);
-      this.personalData = value;
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        this.personalData = value;
         if (this.personal.valid) {
-            console.log(value, 'value');
-           // this.personalData.personalDob = this.setDate;
-          //  console.log(this.personalData.personalDob, 'this.personalData.personalDobthis.personalData.personalDob')
-            stepper.next();
+
+            if (this.personalAge >= 18) {
+                stepper.next();
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
         }
     }
     //Insured Details
@@ -515,102 +526,7 @@ export class ProposalComponent implements OnInit {
         console.log(this.insureStatus, 'insureStatus');
 
 
-            // for (let i = 0; i < this.familyMembers.length; i++ ) {
-            //     if (this.familyMembers[i].ins_name != '' &&
-            //         this.familyMembers[i].ins_dob != '' &&
-            //         this.familyMembers[i].ins_gender != '' &&
-            //         this.familyMembers[i].ins_weight != '' &&
-            //         this.familyMembers[i].ins_height != '' &&
-            //         this.familyMembers[i].ins_occupation_id != '' &&
-            //         this.familyMembers[i].ins_relationship != '') {
-            //
-            //            let res = this.familyMembers[i].ins_illness.indexOf('No');
-            //            console.log(res, 'indexof');
-            //         if (this.familyMembers[i].ins_illness != 'No' || this.familyMembers[i].ins_illness == ''  ) {
-            //             alert('if');
-            //             if (this.familyMembers[i].ins_illness != '') {
-            //                     if (this.buyProductdetails.product_id == 6) {
-            //                         console.log('in');
-            //                         if (this.familyMembers[i].ins_hospital_cash != '') {
-            //                             if (i == this.familyMembers.length - 1) {
-            //                                 stepper.next();
-            //                             }
-            //                         }
-            //
-            //                     } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-            //                             if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-            //                                 if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
-            //                                     if (this.familyMembers[i].ins_engage_manual_labour != '' &&
-            //                                         this.familyMembers[i].ins_engage_winter_sports != '' &&
-            //                                         this.familyMembers[i].ins_personal_accident_applicable != '') {
-            //                                         if (i == this.familyMembers.length - 1) {
-            //                                             stepper.next();
-            //                                         }
-            //                                     }
-            //                                 } else {
-            //                                         if (i == this.familyMembers.length - 1) {
-            //                                             stepper.next();
-            //                                         }
-            //                                     }
-            //                             } else {
-            //                                 if (i == this.familyMembers.length - 1) {
-            //                                     stepper.next();
-            //                                 }
-            //                         }
-            //                     }
-            //             }
-            //
-            //         } else  {
-            //             alert('else');
-            //             if (this.buyProductdetails.product_id == 6) {
-            //                 console.log('in');
-            //                 if (this.familyMembers[i].ins_hospital_cash != '') {
-            //                     if (i == this.familyMembers.length - 1) {
-            //                         stepper.next();
-            //                     }
-            //                 }
-            //
-            //             } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-            //                 if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-            //                     console.log(this.familyMembers[i].ins_personal_accident_applicable, 'this.familyMembers[i].ins_personal_accident_applicable')
-            //                     if (this.familyMembers[i].ins_personal_accident_applicable == '1' ) {
-            //                         this.familyMembers[i].mat = true;
-            //                         if (this.familyMembers[i].ins_engage_manual_labour != '' &&
-            //                             this.familyMembers[i].ins_engage_winter_sports != '' ) {
-            //                             this.familyMembers[i].mat = false;
-            //                             if (i == this.familyMembers.length - 1) {
-            //                                 stepper.next();
-            //                             }
-            //                         } else {
-            //                             alert('rr');
-            //                             this.toastr.error('Please fill the empty fields', key);
-            //                             break;
-            //                         }
-            //                     } else {
-            //                         if (i == this.familyMembers.length - 1) {
-            //                             stepper.next();
-            //                         }
-            //                     }
-            //                 } else {
-            //                     if (i == this.familyMembers.length - 1) {
-            //                         stepper.next();
-            //                     }
-            //                 }
-            //             }
-            //             // if (i == this.familyMembers.length - 1) {
-            //             //     stepper.next();
-            //             // }
-            //             // if (i == this.familyMembers.length - 1) {
-            //             //     this.toastr.error('Please fill the empty fields', key);
-            //             // }
-            //         }
-            //     } else {
-            //         if (i == this.familyMembers.length - 1) {
-            //             this.toastr.error('Please fill the empty fields', key);
-            //         }
-            //     }
-            // }
-      //  }
+
         console.log(this.familyMembers);
     }
     //Nominee Details
@@ -774,6 +690,24 @@ export class ProposalComponent implements OnInit {
 
     }
 
+
+
+    changeEventInsurer(event, i) {
+        console.log(event.value, 'pop');
+        if (event.value.length == 10) {
+            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
+            console.log(this.familyMembers[i].ins_dob);
+        }
+
+    }
+    addEvent(event) {
+        this.selectDate = event.value;
+        console.log(this.selectDate);
+        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        this.personalAge = this.ageCalculate(this.setDateAge);
+    }
+
     ageCalculate(dob) {
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring( 8,10), 10);
@@ -786,59 +720,14 @@ export class ProposalComponent implements OnInit {
         return year_age;
     }
 
-    changeEventInsurer(event, i) {
-        console.log(event.value, 'pop');
-        if (event.value.length == 10) {
-            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
-            console.log(this.familyMembers[i].ins_dob);
-        }
 
-    }
-    addEvent(event) {
-        this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-
-    }
-
-
-    // public addEvent1(type, event) {
-    //   this.dateVali = event.value;
-    //     if (event.value != null) {
-    //         let selectedDate  = '';
-    //         if (typeof event.value._i == 'string') {
-    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    //
-    //             if (pattern.test(event.value._i)) {
-    //                 this.dobError = '';
-    //             } else {
-    //                 this.dobError = 'Enter Valid Dob';
-    //             }
-    //             selectedDate = event.value._i;
-    //         } else if (typeof event.value._i == 'object') {
-    //             console.log(event.value._i.date, 'objectttttt');
-    //             this.dobError = '';
-    //             let date = event.value._i.date;
-    //             if (date.toString().length == 1) {
-    //                 date = '0'+date;
-    //             }
-    //             let month =  (parseInt(event.value._i.month)+1).toString();
-    //
-    //             if (month.length == 1) {
-    //                 month = '0' + month;
-    //             }
-    //             let year = event.value._i.year;
-    //             selectedDate = date + '/' + month + '/' + year;
-    //         }
-    //     }
-    // }
 
     //Create Proposal
   proposal() {
-
       const data = [{
               'platform': 'web',
           'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-          'proposal_id' : this.proposalId.toString(),
+          'proposal_id' : sessionStorage.proposalID.toString(),
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -1113,9 +1002,10 @@ export class ProposalComponent implements OnInit {
 
     public payNow() {
         const data = {
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
             'reference_id' :  this.summaryData.proposal_details[0].referenceId,
-            'proposal_id': this.proposalId,
+            'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
