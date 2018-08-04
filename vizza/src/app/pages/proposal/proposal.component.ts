@@ -382,6 +382,10 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.socialStatus = false;
             }
+            if (sessionStorage.proposalID != '') {
+                this.proposalId = sessionStorage.proposalID;
+            }
+
             if (this.getStepper1.personalPincode != '') {
                 this.getPostal(this.getStepper1.personalPincode, 'personal');
                 this.getCityId('personal');
@@ -727,7 +731,7 @@ export class ProposalComponent implements OnInit {
       const data = [{
               'platform': 'web',
           'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-          'proposal_id' : sessionStorage.proposalID.toString(),
+            'proposal_id' : this.proposalId,
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -806,7 +810,7 @@ export class ProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.proposalId = this.summaryData.proposal_id;
-            this.auth.setSessionData('proposalID',  this.proposalId );
+            sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
             if (this.summaryData.prop_res_pincode) {
                 this.getPostalSummary(this.summaryData.prop_res_pincode, 'residence');
