@@ -25,6 +25,7 @@ export class DownloadPolicyComponent implements OnInit {
   }
     DownloadPdf() {
         const data = {
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'mail_status': '0',
             'proposal_id' : this.proposalId,
             'platform': 'web',
