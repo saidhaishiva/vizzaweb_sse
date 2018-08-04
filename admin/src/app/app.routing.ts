@@ -22,6 +22,7 @@ import {LearningcenterComponent} from './pages/learningcenter/learningcenter.com
 import {CategoryComponent} from './pages/category/category.component';
 import {SubjectComponent} from './pages/subject/subject.component';
 import {QuestionComponent} from './pages/question/question.component';
+import {ListquestionComponent} from './pages/question/listquestion/listquestion.component';
 import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
 import {AddbranchmanagerComponent} from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component';
@@ -52,6 +53,7 @@ export const routes: Routes = [
             { path: 'addsalesmanager', component: AddsalesmanagerComponent, data: { breadcrumb: ' Add Sales Manager' } },
             { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
             { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },
+            { path:  'listquestion', component: ListquestionComponent, data: { breadcrumb: 'List Questions' } },
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
