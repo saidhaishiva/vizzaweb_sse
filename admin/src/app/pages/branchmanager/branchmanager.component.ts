@@ -87,7 +87,7 @@ export class BranchmanagerComponent implements OnInit {
 
             const val = event.target.value.toLowerCase();
             const temp = this.temp.filter(function(d) {
-                return d.Firstname.toLowerCase().indexOf(val) !== -1 || !val;
+                return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
             });
             this.rows = temp;
             console.log(this.rows, 'opo');
@@ -99,12 +99,15 @@ export class BranchmanagerComponent implements OnInit {
     }
 
     public branchList() {
+        alert();
         const data = {
-            'platform': 'web',
-            'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
+                'platform': 'web',
+                'roleid': this.auth.getAdminRoleId(),
+                'userid': this.auth.getAdminId(),
+                'branchmanagerid': ''
+
         };
-        this.loadingIndicator = true;
+        // this.loadingIndicator = true;
 
         this.branch.branchList(data).subscribe(
             (successData) => {
@@ -116,7 +119,7 @@ export class BranchmanagerComponent implements OnInit {
         );
     }
     public branchListSuccess(success) {
-        this.loadingIndicator = false;
+        // this.loadingIndicator = false;
 
         console.log(success);
             if (success.IsSuccess) {

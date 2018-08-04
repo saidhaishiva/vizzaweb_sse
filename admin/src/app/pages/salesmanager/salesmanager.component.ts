@@ -45,7 +45,6 @@ export class SalesmanagerComponent implements OnInit {
         this.salesManagerList([]);
         this.branchList();
         this.branchManagerList([]);
-        alert();
     }
 
     public salesManagerList(value) {
@@ -67,6 +66,7 @@ export class SalesmanagerComponent implements OnInit {
             }
         );
     }
+
     public salesSuccess(success) {
         console.log(success);
         this.loadingIndicator = false;
@@ -81,8 +81,9 @@ export class SalesmanagerComponent implements OnInit {
     updateFilter(event) {
 
         const val = event.target.value.toLowerCase();
+        console.log(val,'ss');
         const temp = this.temp.filter(function(d) {
-            return d.Firstname.toLowerCase().indexOf(val) !== -1 || !val;
+            return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
         });
         this.rows = temp;
         console.log(this.rows, 'opo');

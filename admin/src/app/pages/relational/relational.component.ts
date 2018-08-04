@@ -19,7 +19,6 @@ export class RelationalComponent implements OnInit {
     rows = [];
     temp = [];
     selected = [];
-     // loadingIndicator: boolean = true;
     public response: any;
     public status: any;
     public selectedBranch: any;
@@ -27,12 +26,13 @@ export class RelationalComponent implements OnInit {
     public total: any;
     public  branchLists: any;
     public settings: Settings;
+    public smList: any;
   constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService,public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-      this.branchList();
       this.relationalManagerList();
+      this.salesManagerList([]);
   }
     public relationalManagerList() {
 
@@ -63,6 +63,17 @@ export class RelationalComponent implements OnInit {
             this.temp = this.data;
         } else {
         }
+    }
+    updateFilter(event) {
+
+        const val = event.target.value.toLowerCase();
+        console.log(val,'ss');
+        const temp = this.temp.filter(function(d) {
+            return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        this.rows = temp;
+        console.log(this.rows, 'opo');
+        this.table.offset = 0;
     }
     public relationalFailure(error){
 
@@ -100,10 +111,10 @@ export class RelationalComponent implements OnInit {
     public branchListFailure(error) {
 
     }
-    changeManagerList() {
-      //  this.relationalManagerList(this.selectedBranch);
-
-    }
+    // changeManagerList() {
+    //   //  this.relationalManagerList(this.selectedBranch);
+    //
+    // }
     public salesManagerList(value) {
 
         const data = {
@@ -127,14 +138,19 @@ export class RelationalComponent implements OnInit {
         console.log(success);
         this.loadingIndicator = false;
         if (success.IsSuccess) {
-            this.data = success.ResponseObject;
-            this.total = success.ResponseObject.length;
-} else {
+            this.smList = success.ResponseObject;
+        } else {
         }
     }
+
     public salesFailure(error) {
 
     }
+    changeManagerList() {
+        // this.salesManagerList(this.selectedBranch);
+
     }
+
+}
 
 

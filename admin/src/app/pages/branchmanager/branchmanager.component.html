@@ -12,7 +12,7 @@
         <mat-form-field class="w-50">
           <mat-select placeholder="Branch" [(ngModel)]="selectedBranch" multiple (change)= "changeList()">
             <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
-              {{list.branch_name}}
+              {{list.branchname}}
             </mat-option>
           </mat-select>
         </mat-form-field>

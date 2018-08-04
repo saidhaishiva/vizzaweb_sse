@@ -58,8 +58,8 @@ export class AddsalesmanagerComponent implements OnInit {
                 'dateofbirth': date,
                 'gender': this.form.controls['gender'].value,
                 'email': this.form.controls['email'].value,
-                'branch_id': this.form.controls['branch'].value,
-                'branchmanager': this.form.controls['branchmanager'].value
+                'branchid': this.form.controls['branch'].value,
+                'bm_id': this.form.controls['branchmanager'].value
 
             };
             console.log(data, 'aaa');
@@ -99,7 +99,7 @@ export class AddsalesmanagerComponent implements OnInit {
             'branchmanagerid': '',
 
         };
-        this.loadingIndicator = true;
+        // this.loadingIndicator = true;
         this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
@@ -126,7 +126,8 @@ export class AddsalesmanagerComponent implements OnInit {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'branch_id': value,
+            'branchid': value,
+            'branch_id': value
         };
 
         this.branchservice.branchManagerList(data).subscribe(

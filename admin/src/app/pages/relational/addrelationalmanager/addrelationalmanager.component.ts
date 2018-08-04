@@ -65,7 +65,6 @@ export class AddrelationalmanagerComponent implements OnInit {
             alert();
             console.log(data, 'aaa');
 
-             this.settings.loadingSpinner = true;
             this.branchservice.addRelationlManagerList(data).subscribe(
                 (successData) => {
                     this.addRelationalSuccess(successData);
@@ -78,7 +77,6 @@ export class AddrelationalmanagerComponent implements OnInit {
     }
     public addRelationalSuccess(success) {
         console.log(success);
-        this.settings.loadingSpinner = false;
         if (success.IsSuccess) {
             this.responsedata = success.ResponseObject;
             this.toastr.success(success.ResponseObject);
@@ -89,7 +87,6 @@ export class AddrelationalmanagerComponent implements OnInit {
     }
 
     public addRelationalFailure(error) {
-        this.settings.loadingSpinner = false;
 
     }
     public branchList() {
@@ -100,7 +97,6 @@ export class AddrelationalmanagerComponent implements OnInit {
             'branchmanagerid': '',
 
         };
-        this.loadingIndicator = true;
         this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
@@ -143,7 +139,6 @@ export class AddrelationalmanagerComponent implements OnInit {
     }
     public salesSuccess(success) {
         console.log(success);
-        this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.smList = success.ResponseObject;
         } else {

@@ -65,7 +65,7 @@ export class AddbranchmanagerComponent implements OnInit {
             };
             console.log(data, 'aaa');
 
-            this.settings.loadingSpinner = true;
+            this.settings.loadingSpinner = false;
             this.branchs.addbranchManagerList(data).subscribe(
                 (successData) => {
                     this.addBranchSuccess(successData);
