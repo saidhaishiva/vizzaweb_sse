@@ -24,6 +24,7 @@ export class QuestionComponent implements OnInit {
     subjectid: any;
     getDetails: any;
     selected = [];
+    Status: any;
 
   constructor( public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
                public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
@@ -37,6 +38,7 @@ export class QuestionComponent implements OnInit {
           'optionD': ['', Validators.compose([Validators.required])],
           'optionE': ['', Validators.compose([Validators.required])],
           'correctanswer': ['', Validators.compose([Validators.required])],
+          'status':['',Validators.compose([Validators.required])]
       });
 
   }
@@ -44,7 +46,12 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
       this.getCategoryList();
       this.getSubjects('0');
-      this.form.controls['subjectid'].patchValue([this.getDetails.subject_id]);
+      this.Status = [
+          {value: '0', viewValue: 'Inactive'},
+          {value: '1', viewValue: 'Active'}
+      ];
+      this.form.controls['status'].patchValue(this.Status[1].value);
+      this.form.controls['subjectid'].patchValue(this.subjectid);
   }
     public addQuestions(): void {
 
@@ -58,6 +65,7 @@ export class QuestionComponent implements OnInit {
                 'optionD': this.form.controls['optionD'].value,
                 'optionE': this.form.controls['optionE'].value,
                 'correctanswer': this.form.controls['correctanswer'].value,
+                'status': this.form.controls['status'].value,
                 'adminid': this.auth.getAdminId(),
                 'platform': 'web'
             };
