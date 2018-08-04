@@ -31,7 +31,6 @@ export class BranchComponent implements OnInit {
   }
 
     public branchList() {
-        alert();
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),

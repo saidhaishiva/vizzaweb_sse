@@ -59,7 +59,6 @@ export class AddbranchcoordinatorComponent implements OnInit {
 
 
             };
-            alert();
             console.log(data, 'aaa');
 
             this.branchservice.addbranchCoordinatorList(data).subscribe(

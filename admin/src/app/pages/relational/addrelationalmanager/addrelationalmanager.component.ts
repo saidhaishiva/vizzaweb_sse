@@ -62,7 +62,6 @@ export class AddrelationalmanagerComponent implements OnInit {
 
 
             };
-            alert();
             console.log(data, 'aaa');
 
             this.branchservice.addRelationlManagerList(data).subscribe(
