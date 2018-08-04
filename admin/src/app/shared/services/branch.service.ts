@@ -117,6 +117,18 @@ export class BranchService {
             .catch(this.handleError);
 
     }
+    addbranch(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + '' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
     private extractData(res: Response) {
         const body = res;
         return body || {};
