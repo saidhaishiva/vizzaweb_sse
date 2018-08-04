@@ -46,7 +46,7 @@ export class BranchmanagerComponent implements OnInit {
     public total: any;
     public settings: Settings;
 
-    constructor(public auth: AuthService, public config: ConfigurationService, public branch: BranchService, public dialog: MatDialog) {
+    constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -62,7 +62,7 @@ export class BranchmanagerComponent implements OnInit {
             'branch_id': value,
         };
 
-        this.branch.branchManagerList(data).subscribe(
+        this.branchservice.branchManagerList(data).subscribe(
             (successData) => {
                 this.branchSuccess(successData);
             },

@@ -24,7 +24,7 @@ export class AddbranchmanagerComponent implements OnInit {
     loadingIndicator: boolean = true;
 
 
-    constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchs: BranchService,
+    constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchservice: BranchService,
                 public datepipe: DatePipe, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         // branch = new FormControl();
@@ -66,7 +66,7 @@ export class AddbranchmanagerComponent implements OnInit {
             console.log(data, 'aaa');
 
             this.settings.loadingSpinner = false;
-            this.branchs.addbranchManagerList(data).subscribe(
+            this.branchservice.addbranchManagerList(data).subscribe(
                 (successData) => {
                     this.addBranchSuccess(successData);
                 },
@@ -102,7 +102,7 @@ export class AddbranchmanagerComponent implements OnInit {
 
         };
         this.loadingIndicator = true;
-        this.branchs.branchList(data).subscribe(
+        this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },
