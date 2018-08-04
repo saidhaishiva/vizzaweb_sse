@@ -47,6 +47,8 @@ export class BranchmanagerComponent implements OnInit {
     public settings: Settings;
 
     constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+
+
     }
 
     ngOnInit() {
@@ -99,7 +101,6 @@ export class BranchmanagerComponent implements OnInit {
     }
 
     public branchList() {
-        alert();
         const data = {
                 'platform': 'web',
                 'roleid': this.auth.getAdminRoleId(),
@@ -109,7 +110,7 @@ export class BranchmanagerComponent implements OnInit {
         };
         // this.loadingIndicator = true;
 
-        this.branch.branchList(data).subscribe(
+        this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },

@@ -71,7 +71,7 @@ import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.compo
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
 import { UpdatecategoryComponent } from './pages/category/updatecategory/updatecategory.component';
 import { UpdatesubjectComponent } from './pages/subject/updatesubject/updatesubject.component';
-import { BranchmanagerComponent} from './pages/category/branchmanager.component';
+import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
 import { BranchService} from './shared/services/branch.service';
 import { AddbranchmanagerComponent } from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {DatePipe} from '@angular/common';
