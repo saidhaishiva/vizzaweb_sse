@@ -71,7 +71,7 @@ import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.compo
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
 import { UpdatecategoryComponent } from './pages/category/updatecategory/updatecategory.component';
 import { UpdatesubjectComponent } from './pages/subject/updatesubject/updatesubject.component';
-import { BranchmanagerComponent} from './pages/category/branchmanager.component';
+import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
 import { BranchService} from './shared/services/branch.service';
 import { AddbranchmanagerComponent } from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {DatePipe} from '@angular/common';
@@ -81,6 +81,8 @@ import { RelationalComponent } from './pages/relational/relational.component';
 import { AddrelationalmanagerComponent } from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 import { BranchcoordinatorComponent } from './pages/branchcoordinator/branchcoordinator.component';
 import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
+import { BranchComponent } from './pages/branch/branch.component';
+import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component';
 
 @NgModule({
     imports: [
@@ -144,6 +146,8 @@ import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbran
         AddrelationalmanagerComponent,
         BranchcoordinatorComponent,
         AddbranchcoordinatorComponent,
+        BranchComponent,
+        AddbranchComponent,
 
     ],
     providers: [
@@ -163,6 +167,6 @@ import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbran
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent, ]
 })
 export class AppModule { }

@@ -64,7 +64,7 @@ export class AddsalesmanagerComponent implements OnInit {
             };
             console.log(data, 'aaa');
 
-            this.settings.loadingSpinner = true;
+            this.loadingIndicator = true;
             this.branchservice.addsalesManagerList(data).subscribe(
                 (successData) => {
                     this.addSalesSuccess(successData);
@@ -77,7 +77,7 @@ export class AddsalesmanagerComponent implements OnInit {
     }
     public addSalesSuccess(success) {
         console.log(success);
-        this.settings.loadingSpinner = false;
+        this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.responsedata = success.ResponseObject;
             this.toastr.success(success.ResponseObject);
@@ -152,7 +152,17 @@ export class AddsalesmanagerComponent implements OnInit {
     }
             // changeList() {
         // this.addBranchManager(this.branch);
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+          const inputChar = String.fromCharCode(event.charCode);
 
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
+    }
     }
 
 

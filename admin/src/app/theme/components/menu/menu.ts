@@ -15,6 +15,7 @@ export const verticalMenuItems = [
     new Menu (18, 'Sales Manager', '/salesmanager', null, 'supervisor_account', null, false, 0),
     new Menu (19, 'Relational Manager', '/relationalmanager', null, 'supervisor_account', null, false, 0),
     new Menu (20, 'Branch Coordinator', '/branchcoordinator', null, 'supervisor_account', null, false, 0),
+    new Menu (20, 'Branch ', '/branch', null, 'supervisor_account', null, false, 0),
 
     new Menu (9, 'FAQ', '/faq', null, 'chat_bubble', null, false, 0),
     new Menu (10, 'About Us', '/about-us', null, 'assignment_late', null, false, 0),
