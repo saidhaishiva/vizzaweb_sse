@@ -63,6 +63,7 @@ export class BranchmanagerComponent implements OnInit {
             'userid': this.auth.getAdminId(),
             'branch_id': value,
         };
+        this.loadingIndicator = true;
 
         this.branchservice.branchManagerList(data).subscribe(
             (successData) => {
@@ -108,7 +109,7 @@ export class BranchmanagerComponent implements OnInit {
                 'branchmanagerid': ''
 
         };
-        // this.loadingIndicator = true;
+         this.loadingIndicator = true;
 
         this.branchservice.branchList(data).subscribe(
             (successData) => {
@@ -120,7 +121,7 @@ export class BranchmanagerComponent implements OnInit {
         );
     }
     public branchListSuccess(success) {
-        // this.loadingIndicator = false;
+        this.loadingIndicator = false;
 
         console.log(success);
             if (success.IsSuccess) {

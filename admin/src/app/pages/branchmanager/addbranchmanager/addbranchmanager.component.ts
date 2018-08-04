@@ -63,9 +63,8 @@ export class AddbranchmanagerComponent implements OnInit {
                 'email': this.form.controls['email'].value,
                 'branch_id': this.form.controls['branch'].value
             };
-            console.log(data, 'aaa');
 
-            this.settings.loadingSpinner = false;
+            this.loadingIndicator = true;
             this.branchservice.addbranchManagerList(data).subscribe(
                 (successData) => {
                     this.addBranchSuccess(successData);
