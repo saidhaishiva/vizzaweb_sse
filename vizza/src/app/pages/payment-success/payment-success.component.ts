@@ -60,6 +60,7 @@ export class PaymentSuccessComponent implements OnInit {
 
     setPurchaseStatus() {
         const data = {
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -92,6 +93,7 @@ export class PaymentSuccessComponent implements OnInit {
 
     DownloadPdf() {
         const data = {
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'mail_status': '1',
             'proposal_id' : this.purchaseStatus.proposal_id,
             'platform': 'web',

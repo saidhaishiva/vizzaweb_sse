@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
 
   constructor(public appSettings: AppSettings, public toast: ToastrService) {
       this.settings = this.appSettings.settings;
-      this.settings.HomeSidenavUserBlock = false;
-      this.settings.sidenavIsOpened = false;
-      this.settings.sidenavIsPinned = false;
+      // this.settings.HomeSidenavUserBlock = false;
+      // this.settings.sidenavIsOpened = false;
+      // this.settings.sidenavIsPinned = false;
       console.log(this.settings, 'this.settings');
   }
 

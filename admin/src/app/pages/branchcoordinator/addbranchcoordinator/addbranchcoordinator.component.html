@@ -2,13 +2,10 @@
   <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="60" class="flex-p">
     <mat-card class="list">
       <mat-card-content>
-        <form [formGroup]="form" (ngSubmit)="addSalesManager()">
+        <form [formGroup]="form"  (ngSubmit)="addbranchcoordinator()">
           <mat-form-field class="w-100">
             <input matInput placeholder="First Name" formControlName="firstname">
             <mat-error *ngIf="form.controls.firstname.errors?.required">First Name is required</mat-error>
-
-            <!--<mat-error *ngIf="form.controls.title.errors?.required">Menu title is required</mat-error>-->
-            <!--<mat-error *ngIf="form.controls.title.hasError('minlength')">Menu title isn't long enough, minimum of 3 characters</mat-error>-->
           </mat-form-field>
           <mat-form-field class="w-100">
             <input matInput placeholder="Last Name" formControlName="lastname">
@@ -44,19 +41,9 @@
           </mat-form-field>
           <mat-form-field class="w-100">
 
-            <mat-select placeholder="Branch" formControlName="branch">
+            <mat-select placeholder="Branch" formControlName="branch" multiple>
               <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
                 {{list.branchname}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>
-
-          </mat-form-field>
-          <mat-form-field class="w-100">
-
-            <mat-select placeholder="Branch Manager" formControlName="branchmanager">
-              <mat-option *ngFor="let list of bmList" [value]="list.bm_id">
-                {{list.firstname}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="form.controls.branch.errors?.required">Branch is required</mat-error>

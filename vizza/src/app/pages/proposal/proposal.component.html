@@ -20,6 +20,7 @@
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Title" formControlName="personalTitle">
                           <mat-option value="Mr">Mr</mat-option>
+                          <mat-option value="Mrs">Ms</mat-option>
                           <mat-option value="Mrs">Mrs</mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
@@ -40,7 +41,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"  formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -214,9 +215,9 @@
 
               <div class="col-md-12 p-3 box-card">
                 <h6 class="color-green">SOCIAL STATUS</h6>
-                <mat-radio-group  formControlName="socialStatus" (change)="cgangeSocialStatus(socialStatus)">
+                <mat-radio-group  formControlName="socialStatus" (change)="changeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                  <mat-radio-button value="true" [checked]="socialStatus == 'true'" >NO</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="socialStatus == true" >NO</mat-radio-button>
                 </mat-radio-group>
                 <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
                 <div class="row">

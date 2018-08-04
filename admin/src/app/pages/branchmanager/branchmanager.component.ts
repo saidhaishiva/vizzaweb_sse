@@ -46,7 +46,9 @@ export class BranchmanagerComponent implements OnInit {
     public total: any;
     public settings: Settings;
 
-    constructor(public auth: AuthService, public config: ConfigurationService, public branch: BranchService, public dialog: MatDialog) {
+    constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+
+
     }
 
     ngOnInit() {
@@ -61,8 +63,9 @@ export class BranchmanagerComponent implements OnInit {
             'userid': this.auth.getAdminId(),
             'branch_id': value,
         };
+        this.loadingIndicator = true;
 
-        this.branch.branchManagerList(data).subscribe(
+        this.branchservice.branchManagerList(data).subscribe(
             (successData) => {
                 this.branchSuccess(successData);
             },
@@ -87,7 +90,7 @@ export class BranchmanagerComponent implements OnInit {
 
             const val = event.target.value.toLowerCase();
             const temp = this.temp.filter(function(d) {
-                return d.Firstname.toLowerCase().indexOf(val) !== -1 || !val;
+                return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
             });
             this.rows = temp;
             console.log(this.rows, 'opo');
@@ -100,13 +103,15 @@ export class BranchmanagerComponent implements OnInit {
 
     public branchList() {
         const data = {
-            'platform': 'web',
-            'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId()
-        };
-        this.loadingIndicator = true;
+                'platform': 'web',
+                'roleid': this.auth.getAdminRoleId(),
+                'userid': this.auth.getAdminId(),
+                'branchmanagerid': ''
 
-        this.branch.branchList(data).subscribe(
+        };
+         this.loadingIndicator = true;
+
+        this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },

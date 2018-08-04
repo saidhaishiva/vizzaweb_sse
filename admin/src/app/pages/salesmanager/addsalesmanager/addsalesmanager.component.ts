@@ -58,13 +58,13 @@ export class AddsalesmanagerComponent implements OnInit {
                 'dateofbirth': date,
                 'gender': this.form.controls['gender'].value,
                 'email': this.form.controls['email'].value,
-                'branch_id': this.form.controls['branch'].value,
-                'branchmanager': this.form.controls['branchmanager'].value
+                'branchid': this.form.controls['branch'].value,
+                'bm_id': this.form.controls['branchmanager'].value
 
             };
             console.log(data, 'aaa');
 
-            this.settings.loadingSpinner = true;
+            this.loadingIndicator = true;
             this.branchservice.addsalesManagerList(data).subscribe(
                 (successData) => {
                     this.addSalesSuccess(successData);
@@ -77,7 +77,7 @@ export class AddsalesmanagerComponent implements OnInit {
     }
     public addSalesSuccess(success) {
         console.log(success);
-        this.settings.loadingSpinner = false;
+        this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.responsedata = success.ResponseObject;
             this.toastr.success(success.ResponseObject);
@@ -99,7 +99,7 @@ export class AddsalesmanagerComponent implements OnInit {
             'branchmanagerid': '',
 
         };
-        this.loadingIndicator = true;
+        // this.loadingIndicator = true;
         this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
@@ -126,7 +126,8 @@ export class AddsalesmanagerComponent implements OnInit {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'branch_id': value,
+            'branchid': value,
+            'branch_id': value
         };
 
         this.branchservice.branchManagerList(data).subscribe(
@@ -151,7 +152,17 @@ export class AddsalesmanagerComponent implements OnInit {
     }
             // changeList() {
         // this.addBranchManager(this.branch);
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+          const inputChar = String.fromCharCode(event.charCode);
 
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
+    }
     }
 
 
