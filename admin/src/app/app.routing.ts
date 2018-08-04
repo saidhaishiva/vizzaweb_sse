@@ -30,6 +30,7 @@ import {RelationalComponent} from './pages/relational/relational.component';
 import {AddrelationalmanagerComponent} from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 import {BranchcoordinatorComponent} from './pages/branchcoordinator/branchcoordinator.component';
 import {AddbranchcoordinatorComponent} from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
+import {BranchComponent} from './pages/branch/branch.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -55,6 +56,7 @@ export const routes: Routes = [
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
             { path: 'pos-profile/:id/:status', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
+            { path: 'branch', component: BranchComponent, data: { breadcrumb: ' Branch' } },
 
 
         ]

@@ -1,0 +1,47 @@
+<div class="flex-p text-right">
+  <button mat-raised-button color="primary" type="button" class="button-right" (click)="speical()"><i class="material-icons">
+    add
+  </i> Add</button>
+
+</div>
+<section id="appointment" class="pagecount">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [count]="total"
+                  [loadingIndicator]="loadingIndicator"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'">
+            <ngx-datatable-column name="S.No">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <div>{{rowIndex+1}}</div>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Branchname">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
