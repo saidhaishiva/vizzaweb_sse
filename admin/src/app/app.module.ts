@@ -79,6 +79,8 @@ import { SalesmanagerComponent } from './pages/salesmanager/salesmanager.compone
 import { AddsalesmanagerComponent } from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
 import { RelationalComponent } from './pages/relational/relational.component';
 import { AddrelationalmanagerComponent } from './pages/relational/addrelationalmanager/addrelationalmanager.component';
+import { BranchcoordinatorComponent } from './pages/branchcoordinator/branchcoordinator.component';
+import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
 
 @NgModule({
     imports: [
@@ -140,6 +142,8 @@ import { AddrelationalmanagerComponent } from './pages/relational/addrelationalm
         AddsalesmanagerComponent,
         RelationalComponent,
         AddrelationalmanagerComponent,
+        BranchcoordinatorComponent,
+        AddbranchcoordinatorComponent,
 
     ],
     providers: [

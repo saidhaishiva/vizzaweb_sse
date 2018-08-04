@@ -28,6 +28,8 @@ import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component
 import {AddsalesmanagerComponent} from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
 import {RelationalComponent} from './pages/relational/relational.component';
 import {AddrelationalmanagerComponent} from './pages/relational/addrelationalmanager/addrelationalmanager.component';
+import {BranchcoordinatorComponent} from './pages/branchcoordinator/branchcoordinator.component';
+import {AddbranchcoordinatorComponent} from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -44,6 +46,8 @@ export const routes: Routes = [
             { path: 'salesmanager', component: SalesmanagerComponent, data: { breadcrumb: 'Sales Manager' } },
             { path: 'relationalmanager', component: RelationalComponent, data: { breadcrumb: 'Relational Manager' } },
             { path: 'addrelationalmanager', component: AddrelationalmanagerComponent, data: { breadcrumb: ' Add Relational Manager' } },
+            { path: 'branchcoordinator', component: BranchcoordinatorComponent, data: { breadcrumb: ' Branch Coordinator' } },
+            { path: 'addbranchcoordinator', component: AddbranchcoordinatorComponent, data: { breadcrumb: ' Branch Coordinator' } },
             { path: 'addsalesmanager', component: AddsalesmanagerComponent, data: { breadcrumb: ' Add Sales Manager' } },
             { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
             { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },
