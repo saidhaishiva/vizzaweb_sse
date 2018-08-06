@@ -24,6 +24,7 @@ export class EditquestionComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditquestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public appSettings: AppSettings, public fb: FormBuilder, public auth: AuthService, public categoryService: CategoryService, private toastr: ToastrService) {
       this.settings = this.appSettings.settings;
+      this.dialogRef.disableClose = true;
       console.log(this.data,'asdsadasd');
       this.getQuestions= data;
       this.form = this.fb.group({
@@ -67,7 +68,7 @@ export class EditquestionComponent implements OnInit {
                 'subjectid': this.getQuestions.subject_id,
                 'question': this.form.controls['questions'].value,
                 'optionA': this.form.controls['optionA'].value,
-                'optionB': this.form.controls['optionB'].value,
+                    'optionB': this.form.controls['optionB'].value,
                 'optionC': this.form.controls['optionC'].value,
                 'optionD': this.form.controls['optionD'].value,
                 'optionE': this.form.controls['optionE'].value,
