@@ -68,7 +68,7 @@ export class EditquestionComponent implements OnInit {
                 'subjectid': this.getQuestions.subject_id,
                 'question': this.form.controls['questions'].value,
                 'optionA': this.form.controls['optionA'].value,
-                    'optionB': this.form.controls['optionB'].value,
+                'optionB': this.form.controls['optionB'].value,
                 'optionC': this.form.controls['optionC'].value,
                 'optionD': this.form.controls['optionD'].value,
                 'optionE': this.form.controls['optionE'].value,
