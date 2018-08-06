@@ -105,6 +105,7 @@ export class ListquestionComponent implements OnInit {
 
     }
     public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 
     getQuestions(){
@@ -158,6 +159,8 @@ export class ListquestionComponent implements OnInit {
             'platform': 'web',
             'questionid': value.question_id,
         };
+         console.log(data);
+        this.settings.loadingSpinner = true;
         this.categoryService.deleteQuestion(data).subscribe(
             (successData) => {
                 this.deleteQuestionSuccess(successData);
