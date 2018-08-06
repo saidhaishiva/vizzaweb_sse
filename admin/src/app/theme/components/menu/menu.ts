@@ -22,7 +22,7 @@ export const verticalMenuItems = [
     new Menu (11, 'Learning Center', '/learning-center', null, 'assignment_late', null, true, 0),
     new Menu (12, 'Category', '/category', null, 'assignment_late', null, false, 11),
     new Menu (13, 'Subject', '/subject', null, 'assignment_late', null, false, 11),
-    new Menu (14, 'Questions', '/question', null, 'assignment_late', null, false, 11),
+    new Menu (14, 'Questions', '/listquestion', null, 'assignment_late', null, false, 11),
     new Menu (15, 'Contact ', '/contact-us', null, 'phone', null, false, 0),
     new Menu (16, 'Logout', '/login', null, 'power_settings_new', null, false, 0 ),
 ]

@@ -204,7 +204,7 @@ export class ProposalComponent implements OnInit {
 
 
     ngOnInit() {
-
+        console.log(sessionStorage.familyMembers, 'sessionStorage.familyMembers');
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
@@ -213,9 +213,12 @@ export class ProposalComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
         this.setOccupationList();
         this.setRelationship();
-        console.log(sessionStorage.familyMembers, 'sessionStorage.familyMembers');
+
         if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined ) {
             this.groupList();
+        } else {
+            console.log('family membersssssssssss');
+            this.familyMembers  = JSON.parse(sessionStorage.familyMembers);
         }
         console.log(sessionStorage.nomineeDate, 'sessionStorage.nomineeDate');
         if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
@@ -232,6 +235,8 @@ export class ProposalComponent implements OnInit {
                     addBtn: false
                 }]
             }];
+        } else {
+            this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
         }
         this.sessionData();
     }
@@ -441,9 +446,11 @@ export class ProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
+
         if (this.personal.valid) {
 
-            if (this.personalAge >= 18) {
+            console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
+            if (sessionStorage.proposerAge >= 18) {
                 stepper.next();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -452,8 +459,9 @@ export class ProposalComponent implements OnInit {
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
-        this.illnesStatus = false
+        sessionStorage.familyMembers  = JSON.stringify(this.familyMembers);
+        this.illnesStatus = false;
+        console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
@@ -573,10 +581,11 @@ export class ProposalComponent implements OnInit {
 
 
     getCityId(title) {
+      console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
       this.cityTitle = title;
         const data = {
             'platform': 'web',
-            'pincode': this.personal.controls['personalPincode'].value,
+            'pincode': this.cityTitle == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
             'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
         }
 
@@ -710,6 +719,7 @@ export class ProposalComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.personalAge = this.ageCalculate(this.setDateAge);
+        sessionStorage.setItem('proposerAge' , this.personalAge);
     }
 
     ageCalculate(dob) {
