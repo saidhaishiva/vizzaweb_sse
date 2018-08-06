@@ -21,7 +21,6 @@ export class QuestionComponent implements OnInit {
     selectedCategory: any;
     quesList: any;
     categoryid: any;
-    subjectid: any;
     getDetails: any;
     selectedSubject: any;
     Status: any;
