@@ -24,6 +24,7 @@ export class EditquestionComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditquestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public appSettings: AppSettings, public fb: FormBuilder, public auth: AuthService, public categoryService: CategoryService, private toastr: ToastrService) {
       this.settings = this.appSettings.settings;
+      this.dialogRef.disableClose = true;
       console.log(this.data,'asdsadasd');
       this.getQuestions= data;
       this.form = this.fb.group({

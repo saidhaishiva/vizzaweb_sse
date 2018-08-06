@@ -105,6 +105,7 @@ export class ListquestionComponent implements OnInit {
 
     }
     public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 
     getQuestions(){
@@ -150,5 +151,35 @@ export class ListquestionComponent implements OnInit {
             }
         });
 
+    }
+    public deleteQuestion(value) {
+        // this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+            'questionid': value.question_id,
+        };
+         console.log(data);
+        this.settings.loadingSpinner = true;
+        this.categoryService.deleteQuestion(data).subscribe(
+            (successData) => {
+                this.deleteQuestionSuccess(successData);
+            },
+            (error) => {
+                this.deleteQuestionFailure(error);
+            }
+        );
+    }
+    public deleteQuestionSuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.getQuestionList(this.selectedSubject);
+            this.toastr.success(successData.ResponseObject,'Deleted Successfully');
+        }else {
+            this.toastr.error(successData.ErrorObject,'Failed');
+        }
+    }
+    public deleteQuestionFailure(error) {
     }
 }

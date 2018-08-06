@@ -69,7 +69,7 @@ export class QuestionComponent implements OnInit {
                 'platform': 'web'
             };
             console.log(data);
-
+            this.settings.loadingSpinner = true ;
             this.categoryService.addQuestions(data).subscribe(
                 (successData) => {
                     this.getQuestionsSuccess(successData);
@@ -152,6 +152,8 @@ export class QuestionComponent implements OnInit {
             'adminid': this.auth.getAdminId(),
             'platform': 'web'
         };
+        console.log(data);
+        this.settings.loadingSpinner = true ;
         this.categoryService.getCategoryList(data).subscribe(
             (successData) => {
                 this.getCategorySuccess(successData);
@@ -173,6 +175,7 @@ export class QuestionComponent implements OnInit {
 
     }
     public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
     }
     getQuestions(){
         this.getQuestionList(this.selectedSubject);
