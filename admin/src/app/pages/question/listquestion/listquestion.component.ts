@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Settings} from '../../../app.settings.model';
 import { AppSettings} from '../../../app.settings';
 import { ToastrService} from 'ngx-toastr';
+import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import { AuthService} from '../../../shared/services/auth.service';
 import { CategoryService} from '../../../shared/services/category.service';
+import { EditquestionComponent} from '../editquestion/editquestion.component';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class ListquestionComponent implements OnInit {
     selectedSubject: any;
 
 
-  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService, public categoryService: CategoryService) {
+  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public dialog: MatDialog, public auth: AuthService, public categoryService: CategoryService) {
       this.settings = this.appSettings.settings;
      //this.selectedSubject = '';
   }
@@ -135,5 +137,18 @@ export class ListquestionComponent implements OnInit {
     public getQuestionFailure(error) {
         this.settings.loadingSpinner = false;
     }
+    openEdit(value): void {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(EditquestionComponent, {
+            width: '500px',
+            data: value
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log(result);
+            if (result) {
+                this.getQuestions();
+            }
+        });
 
+    }
 }

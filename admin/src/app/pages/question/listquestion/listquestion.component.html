@@ -73,9 +73,21 @@
                 {{row.option_e}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Correct Answer" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.correct_answer }}
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Status" >
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                 {{row.question_status }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [flexGrow]="4">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <i class="material-icons" style="cursor: pointer" (click)="openEdit(row)">
+                  edit
+                </i>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
