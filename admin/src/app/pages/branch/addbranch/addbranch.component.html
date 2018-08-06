@@ -5,12 +5,12 @@
 </div>
 <div >
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-    <form [formGroup]="form"  (ngSubmit)="addbranch()">
-      <mat-form-field class="w-100">
-        <input matInput placeholder="branchid" formControlName="branchid">
-        <mat-error *ngIf="form.controls.specialityname.errors?.required">branchid is required</mat-error>
+    <form [formGroup]="form"  (ngSubmit)="add()">
+      <!--<mat-form-field class="w-100">-->
+        <!--<input matInput placeholder="branchid" formControlName="branchid">-->
+        <!--<mat-error *ngIf="form.controls.branchid.errors?.required">branchid is required</mat-error>-->
 
-      </mat-form-field >
+      <!--</mat-form-field >-->
 
       <mat-form-field class="w-100">
         <input matInput placeholder="Branch Name" formControlName="branchname">
