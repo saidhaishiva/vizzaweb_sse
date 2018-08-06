@@ -84,6 +84,7 @@ import { BranchcoordinatorComponent } from './pages/branchcoordinator/branchcoor
 import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
 import { BranchComponent } from './pages/branch/branch.component';
 import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component';
+import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 
 @NgModule({
     imports: [
@@ -150,6 +151,7 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
         AddbranchcoordinatorComponent,
         BranchComponent,
         AddbranchComponent,
+        EditquestionComponent,
 
     ],
     providers: [
@@ -169,6 +171,6 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent ]
 })
 export class AppModule { }
