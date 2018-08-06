@@ -25,7 +25,7 @@ export class QuestionComponent implements OnInit {
     selectedSubject: any;
     Status: any;
 
-  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
+  constructor(public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
                public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
     this.settings = this.appSettings.settings;
       this.form = this.fb.group({
