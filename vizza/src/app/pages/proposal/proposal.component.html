@@ -217,12 +217,12 @@
                 <h6 class="color-green">SOCIAL STATUS</h6>
                 <mat-radio-group  formControlName="socialStatus" (change)="changeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                  <mat-radio-button value="true" [checked]="socialStatus == true" >NO</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="socialStatus == true" >No</mat-radio-button>
                 </mat-radio-group>
-                <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
+                <p><strong>Please choose "Yes" in case of BPL (Below Poverty Line) families, Disabled Persons etc, Persons working in Unorganized/Informal Sectors</strong></p>
                 <div class="row">
                   <div class="col-md-6 ">
-                    <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                    <p>Please choose "Yes" if you are working in Unorganized Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
                       <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
@@ -255,7 +255,7 @@
                 </div>
 
               </div>
-              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
+              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
                 </div>

@@ -393,8 +393,9 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.socialStatus = false;
             }
-            if (sessionStorage.proposalID != '') {
+            if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
                 this.proposalId = sessionStorage.proposalID;
+                console.log(this.proposalId, 'this.proposalId');
             }
 
             if (this.getStepper1.personalPincode != '') {
@@ -594,8 +595,9 @@ export class ProposalComponent implements OnInit {
 
 
     getCityId(title) {
-      console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
       this.cityTitle = title;
+        console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
+
         const data = {
             'platform': 'web',
             'pincode': this.cityTitle == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
