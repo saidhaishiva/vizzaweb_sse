@@ -232,7 +232,10 @@ export class ProposalComponent implements OnInit {
                     aage: '',
                     arelationship: '',
                     removeBtn: true,
-                    addBtn: false
+                    addBtn: false,
+                    ageSetting: true,
+                    colorStatus: 'red'
+
                 }]
             }];
         } else {
@@ -303,7 +306,10 @@ export class ProposalComponent implements OnInit {
               aage: '',
               arelationship: '',
               removeBtn: false,
-              addBtn: true
+              addBtn: true,
+              ageSetting: true,
+              colorStatus: 'green'
+
           });
           this.nomineeAdd = true;
           this.nomineeRemove = false;
@@ -540,6 +546,13 @@ export class ProposalComponent implements OnInit {
 
 
         console.log(this.familyMembers);
+    }
+    typeAge(value, index, ci) {
+        if (value > 18) {
+            this.nomineeDate[index].nominee[ci].ageSetting = false;
+        } else {
+            this.nomineeDate[index].nominee[ci].ageSetting = true;
+        }
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
