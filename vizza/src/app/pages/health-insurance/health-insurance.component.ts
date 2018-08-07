@@ -102,6 +102,7 @@ export class HealthInsuranceComponent implements OnInit {
             {name: 'Daughter', age: '', disabled: false, checked: false, auto: false, error: ''}
         ];
         this.compareArray = [];
+        this.sumInsuredAmountLists = 0;
     }
     ngOnInit() {
         this.firstPage = true;
@@ -224,6 +225,11 @@ export class HealthInsuranceComponent implements OnInit {
     }
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
+    }
+    checkNetwork() {
+        if (this.sumInsuredAmountLists == 0) {
+            this.toast.error("Unable to connect to the network");
+        }
     }
     // selected members
     ckeckedUser(value, index, name) {
@@ -470,8 +476,8 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     public PolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-        this.toast.error(error, 'Failed');
+    this.settings.loadingSpinner = false;
+        this.toast.error('Network is unreachable', 'Failed');
     }
     onSelectedIndexChange(index) {
         if (this.insuranceLists.length == index) {
