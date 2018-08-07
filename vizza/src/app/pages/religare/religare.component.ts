@@ -1,22 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
-import {MatStepper} from '@angular/material';
+import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {ProposalmessageComponent} from './proposalmessage/proposalmessage.component';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
-import {AppSettings} from '../../app.settings';
+import { AppSettings } from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {Pipe, PipeTransform, Inject, LOCALE_ID} from '@angular/core';
-
-
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -29,11 +26,10 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
-
 @Component({
-    selector: 'app-proposal',
-    templateUrl: './proposal.component.html',
-    styleUrls: ['./proposal.component.scss'],
+  selector: 'app-religare',
+  templateUrl: './religare.component.html',
+  styleUrls: ['./religare.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -41,7 +37,8 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class ProposalComponent implements OnInit {
+export class ReligareComponent implements OnInit {
+
     public personal: FormGroup;
     public summary: FormGroup;
     public checked: boolean;
@@ -97,6 +94,8 @@ export class ProposalComponent implements OnInit {
     public dobError: any;
     public setDateAge: any;
     public personalAge: any;
+    public insureArray: FormGroup;
+    public items: any[] = [];
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -130,11 +129,6 @@ export class ProposalComponent implements OnInit {
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
             personalPan: ['', Validators.compose([Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
-            socialStatus: '',
-            socialAnswer1: '',
-            socialAnswer2: '',
-            socialAnswer3: '',
-            socialAnswer4: '',
             personalAddress: ['', Validators.required],
             previousinsurance: '',
             personalAddress2: ['', Validators.required],
@@ -149,59 +143,19 @@ export class ProposalComponent implements OnInit {
             residencePincode: '',
             residenceCity: '',
             residenceState: '',
-            illnessCheck: '',
             sameas: ''
 
         });
 
-        // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-        //     (successData) => {
-        //         this.testProposalSuccess(successData);
-        //     },
-        //     (error) => {
-        //         this.proposalFailure(error);
-        //     }
-        // );
 
-        // this.personal = this.fb.group({
-        //     personalTitle: [''],
-        //     personalFirstname: [''],
-        //     personalLastname: [''],
-        //     personalDob: [''],
-        //     personalOccupation: [''],
-        //     personalIncome: [''],
-        //     personalAadhar: [''],
-        //     personalPan: [''],
-        //     personalGst: [''],
-        //     socialStatus: '',
-        //     socialAnswer1: '',
-        //     socialAnswer2: '',
-        //     socialAnswer3: '',
-        //     socialAnswer4: '',
-        //     personalAddress: [''],
-        //     previousinsurance: '',
-        //     personalAddress2: '',
-        //     personalPincode: [''],
-        //     personalCity: [''],
-        //     personalState: [''],
-        //     personalEmail: [''],
-        //     personalMobile: [''],
-        //     personalAltnumber: [''],
-        //     residenceAddress: '',
-        //     residenceAddress2: '',
-        //     residencePincode: '',
-        //     residenceCity: '',
-        //     residenceState: '',
-        //     residenceEmail: '',
-        //     residenceMobile: [''],
-        //     residenceAltnumber: [''],
-        //     illnessCheck: ''
-        //
-        // });
     }
 
 
     ngOnInit() {
+        this.insureArray = this.fb.group({
+            item: this.fb.array([this.createItem()])
+        });
+
         console.log(sessionStorage.familyMembers, 'sessionStorage.familyMembers');
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
@@ -239,20 +193,28 @@ export class ProposalComponent implements OnInit {
         this.sessionData();
     }
 
+    createItem(): FormGroup {
+        return this.fb.group({
+            name: '',
+            role: ''
 
-    criticalIllness(values: any) {
-        if (values.checked) {
-            const dialogRef = this.dialog.open(ProposalmessageComponent, {
-                width: '500px'
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
-                this.stopNext = true;
-            });
-        } else {
-            this.stopNext = false;
-        }
+        });
     }
+
+
+    // criticalIllness(values: any) {
+    //     if (values.checked) {
+    //         const dialogRef = this.dialog.open(ProposalmessageComponent, {
+    //             width: '500px'
+    //         });
+    //         dialogRef.afterClosed().subscribe(result => {
+    //             console.log('The dialog was closed');
+    //             this.stopNext = true;
+    //         });
+    //     } else {
+    //         this.stopNext = false;
+    //     }
+    // }
 
     changeSocialStatus(result) {
         this.socialStatus = this.personal.controls['socialStatus'].value;
@@ -1112,6 +1074,4 @@ export class ProposalComponent implements OnInit {
     public setRelationshipFailure(error) {
         console.log(error);
     }
-
-
 }

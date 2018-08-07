@@ -70,6 +70,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
+import { ReligareComponent } from './pages/religare/religare.component';
 
 @NgModule({
   imports: [
@@ -129,7 +130,8 @@ import { PosstatusAlert} from './pages/health-insurance/health-insurance.compone
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
-      PosstatusAlert
+      PosstatusAlert,
+      ReligareComponent
   ],
   providers: [
       AppSettings,
