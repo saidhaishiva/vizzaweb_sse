@@ -229,6 +229,7 @@ export class HealthInsuranceComponent implements OnInit {
     checkNetwork() {
         if (this.sumInsuredAmountLists == 0) {
             this.toast.error("Unable to connect to the network");
+
         }
     }
     // selected members
