@@ -59,7 +59,6 @@ export class AddbranchcoordinatorComponent implements OnInit {
 
 
             };
-            alert();
             console.log(data, 'aaa');
 
             this.branchservice.addbranchCoordinatorList(data).subscribe(
@@ -114,5 +113,16 @@ export class AddbranchcoordinatorComponent implements OnInit {
 
     public branchListFailure(error) {
 
+    }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
     }
 }

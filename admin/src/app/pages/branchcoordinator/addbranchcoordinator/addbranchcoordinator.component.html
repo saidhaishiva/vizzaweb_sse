@@ -13,7 +13,7 @@
 
           </mat-form-field>
           <mat-form-field class="w-100">
-            <input matInput placeholder="Mobile Number" formControlName="mobilenumber" maxlength="10">
+            <input matInput placeholder="Mobile Number" formControlName="mobilenumber" (keypress)="keyPress($event)" maxlength="10">
             <mat-error *ngIf="form.controls.mobilenumber.errors?.required">Mobile Number is required</mat-error>
 
           </mat-form-field>
@@ -41,7 +41,7 @@
           </mat-form-field>
           <mat-form-field class="w-100">
 
-            <mat-select placeholder="Branch" formControlName="branch" multiple>
+            <mat-select placeholder="Branch" formControlName="branch">
               <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
                 {{list.branchname}}
               </mat-option>

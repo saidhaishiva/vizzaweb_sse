@@ -22,7 +22,8 @@ import {LearningcenterComponent} from './pages/learningcenter/learningcenter.com
 import {CategoryComponent} from './pages/category/category.component';
 import {SubjectComponent} from './pages/subject/subject.component';
 import {QuestionComponent} from './pages/question/question.component';
-import { BranchmanagerComponent} from './pages/category/branchmanager.component';
+import {ListquestionComponent} from './pages/question/listquestion/listquestion.component';
+import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
 import {AddbranchmanagerComponent} from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {SalesmanagerComponent} from './pages/salesmanager/salesmanager.component';
 import {AddsalesmanagerComponent} from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
@@ -30,6 +31,7 @@ import {RelationalComponent} from './pages/relational/relational.component';
 import {AddrelationalmanagerComponent} from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 import {BranchcoordinatorComponent} from './pages/branchcoordinator/branchcoordinator.component';
 import {AddbranchcoordinatorComponent} from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
+import {BranchComponent} from './pages/branch/branch.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -51,10 +53,12 @@ export const routes: Routes = [
             { path: 'addsalesmanager', component: AddsalesmanagerComponent, data: { breadcrumb: ' Add Sales Manager' } },
             { path: 'subject', component: SubjectComponent, data: { breadcrumb: 'Subject' } },
             { path: 'question', component: QuestionComponent, data: { breadcrumb: 'Questions' } },
+            { path:  'listquestion', component: ListquestionComponent, data: { breadcrumb: 'List Questions' } },
             { path: 'contact-us', component: ContactUsComponent, data: { breadcrumb: 'Contact Us' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS List' } },
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
             { path: 'pos-profile/:id/:status', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
+            { path: 'branch', component: BranchComponent, data: { breadcrumb: ' Branch' } },
 
 
         ]

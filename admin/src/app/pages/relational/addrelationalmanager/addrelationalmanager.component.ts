@@ -62,7 +62,6 @@ export class AddrelationalmanagerComponent implements OnInit {
 
 
             };
-            alert();
             console.log(data, 'aaa');
 
             this.branchservice.addRelationlManagerList(data).subscribe(
@@ -147,5 +146,16 @@ export class AddrelationalmanagerComponent implements OnInit {
 
     public salesFailure(error) {
 
+    }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
     }
 }

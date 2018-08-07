@@ -46,7 +46,9 @@ export class BranchmanagerComponent implements OnInit {
     public total: any;
     public settings: Settings;
 
-    constructor(public auth: AuthService, public config: ConfigurationService, public branch: BranchService, public dialog: MatDialog) {
+    constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+
+
     }
 
     ngOnInit() {
@@ -61,8 +63,9 @@ export class BranchmanagerComponent implements OnInit {
             'userid': this.auth.getAdminId(),
             'branch_id': value,
         };
+        this.loadingIndicator = true;
 
-        this.branch.branchManagerList(data).subscribe(
+        this.branchservice.branchManagerList(data).subscribe(
             (successData) => {
                 this.branchSuccess(successData);
             },
@@ -99,7 +102,6 @@ export class BranchmanagerComponent implements OnInit {
     }
 
     public branchList() {
-        alert();
         const data = {
                 'platform': 'web',
                 'roleid': this.auth.getAdminRoleId(),
@@ -107,9 +109,9 @@ export class BranchmanagerComponent implements OnInit {
                 'branchmanagerid': ''
 
         };
-        // this.loadingIndicator = true;
+         this.loadingIndicator = true;
 
-        this.branch.branchList(data).subscribe(
+        this.branchservice.branchList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },
@@ -119,7 +121,7 @@ export class BranchmanagerComponent implements OnInit {
         );
     }
     public branchListSuccess(success) {
-        // this.loadingIndicator = false;
+        this.loadingIndicator = false;
 
         console.log(success);
             if (success.IsSuccess) {

@@ -66,12 +66,13 @@ import { LearningcenterComponent } from './pages/learningcenter/learningcenter.c
 import { CategoryComponent } from './pages/category/category.component';
 import { SubjectComponent } from './pages/subject/subject.component';
 import { QuestionComponent } from './pages/question/question.component';
+import { ListquestionComponent} from './pages/question/listquestion/listquestion.component';
 import {CategoryService} from './shared/services/category.service';
 import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.component';
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
 import { UpdatecategoryComponent } from './pages/category/updatecategory/updatecategory.component';
 import { UpdatesubjectComponent } from './pages/subject/updatesubject/updatesubject.component';
-import { BranchmanagerComponent} from './pages/category/branchmanager.component';
+import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.component';
 import { BranchService} from './shared/services/branch.service';
 import { AddbranchmanagerComponent } from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {DatePipe} from '@angular/common';
@@ -81,6 +82,10 @@ import { RelationalComponent } from './pages/relational/relational.component';
 import { AddrelationalmanagerComponent } from './pages/relational/addrelationalmanager/addrelationalmanager.component';
 import { BranchcoordinatorComponent } from './pages/branchcoordinator/branchcoordinator.component';
 import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
+import { BranchComponent } from './pages/branch/branch.component';
+import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component';
+import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
+import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 
 @NgModule({
     imports: [
@@ -132,6 +137,7 @@ import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbran
         CategoryComponent,
         SubjectComponent,
         QuestionComponent,
+        ListquestionComponent,
         AddsubjectComponent,
         AddcategoryComponent,
         UpdatecategoryComponent,
@@ -144,6 +150,10 @@ import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbran
         AddrelationalmanagerComponent,
         BranchcoordinatorComponent,
         AddbranchcoordinatorComponent,
+        BranchComponent,
+        AddbranchComponent,
+        EditquestionComponent,
+        EditbranchComponent,
 
     ],
     providers: [
@@ -163,6 +173,6 @@ import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbran
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent ]
 })
 export class AppModule { }

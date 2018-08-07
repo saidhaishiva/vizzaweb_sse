@@ -19,7 +19,7 @@
     <!--</div>-->
     <div class="col-md-12">
       <div class="text-right">
-        <mat-form-field class="w-50">
+        <mat-form-field class="w-25">
           <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
@@ -64,7 +64,7 @@
                 {{value}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Branchnames">
+            <ngx-datatable-column name="Branchname">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{value}}
               </ng-template>

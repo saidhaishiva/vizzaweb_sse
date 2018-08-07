@@ -1,0 +1,36 @@
+<div class="col-md-12 text-right" >
+  <i class="material-icons" (click)="close()" style="cursor: pointer">
+    clear
+  </i>
+</div>
+<div >
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+    <form [formGroup]="form"  (ngSubmit)="add()">
+      <!--<mat-form-field class="w-100">-->
+        <!--<input matInput placeholder="branchid" formControlName="branchid">-->
+        <!--<mat-error *ngIf="form.controls.branchid.errors?.required">branchid is required</mat-error>-->
+
+      <!--</mat-form-field >-->
+
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Branch Name" formControlName="branchname">
+        <mat-error *ngIf="form.controls.branchname.errors?.required">branchname is required</mat-error>
+
+      </mat-form-field >
+
+        <mat-form-field class="w-100">
+
+            <mat-select placeholder="Active" formControlName="active">
+                <mat-option *ngFor="let actives of active" [value]="actives.value">
+                    {{actives.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      <div class="text-center">
+        <button mat-raised-button color="primary"  type="submit">Save</button>
+
+      </div>
+
+    </form>
+  </div>
+</div>

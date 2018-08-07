@@ -35,6 +35,19 @@ export class CategoryService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getQuestionList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'question/viewQuestion';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     addCategory(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -122,6 +135,32 @@ export class CategoryService {
         };
         console.log(token);
         const url = this.configurationService.getHost() + 'question/addQuestion';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    editQuestions(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'question/editQuestion';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    deleteQuestion(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        console.log(token);
+        const url = this.configurationService.getHost() + 'question/deleteQuestion';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

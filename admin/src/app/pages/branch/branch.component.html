@@ -1,32 +1,10 @@
-
 <div class="flex-p text-right">
-  <button mat-raised-button color="primary" type="button" class="button-right" [routerLink]="['/addbranchmanager']"><i class="material-icons">
+  <button mat-raised-button color="primary" type="button" class="button-right" (click)="speical()"><i class="material-icons">
     add
   </i> Add</button>
 
 </div>
 <section id="appointment" class="pagecount">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="text-left">
-        <mat-form-field class="w-50">
-          <mat-select placeholder="Branch List" [(ngModel)]="selectedBranch" multiple (change)= "changeList()">
-            <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
-              {{list.branchname}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="text-right">
-        <mat-form-field class="w-50">
-          <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col-md-12">
@@ -46,25 +24,9 @@
                   [loadingIndicator]="loadingIndicator"
                   [selected]="selected"
                   [selectionType]="'checkbox'">
-
             <ngx-datatable-column name="S.No">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <div>{{rowIndex+1}}</div>
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Firstname">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                  {{value}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Gender">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                  {{value}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Age">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{value}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Branchname">
@@ -72,12 +34,21 @@
                 {{value}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Email">
+            <ngx-datatable-column name="Branchstatus">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{value}}
+                 <span>
+                  {{value}}
+                </span>
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <i class="material-icons" (click)="edit (row)" style="cursor: pointer" >
+                  edit
+                </i>
 
+              </ng-template>
+            </ngx-datatable-column>
           </ngx-datatable>
 
 
@@ -86,5 +57,5 @@
 
     </div>
   </div>
-
 </section>
+
