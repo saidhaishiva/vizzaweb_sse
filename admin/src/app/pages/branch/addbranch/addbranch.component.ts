@@ -52,7 +52,6 @@ public settings: any;
                 'branchstatus': this.form.controls['active'].value
 
             };
-            alert();
             console.log(data,'aaa');
             this.loadingIndicator = true;
             this.branchservice.addbranch(data).subscribe(
