@@ -328,7 +328,12 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-    typeAge(index) {
+    typeAge(index, value) {
+        if (value != '') {
+            this.setArray[index].checked = true;
+        } else {
+            this.setArray[index].checked = false;
+        }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     addOthers(value) {

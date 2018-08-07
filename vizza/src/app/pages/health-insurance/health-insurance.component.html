@@ -38,7 +38,7 @@
               <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>
               <div class="col-md-3">{{item.name}}</div>
               <div class="col-md-5"> <mat-form-field class="w-100">
-                <input matInput placeholder="age" name="age" [(ngModel)]="item.age" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge()">
+                <input matInput placeholder="Age" name="age" [(ngModel)]="item.age" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(i,item.age)">
               </mat-form-field>
                 <div *ngIf="item.error != ''" class="ngError">Required</div>
               </div>
@@ -68,7 +68,7 @@
           </div>
         </div>
         <mat-form-field class="w-100">
-          <input matInput maxlength="6" [(ngModel)]="pincoce"  placeholder="PIN CODE / CITY" (keypress)="numberOnly($event)" (keyup)="selectPincode()">
+          <input matInput maxlength="6" [(ngModel)]="pincoce"  placeholder="PIN CODE" (keypress)="numberOnly($event)" (keyup)="selectPincode()">
           <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Required</div>
