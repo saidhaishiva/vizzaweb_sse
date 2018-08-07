@@ -65,7 +65,7 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" required>
                       <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                     </mat-form-field></div>
@@ -217,12 +217,12 @@
                 <h6 class="color-green">SOCIAL STATUS</h6>
                 <mat-radio-group  formControlName="socialStatus" (change)="changeSocialStatus(socialStatus)">
                   <mat-radio-button value="false" class="mr-3">Yes</mat-radio-button>
-                  <mat-radio-button value="true" [checked]="socialStatus == true" >NO</mat-radio-button>
+                  <mat-radio-button value="true" [checked]="socialStatus == true" >No</mat-radio-button>
                 </mat-radio-group>
-                <p><strong>Please choose "Yes" in case of BPL families, Disabled Persons etc, Persons working in UnOrganized/Informal Sectors</strong></p>
+                <p><strong>Please choose "Yes" in case of BPL (Below Poverty Line) families, Disabled Persons etc, Persons working in Unorganized/Informal Sectors</strong></p>
                 <div class="row">
                   <div class="col-md-6 ">
-                    <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                    <p>Please choose "Yes" if you are working in Unorganized Sector</p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer1" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
                       <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
@@ -255,7 +255,7 @@
                 </div>
 
               </div>
-              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzh eimer's disease/Parki nson's disease</mat-checkbox></p>
+              <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
                 </div>
@@ -378,41 +378,42 @@
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>INSURED DETAILS</ng-template>
                 <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
-                  <div class="col-md-12 box-card pt-3" >
-                    <span *ngFor="let nomineeadd of list.nominee">
-                    <h6 class="color-green mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
-                    <div class="row"  >
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname"  required>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.nage"  required>
-                      </mat-form-field></div>
+                  <div class="col-md-12 " >
+                      <mat-card *ngFor="let nomineeadd of list.nominee; let ci = index" [ngStyle]="{'background-color':nomineeadd.colorStatus === 'green' ? '#dbf1ee' : '#f5f5f5' }">
+                      <h6 class="color-green mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primary" [disabled]="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
+                      <div class="row"  >
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname"  required>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-2"><mat-form-field class="w-100">
+                          <input matInput placeholder="Age" (keypress)="keyPress($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  required>
+                        </mat-form-field></div>
 
-                       <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
-                    </mat-form-field></div>
-                      <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
+                         <div class="col-md-4"><mat-form-field class="w-100">
+                            <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
                       </mat-form-field></div>
-                    </div>
-                    <h6 class="color-green  mt-4" >APPOINTEE DETAILS</h6>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Appointee" [(ngModel)]="nomineeadd.aname" [required]="nomineeadd.nage < 18">
-                        </mat-form-field>
+                        <div class="col-md-2"><mat-form-field class="w-100">
+                          <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
+                        </mat-form-field></div>
                       </div>
-                      <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18" >
-                      </mat-form-field></div>
-                       <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
-                    </mat-form-field></div>
-                    </div>
-                    </span>
+                        <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS</h6>
+                        <div class="row" *ngIf="nomineeadd.ageSetting">
+                          <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Name of Appointee" [(ngModel)]="nomineeadd.aname" [required]="nomineeadd.nage < 18">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2"><mat-form-field class="w-100">
+                            <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18" >
+                          </mat-form-field></div>
+                           <div class="col-md-4"><mat-form-field class="w-100">
+                                <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
+                        </mat-form-field></div>
+                        </div><br><br>
+                      </mat-card>
+                      <br><br>
                   </div>
                   <!--<div class="col-md-6 box-card pt-3">-->
                     <!--<h6 class="color-green text-center mb-3">PREVIOUS INSURER DETAILS</h6>-->
@@ -442,7 +443,7 @@
             </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4"> <h4>{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>

@@ -5,6 +5,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {MatDialog} from '@angular/material';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 import {AddbranchComponent} from './addbranch/addbranch.component';
+import {EditbranchComponent} from './editbranch/editbranch.component';
 
 @Component({
   selector: 'app-branch',
@@ -68,6 +69,22 @@ export class BranchComponent implements OnInit {
     speical() {
         const dialogRef = this.dialog.open(AddbranchComponent, {
             width: '400px'
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (res) {
+                this.branchList();
+            }
+
+        });
+
+    }
+    edit(row) {
+      console.log("FFFFF");
+      console.log(row);
+        const dialogRef = this.dialog.open(EditbranchComponent, {
+            width: '400px',
+            data : row,
+
         });
         dialogRef.afterClosed().subscribe(res => {
             if (res) {

@@ -34,7 +34,21 @@
                 {{value}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Branchstatus">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                 <span>
+                  {{value}}
+                </span>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <i class="material-icons" (click)="edit (row)" style="cursor: pointer" >
+                  edit
+                </i>
 
+              </ng-template>
+            </ngx-datatable-column>
           </ngx-datatable>
 
 

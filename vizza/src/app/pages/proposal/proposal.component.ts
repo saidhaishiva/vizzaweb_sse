@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
-import {MatStepper} from '@angular/material';
+import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProposalmessageComponent} from './proposalmessage/proposalmessage.component';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
-import {AppSettings} from '../../app.settings';
+import { AppSettings } from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {Pipe, PipeTransform, Inject, LOCALE_ID} from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+
 
 
 export const MY_FORMATS = {
@@ -29,11 +30,10 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
-
 @Component({
-    selector: 'app-proposal',
-    templateUrl: './proposal.component.html',
-    styleUrls: ['./proposal.component.scss'],
+  selector: 'app-proposal',
+  templateUrl: './proposal.component.html',
+  styleUrls: ['./proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -98,107 +98,109 @@ export class ProposalComponent implements OnInit {
     public setDateAge: any;
     public personalAge: any;
 
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+              public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
 
-        let today = new Date();
-        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        this.illnessCheck = false;
-        this.socialStatus = true;
-        this.stopNext = false;
-        this.nomineeAdd = true;
-        this.nomineeRemove = true;
-        this.declaration = false;
-        this.illness = false;
-        this.settings = this.appSettings.settings;
-        this.settings.HomeSidenavUserBlock = false;
-        this.settings.sidenavIsOpened = false;
-        this.settings.sidenavIsPinned = false;
-        this.webhost = this.config.getimgUrl();
-        this.selectDate = '';
-        this.proposalId = 0;
-        this.personal = this.fb.group({
-            personalTitle: ['', Validators.required],
-            personalFirstname: ['', Validators.required],
-            personalLastname: ['', Validators.required],
-            personalDob: ['', Validators.compose([Validators.required])],
-            personalOccupation: ['', Validators.required],
-            personalIncome: ['', Validators.required],
-            personalArea: ['', Validators.required],
-            residenceArea: '',
-            personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([Validators.minLength(10)])],
-            personalGst: ['', Validators.compose([Validators.minLength(15)])],
-            socialStatus: '',
-            socialAnswer1: '',
-            socialAnswer2: '',
-            socialAnswer3: '',
-            socialAnswer4: '',
-            personalAddress: ['', Validators.required],
-            previousinsurance: '',
-            personalAddress2: ['', Validators.required],
-            personalPincode: ['', Validators.required],
-            personalCity: ['', Validators.required],
-            personalState: ['', Validators.required],
-            personalEmail: ['', Validators.required],
-            personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            personalAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            residenceAddress: '',
-            residenceAddress2: '',
-            residencePincode: '',
-            residenceCity: '',
-            residenceState: '',
-            illnessCheck: '',
-            sameas: ''
 
-        });
+      let today  = new Date();
+      this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      this.illnessCheck = false;
+      this.socialStatus = true;
+      this.stopNext = false;
+      this.nomineeAdd = true;
+      this.nomineeRemove = true;
+      this.declaration = false;
+      this.illness = false;
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+      this.webhost = this.config.getimgUrl();
+      this.selectDate = '';
+      this.proposalId = 0;
+      this.personal = this.fb.group({
+          personalTitle: ['', Validators.required],
+          personalFirstname: ['', Validators.required],
+          personalLastname: ['', Validators.required],
+          personalDob: ['', Validators.compose([Validators.required])],
+          personalOccupation: ['', Validators.required],
+          personalIncome: ['', Validators.required],
+          personalArea: ['', Validators.required],
+          residenceArea: '',
+          personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+          personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+          personalGst: ['', Validators.compose([ Validators.minLength(15)])],
+          socialStatus: '',
+          socialAnswer1: '',
+          socialAnswer2: '',
+          socialAnswer3: '',
+          socialAnswer4: '',
+          personalAddress: ['', Validators.required],
+          previousinsurance: '',
+          personalAddress2: ['', Validators.required],
+          personalPincode: ['', Validators.required],
+          personalCity: ['', Validators.required],
+          personalState: ['', Validators.required],
+          personalEmail: ['', Validators.required],
+          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+          personalAltnumber: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+          residenceAddress: '',
+          residenceAddress2: '',
+          residencePincode: '',
+          residenceCity: '',
+          residenceState: '',
+          illnessCheck: '',
+          sameas: ''
 
-        // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-        //     (successData) => {
-        //         this.testProposalSuccess(successData);
-        //     },
-        //     (error) => {
-        //         this.proposalFailure(error);
-        //     }
-        // );
+      });
 
-        // this.personal = this.fb.group({
-        //     personalTitle: [''],
-        //     personalFirstname: [''],
-        //     personalLastname: [''],
-        //     personalDob: [''],
-        //     personalOccupation: [''],
-        //     personalIncome: [''],
-        //     personalAadhar: [''],
-        //     personalPan: [''],
-        //     personalGst: [''],
-        //     socialStatus: '',
-        //     socialAnswer1: '',
-        //     socialAnswer2: '',
-        //     socialAnswer3: '',
-        //     socialAnswer4: '',
-        //     personalAddress: [''],
-        //     previousinsurance: '',
-        //     personalAddress2: '',
-        //     personalPincode: [''],
-        //     personalCity: [''],
-        //     personalState: [''],
-        //     personalEmail: [''],
-        //     personalMobile: [''],
-        //     personalAltnumber: [''],
-        //     residenceAddress: '',
-        //     residenceAddress2: '',
-        //     residencePincode: '',
-        //     residenceCity: '',
-        //     residenceState: '',
-        //     residenceEmail: '',
-        //     residenceMobile: [''],
-        //     residenceAltnumber: [''],
-        //     illnessCheck: ''
-        //
-        // });
-    }
+      // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
+      //     (successData) => {
+      //         this.testProposalSuccess(successData);
+      //     },
+      //     (error) => {
+      //         this.proposalFailure(error);
+      //     }
+      // );
+
+      // this.personal = this.fb.group({
+      //     personalTitle: [''],
+      //     personalFirstname: [''],
+      //     personalLastname: [''],
+      //     personalDob: [''],
+      //     personalOccupation: [''],
+      //     personalIncome: [''],
+      //     personalAadhar: [''],
+      //     personalPan: [''],
+      //     personalGst: [''],
+      //     socialStatus: '',
+      //     socialAnswer1: '',
+      //     socialAnswer2: '',
+      //     socialAnswer3: '',
+      //     socialAnswer4: '',
+      //     personalAddress: [''],
+      //     previousinsurance: '',
+      //     personalAddress2: '',
+      //     personalPincode: [''],
+      //     personalCity: [''],
+      //     personalState: [''],
+      //     personalEmail: [''],
+      //     personalMobile: [''],
+      //     personalAltnumber: [''],
+      //     residenceAddress: '',
+      //     residenceAddress2: '',
+      //     residencePincode: '',
+      //     residenceCity: '',
+      //     residenceState: '',
+      //     residenceEmail: '',
+      //     residenceMobile: [''],
+      //     residenceAltnumber: [''],
+      //     illnessCheck: ''
+      //
+      // });
+  }
+
 
 
     ngOnInit() {
@@ -212,11 +214,11 @@ export class ProposalComponent implements OnInit {
         this.setOccupationList();
         this.setRelationship();
 
-        if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined) {
+        if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined ) {
             this.groupList();
         } else {
             console.log('family membersssssssssss');
-            this.familyMembers = JSON.parse(sessionStorage.familyMembers);
+            this.familyMembers  = JSON.parse(sessionStorage.familyMembers);
         }
         console.log(sessionStorage.nomineeDate, 'sessionStorage.nomineeDate');
         if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
@@ -230,7 +232,10 @@ export class ProposalComponent implements OnInit {
                     aage: '',
                     arelationship: '',
                     removeBtn: true,
-                    addBtn: false
+                    addBtn: false,
+                    ageSetting: true,
+                    colorStatus: 'red'
+
                 }]
             }];
         } else {
@@ -240,39 +245,39 @@ export class ProposalComponent implements OnInit {
     }
 
 
+
+
     criticalIllness(values: any) {
-        if (values.checked) {
-            const dialogRef = this.dialog.open(ProposalmessageComponent, {
-                width: '500px'
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
-                this.stopNext = true;
-            });
-        } else {
-            this.stopNext = false;
-        }
+      if (values.checked) {
+          const dialogRef = this.dialog.open(ProposalmessageComponent, {
+              width: '500px'
+          });
+          dialogRef.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+              this.stopNext = true;
+          });
+      } else {
+          this.stopNext = false;
+      }
     }
-
     changeSocialStatus(result) {
-        this.socialStatus = this.personal.controls['socialStatus'].value;
+      this.socialStatus = this.personal.controls['socialStatus'].value;
         let btn = this.personal.controls['socialStatus'].value;
-        console.log(btn, 'this.result');
-        if (btn == 'true') {
-            this.personal.controls['socialAnswer1'].setValue('0');
-            this.personal.controls['socialAnswer2'].setValue('0');
-            this.personal.controls['socialAnswer3'].setValue('0');
-            this.personal.controls['socialAnswer4'].setValue('0');
-            this.socialNo = '';
-        } else {
-            this.socialNo = false;
-        }
+      console.log(btn, 'this.result');
+      if (btn == 'true') {
+          this.personal.controls['socialAnswer1'].setValue('0');
+          this.personal.controls['socialAnswer2'].setValue('0');
+          this.personal.controls['socialAnswer3'].setValue('0');
+          this.personal.controls['socialAnswer4'].setValue('0');
+          this.socialNo = '';
+      } else {
+          this.socialNo = false;
+      }
     }
-
     groupList() {
-        this.familyMembers = this.getFamilyDetails.family_members;
-        console.log(this.familyMembers);
-        for (let i = 0; i < this.familyMembers.length; i++) {
+      this.familyMembers = this.getFamilyDetails.family_members;
+      console.log(this.familyMembers);
+        for (let i = 0; i < this.familyMembers.length; i++ ) {
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
             this.familyMembers[i].ins_gender = '';
@@ -290,38 +295,38 @@ export class ProposalComponent implements OnInit {
         }
 
     }
-
     addNominee(value) {
-        if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
-            this.nomineeDate[0].nominee.push({
-                nname: '',
-                nage: '',
-                nrelationship: '',
-                nclaim: '',
-                aname: '',
-                aage: '',
-                arelationship: '',
-                removeBtn: false,
-                addBtn: true
-            });
-            this.nomineeAdd = true;
-            this.nomineeRemove = false;
-        }
-        if (value == 'delete') {
-            if (this.nomineeDate[0].nominee.length == 2) {
-                this.nomineeDate[0].nominee.splice(1, 1);
-                this.nomineeAdd = false;
-                this.nomineeRemove = true;
-                this.nomineeDate[0].nominee[0].removeBtn = true;
-                this.nomineeDate[0].nominee[0].addBtn = false;
-            }
-        }
+      if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+          this.nomineeDate[0].nominee.push({
+              nname: '',
+              nage: '',
+              nrelationship: '',
+              nclaim: '',
+              aname: '',
+              aage: '',
+              arelationship: '',
+              removeBtn: false,
+              addBtn: true,
+              ageSetting: true,
+              colorStatus: 'green'
+
+          });
+          this.nomineeAdd = true;
+          this.nomineeRemove = false;
+      } if (value == 'delete') {
+          if (this.nomineeDate[0].nominee.length == 2) {
+              this.nomineeDate[0].nominee.splice(1, 1);
+              this.nomineeAdd = false;
+              this.nomineeRemove = true;
+              this.nomineeDate[0].nominee[0].removeBtn = true;
+              this.nomineeDate[0].nominee[0].addBtn = false;
+          }
+      }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
     }
-
     claimPercent(percent) {
-        console.log(this.nomineeDate[0].nominee.length);
+      console.log(this.nomineeDate[0].nominee.length);
         if (this.nomineeDate[0].nominee.length == 1) {
             if (percent >= 100) {
                 this.nomineeDate[0].nominee[0].addBtn = true;
@@ -338,7 +343,7 @@ export class ProposalComponent implements OnInit {
 
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
+        console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
@@ -388,8 +393,9 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.socialStatus = false;
             }
-            if (sessionStorage.proposalID != '') {
+            if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
                 this.proposalId = sessionStorage.proposalID;
+                console.log(this.proposalId, 'this.proposalId');
             }
 
             if (this.getStepper1.personalPincode != '') {
@@ -400,7 +406,7 @@ export class ProposalComponent implements OnInit {
                 this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
                 this.personal.controls['personalArea'].setValue(this.getStepper1.personalArea);
 
-                setTimeout(() => {
+                setTimeout(() =>{
                     if (this.getStepper1.sameas) {
                         this.getPostal(this.getStepper1.personalPincode, 'residence');
                         this.getCityIdF2('residence', this.getStepper1.personalCity, this.getStepper1.personalPincode);
@@ -425,15 +431,15 @@ export class ProposalComponent implements OnInit {
                     //     this.personal.controls['residenceState'].setValue('');
                     //     this.personal.controls['residenceArea'].setValue('');
                     // }
-                }, 2000);
+                },2000);
 
             }
 
         }
         if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
             this.familyMembers = JSON.parse(sessionStorage.familyMembers);
-            // let date = this.familyMembers[0].ins_dob.split('-');
-            // date = date[0] +'/'+ date[1] +'/'+ date[2];
+           // let date = this.familyMembers[0].ins_dob.split('-');
+           // date = date[0] +'/'+ date[1] +'/'+ date[2];
             console.log(this.familyMembers, 'this.date');
         }
         if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
@@ -458,10 +464,9 @@ export class ProposalComponent implements OnInit {
             }
         }
     }
-
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
+        sessionStorage.familyMembers  = JSON.stringify(this.familyMembers);
         this.illnesStatus = false;
         console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
         if (key == 'Insured Details') {
@@ -501,26 +506,26 @@ export class ProposalComponent implements OnInit {
                         console.log('p8 || p9');
                         this.errorMessage = false;
                         this.insureStatus = false;
-                        if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                            if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
-                                if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
+                            if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+                                if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                                    if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
+                                        if (i == this.familyMembers.length - 1) {
+                                            this.insureStatus = true;
+                                        }
+                                    } else {
+                                        this.errorMessage = true;
+                                        break;
+                                    }
+                                } else {
                                     if (i == this.familyMembers.length - 1) {
                                         this.insureStatus = true;
                                     }
-                                } else {
-                                    this.errorMessage = true;
-                                    break;
                                 }
                             } else {
                                 if (i == this.familyMembers.length - 1) {
                                     this.insureStatus = true;
                                 }
                             }
-                        } else {
-                            if (i == this.familyMembers.length - 1) {
-                                this.insureStatus = true;
-                            }
-                        }
                     } else {
                         if (i == this.familyMembers.length - 1) {
                             this.insureStatus = true;
@@ -540,13 +545,20 @@ export class ProposalComponent implements OnInit {
         console.log(this.insureStatus, 'insureStatus');
 
 
+
         console.log(this.familyMembers);
     }
-
+    typeAge(value, index, ci) {
+        if (value > 18) {
+            this.nomineeDate[index].nominee[ci].ageSetting = false;
+        } else {
+            this.nomineeDate[index].nominee[ci].ageSetting = true;
+        }
+    }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
-        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
-        this.lastStepper = stepper;
+      sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+      this.lastStepper = stepper;
         if (key == 'Nominee Details') {
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
                 if (this.nomineeDate[index].nominee[i].nname != '' &&
@@ -580,25 +592,27 @@ export class ProposalComponent implements OnInit {
     }
 
 
+
+
     getCityId(title) {
+      this.cityTitle = title;
         console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
-        this.cityTitle = title;
+
         const data = {
             'platform': 'web',
             'pincode': this.cityTitle == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
             'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
         }
 
-        this.common.getArea(data).subscribe(
-            (successData) => {
-                this.getCitySuccess(successData);
-            },
-            (error) => {
-                this.getCityFailure(error);
-            }
-        );
+            this.common.getArea(data).subscribe(
+                (successData) => {
+                    this.getCitySuccess(successData);
+                },
+                (error) => {
+                    this.getCityFailure(error);
+                }
+            );
     }
-
     public getCitySuccess(successData) {
         if (successData.IsSuccess == true) {
             if (this.cityTitle == 'personal') {
@@ -626,7 +640,7 @@ export class ProposalComponent implements OnInit {
 
         }
 
-    }
+}
 
 
     personalAccident(values: any, index) {
@@ -653,28 +667,28 @@ export class ProposalComponent implements OnInit {
         }
 
 
-    }
 
+    }
     sameAddress(values: any) {
-        console.log(this.personal.controls['personalCity'].value);
-        if (values.checked) {
-            this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
-            this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-        } else {
-            this.personal.controls['residenceAddress'].setValue('');
-            this.personal.controls['residenceAddress2'].setValue('');
-            this.personal.controls['residenceCity'].setValue('');
-            this.personal.controls['residencePincode'].setValue('');
-            this.personal.controls['residenceState'].setValue('');
-            this.personal.controls['residenceArea'].setValue('');
-        }
+      console.log(this.personal.controls['personalCity'].value);
+      if (values.checked) {
+          this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
+          this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
+          this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+          this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+          this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+          this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+          this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+      } else {
+          this.personal.controls['residenceAddress'].setValue('');
+          this.personal.controls['residenceAddress2'].setValue('');
+          this.personal.controls['residenceCity'].setValue('');
+          this.personal.controls['residencePincode'].setValue('');
+          this.personal.controls['residenceState'].setValue('');
+          this.personal.controls['residenceArea'].setValue('');
+      }
 
     }
 
@@ -687,7 +701,6 @@ export class ProposalComponent implements OnInit {
             }
         }
     }
-
     addEventInsurer(event, i) {
         this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
         console.log(this.familyMembers[i].ins_dob);
@@ -697,13 +710,14 @@ export class ProposalComponent implements OnInit {
         let age = this.ageCalculate(this.ageCheck);
         this.familyMembers[i].ins_age = age;
 
-        console.log(event.value);
-        if (event.value.length == 10) {
-            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
-            console.log(this.familyMembers[i].ins_dob);
-        }
+      console.log(event.value);
+      if (event.value.length == 10) {
+          this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
+          console.log(this.familyMembers[i].ins_dob);
+      }
 
     }
+
 
 
     changeEventInsurer(event, i) {
@@ -714,110 +728,109 @@ export class ProposalComponent implements OnInit {
         }
 
     }
-
     addEvent(event) {
         this.selectDate = event.value;
         console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.personalAge = this.ageCalculate(this.setDateAge);
-        sessionStorage.setItem('proposerAge', this.personalAge);
+        sessionStorage.setItem('proposerAge' , this.personalAge);
     }
 
     ageCalculate(dob) {
         let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
         let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         return year_age;
     }
 
 
+
     //Create Proposal
-    proposal() {
-        const data = [{
-            'platform': 'web',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id': this.proposalId,
-            'enquiry_id': this.enquiryId,
-            'group_name': this.groupName,
-            'company_name': this.buyProductdetails.company_name,
-            'product_id': this.buyProductdetails.product_id,
-            'policy_type_name': this.buyProductdetails.prod_shortform,
-            'policy_category': 'fresh',
-            'policy_started_on': this.personalData.personalDob,
-            'policy_end_on': this.personalData.personalDob,
-            'policy_period': '1',
-            'sum_insured_id': this.buyProductdetails.suminsured_id,
-            'scheme_id': this.buyProductdetails.scheme,
-            'title': this.personalData.personalTitle,
-            'proposer_fname': this.personalData.personalFirstname,
-            'proposer_lname': this.personalData.personalLastname,
-            'proposer_email': this.personalData.personalEmail,
-            'proposer_mobile': this.personalData.personalMobile,
-            'proposer_alternate_mobile': this.personalData.personalAltnumber,
-            'proposer_res_address1': this.personalData.residenceAddress,
-            'proposer_res_address2': this.personalData.residenceAddress2,
-            'proposer_res_area': this.personalData.residenceArea.toString(),
-            'proposer_res_city': this.personalData.residenceCity.toString(),
-            'proposer_res_state': this.personalData.residenceState,
-            'proposer_res_pincode': this.personalData.residencePincode,
-            'proposer_comm_address1': this.personalData.personalAddress,
-            'proposer_comm_address2': this.personalData.personalAddress2,
-            'proposer_comm_area': this.personalData.personalArea.toString(),
-            'proposer_comm_city': this.personalData.personalCity.toString(),
-            'proposer_comm_state': this.personalData.personalState,
-            'proposer_comm_pincode': this.personalData.personalPincode,
-            'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y'),
-            'prop_occupation': this.personalData.personalOccupation,
-            'prop_annual_income': this.personalData.personalIncome,
-            'prop_pan_no': this.personalData.personalPan,
-            'prop_aadhar_no': this.personalData.personalAadhar,
-            'gst_id_no': this.personalData.personalGst,
-            'exist_health_ins_covered_persons_details': '',
-            'have_eia_no': '1',
-            'eia_no': '',
-            'previous_medical_insurance': this.personalData.previousinsurance,
-            'critical_illness': 'NO   ',
-            'social_status': this.personalData.socialStatus ? 1 : 0,
-            'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData.socialAnswer1,
-            'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData.socialAnswer2,
-            'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3 == null ? 0 : this.personalData.socialAnswer3,
-            'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? 0 : this.personalData.socialAnswer4,
-            'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
-            'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
-            'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
-            'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
-            'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
-            'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
-            'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
-            'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
-            'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
-            'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nrelationship : '',
-            'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
-            'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
-            'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
-            'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'created_by': '0',
-            'insured_details': this.familyMembers
-        }];
-        this.proposalservice.getProposal(data).subscribe(
-            (successData) => {
-                this.proposalSuccess(successData);
-            },
-            (error) => {
-                this.proposalFailure(error);
-            }
-        );
+  proposal() {
+      const data = [{
+              'platform': 'web',
+          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'proposal_id' : this.proposalId,
+              'enquiry_id': this.enquiryId,
+              'group_name':  this.groupName,
+              'company_name': this.buyProductdetails.company_name,
+              'product_id': this.buyProductdetails.product_id,
+              'policy_type_name': this.buyProductdetails.prod_shortform,
+              'policy_category': 'fresh',
+              'policy_started_on': this.personalData.personalDob,
+              'policy_end_on': this.personalData.personalDob,
+              'policy_period': '1',
+              'sum_insured_id': this.buyProductdetails.suminsured_id,
+              'scheme_id': this.buyProductdetails.scheme,
+              'title': this.personalData.personalTitle,
+              'proposer_fname': this.personalData.personalFirstname,
+              'proposer_lname': this.personalData.personalLastname,
+              'proposer_email': this.personalData.personalEmail,
+              'proposer_mobile': this.personalData.personalMobile,
+              'proposer_alternate_mobile': this.personalData.personalAltnumber,
+              'proposer_res_address1': this.personalData.residenceAddress,
+              'proposer_res_address2': this.personalData.residenceAddress2,
+              'proposer_res_area': this.personalData.residenceArea.toString(),
+              'proposer_res_city': this.personalData.residenceCity.toString(),
+              'proposer_res_state': this.personalData.residenceState,
+              'proposer_res_pincode': this.personalData.residencePincode,
+              'proposer_comm_address1': this.personalData.personalAddress,
+              'proposer_comm_address2': this.personalData.personalAddress2,
+              'proposer_comm_area': this.personalData.personalArea.toString(),
+              'proposer_comm_city': this.personalData.personalCity.toString(),
+              'proposer_comm_state': this.personalData.personalState,
+              'proposer_comm_pincode': this.personalData.personalPincode,
+              'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
+              'prop_occupation': this.personalData.personalOccupation,
+              'prop_annual_income': this.personalData.personalIncome,
+              'prop_pan_no': this.personalData.personalPan,
+              'prop_aadhar_no': this.personalData.personalAadhar,
+              'gst_id_no': this.personalData.personalGst,
+              'exist_health_ins_covered_persons_details': '',
+              'have_eia_no': '1',
+              'eia_no': '',
+              'previous_medical_insurance': this.personalData.previousinsurance,
+              'critical_illness': 'NO   ',
+              'social_status': this.personalData.socialStatus ? 1 : 0,
+              'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
+              'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData. socialAnswer2,
+              'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? 0 : this.personalData. socialAnswer3 ,
+              'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? 0 : this.personalData. socialAnswer4,
+              'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
+              'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
+              'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
+              'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
+              'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
+              'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
+              'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
+              'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
+              'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
+              'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ?  this.nomineeDate[0].nominee[1].nrelationship : '',
+              'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
+              'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
+              'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
+              'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
+              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+              'created_by': '0',
+              'insured_details': this.familyMembers
+          }];
+          this.proposalservice.getProposal(data).subscribe(
+              (successData) => {
+                  this.proposalSuccess(successData);
+              },
+              (error) => {
+                  this.proposalFailure(error);
+              }
+          );
 
-    }
-
-    public proposalSuccess(successData) {
+}
+    public proposalSuccess( successData) {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
@@ -837,7 +850,6 @@ export class ProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
-
 //Summary residence detail
     public proposalFailure(error) {
         console.log(error);
@@ -858,13 +870,12 @@ export class ProposalComponent implements OnInit {
             }
         );
     }
-
     public getCityResistSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.rAreaNames = successData.ResponseObject;
             this.rAreaName = this.rAreaNames.area;
             if (this.sumTitle == 'residence') {
-                for (let i = 0; i < this.rAreaName.length; i++) {
+                for (let i =0; i < this.rAreaName.length; i++) {
                     if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
                         this.sumAreaName = this.rAreaName[i].areaName;
                     }
@@ -894,13 +905,12 @@ export class ProposalComponent implements OnInit {
             }
         );
     }
-
     public getCityIdSummSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.rAreaNames = successData.ResponseObject;
             this.rAreaName = this.rAreaNames.area;
             if (this.title == 'personal') {
-                for (let i = 0; i < this.rAreaName.length; i++) {
+                for (let i =0; i < this.rAreaName.length; i++) {
                     if (this.rAreaName[i].areaID == this.summaryData.prop_comm_area) {
                         this.sumAreaNameComm = this.rAreaName[i].areaName;
                     }
@@ -934,7 +944,6 @@ export class ProposalComponent implements OnInit {
             );
         }
     }
-
     public getpostalSuccess(successData) {
         if (successData.IsSuccess == true) {
 
@@ -944,7 +953,7 @@ export class ProposalComponent implements OnInit {
                 this.personalCitys = this.response.city;
                 console.log(this.personalCitys, 'this.personalCitys');
                 for (let i = 0; i < this.personalCitys.length; i++) {
-                    if (this.personalCitys[i].city_id == this.summaryData.prop_comm_city) {
+                    if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
                         this.summaryCity = this.personalCitys[i].city_name;
                     }
                 }
@@ -985,14 +994,13 @@ export class ProposalComponent implements OnInit {
             );
         }
     }
-
     public PostalSummarySuccess(successData) {
         if (successData.IsSuccess == true) {
             if (this.sumTitle == 'residence') {
                 this.rResponse = successData.ResponseObject;
                 this.residenceCitys = this.rResponse.city;
                 for (let i = 0; i < this.residenceCitys.length; i++) {
-                    if (this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
+                    if ( this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
                         this.rSummaryCity = this.residenceCitys[i].city_name;
 
                     }
@@ -1025,7 +1033,7 @@ export class ProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id': this.summaryData.proposal_details[0].referenceId,
+            'reference_id' :  this.summaryData.proposal_details[0].referenceId,
             'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
@@ -1077,12 +1085,10 @@ export class ProposalComponent implements OnInit {
         );
 
     }
-
     public occupationListSuccess(successData) {
         console.log(successData.ResponseObject);
         this.occupationList = successData.ResponseObject;
     }
-
     public occupationListFailure(error) {
         console.log(error);
     }
@@ -1103,12 +1109,10 @@ export class ProposalComponent implements OnInit {
             }
         );
     }
-
     public setRelationshipSuccess(successData) {
         console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
     }
-
     public setRelationshipFailure(error) {
         console.log(error);
     }

@@ -5,7 +5,6 @@ import { ToastrService} from 'ngx-toastr';
 import {FormGroup, FormBuilder,  Validators} from '@angular/forms';
 import { AuthService} from '../../shared/services/auth.service';
 import { CategoryService} from '../../shared/services/category.service';
-import { ActivatedRoute,Router} from '@angular/router';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 
 @Component({
@@ -20,13 +19,13 @@ export class QuestionComponent implements OnInit {
     subjectList: any;
     categoryList: any;
     selectedCategory: any;
+    quesList: any;
     categoryid: any;
-    subjectid: any;
     getDetails: any;
-    selected = [];
+    selectedSubject: any;
     Status: any;
 
-  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
+  constructor(public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
                public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
     this.settings = this.appSettings.settings;
       this.form = this.fb.group({
@@ -51,13 +50,13 @@ export class QuestionComponent implements OnInit {
           {value: '1', viewValue: 'Active'}
       ];
       this.form.controls['status'].patchValue(this.Status[1].value);
-      this.form.controls['subjectid'].patchValue(this.subjectid);
+
   }
     public addQuestions(): void {
 
         this.settings.loadingSpinner = true;
             const data = {
-                'subjectid': this.subjectid,
+                'subjectid': this.selectedSubject,
                 'question': this.form.controls['question'].value,
                 'optionA': this.form.controls['optionA'].value,
                 'optionB': this.form.controls['optionB'].value,
@@ -70,7 +69,7 @@ export class QuestionComponent implements OnInit {
                 'platform': 'web'
             };
             console.log(data);
-
+            this.settings.loadingSpinner = true ;
             this.categoryService.addQuestions(data).subscribe(
                 (successData) => {
                     this.getQuestionsSuccess(successData);
@@ -86,6 +85,19 @@ export class QuestionComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
                 this.toastr.success(successData.ResponseObject,'Added Successfully');
+            this.form = this.fb.group({
+                'subjectid': '',
+                'question': '',
+                'optionA':  '',
+                'optionB': '',
+                'optionC': '',
+                'optionD': '',
+                'optionE': '',
+                'correctanswer': '',
+                'status':''
+            });
+            this.selectedSubject = '';
+            this.selectedCategory = '';
         }else {
             this.toastr.error(successData.ErrorObject,'Failed');
         }
@@ -121,6 +133,10 @@ export class QuestionComponent implements OnInit {
     public getSubjectSuccess(successData) {
         this.settings.loadingSpinner = false;
         this.subjectList = successData.ResponseObject;
+        this.subjectList = successData.ResponseObject;
+        this.selectedSubject = this.subjectList[0]['subject_id'];
+        console.log(this.rows, 'this.rowsthis.rowsthis.rows');
+        this.getQuestionList(this.selectedSubject);
     }
     public getSubjectFailure(error) {
         this.settings.loadingSpinner = false;
@@ -136,6 +152,8 @@ export class QuestionComponent implements OnInit {
             'adminid': this.auth.getAdminId(),
             'platform': 'web'
         };
+        console.log(data);
+        this.settings.loadingSpinner = true ;
         this.categoryService.getCategoryList(data).subscribe(
             (successData) => {
                 this.getCategorySuccess(successData);
@@ -150,11 +168,44 @@ export class QuestionComponent implements OnInit {
         console.log(successData, 'successData');
         this.settings.loadingSpinner = false;
         this.categoryList = successData.ResponseObject;
-        this.rows = this.categoryList;
+        this.categoryList = successData.ResponseObject;
+        this.selectedCategory = this.categoryList[0]['category_id'];
+        this.getSubjects(this.selectedCategory);
         console.log(this.rows, 'this.rowsthis.rowsthis.rows');
 
     }
     public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+    getQuestions(){
+        this.getQuestionList(this.selectedSubject);
+    }
+    getQuestionList(subjectId){
+        this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+            'subjectid': subjectId
+        };
+        this.categoryService.getQuestionList(data).subscribe(
+            (successData) => {
+                this.getQuestionSuccess(successData);
+
+            },
+            (error) => {
+                this.getQuestionFailure(error);
+            }
+        );
+    }
+    public getQuestionSuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        this.quesList = successData.ResponseObject;
+        this.rows = this.quesList;
+
+    }
+    public getQuestionFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 
 }

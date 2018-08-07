@@ -66,6 +66,7 @@ import { LearningcenterComponent } from './pages/learningcenter/learningcenter.c
 import { CategoryComponent } from './pages/category/category.component';
 import { SubjectComponent } from './pages/subject/subject.component';
 import { QuestionComponent } from './pages/question/question.component';
+import { ListquestionComponent} from './pages/question/listquestion/listquestion.component';
 import {CategoryService} from './shared/services/category.service';
 import { AddsubjectComponent } from './pages/subject/addsubject/addsubject.component';
 import { AddcategoryComponent } from './pages/category/addcategory/addcategory.component';
@@ -83,6 +84,8 @@ import { BranchcoordinatorComponent } from './pages/branchcoordinator/branchcoor
 import { AddbranchcoordinatorComponent } from './pages/branchcoordinator/addbranchcoordinator/addbranchcoordinator.component';
 import { BranchComponent } from './pages/branch/branch.component';
 import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component';
+import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
+import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 
 @NgModule({
     imports: [
@@ -134,6 +137,7 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
         CategoryComponent,
         SubjectComponent,
         QuestionComponent,
+        ListquestionComponent,
         AddsubjectComponent,
         AddcategoryComponent,
         UpdatecategoryComponent,
@@ -148,6 +152,8 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
         AddbranchcoordinatorComponent,
         BranchComponent,
         AddbranchComponent,
+        EditquestionComponent,
+        EditbranchComponent,
 
     ],
     providers: [
@@ -167,6 +173,6 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent, ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent ]
 })
 export class AppModule { }

@@ -1,0 +1,101 @@
+<div class="flex-p">
+  <div class="text-right">
+    <button mat-raised-button color="primary" routerLink="/question"><i class="material-icons">
+      add
+    </i> Add</button>
+  </div>
+</div><br>
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-6 text-left">
+        <mat-form-field  class="w-100">
+          <mat-select  placeholder="All Category" (change)="getCategory(selectedCategory)" [(ngModel)]="selectedCategory">
+            <mat-option *ngFor="let list of categoryList" value="{{list.category_id}}">{{list.category_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 text-right">
+        <mat-form-field  class="w-100">
+          <mat-select  placeholder="All Subjects" (change)="getSubjects(selectedSubject)" [(ngModel)]="selectedSubject" >
+            <mat-option *ngFor="let list of subjectList" value="{{list.subject_id}}">{{list.subject_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [selectionType]="'checkbox'">
+            <ngx-datatable-column name="S.No">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row">
+                {{rowIndex+1}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Questions">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.question}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Answer1">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.option_a}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Answer2" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.option_b}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Answer3" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.option_c}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Answer4" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.option_d}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Answer5" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.option_e}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Correct Answer" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.correct_answer }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Status" >
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.question_status }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [flexGrow]="4">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <i class="material-icons" style="cursor: pointer" (click)="openEdit(row)">
+                  edit
+                </i>
+                <i class="material-icons" style="cursor: pointer" (click)="deleteQuestion(row)">
+                  delete
+                </i>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
