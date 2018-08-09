@@ -20,6 +20,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+      sessionStorage.nomineeDate = '';
+      sessionStorage.familyMembers = '';
+      sessionStorage.stepper1Details = '';
+
       sessionStorage.setPage = '';
       sessionStorage.sideMenu = false;
       sessionStorage.setFamilyDetails = '';
@@ -39,6 +43,7 @@ export class HomeComponent implements OnInit {
       sessionStorage.changedTabIndex = '';
       sessionStorage.shorListTab = '';
       sessionStorage.enquiryId = '';
+      sessionStorage.proposalId = '';
 
   }
 

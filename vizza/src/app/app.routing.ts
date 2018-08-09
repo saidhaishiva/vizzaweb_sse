@@ -20,6 +20,7 @@ import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
 import {PaymentSuccessComponent} from './pages/payment-success/payment-success.component';
 import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
+import {DeactivateGuard} from './shared/deactivate-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,7 +52,7 @@ export const routes: Routes = [
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
-            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
+            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },

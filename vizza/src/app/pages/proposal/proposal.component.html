@@ -59,10 +59,8 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="personalIncome" required>
-                      <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
-
-
+                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="personalIncome" >
+                      <!--<mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>-->
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" required>
@@ -246,7 +244,7 @@
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
-                    <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                    <p>Please Choose “Yes” if you are physical challenged persons </p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
                       <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
@@ -577,18 +575,19 @@
                     <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_one}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_one}}</li>
                     <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_one}}</li>
-                    <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one}}</li>
+                    <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one | limitTo : 3}}</li>
                   </ul>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="summaryData.nominee_age_one < 18">
                   <h6>APPOINTEE DETAILS  </h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_one}}</li>
-                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one | limitTo : 3}}</li>
                   </ul>
                   </div>
-                                           </div>
+
+                  </div>
                 </div>
               </div>
               <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">
@@ -599,7 +598,7 @@
                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
                   <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
                   <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
-                  <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two}}</li>
+                  <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two | limitTo : 3}}</li>
                 </ul>
                   </div>
                   <div class="col-md-6">
@@ -607,7 +606,7 @@
                 <ul class="m-0 list-group">
                   <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>
                   <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>
-                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two}}</li>
+                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two | limitTo : 3}}</li>
                 </ul>
               </div>
                 </div>
