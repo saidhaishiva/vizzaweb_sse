@@ -352,8 +352,6 @@ a:hover {
     h6{
       margin-bottom: 0;
       color: #fff;
-
-
     }
     mat-card{
       background: rgba(242, 154, 29, 0.05);
@@ -366,7 +364,6 @@ a:hover {
   .mat-tab-label:last-child{
     border-radius: 0 10px 0 0;
   }
-
 }
  .linkClor {
     color: #117ab7;
@@ -450,9 +447,9 @@ background: #ccc !important;
       font-size: 11px;
     }
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -659,9 +656,6 @@ background: #ccc !important;
     }
   }
 }
-.disyy .mat-button-toggle-group{
-  background-color: green!important;
-}
-.disyy{
-  background-color: green!important;
+.horizontal-menu-item a{
+  justify-content: center !important;
 }

@@ -5,12 +5,13 @@
   </i> Add</button>
 
 </div>
-<section id="appointment" class="pagecount">
-  <div class="row">
+<section>
+  <div class="flex-p">
+    <div class="row">
     <div class="col-md-4">
       <div class="text-left">
         <mat-form-field class="w-50">
-          <mat-select placeholder="Branch Manager" [(ngModel)]="selectedBranch" multiple (change)= "changeManagerList()">
+          <mat-select placeholder="Branch Manager" [(ngModel)]="branchManager" (change)= "changeManagerList()">
             <mat-option *ngFor="let list of bmList" [value]="list.bm_id">
               {{list.firstname}}
             </mat-option>
@@ -21,7 +22,7 @@
     <div class="col-md-4">
       <div class="text-left">
         <mat-form-field class="w-50">
-          <mat-select placeholder="Branch List" [(ngModel)]="selectedBranch" multiple (change)= "changeList()">
+          <mat-select placeholder="Branch List" [(ngModel)]="selectedBranch" multiple (change)= "changeManager()">
             <mat-option *ngFor="let list of branchLists" [value]="list.branch_id">
               {{list.branchname}}
             </mat-option>
@@ -38,7 +39,7 @@
       </div>
     </div>
   </div>
-
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div fxLayout="column">

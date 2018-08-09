@@ -31,16 +31,16 @@ export class RelationalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.relationalManagerList();
+      this.relationalManagerList('');
       this.salesManagerList([]);
   }
-    public relationalManagerList() {
+    public relationalManagerList(val) {
 
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'salesmanagerid': ''
+            'salesmanagerid': val
 
         };
 
@@ -111,10 +111,10 @@ export class RelationalComponent implements OnInit {
     public branchListFailure(error) {
 
     }
-    // changeManagerList() {
-    //   //  this.relationalManagerList(this.selectedBranch);
-    //
-    // }
+    changeManagerList() {
+      this.relationalManagerList(this.selectedBranch);
+
+    }
     public salesManagerList(value) {
 
         const data = {
@@ -146,10 +146,7 @@ export class RelationalComponent implements OnInit {
     public salesFailure(error) {
 
     }
-    changeManagerList() {
-        // this.salesManagerList(this.selectedBranch);
 
-    }
 
 }
 

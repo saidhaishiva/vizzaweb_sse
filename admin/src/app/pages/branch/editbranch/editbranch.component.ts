@@ -39,9 +39,8 @@ export class EditbranchComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.form.controls['active'].setValue(this.active[1].name);
       this.form.controls['branchname'].setValue(this.getDetails.branchname);
-      this.form.controls['active'].setValue(this.getDetails.active);
+      this.form.controls['active'].setValue(this.getDetails.branchstatus);
 
   }
     close(): void {
@@ -55,7 +54,7 @@ export class EditbranchComponent implements OnInit {
                 'userid': this.auth.getAdminId(),
                 'branch_id': this.getDetails.branch_id,
                 'branch_name':this.form.controls['branchname'].value,
-                'branchstatus': this.form.controls['active'].value
+                'branch_status': this.form.controls['active'].value
 
             };
             this.settings.loadingSpinner = true;

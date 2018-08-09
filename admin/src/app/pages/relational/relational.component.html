@@ -4,12 +4,14 @@
   </i> Add</button>
 
 </div>
-<section id="appointment" class="pagecount">
-  <div class="row">
-    <div class="col-md-6">
+
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-6">
       <div class="text-left">
         <mat-form-field class="w-50">
-          <mat-select placeholder="Sales Manager" [(ngModel)]="selectedBranch" multiple (change)= "changeManagerList()">
+          <mat-select placeholder="Sales Manager" [(ngModel)]="selectedBranch"  (change)= "changeManagerList()">
             <mat-option *ngFor="let list of smList" [value]="list.sm_id">
               {{list.firstname}}
             </mat-option>
@@ -25,7 +27,7 @@
         </mat-form-field>
       </div>
     </div>
-
+  </div>
   </div>
   <div class="row">
     <div class="col-md-12">

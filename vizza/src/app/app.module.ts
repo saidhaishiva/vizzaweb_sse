@@ -72,6 +72,7 @@ import { DownloadPolicyComponent } from './pages/download-policy/download-policy
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
+import { ReligareComponent } from './pages/religare/religare.component';
 
 @NgModule({
   imports: [
@@ -132,7 +133,8 @@ import { TruncatePipe} from '../limit.pipe';
       DownloadPolicyComponent,
       DownloadMessage,
       PosstatusAlert,
-      TruncatePipe
+      TruncatePipe,
+      ReligareComponent
   ],
   providers: [
       AppSettings,

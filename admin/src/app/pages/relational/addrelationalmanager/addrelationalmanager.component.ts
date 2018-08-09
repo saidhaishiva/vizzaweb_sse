@@ -6,11 +6,28 @@ import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../../app.settings';
 import {BranchService} from '../../../shared/services/branch.service';
 import {Settings} from '../../../app.settings.model';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-addrelationalmanager',
   templateUrl: './addrelationalmanager.component.html',
-  styleUrls: ['./addrelationalmanager.component.scss']
+  styleUrls: ['./addrelationalmanager.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class AddrelationalmanagerComponent implements OnInit {
     public form: FormGroup;
