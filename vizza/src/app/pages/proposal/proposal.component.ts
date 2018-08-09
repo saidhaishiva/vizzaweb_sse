@@ -125,7 +125,7 @@ export class ProposalComponent implements OnInit {
           personalLastname: ['', Validators.required],
           personalDob: ['', Validators.compose([Validators.required])],
           personalOccupation: ['', Validators.required],
-          personalIncome: ['', Validators.required],
+          personalIncome: [''],
           personalArea: ['', Validators.required],
           residenceArea: '',
           personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
@@ -201,19 +201,17 @@ export class ProposalComponent implements OnInit {
       // });
   }
 
-
-
     ngOnInit() {
-        console.log(sessionStorage.familyMembers, 'sessionStorage.familyMembers');
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
         this.setOccupationList();
         this.setRelationship();
-
+        if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined ) {
+            this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        }
         if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined ) {
             this.groupList();
         } else {
@@ -244,7 +242,9 @@ export class ProposalComponent implements OnInit {
         this.sessionData();
     }
 
-
+    canDeactivate() {
+      return this.proposalId;
+    }
 
 
     criticalIllness(values: any) {
@@ -380,15 +380,17 @@ export class ProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
-
-            if (JSON.parse(this.getStepper1.socialStatus)) {
-                this.personal.controls['socialAnswer1'].reset();
-                this.personal.controls['socialAnswer2'].reset();
-                this.personal.controls['socialAnswer3'].reset();
-                this.personal.controls['socialAnswer4'].reset();
+            if (this.getStepper1.socialStatus == false) {
+                // if (JSON.parse(this.getStepper1.socialStatus)) {
+                    this.personal.controls['socialAnswer1'].reset();
+                    this.personal.controls['socialAnswer2'].reset();
+                    this.personal.controls['socialAnswer3'].reset();
+                    this.personal.controls['socialAnswer4'].reset();
+                // }
             }
+
             console.log(this.getStepper1.socialStatus, 'socialStatus');
-            if (JSON.parse(this.getStepper1.socialStatus)) {
+            if (this.getStepper1.socialStatus == false) {
                 this.socialStatus = true;
             } else {
                 this.socialStatus = false;
