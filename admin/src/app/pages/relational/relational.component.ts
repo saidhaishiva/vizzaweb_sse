@@ -24,16 +24,20 @@ export class RelationalComponent implements OnInit {
     public selectedBranch: any;
     loadingIndicator: boolean = true;
     public total: any;
-    public  branchLists: any;
+    public branchLists: any;
     public settings: Settings;
     public smList: any;
-  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService,public dialog: MatDialog
-  ) { }
+    public branchs: any;
 
-  ngOnInit() {
-      this.relationalManagerList('');
-      this.salesManagerList([]);
-  }
+    constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+    }
+
+    ngOnInit() {
+        this.relationalManagerList('');
+        this.salesManagerList([]);
+        this.branchList();
+    }
+
     public relationalManagerList(val) {
 
         const data = {
@@ -43,7 +47,6 @@ export class RelationalComponent implements OnInit {
             'salesmanagerid': val
 
         };
-
         this.branchservice.relationalManagerList(data).subscribe(
             (successData) => {
                 this.relationalSuccess(successData);
@@ -53,6 +56,7 @@ export class RelationalComponent implements OnInit {
             }
         );
     }
+
     public relationalSuccess(success) {
         console.log(success);
         // this.loadingIndicator = false;
@@ -64,20 +68,22 @@ export class RelationalComponent implements OnInit {
         } else {
         }
     }
+
     updateFilter(event) {
 
         const val = event.target.value.toLowerCase();
-        console.log(val,'ss');
-        const temp = this.temp.filter(function(d) {
+        const temp = this.temp.filter(function (d) {
             return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
         });
         this.rows = temp;
         console.log(this.rows, 'opo');
         this.table.offset = 0;
     }
-    public relationalFailure(error){
 
-        }
+    public relationalFailure(error) {
+
+    }
+
     public branchList() {
         const data = {
             'platform': 'web',
@@ -97,10 +103,10 @@ export class RelationalComponent implements OnInit {
             }
         );
     }
+
     public branchListSuccess(success) {
         this.loadingIndicator = false;
 
-        console.log(success);
         if (success.IsSuccess) {
             this.branchLists = success.ResponseObject;
 
@@ -111,10 +117,12 @@ export class RelationalComponent implements OnInit {
     public branchListFailure(error) {
 
     }
+
     changeManagerList() {
-      this.relationalManagerList(this.selectedBranch);
+        this.relationalManagerList(this.selectedBranch);
 
     }
+
     public salesManagerList(value) {
 
         const data = {
@@ -134,6 +142,7 @@ export class RelationalComponent implements OnInit {
             }
         );
     }
+
     public salesSuccess(success) {
         console.log(success);
         this.loadingIndicator = false;
@@ -147,7 +156,4 @@ export class RelationalComponent implements OnInit {
 
     }
 
-
 }
-
-

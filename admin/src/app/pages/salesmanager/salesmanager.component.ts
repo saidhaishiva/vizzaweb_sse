@@ -38,6 +38,7 @@ export class SalesmanagerComponent implements OnInit {
     public branchLists: any;
     public bmList: any;
     public total: any;
+    public rmList: any;
     public settings: Settings;
     constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
     }
@@ -46,6 +47,7 @@ export class SalesmanagerComponent implements OnInit {
         this.salesManagerList('', []);
         this.branchList('');
         this.branchManagerList([]);
+        // this.relationalManagerList([])
     }
 
     public salesManagerList(bmId,bId) {
@@ -164,5 +166,38 @@ export class SalesmanagerComponent implements OnInit {
       this.salesManagerList(this.branchManager,this.selectedBranch);
 
     }
-
+    // public relationalManagerList(val) {
+    //
+    //     const data = {
+    //         'platform': 'web',
+    //         'roleid': this.auth.getAdminRoleId(),
+    //         'userid': this.auth.getAdminId(),
+    //         'salesmanagerid': val
+    //
+    //     };
+    //
+    //     this.branchservice.relationalManagerList(data).subscribe(
+    //         (successData) => {
+    //             this.relationalSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.relationalFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public relationalSuccess(success) {
+    //
+    //     this.loadingIndicator = false;
+    //     console.log(success);
+    //     if (success.IsSuccess) {
+    //         this.rmList = success.ResponseObject;
+    //     } else {
+    //     }
+    // }
+    // public relationalFailure(error){
+    //
+    // }
+    // change() {
+    // }
 }
