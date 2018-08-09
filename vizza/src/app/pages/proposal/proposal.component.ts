@@ -380,15 +380,17 @@ export class ProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
-
-            if (JSON.parse(this.getStepper1.socialStatus)) {
-                this.personal.controls['socialAnswer1'].reset();
-                this.personal.controls['socialAnswer2'].reset();
-                this.personal.controls['socialAnswer3'].reset();
-                this.personal.controls['socialAnswer4'].reset();
+            if (this.getStepper1.socialStatus == false) {
+                // if (JSON.parse(this.getStepper1.socialStatus)) {
+                    this.personal.controls['socialAnswer1'].reset();
+                    this.personal.controls['socialAnswer2'].reset();
+                    this.personal.controls['socialAnswer3'].reset();
+                    this.personal.controls['socialAnswer4'].reset();
+                // }
             }
+
             console.log(this.getStepper1.socialStatus, 'socialStatus');
-            if (JSON.parse(this.getStepper1.socialStatus)) {
+            if (this.getStepper1.socialStatus == false) {
                 this.socialStatus = true;
             } else {
                 this.socialStatus = false;
