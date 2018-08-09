@@ -83,7 +83,7 @@ export class AddsalesmanagerComponent implements OnInit {
             this.toastr.success(success.ResponseObject);
 
         } else {
-            this.toastr.error(success.ResponseObject);
+            this.toastr.error(success.ErrorObject);
 
         }
     }
