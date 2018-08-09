@@ -79,7 +79,6 @@ export class BranchComponent implements OnInit {
 
     }
     edit(row) {
-      console.log("FFFFF");
       console.log(row);
         const dialogRef = this.dialog.open(EditbranchComponent, {
             width: '400px',

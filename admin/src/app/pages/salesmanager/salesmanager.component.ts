@@ -34,6 +34,7 @@ export class SalesmanagerComponent implements OnInit {
     public response: any;
     public status: any;
     public selectedBranch: any;
+    public branchManager:any;
     public branchLists: any;
     public bmList: any;
     public total: any;
@@ -42,19 +43,19 @@ export class SalesmanagerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.salesManagerList([]);
-        this.branchList();
+        this.salesManagerList('', []);
+        this.branchList('');
         this.branchManagerList([]);
     }
 
-    public salesManagerList(value) {
+    public salesManagerList(bmId,bId) {
 
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'bm_id': '',
-            'branch_id': [],
+            'bm_id': bmId,
+            'branch_id': bId,
         };
 
         this.branchservice.salesManagerList(data).subscribe(
@@ -93,12 +94,12 @@ export class SalesmanagerComponent implements OnInit {
     public salesFailure(error) {
 
     }
-    public branchList() {
+    public branchList(bmid) {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'branchmanagerid': '',
+            'branchmanagerid': bmid
         };
         this.loadingIndicator = false;
 
@@ -113,11 +114,9 @@ export class SalesmanagerComponent implements OnInit {
     }
     public branchListSuccess(success) {
         this.loadingIndicator = false;
-
         console.log(success);
         if (success.IsSuccess) {
             this.branchLists = success.ResponseObject;
-
         } else {
         }
     }
@@ -125,10 +124,10 @@ export class SalesmanagerComponent implements OnInit {
     public branchListFailure(error) {
 
     }
-    changeList() {
-        this.salesManagerList(this.selectedBranch);
-
-    }
+    // changeList() {
+    //     this.salesManagerList(this.selectedBranch);
+    //
+    // }
     public branchManagerList(value) {
         const data = {
             'platform': 'web',
@@ -159,7 +158,10 @@ export class SalesmanagerComponent implements OnInit {
 
     }
     changeManagerList() {
-        this.salesManagerList(this.selectedBranch);
+        this.branchList(this.branchManager);
+    }
+    changeManager() {
+      this.salesManagerList(this.branchManager,this.selectedBranch);
 
     }
 

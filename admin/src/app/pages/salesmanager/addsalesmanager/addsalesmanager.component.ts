@@ -6,11 +6,28 @@ import {BranchService} from '../../../shared/services/branch.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Settings} from '../../../app.settings.model';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-addsalesmanager',
   templateUrl: './addsalesmanager.component.html',
-  styleUrls: ['./addsalesmanager.component.scss']
+  styleUrls: ['./addsalesmanager.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class AddsalesmanagerComponent implements OnInit {
     public form: FormGroup;
