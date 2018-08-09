@@ -10,6 +10,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {GrouppopupComponent} from './grouppopup/grouppopup.component';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
+import {ViewdetailsComponent} from './viewdetails/viewdetails.component';
 
 @Component({
   selector: 'app-health-insurance',
@@ -919,6 +920,19 @@ export class HealthInsuranceComponent implements OnInit {
         console.log(error);
         this.settings.loadingSpinner = false;
     }
+    // view key features details
+    viewKeyList(value) {
+        let dialogRef = this.dialog.open(ViewdetailsComponent, {
+            width: '1500px', data: ''
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+    }
+
+//
 
     compareList(value) {
         this.productLists = [];

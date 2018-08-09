@@ -73,6 +73,7 @@ import {DownloadMessage} from './pages/payment-success/payment-success.component
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
 import { ReligareComponent } from './pages/religare/religare.component';
+import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 
 @NgModule({
   imports: [
@@ -134,7 +135,8 @@ import { ReligareComponent } from './pages/religare/religare.component';
       DownloadMessage,
       PosstatusAlert,
       TruncatePipe,
-      ReligareComponent
+      ReligareComponent,
+      ViewdetailsComponent
   ],
   providers: [
       AppSettings,
@@ -150,7 +152,7 @@ import { ReligareComponent } from './pages/religare/religare.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent
     ]
 })
 export class AppModule { }

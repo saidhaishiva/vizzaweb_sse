@@ -449,6 +449,16 @@ export class ProposalComponent implements OnInit {
         }
     }
 
+    changeOccupation() {
+        if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
+            this.personal.get('personalAadhar').setValidators([Validators.required]);
+            console.log('in');
+        } else {
+            console.log('out');
+            this.personal.get('personalAadhar').setValidators(null);
+        }
+        this.personal.get('personalAadhar').updateValueAndValidity();
+    }
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
@@ -457,7 +467,6 @@ export class ProposalComponent implements OnInit {
         this.personalData = value;
 
         if (this.personal.valid) {
-
             console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
             if (sessionStorage.proposerAge >= 18) {
                 stepper.next();
