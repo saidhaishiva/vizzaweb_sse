@@ -16,13 +16,13 @@
                   <div class="col-md-3 pl-0 pr-1">
                     <div mat-dialog-content >
                       <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active  ': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#18ccb4' : '#f5c7ad78'">
+                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active  ': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#18ccb4' : '#d81b60'">
                           <a matLine > {{keys.kf_name | titlecase}}</a>
                         </mat-list-item>
                       </mat-nav-list>
                     </div>
                 </div>
-                  <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#18ccb4' : '#f5c7ad78'" ><br>
+                  <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#18ccb4' : '#d81b60'" ><br>
                     <div>
                       <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
                           <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
@@ -46,7 +46,7 @@
           <mat-tab label="CLAIM DETAILS" >
               <div class="row">
 
-                <div class="col-md-12" style="background-color:#f5c7ad78;" ><br>
+                <div class="col-md-12" style="background-color:#428bb5;" ><br>
                   <div class="container" *ngFor="let keys of getKeyList;let i = index">
                     <div *ngIf="keys.type == 2" fxLayoutAlign="center center" class="well">
                       <h4>{{keys.kf_name}}</h4>
@@ -62,7 +62,6 @@
                 </div>
               </div>
           </mat-tab>
-
         </mat-tab-group>
       </div>
     </div>
