@@ -97,6 +97,9 @@ export class ProposalComponent implements OnInit {
     public dobError: any;
     public setDateAge: any;
     public personalAge: any;
+    public mobileNumber: any;
+    public ageRestriction: string;
+    public insurerDobError: string;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -144,7 +147,7 @@ export class ProposalComponent implements OnInit {
           personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
           personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          personalAltnumber: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+          personalAltnumber: ['', Validators.compose([ Validators.pattern('[0-9]{9}')])],
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
@@ -447,8 +450,25 @@ export class ProposalComponent implements OnInit {
         if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
             this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
         }
+        if (sessionStorage.mobileNumber != undefined) {
+            this.mobileNumber = sessionStorage.mobileNumber;
+        }
+        if (sessionStorage.ageRestriction != undefined) {
+            this.ageRestriction = sessionStorage.ageRestriction;
+        }
     }
-
+    alternateChange(event) {
+      if (event.target.value.length == 10) {
+          if(event.target.value == this.personal.get('personalMobile').value) {
+                this.mobileNumber = 'Alternate number should be different from mobile number';
+          } else {
+              this.mobileNumber = '';
+          }
+      } else {
+          // this.mobileNumber = 'false';
+      }
+      sessionStorage.mobileNumber = this.mobileNumber;
+    }
     changeOccupation() {
         if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
             this.personal.get('personalAadhar').setValidators([Validators.required]);
@@ -467,90 +487,94 @@ export class ProposalComponent implements OnInit {
         this.personalData = value;
 
         if (this.personal.valid) {
-            console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
-            if (sessionStorage.proposerAge >= 18) {
-                stepper.next();
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
+            if (this.mobileNumber == '') {
+                if (sessionStorage.proposerAge >= 18) {
+                    stepper.next();
+                } else {
+                    this.toastr.error('Proposer age should be 18 or above');
+                }
             }
         }
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
-        sessionStorage.familyMembers  = JSON.stringify(this.familyMembers);
-        this.illnesStatus = false;
-        console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
-        if (key == 'Insured Details') {
-            for (let i = 0; i < this.familyMembers.length; i++) {
-                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
-                    this.errorMessage = false;
-                    if (this.familyMembers[i].ins_illness != 'No') {
-                        this.illnesStatus = true;
-                        break;
-                    } else {
-                        this.illnesStatus = false;
-                    }
-                } else {
-                    this.errorMessage = true;
-                    break;
-                }
-            }
-            if (this.errorMessage) {
-                this.toastr.error('Please fill the empty fields', key);
-            } else if (this.illnesStatus) {
-                this.toastr.error('Please fill the empty fields', key);
-            } else if (this.illnesStatus == false) {
-                for (let i = 0; i < this.familyMembers.length; i++) {
-                    if (this.buyProductdetails.product_id == 6) {
-                        this.insureStatus = false;
-                        console.log('p6');
-                        if (this.familyMembers[i].ins_hospital_cash != '') {
-                            if (i == this.familyMembers.length - 1) {
-                                this.insureStatus = true;
-                            }
-                        } else {
-                            this.errorMessage = true;
-                            break;
-                        }
+        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
 
-                    } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                        console.log('p8 || p9');
-                        this.errorMessage = false;
-                        this.insureStatus = false;
-                            if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                                if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
-                                    if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
-                                        if (i == this.familyMembers.length - 1) {
-                                            this.insureStatus = true;
-                                        }
-                                    } else {
-                                        this.errorMessage = true;
-                                        break;
-                                    }
-                                } else {
-                                    if (i == this.familyMembers.length - 1) {
-                                        this.insureStatus = true;
-                                    }
-                                }
-                            } else {
-                                if (i == this.familyMembers.length - 1) {
-                                    this.insureStatus = true;
-                                }
-                            }
-                    } else {
-                        if (i == this.familyMembers.length - 1) {
-                            this.insureStatus = true;
-                        }
-                    }
-                }
-            }
-        }
-        if (this.errorMessage) {
-            this.toastr.error('Please fill the empty fields', key);
-        }
-        if (this.insureStatus) {
-            stepper.next();
-        }
+        if (this.ageRestriction == '') {
+          this.illnesStatus = false;
+          console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
+          if (key == 'Insured Details') {
+              for (let i = 0; i < this.familyMembers.length; i++) {
+                  if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
+                      this.errorMessage = false;
+                      if (this.familyMembers[i].ins_illness != 'No') {
+                          this.illnesStatus = true;
+                          break;
+                      } else {
+                          this.illnesStatus = false;
+                      }
+                  } else {
+                      this.errorMessage = true;
+                      break;
+                  }
+              }
+              if (this.errorMessage) {
+                  this.toastr.error('Please fill the empty fields', key);
+              } else if (this.illnesStatus) {
+                  this.toastr.error('Please fill the empty fields', key);
+              } else if (this.illnesStatus == false) {
+                  for (let i = 0; i < this.familyMembers.length; i++) {
+                      if (this.buyProductdetails.product_id == 6) {
+                          this.insureStatus = false;
+                          console.log('p6');
+                          if (this.familyMembers[i].ins_hospital_cash != '') {
+                              if (i == this.familyMembers.length - 1) {
+                                  this.insureStatus = true;
+                              }
+                          } else {
+                              this.errorMessage = true;
+                              break;
+                          }
+
+                      } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                          console.log('p8 || p9');
+                          this.errorMessage = false;
+                          this.insureStatus = false;
+                          if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+                              if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                                  if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
+                                      if (i == this.familyMembers.length - 1) {
+                                          this.insureStatus = true;
+                                      }
+                                  } else {
+                                      this.errorMessage = true;
+                                      break;
+                                  }
+                              } else {
+                                  if (i == this.familyMembers.length - 1) {
+                                      this.insureStatus = true;
+                                  }
+                              }
+                          } else {
+                              if (i == this.familyMembers.length - 1) {
+                                  this.insureStatus = true;
+                              }
+                          }
+                      } else {
+                          if (i == this.familyMembers.length - 1) {
+                              this.insureStatus = true;
+                          }
+                      }
+                  }
+              }
+          }
+          if (this.errorMessage) {
+              this.toastr.error('Please fill the empty fields', key);
+          }
+          if (this.insureStatus) {
+              stepper.next();
+          }
+      }
         console.log(this.illnesStatus, 'ilness');
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
@@ -713,38 +737,57 @@ export class ProposalComponent implements OnInit {
         }
     }
     addEventInsurer(event, i) {
-        this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
-        console.log(this.familyMembers[i].ins_dob);
+        const length = this.datepipe.transform(event.value, 'dd-MM-y').length;
+      if (event.value._i.length == 10) {
+          this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
+          //Calculate Age
+          this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          let age = this.ageCalculate(this.ageCheck);
+          this.familyMembers[i].ins_age = age;
+          if (this.buyProductdetails.company_name == 'Star Health') {
+              if (this.buyProductdetails.product_id == 10) {
+                  if (age < 60 || age > 75) {
+                      this.ageRestriction = 'Senior citizen age should be greater than 60 and should not be greater than 75'
+                  } else {
+                      this.ageRestriction = '';
+                  }
+              } else {
+                  if (age > 75) {
+                      this.ageRestriction = 'Insurer age should not be greater than 75'
+                  } else {
+                      this.ageRestriction = '';
+                  }
+              }
 
-        //Calculate Age
-        this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        let age = this.ageCalculate(this.ageCheck);
-        this.familyMembers[i].ins_age = age;
+          }
 
-      console.log(event.value);
-      if (event.value.length == 10) {
-          this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
-          console.log(this.familyMembers[i].ins_dob);
       }
-
+        sessionStorage.ageRestriction = this.ageRestriction;
     }
 
 
 
-    changeEventInsurer(event, i) {
-        console.log(event.value, 'pop');
-        if (event.value.length == 10) {
-            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
-            console.log(this.familyMembers[i].ins_dob);
+    // changeEventInsurer(event, i) {
+    //     if (event.value.length == 10) {
+    //         this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
+    //         console.log(this.familyMembers[i].ins_dob);
+    //     }
+    //
+    // }
+    addEvent(event, i) {
+        this.setDate = this.datepipe.transform(event.value, 'dd-MM-y');
+        if (this.setDate == null) {
+            this.dobError = '';
         }
-
-    }
-    addEvent(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
+        this.setDateAge = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (event.value._i.length == 10) {
+            this.dobError = '';
+            this.personalAge = this.ageCalculate(this.setDateAge);
+        }  else if (event.value._i.length > 10) {
+            this.dobError = 'Enter valid dob';
+        } else {
+            this.dobError = 'Enter valid dob';
+        }
         sessionStorage.setItem('proposerAge' , this.personalAge);
     }
 
