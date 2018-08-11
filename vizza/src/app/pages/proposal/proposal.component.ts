@@ -499,7 +499,6 @@ export class ProposalComponent implements OnInit {
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
-
         if (this.ageRestriction == '') {
           this.illnesStatus = false;
           console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
