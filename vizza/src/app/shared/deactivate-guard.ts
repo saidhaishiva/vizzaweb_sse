@@ -7,7 +7,7 @@ export  class DeactivateGuard implements CanDeactivate<ProposalComponent> {
         console.log(can, 'candeactivate');
         if (can == 0) {
             let txt;
-            let r = confirm("You haven't closed the proposal from.Are you sure you want to navigate from this page?");
+            let r = confirm("You haven't closed the proposal form.Are you sure you want to navigate from this page?");
             if (r == true) {
                 return true;
             } else {

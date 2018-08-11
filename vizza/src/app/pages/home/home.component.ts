@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
       sessionStorage.shorListTab = '';
       sessionStorage.enquiryId = '';
       sessionStorage.proposalId = '';
+      sessionStorage.mobileNumber = '';
+      sessionStorage.ageRestriction = '';
 
   }
 
