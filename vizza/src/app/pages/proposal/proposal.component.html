@@ -41,16 +41,16 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                     </mat-form-field>
-                        <!-- <div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Occupation" formControlName="personalOccupation" required>
+                        <mat-select placeholder="Occupation" formControlName="personalOccupation" (change)="changeOccupation()" required>
                           <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_code">
                             {{occupation.occupation_name}}
                           </mat-option>
@@ -59,13 +59,11 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="personalIncome" required>
-                      <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
-
-
+                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="personalIncome" >
+                      <!--<mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>-->
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" required>
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" >
                       <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                     </mat-form-field></div>
@@ -74,7 +72,7 @@
                       <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
+                      <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst">
                       <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -89,23 +87,23 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
+                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="12" formControlName="personalMobile" required>
                       <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                       <!--<mat-error *ngIf="personal.controls.personalMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
                       <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="personalAltnumber">
-                      <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
+                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                      <!--<mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>-->
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
-                      <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-
-
-                    </mat-form-field></div>
+                      <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
+                      <!--<mat-error *ngIf="!personal.controls.personalAltnumber.hasError('mismatchedPasswords')">Personal mobile number do match. Please enter another phone number </mat-error>-->
+                    </mat-form-field>
+                      <div class="error" *ngIf="mobileNumber != ''">{{mobileNumber}}</div>
+                    </div>
                   </div>
                 </div>
-
                 <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
                   <div class="row">
@@ -246,7 +244,7 @@
                     </mat-button-toggle-group>
                   </div>
                   <div class="col-md-6">
-                    <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                    <p>Please Choose “Yes” if you are physical challenged person </p>
                     <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="socialAnswer4" >
                       <mat-button-toggle value="1" [checked]="socialNo" [disabled]="socialStatus">Yes</mat-button-toggle>
                       <mat-button-toggle value="0" [checked]="socialNo" [disabled]="socialStatus">No</mat-button-toggle>
@@ -285,10 +283,13 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="changeEventInsurer($event, i)"   required>
+                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
-                      </mat-form-field></div>
+                      </mat-form-field>
+                        <div class="error" *ngIf="ageRestriction != ''">{{ageRestriction}}</div>
+                        <div class="error" *ngIf="insurerDobError != ''">{{insurerDobError}}</div>
+                      </div>
                       <!--<div class="col-md-6"><mat-form-field class="w-100">-->
                         <!--<input matInput placeholder="Age" (keypress)="keyPress($event)"  maxlength="3" [ngModel]="item.ins_dob | age " readonly >-->
                       <!--</mat-form-field></div>-->
@@ -577,18 +578,19 @@
                     <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_one}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_one}}</li>
                     <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_one}}</li>
-                    <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one}}</li>
+                    <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one | limitTo : 3}}</li>
                   </ul>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="summaryData.nominee_age_one < 18">
                   <h6>APPOINTEE DETAILS  </h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_one}}</li>
-                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one | limitTo : 3}}</li>
                   </ul>
                   </div>
-                                           </div>
+
+                  </div>
                 </div>
               </div>
               <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">
@@ -599,7 +601,7 @@
                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
                   <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
                   <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
-                  <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two}}</li>
+                  <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two | limitTo : 3}}</li>
                 </ul>
                   </div>
                   <div class="col-md-6">
@@ -607,7 +609,7 @@
                 <ul class="m-0 list-group">
                   <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>
                   <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>
-                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two}}</li>
+                  <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two | limitTo : 3}}</li>
                 </ul>
               </div>
                 </div>

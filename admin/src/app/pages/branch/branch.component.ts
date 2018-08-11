@@ -79,7 +79,6 @@ export class BranchComponent implements OnInit {
 
     }
     edit(row) {
-      console.log("FFFFF");
       console.log(row);
         const dialogRef = this.dialog.open(EditbranchComponent, {
             width: '400px',
@@ -93,5 +92,17 @@ export class BranchComponent implements OnInit {
 
         });
 
+    }
+
+    updateFilter(event) {
+
+        const val = event.target.value.toLowerCase();
+        console.log(val,'ss');
+        const temp = this.temp.filter(function(d) {
+            return d.branchname.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        this.rows = temp;
+        console.log(this.rows, 'opo');
+        this.table.offset = 0;
     }
 }

@@ -15,6 +15,7 @@ import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
+import { DeactivateGuard} from './shared/deactivate-guard';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -70,7 +71,9 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
+import { TruncatePipe} from '../limit.pipe';
 import { ReligareComponent } from './pages/religare/religare.component';
+import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 
 @NgModule({
   imports: [
@@ -131,7 +134,9 @@ import { ReligareComponent } from './pages/religare/religare.component';
       DownloadPolicyComponent,
       DownloadMessage,
       PosstatusAlert,
-      ReligareComponent
+      TruncatePipe,
+      ReligareComponent,
+      ViewdetailsComponent
   ],
   providers: [
       AppSettings,
@@ -140,13 +145,14 @@ import { ReligareComponent } from './pages/religare/religare.component';
       AuthService,
       CommonService,
       ProposalService,
+      DeactivateGuard,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent
     ]
 })
 export class AppModule { }

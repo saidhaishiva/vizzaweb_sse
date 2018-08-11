@@ -2,14 +2,30 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BranchService} from '../../shared/services/branch.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 import {Settings} from '../../app.settings.model';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-branchcoordinator',
   templateUrl: './branchcoordinator.component.html',
-  styleUrls: ['./branchcoordinator.component.scss']
+  styleUrls: ['./branchcoordinator.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class BranchcoordinatorComponent implements OnInit {
     public webhost: any;

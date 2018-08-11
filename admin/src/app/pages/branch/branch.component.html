@@ -4,6 +4,16 @@
   </i> Add</button>
 
 </div>
+<div class="row">
+<div class="col-md-12">
+  <div class="text-right">
+    <mat-form-field class="w-25">
+      <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+</div>
 <section id="appointment" class="pagecount">
 
   <div class="row">
