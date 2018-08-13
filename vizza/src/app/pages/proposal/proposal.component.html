@@ -100,7 +100,7 @@
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
                       <!--<mat-error *ngIf="!personal.controls.personalAltnumber.hasError('mismatchedPasswords')">Personal mobile number do match. Please enter another phone number </mat-error>-->
                     </mat-form-field>
-                      <div class="error" *ngIf="mobileNumber != ''">{{mobileNumber}}</div>
+                      <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                     </div>
                   </div>
                 </div>

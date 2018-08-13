@@ -122,6 +122,7 @@ export class ProposalComponent implements OnInit {
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
       this.proposalId = 0;
+      this.mobileNumber = 'true';
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
@@ -439,7 +440,7 @@ export class ProposalComponent implements OnInit {
                 },2000);
 
             }
-            if (sessionStorage.mobileNumber != undefined) {
+            if (sessionStorage.mobileNumber != 'false') {
                 this.mobileNumber = sessionStorage.mobileNumber;
             }
 
@@ -484,19 +485,21 @@ export class ProposalComponent implements OnInit {
     }
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
 
         if (this.personal.valid) {
-            if (this.mobileNumber == '') {
+            console.log(value, 'value');
                 if (sessionStorage.proposerAge >= 18) {
-                    stepper.next();
+                    if (this.mobileNumber == '') {
+                        stepper.next();
+                    } else if(this.mobileNumber == 'true') {
+                        stepper.next();
+                    }
                 } else {
                     this.toastr.error('Proposer age should be 18 or above');
                 }
-            }
         }
     }
     //Insured Details
