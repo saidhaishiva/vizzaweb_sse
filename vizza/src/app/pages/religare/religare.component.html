@@ -5,8 +5,8 @@
         <mat-step [stepControl]="personal">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
-              <form [formGroup]="personal" (submit)="personalDetails(stepper, personal.value)">
-              <mat-expansion-panel expanded>
+              <form [formGroup]="personal" (submit)="personalDetails(personal.value)">
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Personal Details
@@ -215,13 +215,14 @@
                     </div>
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primary" [disabled]="stopNext"  type="submit">Next</button>
+                    <button mat-raised-button color="primary" [disabled]="stopNext || !personal.valid " type="submit" >Next</button>
                   </div>
                 </div>
 
               </mat-expansion-panel>
           </form>
-              <mat-expansion-panel>
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+                <!--[disabled]="!personal.valid"-->
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Questions
@@ -230,11 +231,13 @@
 <div class="row" >
   <div class="col-md-6" *ngFor="let question of religareQuestionsList; let i = index">
     <mat-form-field class="w-100">
-      <input matInput placeholder="{{i}}) {{question.question_description}}" [(ngModel)]="question.answer">
+      <input matInput placeholder="{{i}}) {{question.question_description}}" [(ngModel)]="question.answer" required>
     </mat-form-field>
   </div>
-</div>
-
+</div>  <div class="proposal-buttom mt-3 text-right w-100">
+                <button mat-raised-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-raised-button color="primary" (click)="religareQuestion(stepper)">Next</button>
+              </div>
               </mat-expansion-panel>
             </mat-accordion>
 
