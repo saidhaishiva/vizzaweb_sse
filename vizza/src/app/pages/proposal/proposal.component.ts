@@ -148,7 +148,7 @@ export class ProposalComponent implements OnInit {
           personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
           personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          personalAltnumber: ['', Validators.compose([ Validators.pattern('[0-9]{9}')])],
+          personalAltnumber: '',
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
