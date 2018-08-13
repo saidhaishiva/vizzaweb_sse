@@ -63,7 +63,7 @@
                       <!--<mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>-->
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" >
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" required>
                       <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                     </mat-form-field></div>

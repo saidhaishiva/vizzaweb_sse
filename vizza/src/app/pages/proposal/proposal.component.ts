@@ -131,7 +131,7 @@ export class ProposalComponent implements OnInit {
           personalIncome: [''],
           personalArea: ['', Validators.required],
           residenceArea: '',
-          personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+          personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
           personalPan: ['', Validators.compose([ Validators.minLength(10)])],
           personalGst: ['', Validators.compose([ Validators.minLength(15)])],
           socialStatus: '',
@@ -472,14 +472,15 @@ export class ProposalComponent implements OnInit {
       sessionStorage.mobileNumber = this.mobileNumber;
     }
     changeOccupation() {
-        if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
-            this.personal.get('personalAadhar').setValidators([Validators.required]);
-            console.log('in');
-        } else {
-            console.log('out');
-            this.personal.get('personalAadhar').setValidators(null);
-        }
-        this.personal.get('personalAadhar').updateValueAndValidity();
+        // if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
+        //     console.log('in');
+        //     this.personal.get('personalAadhar').setValidators(null);
+        //
+        // } else {
+        //     this.personal.get('personalAadhar').setValidators([Validators.required]);
+        //     console.log('out');
+        // }
+        // this.personal.get('personalAadhar').updateValueAndValidity();
     }
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
