@@ -41,7 +41,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEventSelect($event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -87,14 +87,14 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="12" formControlName="personalMobile" required>
+                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
                       <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                       <!--<mat-error *ngIf="personal.controls.personalMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
                       <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                      <input matInput placeholder="Alternate Number" maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>-->
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->

@@ -439,6 +439,9 @@ export class ProposalComponent implements OnInit {
                 },2000);
 
             }
+            if (sessionStorage.mobileNumber != undefined) {
+                this.mobileNumber = sessionStorage.mobileNumber;
+            }
 
         }
         if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
@@ -446,16 +449,15 @@ export class ProposalComponent implements OnInit {
            // let date = this.familyMembers[0].ins_dob.split('-');
            // date = date[0] +'/'+ date[1] +'/'+ date[2];
             console.log(this.familyMembers, 'this.date');
+            if (sessionStorage.ageRestriction != undefined) {
+                this.ageRestriction = sessionStorage.ageRestriction;
+            }
         }
         if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
             this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
         }
-        if (sessionStorage.mobileNumber != undefined) {
-            this.mobileNumber = sessionStorage.mobileNumber;
-        }
-        if (sessionStorage.ageRestriction != undefined) {
-            this.ageRestriction = sessionStorage.ageRestriction;
-        }
+
+
     }
     alternateChange(event) {
       if (event.target.value.length == 10) {
@@ -789,6 +791,22 @@ export class ProposalComponent implements OnInit {
         }
         sessionStorage.setItem('proposerAge' , this.personalAge);
     }
+    addEventSelect(event, i) {
+        this.setDate = this.datepipe.transform(event.value, 'dd-MM-y');
+        console.log(this.setDate, 'this.setDate');
+        if (this.setDate == null) {
+            this.dobError = '';
+        }
+        this.setDateAge = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (this.setDate.length == 10) {
+            this.dobError = '';
+            this.personalAge = this.ageCalculate(this.setDateAge);
+        }  else {
+            this.dobError = 'Enter valid dob';
+        }
+        sessionStorage.setItem('proposerAge' , this.personalAge);
+    }
+
 
     ageCalculate(dob) {
         let mdate = dob.toString();
