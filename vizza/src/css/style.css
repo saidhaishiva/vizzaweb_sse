@@ -338,6 +338,8 @@ a:hover {
   line-height: 30px;
   padding: 0 6px;
   font-size: 11px; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -503,5 +505,50 @@ a:hover {
 
 .horizontal-menu-item a {
   justify-content: center !important; }
+
+#view-details {
+  color: #ffffff !important;
+  height: calc(100vh - 150px);
+  /* Track */
+  /* Handle */
+  /* Handle on hover */ }
+  #view-details .nav-item.active {
+    background-color: #18ccb4 !important;
+    color: #ffffff; }
+  #view-details .mat-list, #view-details .mat-nav-list, #view-details .mat-selection-list {
+    padding-top: 1px;
+    display: block; }
+  #view-details .mat-dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: scroll !important; }
+  #view-details .row {
+    margin: 0; }
+  #view-details .mat-list .mat-list-item .mat-list-text > *, #view-details .mat-list .mat-list-option .mat-list-text > *, #view-details .mat-nav-list .mat-list-item .mat-list-text > *, #view-details .mat-nav-list .mat-list-option .mat-list-text > *, #view-details .mat-selection-list .mat-list-item .mat-list-text > *, #view-details .mat-selection-list .mat-list-option .mat-list-text > * {
+    margin: 0;
+    padding: 0;
+    font-weight: 300 !important;
+    font-size: inherit;
+    color: #ffffff !important; }
+  #view-details ::-webkit-scrollbar {
+    width: 3px; }
+  #view-details ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px; }
+  #view-details ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 10px; }
+  #view-details ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; }
+  #view-details .mat-tab-list {
+    background: #efefef;
+    border-radius: 10px 10px 0 0; }
+  #view-details .mat-tab-label-active {
+    background-color: #d81b60 !important;
+    color: #fff !important; }
+  #view-details .mat-tab-labels .mat-tab-label:first-child {
+    border-radius: 10px 0 0 0; }
+  #view-details .example-tab-icon {
+    margin-right: 8px; }
 
 /*# sourceMappingURL=style.css.map */

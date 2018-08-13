@@ -83,6 +83,8 @@ export class ReligareComponent implements OnInit {
     public occupationCode: any;
     public religareQuestionsList: any;
     public items: any;
+    public step: any;
+    public questionEmpty: any;
     public itemss: any[] = [1, 2, 3];
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -100,6 +102,7 @@ export class ReligareComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
         this.proposalId = 0;
+        this.step = 0;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -141,6 +144,12 @@ export class ReligareComponent implements OnInit {
 
 
     ngOnInit() {
+
+
+
+
+
+
         this.setOccupationListCode();
         this.religareQuestions();
         this.setOccupationList();
@@ -160,6 +169,15 @@ export class ReligareComponent implements OnInit {
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
 
+    }
+
+
+    setStep(index: number) {
+        this.step = index;
+    }
+
+    prevStep() {
+        this.step--;
     }
 
     //Insure Details
@@ -214,7 +232,7 @@ export class ReligareComponent implements OnInit {
 
 
     //Personal Details
-    personalDetails(stepper: MatStepper, value) {
+    personalDetails(value) {
         console.log(value, 'value');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
@@ -224,16 +242,30 @@ export class ReligareComponent implements OnInit {
 
             console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
             if (sessionStorage.proposerAge >= 18) {
-                stepper.next();
+                this.step++;
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
         }
     }
+    religareQuestion(stepper: MatStepper) {
+        this.questionEmpty = false;
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            if (this.religareQuestionsList[i].answer == '') {
+                this.questionEmpty = false;
+                break;
+            } else {
+                this.questionEmpty = true;
+            }
+        }
+        if (this.questionEmpty) {
+                stepper.next();
 
+            } else {
+                this.toastr.error('Please fill the all Answers');
 
-
-
+            }
+    }
 
 
     getCityId(title) {
@@ -603,7 +635,6 @@ export class ReligareComponent implements OnInit {
             this.religareQuestionsList[i].answer = '';
         }
 
-        console.log(this.religareQuestionsList, ' this.religareQuestionsList');
 
     }
 

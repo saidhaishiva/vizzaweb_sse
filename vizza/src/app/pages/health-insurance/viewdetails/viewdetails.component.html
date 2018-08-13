@@ -10,14 +10,19 @@
     <div fxLayout="column">
       <div class="container">
         <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
-          <mat-tab label="KEY FEATURES" >
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">vpn_key</mat-icon>
+              KEY FEATURES
+            </ng-template>
             <!--<div mat-dialog-content >-->
               <div class="row">
                   <div class="col-md-3 pl-0 pr-1">
                     <div mat-dialog-content >
                       <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active  ': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#18ccb4' : '#d81b60'">
-                          <a matLine > {{keys.kf_name | titlecase}}</a>
+                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active  ': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#8e8e8e' : '#d81b60'">
+                          <i class="material-icons">keyboard_arrow_right</i>
+                          <a matLine  style="font-weight: bold !important;" > {{keys.kf_name | titlecase}}</a>
                         </mat-list-item>
                       </mat-nav-list>
                     </div>
@@ -41,9 +46,17 @@
               </div>
             <!--</div>-->
           </mat-tab>
-          <mat-tab label="PRODUCT DOCUMENTS">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">assignment</mat-icon>
+              PRODUCT DOCUMENTS
+            </ng-template>
           </mat-tab>
-          <mat-tab label="CLAIM DETAILS" >
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">assignment</mat-icon>
+              CLAIM DETAILS
+            </ng-template>
               <div class="row">
 
                 <div class="col-md-12" style="background-color:#428bb5;" ><br>
