@@ -283,11 +283,11 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
+                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurerSelect($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field>
-                        <div class="error" *ngIf="ageRestriction != ''">{{ageRestriction}}</div>
+                        <div class="error" *ngIf="ageRestriction != '' && ageRestriction != 'true'">{{ageRestriction}}</div>
                         <div class="error" *ngIf="insurerDobError != ''">{{insurerDobError}}</div>
                       </div>
                       <!--<div class="col-md-6"><mat-form-field class="w-100">-->
