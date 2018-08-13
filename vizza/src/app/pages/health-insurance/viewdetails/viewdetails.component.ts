@@ -31,7 +31,9 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.viewKeyFeatures(this.productId);
+
+
+      this.viewKeyFeatures(this.productId);
   }
     onNoClick(): void {
         this.dialogRef.close()

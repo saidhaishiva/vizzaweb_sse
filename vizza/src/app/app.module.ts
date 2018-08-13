@@ -74,6 +74,7 @@ import { PosstatusAlert} from './pages/health-insurance/health-insurance.compone
 import { TruncatePipe} from '../limit.pipe';
 import { ReligareComponent } from './pages/religare/religare.component';
 import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
+import { SplitLastPipe} from '../splitpipe';
 
 @NgModule({
   imports: [
@@ -136,7 +137,8 @@ import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewd
       PosstatusAlert,
       TruncatePipe,
       ReligareComponent,
-      ViewdetailsComponent
+      ViewdetailsComponent,
+      SplitLastPipe
   ],
   providers: [
       AppSettings,
