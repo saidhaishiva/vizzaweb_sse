@@ -122,6 +122,8 @@ export class ProposalComponent implements OnInit {
       this.webhost = this.config.getimgUrl();
       this.selectDate = '';
       this.proposalId = 0;
+      this.mobileNumber = 'true';
+      this.ageRestriction = 'true';
       this.personal = this.fb.group({
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
@@ -147,7 +149,7 @@ export class ProposalComponent implements OnInit {
           personalState: ['', Validators.required],
           personalEmail: ['', Validators.required],
           personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          personalAltnumber: ['', Validators.compose([ Validators.pattern('[0-9]{9}')])],
+          personalAltnumber: '',
           residenceAddress: '',
           residenceAddress2: '',
           residencePincode: '',
@@ -439,7 +441,7 @@ export class ProposalComponent implements OnInit {
                 },2000);
 
             }
-            if (sessionStorage.mobileNumber != undefined) {
+            if (sessionStorage.mobileNumber != 'false') {
                 this.mobileNumber = sessionStorage.mobileNumber;
             }
 
@@ -484,25 +486,27 @@ export class ProposalComponent implements OnInit {
     }
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
 
         if (this.personal.valid) {
-            if (this.mobileNumber == '') {
+            console.log(value, 'value');
                 if (sessionStorage.proposerAge >= 18) {
-                    stepper.next();
+                    if (this.mobileNumber == '') {
+                        stepper.next();
+                    } else if(this.mobileNumber == 'true') {
+                        stepper.next();
+                    }
                 } else {
                     this.toastr.error('Proposer age should be 18 or above');
                 }
-            }
         }
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
-        if (this.ageRestriction == '') {
+        // if (this.ageRestriction == '') {
           this.illnesStatus = false;
           console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
           if (key == 'Insured Details') {
@@ -525,12 +529,16 @@ export class ProposalComponent implements OnInit {
               } else if (this.illnesStatus) {
                   this.toastr.error('Please fill the empty fields', key);
               } else if (this.illnesStatus == false) {
+                  console.log('tyy');
                   for (let i = 0; i < this.familyMembers.length; i++) {
                       if (this.buyProductdetails.product_id == 6) {
                           this.insureStatus = false;
                           console.log('p6');
                           if (this.familyMembers[i].ins_hospital_cash != '') {
+                              console.log('in');
                               if (i == this.familyMembers.length - 1) {
+                                  console.log('ouyyyy');
+
                                   this.insureStatus = true;
                               }
                           } else {
@@ -568,15 +576,24 @@ export class ProposalComponent implements OnInit {
                           }
                       }
                   }
+              } else {
+                  console.log('rrree');
               }
           }
           if (this.errorMessage) {
               this.toastr.error('Please fill the empty fields', key);
           }
-          if (this.insureStatus) {
-              stepper.next();
+        console.log(this.ageRestriction, 'ageRestriction');
+
+        if (this.insureStatus) {
+              if (this.ageRestriction == '') {
+                  stepper.next();
+              } else if (this.ageRestriction == 'true') {
+                  stepper.next();
+              }
           }
-      }
+
+      // }
         console.log(this.illnesStatus, 'ilness');
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
@@ -738,32 +755,76 @@ export class ProposalComponent implements OnInit {
             }
         }
     }
+
     addEventInsurer(event, i) {
+        console.log(this.datepipe.transform(event.value, 'dd-MM-y'), 'iii');
+        if (this.datepipe.transform(event.value, 'dd-MM-y') == null) {
+            this.insurerDobError = '';
+        }
+        if (event.value._i.length == 10) {
+            this.insurerDobError = '';
+            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
+            //Calculate Age
+            this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            let age = this.ageCalculate(this.ageCheck);
+            this.familyMembers[i].ins_age = age;
+            if (this.buyProductdetails.company_name == 'Star Health') {
+                if (this.buyProductdetails.product_id == 10) {
+                    if (age < 60 || age > 75) {
+                        this.ageRestriction = 'Senior citizen age should be greater than 60 and should not be greater than 75'
+                    } else {
+                        this.ageRestriction = '';
+                    }
+                } else {
+                    if (age > 75) {
+                        this.ageRestriction = 'Insurer age should not be greater than 75'
+                    } else {
+                        this.ageRestriction = '';
+                    }
+                }
+
+            }
+
+        } else if (event.value._i.length > 10) {
+            this.insurerDobError = 'Enter valid dob';
+        } else {
+            this.insurerDobError = 'Enter valid dob';
+        }
+        sessionStorage.ageRestriction = this.ageRestriction;
+    }
+
+    addEventInsurerSelect(event, i) {
         const length = this.datepipe.transform(event.value, 'dd-MM-y').length;
-      if (event.value._i.length == 10) {
-          this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
-          //Calculate Age
-          this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
-          let age = this.ageCalculate(this.ageCheck);
-          this.familyMembers[i].ins_age = age;
-          if (this.buyProductdetails.company_name == 'Star Health') {
-              if (this.buyProductdetails.product_id == 10) {
-                  if (age < 60 || age > 75) {
-                      this.ageRestriction = 'Senior citizen age should be greater than 60 and should not be greater than 75'
-                  } else {
-                      this.ageRestriction = '';
-                  }
-              } else {
-                  if (age > 75) {
-                      this.ageRestriction = 'Insurer age should not be greater than 75'
-                  } else {
-                      this.ageRestriction = '';
-                  }
-              }
+        if (this.datepipe.transform(event.value, 'dd-MM-y') == null) {
+            this.insurerDobError = '';
+        }
+        if (length == 10) {
+            this.insurerDobError = '';
+            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
+            //Calculate Age
+            this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            let age = this.ageCalculate(this.ageCheck);
+            this.familyMembers[i].ins_age = age;
+            if (this.buyProductdetails.company_name == 'Star Health') {
+                if (this.buyProductdetails.product_id == 10) {
+                    if (age < 60 || age > 75) {
+                        this.ageRestriction = 'Senior citizen age should be greater than 60 and should not be greater than 75'
+                    } else {
+                        this.ageRestriction = '';
+                    }
+                } else {
+                    if (age > 75) {
+                        this.ageRestriction = 'Insurer age should not be greater than 75'
+                    } else {
+                        this.ageRestriction = '';
+                    }
+                }
 
-          }
+            }
 
-      }
+        } else {
+            this.insurerDobError = 'Enter valid dob';
+        }
         sessionStorage.ageRestriction = this.ageRestriction;
     }
 

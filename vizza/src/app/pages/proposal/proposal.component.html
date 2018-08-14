@@ -94,13 +94,13 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                      <input matInput placeholder="Alternate Number" maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>-->
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>-->
                       <!--<mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
                       <!--<mat-error *ngIf="!personal.controls.personalAltnumber.hasError('mismatchedPasswords')">Personal mobile number do match. Please enter another phone number </mat-error>-->
                     </mat-form-field>
-                      <div class="error" *ngIf="mobileNumber != ''">{{mobileNumber}}</div>
+                      <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                     </div>
                   </div>
                 </div>
@@ -283,11 +283,11 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurer($event, i)"   required>
+                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurerSelect($event, i)"   required>
                         <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                         <mat-datepicker #insureddob></mat-datepicker>
                       </mat-form-field>
-                        <div class="error" *ngIf="ageRestriction != ''">{{ageRestriction}}</div>
+                        <div class="error" *ngIf="ageRestriction != '' && ageRestriction != 'true'">{{ageRestriction}}</div>
                         <div class="error" *ngIf="insurerDobError != ''">{{insurerDobError}}</div>
                       </div>
                       <!--<div class="col-md-6"><mat-form-field class="w-100">-->
