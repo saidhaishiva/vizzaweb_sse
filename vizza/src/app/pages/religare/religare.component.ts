@@ -85,7 +85,10 @@ export class ReligareComponent implements OnInit {
     public items: any;
     public step: any;
     public questionEmpty: any;
-    public itemss: any[] = [1, 2, 3];
+    public proposerInsureData: any;
+    public insurerData: any;
+    public proposer_insurer_details: any;
+    public itemss: any[] = [1, 3];
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -103,6 +106,7 @@ export class ReligareComponent implements OnInit {
         this.selectDate = '';
         this.proposalId = 0;
         this.step = 0;
+        this.proposerInsureData = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -112,8 +116,6 @@ export class ReligareComponent implements OnInit {
             personalOccupation: ['', Validators.required],
             personalrelationship: ['', Validators.required],
             personalIncome: ['', Validators.required],
-            personalArea: ['', Validators.required],
-            residenceArea: '',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
             personalPan: ['', Validators.compose([Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
@@ -144,12 +146,6 @@ export class ReligareComponent implements OnInit {
 
 
     ngOnInit() {
-
-
-
-
-
-
         this.setOccupationListCode();
         this.religareQuestions();
         this.setOccupationList();
@@ -183,8 +179,52 @@ export class ReligareComponent implements OnInit {
     //Insure Details
     religareInsureDetails(stepper: MatStepper, value) {
         console.log(value);
+        this.insurerData = value;
         if (this.insureArray.valid) {
+            this.proposerInsureData.push(this.insurerData.items);
             stepper.next();
+            console.log(this.proposerInsureData, 'valuethis.insureDatathis.insureDatathis.insureData');
+for (let i = 0; i < this.proposerInsureData.length; i++) {
+    this.proposer_insurer_details = [{
+        'title': '',
+        'proposer_fname': 'MuthuKumar',
+        'proposer_lname': 'Siva',
+        'prop_email_list': [{
+            'email': 'rajkamal.infotech@gmail.com',
+            'email_type': 'Personal'
+        }],
+        'prop_contact_list': [{
+            'contact_no': '9952383927',
+            'contact_type': 'MOBILE',
+            'std_code': '91'
+        }],
+        'prop_identity_list': [{
+            'identity_number': '123456781234',
+            'identity_type': 'Aadhar'
+        }],
+        'proposer_res_address1': '12/2 New street',
+        'proposer_res_address2': 'Anna Nagar West',
+        'proposer_res_area': 'Annanagar',
+        'proposer_res_city': 'Chennai',
+        'proposer_res_state': 'Tamil Nadu',
+        'proposer_res_pincode': '600026',
+        'proposer_comm_address1': '12/2 New street',
+        'proposer_comm_address2': 'Anna Nagar West',
+        'proposer_comm_area': 'Annanagar',
+        'proposer_comm_city': 'Chennai',
+        'proposer_comm_state': 'Tamil Nadu',
+        'proposer_comm_pincode': '600026',
+        'prop_dob': '10-03-1988',
+        'prop_gender': 'MALE',
+        'relationship_cd': 'SELF',
+        'role_cd': 'PROPOSER',
+        'occupation_cd': 'SLRD',
+        'occupation_class': 'C1',
+        'occupation_class_description': '',
+        'annual_income': '500000',
+
+    }];
+}
         }
     }
     initItemRows() {
@@ -198,10 +238,10 @@ export class ReligareComponent implements OnInit {
                 InsurerOccupation: ['', Validators.required ],
                 InsurerRelationship: ['', Validators.required ],
                 InsurerIncome: ['', Validators.required ],
-                InsurerAadhar: ['' ],
-                InsurerPan: ['' ],
+                InsurerAadhar: [''],
+                InsurerPan: [''],
                 InsurerGst: [''],
-                InsurerPreviousinsurance: ['' ],
+                InsurerPreviousinsurance: [''],
                 InsurerEmail: ['', Validators.required ],
                 InsurerMobile: ['', Validators.required ],
                 InsurerAltnumber: [''],
@@ -210,14 +250,12 @@ export class ReligareComponent implements OnInit {
                 InsurerPincode: ['', Validators.required ],
                 InsurerCity: ['', Validators.required ],
                 InsurerState: ['', Validators.required ],
-                InsurerArea: ['', Validators.required ],
                 InsurerSameas: [''],
                 InsurerResidenceAddress: [''],
                 InsurerResidenceAddress2: [''],
                 InsurerResidencePincode: [''],
                 InsurerResidenceCity: [''],
-                InsurerResidenceState: ['' ],
-                InsurerResidenceArea: ['' ],
+                InsurerResidenceState: [''],
             }
         );
     }
@@ -239,9 +277,10 @@ export class ReligareComponent implements OnInit {
         this.personalData = value;
 
         if (this.personal.valid) {
-
             console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
             if (sessionStorage.proposerAge >= 18) {
+                this.proposerInsureData.push(this.personalData);
+                console.log(this.proposerInsureData, 'valuethis.insureDatathis.insureDatathis.insureData');
                 this.step++;
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -310,11 +349,12 @@ export class ReligareComponent implements OnInit {
 
 
     sameAddress(values: any, index) {
-        console.log(this.personal.controls['personalCity'].value);
 
+        console.log(values.checked, 'jjjjj');
         if (values.checked) {
-        console.log(this.insureArray.controls.items.value[index]['InsurerAddress'], 'pppppppppppppp');
-        console.log(this.insureArray.controls.items, 'rrrrrrrr');
+          console.log(values.checked);
+        // console.log(this.insureArray.controls.items.value[index]['InsurerAddress'], 'pppppppppppppp');
+        // console.log(this.insureArray.controls.items, 'rrrrrrrr');
             // (<FormControl>this.insureArray['personalFirstname']).setValue('llplllp');
             // this.setAddress = this.insureArray.controls.items.value[index]['InsurerAddress'];
           //  console.log(this.insureArray.controls.items.value[index], 'setaddress');
@@ -333,14 +373,12 @@ export class ReligareComponent implements OnInit {
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
         } else {
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
-            this.personal.controls['residenceArea'].setValue('');
         }
 
     }
@@ -406,8 +444,67 @@ export class ReligareComponent implements OnInit {
 
     //Create Proposal
     proposal() {
-        const data = [{}];
-        this.proposalservice.getProposal(data).subscribe(
+        const data = {
+            'platform': 'web',
+            'proposal_id': '1',
+            'enquiry_id': '1',
+            'group_name': 'Group A',
+            'company_name': 'Religare',
+            'suminsured_amount': '500000',
+            'product_id': '4',
+            'policy_term': '3',
+            'scheme_id': '1',
+            'proposer_insurer_details': [{
+                'title': this.personalData.personalTitle,
+                'proposer_fname': 'MuthuKumar',
+                'proposer_lname': 'Siva',
+                'prop_email_list': [{
+                    'email': 'rajkamal.infotech@gmail.com',
+                    'email_type': 'Personal'
+                }],
+                'prop_contact_list': [{
+                    'contact_no': '9952383927',
+                    'contact_type': 'MOBILE',
+                    'std_code': '91'
+                }],
+                'prop_identity_list': [{
+                    'identity_number': '123456781234',
+                    'identity_type': 'Aadhar'
+                }],
+                'proposer_res_address1': '12/2 New street',
+                'proposer_res_address2': 'Anna Nagar West',
+                'proposer_res_area': 'Annanagar',
+                'proposer_res_city': 'Chennai',
+                'proposer_res_state': 'Tamil Nadu',
+                'proposer_res_pincode': '600026',
+                'proposer_comm_address1': '12/2 New street',
+                'proposer_comm_address2': 'Anna Nagar West',
+                'proposer_comm_area': 'Annanagar',
+                'proposer_comm_city': 'Chennai',
+                'proposer_comm_state': 'Tamil Nadu',
+                'proposer_comm_pincode': '600026',
+                'prop_dob': '10-03-1988',
+                'prop_gender': 'MALE',
+                'relationship_cd': 'SELF',
+                'role_cd': 'PROPOSER',
+                'occupation_cd': 'SLRD',
+                'occupation_class': 'C1',
+                'occupation_class_description': '',
+                'annual_income': '500000',
+                'questions_list': [{
+                    'question_id': '',
+                    'question_cd': '',
+                    'question_set_cd': '',
+                    'response': ''
+
+                }]
+            }],
+            'terms_condition': '1',
+            'role_id': '4',
+            'user_id': '0',
+            'pos_status': '0'
+        };
+        this.proposalservice.getReligareProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
             },
@@ -522,10 +619,12 @@ export class ReligareComponent implements OnInit {
         this.title = title;
         const data = {
             'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
             'pincode': this.pin
         }
         if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
+            this.proposalservice.getPostalReligare(data).subscribe(
                 (successData) => {
                     this.getpostalSuccess(successData);
                 },
@@ -537,23 +636,26 @@ export class ReligareComponent implements OnInit {
     }
 
     public getpostalSuccess(successData) {
-        if (successData.IsSuccess == true) {
 
+        if (successData.IsSuccess == true) {
             if (this.title == 'personal') {
+                this.personalCitys = [];
                 this.response = successData.ResponseObject;
-                this.personal.controls['personalState'].setValue(this.response.state_name);
-                this.personalCitys = this.response.city;
-                console.log(this.personalCitys, 'this.personalCitys');
-                for (let i = 0; i < this.personalCitys.length; i++) {
-                    if (this.personalCitys[i].city_id == this.summaryData.prop_comm_city) {
-                        this.summaryCity = this.personalCitys[i].city_name;
-                    }
+                this.personal.controls['personalState'].setValue(this.response[0].state);
+                for (let i = 0; i < this.response.length; i++) {
+                    this.personalCitys.push({city: this.response[i].city});
+                    // if (this.personalCitys[i].city == this.summaryData.prop_comm_city) {
+                    //     this.summaryCity = this.personalCitys[i].city;
+                    // }
                 }
             }
             if (this.title == 'residence') {
+                this.residenceCitys = [];
                 this.rResponse = successData.ResponseObject;
-                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
-                this.residenceCitys = this.rResponse.city;
+                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
+                for (let i = 0; i < this.rResponse.length; i++) {
+                    this.residenceCitys.push({city: this.rResponse[i].city});
+                }
             }
 
 
@@ -563,6 +665,7 @@ export class ReligareComponent implements OnInit {
     public getpostalFailure(error) {
         console.log(error);
     }
+
 
 
 //summary city detail
