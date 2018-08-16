@@ -77,7 +77,6 @@ export class ReligareComponent implements OnInit {
     public sumPin: any;
     public sumAreaName: any;
     public sumAreaNameComm: any;
-    public errorMessage: any;
     public setDateAge: any;
     public personalAge: any;
     public occupationCode: any;
@@ -87,13 +86,13 @@ export class ReligareComponent implements OnInit {
     public questionEmpty: any;
     public proposerInsureData: any;
     public insurerData: any;
-    public proposer_insurer_details: any;
-    public itemss: any[] = [1, 3];
+    public totalReligareData: any;
+    public getStepper1: any;
+    public getStepper2: any;
+    public itemss: any[] = [1];
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-
-
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -107,17 +106,19 @@ export class ReligareComponent implements OnInit {
         this.proposalId = 0;
         this.step = 0;
         this.proposerInsureData = [];
+        this.totalReligareData = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
             personalLastname: ['', Validators.required],
+            personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalOccupationCode: ['', Validators.required],
             personalOccupation: ['', Validators.required],
             personalrelationship: ['', Validators.required],
             personalIncome: ['', Validators.required],
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([Validators.minLength(10)])],
+            personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             previousinsurance: '',
@@ -128,20 +129,20 @@ export class ReligareComponent implements OnInit {
             personalEmail: ['', Validators.required],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            residenceAddress: '',
-            residenceAddress2: '',
-            residencePincode: '',
-            residenceCity: '',
-            residenceState: '',
-            sameas: ''
+            residenceAddress: ['', Validators.required],
+            residenceAddress2: ['', Validators.required],
+            residencePincode: ['', Validators.required],
+            residenceCity: ['', Validators.required],
+            residenceState: ['', Validators.required],
+            sameas: '',
+            rolecd: 'PROPOSER',
+            relationshipcd: 'SELF'
 
         });
         this.nomineeDetails = this.fb.group({
             'religareNomineeName': ['', Validators.required],
             'religareRelationship': ['', Validators.required]
         });
-
-
     }
 
 
@@ -157,6 +158,7 @@ export class ReligareComponent implements OnInit {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
         }
+        this.sessionData();
 
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
@@ -166,7 +168,6 @@ export class ReligareComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
 
     }
-
 
     setStep(index: number) {
         this.step = index;
@@ -179,108 +180,137 @@ export class ReligareComponent implements OnInit {
     //Insure Details
     religareInsureDetails(stepper: MatStepper, value) {
         console.log(value);
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
         if (this.insureArray.valid) {
-            this.proposerInsureData.push(this.insurerData.items);
+            this.totalReligareData = [];
+            for (let i = 0; i < this.insurerData.items.length; i++) {
+                this.proposerInsureData.push(this.insurerData.items[i]);
+            }
             stepper.next();
-            console.log(this.proposerInsureData, 'valuethis.insureDatathis.insureDatathis.insureData');
-for (let i = 0; i < this.proposerInsureData.length; i++) {
-    this.proposer_insurer_details = [{
-        'title': '',
-        'proposer_fname': 'MuthuKumar',
-        'proposer_lname': 'Siva',
+    for (let i = 0; i < this.proposerInsureData.length; i++) {
+    this.totalReligareData.push({
+        'title': this.proposerInsureData[i].personalTitle,
+        'proposer_fname': this.proposerInsureData[i].personalFirstname,
+        'proposer_lname': this.proposerInsureData[i].personalLastname,
         'prop_email_list': [{
-            'email': 'rajkamal.infotech@gmail.com',
-            'email_type': 'Personal'
+            'email': this.proposerInsureData[i].personalEmail,
+            'email_type': 'PERSONAL'
         }],
         'prop_contact_list': [{
-            'contact_no': '9952383927',
+            'contact_no': this.proposerInsureData[i].personalMobile,
             'contact_type': 'MOBILE',
             'std_code': '91'
         }],
-        'prop_identity_list': [{
-            'identity_number': '123456781234',
-            'identity_type': 'Aadhar'
-        }],
-        'proposer_res_address1': '12/2 New street',
-        'proposer_res_address2': 'Anna Nagar West',
-        'proposer_res_area': 'Annanagar',
-        'proposer_res_city': 'Chennai',
-        'proposer_res_state': 'Tamil Nadu',
-        'proposer_res_pincode': '600026',
-        'proposer_comm_address1': '12/2 New street',
-        'proposer_comm_address2': 'Anna Nagar West',
-        'proposer_comm_area': 'Annanagar',
-        'proposer_comm_city': 'Chennai',
-        'proposer_comm_state': 'Tamil Nadu',
-        'proposer_comm_pincode': '600026',
-        'prop_dob': '10-03-1988',
-        'prop_gender': 'MALE',
-        'relationship_cd': 'SELF',
-        'role_cd': 'PROPOSER',
-        'occupation_cd': 'SLRD',
-        'occupation_class': 'C1',
-        'occupation_class_description': '',
-        'annual_income': '500000',
-
-    }];
-}
+        'prop_identity_list': [],
+        'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
+        'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
+        'proposer_res_area': this.proposerInsureData[i].residenceCity,
+        'proposer_res_city': this.proposerInsureData[i].residenceCity,
+        'proposer_res_state': this.proposerInsureData[i].residenceState,
+        'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
+        'proposer_comm_address1': this.proposerInsureData[i].personalAddress,
+        'proposer_comm_address2': this.proposerInsureData[i].personalAddress2,
+        'proposer_comm_area': this.proposerInsureData[i].personalCity,
+        'proposer_comm_city': this.proposerInsureData[i].personalCity,
+        'proposer_comm_state': this.proposerInsureData[i].personalState,
+        'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
+        'prop_dob': this.proposerInsureData[i].personalDob,
+        'prop_gender': this.proposerInsureData[i].personalGender,
+        'relationship_cd': this.proposerInsureData[i].relationshipcd,
+        'role_cd': this.proposerInsureData[i].rolecd,
+        'questions_list': [{
+            'question_id': '',
+            'question_cd': '',
+            'question_set_cd': '',
+            'response': ''
+        }]
+    });
+        if (this.proposerInsureData[i].personalAltnumber !='') {
+            this.totalReligareData[i].prop_contact_list.push({
+                'contact_no': this.proposerInsureData[i].personalAltnumber,
+                'contact_type': 'RESEDENTIAL',
+                'std_code': '91'
+            });
+        }
+        if (this.proposerInsureData[i].personalAadhar !='') {
+            this.totalReligareData[i].prop_identity_list.push({
+                'identity_number': this.proposerInsureData[i].personalAadhar,
+                'identity_type': 'AADHAR'
+            });
+        }
+        if (this.proposerInsureData[i].personalGst !='') {
+            this.totalReligareData[i].prop_identity_list.push( {
+                'identity_number': this.proposerInsureData[i].personalGst,
+                'identity_type': 'GST'
+            });
+        }
+        if (this.proposerInsureData[i].personalPan !='') {
+            this.totalReligareData[i].prop_identity_list.push( {
+                'identity_number': this.proposerInsureData[i].personalPan,
+                'identity_type': 'PAN'
+            });
+        }
+        console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareData');
+        }
         }
     }
     initItemRows() {
         return this.fb.group(
             {
-                InsurerTitle: ['', Validators.required ],
-                InsurerFirstname: ['', Validators.required ],
-                InsurerLastname: ['', Validators.required ],
-                InsurerDob: ['', Validators.required ],
-                InsurerOccupationCode: ['', Validators.required ],
-                InsurerOccupation: ['', Validators.required ],
-                InsurerRelationship: ['', Validators.required ],
-                InsurerIncome: ['', Validators.required ],
-                InsurerAadhar: [''],
-                InsurerPan: [''],
-                InsurerGst: [''],
-                InsurerPreviousinsurance: [''],
-                InsurerEmail: ['', Validators.required ],
-                InsurerMobile: ['', Validators.required ],
-                InsurerAltnumber: [''],
-                InsurerAddress: ['', Validators.required ],
-                InsurerAddress2: ['', Validators.required ],
-                InsurerPincode: ['', Validators.required ],
-                InsurerCity: ['', Validators.required ],
-                InsurerState: ['', Validators.required ],
-                InsurerSameas: [''],
-                InsurerResidenceAddress: [''],
-                InsurerResidenceAddress2: [''],
-                InsurerResidencePincode: [''],
-                InsurerResidenceCity: [''],
-                InsurerResidenceState: [''],
+                personalTitle: ['', Validators.required],
+                personalFirstname: new FormControl(''),
+                personalLastname: ['', Validators.required],
+                personalDob: ['', Validators.compose([Validators.required])],
+                personalGender: ['', Validators.compose([Validators.required])],
+                personalOccupationCode: ['', Validators.required],
+                personalOccupation: ['', Validators.required],
+                personalrelationship: ['', Validators.required],
+                personalIncome: ['', Validators.required],
+                personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
+                personalPan: ['', Validators.compose([Validators.minLength(10)])],
+                personalGst: ['', Validators.compose([Validators.minLength(15)])],
+                personalAddress: ['', Validators.required],
+                previousinsurance: '',
+                personalAddress2: ['', Validators.required],
+                personalPincode: ['', Validators.required],
+                personalCity: ['', Validators.required],
+                personalState: ['', Validators.required],
+                personalEmail: ['', Validators.required],
+                personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                personalAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+                residenceAddress: ['', Validators.required],
+                residenceAddress2: ['', Validators.required],
+                residencePincode: ['', Validators.required],
+                residenceCity: ['', Validators.required],
+                residenceState: ['', Validators.required],
+                sameas: '',
+                rolecd: 'PRIMARY',
+                relationshipcd: 'SELF'
             }
         );
     }
-
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
         console.log(value);
         if (this.nomineeDetails.valid) {
-            stepper.next();
+            this.proposal();
         }
     }
-
-
     //Personal Details
     personalDetails(value) {
         console.log(value, 'value');
+        this.personalData = value;
+        this.personalData.rolecd = 'PROPOSER';
+        this.personalData.relationshipcd = 'SELF';
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
-        this.personalData = value;
 
         if (this.personal.valid) {
-            console.log(sessionStorage.proposerAge, 'sionStorage.proposerAge');
+            this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                console.log(this.proposerInsureData, 'valuethis.insureDatathis.insureDatathis.insureData');
                 this.step++;
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -305,10 +335,7 @@ for (let i = 0; i < this.proposerInsureData.length; i++) {
 
             }
     }
-
-
     getCityId(title) {
-        console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
         this.cityTitle = title;
         const data = {
             'platform': 'web',
@@ -341,9 +368,6 @@ for (let i = 0; i < this.proposerInsureData.length; i++) {
     public getCityFailure(error) {
         console.log(error);
     }
-
-
-
 
 
 
@@ -441,6 +465,93 @@ for (let i = 0; i < this.proposerInsureData.length; i++) {
         return year_age;
     }
 
+    sessionData() {
+        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+            this.personal = this.fb.group({
+                personalTitle: this.getStepper1.personalTitle,
+                personalFirstname: this.getStepper1.personalFirstname,
+                personalLastname: this.getStepper1.personalLastname,
+                personalDob: this.getStepper1.personalDob,
+                personalOccupation: this.getStepper1.personalOccupation,
+                personalIncome: this.getStepper1.personalIncome,
+                personalArea: this.getStepper1.personalArea,
+                residenceArea: this.getStepper1.residenceArea,
+                personalAadhar: this.getStepper1.personalAadhar,
+                personalrelationship: this.getStepper1.personalrelationship,
+                personalGender: this.getStepper1.personalGender,
+                personalOccupationCode: this.getStepper1.personalOccupationCode,
+                personalPan: this.getStepper1.personalPan,
+                personalGst: this.getStepper1.personalGst,
+                socialStatus: this.getStepper1.socialStatus,
+                socialAnswer1: this.getStepper1.socialAnswer1,
+                socialAnswer2: this.getStepper1.socialAnswer2,
+                socialAnswer3: this.getStepper1.socialAnswer3,
+                socialAnswer4: this.getStepper1.socialAnswer4,
+                personalAddress: this.getStepper1.personalAddress,
+                previousinsurance: this.getStepper1.previousinsurance,
+                personalAddress2: this.getStepper1.personalAddress2,
+                personalPincode: this.getStepper1.personalPincode,
+                personalCity: this.getStepper1.personalCity,
+                personalState: this.getStepper1.personalState,
+                personalEmail: this.getStepper1.personalEmail,
+                personalMobile: this.getStepper1.personalMobile,
+                personalAltnumber: this.getStepper1.personalAltnumber,
+                residenceAddress: this.getStepper1.residenceAddress,
+                residenceAddress2: this.getStepper1.residenceAddress2,
+                residencePincode: this.getStepper1.residencePincode,
+                residenceCity: this.getStepper1.residenceCity,
+                residenceState: this.getStepper1.residenceState,
+                illnessCheck: this.getStepper1.illnessCheck,
+                rolecd: this.getStepper1.rolecd,
+                relationshipcd: this.getStepper1.relationshipcd,
+                sameas: this.getStepper1.sameas
+            });
+
+
+            // this.insureArray = this.fb.group({
+            //     items: this.fb.array([{
+            //         personalTitle: this.getStepper2.personalTitle,
+            //         personalFirstname: this.getStepper2.personalFirstname,
+            //         personalLastname: this.getStepper2.personalLastname,
+            //         personalDob: this.getStepper2.personalDob,
+            //         personalOccupation: this.getStepper2.personalOccupation,
+            //         personalIncome: this.getStepper2.personalIncome,
+            //         personalArea: this.getStepper2.personalArea,
+            //         residenceArea: this.getStepper2.residenceArea,
+            //         personalAadhar: this.getStepper2.personalAadhar,
+            //         personalrelationship: this.getStepper2.personalrelationship,
+            //         personalGender: this.getStepper2.personalGender,
+            //         personalOccupationCode: this.getStepper1.personalOccupationCode,
+            //         personalPan: this.getStepper2.personalPan,
+            //         personalGst: this.getStepper2.personalGst,
+            //         socialStatus: this.getStepper2.socialStatus,
+            //         socialAnswer1: this.getStepper2.socialAnswer1,
+            //         socialAnswer2: this.getStepper2.socialAnswer2,
+            //         socialAnswer3: this.getStepper2.socialAnswer3,
+            //         socialAnswer4: this.getStepper2.socialAnswer4,
+            //         personalAddress: this.getStepper2.personalAddress,
+            //         previousinsurance: this.getStepper2.previousinsurance,
+            //         personalAddress2: this.getStepper2.personalAddress2,
+            //         personalPincode: this.getStepper2.personalPincode,
+            //         personalCity: this.getStepper2.personalCity,
+            //         personalState: this.getStepper2.personalState,
+            //         personalEmail: this.getStepper2.personalEmail,
+            //         personalMobile: this.getStepper2.personalMobile,
+            //         personalAltnumber: this.getStepper2.personalAltnumber,
+            //         residenceAddress: this.getStepper2.residenceAddress,
+            //         residenceAddress2: this.getStepper2.residenceAddress2,
+            //         residencePincode: this.getStepper2.residencePincode,
+            //         residenceCity: this.getStepper2.residenceCity,
+            //         residenceState: this.getStepper2.residenceState,
+            //         illnessCheck: this.getStepper2.illnessCheck,
+            //         sameas: this.getStepper2.sameas
+            //     }])
+            // });
+        }
+    }
+
 
     //Create Proposal
     proposal() {
@@ -451,54 +562,10 @@ for (let i = 0; i < this.proposerInsureData.length; i++) {
             'group_name': 'Group A',
             'company_name': 'Religare',
             'suminsured_amount': '500000',
+            'proposer_insurer_details' : this.totalReligareData,
             'product_id': '4',
             'policy_term': '3',
             'scheme_id': '1',
-            'proposer_insurer_details': [{
-                'title': this.personalData.personalTitle,
-                'proposer_fname': 'MuthuKumar',
-                'proposer_lname': 'Siva',
-                'prop_email_list': [{
-                    'email': 'rajkamal.infotech@gmail.com',
-                    'email_type': 'Personal'
-                }],
-                'prop_contact_list': [{
-                    'contact_no': '9952383927',
-                    'contact_type': 'MOBILE',
-                    'std_code': '91'
-                }],
-                'prop_identity_list': [{
-                    'identity_number': '123456781234',
-                    'identity_type': 'Aadhar'
-                }],
-                'proposer_res_address1': '12/2 New street',
-                'proposer_res_address2': 'Anna Nagar West',
-                'proposer_res_area': 'Annanagar',
-                'proposer_res_city': 'Chennai',
-                'proposer_res_state': 'Tamil Nadu',
-                'proposer_res_pincode': '600026',
-                'proposer_comm_address1': '12/2 New street',
-                'proposer_comm_address2': 'Anna Nagar West',
-                'proposer_comm_area': 'Annanagar',
-                'proposer_comm_city': 'Chennai',
-                'proposer_comm_state': 'Tamil Nadu',
-                'proposer_comm_pincode': '600026',
-                'prop_dob': '10-03-1988',
-                'prop_gender': 'MALE',
-                'relationship_cd': 'SELF',
-                'role_cd': 'PROPOSER',
-                'occupation_cd': 'SLRD',
-                'occupation_class': 'C1',
-                'occupation_class_description': '',
-                'annual_income': '500000',
-                'questions_list': [{
-                    'question_id': '',
-                    'question_cd': '',
-                    'question_set_cd': '',
-                    'response': ''
-
-                }]
-            }],
             'terms_condition': '1',
             'role_id': '4',
             'user_id': '0',
@@ -519,6 +586,7 @@ for (let i = 0; i < this.proposerInsureData.length; i++) {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'this.summaryDatathis.summaryDatathis.summaryData')
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();

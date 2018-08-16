@@ -19,9 +19,9 @@
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle">
-                            <mat-option value="Mr">Mr</mat-option>
-                            <mat-option value="Mrs">Ms</mat-option>
-                            <mat-option value="Mrs">Mrs</mat-option>
+                            <mat-option value="MR">MR</mat-option>
+                            <mat-option value="MS">MS</mat-option>
+                            <mat-option value="MRS">MRS</mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
@@ -40,6 +40,12 @@
 
                         </mat-form-field>
                       </div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <mat-select  placeholder="Gender" formControlName="personalGender" required>
+                          <mat-option value="Male">Male</mat-option>
+                          <mat-option value="Female">Female</mat-option>
+                        </mat-select>
+                      </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -87,7 +93,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="personalPan">
+                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="personalPan" required>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -127,7 +133,7 @@
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" required></textarea>
-                          <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address1 is required</mat-error>
+                          <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
@@ -178,22 +184,28 @@
                       <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" ></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required></textarea>
+                          <mat-error *ngIf="personal.controls.residenceAddress.errors?.required">Address is required</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" ></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" required></textarea>
+                          <mat-error *ngIf="personal.controls.residenceAddress2.errors?.required">Address2 is required</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode">
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode" required>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+
+
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="residenceCity">
+                        <mat-select placeholder="City" formControlName="residenceCity" required>
                           <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                             {{citys.city}}
                           </mat-option>
@@ -201,7 +213,7 @@
                         <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="residenceState" >
+                        <input matInput placeholder="State" formControlName="residenceState" required>
                       </mat-form-field></div>
                       <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
                         <!--<mat-select placeholder="Area" formControlName="residenceArea" >-->
@@ -262,28 +274,34 @@
                   <div class="row">
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Title" formControlName="InsurerTitle">
-                          <mat-option value="Mr">Mr</mat-option>
-                          <mat-option value="Mrs">Ms</mat-option>
-                          <mat-option value="Mrs">Mrs</mat-option>
+                        <mat-select placeholder="Title" formControlName="personalTitle">
+                          <mat-option value="MR">MR</mat-option>
+                          <mat-option value="MS">MS</mat-option>
+                          <mat-option value="MRS">MRS</mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="First Name" formControlName="InsurerFirstname" required >
+                        <input matInput placeholder="First Name" formControlName="personalFirstname" required >
                         <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Last Name" formControlName="InsurerLastname" required >
+                        <input matInput placeholder="Last Name" formControlName="personalLastname" required >
                         <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsurerDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
+                      <mat-select  placeholder="Gender" formControlName="personalGender" required>
+                        <mat-option value="Male">Male</mat-option>
+                        <mat-option value="Female">Female</mat-option>
+                      </mat-select>
+                    </mat-form-field></div>
+                    <div class="col-md-6"><mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -292,7 +310,7 @@
                     </div>
                       <div class="col-md-6">
                           <mat-form-field class="w-100">
-                              <mat-select placeholder="Occupation Code" formControlName="InsurerOccupationCode" required>
+                              <mat-select placeholder="Occupation Code" formControlName="personalOccupationCode" required>
                                   <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">
                                       {{occupation.occupation_description}}
                                   </mat-option>
@@ -302,7 +320,7 @@
                       </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Occupation" formControlName="InsurerOccupation" required>
+                        <mat-select placeholder="Occupation" formControlName="personalOccupation" required>
                           <mat-option *ngFor="let occupation of occupationList" [value]="occupation.occupation_code">
                             {{occupation.occupation_name}}
                           </mat-option>
@@ -311,7 +329,7 @@
                       </mat-form-field>
                     </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="InsurerRelationship" required>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required>
                               <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
                                   {{relationship.relationship_name}}
                               </mat-option>
@@ -319,36 +337,36 @@
                           <mat-error *ngIf="personal.controls.personalrelationship.errors?.required">Relationship is required</mat-error>
                       </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="InsurerIncome" required>
+                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"    maxlength="15" formControlName="personalIncome" required>
                       <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
 
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="InsurerAadhar">
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="InsurerPan">
+                      <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="personalPan" required>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="InsurerGst">
+                      <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Previous Medical insurance"  formControlName="InsurerPreviousinsurance">
+                      <input matInput placeholder="Previous Medical insurance"  formControlName="previousinsurance">
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="InsurerEmail" required>
+                      <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="InsurerMobile" required>
+                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
                       <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="InsurerAltnumber">
+                      <input matInput placeholder="Alternate Number" (keypress)="keyPress($event)"  maxlength="10"  formControlName="personalAltnumber">
 
 
                     </mat-form-field></div>
@@ -360,26 +378,26 @@
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="InsurerAddress" required></textarea>
-                        <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" required></textarea>
+                        <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
 
                       </mat-form-field>
                     </div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="InsurerAddress2" required></textarea>
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" required></textarea>
                         <mat-error *ngIf="insureArray.invalid">Address 2 is required</mat-error>
 
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="InsurerPincode" required>
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
                       <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
 
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="City" formControlName="InsurerCity" required>
+                      <mat-select placeholder="City" formControlName="personalCity" required>
                         <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
                           {{city.city}}
                         </mat-option>
@@ -388,7 +406,7 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="InsurerState" required>
+                      <input matInput placeholder="State" formControlName="personalState" required>
                       <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
 
                     </mat-form-field></div>
@@ -402,30 +420,34 @@
                 <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green">PROPOSER RESIDENCE ADDRESS</h6>
                   <div class="row">
-                    <div class="col-md-12"><mat-checkbox formControlName="InsurerSameas" (change)="sameAddress($event, i)"><strong>Same as Communication Address</strong></mat-checkbox></div>
+                    <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event, i)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="InsurerResidenceAddress" ></textarea>
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required></textarea>
+                        <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="InsurerResidenceAddress2" ></textarea>
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" required></textarea>
+                        <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="InsurerResidencePincode">
-
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode" required>
+                      <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="City" formControlName="InsurerResidenceCity">
+                      <mat-select placeholder="City" formControlName="residenceCity" required>
                         <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                           {{citys.city}}
                         </mat-option>
                       </mat-select>
+                      <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="InsurerResidenceState" >
+                      <input matInput placeholder="State" formControlName="residenceState" required>
+                      <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
                     </mat-form-field></div>
 
 
