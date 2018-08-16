@@ -441,8 +441,13 @@ export class ProposalComponent implements OnInit {
                 },2000);
 
             }
-            if (sessionStorage.mobileNumber != 'false') {
+            if (sessionStorage.mobileNumber != '' ) {
                 this.mobileNumber = sessionStorage.mobileNumber;
+                console.log(this.mobileNumber, 'iii');
+            } else {
+                console.log(this.mobileNumber, 'iii');
+
+                this.mobileNumber = 'true';
             }
 
         }
@@ -453,6 +458,8 @@ export class ProposalComponent implements OnInit {
             console.log(this.familyMembers, 'this.date');
             if (sessionStorage.ageRestriction != undefined) {
                 this.ageRestriction = sessionStorage.ageRestriction;
+            } else {
+                this.ageRestriction = 'true';
             }
         }
         if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
@@ -493,10 +500,13 @@ export class ProposalComponent implements OnInit {
         if (this.personal.valid) {
             console.log(value, 'value');
                 if (sessionStorage.proposerAge >= 18) {
+                    console.log(this.mobileNumber, 'tyu');
                     if (this.mobileNumber == '') {
+                        console.log('in');
                         stepper.next();
                     } else if(this.mobileNumber == 'true') {
                         stepper.next();
+                        console.log('ouy');
                     }
                 } else {
                     this.toastr.error('Proposer age should be 18 or above');
@@ -533,12 +543,8 @@ export class ProposalComponent implements OnInit {
                   for (let i = 0; i < this.familyMembers.length; i++) {
                       if (this.buyProductdetails.product_id == 6) {
                           this.insureStatus = false;
-                          console.log('p6');
                           if (this.familyMembers[i].ins_hospital_cash != '') {
-                              console.log('in');
                               if (i == this.familyMembers.length - 1) {
-                                  console.log('ouyyyy');
-
                                   this.insureStatus = true;
                               }
                           } else {
@@ -577,7 +583,6 @@ export class ProposalComponent implements OnInit {
                       }
                   }
               } else {
-                  console.log('rrree');
               }
           }
           if (this.errorMessage) {
@@ -598,9 +603,6 @@ export class ProposalComponent implements OnInit {
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
 
-
-
-        console.log(this.familyMembers);
     }
     typeAge(value, index, ci) {
         if (value > 18) {
