@@ -5,7 +5,7 @@
         <mat-step [stepControl]="personal">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
-              <form [formGroup]="personal" (submit)="personalDetails(personal.value)">
+              <form [formGroup]="personal" >
               <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -146,9 +146,9 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="personalCity"  (change)="getCityId( 'personal')" required>
-                          <mat-option *ngFor="let city of personalCitys" [value]= 'city.city_id'>
-                            {{city.city_name}}
+                        <mat-select placeholder="City" formControlName="personalCity" required>
+                          <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
+                            {{city.city}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
@@ -159,14 +159,14 @@
 
                       </mat-form-field></div>
 
-                      <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="Area" formControlName="personalArea" required>
-                          <mat-option *ngFor="let area of areaName" [value]= 'area.areaID'>
-                            {{area.areaName}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
-                      </mat-form-field></div>
+                      <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
+                        <!--<mat-select placeholder="Area" formControlName="personalArea" required>-->
+                          <!--<mat-option *ngFor="let area of areaName" [value]= 'area.areaID'>-->
+                            <!--{{area.areaName}}-->
+                          <!--</mat-option>-->
+                        <!--</mat-select>-->
+                        <!--<mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>-->
+                      <!--</mat-form-field></div>-->
 
 
 
@@ -193,9 +193,9 @@
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="residenceCity"  (change)="getCityId('residence')">
-                          <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city_id'>
-                            {{citys.city_name}}
+                        <mat-select placeholder="City" formControlName="residenceCity">
+                          <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
+                            {{citys.city}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
@@ -203,19 +203,19 @@
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="State" formControlName="residenceState" >
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="Area" formControlName="residenceArea" >
-                          <mat-option *ngFor="let rarea of rAreaName" [value]= 'rarea.areaID'>
-                            {{rarea.areaName}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
-                      </mat-form-field></div>
+                      <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
+                        <!--<mat-select placeholder="Area" formControlName="residenceArea" >-->
+                          <!--<mat-option *ngFor="let rarea of rAreaName" [value]= 'rarea.areaID'>-->
+                            <!--{{rarea.areaName}}-->
+                          <!--</mat-option>-->
+                        <!--</mat-select>-->
+                        <!--<mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>-->
+                      <!--</mat-form-field></div>-->
 
                     </div>
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primary" [disabled]="stopNext || !personal.valid " type="submit" >Next</button>
+                    <button mat-raised-button color="primary" [disabled]="stopNext || !personal.valid " (click)="personalDetails(personal.value)" >Next</button>
                   </div>
                 </div>
 
@@ -231,7 +231,8 @@
 <div class="row" >
   <div class="col-md-6" *ngFor="let question of religareQuestionsList; let i = index">
     <mat-form-field class="w-100">
-      <input matInput placeholder="{{i}}) {{question.question_description}}" [(ngModel)]="question.answer" required>
+      <!--<p>{{question.question_code}}</p>-->
+      <input matInput placeholder="{{i + 1}}) {{question.question_description}}" [(ngModel)]="question.answer" required>
     </mat-form-field>
   </div>
 </div>  <div class="proposal-buttom mt-3 text-right w-100">
@@ -378,9 +379,9 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="City" formControlName="InsurerCity"  (change)="getCityId( 'personal')" required>
-                        <mat-option *ngFor="let city of personalCitys" [value]= 'city.city_id'>
-                          {{city.city_name}}
+                      <mat-select placeholder="City" formControlName="InsurerCity" required>
+                        <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
+                          {{city.city}}
                         </mat-option>
                       </mat-select>
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
@@ -392,15 +393,7 @@
 
                     </mat-form-field></div>
 
-                    <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="Area" formControlName="InsurerArea" required>
-                        <mat-option *ngFor="let area of areaName" [value]= 'area.areaID'>
-                          {{area.areaName}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="insureArray.invalid">Area is required</mat-error>
 
-                    </mat-form-field></div>
 
 
 
@@ -425,22 +418,16 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="City" formControlName="InsurerResidenceCity"  (change)="getCityId('residence')">
-                        <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city_id'>
-                          {{citys.city_name}}
+                      <mat-select placeholder="City" formControlName="InsurerResidenceCity">
+                        <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
+                          {{citys.city}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="State" formControlName="InsurerResidenceState" >
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100" >
-                      <mat-select placeholder="Area" formControlName="InsurerResidenceArea" >
-                        <mat-option *ngFor="let rarea of rAreaName" [value]= 'rarea.areaID'>
-                          {{rarea.areaName}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field></div>
+
 
                   </div>
                 </div>
@@ -468,7 +455,7 @@
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3" >
+                <div class="col-md-12 box-card pt-3 pb-3" >
                     <h6 class="color-green mb-3" >NOMINEE DETAILS </h6>
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
