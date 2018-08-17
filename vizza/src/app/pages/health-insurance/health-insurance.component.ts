@@ -979,6 +979,7 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
+        console.log(value, 'value');
         if (this.auth.getPosStatus() == '0') {
             let dialogRef = this.dialog.open(PosstatusAlert, {
                 width: '700px',
@@ -988,14 +989,22 @@ export class HealthInsuranceComponent implements OnInit {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
-                    this.router.navigate(['/proposal']);
+                    if (value.product_id == '1') {
+                        this.router.navigate(['/religare']);
+                    } else {
+                        this.router.navigate(['/proposal']);
+                    }
                 } else {
                 }
             });
         } else {
             sessionStorage.buyProductdetails = JSON.stringify(value);
             sessionStorage.groupName = gname;
-            this.router.navigate(['/proposal']);
+            if (value.product_id == '1') {
+                this.router.navigate(['/religare']);
+            } else {
+                this.router.navigate(['/proposal']);
+            }
         }
     }
 }
