@@ -890,8 +890,8 @@ export class ProposalComponent implements OnInit {
   proposal() {
       const data = [{
               'platform': 'web',
-          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' : this.proposalId,
+              'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+              'proposal_id' : this.proposalId,
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,

@@ -51,6 +51,16 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    religarePayment(data, action) {
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = action;
+        console.log(url);
+        return this.http.post(url , data, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     getShortlistedProduct(data) {
         const json = JSON.stringify(data);
