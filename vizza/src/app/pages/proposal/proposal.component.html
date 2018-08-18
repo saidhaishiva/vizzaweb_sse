@@ -75,32 +75,19 @@
                       <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst">
                       <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                     </mat-form-field></div>
-
-                    <div class="col-md-6" >
-                      <div class="row">
-                        <div class="col-md-4" >
-                          <p>Previous Medical insurance</p>
-                          <mat-radio-group formControlName="previousinsuranceChecked" (change)="previousInsurance()">
-                            <mat-radio-button value="yes" class="mr-3">Yes</mat-radio-button>
-                            <mat-radio-button value="no">No</mat-radio-button>
-                          </mat-radio-group>
-                        </div>
-
-                        <div class="col-md-8" *ngIf="previousInsuranceStatus == 'yes'">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Insurance details"  formControlName="previousinsurance">
-                            <!--<mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>-->
-                          </mat-form-field>
-                        </div>
+                      <div class="col-md-6">
+                          <div class="row">
+                    <div class="col"><mat-checkbox formControlName="insuranceStatus" (change)="PreviousInsure($event)">Previous Medical insurance</mat-checkbox></div>
+                      <div class="col" *ngIf="previousInsureData">
+                      <mat-form-field class="w-100">
+                          <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsureData">
+                              <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
+                      </mat-form-field>
                       </div>
                       </div>
-                    <!--<div class="col-md-6" *ngIf="previousInsuranceStatus == 'yes'">-->
-                        <!--<mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Previous Medical insurance"  formControlName="previousinsurance">-->
-                        <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>&ndash;&gt;-->
-                        <!--</mat-form-field>-->
-                    <!--</div>-->
-
+                      </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
                       <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
@@ -351,15 +338,12 @@
                           </mat-option>
                         </mat-select>
                     </mat-form-field></div>
-                      <div class="col-md-12" *ngIf="this.buyProductdetails.product_id == 6">
+                      <div class="col-md-6" *ngIf="this.buyProductdetails.product_id == 6">
                         <p>Additional Cover</p>
                         <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
                           <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
-                      </div>
-                      <div class="col-md-12" *ngIf="this.buyProductdetails.product_id == 6">
-                       <strong>(cash benefit of Rs.1000/- for each and every completed day of hospitalization subject to a maximum of 7 days per hospitalization and 14 days per policy year .Date of admission and Date of discharge not considered.)</strong>
                       </div>
                       <div class="col-md-12" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>personal Accident Applicable</p>
@@ -374,11 +358,6 @@
                       <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
                         <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sports" required>
                       </mat-form-field></div>
-
-
-                      <!--<div class="col-md-6"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Previous Insure" [(ngModel)]="item.previousinsurer" required>-->
-                      <!--</mat-form-field></div>-->
                     </div>
                     <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
                       <button mat-button matStepperPrevious>Back</button>

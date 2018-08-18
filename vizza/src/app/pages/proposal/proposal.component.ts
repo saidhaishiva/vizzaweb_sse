@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { MatStepper } from '@angular/material';
@@ -41,7 +41,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class ProposalComponent implements OnInit {
+export class ProposalComponent implements OnInit, DoCheck {
     public personal: FormGroup;
     public summary: FormGroup;
     public checked: boolean;
@@ -100,7 +100,8 @@ export class ProposalComponent implements OnInit {
     public mobileNumber: any;
     public ageRestriction: string;
     public insurerDobError: string;
-    public previousInsuranceStatus: string;
+    public previousinsurance: any;
+    public previousInsureData: any;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -113,6 +114,7 @@ export class ProposalComponent implements OnInit {
       this.socialStatus = true;
       this.stopNext = false;
       this.nomineeAdd = true;
+      this.previousInsureData = false;
       this.nomineeRemove = true;
       this.declaration = false;
       this.illness = false;
@@ -143,8 +145,7 @@ export class ProposalComponent implements OnInit {
           socialAnswer3: '',
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
-          previousinsurance: '',
-          previousinsuranceChecked: '',
+          previousinsurance: 'No',
           personalAddress2: ['', Validators.required],
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
@@ -158,9 +159,47 @@ export class ProposalComponent implements OnInit {
           residenceCity: '',
           residenceState: '',
           illnessCheck: '',
-          sameas: ''
+          sameas: '',
+          insuranceStatus: ''
 
       });
+
+      this.previousinsurance = [
+          'IFFCO TOKIO General Insurance Co. Ltd.',
+          'Liberty General Insurance Co. Ltd.',
+          'Shriram General Insurance Co. Ltd.',
+          'Reliance General Insurance Co. Ltd',
+          'Reliance General Insurance Co. Ltd.',
+          'DHFL General Insurance Co. Ltd.',
+          'Bajaj Allianz Allianz General Insurance Co. Ltd.',
+          'Edelweiss General Insurance Co.Ltd.',
+          'Kotak Mahindra General Insurance Co. Ltd.',
+          'Go Digit General Insurance Co. Ltd.',
+          'Royal Sundaram General Insurance Co. Ltd.',
+          'Exports Credit Guarantee of India Co. Ltd',
+          'The New India Assurance Co. Ltd.',
+          'Tata AIG General Insurance Company Limited',
+          'National Insurance Co. Ltd.',
+          'Universal Sompo General Insurance Co. Ltd.',
+          'Agriculture Insurance Company of India Ltd.',
+          'Acko General Insurance Co. Ltd.',
+          'SBI General Insurance Co. Ltd.',
+          'Bharti AXA General Insurance Co. Ltd.',
+          'ICICI LOMBARD General Insurance Co. Ltd.',
+          'Magma HDI General Insurance Co. Ltd.',
+          'HDFC ERGO General Insurance Co.Ltd.',
+          'United India Insurance Co. Ltd.',
+          'The Oriental Insurance Co. Ltd.',
+          'Future Generali India Insurance Co. Ltd.',
+          'Cholamandalam MS General Insurance Co. Ltd.',
+          'Raheja QBE General Insurance Co. Ltd.',
+          'Star Health & Allied Insurance Co.Ltd.',
+          'Apollo Munich Health Insurance Co. Ltd',
+          'Religare Health Insurance Co. Ltd',
+          'Max Bupa Health Insurance Co. Ltd',
+          'CIGNA TTK Health Insurance Co. Ltd.',
+          'Aditya Birla Health Insurance Co. Ltd.'
+      ];
 
       // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
       //     (successData) => {
@@ -248,6 +287,16 @@ export class ProposalComponent implements OnInit {
         }
         this.sessionData();
     }
+    ngDoCheck() {}
+    PreviousInsure(value) {
+      if (value.checked) {
+          this.personal.controls['previousinsurance'].setValue('');
+          this.previousInsureData = true;
+      } else {
+          this.previousInsureData = false;
+          this.personal.controls['previousinsurance'].setValue('No');
+      }
+    }
 
     canDeactivate() {
       return this.proposalId;
@@ -294,7 +343,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '1';
+            this.familyMembers[i].ins_hospital_cash = '0';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
@@ -371,7 +420,6 @@ export class ProposalComponent implements OnInit {
                 socialAnswer4: this.getStepper1.socialAnswer4,
                 personalAddress: this.getStepper1.personalAddress,
                 previousinsurance: this.getStepper1.previousinsurance,
-                previousinsuranceChecked: this.getStepper1.previousinsuranceChecked,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
@@ -388,9 +436,6 @@ export class ProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
-            if (this.getStepper1.previousinsuranceChecked) {
-                this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
-            }
             if (this.getStepper1.socialStatus == false) {
                 // if (JSON.parse(this.getStepper1.socialStatus)) {
                     this.personal.controls['socialAnswer1'].reset();
@@ -485,9 +530,6 @@ export class ProposalComponent implements OnInit {
           // this.mobileNumber = 'false';
       }
       sessionStorage.mobileNumber = this.mobileNumber;
-    }
-    previousInsurance() {
-      this.previousInsuranceStatus = this.personal.get('previousinsuranceChecked').value;
     }
     changeOccupation() {
         // if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
@@ -899,8 +941,8 @@ export class ProposalComponent implements OnInit {
   proposal() {
       const data = [{
               'platform': 'web',
-          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' : this.proposalId,
+              'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+              'proposal_id' : this.proposalId,
               'enquiry_id': this.enquiryId,
               'group_name':  this.groupName,
               'company_name': this.buyProductdetails.company_name,
@@ -939,7 +981,7 @@ export class ProposalComponent implements OnInit {
               'exist_health_ins_covered_persons_details': '',
               'have_eia_no': '1',
               'eia_no': '',
-              'previous_medical_insurance': this.personalData.previousinsurance,
+              'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
               'critical_illness': 'NO   ',
               'social_status': this.personalData.socialStatus ? 1 : 0,
               'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
