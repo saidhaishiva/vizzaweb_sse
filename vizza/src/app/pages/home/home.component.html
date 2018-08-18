@@ -55,10 +55,11 @@
       <div class="carousel-inner text-color">
        <div class="carousel-item " *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
           <div class="row mt-5">
-             <div class="col-md-4 text-right">
+             <div class="col-md-4 text-center">
                <img src="https://www.shareicon.net/download/2017/01/06/868320_people_512x512.png" alt="Avatar" class="avatar">
              </div>
-             <div class="col-md-8 text-center">
+
+              <div class="col-md-8 text-center vl">
               <div class="row" fxLayoutAlign="center center">
                <p>{{list.comments}}</p>
               </div>
@@ -146,11 +147,14 @@
  }
  .avatar {
   vertical-align: middle;
-  width: 70px;
-  height: 70px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
  }
  .carousel-indicators {
   bottom: -50px;
+ }
+ .vl {
+     border-left: 3px solid white;
  }
 </style>

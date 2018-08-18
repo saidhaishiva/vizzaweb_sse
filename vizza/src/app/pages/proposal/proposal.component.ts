@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { MatStepper } from '@angular/material';
@@ -31,9 +31,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-proposal',
-  templateUrl: './proposal.component.html',
-  styleUrls: ['./proposal.component.scss'],
+    selector: 'app-proposal',
+    templateUrl: './proposal.component.html',
+    styleUrls: ['./proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -41,7 +41,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class ProposalComponent implements OnInit, DoCheck {
+export class ProposalComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public checked: boolean;
@@ -98,154 +98,116 @@ export class ProposalComponent implements OnInit, DoCheck {
     public setDateAge: any;
     public personalAge: any;
     public mobileNumber: any;
+    public previousinsurance: any;
     public ageRestriction: string;
     public insurerDobError: string;
-    public previousinsurance: any;
-    public previousInsureData: any;
+    public previousInsuranceStatus: any;
 
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-              public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
-
+    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
 
-      let today  = new Date();
-      this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      this.illnessCheck = false;
-      this.socialStatus = true;
-      this.stopNext = false;
-      this.nomineeAdd = true;
-      this.previousInsureData = false;
-      this.nomineeRemove = true;
-      this.declaration = false;
-      this.illness = false;
-      this.settings = this.appSettings.settings;
-      this.settings.HomeSidenavUserBlock = false;
-      this.settings.sidenavIsOpened = false;
-      this.settings.sidenavIsPinned = false;
-      this.webhost = this.config.getimgUrl();
-      this.selectDate = '';
-      this.proposalId = 0;
-      this.mobileNumber = 'true';
-      this.ageRestriction = 'true';
-      this.personal = this.fb.group({
-          personalTitle: ['', Validators.required],
-          personalFirstname: ['', Validators.required],
-          personalLastname: ['', Validators.required],
-          personalDob: ['', Validators.compose([Validators.required])],
-          personalOccupation: ['', Validators.required],
-          personalIncome: [''],
-          personalArea: ['', Validators.required],
-          residenceArea: '',
-          personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
-          personalPan: ['', Validators.compose([ Validators.minLength(10)])],
-          personalGst: ['', Validators.compose([ Validators.minLength(15)])],
-          socialStatus: '',
-          socialAnswer1: '',
-          socialAnswer2: '',
-          socialAnswer3: '',
-          socialAnswer4: '',
-          personalAddress: ['', Validators.required],
-          previousinsurance: 'No',
-          personalAddress2: ['', Validators.required],
-          personalPincode: ['', Validators.required],
-          personalCity: ['', Validators.required],
-          personalState: ['', Validators.required],
-          personalEmail: ['', Validators.required],
-          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          personalAltnumber: '',
-          residenceAddress: '',
-          residenceAddress2: '',
-          residencePincode: '',
-          residenceCity: '',
-          residenceState: '',
-          illnessCheck: '',
-          sameas: '',
-          insuranceStatus: ''
 
-      });
+        let today  = new Date();
+        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        this.illnessCheck = false;
+        this.socialStatus = true;
+        this.stopNext = false;
+        this.nomineeAdd = true;
+        this.nomineeRemove = true;
+        this.declaration = false;
+        this.illness = false;
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
+        this.webhost = this.config.getimgUrl();
+        this.selectDate = '';
+        this.proposalId = 0;
+        this.mobileNumber = 'true';
+        this.ageRestriction = 'true';
+        this.personal = this.fb.group({
+            personalTitle: ['', Validators.required],
+            personalFirstname: ['', Validators.required],
+            personalLastname: ['', Validators.required],
+            personalDob: ['', Validators.compose([Validators.required])],
+            personalOccupation: ['', Validators.required],
+            personalIncome: [''],
+            personalArea: ['', Validators.required],
+            residenceArea: '',
+            personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
+            personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+            personalGst: ['', Validators.compose([ Validators.minLength(15)])],
+            socialStatus: '',
+            socialAnswer1: '',
+            socialAnswer2: '',
+            socialAnswer3: '',
+            socialAnswer4: '',
+            personalAddress: ['', Validators.required],
+            previousinsurance: '',
+            previousinsuranceChecked: '',
+            personalAddress2: ['', Validators.required],
+            personalPincode: ['', Validators.required],
+            personalCity: ['', Validators.required],
+            personalState: ['', Validators.required],
+            personalEmail: ['', Validators.required],
+            personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalAltnumber: '',
+            residenceAddress: '',
+            residenceAddress2: '',
+            residencePincode: '',
+            residenceCity: '',
+            residenceState: '',
+            illnessCheck: '',
+            sameas: ''
 
-      this.previousinsurance = [
-          'IFFCO TOKIO General Insurance Co. Ltd.',
-          'Liberty General Insurance Co. Ltd.',
-          'Shriram General Insurance Co. Ltd.',
-          'Reliance General Insurance Co. Ltd',
-          'Reliance General Insurance Co. Ltd.',
-          'DHFL General Insurance Co. Ltd.',
-          'Bajaj Allianz Allianz General Insurance Co. Ltd.',
-          'Edelweiss General Insurance Co.Ltd.',
-          'Kotak Mahindra General Insurance Co. Ltd.',
-          'Go Digit General Insurance Co. Ltd.',
-          'Royal Sundaram General Insurance Co. Ltd.',
-          'Exports Credit Guarantee of India Co. Ltd',
-          'The New India Assurance Co. Ltd.',
-          'Tata AIG General Insurance Company Limited',
-          'National Insurance Co. Ltd.',
-          'Universal Sompo General Insurance Co. Ltd.',
-          'Agriculture Insurance Company of India Ltd.',
-          'Acko General Insurance Co. Ltd.',
-          'SBI General Insurance Co. Ltd.',
-          'Bharti AXA General Insurance Co. Ltd.',
-          'ICICI LOMBARD General Insurance Co. Ltd.',
-          'Magma HDI General Insurance Co. Ltd.',
-          'HDFC ERGO General Insurance Co.Ltd.',
-          'United India Insurance Co. Ltd.',
-          'The Oriental Insurance Co. Ltd.',
-          'Future Generali India Insurance Co. Ltd.',
-          'Cholamandalam MS General Insurance Co. Ltd.',
-          'Raheja QBE General Insurance Co. Ltd.',
-          'Star Health & Allied Insurance Co.Ltd.',
-          'Apollo Munich Health Insurance Co. Ltd',
-          'Religare Health Insurance Co. Ltd',
-          'Max Bupa Health Insurance Co. Ltd',
-          'CIGNA TTK Health Insurance Co. Ltd.',
-          'Aditya Birla Health Insurance Co. Ltd.'
-      ];
+        });
 
-      // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-      //     (successData) => {
-      //         this.testProposalSuccess(successData);
-      //     },
-      //     (error) => {
-      //         this.proposalFailure(error);
-      //     }
-      // );
+        // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
+        //     (successData) => {
+        //         this.testProposalSuccess(successData);
+        //     },
+        //     (error) => {
+        //         this.proposalFailure(error);
+        //     }
+        // );
 
-      // this.personal = this.fb.group({
-      //     personalTitle: [''],
-      //     personalFirstname: [''],
-      //     personalLastname: [''],
-      //     personalDob: [''],
-      //     personalOccupation: [''],
-      //     personalIncome: [''],
-      //     personalAadhar: [''],
-      //     personalPan: [''],
-      //     personalGst: [''],
-      //     socialStatus: '',
-      //     socialAnswer1: '',
-      //     socialAnswer2: '',
-      //     socialAnswer3: '',
-      //     socialAnswer4: '',
-      //     personalAddress: [''],
-      //     previousinsurance: '',
-      //     personalAddress2: '',
-      //     personalPincode: [''],
-      //     personalCity: [''],
-      //     personalState: [''],
-      //     personalEmail: [''],
-      //     personalMobile: [''],
-      //     personalAltnumber: [''],
-      //     residenceAddress: '',
-      //     residenceAddress2: '',
-      //     residencePincode: '',
-      //     residenceCity: '',
-      //     residenceState: '',
-      //     residenceEmail: '',
-      //     residenceMobile: [''],
-      //     residenceAltnumber: [''],
-      //     illnessCheck: ''
-      //
-      // });
-  }
+        // this.personal = this.fb.group({
+        //     personalTitle: [''],
+        //     personalFirstname: [''],
+        //     personalLastname: [''],
+        //     personalDob: [''],
+        //     personalOccupation: [''],
+        //     personalIncome: [''],
+        //     personalAadhar: [''],
+        //     personalPan: [''],
+        //     personalGst: [''],
+        //     socialStatus: '',
+        //     socialAnswer1: '',
+        //     socialAnswer2: '',
+        //     socialAnswer3: '',
+        //     socialAnswer4: '',
+        //     personalAddress: [''],
+        //     previousinsurance: '',
+        //     personalAddress2: '',
+        //     personalPincode: [''],
+        //     personalCity: [''],
+        //     personalState: [''],
+        //     personalEmail: [''],
+        //     personalMobile: [''],
+        //     personalAltnumber: [''],
+        //     residenceAddress: '',
+        //     residenceAddress2: '',
+        //     residencePincode: '',
+        //     residenceCity: '',
+        //     residenceState: '',
+        //     residenceEmail: '',
+        //     residenceMobile: [''],
+        //     residenceAltnumber: [''],
+        //     illnessCheck: ''
+        //
+        // });
+    }
 
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
@@ -285,54 +247,80 @@ export class ProposalComponent implements OnInit, DoCheck {
         } else {
             this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
         }
+        this.previousinsurance = [
+            'IFFCO TOKIO General Insurance Co. Ltd.',
+            'Liberty General Insurance Co. Ltd.',
+            'Shriram General Insurance Co. Ltd.',
+            'Reliance General Insurance Co. Ltd',
+            'Reliance General Insurance Co. Ltd.',
+            'DHFL General Insurance Co. Ltd.',
+            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
+            'Edelweiss General Insurance Co.Ltd.',
+            'Kotak Mahindra General Insurance Co. Ltd.',
+            'Go Digit General Insurance Co. Ltd.',
+            'Royal Sundaram General Insurance Co. Ltd.',
+            'Exports Credit Guarantee of India Co. Ltd',
+            'The New India Assurance Co. Ltd.',
+            'Tata AIG General Insurance Company Limited',
+            'National Insurance Co. Ltd.',
+            'Universal Sompo General Insurance Co. Ltd.',
+            'Agriculture Insurance Company of India Ltd.',
+            'Acko General Insurance Co. Ltd.',
+            'SBI General Insurance Co. Ltd.',
+            'Bharti AXA General Insurance Co. Ltd.',
+            'ICICI LOMBARD General Insurance Co. Ltd.',
+            'Magma HDI General Insurance Co. Ltd.',
+            'HDFC ERGO General Insurance Co.Ltd.',
+            'United India Insurance Co. Ltd.',
+            'The Oriental Insurance Co. Ltd.',
+            'Future Generali India Insurance Co. Ltd.',
+            'Cholamandalam MS General Insurance Co. Ltd.',
+            'Raheja QBE General Insurance Co. Ltd.',
+            'Star Health & Allied Insurance Co.Ltd.',
+            'Apollo Munich Health Insurance Co. Ltd',
+            'Religare Health Insurance Co. Ltd',
+            'Max Bupa Health Insurance Co. Ltd',
+            'CIGNA TTK Health Insurance Co. Ltd.',
+            'Aditya Birla Health Insurance Co. Ltd.'
+        ];
         this.sessionData();
-    }
-    ngDoCheck() {}
-    PreviousInsure(value) {
-      if (value.checked) {
-          this.personal.controls['previousinsurance'].setValue('');
-          this.previousInsureData = true;
-      } else {
-          this.previousInsureData = false;
-          this.personal.controls['previousinsurance'].setValue('No');
-      }
     }
 
     canDeactivate() {
-      return this.proposalId;
+        return this.proposalId;
     }
 
 
     criticalIllness(values: any) {
-      if (values.checked) {
-          const dialogRef = this.dialog.open(ProposalmessageComponent, {
-              width: '500px'
-          });
-          dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
-              this.stopNext = true;
-          });
-      } else {
-          this.stopNext = false;
-      }
+        if (values.checked) {
+            const dialogRef = this.dialog.open(ProposalmessageComponent, {
+                width: '500px'
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+                this.stopNext = true;
+            });
+        } else {
+            this.stopNext = false;
+        }
     }
     changeSocialStatus(result) {
-      this.socialStatus = this.personal.controls['socialStatus'].value;
+        this.socialStatus = this.personal.controls['socialStatus'].value;
         let btn = this.personal.controls['socialStatus'].value;
-      console.log(btn, 'this.result');
-      if (btn == 'true') {
-          this.personal.controls['socialAnswer1'].setValue('0');
-          this.personal.controls['socialAnswer2'].setValue('0');
-          this.personal.controls['socialAnswer3'].setValue('0');
-          this.personal.controls['socialAnswer4'].setValue('0');
-          this.socialNo = '';
-      } else {
-          this.socialNo = false;
-      }
+        console.log(btn, 'this.result');
+        if (btn == 'true') {
+            this.personal.controls['socialAnswer1'].setValue('0');
+            this.personal.controls['socialAnswer2'].setValue('0');
+            this.personal.controls['socialAnswer3'].setValue('0');
+            this.personal.controls['socialAnswer4'].setValue('0');
+            this.socialNo = '';
+        } else {
+            this.socialNo = false;
+        }
     }
     groupList() {
-      this.familyMembers = this.getFamilyDetails.family_members;
-      console.log(this.familyMembers);
+        this.familyMembers = this.getFamilyDetails.family_members;
+        console.log(this.familyMembers);
         for (let i = 0; i < this.familyMembers.length; i++ ) {
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
@@ -343,7 +331,7 @@ export class ProposalComponent implements OnInit, DoCheck {
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '0';
+            this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
@@ -352,37 +340,37 @@ export class ProposalComponent implements OnInit, DoCheck {
 
     }
     addNominee(value) {
-      if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
-          this.nomineeDate[0].nominee.push({
-              nname: '',
-              nage: '',
-              nrelationship: '',
-              nclaim: '',
-              aname: '',
-              aage: '',
-              arelationship: '',
-              removeBtn: false,
-              addBtn: true,
-              ageSetting: true,
-              colorStatus: 'green'
+        if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+            this.nomineeDate[0].nominee.push({
+                nname: '',
+                nage: '',
+                nrelationship: '',
+                nclaim: '',
+                aname: '',
+                aage: '',
+                arelationship: '',
+                removeBtn: false,
+                addBtn: true,
+                ageSetting: true,
+                colorStatus: 'green'
 
-          });
-          this.nomineeAdd = true;
-          this.nomineeRemove = false;
-      } if (value == 'delete') {
-          if (this.nomineeDate[0].nominee.length == 2) {
-              this.nomineeDate[0].nominee.splice(1, 1);
-              this.nomineeAdd = false;
-              this.nomineeRemove = true;
-              this.nomineeDate[0].nominee[0].removeBtn = true;
-              this.nomineeDate[0].nominee[0].addBtn = false;
-          }
-      }
+            });
+            this.nomineeAdd = true;
+            this.nomineeRemove = false;
+        } if (value == 'delete') {
+            if (this.nomineeDate[0].nominee.length == 2) {
+                this.nomineeDate[0].nominee.splice(1, 1);
+                this.nomineeAdd = false;
+                this.nomineeRemove = true;
+                this.nomineeDate[0].nominee[0].removeBtn = true;
+                this.nomineeDate[0].nominee[0].addBtn = false;
+            }
+        }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
     }
     claimPercent(percent) {
-      console.log(this.nomineeDate[0].nominee.length);
+        console.log(this.nomineeDate[0].nominee.length);
         if (this.nomineeDate[0].nominee.length == 1) {
             if (percent >= 100) {
                 this.nomineeDate[0].nominee[0].addBtn = true;
@@ -399,7 +387,7 @@ export class ProposalComponent implements OnInit, DoCheck {
 
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-        console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
+            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
@@ -420,6 +408,7 @@ export class ProposalComponent implements OnInit, DoCheck {
                 socialAnswer4: this.getStepper1.socialAnswer4,
                 personalAddress: this.getStepper1.personalAddress,
                 previousinsurance: this.getStepper1.previousinsurance,
+                previousinsuranceChecked: this.getStepper1.previousinsuranceChecked,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
@@ -436,12 +425,15 @@ export class ProposalComponent implements OnInit, DoCheck {
                 sameas: this.getStepper1.sameas
 
             });
+            if (this.getStepper1.previousinsuranceChecked) {
+                this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
+            }
             if (this.getStepper1.socialStatus == false) {
                 // if (JSON.parse(this.getStepper1.socialStatus)) {
-                    this.personal.controls['socialAnswer1'].reset();
-                    this.personal.controls['socialAnswer2'].reset();
-                    this.personal.controls['socialAnswer3'].reset();
-                    this.personal.controls['socialAnswer4'].reset();
+                this.personal.controls['socialAnswer1'].reset();
+                this.personal.controls['socialAnswer2'].reset();
+                this.personal.controls['socialAnswer3'].reset();
+                this.personal.controls['socialAnswer4'].reset();
                 // }
             }
 
@@ -504,8 +496,8 @@ export class ProposalComponent implements OnInit, DoCheck {
         }
         if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
             this.familyMembers = JSON.parse(sessionStorage.familyMembers);
-           // let date = this.familyMembers[0].ins_dob.split('-');
-           // date = date[0] +'/'+ date[1] +'/'+ date[2];
+            // let date = this.familyMembers[0].ins_dob.split('-');
+            // date = date[0] +'/'+ date[1] +'/'+ date[2];
             console.log(this.familyMembers, 'this.date');
             if (sessionStorage.ageRestriction != undefined) {
                 this.ageRestriction = sessionStorage.ageRestriction;
@@ -520,16 +512,29 @@ export class ProposalComponent implements OnInit, DoCheck {
 
     }
     alternateChange(event) {
-      if (event.target.value.length == 10) {
-          if(event.target.value == this.personal.get('personalMobile').value) {
+        if (event.target.value.length == 10) {
+            if(event.target.value == this.personal.get('personalMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
-          } else {
-              this.mobileNumber = '';
-          }
-      } else {
-          // this.mobileNumber = 'false';
-      }
-      sessionStorage.mobileNumber = this.mobileNumber;
+            } else {
+                this.mobileNumber = '';
+            }
+        } else {
+            // this.mobileNumber = 'false';
+        }
+        sessionStorage.mobileNumber = this.mobileNumber;
+    }
+    // previousInsurance() {
+    //     this.previousInsuranceStatus = this.personal.get('previousinsuranceChecked').value;
+    //     sessionStorage.previousInsuranceStatus = this.previousInsuranceStatus;
+    // }
+    PreviousInsure(value) {
+        if (value.checked) {
+            this.personal.controls['previousinsurance'].setValue('');
+            this.previousInsuranceStatus = true;
+        } else {
+            this.previousInsuranceStatus = false;
+            this.personal.controls['previousinsurance'].setValue('No');
+        }
     }
     changeOccupation() {
         // if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {
@@ -550,106 +555,106 @@ export class ProposalComponent implements OnInit, DoCheck {
 
         if (this.personal.valid) {
             console.log(value, 'value');
-                if (sessionStorage.proposerAge >= 18) {
-                    console.log(this.mobileNumber, 'tyu');
-                    if (this.mobileNumber == '') {
-                        console.log('in');
-                        stepper.next();
-                    } else if(this.mobileNumber == 'true') {
-                        stepper.next();
-                        console.log('ouy');
-                    }
-                } else {
-                    this.toastr.error('Proposer age should be 18 or above');
+            if (sessionStorage.proposerAge >= 18) {
+                console.log(this.mobileNumber, 'tyu');
+                if (this.mobileNumber == '') {
+                    console.log('in');
+                    stepper.next();
+                } else if(this.mobileNumber == 'true') {
+                    stepper.next();
+                    console.log('ouy');
                 }
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
         }
     }
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         // if (this.ageRestriction == '') {
-          this.illnesStatus = false;
-          console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
-          if (key == 'Insured Details') {
-              for (let i = 0; i < this.familyMembers.length; i++) {
-                  if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
-                      this.errorMessage = false;
-                      if (this.familyMembers[i].ins_illness != 'No') {
-                          this.illnesStatus = true;
-                          break;
-                      } else {
-                          this.illnesStatus = false;
-                      }
-                  } else {
-                      this.errorMessage = true;
-                      break;
-                  }
-              }
-              if (this.errorMessage) {
-                  this.toastr.error('Please fill the empty fields', key);
-              } else if (this.illnesStatus) {
-                  this.toastr.error('Please fill the empty fields', key);
-              } else if (this.illnesStatus == false) {
-                  console.log('tyy');
-                  for (let i = 0; i < this.familyMembers.length; i++) {
-                      if (this.buyProductdetails.product_id == 6) {
-                          this.insureStatus = false;
-                          if (this.familyMembers[i].ins_hospital_cash != '') {
-                              if (i == this.familyMembers.length - 1) {
-                                  this.insureStatus = true;
-                              }
-                          } else {
-                              this.errorMessage = true;
-                              break;
-                          }
+        this.illnesStatus = false;
+        console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
+        if (key == 'Insured Details') {
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
+                    this.errorMessage = false;
+                    if (this.familyMembers[i].ins_illness != 'No') {
+                        this.illnesStatus = true;
+                        break;
+                    } else {
+                        this.illnesStatus = false;
+                    }
+                } else {
+                    this.errorMessage = true;
+                    break;
+                }
+            }
+            if (this.errorMessage) {
+                this.toastr.error('Please fill the empty fields', key);
+            } else if (this.illnesStatus) {
+                this.toastr.error('Please fill the empty fields', key);
+            } else if (this.illnesStatus == false) {
+                console.log('tyy');
+                for (let i = 0; i < this.familyMembers.length; i++) {
+                    if (this.buyProductdetails.product_id == 6) {
+                        this.insureStatus = false;
+                        if (this.familyMembers[i].ins_hospital_cash != '') {
+                            if (i == this.familyMembers.length - 1) {
+                                this.insureStatus = true;
+                            }
+                        } else {
+                            this.errorMessage = true;
+                            break;
+                        }
 
-                      } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                          console.log('p8 || p9');
-                          this.errorMessage = false;
-                          this.insureStatus = false;
-                          if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                              if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
-                                  if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
-                                      if (i == this.familyMembers.length - 1) {
-                                          this.insureStatus = true;
-                                      }
-                                  } else {
-                                      this.errorMessage = true;
-                                      break;
-                                  }
-                              } else {
-                                  if (i == this.familyMembers.length - 1) {
-                                      this.insureStatus = true;
-                                  }
-                              }
-                          } else {
-                              if (i == this.familyMembers.length - 1) {
-                                  this.insureStatus = true;
-                              }
-                          }
-                      } else {
-                          if (i == this.familyMembers.length - 1) {
-                              this.insureStatus = true;
-                          }
-                      }
-                  }
-              } else {
-              }
-          }
-          if (this.errorMessage) {
-              this.toastr.error('Please fill the empty fields', key);
-          }
+                    } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+                        console.log('p8 || p9');
+                        this.errorMessage = false;
+                        this.insureStatus = false;
+                        if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+                            if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                                if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
+                                    if (i == this.familyMembers.length - 1) {
+                                        this.insureStatus = true;
+                                    }
+                                } else {
+                                    this.errorMessage = true;
+                                    break;
+                                }
+                            } else {
+                                if (i == this.familyMembers.length - 1) {
+                                    this.insureStatus = true;
+                                }
+                            }
+                        } else {
+                            if (i == this.familyMembers.length - 1) {
+                                this.insureStatus = true;
+                            }
+                        }
+                    } else {
+                        if (i == this.familyMembers.length - 1) {
+                            this.insureStatus = true;
+                        }
+                    }
+                }
+            } else {
+            }
+        }
+        if (this.errorMessage) {
+            this.toastr.error('Please fill the empty fields', key);
+        }
         console.log(this.ageRestriction, 'ageRestriction');
 
         if (this.insureStatus) {
-              if (this.ageRestriction == '') {
-                  stepper.next();
-              } else if (this.ageRestriction == 'true') {
-                  stepper.next();
-              }
-          }
+            if (this.ageRestriction == '') {
+                stepper.next();
+            } else if (this.ageRestriction == 'true') {
+                stepper.next();
+            }
+        }
 
-      // }
+        // }
         console.log(this.illnesStatus, 'ilness');
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
@@ -664,8 +669,8 @@ export class ProposalComponent implements OnInit, DoCheck {
     }
     //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
-      sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
-      this.lastStepper = stepper;
+        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+        this.lastStepper = stepper;
         if (key == 'Nominee Details') {
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
                 if (this.nomineeDate[index].nominee[i].nname != '' &&
@@ -702,7 +707,7 @@ export class ProposalComponent implements OnInit, DoCheck {
 
 
     getCityId(title) {
-      this.cityTitle = title;
+        this.cityTitle = title;
         console.log(this.cityTitle, 'this.cityTitlethis.cityTitle');
 
         const data = {
@@ -711,14 +716,14 @@ export class ProposalComponent implements OnInit, DoCheck {
             'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
         }
 
-            this.common.getArea(data).subscribe(
-                (successData) => {
-                    this.getCitySuccess(successData);
-                },
-                (error) => {
-                    this.getCityFailure(error);
-                }
-            );
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCitySuccess(successData);
+            },
+            (error) => {
+                this.getCityFailure(error);
+            }
+        );
     }
     public getCitySuccess(successData) {
         if (successData.IsSuccess == true) {
@@ -747,7 +752,7 @@ export class ProposalComponent implements OnInit, DoCheck {
 
         }
 
-}
+    }
 
 
     personalAccident(values: any, index) {
@@ -777,25 +782,25 @@ export class ProposalComponent implements OnInit, DoCheck {
 
     }
     sameAddress(values: any) {
-      console.log(this.personal.controls['personalCity'].value);
-      if (values.checked) {
-          this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
-          this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
-          this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-          this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-          this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-          this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-          this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-          this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-      } else {
-          this.personal.controls['residenceAddress'].setValue('');
-          this.personal.controls['residenceAddress2'].setValue('');
-          this.personal.controls['residenceCity'].setValue('');
-          this.personal.controls['residencePincode'].setValue('');
-          this.personal.controls['residenceState'].setValue('');
-          this.personal.controls['residenceArea'].setValue('');
-      }
+        console.log(this.personal.controls['personalCity'].value);
+        if (values.checked) {
+            this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
+            this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+        } else {
+            this.personal.controls['residenceAddress'].setValue('');
+            this.personal.controls['residenceAddress2'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residencePincode'].setValue('');
+            this.personal.controls['residenceState'].setValue('');
+            this.personal.controls['residenceArea'].setValue('');
+        }
 
     }
 
@@ -938,84 +943,84 @@ export class ProposalComponent implements OnInit, DoCheck {
 
 
     //Create Proposal
-  proposal() {
-      const data = [{
-              'platform': 'web',
-              'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-              'proposal_id' : this.proposalId,
-              'enquiry_id': this.enquiryId,
-              'group_name':  this.groupName,
-              'company_name': this.buyProductdetails.company_name,
-              'product_id': this.buyProductdetails.product_id,
-              'policy_type_name': this.buyProductdetails.prod_shortform,
-              'policy_category': 'fresh',
-              'policy_started_on': this.personalData.personalDob,
-              'policy_end_on': this.personalData.personalDob,
-              'policy_period': '1',
-              'sum_insured_id': this.buyProductdetails.suminsured_id,
-              'scheme_id': this.buyProductdetails.scheme,
-              'title': this.personalData.personalTitle,
-              'proposer_fname': this.personalData.personalFirstname,
-              'proposer_lname': this.personalData.personalLastname,
-              'proposer_email': this.personalData.personalEmail,
-              'proposer_mobile': this.personalData.personalMobile,
-              'proposer_alternate_mobile': this.personalData.personalAltnumber,
-              'proposer_res_address1': this.personalData.residenceAddress,
-              'proposer_res_address2': this.personalData.residenceAddress2,
-              'proposer_res_area': this.personalData.residenceArea.toString(),
-              'proposer_res_city': this.personalData.residenceCity.toString(),
-              'proposer_res_state': this.personalData.residenceState,
-              'proposer_res_pincode': this.personalData.residencePincode,
-              'proposer_comm_address1': this.personalData.personalAddress,
-              'proposer_comm_address2': this.personalData.personalAddress2,
-              'proposer_comm_area': this.personalData.personalArea.toString(),
-              'proposer_comm_city': this.personalData.personalCity.toString(),
-              'proposer_comm_state': this.personalData.personalState,
-              'proposer_comm_pincode': this.personalData.personalPincode,
-              'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
-              'prop_occupation': this.personalData.personalOccupation,
-              'prop_annual_income': this.personalData.personalIncome,
-              'prop_pan_no': this.personalData.personalPan,
-              'prop_aadhar_no': this.personalData.personalAadhar,
-              'gst_id_no': this.personalData.personalGst,
-              'exist_health_ins_covered_persons_details': '',
-              'have_eia_no': '1',
-              'eia_no': '',
-              'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
-              'critical_illness': 'NO   ',
-              'social_status': this.personalData.socialStatus ? 1 : 0,
-              'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
-              'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData. socialAnswer2,
-              'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? 0 : this.personalData. socialAnswer3 ,
-              'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? 0 : this.personalData. socialAnswer4,
-              'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
-              'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
-              'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
-              'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
-              'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
-              'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
-              'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
-              'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
-              'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
-              'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ?  this.nomineeDate[0].nominee[1].nrelationship : '',
-              'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
-              'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
-              'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
-              'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
-              'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-              'created_by': '0',
-              'insured_details': this.familyMembers
-          }];
-          this.proposalservice.getProposal(data).subscribe(
-              (successData) => {
-                  this.proposalSuccess(successData);
-              },
-              (error) => {
-                  this.proposalFailure(error);
-              }
-          );
+    proposal() {
+        const data = [{
+            'platform': 'web',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'proposal_id' : this.proposalId,
+            'enquiry_id': this.enquiryId,
+            'group_name':  this.groupName,
+            'company_name': this.buyProductdetails.company_name,
+            'product_id': this.buyProductdetails.product_id,
+            'policy_type_name': this.buyProductdetails.prod_shortform,
+            'policy_category': 'fresh',
+            'policy_started_on': this.personalData.personalDob,
+            'policy_end_on': this.personalData.personalDob,
+            'policy_period': '1',
+            'sum_insured_id': this.buyProductdetails.suminsured_id,
+            'scheme_id': this.buyProductdetails.scheme,
+            'title': this.personalData.personalTitle,
+            'proposer_fname': this.personalData.personalFirstname,
+            'proposer_lname': this.personalData.personalLastname,
+            'proposer_email': this.personalData.personalEmail,
+            'proposer_mobile': this.personalData.personalMobile,
+            'proposer_alternate_mobile': this.personalData.personalAltnumber,
+            'proposer_res_address1': this.personalData.residenceAddress,
+            'proposer_res_address2': this.personalData.residenceAddress2,
+            'proposer_res_area': this.personalData.residenceArea.toString(),
+            'proposer_res_city': this.personalData.residenceCity.toString(),
+            'proposer_res_state': this.personalData.residenceState,
+            'proposer_res_pincode': this.personalData.residencePincode,
+            'proposer_comm_address1': this.personalData.personalAddress,
+            'proposer_comm_address2': this.personalData.personalAddress2,
+            'proposer_comm_area': this.personalData.personalArea.toString(),
+            'proposer_comm_city': this.personalData.personalCity.toString(),
+            'proposer_comm_state': this.personalData.personalState,
+            'proposer_comm_pincode': this.personalData.personalPincode,
+            'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
+            'prop_occupation': this.personalData.personalOccupation,
+            'prop_annual_income': this.personalData.personalIncome,
+            'prop_pan_no': this.personalData.personalPan,
+            'prop_aadhar_no': this.personalData.personalAadhar,
+            'gst_id_no': this.personalData.personalGst,
+            'exist_health_ins_covered_persons_details': '',
+            'have_eia_no': '1',
+            'eia_no': '',
+            'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
+            'critical_illness': 'NO   ',
+            'social_status': this.personalData.socialStatus ? 1 : 0,
+            'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
+            'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData. socialAnswer2,
+            'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? 0 : this.personalData. socialAnswer3 ,
+            'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? 0 : this.personalData. socialAnswer4,
+            'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
+            'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
+            'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
+            'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
+            'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
+            'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
+            'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
+            'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
+            'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
+            'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ?  this.nomineeDate[0].nominee[1].nrelationship : '',
+            'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
+            'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
+            'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
+            'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'created_by': '0',
+            'insured_details': this.familyMembers
+        }];
+        this.proposalservice.getProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            }
+        );
 
-}
+    }
     public proposalSuccess( successData) {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
