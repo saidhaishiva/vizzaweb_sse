@@ -40,6 +40,81 @@
    </div>
   </section>
  </div>
+
+
+  <div class="container-fluid">
+   <section class="row h-product">
+    <div class="col-md-12" style="background: #18CCB4">
+     <div id="demo" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ul class="carousel-indicators mt-4">
+       <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
+      </ul>
+
+      <!-- The slideshow -->
+      <div class="carousel-inner text-color">
+       <div class="carousel-item " *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
+          <div class="row mt-5">
+             <div class="col-md-4 text-right">
+               <img src="https://www.shareicon.net/download/2017/01/06/868320_people_512x512.png" alt="Avatar" class="avatar">
+             </div>
+             <div class="col-md-8 text-center">
+              <div class="row" fxLayoutAlign="center center">
+               <p>{{list.comments}}</p>
+              </div>
+              <h4>{{list.customer_name}}</h4>
+             </div>
+          </div>
+       </div>
+
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+       <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+       <span class="carousel-control-next-icon"></span>
+      </a>
+
+     </div>
+
+
+
+
+
+     <div class="row" fxLayoutAlign="center center">
+      <div class="col-md-12 text-right mb-4">
+        <button mat-raised-button color="default" (click)="testiComments()" *ngIf="!commentBox">Write a Testimonial</button>
+        <mat-icon *ngIf="commentBox" (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-md-12">
+     <div class="row" *ngIf="commentBox">
+      <div class="col-md-10">
+       <mat-form-field class="w-100">
+        <textarea matInput placeholder="Comments" rows="3" [(ngModel)]="comments" ></textarea>
+       </mat-form-field>
+       </div>
+      <div class="col-md-2 mt-3">
+       <button mat-raised-button color="primary" [disabled]="!comments" (click)="submit()">Submit</button>
+      </div>
+     </div>
+
+
+</div>
+
+
+
+   </section>
+  </div>
+
+
+
+
+
   <section class="container-fluid">
   <div class="row h-plans">
 <div class="col-md-4">
@@ -65,3 +140,17 @@
   </section>
 
  </section>
+<style>
+ .text-color{
+  color: #ffffff;
+ }
+ .avatar {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+ }
+ .carousel-indicators {
+  bottom: -50px;
+ }
+</style>

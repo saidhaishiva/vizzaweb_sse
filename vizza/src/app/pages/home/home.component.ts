@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,17 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit {
     public settings: Settings;
+    commentBox: boolean;
+    testimonialLists: any;
+    comments: any;
 
-  constructor(public appSettings: AppSettings, public toast: ToastrService) {
+  constructor(public appSettings: AppSettings, public toastr: ToastrService, public common: CommonService) {
       this.settings = this.appSettings.settings;
       // this.settings.HomeSidenavUserBlock = false;
       // this.settings.sidenavIsOpened = false;
       // this.settings.sidenavIsPinned = false;
       console.log(this.settings, 'this.settings');
+      this.commentBox = false;
   }
 
   ngOnInit() {
@@ -46,7 +51,66 @@ export class HomeComponent implements OnInit {
       sessionStorage.proposalId = '';
       sessionStorage.mobileNumber = '';
       sessionStorage.ageRestriction = '';
-
+      this.testimonialList();
   }
+    testiComments() {
+      this.commentBox = true;
+    }
+    onNoClick() {
+        this.commentBox = false;
+    }
+
+
+
+    testimonialList() {
+        const data = {
+            'platform': 'web'
+        }
+        this.common.getTestimonialList(data).subscribe(
+            (successData) => {
+                this.testimonialListSuccess(successData);
+            },
+            (error) => {
+                this.testimonialListFailure(error);
+            }
+        );
+    }
+    public testimonialListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.testimonialLists = successData.ResponseObject;
+            console.log(this.testimonialLists);
+
+        }
+    }
+    public testimonialListFailure(error) {
+        console.log(error);
+    }
+
+    submit() {
+        const data = {
+            'platform': 'web',
+            'customer_name': 'Kamal',
+            'comments': this.comments
+        }
+        this.common.addTestimonial(data).subscribe(
+            (successData) => {
+                this.addtestimonialSuccess(successData);
+            },
+            (error) => {
+                this.addtestimonialFailure(error);
+            }
+        );
+    }
+    public addtestimonialSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.toastr.success(successData.ResponseObject);
+            this.commentBox = false;
+            this.comments = '';
+            this.testimonialList();
+        }
+    }
+    public addtestimonialFailure(error) {
+        console.log(error);
+    }
 
 }

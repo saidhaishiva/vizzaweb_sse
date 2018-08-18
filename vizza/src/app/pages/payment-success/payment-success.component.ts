@@ -90,6 +90,9 @@ export class PaymentSuccessComponent implements OnInit {
            sessionStorage.shorListTab = '';
            sessionStorage.enquiryId = '';
            sessionStorage.proposalID = '';
+           sessionStorage.proposalId = '';
+           sessionStorage.mobileNumber = '';
+           sessionStorage.ageRestriction = '';
        }
     }
     public purchaseStatusFailure(error) {

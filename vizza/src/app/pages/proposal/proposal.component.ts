@@ -100,6 +100,7 @@ export class ProposalComponent implements OnInit {
     public mobileNumber: any;
     public ageRestriction: string;
     public insurerDobError: string;
+    public previousInsuranceStatus: string;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -143,6 +144,7 @@ export class ProposalComponent implements OnInit {
           socialAnswer4: '',
           personalAddress: ['', Validators.required],
           previousinsurance: '',
+          previousinsuranceChecked: '',
           personalAddress2: ['', Validators.required],
           personalPincode: ['', Validators.required],
           personalCity: ['', Validators.required],
@@ -292,7 +294,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '0';
+            this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
@@ -369,6 +371,7 @@ export class ProposalComponent implements OnInit {
                 socialAnswer4: this.getStepper1.socialAnswer4,
                 personalAddress: this.getStepper1.personalAddress,
                 previousinsurance: this.getStepper1.previousinsurance,
+                previousinsuranceChecked: this.getStepper1.previousinsuranceChecked,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
@@ -385,6 +388,9 @@ export class ProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
+            if (this.getStepper1.previousinsuranceChecked) {
+                this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
+            }
             if (this.getStepper1.socialStatus == false) {
                 // if (JSON.parse(this.getStepper1.socialStatus)) {
                     this.personal.controls['socialAnswer1'].reset();
@@ -479,6 +485,9 @@ export class ProposalComponent implements OnInit {
           // this.mobileNumber = 'false';
       }
       sessionStorage.mobileNumber = this.mobileNumber;
+    }
+    previousInsurance() {
+      this.previousInsuranceStatus = this.personal.get('previousinsuranceChecked').value;
     }
     changeOccupation() {
         // if (this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9) {

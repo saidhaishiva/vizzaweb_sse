@@ -250,11 +250,35 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    // Get testimonial list
+    getTestimonialList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'testemonial/list_testemonials' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // add testimonial
+    addTestimonial(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'testemonial/add' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         const body = res;
         return body || {};
     }
-
     private handleError(error: Response | any) {
         console.log(error);
         let errMsg: string;
