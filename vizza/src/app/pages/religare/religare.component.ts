@@ -390,8 +390,6 @@ export class ReligareComponent implements OnInit {
 
     sameAddress(values: any, index) {
         if (values.checked) {
-            // this.insureArray.controls.items.controls[index].controls.personalFirstname.patchValue('hhhh');
-            this.insureArray.controls.items.controls[index].controls.personalFirstname.patchValue('hhhh');
             console.log(values.checked);
             this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
             this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
@@ -400,13 +398,22 @@ export class ReligareComponent implements OnInit {
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
         } else {
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
         }
 
     }
