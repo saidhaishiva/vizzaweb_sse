@@ -390,19 +390,9 @@ export class ReligareComponent implements OnInit {
 
     sameAddress(values: any, index) {
         if (values.checked) {
-          console.log(values.checked);
-        // console.log(this.insureArray.controls.items.value[index]['InsurerAddress'], 'pppppppppppppp');
-        // console.log(this.insureArray.controls.items, 'rrrrrrrr');
-            // (<FormControl>this.insureArray['personalFirstname']).setValue('llplllp');
-            // this.setAddress = this.insureArray.controls.items.value[index]['InsurerAddress'];
-          //  console.log(this.insureArray.controls.items.value[index], 'setaddress');
-          //  this.insureArray.controls.items['InsurerResidenceAddress'].updateValue('llllpop');
-         //   this.insureArray.controls['personalFirstname'].updateValue('llllpop');
-           // (<FormControl>this.form.controls['power']).updateValue(data);
-            //   this.insureArray.patchValue({items: 'selected.id'});
-
-
-
+            // this.insureArray.controls.items.controls[index].controls.personalFirstname.patchValue('hhhh');
+            this.insureArray.controls.items.controls[index].controls.personalFirstname.patchValue('hhhh');
+            console.log(values.checked);
             this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
             this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
