@@ -3,6 +3,8 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../shared/services/common.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {TestimonialComponent} from './testimonial/testimonial.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,7 @@ export class HomeComponent implements OnInit {
     testimonialLists: any;
     comments: any;
 
-  constructor(public appSettings: AppSettings, public toastr: ToastrService, public common: CommonService) {
+  constructor(public appSettings: AppSettings, public toastr: ToastrService, public common: CommonService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       // this.settings.HomeSidenavUserBlock = false;
       // this.settings.sidenavIsOpened = false;
@@ -54,7 +56,18 @@ export class HomeComponent implements OnInit {
       this.testimonialList();
   }
     testiComments() {
-      this.commentBox = true;
+      // this.commentBox = true;
+        let dialogRef = this.dialog.open(TestimonialComponent, {
+            width: '800px' });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.testimonialList();
+            }
+
+        });
+
     }
     onNoClick() {
         this.commentBox = false;
@@ -86,31 +99,5 @@ export class HomeComponent implements OnInit {
         console.log(error);
     }
 
-    submit() {
-        const data = {
-            'platform': 'web',
-            'customer_name': 'Kamal',
-            'comments': this.comments
-        }
-        this.common.addTestimonial(data).subscribe(
-            (successData) => {
-                this.addtestimonialSuccess(successData);
-            },
-            (error) => {
-                this.addtestimonialFailure(error);
-            }
-        );
-    }
-    public addtestimonialSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.toastr.success(successData.ResponseObject);
-            this.commentBox = false;
-            this.comments = '';
-            this.testimonialList();
-        }
-    }
-    public addtestimonialFailure(error) {
-        console.log(error);
-    }
 
 }
