@@ -390,19 +390,7 @@ export class ReligareComponent implements OnInit {
 
     sameAddress(values: any, index) {
         if (values.checked) {
-          console.log(values.checked);
-        // console.log(this.insureArray.controls.items.value[index]['InsurerAddress'], 'pppppppppppppp');
-        // console.log(this.insureArray.controls.items, 'rrrrrrrr');
-            // (<FormControl>this.insureArray['personalFirstname']).setValue('llplllp');
-            // this.setAddress = this.insureArray.controls.items.value[index]['InsurerAddress'];
-          //  console.log(this.insureArray.controls.items.value[index], 'setaddress');
-          //  this.insureArray.controls.items['InsurerResidenceAddress'].updateValue('llllpop');
-         //   this.insureArray.controls['personalFirstname'].updateValue('llllpop');
-           // (<FormControl>this.form.controls['power']).updateValue(data);
-            //   this.insureArray.patchValue({items: 'selected.id'});
-
-
-
+            console.log(values.checked);
             this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
             this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -410,13 +398,22 @@ export class ReligareComponent implements OnInit {
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
         } else {
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
         }
 
     }
