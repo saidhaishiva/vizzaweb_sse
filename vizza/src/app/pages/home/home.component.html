@@ -86,26 +86,13 @@
 
      <div class="row" fxLayoutAlign="center center">
       <div class="col-md-12 text-right mb-4">
-        <button mat-raised-button color="default" (click)="testiComments()" *ngIf="!commentBox">Write a Testimonial</button>
-        <mat-icon *ngIf="commentBox" (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+        <button mat-raised-button color="default" (click)="testiComments()" >Write a Testimonial</button>
+        <!--<mat-icon *ngIf="commentBox" (click)="onNoClick()" style="cursor: pointer">close</mat-icon>-->
       </div>
      </div>
     </div>
 
-    <div class="col-md-12">
-     <div class="row" *ngIf="commentBox">
-      <div class="col-md-10">
-       <mat-form-field class="w-100">
-        <textarea matInput placeholder="Comments" rows="3" [(ngModel)]="comments" ></textarea>
-       </mat-form-field>
-       </div>
-      <div class="col-md-2 mt-3">
-       <button mat-raised-button color="primary" [disabled]="!comments" (click)="submit()">Submit</button>
-      </div>
-     </div>
 
-
-</div>
 
 
 

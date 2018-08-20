@@ -1,0 +1,54 @@
+
+
+<div class="row mb-3" >
+  <div class="col-sm-12 text-right">
+    <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+  </div>
+</div>
+
+<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">
+        <form [formGroup]="form" (ngSubmit)="submit(form)">
+          <div class="row">
+            <div class="col-sm-12">
+              <mat-form-field class="w-100">
+                <mat-placeholder>
+                  <mat-icon>person</mat-icon>
+                  Name
+                </mat-placeholder>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-12">
+              <mat-form-field class="w-100">
+                <mat-placeholder>
+                  <mat-icon>call</mat-icon>
+                  Mobile
+                </mat-placeholder>
+                <input matInput formControlName="mobile" minlength="10" maxlength="10" >
+                <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
+                <!--</mat-error>-->
+                <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
+                  <!--enough, minimum of 10 characters-->
+                <!--</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div class="col-sm-12">
+              <mat-form-field class="w-100">
+                <mat-placeholder>
+                  <mat-icon>edit</mat-icon>
+                </mat-placeholder>
+                <textarea matInput placeholder="Comments" rows="3" formControlName="comments" required></textarea>
+                <mat-error *ngIf="form.controls.comments.errors?.required">Comments is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-12 mt-3 text-center">
+            <button mat-raised-button color="primary" >Submit</button>
+          </div>
+
+        </form>
+  </div>
+</div>

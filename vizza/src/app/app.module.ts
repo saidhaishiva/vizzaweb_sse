@@ -75,6 +75,7 @@ import { TruncatePipe} from '../limit.pipe';
 import { ReligareComponent } from './pages/religare/religare.component';
 import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 import { SplitLastPipe} from '../splitpipe';
+import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
 
 @NgModule({
   imports: [
@@ -138,7 +139,8 @@ import { SplitLastPipe} from '../splitpipe';
       TruncatePipe,
       ReligareComponent,
       ViewdetailsComponent,
-      SplitLastPipe
+      SplitLastPipe,
+      TestimonialComponent
   ],
   providers: [
       AppSettings,
@@ -154,7 +156,7 @@ import { SplitLastPipe} from '../splitpipe';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent
     ]
 })
 export class AppModule { }
