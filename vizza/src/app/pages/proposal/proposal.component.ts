@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
 import { MatStepper } from '@angular/material';

@@ -100,11 +100,21 @@
                         <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
                         <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Previous Medical insurance"  formControlName="previousinsurance">
-                        <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
-
-                      </mat-form-field></div>
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col">
+                            <mat-checkbox  (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>
+                          </div>
+                          <div class="col" *ngIf="previousInsuranceStatus">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus">
+                                <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
@@ -145,7 +155,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, i, 'personal')" formControlName="personalPincode" required>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -190,7 +200,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, i, 'residence')" formControlName="residencePincode" required>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -339,10 +349,21 @@
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
                     </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Previous Medical insurance"  formControlName="previousinsurance">
-
-                    </mat-form-field></div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col">
+                          <mat-checkbox  (change)="PreviousInsuredDetail($event ,i)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>
+                        </div>
+                        <div class="col" *ngIf="previousInsuranceStatus1[i]">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus1[i]">
+                              <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
 
@@ -378,7 +399,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, i, 'personal')" formControlName="personalPincode" required>
                       <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
 
 
@@ -421,7 +442,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode" required>
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, i, 'residence')" formControlName="residencePincode" required>
                       <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" >
