@@ -447,6 +447,18 @@ background: #ccc !important;
       font-size: 11px;
     }
   }
+  .question-panel{
+    mat-expansion-panel-header{
+      background: #ce801d !important;
+      mat-panel-title, .mat-expansion-indicator::after{
+        color: #fff !important;
+      }
+    }
+    .mat-expansion-panel-body{
+      border: 1px solid #ce801d !important;
+    }
+
+  }
   //.mat-horizontal-stepper-header{
   //  pointer-events: none !important;
   //}
@@ -720,4 +732,9 @@ background: #ccc !important;
     margin-right: 8px;
   }
 
+}
+.qesTable{
+  td{
+    padding:20px 10px;
+  }
 }

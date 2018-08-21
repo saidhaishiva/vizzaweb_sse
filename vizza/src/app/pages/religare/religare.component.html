@@ -6,7 +6,7 @@
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="mt-4 w-100 float-left">
               <form [formGroup]="personal" >
-              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Personal Details
@@ -223,30 +223,30 @@
                     </div>
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primary" [disabled]="stopNext || !personal.valid " (click)="personalDetails(personal.value)" >Next</button>
+                    <button mat-raised-button color="primary"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                   </div>
                 </div>
 
               </mat-expansion-panel>
           </form>
-              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="!personal.valid">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Questions
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-<div class="row" >
-  <div class="col-md-6" *ngFor="let question of religareQuestionsList; let i = index">
-    <mat-form-field class="w-100">
-      <!--<p>{{question.question_code}}</p>-->
-      <input matInput placeholder="{{i + 1}}) {{question.question_description}}" [(ngModel)]="question.answer" required>
-    </mat-form-field>
-  </div>
-</div>  <div class="proposal-buttom mt-3 text-right w-100">
-                <button mat-raised-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-raised-button color="primary" (click)="religareQuestion(stepper)">Next</button>
-              </div>
-              </mat-expansion-panel>
+              <!--<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="!personal.valid">-->
+                <!--<mat-expansion-panel-header>-->
+                  <!--<mat-panel-title>-->
+                    <!--Questions-->
+                  <!--</mat-panel-title>-->
+                <!--</mat-expansion-panel-header>-->
+<!--<div class="row" >-->
+  <!--<div class="col-md-6" *ngFor="let question of religareQuestionsList; let i = index">-->
+    <!--<mat-form-field class="w-100">-->
+      <!--&lt;!&ndash;<p>{{question.question_code}}</p>&ndash;&gt;-->
+      <!--<input matInput placeholder="{{i + 1}}) {{question.question_description}}" [(ngModel)]="question.answer" required>-->
+    <!--</mat-form-field>-->
+  <!--</div>-->
+<!--</div>  <div class="proposal-buttom mt-3 text-right w-100">-->
+                <!--<button mat-raised-button color="warn" (click)="prevStep()">Previous</button>-->
+                <!--<button mat-raised-button color="primary" (click)="religareQuestion(stepper)">Next</button>-->
+              <!--</div>-->
+              <!--</mat-expansion-panel>-->
             </mat-accordion>
 
         </mat-step>
@@ -473,6 +473,57 @@
             </form>
           </mat-accordion>
 
+        </mat-step>
+
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left ">
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{groupName}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+              <div class="row mt-3">
+                <div class="col-md-12 box-card pt-3 pb-3" >
+                  <h6 class="color-green mb-3" >MEDICAL HISTORY </h6>
+                  <mat-accordion class="question-panel">
+                    <mat-expansion-panel *ngFor="let item of questionerData">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          {{item.main_question}}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <table class="qesTable" >
+                        <tr *ngFor="let subQes of item.sub_questions_list; let i = index">
+                          <td width="50%" *ngIf="item.display_question == '1'">
+                            {{i + 1}}) {{subQes.question_details.question_description}}
+                          </td>
+                          <td *ngFor="let fGroup of subQes.question_details.family_group; let j = index"><mat-checkbox [(ngModel)]="fGroup.status" >{{fGroup.type}}
+                          </mat-checkbox>
+                            <section class="w-100" *ngIf="fGroup.status">
+                            <div class="w-100" *ngIf="subQes.question_details.checkbox == '1'"><mat-form-field  class="w-100">
+                              <input matInput [matDatepicker]="picker" placeholder="Existing Since">
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field></div>
+                            <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
+                              <textarea matInput placeholder="other Description"></textarea>
+                            </mat-form-field></div>
+                            </section>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </mat-expansion-panel>
+                  </mat-accordion>
+
+                </div>
+
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </mat-step>
 
         <mat-step [stepControl]="" *ngIf="buyProductdetails.product_id == 1">

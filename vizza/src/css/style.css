@@ -338,6 +338,12 @@ a:hover {
   line-height: 30px;
   padding: 0 6px;
   font-size: 11px; }
+.proposal .question-panel mat-expansion-panel-header {
+  background: #ce801d !important; }
+  .proposal .question-panel mat-expansion-panel-header mat-panel-title, .proposal .question-panel mat-expansion-panel-header .mat-expansion-indicator::after {
+    color: #fff !important; }
+.proposal .question-panel .mat-expansion-panel-body {
+  border: 1px solid #ce801d !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -548,5 +554,8 @@ a:hover {
     border-radius: 10px 0 0 0; }
   #view-details .example-tab-icon {
     margin-right: 8px; }
+
+.qesTable td {
+  padding: 20px 10px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -56,7 +56,7 @@ export class ReligareComponent implements OnInit {
     public declaration: boolean;
     public summaryData: any;
     public lastStepper: any;
-    public paymentGatewayData: any;
+    public questionerData: any;
     public webhost: any;
     public proposalId: any;
     public settings: Settings;
@@ -95,6 +95,8 @@ export class ReligareComponent implements OnInit {
     public previousinsurance: any;
     public previousInsuranceStatus: any;
     public previousInsuranceStatus1: any;
+    public familymember: any;
+    public statusIndex: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -167,10 +169,15 @@ export class ReligareComponent implements OnInit {
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
+        this.familymember = [];
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
+            const statusIndex = 'status' + i;
+            this.getFamilyDetails.family_members[i].statusIndex = '';
+            this.familymember.push(this.getFamilyDetails.family_members[i]);
         }
+
         console.log(this.previousInsuranceStatus1, 'dfsgsdfgsdfgsdgsdgsdfg');
 
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
@@ -212,6 +219,109 @@ export class ReligareComponent implements OnInit {
             'CIGNA TTK Health Insurance Co. Ltd.',
             'Aditya Birla Health Insurance Co. Ltd.'
         ];
+
+        this.questionerData = [{
+            'main_question': 'Does any person(s) to be insured has any Pre-existing diseases ?',
+            'display_question': '1',
+            'sub_questions_list': [{
+                'question_set_code': 'PEDcancerDetails',
+                'question_details': {
+                    'question_code': '114',
+                    'question_description': 'Cancer?',
+                    'checkbox': '1',
+                    'existing_question_code': 'cancerExistingSince',
+                    'description_textarea': '0',
+                    'other_description_code': ''
+                }
+            },
+                {
+                    'question_set_code': 'PEDcardiacDetails',
+                    'question_details': {
+                        'question_code': '143',
+                        'question_description': 'Any cardiovascular/Heart Disease (including but not limited to Coronary artery disease / Rheumatic heart disease / Heart Attack or Myocardial infarction / Heart failure / Bypass Grafting or CABG / Angioplasty or PTCA / Heart valve diseases / Pacemaker implantation) ?',
+                        'checkbox': '1',
+                        'existing_question_code': 'cardiacExistingSince',
+                        'description_textarea': '0',
+                        'other_description_code': ''
+                    }
+                },
+                {
+                    'question_set_code': 'PEDhyperTensionDetails',
+                    'question_details': {
+                        'question_code': '207',
+                        'question_description': 'Hypertension / High Blood Pressure ?',
+                        'checkbox': '1',
+                        'existing_question_code': 'hyperTensionExistingSince',
+                        'description_textarea': '0',
+                        'other_description_code': ''
+                    }
+                },
+                {
+                    'question_set_code': 'PEDotherDetails',
+                    'question_details': {
+                        'question_code': '210',
+                        'question_description': 'Any other diseases or ailments not mentioned above ?',
+                        'checkbox': '1',
+                        'existing_question_code': 'otherExistingSince',
+                        'description_textarea': '1',
+                        'other_description_code': 'otherDiseasesDescription'
+                    }
+                }
+            ]
+        },
+            {
+                'main_question': 'Have any of the person(s) to be insured ever filed a claim with their current / previous insurer ?',
+                'display_question': '0',
+                'sub_questions_list': [{
+                    'question_set_code': 'HEDHealthClaim',
+                    'question_details': {
+                        'question_code': 'H002',
+                        'question_description': '',
+                        'checkbox': '1',
+                        'existing_question_code': '',
+                        'description_textarea': '0',
+                        'other_description_code': ''
+                    }
+                }]
+            },
+            {
+                'main_question': 'Has any proposal for Health insurance been declined, cancelled or charged a higher premium ?',
+                'display_question': '0',
+                'sub_questions_list': [{
+                    'question_set_code': 'HEDHealthDeclined',
+                    'question_details': {
+                        'question_code': 'H003',
+                        'question_description': '',
+                        'checkbox': '1',
+                        'existing_question_code': '',
+                        'description_textarea': '0',
+                        'other_description_code': ''
+                    }
+                }]
+            },
+            {
+                'main_question': 'Is any of the person(s) to be insured, already covered under any other health insurance policy of Religare Health Insurance ?',
+                'display_question': '0',
+                'sub_questions_list': [{
+                    'question_set_code': 'HEDHealthCovered',
+                    'question_details': {
+                        'question_code': 'H004',
+                        'question_description': '',
+                        'checkbox': '1',
+                        'existing_question_code': '',
+                        'description_textarea': '0',
+                        'other_description_code': ''
+                    }
+                }]
+            }
+        ];
+
+        for (let i = 0; i < this.questionerData.length; i++) {
+            for (let j = 0; j < this.questionerData[i].sub_questions_list.length; j++) {
+                this.questionerData[i].sub_questions_list[j].question_details.family_group = this.familymember;
+            }
+        }
+        console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
         this.sessionData();
 
 
@@ -363,7 +473,7 @@ export class ReligareComponent implements OnInit {
         }
     }
     //Personal Details
-    personalDetails(value) {
+    personalDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
         this.personalData = value;
         this.personalData.rolecd = 'PROPOSER';
@@ -374,7 +484,7 @@ export class ReligareComponent implements OnInit {
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                this.step++;
+                stepper.next();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -557,11 +667,7 @@ export class ReligareComponent implements OnInit {
          this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
         }
         }
-        // if (this.getStepper2.previousinsuranceChecked) {
-        //     for (let i = 0; i < this.getStepper2.items.length; i++) {
-        //         this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
-        //     }
-        // }
+
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
@@ -571,6 +677,11 @@ export class ReligareComponent implements OnInit {
                 religareRelationship: this.getNomineeData.religareRelationship
             });
         }
+    }
+
+
+    questioner() {
+
     }
 
 
