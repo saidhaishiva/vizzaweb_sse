@@ -472,6 +472,16 @@ export class ReligareComponent implements OnInit {
             this.proposal();
         }
     }
+
+
+    medicalHistoryDetails(stepper: MatStepper, key) {
+
+        if (key == 'createProposal') {
+            this.proposal();
+        }
+        stepper.next();
+
+    }
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
         console.log(value, 'value');

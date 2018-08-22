@@ -557,5 +557,7 @@ a:hover {
 
 .qesTable td {
   padding: 20px 10px; }
+.qesTable .mat-checkbox-layout {
+  white-space: nowrap; }
 
 /*# sourceMappingURL=style.css.map */

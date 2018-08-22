@@ -463,8 +463,7 @@
                 </div>
                 <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id != 1" (click)="religareInsureDetails(stepper, insureArray.value, 'createProposal')">Next</button>
-                  <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id == 1" (click)="religareInsureDetails(stepper, insureArray.value, 'noCreateProposal')">Next</button>
+                  <button mat-raised-button color="primary"  (click)="religareInsureDetails(stepper, insureArray.value)">Next</button>
                 </div>
               </div>
 
@@ -489,7 +488,7 @@
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <h6 class="color-green mb-3" >MEDICAL HISTORY </h6>
                   <mat-accordion class="question-panel">
-                    <mat-expansion-panel *ngFor="let item of questionerData">
+                    <mat-expansion-panel *ngFor="let item of questionerData; let i = index">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
                           {{item.main_question}}
@@ -515,7 +514,11 @@
                           </td>
                         </tr>
                       </table>
-
+                      <div class="proposal-buttom mt-3 text-right w-100" *ngIf="questionerData.length -1 == i">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id != 1" (click)="medicalHistoryDetails(stepper, 'createProposal')">Next</button>
+                        <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id == 1" (click)="medicalHistoryDetails(stepper, 'noCreateProposal')">Next</button>
+                      </div>
                     </mat-expansion-panel>
                   </mat-accordion>
 
