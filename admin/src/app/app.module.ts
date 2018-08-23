@@ -86,6 +86,7 @@ import { BranchComponent } from './pages/branch/branch.component';
 import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component';
 import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
 import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
+import { UploadExcel} from './pages/question/listquestion/listquestion.component';
 
 @NgModule({
     imports: [
@@ -154,6 +155,7 @@ import { EditquestionComponent } from './pages/question/editquestion/editquestio
         AddbranchComponent,
         EditquestionComponent,
         EditbranchComponent,
+        UploadExcel
 
     ],
     providers: [
@@ -173,6 +175,6 @@ import { EditquestionComponent } from './pages/question/editquestion/editquestio
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel ]
 })
 export class AppModule { }

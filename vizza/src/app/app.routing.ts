@@ -22,6 +22,8 @@ import {PaymentSuccessComponent} from './pages/payment-success/payment-success.c
 import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
 import {DeactivateGuard} from './shared/deactivate-guard';
 import {ReligareComponent} from './pages/religare/religare.component';
+import {DeactivatetimeGuard} from './shared/deactivatetime-guard';
+import {ExamComponent} from './pages/exam/exam.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,10 +56,11 @@ export const routes: Routes = [
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
-            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
+            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Test' }, canDeactivate: [DeactivatetimeGuard]  },
 
         ]
     },
