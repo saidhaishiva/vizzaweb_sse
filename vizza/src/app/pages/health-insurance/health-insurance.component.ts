@@ -73,7 +73,10 @@ export class HealthInsuranceComponent implements OnInit {
     sbtn: boolean;
 
 
+
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
+
+
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
@@ -105,6 +108,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
     }
+
     ngOnInit() {
         this.firstPage = true;
         this.secondPage = false;
@@ -124,6 +128,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.secondPage = true;
         }
         this.count = 0;
+
     }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
@@ -132,6 +137,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         return true;
     }
+
     // this function will get the session data
     sessionData() {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {

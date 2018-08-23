@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Settings} from '../../../app.settings.model';
 import { AppSettings} from '../../../app.settings';
 import { ToastrService} from 'ngx-toastr';
@@ -6,6 +6,7 @@ import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import { AuthService} from '../../../shared/services/auth.service';
 import { CategoryService} from '../../../shared/services/category.service';
 import { EditquestionComponent} from '../editquestion/editquestion.component';
+import {CommonService} from '../../../shared/services/common.service';
 
 
 @Component({
@@ -25,9 +26,12 @@ export class ListquestionComponent implements OnInit {
     subjectid: any;
     getDetails: any;
     selectedSubject: any;
+    getUrl: any;
+    url: any;
+    uploadStatus: any;
 
 
-  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public dialog: MatDialog, public auth: AuthService, public categoryService: CategoryService) {
+  constructor( public appSettings: AppSettings,  private toastr: ToastrService, public dialog: MatDialog, public auth: AuthService, public categoryService: CategoryService, public common: CommonService) {
       this.settings = this.appSettings.settings;
      //this.selectedSubject = '';
   }
@@ -37,6 +41,56 @@ export class ListquestionComponent implements OnInit {
       //this.getSubjects('0');
         //this.getQuestions();
   }
+
+    readUrl(event: any) {
+        const file  = event.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event: any) => {
+            this.url = event.target.result;
+            this.getUrl = this.url.split(',');
+            this.onUploadFinished(this.getUrl);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+       // this.onUploadFinished(reader.result);
+
+    }
+    onUploadFinished(event) {
+        this.getUrl = event[1];
+        console.log(this.getUrl, 'excel sheet');
+        const data = {
+            'platform': 'web',
+            'subjectid': '1',
+            'filepath': this.getUrl,
+            'createdby': this.auth.getAdminId()
+        };
+        this.common.excelUpoad(data).subscribe(
+            (successData) => {
+                this.excelUpoadSuccess(successData);
+            },
+            (error) => {
+                this.excelUpoadFailure(error);
+            }
+        );
+    }
+    excelUpoadSuccess(successData) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            this.uploadStatus = 'upload success';
+            let dialogRef = this.dialog.open(UploadExcel, {
+                width: '600px',
+                data: this.uploadStatus
+            });
+            dialogRef.afterClosed().subscribe(result => {
+            });
+        }
+
+    }
+    excelUpoadFailure(error) {
+        console.log(error);
+    }
 
 
     public getSubjectList(values) {
@@ -182,4 +236,44 @@ export class ListquestionComponent implements OnInit {
     }
     public deleteQuestionFailure(error) {
     }
+}
+
+
+@Component({
+    selector: 'uploadexcel',
+    template: `
+        <div *ngIf="data == 'upload success'">
+            <h1 mat-dialog-title style="border-bottom: 0 !important" class="text-center">Upload Successful</h1>
+            <div >
+                <label>The Questions you have uploaded will be updated in 24hours</label>
+            </div>
+            <div mat-dialog-actions style="justify-content: center">
+                <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+                <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="2">Ok</button>
+            </div>
+        </div>
+        <div *ngIf="data == 'upload failed'">
+            <h1 mat-dialog-title style="border-bottom: 0 !important" class="text-center">Upload Progress</h1>
+            <div mat-dialog-content>
+                <label>You excel uploaded questions is in progress. You cannot edit the questions list until the question is updated from the excel data</label>
+            </div>
+            <div mat-dialog-actions style="justify-content: center">
+                <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+                <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="2">Ok</button>
+            </div>
+        </div>
+    `
+})
+export class UploadExcel {
+
+    constructor(
+        public dialogRef: MatDialogRef<UploadExcel>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+        console.log(this.data, 'datttttaa');
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
 }

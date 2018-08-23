@@ -16,6 +16,7 @@ import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
 import { DeactivateGuard} from './shared/deactivate-guard';
+import { DeactivatetimeGuard} from './shared/deactivatetime-guard';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -76,6 +77,7 @@ import { ReligareComponent } from './pages/religare/religare.component';
 import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 import { SplitLastPipe} from '../splitpipe';
 import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
+import { ExamComponent } from './pages/exam/exam.component';
 
 @NgModule({
   imports: [
@@ -140,7 +142,8 @@ import { TestimonialComponent } from './pages/home/testimonial/testimonial.compo
       ReligareComponent,
       ViewdetailsComponent,
       SplitLastPipe,
-      TestimonialComponent
+      TestimonialComponent,
+      ExamComponent
   ],
   providers: [
       AppSettings,
@@ -150,6 +153,7 @@ import { TestimonialComponent } from './pages/home/testimonial/testimonial.compo
       CommonService,
       ProposalService,
       DeactivateGuard,
+      DeactivatetimeGuard,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
