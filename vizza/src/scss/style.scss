@@ -740,4 +740,28 @@ background: #ccc !important;
   .mat-checkbox-layout {
     white-space: nowrap;
   }
+
+}
+.question-panel{
+  .mat-expansion-panel-header-description{
+    text-align: right;
+    display: block;
+  }
+  .mat-expansion-indicator{
+    display: none;
+  }
+  mat-panel-description {
+    .mat-checkbox-inner-container {
+      background: #fff;
+    }
+    .mat-checkbox-label{
+      color: #fff;
+    }
+  }
+  .mat-slide-toggle{
+    .mat-slide-toggle-content{
+      color:#fff;
+    }
+  }
+
 }

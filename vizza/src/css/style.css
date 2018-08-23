@@ -560,4 +560,16 @@ a:hover {
 .qesTable .mat-checkbox-layout {
   white-space: nowrap; }
 
+.question-panel .mat-expansion-panel-header-description {
+  text-align: right;
+  display: block; }
+.question-panel .mat-expansion-indicator {
+  display: none; }
+.question-panel mat-panel-description .mat-checkbox-inner-container {
+  background: #fff; }
+.question-panel mat-panel-description .mat-checkbox-label {
+  color: #fff; }
+.question-panel .mat-slide-toggle .mat-slide-toggle-content {
+  color: #fff; }
+
 /*# sourceMappingURL=style.css.map */
