@@ -14,7 +14,7 @@ export  class ExamdeactivatetimeGuard implements CanDeactivate<ExamComponent> {
         if (status) {
             return true;
         } else {
-            alert('You can not move the another page until complete your exam');
+            alert("You can't move the another page until complete your exam");
             return false;
         }
     }
