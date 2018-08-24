@@ -15,8 +15,11 @@ import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
+import { LearningcenterService} from './shared/services/learningcenter.service';
 import { DeactivateGuard} from './shared/deactivate-guard';
 import { DeactivatetimeGuard} from './shared/deactivatetime-guard';
+import { ExamactivateGuard} from './shared/activate-guard';
+import { ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -151,9 +154,12 @@ import { ExamComponent } from './pages/exam/exam.component';
       ConfigurationService,
       AuthService,
       CommonService,
+      LearningcenterService,
       ProposalService,
       DeactivateGuard,
       DeactivatetimeGuard,
+      ExamactivateGuard,
+      ExamdeactivatetimeGuard,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

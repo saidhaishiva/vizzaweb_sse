@@ -24,6 +24,8 @@ import {DeactivateGuard} from './shared/deactivate-guard';
 import {ReligareComponent} from './pages/religare/religare.component';
 import {DeactivatetimeGuard} from './shared/deactivatetime-guard';
 import {ExamComponent} from './pages/exam/exam.component';
+import {ExamactivateGuard} from './shared/activate-guard';
+import {ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -60,7 +62,8 @@ export const routes: Routes = [
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
-            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Test' }, canDeactivate: [DeactivatetimeGuard]  },
+            // { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canActivate:[ExamactivateGuard], canDeactivate: [DeactivatetimeGuard] },
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canActivate:[ExamactivateGuard], canDeactivate: [ExamdeactivatetimeGuard] },
 
         ]
     },
