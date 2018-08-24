@@ -496,10 +496,10 @@
                           {{item.main_question}}
                         </mat-panel-title>
                         <mat-panel-description>
-                          <mat-slide-toggle (change)="questionYes(i, $event)">Yes</mat-slide-toggle>
+                          <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
                         </mat-panel-description>
                       </mat-expansion-panel-header>
-                      <table class="qesTable able table-striped" >
+                      <table class="qesTable able table-striped">
                         <tr *ngFor="let subQes of item.sub_questions_list; let k = index">
                           <td width="50%" *ngIf="item.display_question == '1'">
                             {{i + 1}}) {{subQes.question_details.question_description}}
