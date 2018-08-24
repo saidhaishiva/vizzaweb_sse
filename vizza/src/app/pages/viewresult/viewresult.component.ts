@@ -20,7 +20,8 @@ export class ViewresultComponent implements OnInit {
     public explodeSlices = false;
     public doughnut = false;
     public settings: Settings;
-    constructor(public appSettings:AppSettings) {
+
+    constructor(public appSettings: AppSettings) {
         this.settings = this.appSettings.settings;
         Object.assign(this, {single});
     }
@@ -28,8 +29,11 @@ export class ViewresultComponent implements OnInit {
     public onSelect(event) {
         console.log(event);
     }
-  ngOnInit() {
 
-      // Load google charts
+    ngOnInit() {
 
+        // Load google charts
+
+    }
 }
+
