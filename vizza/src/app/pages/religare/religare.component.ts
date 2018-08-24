@@ -157,6 +157,8 @@ export class ReligareComponent implements OnInit {
         this.previousInsuranceStatus1 = [];
 
 
+
+
         this.totalData = {
             'platform': 'web',
             'proposal_id': '1',
@@ -676,6 +678,67 @@ export class ReligareComponent implements OnInit {
             'nominee_name': 'asdas',
             'nominee_relationship': 'asdasd'
         }
+        console.log(this.totalData);
+        this.processDiseaseData(this.totalData);
+
+    }
+
+    processDiseaseData(diseaseData) {
+        let updatedFinalData = [];
+
+        let cnt = 0;
+        for(let i =0; i< diseaseData.proposer_insurer_details.length;i++ ) {
+            if(diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
+                let updatedData = [];
+
+
+                for(let j =0; j< diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
+                    let newObject = {};
+                    newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
+                    newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
+                    newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                    newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
+
+                     if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
+                         newObject['response'] = true;
+
+                     } else if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
+                         newObject['response'] = false;
+
+                     }
+                    updatedData.push(newObject);
+
+                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
+                        newObject = {};
+                        newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
+                        updatedData.push(newObject);
+
+                    }
+                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
+                        newObject = {};
+
+                        newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
+                        updatedData.push(newObject);
+
+                    }
+
+                 }
+                console.log(updatedData);
+
+                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
+                cnt++;
+
+
+            }
+          //  console.log(this.totalData);
+
+        }
+
+
 
     }
 
