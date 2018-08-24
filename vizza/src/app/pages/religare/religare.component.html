@@ -175,10 +175,6 @@
 
                       </mat-form-field></div>
 
-
-
-
-
                     </div>
                   </div>
                   <div class="col-md-12 box-card pt-3">
@@ -499,12 +495,12 @@
                           <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
                         </mat-panel-description>
                       </mat-expansion-panel-header>
-                      <table class="qesTable able table-striped">
-                        <tr *ngFor="let subQes of item.sub_questions_list; let k = index">
+                      <table class="qesTable able table-striped mt-3">
+                        <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
                           <td width="50%" *ngIf="item.display_question == '1'">
-                            {{i + 1}}) {{subQes.question_details.question_description}}
+                            {{j + 1}}) {{subQes.question_details.question_description}}
                           </td>
-                          <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let j = index"><mat-checkbox [(ngModel)]="fGroup.status" >{{fGroup.type}}
+                          <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
                           </mat-checkbox>
                             <section class="w-100" *ngIf="fGroup.status">
                             <div class="w-100" *ngIf="subQes.question_details.checkbox == '1'"><mat-form-field>

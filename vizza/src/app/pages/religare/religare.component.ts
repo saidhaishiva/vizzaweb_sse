@@ -159,557 +159,41 @@ export class ReligareComponent implements OnInit {
 
 
 
-        this.totalData = {
-            'platform': 'web',
-            'proposal_id': '1',
-            'enquiry_id': '499',
-            'group_name': 'Group A',
-            'company_name': 'Religare',
-            'suminsured_amount': '300000.00',
-            'proposer_insurer_details': [{
-                'title': 'MR',
-                'proposer_fname': 'prabhakaram',
-                'proposer_lname': 'p',
-                'prop_email_list': [{
-                    'email': 'prabhakaran@gmail.com',
-                    'email_type': 'PERSONAL'
-                }],
-                'prop_contact_list': [{
-                    'contact_no': '9698198696',
-                    'contact_type': 'MOBILE',
-                    'std_code': '91'
-                }],
-                'prop_identity_list': [{
-                    'identity_number': 'ABCDE1234E',
-                    'identity_type': 'PAN'
-                }],
-                'proposer_res_address1': 'chennai',
-                'proposer_res_address2': 'chrompet',
-                'proposer_res_area': 'Chennai',
-                'proposer_res_city': 'Chennai',
-                'proposer_res_state': 'TAMIL NADU',
-                'proposer_res_pincode': '600012',
-                'proposer_comm_address1': 'chennai',
-                'proposer_comm_address2': 'chrompet',
-                'proposer_comm_area': 'Chennai',
-                'proposer_comm_city': 'Chennai',
-                'proposer_comm_state': 'TAMIL NADU',
-                'proposer_comm_pincode': '600013',
-                'prop_dob': '1992-01-05T18:30:00.000Z',
-                'prop_gender': 'Male',
-                'relationship_cd': 'SELF',
-                'role_cd': 'PROPOSER'
-            }, {
-                'title': 'MR',
-                'proposer_fname': 'kamal',
-                'proposer_lname': 'h',
-                'prop_email_list': [{
-                    'email': 'P@GMAIL.COM',
-                    'email_type': 'PERSONAL'
-                }],
-                'prop_contact_list': [{
-                    'contact_no': '9698457585',
-                    'contact_type': 'MOBILE',
-                    'std_code': '91'
-                }],
-                'prop_identity_list': [{
-                    'identity_number': 'ABCDE1234E',
-                    'identity_type': 'PAN'
-                }],
-                'proposer_res_address1': 'CHENNAI',
-                'proposer_res_address2': 'CHROMPET',
-                'proposer_res_area': 'Chennai',
-                'proposer_res_city': 'Chennai',
-                'proposer_res_state': 'TAMIL NADU',
-                'proposer_res_pincode': '600014',
-                'proposer_comm_address1': 'CHENNAI',
-                'proposer_comm_address2': 'CHROMPET',
-                'proposer_comm_area': 'Chennai',
-                'proposer_comm_city': 'Chennai',
-                'proposer_comm_state': 'TAMIL NADU',
-                'proposer_comm_pincode': '600104',
-                'prop_dob': '1968-02-07T18:30:00.000Z',
-                'prop_gender': 'Male',
-                'relationship_cd': 'Self',
-                'role_cd': 'PRIMARY',
-                'questions_list': [{
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '2018-08-12T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'PEDdiabetesDetails',
-                    'question_code': '205',
-                    'existing_question_code': 'diabetesExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDcancerDetails',
-                    'question_code': '114',
-                    'existing_question_code': 'cancerExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDhyperTensionDetails',
-                    'question_code': '207',
-                    'existing_question_code': 'hyperTensionExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDliverDetails',
-                    'question_code': '232',
-                    'existing_question_code': 'liverExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDcardiacDetails',
-                    'question_code': '143',
-                    'existing_question_code': 'cardiacExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDjointpainDetails',
-                    'question_code': '105',
-                    'existing_question_code': 'jointpainExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDkidneyDetails',
-                    'question_code': '129',
-                    'existing_question_code': 'kidneyExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDparalysisDetails',
-                    'question_code': '164',
-                    'existing_question_code': 'paralysisExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDcongenitalDetails',
-                    'question_code': '122',
-                    'existing_question_code': 'congenitalExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDHivaidsDetails',
-                    'question_code': '147',
-                    'existing_question_code': 'hivaidsExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDotherDetails',
-                    'question_code': '210',
-                    'existing_question_code': 'otherExistingSince',
-                    'otherdetails_desc_code': 'otherDiseasesDescription'
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDRespiratoryDetails',
-                    'question_code': '250',
-                    'existing_question_code': 'respiratoryExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDEndoDetails',
-                    'question_code': '222',
-                    'existing_question_code': 'EndocriExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDillnessDetails',
-                    'question_code': '502',
-                    'existing_question_code': 'illnessExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDSurgeryDetails',
-                    'question_code': '503',
-                    'existing_question_code': 'SurgeryExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '2018-08-19T18:30:00.000Z',
-                    'diseasesDescription': 'ASAsaSAsaS',
-                    'status': true,
-                    'question_set_code': 'PEDSmokeDetails',
-                    'question_code': '504',
-                    'existing_question_code': 'SmokeExistingSince',
-                    'otherdetails_desc_code': 'OtherSmokeDetails'
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '2018-08-06T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'HEDHealthHospitalized',
-                    'question_code': 'H001',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '2018-08-07T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'HEDHealthClaim',
-                    'question_code': 'H002',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'HEDHealthDeclined',
-                    'question_code': 'H003',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Self',
-                    'age': '32',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'HEDHealthCovered',
-                    'question_code': 'H004',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }]
-            }, {
-                'title': 'MR',
-                'proposer_fname': 'MANI',
-                'proposer_lname': 'M',
-                'prop_email_list': [{
-                    'email': 'P@GMAI.COM',
-                    'email_type': 'PERSONAL'
-                }],
-                'prop_contact_list': [{
-                    'contact_no': '9684582568',
-                    'contact_type': 'MOBILE',
-                    'std_code': '91'
-                }],
-                'prop_identity_list': [{
-                    'identity_number': 'ABCDE1234E',
-                    'identity_type': 'PAN'
-                }],
-                'proposer_res_address1': 'CHENNAI',
-                'proposer_res_address2': 'CHROMPET',
-                'proposer_res_area': 'Chennai',
-                'proposer_res_city': 'Chennai',
-                'proposer_res_state': 'TAMIL NADU',
-                'proposer_res_pincode': '600105',
-                'proposer_comm_address1': 'CHENNAI',
-                'proposer_comm_address2': 'CHROMPET',
-                'proposer_comm_area': 'Chennai',
-                'proposer_comm_city': 'Chennai',
-                'proposer_comm_state': 'TAMIL NADU',
-                'proposer_comm_pincode': '600103',
-                'prop_dob': '1996-01-02T18:30:00.000Z',
-                'prop_gender': 'Male',
-                'relationship_cd': 'Spouse',
-                'role_cd': 'PRIMARY',
-                'questions_list': [{
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDdiabetesDetails',
-                    'question_code': '205',
-                    'existing_question_code': 'diabetesExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDcancerDetails',
-                    'question_code': '114',
-                    'existing_question_code': 'cancerExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDhyperTensionDetails',
-                    'question_code': '207',
-                    'existing_question_code': 'hyperTensionExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDliverDetails',
-                    'question_code': '232',
-                    'existing_question_code': 'liverExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '2018-08-19T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'PEDcardiacDetails',
-                    'question_code': '143',
-                    'existing_question_code': 'cardiacExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDjointpainDetails',
-                    'question_code': '105',
-                    'existing_question_code': 'jointpainExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDkidneyDetails',
-                    'question_code': '129',
-                    'existing_question_code': 'kidneyExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDparalysisDetails',
-                    'question_code': '164',
-                    'existing_question_code': 'paralysisExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDcongenitalDetails',
-                    'question_code': '122',
-                    'existing_question_code': 'congenitalExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDHivaidsDetails',
-                    'question_code': '147',
-                    'existing_question_code': 'hivaidsExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDotherDetails',
-                    'question_code': '210',
-                    'existing_question_code': 'otherExistingSince',
-                    'otherdetails_desc_code': 'otherDiseasesDescription'
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDRespiratoryDetails',
-                    'question_code': '250',
-                    'existing_question_code': 'respiratoryExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDEndoDetails',
-                    'question_code': '222',
-                    'existing_question_code': 'EndocriExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDillnessDetails',
-                    'question_code': '502',
-                    'existing_question_code': 'illnessExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDSurgeryDetails',
-                    'question_code': '503',
-                    'existing_question_code': 'SurgeryExistingSince',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'PEDSmokeDetails',
-                    'question_code': '504',
-                    'existing_question_code': 'SmokeExistingSince',
-                    'otherdetails_desc_code': 'OtherSmokeDetails'
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'HEDHealthHospitalized',
-                    'question_code': 'H001',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '',
-                    'diseasesDescription': '',
-                    'status': false,
-                    'question_set_code': 'HEDHealthClaim',
-                    'question_code': 'H002',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '2018-08-27T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'HEDHealthDeclined',
-                    'question_code': 'H003',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }, {
-                    'type': 'Spouse',
-                    'age': '23',
-                    'existingSince': '2018-08-06T18:30:00.000Z',
-                    'diseasesDescription': '',
-                    'status': true,
-                    'question_set_code': 'HEDHealthCovered',
-                    'question_code': 'H004',
-                    'existing_question_code': '',
-                    'otherdetails_desc_code': ''
-                }]
-            }],
-            'product_id': '1',
-            'policy_term': '3',
-            'scheme_id': '2A',
-            'terms_condition': '1',
-            'user_id': '0',
-            'role_id': '4',
-            'pos_status': 0,
-            'nominee_name': 'asdas',
-            'nominee_relationship': 'asdasd'
-        }
+
         console.log(this.totalData);
-        this.processDiseaseData(this.totalData);
+
 
     }
 
     processDiseaseData(diseaseData) {
         let updatedFinalData = [];
-        for(let i =0; i< diseaseData.proposer_insurer_details.length;i++ ) {
-            if(diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
+        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
+            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
                 let updatedData = [];
 
 
-                for(let j =0; j< diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
+                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
                     let newObject = {};
-                    newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
-                    newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
-                    newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                    newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
+                    // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
+                    // newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
+                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
 
                      if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
                          newObject['response'] = true;
 
-                     } else if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
+                     } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
                          newObject['response'] = false;
 
                      }
                     updatedData.push(newObject);
 
-                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
+                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
                         newObject = {};
-                        newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
                         newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
                         updatedData.push(newObject);
 
@@ -717,8 +201,9 @@ export class ReligareComponent implements OnInit {
                     if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
                         newObject = {};
 
-                        newObject['question_set_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_code'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
                         newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
                         updatedData.push(newObject);
 
@@ -948,6 +433,14 @@ export class ReligareComponent implements OnInit {
         }
     }
 
+    subStatus(value: any, i, k, j) {
+        if (value.checked) {
+        } else {
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+        }
+
+    }
+
 
     medicalHistoryDetails(stepper: MatStepper, key) {
         sessionStorage.stepper3Details = '';
@@ -957,6 +450,7 @@ export class ReligareComponent implements OnInit {
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
@@ -965,6 +459,7 @@ export class ReligareComponent implements OnInit {
                     }
                 }
         }
+
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
         }
@@ -972,21 +467,52 @@ export class ReligareComponent implements OnInit {
                 if (i > 0) {
                     this.totalReligareData[i].questions_list = this.getFilterData[i -1];
                 }
-
         }
-
-
-        console.log(this.questions_list, 'this.questions_list');
-
-
-
-        console.log(this.getFilterData, 'res');
-
-
         if (key == 'createProposal') {
             this.proposal();
         }
-        stepper.next();
+        let statusChecked = [];
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+
+         if (this.religareQuestionsList[i].answer_status == true) {
+             for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+               for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                   if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                       if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
+
+                           statusChecked.push(0);
+                       } else {
+                           statusChecked.push(1);
+                       }
+                   }
+               }
+             }
+             if (statusChecked.length == 0){
+                 statusChecked.push(2);
+             }
+
+         } else {
+
+             if (i == this.religareQuestionsList.length - 1) {
+                 statusChecked.push(1);
+             }
+
+         }
+
+        }
+        console.log(statusChecked.includes(0));
+
+            if (statusChecked.includes(0)) {
+                this.toastr.error('Please select the date');
+            } else if (statusChecked.includes(2)) {
+                this.toastr.error('Please check atleast one checkbox!');
+            } else {
+                stepper.next();
+            }
+
+        console.log(statusChecked);
+        console.log(this.religareQuestionsList, 'this.religareQuestionsListthis.religareQuestionsListthis.religareQuestionsList');
+
 
     }
 
@@ -1206,7 +732,7 @@ export class ReligareComponent implements OnInit {
 
     //Create Proposal
     proposal() {
-        const data = {
+        this.totalData = {
             'platform': 'web',
             'proposal_id': '1',
             'enquiry_id': this.enquiryId,
@@ -1224,6 +750,9 @@ export class ReligareComponent implements OnInit {
             'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
         };
+        this.processDiseaseData(this.totalData);
+        console.log(this.totalData, 'this.totalDatathis.totalData');
+        const data = this.totalData;
         console.log(data, 'datadatadatadata')
         this.settings.loadingSpinner = true;
         this.proposalservice.getReligareProposal(data).subscribe(
