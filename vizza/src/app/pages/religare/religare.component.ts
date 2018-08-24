@@ -685,8 +685,6 @@ export class ReligareComponent implements OnInit {
 
     processDiseaseData(diseaseData) {
         let updatedFinalData = [];
-
-        let cnt = 0;
         for(let i =0; i< diseaseData.proposer_insurer_details.length;i++ ) {
             if(diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
                 let updatedData = [];
@@ -730,11 +728,10 @@ export class ReligareComponent implements OnInit {
                 console.log(updatedData);
 
                 this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-                cnt++;
 
 
             }
-          //  console.log(this.totalData);
+            console.log(this.totalData);
 
         }
 
