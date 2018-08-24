@@ -346,7 +346,7 @@ export class ReligareComponent implements OnInit {
                     'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
-                    'relationship_cd': this.proposerInsureData[i].type,
+                    'relationship_cd': this.proposerInsureData[i].personalrelationship,
                     'role_cd': this.proposerInsureData[i].rolecd,
 
 
