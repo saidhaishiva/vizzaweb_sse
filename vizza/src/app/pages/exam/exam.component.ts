@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ResultpageComponent} from './resultpage/resultpage.component';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-exam',
@@ -12,21 +15,24 @@ export class ExamComponent implements OnInit {
     gethours: any;
     getMinutes: any;
     questionLists: any;
+    getOptions: any;
     allQuestionLists: any;
     startTime: boolean;
     startOnlineExam: boolean;
     favoriteSeason: string;
+    selectedData: any;
     seasons = [
         'Winter',
         'Spring',
         'Summer',
         'Autumn',
     ];
-  constructor(public common: CommonService, public auth: AuthService, public learning: LearningcenterService) {
+  constructor(public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
       this.gethours = '';
       this.getMinutes = '';
       this.startTime = true;
       this.startOnlineExam = true;
+      this.selectedData = [];
 
 
 
@@ -107,8 +113,7 @@ export class ExamComponent implements OnInit {
     public getQuestions(): void {
         const data = {
             'platform': 'web',
-            'adminid': '1',
-            'subjectid': '3'
+            'pos_id': '1'
         };
         this.learning.getQuestionLists(data).subscribe(
             (successData) => {
@@ -125,12 +130,14 @@ export class ExamComponent implements OnInit {
             let options = [];
             this.questionLists = successData.ResponseObject;
             for (let i = 0; i < this.questionLists.length; i++) {
-                options.push({'option_a':this.questionLists[i].option_a}, {'option_b':this.questionLists[i].option_b}, {'option_c':this.questionLists[i].option_c}, {'option_d':this.questionLists[i].option_d}, {'option_e':this.questionLists[i].option_e});
+                options = [];
+                this.questionLists[i].checkedStatus = '';
+                if (this.questionLists[i].question != 'question') {
+                    options.push(this.questionLists[i].option_a,this.questionLists[i].option_b,this.questionLists[i].option_c,this.questionLists[i].option_d,this.questionLists[i].option_e);
+                    this.questionLists[i].optionlist = options;
+                }
             }
-
-            this.allQuestionLists = this.questionLists.concat(options);
-            console.log(this.allQuestionLists, 'this.allQuestionLists');
-
+            console.log(this.questionLists, 'this.allQuestionLists');
         }
     }
     public getQuestionListsError(error) {
@@ -142,7 +149,89 @@ export class ExamComponent implements OnInit {
       this.countdown('80');
 
     }
+    selectOption(value, pi) {
+
+    }
+
+    submit() {
+
+        this.selectedData = [];
+        for (let i = 0; i < this.questionLists.length; i++) {
+            if (this.questionLists[i].checkedStatus != '') {
+                this.selectedData.push({'questionid': this.questionLists[i].question_id, 'answer' : this.questionLists[i].checkedStatus});
+            } else {
+                this.selectedData.push({'questionid': this.questionLists[i].question_id, 'answer' : this.questionLists[i].checkedStatus});
+            }
+        }
+        let total = this.selectedData.filter(data => data.answer == '');
+        console.log(total.length, 'lp');
+
+        let dialogRef = this.dialog.open(ConfrimAlert, {
+            width: '500px', data: total.length});
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                console.log(this.selectedData, 'pop');
+                const data = {
+                    'platform': 'web',
+                    'pos_id': '1',
+                    'question_details': this.selectedData
+                };
+                this.learning.submitExam(data).subscribe(
+                    (successData) => {
+                        this.submitExamSuccess(successData);
+                    },
+                    (error) => {
+                        this.submitExamError(error);
+                    }
+                );
+            }
+        });
+
+
+    }
+    public submitExamSuccess(successData) {
+        console.log(successData, 'successData');
+        if (successData.IsSuccess) {
+            this.router.navigate(['/viewresult']);
+        }
+
+    }
+    public submitExamError(error) {
+        console.log(error, 'error');
+
+    }
 
 
 
 }
+@Component({
+    selector: 'confrimalert',
+    template: `
+        <div mat-dialog-content class="text-center">
+            <label>Total Number of unanswered questions = <span style="color: red">{{total}}</span></label><br>
+            <label>Are you sure want to submit the Test now?</label>
+
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
+        </div>
+    `
+
+})
+export class ConfrimAlert {
+    total: any;
+    constructor(
+        public dialogRef: MatDialogRef<ConfrimAlert>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.total = data;
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+

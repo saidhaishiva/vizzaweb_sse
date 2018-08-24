@@ -81,6 +81,10 @@ import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewd
 import { SplitLastPipe} from '../splitpipe';
 import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
 import { ExamComponent } from './pages/exam/exam.component';
+import { ResultpageComponent } from './pages/exam/resultpage/resultpage.component';
+import { ConfrimAlert} from './pages/exam/exam.component';
+import { ViewresultComponent } from './pages/viewresult/viewresult.component';
+import { NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [
@@ -92,6 +96,7 @@ import { ExamComponent } from './pages/exam/exam.component';
       HttpClientModule,
       HttpModule,
       NgxDatatableModule,
+      NgxChartsModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -146,7 +151,10 @@ import { ExamComponent } from './pages/exam/exam.component';
       ViewdetailsComponent,
       SplitLastPipe,
       TestimonialComponent,
-      ExamComponent
+      ExamComponent,
+      ResultpageComponent,
+      ConfrimAlert,
+      ViewresultComponent
   ],
   providers: [
       AppSettings,
@@ -166,7 +174,7 @@ import { ExamComponent } from './pages/exam/exam.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert
     ]
 })
 export class AppModule { }

@@ -1,0 +1,22 @@
+<div fxLayout="column">
+
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-subtitle><h2>Result</h2></mat-card-subtitle>
+      </mat-card-header>
+      <p>Total number of questions : <span style="color: #2d64d2">30</span></p>
+      <p>Number of answered questions : <span style="color: #007c3d">10</span>	</p>
+      <p>Number of unanswered questions : <span style="color: red">20</span></p>
+
+      <div class="w-100 h-300p">
+        <ngx-charts-pie-grid
+                [scheme]="colorScheme"
+                [results]="single"
+                (select)="onSelect($event)">
+        </ngx-charts-pie-grid>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

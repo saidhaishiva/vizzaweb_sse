@@ -12,11 +12,21 @@ export class LearningcenterService {
     // get the question lists
     getQuestionLists(data) {
         const json = JSON.stringify(data);
-        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.IjF8dnphZG1pbiI.4jm1tpeF7XfsCn8BokjzkaRMB60lFf0uRanhKsWFy_c';
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'posquestion/questionlist';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // submit the exam
+    submitExam(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'posquestion/answerrequest';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
