@@ -51,9 +51,9 @@
                                 <mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength="10" maxlength="13"  formControlName="phone1" required >
+                                <input matInput placeholder="Mobile " (keypress)="keyPress($event)" minlength="10" maxlength="13"  formControlName="phone1" required >
                                 <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">Enter Valid Mobile Number</mat-error>
-                                <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">Mobile is required</mat-error>
+                                <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">Mobile Number is required</mat-error>
 
 
                             </mat-form-field>
