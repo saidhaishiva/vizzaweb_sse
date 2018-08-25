@@ -150,12 +150,12 @@ export class ProposalComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalEmail: ['', Validators.required],
+            personalEmail: ['', Validators.required,Validators.pattern("([0-9]){6}"),],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: '',
             residenceAddress2: '',
-            residencePincode: '',
+            residencePincode:['', Validators.required],
             residenceCity: '',
             residenceState: '',
             illnessCheck: '',
@@ -1308,5 +1308,17 @@ export class ProposalComponent implements OnInit {
         console.log(error);
     }
 
+add(event){
+   // residencePincode = this.personal.controls.residencePincode.value;
+  //  console.log(residencePincode,'fgh');
+    if (event.charCode !== 0) {
+        const pattern = /[0-9\\ ]/;
+        const inputChar = String.fromCharCode(event.charCode);
 
+        if (!pattern.test(inputChar)) {
+            // invalid character, prevent input
+            event.preventDefault();
+        }
+    }
+}
 }
