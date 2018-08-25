@@ -23,7 +23,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required maxlength="10">
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                                 <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
@@ -47,7 +47,7 @@
                     <mat-tab label="Contacts" formGroupName="contacts">
                         <div >
                             <mat-form-field class="w-100">
-                            <input matInput placeholder="Emailid" required formControlName="email">
+                            <input matInput placeholder="Email Id" required formControlName="email">
                                 <mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">

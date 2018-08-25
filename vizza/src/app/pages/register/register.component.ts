@@ -60,6 +60,7 @@ export class RegisterComponent implements OnInit {
     dobError: any;
     today: any;
     mismatchError: any;
+    DateValidator : any;
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
@@ -78,7 +79,8 @@ export class RegisterComponent implements OnInit {
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             lastname: ['', Validators.compose([Validators.required])],
-            birthday: ['', Validators.compose([Validators.required])],
+            birthday: ['', Validators.compose([Validators.required, Validators.pattern('^(0?[1-9]|1[0-2])\/(0?[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$')])],
+
             gender: ['', Validators.compose([Validators.required])],
             referralcode: '',
 
