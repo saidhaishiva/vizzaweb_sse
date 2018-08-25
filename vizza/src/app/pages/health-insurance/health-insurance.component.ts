@@ -409,7 +409,8 @@ export class HealthInsuranceComponent implements OnInit {
                         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
                         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                         'sum_insured': this.selectedAmount,
-                        'family_details': this.finalData
+                        'family_details': this.finalData,
+                        'insurance_type': '1'
                     };
                     this.settings.loadingSpinner = true;
                     this.common.getPolicyQuotation(data).subscribe(
