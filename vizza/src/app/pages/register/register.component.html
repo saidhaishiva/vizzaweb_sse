@@ -14,12 +14,16 @@
                                 <mat-placeholder><mat-icon>person</mat-icon> First name</mat-placeholder>
                                 <input matInput formControlName="firstname" minlength="3" required>
                                 <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
-                                <mat-error *ngIf="form.controls.firstname.hasError('minlength')">Fis name isn't long enough, minimum of 5 characters</mat-error>
+                                <mat-error *ngIf="form.controls.firstname.hasError('minlength')">First name isn't long enough, minimum of 5 characters</mat-error>
+
+                                <mat-error *ngIf="form.controls.firstname.hasError('pattern')">First name should not contain numbers</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> Last name</mat-placeholder>
                                 <input matInput formControlName="lastname" maxlength="50" required>
                                 <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
+                                <mat-error *ngIf="form.controls.firstname.hasError('pattern')">Last name should not contain numbers</mat-error>
+
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
