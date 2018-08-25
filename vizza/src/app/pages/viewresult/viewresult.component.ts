@@ -31,9 +31,7 @@ export class ViewresultComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        // Load google charts
-
+      console.log("hi");
     }
 }
 
