@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
             }),
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
-                pannumber: ['', Validators.compose([Validators.required])],
+                pannumber: ['',  Validators.compose([Validators.required, Validators.pattern("^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$")])],
 
             }),
             education: this.fb.group({
