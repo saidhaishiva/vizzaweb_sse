@@ -61,6 +61,7 @@ export class RegisterComponent implements OnInit {
     today: any;
     mismatchError: any;
     DateValidator : any;
+    roleId : any;
 
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
@@ -77,9 +78,9 @@ export class RegisterComponent implements OnInit {
         this.mismatchError = '';
         this.form = this.fb.group({
             id: null,
-            firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-            lastname: ['', Validators.compose([Validators.required])],
-            birthday: ['', Validators.compose([Validators.required, Validators.pattern('^(0?[1-9]|1[0-2])\/(0?[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$')])],
+            firstname: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z]*$")])],
+            lastname: ['', Validators.compose([Validators.required, Validators.pattern( /^[a-zA-Z]+$/)])],
+            birthday: ['', Validators.compose([Validators.required])],
 
             gender: ['', Validators.compose([Validators.required])],
             referralcode: '',
@@ -106,10 +107,15 @@ export class RegisterComponent implements OnInit {
         this.aadharback = '';
         this.pancard = '';
         this.education = '';
+        this.roleId = this.auth.getPosRoleId() ;
+                       console.log(this.roleId,'as') ;
+        if(this.roleId>0){
+            this.router.navigate(['/pos-profile']);
+        }
     }
 
     ngOnInit() {
-
+          this.settings.loadingSpinner = false;
     }
     readUrl(event: any, type) {
         this.type = type;

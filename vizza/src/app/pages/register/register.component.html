@@ -31,6 +31,8 @@
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                                 <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
+                                <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
+
                             </mat-form-field>
                             <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                             <mat-radio-group formControlName="gender" (change)="checkGender()" required>
