@@ -12,7 +12,7 @@
                         <div >
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> First name</mat-placeholder>
-                                <input matInput formControlName="firstname" minlength="3" required>
+                                <input matInput formControlName="firstname" minlength="3" (keypress)="data($event)" required>
                                 <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
                                 <mat-error *ngIf="form.controls.firstname.hasError('minlength')">First name isn't long enough, minimum of 5 characters</mat-error>
 
@@ -20,14 +20,14 @@
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> Last name</mat-placeholder>
-                                <input matInput formControlName="lastname" maxlength="50" required>
+                                <input matInput formControlName="lastname" maxlength="50" (keypress)="data($event)" required>
                                 <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
                                 <mat-error *ngIf="form.controls.firstname.hasError('pattern')">Last name should not contain numbers</mat-error>
 
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required maxlength="10">
+                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required maxlength="10">
                                 <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                                 <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
