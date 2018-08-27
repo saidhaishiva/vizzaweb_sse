@@ -827,7 +827,7 @@ console.log(value,'fgh');
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -836,7 +836,7 @@ console.log(value,'fgh');
     }
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-z\\ ]/;
+            const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -1338,17 +1338,17 @@ console.log(value,'fgh');
         console.log(error);
     }
 
-add(event){
-   // residencePincode = this.personal.controls.residencePincode.value;
-  //  console.log(residencePincode,'fgh');
-    if (event.charCode !== 0) {
-        const pattern = /[0-9\\ ]/;
-        const inputChar = String.fromCharCode(event.charCode);
-
-        if (!pattern.test(inputChar)) {
-            // invalid character, prevent input
-            event.preventDefault();
-        }
-    }
-}
+// add(event){
+//    // residencePincode = this.personal.controls.residencePincode.value;
+//   //  console.log(residencePincode,'fgh');
+//     if (event.charCode !== 0) {
+//         const pattern = /[0-9/\\ ]/;
+//         const inputChar = String.fromCharCode(event.charCode);
+//
+//         if (!pattern.test(inputChar)) {
+//             // invalid character, prevent input
+//             event.preventDefault();
+//         }
+//     }
+// }
 }

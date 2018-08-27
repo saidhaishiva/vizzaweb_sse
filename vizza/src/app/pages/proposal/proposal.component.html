@@ -29,19 +29,19 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)"required >
+                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)"required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required >
+                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" required >
                           <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEventSelect($event)" required>
+                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEventSelect($event)" (keypress)="keyPress($event)"required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -141,7 +141,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -298,11 +298,11 @@
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Name" [(ngModel)]="item.ins_name" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required>
+                        <input matInput placeholder="Name" [(ngModel)]="item.ins_name" pattern="^[a-z0-9_-]{8,15}$" (keypress)="keyPress($event)" required>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurerSelect($event, i)"   required>
+                      <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurerSelect($event, i)" (keypress)="add($event)"   required>
                       <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                       <mat-datepicker #insureddob></mat-datepicker>
                     </mat-form-field>
