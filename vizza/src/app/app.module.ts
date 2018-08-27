@@ -85,6 +85,8 @@ import { ResultpageComponent } from './pages/exam/resultpage/resultpage.componen
 import { ConfrimAlert} from './pages/exam/exam.component';
 import { ViewresultComponent } from './pages/viewresult/viewresult.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
+import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
+import { TravelComponent } from './pages/travel/travel.component';
 
 @NgModule({
   imports: [
@@ -155,6 +157,9 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
       ResultpageComponent,
       ConfrimAlert,
       ViewresultComponent
+      TestimonialComponent,
+      PersonalaccidentComponent,
+      TravelComponent
   ],
   providers: [
       AppSettings,

@@ -142,6 +142,18 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+
+    personalAccident(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/lists';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getDownloadPdf(data) {
         const json = JSON.stringify(data);
         console.log(json);
