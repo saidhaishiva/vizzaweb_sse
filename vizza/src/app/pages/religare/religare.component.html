@@ -9,7 +9,7 @@
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    Personal Details
+                   Group A
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
@@ -255,7 +255,7 @@
             <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                 Group A
+                {{this.insureArray['controls'].items['controls'][i]['controls'].type.value}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS </ng-template>
@@ -446,7 +446,7 @@
                         <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                           {{citys.city}}
                         </mat-option>
-                      </mat-select>
+                      </mat-select>{{personalCity}}ergdrg
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">

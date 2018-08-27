@@ -372,24 +372,16 @@
                     <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
                       <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sports" required>
                     </mat-form-field></div>
-
-
-                    <!--<div class="col-md-6"><mat-form-field class="w-100">-->
-                    <!--<input matInput placeholder="Previous Insure" [(ngModel)]="item.previousinsurer" required>-->
-                    <!--</mat-form-field></div>-->
                   </div>
                   <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary"  type="submit" (click)="InsureDetails(stepper, i, 'Insured Details')">Next</button>
                   </div>
                 </div>
-
               </div>
             </mat-expansion-panel>
           </mat-accordion>
-
         </mat-step>
-
         <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
