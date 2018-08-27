@@ -410,7 +410,9 @@ export class HealthInsuranceComponent implements OnInit {
                         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                         'sum_insured': this.selectedAmount,
                         'family_details': this.finalData,
-                        'insurance_type': '1'
+                        'insurance_type': '1',
+                        'annual_salary': '',
+                        'occupation_code': '',
                     };
                     this.settings.loadingSpinner = true;
                     this.common.getPolicyQuotation(data).subscribe(
@@ -745,6 +747,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
+            'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
@@ -881,6 +884,9 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
+            'insurance_type': '1',
+            'annual_salary': '',
+            'occupation_code': '',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
