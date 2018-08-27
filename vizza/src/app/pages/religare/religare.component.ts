@@ -1058,7 +1058,7 @@ export class ReligareComponent implements OnInit {
     }
     add(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -1076,4 +1076,5 @@ export class ReligareComponent implements OnInit {
             }
         }
     }
+
 }
