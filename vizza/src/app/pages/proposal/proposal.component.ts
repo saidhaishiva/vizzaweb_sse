@@ -342,7 +342,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
-            this.familyMembers[i].ins_personal_accident_applicable = '0';
+            this.familyMembers[i].ins_personal_accident_applicable = '1';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
         }
 

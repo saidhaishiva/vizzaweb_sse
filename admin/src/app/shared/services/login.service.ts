@@ -93,7 +93,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'doctor/forgotPassword';
+        const url = this.configurationService.getHost() + 'admin/forgotPassword';
         return this.http.post(url , json, httpOptions)
 
             .map(this.extractData )
@@ -110,7 +110,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'doctor/setNewPassword';
+        const url = this.configurationService.getHost() + 'admin/setNewPassword';
         return this.http.post(url , json, httpOptions)
 
             .map(this.extractData )
@@ -124,7 +124,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'doctor/selfRegister';
+        const url = this.configurationService.getHost() + 'admin/selfRegister';
         return this.http.post(url , json, httpOptions)
             // .map(this.extractData)
             .catch(this.handleError);
@@ -136,7 +136,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'doctor/executiveCallback';
+        const url = this.configurationService.getHost() + 'admin/executiveCallback';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -148,7 +148,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'doctor/confirmRegister' ;
+        const url = this.configurationService.getHost() + 'admin/confirmRegister' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
