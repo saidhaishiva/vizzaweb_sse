@@ -154,7 +154,7 @@ export class ProposalComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: '',
@@ -342,7 +342,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
-            this.familyMembers[i].ins_personal_accident_applicable = '0';
+            this.familyMembers[i].ins_personal_accident_applicable = '1';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
         }
 
@@ -372,6 +372,7 @@ export class ProposalComponent implements OnInit {
                 this.nomineeRemove = true;
                 this.nomineeDate[0].nominee[0].removeBtn = true;
                 this.nomineeDate[0].nominee[0].addBtn = false;
+
             }
         }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);

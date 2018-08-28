@@ -19,9 +19,9 @@
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle">
-                            <mat-option value="MR">MR</mat-option>
-                            <mat-option value="MS">MS</mat-option>
-                            <mat-option value="MRS">MRS</mat-option>
+                            <mat-option value="MR">Mr</mat-option>
+                            <mat-option value="MS">Ms</mat-option>
+                            <mat-option value="MRS">Mrs</mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
@@ -54,16 +54,16 @@
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                       </mat-form-field>
                       </div>
-                        <div class="col-md-6">
-                            <mat-form-field class="w-100">
-                                <mat-select placeholder="Occupation Code" formControlName="personalOccupationCode" required>
-                                    <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">
-                                        {{occupation.occupation_description}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="insureArray.invalid">Occupation Code is required</mat-error>
-                            </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-6">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<mat-select placeholder="Occupation Code" formControlName="personalOccupationCode" required>-->
+                                    <!--<mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">-->
+                                        <!--{{occupation.occupation_description}}-->
+                                    <!--</mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="insureArray.invalid">Occupation Code is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Occupation" formControlName="personalOccupation" required>
@@ -96,7 +96,6 @@
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" required>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
-                        <mat-error *ngIf="personal.controls.personalPan.hasError('maxlength')">PAN Number isn't long enough, maximum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
@@ -120,7 +119,7 @@
                         </div>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
+                        <input matInput placeholder="Email ID"   formControlName="personalEmail" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -270,9 +269,9 @@
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Title" formControlName="personalTitle">
-                          <mat-option value="MR">MR</mat-option>
-                          <mat-option value="MS">MS</mat-option>
-                          <mat-option value="MRS">MRS</mat-option>
+                          <mat-option value="MR">Mr</mat-option>
+                          <mat-option value="MS">Ms</mat-option>
+                          <mat-option value="MRS">Mrs</mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                       </mat-form-field>

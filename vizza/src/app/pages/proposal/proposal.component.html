@@ -70,7 +70,6 @@
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan">
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
-                        <mat-error *ngIf="personal.controls.personalPan.hasError('maxlength')">PAN Number isn't long enough, maximum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number</mat-error>
 
                       </mat-form-field></div>

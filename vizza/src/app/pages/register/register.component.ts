@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
     mismatchError: any;
     DateValidator : any;
     roleId : any;
-
+    img :any;
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
                 public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
@@ -76,6 +76,7 @@ export class RegisterComponent implements OnInit {
         this.dob = '';
         this.dobError = '';
         this.mismatchError = '';
+        this.img=false;
         this.form = this.fb.group({
             id: null,
             firstname: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z]*$")])],
@@ -86,7 +87,8 @@ export class RegisterComponent implements OnInit {
             referralcode: '',
 
             contacts: this.fb.group({
-                email: ['', Validators.compose([Validators.required])],
+                email: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
@@ -275,11 +277,27 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    ageCalculate(dob) {
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
+        let todays = new Date();
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let year_age = Math.floor(differenceInMilisecond / 31536000000);
+         let res = year_age;
+console.log(res);
+    if(res>=18) {
+        this.img=false;
+    } else {
+        this.img = true;
 
+    }
+}
 
     addEvent(event) {
         if (event.value != null) {
-            console.log(event.value._i,  'kjfhasdjfh');
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -291,8 +309,22 @@ export class RegisterComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 this.dob = event.value._i;
+
+                let birth = this.form.controls['birthday'].value;
+                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
+                if(birth._i.length == '10') {
+
+                    this.ageCalculate(dob);
+                } else {
+                    this.img=false;
+
+                }
+
             } else if (typeof event.value._i == 'object') {
-                console.log(event.value._i.date, 'objectttttt');
+
+                this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+
                 this.dobError = '';
                 let date = event.value._i.date;
                 if (date.toString().length == 1) {
