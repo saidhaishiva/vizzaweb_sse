@@ -28,6 +28,8 @@ import {ExamactivateGuard} from './shared/activate-guard';
 import {ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
+import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
+import {TravelComponent} from './pages/travel/travel.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -66,7 +68,9 @@ export const routes: Routes = [
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate:[ExamactivateGuard]},
-            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canActivate:[ExamactivateGuard], canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'personalaccident',component: PersonalaccidentComponent, data: {breadcrumb:'Personal Accident'} },
+            { path: 'travel',component: TravelComponent, data: {breadcrumb: 'Travel' } },
 
         ]
     },
