@@ -48,14 +48,19 @@
                             <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
                         </div>
 
-                    </mat-tab>
+                    </mat-tab>form
 
                     <mat-tab label="Contacts" formGroupName="contacts">
                         <div >
                             <mat-form-field class="w-100">
-                            <input matInput placeholder="Email Id" required formControlName="email">
-                                <mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>
-                                <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>
+                            <!--<input matInput placeholder="Email Id" required formControlName="email" required>-->
+                                <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>-->
+                                <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>-->
+
+                                <input matInput type="email" placeholder="Email ID"   formControlName="email" required>
+                                <mat-error *ngIf="form.controls.contacts.controls.email.errors?.required">Email ID is required</mat-error>
+                                <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+
 
                             </mat-form-field>
                             <mat-form-field class="w-100">
