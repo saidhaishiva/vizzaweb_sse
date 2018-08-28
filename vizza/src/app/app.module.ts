@@ -156,7 +156,7 @@ import { TravelComponent } from './pages/travel/travel.component';
       ExamComponent,
       ResultpageComponent,
       ConfrimAlert,
-      ViewresultComponent
+      ViewresultComponent,
       TestimonialComponent,
       PersonalaccidentComponent,
       TravelComponent
