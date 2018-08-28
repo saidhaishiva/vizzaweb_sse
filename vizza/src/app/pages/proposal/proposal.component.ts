@@ -140,7 +140,7 @@ export class ProposalComponent implements OnInit {
             personalArea: ['', Validators.required],
             residenceArea: '',
             personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+            personalPan: ['', Validators.compose([ Validators.minLength(10),Validators.pattern("^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$")])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
             socialStatus: '',
             socialAnswer1: '',
