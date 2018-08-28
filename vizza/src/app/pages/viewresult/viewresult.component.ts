@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { single, multi} from '../charts/charts.data';
 import { AppSettings} from '../../app.settings';
 import { Settings} from '../../app.settings.model';
 
@@ -13,17 +12,43 @@ export class ViewresultComponent implements OnInit {
     public multi: any[];
     public showLegend = true;
     public gradient = true;
+    examStatus: any;
+    examStatus1: any;
     public colorScheme = {
-        domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060']
+        domain: ['#378D3B']
     };
-    public showLabels = true;
-    public explodeSlices = false;
-    public doughnut = false;
+    public colorScheme1 = {
+        domain: ['red']
+    };
+
     public settings: Settings;
 
     constructor(public appSettings: AppSettings) {
+        let status = false;
+        if (status) {
+             this.single = [
+                {
+                    name: 'Pass',
+                    value: 80,
+                    status: 'pass'
+                }
+            ]
+            this.examStatus = this.single[0].status;
+
+        } else {
+            this.single = [
+                {
+                    name: 'Fail',
+                    value: 20,
+                    status: 'fail'
+
+                }
+            ]
+            this.examStatus = this.single[0].status;
+        }
+
         this.settings = this.appSettings.settings;
-        Object.assign(this, {single});
+        Object.assign(this.single);
     }
 
     public onSelect(event) {
