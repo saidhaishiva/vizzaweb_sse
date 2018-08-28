@@ -11,6 +11,7 @@ export class ExamactivateGuard implements CanActivate {
         if (res == '1') {
             return true;
         } else {
+            alert("Please complete training before applying the exam");
             return false;
         }
     }
