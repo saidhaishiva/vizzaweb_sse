@@ -372,6 +372,7 @@ export class ProposalComponent implements OnInit {
                 this.nomineeRemove = true;
                 this.nomineeDate[0].nominee[0].removeBtn = true;
                 this.nomineeDate[0].nominee[0].addBtn = false;
+
             }
         }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
