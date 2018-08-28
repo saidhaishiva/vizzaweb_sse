@@ -55,6 +55,8 @@
                             <mat-form-field class="w-100">
                             <input matInput placeholder="Email Id" required formControlName="email">
                                 <mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>
+                                <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>
+
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Mobile " (keypress)="keyPress($event)" minlength="10" maxlength="10"  formControlName="phone1" required >
