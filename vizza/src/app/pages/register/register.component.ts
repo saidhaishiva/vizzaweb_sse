@@ -86,7 +86,8 @@ export class RegisterComponent implements OnInit {
             referralcode: '',
 
             contacts: this.fb.group({
-                email: ['', Validators.compose([Validators.required])],
+                email: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
@@ -256,11 +257,20 @@ export class RegisterComponent implements OnInit {
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
                 // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
+    }
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
                 event.preventDefault();
             }
         }

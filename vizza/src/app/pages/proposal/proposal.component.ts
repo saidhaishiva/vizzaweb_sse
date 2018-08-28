@@ -47,7 +47,7 @@ export class ProposalComponent implements OnInit {
     public checked: boolean;
     public isLinear = false;
     public illnessCheck: boolean;
-    public socialStatus: boolean;
+    public socialStatus: any;
     public nomineeAdd: boolean;
     public nomineeRemove: boolean;
     public familyMembers: any;
@@ -102,6 +102,10 @@ export class ProposalComponent implements OnInit {
     public ageRestriction: string;
     public insurerDobError: string;
     public previousInsuranceStatus: any;
+    public socialAnswer1: any;
+    public socialAnswer2: any;
+    public socialAnswer3: any;
+    public socialAnswer4: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -136,7 +140,7 @@ export class ProposalComponent implements OnInit {
             personalArea: ['', Validators.required],
             residenceArea: '',
             personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+            personalPan: ['', Validators.compose([ Validators.minLength(10),Validators.pattern("^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$")])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
             socialStatus: '',
             socialAnswer1: '',
@@ -150,7 +154,7 @@ export class ProposalComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: '',
@@ -308,13 +312,17 @@ export class ProposalComponent implements OnInit {
         this.socialStatus = this.personal.controls['socialStatus'].value;
         let btn = this.personal.controls['socialStatus'].value;
         console.log(btn, 'this.result');
+
         if (btn == 'true') {
+
             this.personal.controls['socialAnswer1'].setValue('0');
             this.personal.controls['socialAnswer2'].setValue('0');
             this.personal.controls['socialAnswer3'].setValue('0');
             this.personal.controls['socialAnswer4'].setValue('0');
             this.socialNo = '';
+
         } else {
+
             this.socialNo = false;
         }
     }
@@ -334,7 +342,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'Nill';
             this.familyMembers[i].ins_engage_winter_sports = 'Nill';
-            this.familyMembers[i].ins_personal_accident_applicable = '0';
+            this.familyMembers[i].ins_personal_accident_applicable = '1';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
         }
 
@@ -364,6 +372,7 @@ export class ProposalComponent implements OnInit {
                 this.nomineeRemove = true;
                 this.nomineeDate[0].nominee[0].removeBtn = true;
                 this.nomineeDate[0].nominee[0].addBtn = false;
+
             }
         }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
@@ -552,18 +561,31 @@ export class ProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
-
+console.log(value,'fgh');
         if (this.personal.valid) {
             console.log(value, 'value');
+            console.log(value.socialAnswer1,'socialllllllll');
+
             if (sessionStorage.proposerAge >= 18) {
-                console.log(this.mobileNumber, 'tyu');
-                if (this.mobileNumber == '') {
-                    console.log('in');
+                if(this.socialStatus == 'false') {
+                    if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
+                        stepper.next();
+
+                    } else {
+                        this.toastr.error('Select any one Social Status');
+                    }
+
+                } else {
                     stepper.next();
-                } else if(this.mobileNumber == 'true') {
-                    stepper.next();
-                    console.log('ouy');
                 }
+
+
+
+                // if (this.mobileNumber == '') {
+                //     stepper.next();
+                // } else if(this.mobileNumber == 'true') {
+                //     stepper.next();
+                // }
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -806,7 +828,7 @@ export class ProposalComponent implements OnInit {
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -815,7 +837,7 @@ export class ProposalComponent implements OnInit {
     }
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-z\\ ]/;
+            const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -1317,17 +1339,17 @@ export class ProposalComponent implements OnInit {
         console.log(error);
     }
 
-add(event){
-   // residencePincode = this.personal.controls.residencePincode.value;
-  //  console.log(residencePincode,'fgh');
-    if (event.charCode !== 0) {
-        const pattern = /[0-9\\ ]/;
-        const inputChar = String.fromCharCode(event.charCode);
-
-        if (!pattern.test(inputChar)) {
-            // invalid character, prevent input
-            event.preventDefault();
-        }
-    }
-}
+// add(event){
+//    // residencePincode = this.personal.controls.residencePincode.value;
+//   //  console.log(residencePincode,'fgh');
+//     if (event.charCode !== 0) {
+//         const pattern = /[0-9/\\ ]/;
+//         const inputChar = String.fromCharCode(event.charCode);
+//
+//         if (!pattern.test(inputChar)) {
+//             // invalid character, prevent input
+//             event.preventDefault();
+//         }
+//     }
+// }
 }

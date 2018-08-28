@@ -9,7 +9,7 @@
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    Personal Details
+                   Group A
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
@@ -19,9 +19,9 @@
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle">
-                            <mat-option value="MR">MR</mat-option>
-                            <mat-option value="MS">MS</mat-option>
-                            <mat-option value="MRS">MRS</mat-option>
+                            <mat-option value="MR">Mr</mat-option>
+                            <mat-option value="MS">Ms</mat-option>
+                            <mat-option value="MRS">Mrs</mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
@@ -29,13 +29,13 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required >
+                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required >
+                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" required >
                           <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>
@@ -47,22 +47,23 @@
                         </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
+                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  (keypress)="add($event)"
+                               required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                       </mat-form-field>
                       </div>
-                        <div class="col-md-6">
-                            <mat-form-field class="w-100">
-                                <mat-select placeholder="Occupation Code" formControlName="personalOccupationCode" required>
-                                    <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">
-                                        {{occupation.occupation_description}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="insureArray.invalid">Occupation Code is required</mat-error>
-                            </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-6">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<mat-select placeholder="Occupation Code" formControlName="personalOccupationCode" required>-->
+                                    <!--<mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">-->
+                                        <!--{{occupation.occupation_description}}-->
+                                    <!--</mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="insureArray.invalid">Occupation Code is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Occupation" formControlName="personalOccupation" required>
@@ -93,8 +94,10 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" formControlName="personalPan" required>
+                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" required>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                        <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
@@ -116,7 +119,7 @@
                         </div>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
+                        <input matInput placeholder="Email ID"   formControlName="personalEmail" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -255,7 +258,7 @@
             <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                 Group A
+                {{this.insureArray['controls'].items['controls'][i]['controls'].type.value}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS </ng-template>
@@ -266,23 +269,23 @@
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Title" formControlName="personalTitle">
-                          <mat-option value="MR">MR</mat-option>
-                          <mat-option value="MS">MS</mat-option>
-                          <mat-option value="MRS">MRS</mat-option>
+                          <mat-option value="MR">Mr</mat-option>
+                          <mat-option value="MS">Ms</mat-option>
+                          <mat-option value="MRS">Mrs</mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="First Name" formControlName="personalFirstname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required >
+                        <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)" required >
                         <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                       </mat-form-field>
 
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Last Name" formControlName="personalLastname" pattern="^[a-z0-9_-]{8,15}$" (keypress)="data($event)" required >
+                        <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" required >
                         <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -293,7 +296,7 @@
                       </mat-select>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="add($event)" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -446,7 +449,7 @@
                         <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                           {{citys.city}}
                         </mat-option>
-                      </mat-select>
+                      </mat-select>{{personalCity}}ergdrg
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">

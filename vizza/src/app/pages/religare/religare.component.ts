@@ -136,7 +136,7 @@ export class ReligareComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalEmail: ['', Validators.required],
+            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
             residenceAddress: ['', Validators.required],
@@ -241,6 +241,8 @@ export class ReligareComponent implements OnInit {
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            console.log(this.insureArray['controls'].items['controls'][i]['controls'].type, 'this.itemsthis.itemsthis.items');
         }
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.previousInsuranceStatus1[i] = false;
@@ -417,7 +419,8 @@ export class ReligareComponent implements OnInit {
                 sameas: '',
                 rolecd: 'PRIMARY',
                 relationshipcd: '',
-                previousinsuranceChecked: false
+                previousinsuranceChecked: false,
+                type: ''
             }
         );
     }
@@ -482,7 +485,17 @@ export class ReligareComponent implements OnInit {
 
                            statusChecked.push(0);
                        } else {
-                           statusChecked.push(1);
+                           if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
+                               if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+                                   statusChecked.push(0);
+                               } else {
+                                   statusChecked.push(1);
+                               }
+                           }  else {
+                               statusChecked.push(1);
+                           }
+
+
                        }
                    }
                }
@@ -576,6 +589,7 @@ export class ReligareComponent implements OnInit {
 
     sameAddress(values: any, index) {
         if (values.checked) {
+            //this.getPostal(this.personal.controls['personalPincode'].value, index, 'residence');
             console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
@@ -599,7 +613,6 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
             this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
         }
-
     }
 
     public keyPress(event: any) {
@@ -714,6 +727,7 @@ export class ReligareComponent implements OnInit {
                 this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
             }
         }
+
 
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
@@ -971,9 +985,16 @@ export class ReligareComponent implements OnInit {
         } else {
             this.religareQuestionsList[id].mStatus = 'No';
             this.religareQuestionsList[id].answer_status = false;
+            for (let i = 0; i < this.religareQuestionsList.length; i++) {
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+                    }
+                }
+            }
         }
-
-
     }
 
 
@@ -1058,7 +1079,7 @@ export class ReligareComponent implements OnInit {
     }
     add(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -1069,11 +1090,12 @@ export class ReligareComponent implements OnInit {
     }
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-z\\ ]/;
+            const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
             }
         }
     }
+
 }
