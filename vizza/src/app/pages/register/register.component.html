@@ -27,13 +27,14 @@
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required maxlength="10">
-                                <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
+                                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required maxlength="10" >
+                                <mat-datepicker-toggle matSuffix [for]="birthday" ></mat-datepicker-toggle>
                                 <mat-datepicker touchUi  #birthday></mat-datepicker>
                                 <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
                                 <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
 
                             </mat-form-field>
+                            <div *ngIf="img" style="color: red">Age should be greater than 18</div>
                             <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                             <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                                 <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
