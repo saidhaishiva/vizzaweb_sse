@@ -278,7 +278,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ageCalculate(dob) {
-        alert(dob);
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring( 8,10), 10);
         let monthThen = parseInt(mdate.substring(5,7), 10);
@@ -299,7 +298,6 @@ console.log(res);
 
     addEvent(event) {
         if (event.value != null) {
-             console.log(event.value,'gfhj');
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -313,7 +311,6 @@ console.log(res);
                 this.dob = event.value._i;
 
                 let birth = this.form.controls['birthday'].value;
-                console.log(birth._i.length,'fff')
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
                 if(birth._i.length == '10') {
