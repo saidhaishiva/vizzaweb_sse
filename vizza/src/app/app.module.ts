@@ -87,6 +87,7 @@ import { ViewresultComponent } from './pages/viewresult/viewresult.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
+import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
 
 @NgModule({
   imports: [
@@ -157,7 +158,7 @@ import { TravelComponent } from './pages/travel/travel.component';
       ResultpageComponent,
       ConfrimAlert,
       ViewresultComponent,
-      TestimonialComponent,
+      EntranceexamComponent,
       PersonalaccidentComponent,
       TravelComponent
   ],

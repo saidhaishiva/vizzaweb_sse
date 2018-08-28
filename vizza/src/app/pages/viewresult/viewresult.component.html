@@ -1,19 +1,25 @@
 <div fxLayout="column">
 
-  <div class="flex-p">
+  <div class="">
     <mat-card>
       <mat-card-header fxLayoutAlign="center center">
         <mat-card-subtitle><h2>Result</h2></mat-card-subtitle>
       </mat-card-header>
-      <p>Total number of questions : <span style="color: #2d64d2">30</span></p>
-      <p>Number of answered questions : <span style="color: #007c3d">10</span>	</p>
-      <p>Number of unanswered questions : <span style="color: red">20</span></p>
+        <p fxLayoutAlign="center left">Total number of questions : <span style="color: #2d64d2"> 30</span></p>
+        <p fxLayoutAlign="center left">Number of answered questions : <span style="color: #007c3d"> 10</span>	</p>
+        <p fxLayoutAlign="center left">Number of unanswered questions : <span style="color: red"> 20</span></p>
 
-      <div class="w-100 h-300p">
+
+      <div class="w-100"  fxLayoutAlign="center center">
         <ngx-charts-pie-grid
                 [scheme]="colorScheme"
                 [results]="single"
-                (select)="onSelect($event)">
+                (select)="onSelect($event)" *ngIf="examStatus == 'pass'">
+        </ngx-charts-pie-grid>
+        <ngx-charts-pie-grid
+                [scheme]="colorScheme1"
+                [results]="single"
+                (select)="onSelect($event)" *ngIf="examStatus == 'fail'">
         </ngx-charts-pie-grid>
       </div>
     </mat-card>
