@@ -171,6 +171,7 @@ export class ExamComponent implements OnInit {
         }
         let total = this.selectedData.filter(data => data.answer == '');
         console.log(total.length, 'lp');
+        sessionStorage.unAnsweredQuestions = total.length;
 
         let dialogRef = this.dialog.open(ConfrimAlert, {
             width: '500px', data: total.length});
@@ -202,6 +203,8 @@ export class ExamComponent implements OnInit {
         this.settings.loadingSpinner = false;
         console.log(successData, 'successData');
         if (successData.IsSuccess) {
+            sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
+            sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
             this.router.navigate(['/viewresult']);
         }
 

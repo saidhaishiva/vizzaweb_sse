@@ -14,6 +14,10 @@ export class ViewresultComponent implements OnInit {
     public gradient = true;
     examStatus: any;
     examStatus1: any;
+    unAnsweredQuestions: any;
+    allQuestions: any;
+    correctAns: any;
+    answeredQuestions: any;
     public colorScheme = {
         domain: ['#378D3B']
     };
@@ -24,12 +28,24 @@ export class ViewresultComponent implements OnInit {
     public settings: Settings;
 
     constructor(public appSettings: AppSettings) {
-        let status = false;
+        this.unAnsweredQuestions = sessionStorage.unAnsweredQuestions;
+        this.allQuestions = sessionStorage.allQuestions;
+        this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions
+        this.correctAns = sessionStorage.correctAns;
+        let perQuestionMark = 2;
+        let marks = (this.correctAns * perQuestionMark);
+        console.log(marks, 'status');
+        let status;
+        if (marks >= 20) {
+            status = true;
+        } else {
+            status = false;
+        }
         if (status) {
              this.single = [
                 {
                     name: 'Pass',
-                    value: 80,
+                    value: marks,
                     status: 'pass'
                 }
             ]
@@ -39,7 +55,7 @@ export class ViewresultComponent implements OnInit {
             this.single = [
                 {
                     name: 'Fail',
-                    value: 20,
+                    value: marks,
                     status: 'fail'
 
                 }
