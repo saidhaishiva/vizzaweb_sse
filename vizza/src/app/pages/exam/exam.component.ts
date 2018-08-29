@@ -5,6 +5,8 @@ import {LearningcenterService} from '../../shared/services/learningcenter.servic
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ResultpageComponent} from './resultpage/resultpage.component';
 import { Router} from '@angular/router';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
 
 @Component({
   selector: 'app-exam',
@@ -27,11 +29,13 @@ export class ExamComponent implements OnInit {
         'Summer',
         'Autumn',
     ];
-  constructor(public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
+    public settings : Settings;
+  constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
+      this.settings = this.appSettings.settings;
       this.gethours = '';
       this.getMinutes = '';
       this.startTime = true;
-      this.startOnlineExam = true;
+      this.startOnlineExam = false;
       this.selectedData = [];
 
 
@@ -40,6 +44,8 @@ export class ExamComponent implements OnInit {
 
   ngOnInit() {
     this.getQuestions();
+    this.countdown('80');
+
   }
 
       countdown(minutes) {
@@ -144,11 +150,11 @@ export class ExamComponent implements OnInit {
         console.log(error);
     }
 
-    startExam() {
-      this.startOnlineExam = false;
-      this.countdown('80');
-
-    }
+    // startExam() {
+    //   this.startOnlineExam = false;
+    //   this.countdown('80');
+    //
+    // }
     selectOption(value, pi) {
 
     }
@@ -165,6 +171,7 @@ export class ExamComponent implements OnInit {
         }
         let total = this.selectedData.filter(data => data.answer == '');
         console.log(total.length, 'lp');
+        sessionStorage.unAnsweredQuestions = total.length;
 
         let dialogRef = this.dialog.open(ConfrimAlert, {
             width: '500px', data: total.length});
@@ -178,6 +185,7 @@ export class ExamComponent implements OnInit {
                     'pos_id': '1',
                     'question_details': this.selectedData
                 };
+                this.settings.loadingSpinner = true;
                 this.learning.submitExam(data).subscribe(
                     (successData) => {
                         this.submitExamSuccess(successData);
@@ -192,8 +200,11 @@ export class ExamComponent implements OnInit {
 
     }
     public submitExamSuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData, 'successData');
         if (successData.IsSuccess) {
+            sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
+            sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
             this.router.navigate(['/viewresult']);
         }
 

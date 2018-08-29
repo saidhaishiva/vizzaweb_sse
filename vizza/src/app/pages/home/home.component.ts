@@ -31,6 +31,11 @@ export class HomeComponent implements OnInit {
       sessionStorage.familyMembers = '';
       sessionStorage.stepper1Details = '';
 
+      //personalaccident components
+      sessionStorage.setOccupation = '';
+      sessionStorage.setAge = '';
+      sessionStorage.setAnnualIncome = '';
+
       sessionStorage.setPage = '';
       sessionStorage.sideMenu = false;
       sessionStorage.setFamilyDetails = '';
