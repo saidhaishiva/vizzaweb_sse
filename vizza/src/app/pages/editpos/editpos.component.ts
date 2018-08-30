@@ -61,7 +61,7 @@ export class EditposComponent implements OnInit {
 
     constructor(public appSettings: AppSettings, public authService: AuthService , public fb: FormBuilder , public common: CommonService ,
                 public toastr: ToastrService , public router: Router, public datepipe: DatePipe,  public config: ConfigurationService) {
-
+        this.webhost = this.config.getimgUrl();
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -160,7 +160,7 @@ export class EditposComponent implements OnInit {
                     phone1: this.personal.pos_mobileno,
                     phone2: '',
                     address1: this.personal.pos_address1,
-                    address2: this.personal.pos_address1,
+                    address2: this.personal.pos_address2,
                     pincode: this.personal.pos_postalcode
                     // city: this.personal.pos_cityid,
                     // state: this.personal.pos_stateid,

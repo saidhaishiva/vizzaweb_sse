@@ -835,7 +835,7 @@ console.log(value,'fgh');
             }
         }
     }
-    public data(event: any) {
+    public onClick(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);

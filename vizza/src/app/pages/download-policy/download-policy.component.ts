@@ -18,7 +18,7 @@ export class DownloadPolicyComponent implements OnInit {
     public proposalId: any;
     type: any;
     path: any;
-    fileName: any;
+    currenturl: any;
     constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public config: ConfigurationService) {
       this.route.params.forEach((params) => {
           console.log(params.id);
@@ -50,12 +50,12 @@ export class DownloadPolicyComponent implements OnInit {
     public downloadPdfSuccess(successData) {
         console.log(successData.ResponseObject, 'policyyyyyyyyy');
         this.type = successData.ResponseObject.type;
-        this.fileName = this.config.getimgUrl();
+        this.currenturl = this.config.getimgUrl();
         if (this.type == 'pdf') {
-            console.log(this.fileName);
+            console.log(this.currenturl);
             console.log(successData.ResponseObject.path , 'path');
             this.path = successData.ResponseObject.path;
-            window.open(this.fileName + '/' +  this.path,'_blank');
+            window.open(this.currenturl + '/' +  this.path,'_blank');
             // window.location.href = this.fileName + '/' +  this.path  ;
         }
     }
