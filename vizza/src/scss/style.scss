@@ -781,6 +781,20 @@ background: #ccc !important;
   height: 40px !important;
 
 }
+.app.teal-light{
+mat-toolbar {
+  min-height: 95px !important;
+  &.top-nav {
+    background: #ffe8c6 !important;
+  }
+  &.horizontal-menu {
+    background: #ffe8c6 !important;
+  }
+}
+}
+.inner-sidenav-content{
+  top:105px !important;
+}
 .pie-grid .percent-label {
   font-size: 16px;
   font-weight: 400;

@@ -11,7 +11,7 @@
         <mat-card-content>
           <p></p>
           <p> </p>
-          <figure fxLayoutAlign="center center"><img src="assets/img/Vaidhini-&-Kid2.png" style="width: 100%" alt=""> </figure>
+          <!--<figure fxLayoutAlign="center center"><img src="assets/img/Vaidhini-&-Kid2.png" style="width: 100%" alt=""> </figure>-->
         </mat-card-content>
       </mat-card>
     </div>
@@ -20,7 +20,7 @@
         <mat-card-header><h5>Personal Accident for..</h5></mat-card-header>
         <form [formGroup]="personalaccidents" class="w-100" (submit)="getPersonalAccident(personalaccidents.value)">
         <mat-form-field class="w-100" required>
-          <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmount" formControlName="suminsured" (change)="changeAmount()" (click)="checkNetwork()">
+          <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmount" formControlName="suminsured" >
             <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
               {{amounts.si_amount}}
             </mat-option>
@@ -29,12 +29,12 @@
           <!--<mat-icon matSuffix>attach_money</mat-icon>-->
         </mat-form-field>
         <mat-form-field class="w-100">
-          <input matInput  placeholder="ANNUAL INCOME" name="annualincome" [(ngModel)]="AnnualInc" (keyup)="selectAnnualIncome()" (keypress)="keyPress($event)" formControlName="annualincome">
+          <input matInput  placeholder="ANNUAL INCOME" name="annualincome" (keypress)="keyPress($event)" formControlName="annualincome">
           <mat-error *ngIf="personalaccidents.controls.annualincome.errors?.required">Annual Income is required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-100">
-          <input matInput  placeholder="AGE" name="age" (keypress)="keyPress($event)" (keyup)="selectAge()" [(ngModel)]="Age" formControlName="age" maxlength="3">
+          <input matInput  placeholder="AGE" name="age" (keypress)="keyPress($event)"  formControlName="age" maxlength="3">
           <mat-error *ngIf="personalaccidents.controls.age.errors?.required">Age is required</mat-error>
         </mat-form-field>
 
@@ -43,7 +43,7 @@
         <!--<mat-error *ngIf="personalaccidents.controls.mobilenumber.errors?.required">Mobile Number is required</mat-error>-->
       <!--</mat-form-field>-->
         <mat-form-field class="w-100">
-        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="Occupation" formControlName="occupation" (change)="changeOccupation()">
+        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="Occupation" formControlName="occupation">
           <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_description">{{occupation.occupation_description}}</mat-option>
         </mat-select>
           <mat-error *ngIf="personalaccidents.controls.occupation.errors?.required">Occupation is required</mat-error>
@@ -155,8 +155,8 @@
       </div>
     </div>
   </div>
-
   <div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">
+
     <div  *ngIf="secondPage" >
       <div class="row" fxLayoutAlign="left center">
         <div class="col-md-12">
@@ -204,7 +204,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="annualincome" [disabled]="true" [(ngModel)]="AnnualInc">
+                    <input matInput name="annualincome" [disabled]="true" >
                   </mat-form-field>
                 </div>
               </div>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="age" [disabled]="true" [(ngModel)]="Age">
+                    <input matInput name="age" [disabled]="true" >
                   </mat-form-field>
                 </div>
               </div>
@@ -226,7 +226,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="occupation" [disabled]="true" [(ngModel)]="Occupation">
+                    <input matInput name="occupation" [disabled]="true" >
                   </mat-form-field>
                 </div>
               </div>
@@ -249,10 +249,11 @@
           </mat-card>
         </div>
       </div>
+
+
     </div>
   </div>
 </div>
-
 <div class="row" *ngIf="compareArray != ''">
   <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">

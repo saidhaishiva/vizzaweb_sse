@@ -1002,7 +1002,7 @@ export class HealthInsuranceComponent implements OnInit {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
-                    if (value.product_id == '1') {
+                    if (value.product_id <= '5' ) {
                         this.router.navigate(['/religare']);
                     } else {
                         this.router.navigate(['/proposal']);
@@ -1013,7 +1013,7 @@ export class HealthInsuranceComponent implements OnInit {
         } else {
             sessionStorage.buyProductdetails = JSON.stringify(value);
             sessionStorage.groupName = gname;
-            if (value.product_id == '1') {
+            if (value.product_id <= '5') {
                 this.router.navigate(['/religare']);
             } else {
                 this.router.navigate(['/proposal']);
