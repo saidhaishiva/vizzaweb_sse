@@ -224,9 +224,6 @@ export class PersonalAccidentProposalComponent implements OnInit {
             console.log(this.totalData);
 
         }
-
-
-
     }
 
     ngOnInit() {
