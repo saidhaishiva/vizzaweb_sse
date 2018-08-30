@@ -583,4 +583,19 @@ a:hover {
   width: 130px !important;
   height: 40px !important; }
 
+.app.teal-light mat-toolbar {
+  min-height: 95px !important; }
+  .app.teal-light mat-toolbar.top-nav {
+    background: #ffe8c6 !important; }
+  .app.teal-light mat-toolbar.horizontal-menu {
+    background: #ffe8c6 !important; }
+
+.inner-sidenav-content {
+  top: 105px !important; }
+
+.pie-grid .percent-label {
+  font-size: 16px;
+  font-weight: 400;
+  display: none !important; }
+
 /*# sourceMappingURL=style.css.map */
