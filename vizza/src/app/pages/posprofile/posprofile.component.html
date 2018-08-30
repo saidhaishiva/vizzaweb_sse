@@ -48,10 +48,10 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
+                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
                 </div>
                 <div class="col-md-6">
-                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
+                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
                 </div>
                 <div class="no-data"  *ngIf="personal.doc_aadhar_front_img == '' && personal.doc_aadhar_back_img == ''" >
                     <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
@@ -74,7 +74,7 @@
                     </i> &nbsp; No Pan Card</p>
                 </div>
                 <div class="col-md-6" *ngIf="personal.doc_pan_img != ''" >
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
+                    <img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
                 </div>
             </div>
         </mat-expansion-panel>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="col-md-6" *ngIf="personal.doc_edu_certificate_img != ''" >
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
+                    <img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
                 </div>
             </div>
         </mat-expansion-panel>

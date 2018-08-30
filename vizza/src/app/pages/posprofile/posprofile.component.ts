@@ -29,6 +29,7 @@ export class PosprofileComponent implements OnInit {
 
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog) {
+        this.webhost = this.config.getimgUrl();
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
