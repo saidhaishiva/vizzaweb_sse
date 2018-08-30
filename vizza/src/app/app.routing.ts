@@ -30,6 +30,7 @@ import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
 import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
 import {TravelComponent} from './pages/travel/travel.component';
+import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -71,6 +72,7 @@ export const routes: Routes = [
             { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canActivate:[ExamactivateGuard], canDeactivate: [ExamdeactivatetimeGuard] },
             { path: 'personalaccident',component: PersonalaccidentComponent, data: {breadcrumb:'Personal Accident'} },
             { path: 'travel',component: TravelComponent, data: {breadcrumb: 'Travel' } },
+            { path: 'Personal-accident-proposal',component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} }
 
         ]
     },

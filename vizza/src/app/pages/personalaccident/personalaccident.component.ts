@@ -546,7 +546,7 @@ export class PersonalaccidentComponent implements OnInit {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
                     if (value.product_id == '3') {
-                        this.router.navigate(['/religare']);
+                        this.router.navigate(['/Personal-accident-proposal']);
                     } else {
                         this.router.navigate(['/proposal']);
                     }
@@ -557,7 +557,7 @@ export class PersonalaccidentComponent implements OnInit {
             sessionStorage.buyProductdetails = JSON.stringify(value);
             sessionStorage.groupName = gname;
             if (value.product_id == '3') {
-                this.router.navigate(['/religare']);
+                this.router.navigate(['/Personal-accident-proposal']);
             } else {
                 this.router.navigate(['/proposal']);
             }
@@ -565,4 +565,3 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
 }
-
