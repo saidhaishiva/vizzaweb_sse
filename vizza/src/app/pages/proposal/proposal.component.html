@@ -303,6 +303,7 @@
                         <input matInput placeholder="Name" [(ngModel)]="item.ins_name"  (keypress)="onClick($event)" required>
                       </mat-form-field>
                     </div>
+
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurer($event, i)" (dateChange)="addEventInsurerSelect($event, i)" (keypress)="add($event)"   required>
                       <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
