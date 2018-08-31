@@ -170,7 +170,7 @@
 
                       <div class="col-md-6"><mat-form-field class="w-100" >
                         <mat-select placeholder="Area" formControlName="personalArea" required>
-                          <mat-option *ngFor="let area of areaName" [value]= 'area.areaID'>
+                          <mat-option *ngFor="let area of areaNames" [value]= 'area.areaID'>
                             {{area.areaName}}
                           </mat-option>
                         </mat-select>
@@ -214,7 +214,7 @@
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100" >
                         <mat-select placeholder="Area" formControlName="residenceArea" >
-                          <mat-option *ngFor="let rarea of rAreaName" [value]= 'rarea.areaID'>
+                          <mat-option *ngFor="let rarea of rAreaNames" [value]= 'rarea.areaID'>
                             {{rarea.areaName}}
                           </mat-option>
                         </mat-select>

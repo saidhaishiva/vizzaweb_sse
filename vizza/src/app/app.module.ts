@@ -89,6 +89,7 @@ import { PersonalaccidentComponent } from './pages/personalaccident/personalacci
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
 import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 
 @NgModule({
   imports: [
@@ -162,7 +163,8 @@ import { PersonalAccidentProposalComponent } from './pages/personal-accident-pro
       EntranceexamComponent,
       PersonalaccidentComponent,
       TravelComponent,
-      PersonalAccidentProposalComponent
+      PersonalAccidentProposalComponent,
+      PosCertificateComponent
   ],
   providers: [
       AppSettings,
