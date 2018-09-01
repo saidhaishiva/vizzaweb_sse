@@ -119,6 +119,7 @@ export class ReligareComponent implements OnInit {
         this.step = 0;
         this.proposerInsureData = [];
         this.totalReligareData = [];
+        this.questions_list = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -130,7 +131,6 @@ export class ReligareComponent implements OnInit {
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
-            previousinsurance: '',
             personalAddress2: ['', Validators.required],
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
@@ -146,14 +146,13 @@ export class ReligareComponent implements OnInit {
             sameas: '',
             rolecd: 'PROPOSER',
             type: '',
-            previousinsuranceChecked: ''
 
         });
         this.nomineeDetails = this.fb.group({
             'religareNomineeName': ['', Validators.required],
             'religareRelationship': ['', Validators.required]
         });
-        this.previousInsuranceStatus1 = [];
+        // this.previousInsuranceStatus1 = [];
 
 
         console.log(this.totalData);
@@ -174,64 +173,7 @@ export class ReligareComponent implements OnInit {
       }
     }
 
-    processDiseaseData(diseaseData) {
-        let updatedFinalData = [];
-        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
-            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
-                let updatedData = [];
 
-
-                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
-                    let newObject = {};
-                    // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
-                    // newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
-                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
-
-                     if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
-                         newObject['response'] = true;
-
-                     } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
-                         newObject['response'] = false;
-
-                     }
-                    updatedData.push(newObject);
-
-                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
-                        newObject = {};
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
-                        updatedData.push(newObject);
-
-                    }
-                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
-                        newObject = {};
-
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
-                        updatedData.push(newObject);
-
-                    }
-
-                 }
-                console.log(updatedData);
-
-                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-
-
-            }
-            console.log(this.totalData);
-
-        }
-
-
-
-    }
 
 
     ngOnInit() {
@@ -253,9 +195,9 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
             console.log(this.insureArray['controls'].items['controls'][i]['controls'].type, 'this.itemsthis.itemsthis.items');
         }
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.previousInsuranceStatus1[i] = false;
-        }
+        // for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+        //     this.previousInsuranceStatus1[i] = false;
+        // }
         this.previousinsurance = [
             'IFFCO TOKIO General Insurance Co. Ltd.',
             'Liberty General Insurance Co. Ltd.',
@@ -342,7 +284,12 @@ export class ReligareComponent implements OnInit {
                         'contact_type': 'MOBILE',
                         'std_code': '91'
                     }],
-                    'prop_identity_list': [],
+                    'prop_identity_list': [
+                        {
+                            'identity_number': this.proposerInsureData[i].personalPan,
+                            'identity_type': 'PAN'
+                        }
+                    ],
                     'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
                     'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
                     'proposer_res_area': this.proposerInsureData[i].residenceCity,
@@ -409,7 +356,6 @@ export class ReligareComponent implements OnInit {
                 personalPan: ['', Validators.compose([ Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
                 personalAddress: ['', Validators.required],
-                previousinsurance: '',
                 sameAsProposer: '',
                 personalAddress2: ['', Validators.required],
                 personalPincode: ['', Validators.required],
@@ -425,7 +371,6 @@ export class ReligareComponent implements OnInit {
                 residenceState: ['', Validators.required],
                 sameas: '',
                 rolecd: 'PRIMARY',
-                previousinsuranceChecked: false,
                 type: ''
             }
         );
@@ -573,7 +518,7 @@ export class ReligareComponent implements OnInit {
     }
 
     PreviousInsure(value) {
-        if (value.checked) {
+        if (value.value == 'true') {
             this.personal.controls['previousinsurance'].setValue('');
             this.previousInsuranceStatus = true;
         } else {
@@ -583,7 +528,7 @@ export class ReligareComponent implements OnInit {
     }
 
     PreviousInsuredDetail(value, i) {
-        if (value.checked) {
+        if (value.value == 'true') {
             this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
             this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
         } else {
@@ -680,7 +625,6 @@ export class ReligareComponent implements OnInit {
                 personalPan: this.getStepper1.personalPan,
                 personalGst: this.getStepper1.personalGst,
                 personalAddress: this.getStepper1.personalAddress,
-                previousinsurance: this.getStepper1.previousinsurance,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
@@ -696,13 +640,12 @@ export class ReligareComponent implements OnInit {
                 rolecd: this.getStepper1.rolecd,
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
-                previousinsuranceChecked: this.getStepper1.previousinsuranceChecked,
             });
 
         }
-        if (this.getStepper1.previousinsuranceChecked) {
-            this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
-        }
+        // if (this.getStepper1.previousinsuranceChecked) {
+        //     this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
+        // }
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -732,9 +675,9 @@ export class ReligareComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-                this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.patchValue(this.getStepper2.items[i].previousinsuranceChecked);
-                this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.patchValue(this.getStepper2.items[i].previousinsurance);
-                this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
+                // this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.patchValue(this.getStepper2.items[i].previousinsuranceChecked);
+                // this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.patchValue(this.getStepper2.items[i].previousinsurance);
+                // this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
             }
         }
 
@@ -830,9 +773,9 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue(this.personal.controls['rolecd'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
-            this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
+            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
+            // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
@@ -860,9 +803,9 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
-            this.previousInsuranceStatus1[0] = false;
+            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
+            // this.previousInsuranceStatus1[0] = false;
         }
 
     }
@@ -873,6 +816,8 @@ export class ReligareComponent implements OnInit {
 
     //Create Proposal
     proposal() {
+        console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareDatathis.totalReligareData')
+        console.log(this.religareQuestionsList, 'this.religareQuestionsListthis.religareQuestionsList')
         this.totalData = {
             'platform': 'web',
             'proposal_id': '1',
@@ -892,9 +837,7 @@ export class ReligareComponent implements OnInit {
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
         };
         this.processDiseaseData(this.totalData);
-        console.log(this.totalData, 'this.totalDatathis.totalData');
         const data = this.totalData;
-        console.log(data, 'datadatadatadata')
         this.settings.loadingSpinner = true;
         this.proposalservice.getReligareProposal(data).subscribe(
             (successData) => {
@@ -921,6 +864,67 @@ export class ReligareComponent implements OnInit {
 
             this.toastr.error(successData.ErrorObject);
         }
+    }
+
+
+
+    processDiseaseData(diseaseData) {
+        let updatedFinalData = [];
+        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
+            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
+                let updatedData = [];
+
+
+                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
+                    let newObject = {};
+                    // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
+                    // newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
+                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
+
+                    if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
+                        newObject['response'] = true;
+
+                    } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
+                        newObject['response'] = false;
+
+                    }
+                    updatedData.push(newObject);
+
+                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
+                        newObject = {};
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
+                        updatedData.push(newObject);
+
+                    }
+                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
+                        newObject = {};
+
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
+                        updatedData.push(newObject);
+
+                    }
+
+                }
+                console.log(updatedData);
+
+                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
+
+
+            }
+            console.log(this.totalData);
+
+        }
+
+
+
     }
 
 //Summary residence detail

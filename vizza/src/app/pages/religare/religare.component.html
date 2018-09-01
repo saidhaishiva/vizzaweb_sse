@@ -101,21 +101,26 @@
                         <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
                         <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-6">
-                        <div class="row">
-                          <div class="col">
-                            <mat-checkbox  (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>
-                          </div>
-                          <div class="col" *ngIf="previousInsuranceStatus">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus">
-                                <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="row">-->
+                          <!--<div class="col">-->
+                            <!--<p>Previous Medical insurance</p>-->
+                            <!--<mat-radio-group (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">-->
+                              <!--<mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>-->
+                              <!--<mat-radio-button value="false" [checked]="true">No</mat-radio-button>-->
+                            <!--</mat-radio-group>-->
+                            <!--&lt;!&ndash;<mat-checkbox  (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>&ndash;&gt;-->
+                          <!--</div>-->
+                          <!--<div class="col" *ngIf="previousInsuranceStatus">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus">-->
+                                <!--<mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>-->
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="personalEmail" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
@@ -264,7 +269,7 @@
                 <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green">INSURED DETAILS</h6>
                   <div class="row">
-                    <div class="col-md-12 mb-3" *ngIf="i == 0"><mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer details</strong></mat-checkbox></div>
+                    <div class="col-md-12 mb-3" *ngIf="i == 0"><mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>
                     <div class="col-md-2">
                       <mat-form-field class="w-100">
                         <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)">
@@ -345,21 +350,25 @@
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="GST Number" (keypress)="keyPress($event)" minlength="15"  maxlength="15" formControlName="personalGst">
                     </mat-form-field></div>
-                    <div class="col-md-6">
-                      <div class="row">
-                        <div class="col">
-                          <mat-checkbox  (change)="PreviousInsuredDetail($event ,i)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>
-                        </div>
-                        <div class="col" *ngIf="previousInsuranceStatus1[i]">
-                          <mat-form-field class="w-100">
-                            <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus1[i]">
-                              <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
+                    <!--<div class="col-md-6">-->
+                      <!--<div class="row">-->
+                        <!--<div class="col">-->
+                          <!--<mat-radio-group (change)="PreviousInsuredDetail($event ,i)" formControlName="previousinsuranceChecked">-->
+                            <!--<mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>-->
+                            <!--<mat-radio-button value="false" [checked]="true">No</mat-radio-button>-->
+                          <!--</mat-radio-group>-->
+                          <!--&lt;!&ndash;<mat-checkbox  (change)="PreviousInsuredDetail($event ,i)" formControlName="previousinsuranceChecked">Previous Medical insurance</mat-checkbox>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="col" *ngIf="previousInsuranceStatus1[i] == 'true'">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus1[i] == 'true'">-->
+                              <!--<mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
 

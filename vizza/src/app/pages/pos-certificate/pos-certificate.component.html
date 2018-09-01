@@ -1,6 +1,19 @@
+
+
 <div class="certificate-bg">
+  <mat-button-toggle-group #group="matButtonToggleGroup" class="float-right" value="1">
+    <mat-button-toggle value="1">
+       1
+    </mat-button-toggle>
+    <mat-button-toggle value="2">
+      2
+    </mat-button-toggle>
+    <mat-button-toggle value="3">
+     3
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 <div class="container pt-3 pb-3" id="pos-cirtificate">
-  <mat-card class="c-card">
+  <mat-card class="c-card" *ngIf="group.value == '1'">
  <header class="row">
      <div class="col-md-6">
        <img src="assets/img/vizza-logoNewpos.png" alt="">
@@ -77,6 +90,123 @@
     <footer class="mt-3 pt-3">
       <h5 class="text-center">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
       <p class="text-center">Ground Floor, Flat No. G-A, Sridev Apartment, No.65, CIT Nagar First Main Road, Chennai - 600 035</p>
+    </footer>
+  </mat-card>
+  <mat-card class="c2-card"  *ngIf="group.value == '2'">
+
+  <header>
+    <div class="row" fxLayoutAlign="center center">
+      <div class="col-md-6">
+        <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+        <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
+      </div>
+      <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+    </div>
+  </header>
+  <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
+    <div class="col-md-3">
+      <img src="assets/img/users/default-user.jpg" alt="">
+    </div>
+    <div class="col-md-9">
+      <h1 class="c-font">Certification</h1>
+      <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
+    </div>
+  </section>
+  <section class="row mt-5">
+    <div class="c-content w-100">
+      <h5 class="c-title"><span>This is to certificaty that</span></h5>
+      <p>Mr./Ms./Mrs. …………………………………. has attended 15 hours of Online
+        Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
+        Insurance Regulatory and Development Authority.</p>
+      <p>The Said Candidate, had registered for the online training program on
+        ................................and completed the 15 hours of POS’P Online Training on
+        ………………...</p>
+    </div>
+  </section>
+  <section class="row mt-5">
+    <div class="col-md-12">
+      <table>
+        <tr>
+          <td>Place</td>
+          <td>XXXXXXXX</td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>XXXXXXXX</td>
+        </tr>
+        <tr>
+          <td>POS’P ID</td>
+          <td>XXXXXXXX</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  <footer class="row mt-5">
+    <div class="col-md-12 text-center">
+      <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+      <p class="mb-0">Head - Corporate</p>
+      <p class="mb-0">(Authorised Signatory)</p>
+    </div>
+  </footer>
+</mat-card>
+
+
+  <mat-card class="c2-card"  *ngIf="group.value == '3'">
+
+    <header>
+      <div class="row" fxLayoutAlign="center center">
+        <div class="col-md-6">
+          <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+          <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
+        </div>
+        <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+      </div>
+    </header>
+    <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
+      <div class="col-md-3">
+        <img src="assets/img/users/default-user.jpg" alt="">
+      </div>
+      <div class="col-md-9">
+        <h1 class="c-font">Certificate</h1>
+        <h5 class="w-100 text-right"><span>Of Qualification for POS’P Examination</span></h5>
+      </div>
+    </section>
+    <section class="row mt-5">
+      <div class="c-content text-center w-100">
+        <h5 class="c-title"><span>This is to certificaty that</span></h5>
+        <p>Mr/Mrs/Ms………………………………….</p>
+        <p>passed the Point of Sales Person Examination held on</p>
+        <p>……………………………………..</p>
+        <p>and qualified under the stream of</p>
+        <p>Point of Sales Person</p>
+        <p>as per regulations 2017 of</p>
+        <p>Insurance Regulatory and Development Authority</p>
+      </div>
+    </section>
+    <section class="row mt-5">
+      <div class="col-md-12">
+        <table>
+          <tr>
+            <td>Place</td>
+            <td>XXXXXXXX</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>XXXXXXXX</td>
+          </tr>
+          <tr>
+            <td>POS’P ID</td>
+            <td>XXXXXXXX</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <footer class="row mt-5">
+      <div class="col-md-12 text-center">
+        <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+        <p class="mb-0">Head - Corporate</p>
+        <p class="mb-0">(Authorised Signatory)</p>
+      </div>
     </footer>
   </mat-card>
 </div>

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Parisienne");
 * {
   outline: none; }
 
@@ -615,31 +616,32 @@ a:hover {
 
 .certificate-bg {
   background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
-  width: 100%; }
+  width: 100%;
+  background-attachment: fixed; }
 
 #pos-cirtificate .c-card {
   border-left: 20px solid #219c44; }
-#pos-cirtificate li {
-  display: block; }
-#pos-cirtificate header {
-  border-bottom: 1px solid #000;
-  padding-bottom: 15px; }
-  #pos-cirtificate header img {
-    width: 400px; }
-#pos-cirtificate .c-content, #pos-cirtificate .c-address, #pos-cirtificate p, #pos-cirtificate table {
-  font-size: 16px; }
-#pos-cirtificate footer {
-  border-top: 2px solid #1c9a42; }
-  #pos-cirtificate footer h5 {
+  #pos-cirtificate .c-card li {
+    display: block; }
+  #pos-cirtificate .c-card header {
+    border-bottom: 1px solid #000;
+    padding-bottom: 15px; }
+    #pos-cirtificate .c-card header img {
+      width: 400px; }
+  #pos-cirtificate .c-card .c-content, #pos-cirtificate .c-card .c-address, #pos-cirtificate .c-card p, #pos-cirtificate .c-card table {
+    font-size: 16px; }
+  #pos-cirtificate .c-card footer {
+    border-top: 2px solid #1c9a42; }
+    #pos-cirtificate .c-card footer h5 {
+      color: #1c9a42; }
+    #pos-cirtificate .c-card footer p {
+      font-size: 19px;
+      margin-bottom: 0; }
+  #pos-cirtificate .c-card table tr td {
+    padding: 10px;
+    vertical-align: top; }
+  #pos-cirtificate .c-card table tr td:first-child {
     color: #1c9a42; }
-  #pos-cirtificate footer p {
-    font-size: 19px;
-    margin-bottom: 0; }
-#pos-cirtificate table tr td {
-  padding: 10px;
-  vertical-align: top; }
-#pos-cirtificate table tr td:first-child {
-  color: #1c9a42; }
 
 .insurance-renewal li {
   display: block; }
@@ -743,10 +745,63 @@ a:hover {
   background: #dc4e40; }
 
 footer {
-  background: #ababab;
   width: 100%;
   float: left;
-  color: #fff;
   padding: 10px; }
+
+.c2-card {
+  border-left: 20px solid #219c44;
+  background-image: url("./assets/img/pos-bg.png") !important;
+  width: 100%;
+  background-size: cover !important; }
+  .c2-card header {
+    border-bottom: 1px solid #006738;
+    padding-bottom: 20px; }
+    .c2-card header h5 {
+      color: #006738; }
+    .c2-card header img {
+      width: 470px; }
+  .c2-card .c-profile .c-font {
+    font-family: 'Parisienne', cursive;
+    font-size: 170px;
+    color: #443034;
+    text-align: right; }
+  .c2-card .c-profile h5 span {
+    background: #443034;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 30px; }
+  .c2-card .c-content {
+    position: relative;
+    border: 2px solid #443034;
+    border-radius: 30px;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 45px; }
+    .c2-card .c-content .c-title {
+      position: absolute;
+      top: -15px;
+      right: 0px;
+      bottom: 0;
+      width: 100%;
+      text-align: center; }
+      .c2-card .c-content .c-title span {
+        padding: 10px 35px;
+        color: #fff;
+        font-size: 25px;
+        background: #f01818;
+        background: linear-gradient(to right, #f01818 0%, #f7947b 64%, #ff2121 100%); }
+    .c2-card .c-content p {
+      font-size: 22px; }
+  .c2-card table {
+    font-size: 20px;
+    margin: 185px 28px 100px 28px; }
+    .c2-card table tr td {
+      padding: 10px;
+      vertical-align: top; }
+    .c2-card table tr td:first-child {
+      color: #443034; }
+  .c2-card footer {
+    font-size: 20px; }
 
 /*# sourceMappingURL=style.css.map */
