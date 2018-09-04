@@ -120,7 +120,6 @@ export class ProposalComponent implements OnInit {
         this.nomineeAdd = true;
         this.nomineeRemove = true;
         this.declaration = false;
-        this.illness = false;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -139,8 +138,8 @@ export class ProposalComponent implements OnInit {
             personalIncome: [''],
             personalArea: ['', Validators.required],
             residenceArea: '',
-            personalAadhar: ['', Validators.compose([Validators.required, Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.minLength(10),Validators.pattern("^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$")])],
+            personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+            personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
             socialStatus: '',
             socialAnswer1: '',
@@ -154,12 +153,12 @@ export class ProposalComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalEmail: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: '',
             residenceAddress2: '',
-            residencePincode:['', Validators.required],
+            residencePincode: ['', Validators.required],
             residenceCity: '',
             residenceState: '',
             illnessCheck: '',
@@ -372,7 +371,6 @@ export class ProposalComponent implements OnInit {
                 this.nomineeRemove = true;
                 this.nomineeDate[0].nominee[0].removeBtn = true;
                 this.nomineeDate[0].nominee[0].addBtn = false;
-
             }
         }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
@@ -537,7 +535,7 @@ export class ProposalComponent implements OnInit {
     //     sessionStorage.previousInsuranceStatus = this.previousInsuranceStatus;
     // }
     PreviousInsure(value) {
-        if (value.checked) {
+        if (value.value == 'true') {
             this.personal.controls['previousinsurance'].setValue('');
             this.previousInsuranceStatus = true;
         } else {
@@ -596,14 +594,18 @@ console.log(value,'fgh');
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         // if (this.ageRestriction == '') {
         this.illnesStatus = false;
+        this.insureStatus = false;
         console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
-                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '') {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
                     this.errorMessage = false;
                     if (this.familyMembers[i].ins_illness != 'No') {
-                        this.illnesStatus = true;
-                        break;
+                        if (this.familyMembers[i].ins_illness == '') {
+                            this.illnesStatus = true;
+                            break;
+                        }
+
                     } else {
                         this.illnesStatus = false;
                     }
@@ -764,12 +766,12 @@ console.log(value,'fgh');
     }
 
 
-    illnessStatus(values: any, index) {
-        if (values.checked) {
+    illnessStatus(result: any, index) {
+        if (result.value == 'true') {
             this.familyMembers[index].ins_illness = '';
-            this.familyMembers[index].illness = true;
+           this.familyMembers[index].illness = result.value;
         } else {
-            this.familyMembers[index].illness = false;
+           this.familyMembers[index].illness = result.value;
             this.familyMembers[index].ins_illness = 'No';
 
         }

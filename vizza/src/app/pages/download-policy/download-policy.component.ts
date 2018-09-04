@@ -4,9 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
-import * as FileSaver from 'file-saver';
-import {ConfigurationService} from '../../shared/services/configuration.service';
-
 
 @Component({
   selector: 'app-download-policy',
@@ -16,10 +13,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 export class DownloadPolicyComponent implements OnInit {
     public settings: Settings;
     public proposalId: any;
-    type: any;
-    path: any;
-    currenturl: any;
-    constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public config: ConfigurationService) {
+  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.proposalId = params.id;
@@ -48,18 +42,10 @@ export class DownloadPolicyComponent implements OnInit {
         );
     }
     public downloadPdfSuccess(successData) {
-        console.log(successData.ResponseObject, 'policyyyyyyyyy');
-        this.type = successData.ResponseObject.type;
-        this.currenturl = this.config.getimgUrl();
-        if (this.type == 'pdf') {
-            console.log(this.currenturl);
-            console.log(successData.ResponseObject.path , 'path');
-            this.path = successData.ResponseObject.path;
-            window.open(this.currenturl + '/' +  this.path,'_blank');
-            // window.location.href = this.fileName + '/' +  this.path  ;
-        }
+        console.log(successData.ResponseObject);
     }
     public downloadPdfFailure(error) {
         console.log(error);
     }
+
 }

@@ -88,6 +88,8 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
+import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 
 @NgModule({
   imports: [
@@ -160,7 +162,9 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
       ViewresultComponent,
       EntranceexamComponent,
       PersonalaccidentComponent,
-      TravelComponent
+      TravelComponent,
+      PersonalAccidentProposalComponent,
+      PosCertificateComponent
   ],
   providers: [
       AppSettings,

@@ -9,10 +9,6 @@ import {ProposalService} from '../../shared/services/proposal.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
-import {GroupmembersAlert, PosstatusAlert} from '../health-insurance/health-insurance.component';
-import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
-import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
-import {GrouppopupComponent} from '../health-insurance/grouppopup/grouppopup.component';
 
 @Component({
   selector: 'app-personalaccident',
@@ -23,6 +19,8 @@ export class PersonalaccidentComponent implements OnInit {
 
     public personalaccidents: FormGroup;
     public settings: Settings;
+    setArray: any;
+    setArray1: any;
     getArray: any;
     closeIcon: boolean;
 
@@ -32,14 +30,11 @@ export class PersonalaccidentComponent implements OnInit {
     finalData: any;
     sumerror: boolean;
     pinerror: boolean;
-    annualerror: boolean;
-    occupationerror: boolean;
-    ageerror: boolean;
     selectedAmount: any;
     pincoce: any;
     Occupation: any;
     Age: any;
-    AnnualInc: any;
+    AnnualIncome: any;
     count: any;
     sumInsuredAmountLists: any;
     insuranceLists: any;
@@ -84,15 +79,13 @@ export class PersonalaccidentComponent implements OnInit {
         this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;
-        this.annualerror = false;
-        this.occupationerror = false;
-        this.ageerror = false;
         this.Occupation = false;
         this.Age = false;
-        this.AnnualInc = false;
+        this.AnnualIncome = false;
         this.updateFlag = false;
         this.ageUpdateFlag = false;
         this.nonEditable = false;
+        this.setArray = [];
         this.memberLength = [];
         this.finalData = [];
         this.indexList = [];
@@ -115,13 +108,10 @@ export class PersonalaccidentComponent implements OnInit {
         this.sumInsuredAmonut();
         this.setOccupationListCode();
         this.sessionData();
-        this.AnnualInc='';
-        this.Age='';
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
         }
-        this.count = 0;
 
     }
 
@@ -147,7 +137,7 @@ export class PersonalaccidentComponent implements OnInit {
             this.Age = sessionStorage.setAge;
         }
         if(sessionStorage.setAnnualIncome != undefined && sessionStorage.setAnnualIncome){
-            this.AnnualInc = sessionStorage.setAnnualIncome;
+            this.AnnualIncome = sessionStorage.setAnnualIncome;
         }
         if(sessionStorage.setOccupation != undefined && sessionStorage.setOccupation){
             this.Occupation = sessionStorage.setOccupation;
@@ -160,8 +150,25 @@ export class PersonalaccidentComponent implements OnInit {
                 this.settings.sidenavIsPinned = false;
             }
         }
+
         if (sessionStorage.enquiryId != undefined && sessionStorage.enquiryId != '') {
             this.enquiryId = sessionStorage.enquiryId;
+        }
+        if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
+            this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
+            let index = JSON.parse(sessionStorage.policyLists).index;
+            for (let i = 0; i < this.setArray.length; i++) {
+                this.setArray[i].auto = false;
+            }
+            this.getArray = this.insuranceLists[index].family_members;
+            for (let i = 0; i < this.setArray.length; i++) {
+                for (let j = 0; j < this.getArray.length; j++) {
+                    if (this.setArray[i].name == this.getArray[j].type) {
+                        this.setArray[i].auto = true;
+                    }
+                }
+            }
+            this.tabIndex = index;
         }
         if (sessionStorage.changedTabDetails != undefined && sessionStorage.changedTabDetails != '') {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
@@ -176,6 +183,7 @@ export class PersonalaccidentComponent implements OnInit {
         if (sessionStorage.shortListCount != undefined && sessionStorage.shortListCount != '') {
             this.shortListCount = sessionStorage.shortListCount;
         }
+
     }
 
     // this function will get the sum insured amounts
@@ -224,30 +232,23 @@ export class PersonalaccidentComponent implements OnInit {
                 this.occupationCodeFailure(error);
             }
         );
+
     }
+
+
     occupationCode : any;
     public occupationCodeSuccess(successData) {
         console.log(successData.ResponseObject);
         this.occupationCode = successData.ResponseObject;
     }
+
     public occupationCodeFailure(error) {
         console.log(error);
     }
 
+
     changeAmount() {
         sessionStorage.setInsuredAmount = this.selectedAmount;
-    }
-
-    selectAnnualIncome(){
-        sessionStorage.setAnnualIncome = this.AnnualInc;
-    }
-
-    selectAge(){
-        sessionStorage.setAge = this.Age;
-    }
-
-    changeOccupation(){
-        sessionStorage.setOccupation = this.Occupation;
     }
 
     selectPincode() {
@@ -265,31 +266,18 @@ export class PersonalaccidentComponent implements OnInit {
         this.firstPage = false;
         this.secondPage = true;
 
-        // if (this.selectedAmount == '' || this.selectedAmount == undefined) {
-        //     this.sumerror = true;
-        // } else {
-        //     this.sumerror = false;
-        // }
-        // if(this.AnnualInc == '' || this.AnnualInc == undefined){
-        //     this.annualerror = true;
-        // }else{
-        //     this.annualerror = false;
-        // }
-        // if(this.Age == '' || this.Age == undefined){
-        //     this.ageerror = true;
-        // }else{
-        //     this.ageerror = false;
-        // }
-        // if(this.Occupation == ''|| this.Occupation == undefined){
-        //     this.occupationerror = true;
-        // }else{
-        //     this.occupationerror = false;
-        // }
-        // if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
-        //     this.pinerror = true;
-        // } else {
-        //     this.pinerror = false;
-        // }
+        if (this.selectedAmount == '' || this.selectedAmount == undefined) {
+            this.sumerror = true;
+        } else {
+            this.sumerror = false;
+        }
+        if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
+            this.pinerror = true;
+        } else {
+            this.pinerror = false;
+        }
+
+        if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
 
         const data = {
             "platform": "web",
@@ -316,8 +304,9 @@ export class PersonalaccidentComponent implements OnInit {
             }
         );
 
-
+        }
     }
+
 
     public personalAccidentSuccess(successData , index) {
         console.log(successData.ResponseObject);
@@ -327,18 +316,6 @@ export class PersonalaccidentComponent implements OnInit {
 
     public personalAccidentFailure(error) {
         console.log(error);
-    }
-
-    addCompare(value, pi, index, equiryId, name) {
-        const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
-        this.equiryId = equiryId;
-        this.goupName = name;
-        this.insuranceLists[pi].product_lists[index].compare = true;
-        this.compareArray.push(data);
-    }
-    removeCompare(index , pindex, tabIndex) {
-        this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
-        this.compareArray.splice(index, 1);
     }
 
     onSelectedIndexChange(index) {
@@ -357,210 +334,6 @@ export class PersonalaccidentComponent implements OnInit {
             this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
             sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
             // this.updateTabPolicy(this.insuranceLists[index], index);
-        }
-    }
-
-    // view key features details
-    viewKeyList(value) {
-        console.log(value, 'value');
-        let dialogRef = this.dialog.open(ViewdetailsComponent, {
-            width: '1500px', data: value.product_id
-        });
-        dialogRef.disableClose = true;
-
-        dialogRef.afterClosed().subscribe(result => {
-        });
-    }
-
-    // this function will change the sum insured amount
-    changeSuminsuredFunction() {
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': this.changeSuninsuredAmount,
-            'family_group_name': this.changedTabDetails.name,
-            'enquiry_id': this.changedTabDetails.enquiry_id,
-            'created_by': '0',
-            'insurance_type' : '1',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.settings.loadingSpinner = true;
-        this.changedTabIndex = sessionStorage.changedTabIndex;
-        this.common.changeAmountPolicyQuotation(data).subscribe(
-            (successData) => {
-                this.changeAmountPolicyQuotationSuccess(successData, this.changedTabIndex);
-            },
-            (error) => {
-                this.changeAmountPolicyQuotationFailure(error);
-            }
-        );
-    }
-    public changeAmountPolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.insuranceLists = successData.ResponseObject;
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    this.insuranceLists[i].product_lists[j].compare = false;
-                    this.insuranceLists[i].product_lists[j].shortlist = false;
-                }
-            }
-            sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
-        } else {
-            this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-    public changeAmountPolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-
-
-    updateFunction() {
-        if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
-            let dialogRef = this.dialog.open(GroupmembersAlert, {
-                width: '700px',
-            });
-            dialogRef.disableClose = true;
-            dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.updateDetails();
-                }
-            });
-        } else {
-            this.changeSuminsuredFunction();
-        }
-    }
-
-    // this function will update base details
-    updateDetails() {
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': sessionStorage.setInsuredAmount,
-            'family_details': this.finalData,
-            'family_group_name': this.changedTabDetails.name,
-            'enquiry_id': this.changedTabDetails.enquiry_id,
-            'created_by': '0',
-            'insurance_type': '1',
-            'annual_salary': '',
-            'occupation_code': '',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        let index = this.changedTabIndex;
-        // this.settings.loadingSpinner = true;
-        this.common.updatePolicyQuotation(data).subscribe(
-            (successData) => {
-                this.updatePolicyQuotationSuccess(successData, index);
-            },
-            (error) => {
-                this.updatePolicyQuotationFailure(error);
-            }
-        );
-    }
-    public updatePolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            if (this.ageUpdateFlag) {
-                let dialogRef = this.dialog.open(GrouppopupComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
-                dialogRef.disableClose = true;
-
-                dialogRef.afterClosed().subscribe(result => {
-
-                });
-                this.insuranceLists = successData.ResponseObject;
-                for (let i = 0; i < this.insuranceLists.length; i++) {
-                    for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                        this.insuranceLists[i].product_lists[j].compare = false;
-                        this.insuranceLists[i].product_lists[j].shortlist = false;
-                    }
-                }
-                sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
-
-            }
-
-        } else {
-
-            this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public updatePolicyQuotationFailure(error) {
-        console.log(error);
-        this.settings.loadingSpinner = false;
-    }
-
-    compareList(value) {
-        this.productLists = [];
-        let scheme = value[0].scheme;
-        for (let i = 0; i < value.length; i++) {
-            this.productLists.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
-        }
-        const data = {
-            'platform': 'web',
-            'scheme': scheme,
-            'group_name': this.goupName,
-            'enquiry_id': this.equiryId,
-            'product_lists': this.productLists,
-            'created_by': 0,
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-
-        };
-        this.settings.loadingSpinner = true;
-        this.common.addtoCompare(data).subscribe(
-            (successData) => {
-                this.compareSuccess(successData);
-            },
-            (error) => {
-                this.compareFailure(error);
-            }
-        );
-    }
-    public compareSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            let dialogRef = this.dialog.open(ComparelistComponent, {
-                width: '1500px', data: {comparedata: successData.ResponseObject}});
-            dialogRef.disableClose = true;
-
-            dialogRef.afterClosed().subscribe(result => {
-            });
-        }
-    }
-    public compareFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-
-    buyProduct(value, enqId, gname) {
-        console.log(value, 'value');
-        if (this.auth.getPosStatus() == '0') {
-            let dialogRef = this.dialog.open(PosstatusAlert, {
-                width: '700px',
-            });
-            dialogRef.disableClose = true;
-            dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    sessionStorage.buyProductdetails = JSON.stringify(value);
-                    sessionStorage.groupName = gname;
-                    if (value.product_id == '3') {
-                        this.router.navigate(['/religare']);
-                    } else {
-                        this.router.navigate(['/proposal']);
-                    }
-                } else {
-                }
-            });
-        } else {
-            sessionStorage.buyProductdetails = JSON.stringify(value);
-            sessionStorage.groupName = gname;
-            if (value.product_id == '3') {
-                this.router.navigate(['/religare']);
-            } else {
-                this.router.navigate(['/proposal']);
-            }
         }
     }
 
