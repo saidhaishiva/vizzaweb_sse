@@ -752,11 +752,15 @@ console.log(value,'fgh');
     public getCitySuccess(successData) {
         if (successData.IsSuccess == true) {
             if (this.cityTitle == 'personal') {
-                this.areaNames = successData.ResponseObject;
-                this.areaName = this.areaNames.area;
+                console.log(successData.ResponseObject,  'areaaaa');
+                this.areaNames = successData.ResponseObject.area;
+               // this.areaName = this.areaNames.area;
+                // console.log( this.areaName,  'areaArray');
             } else if (this.cityTitle == 'residence') {
-                this.rAreaNames = successData.ResponseObject;
-                this.rAreaName = this.rAreaNames.area;
+                console.log(successData.ResponseObject,  'areaaaaaaaaaa');
+                this.rAreaNames = successData.ResponseObject.area;
+                // this.rAreaName = this.rAreaNames.area;
+                // console.log( this.rAreaName,  'secondareaArray');
             }
         }
     }
@@ -1096,8 +1100,8 @@ console.log(value,'fgh');
     }
     public getCityResistSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.rAreaNames = successData.ResponseObject;
-            this.rAreaName = this.rAreaNames.area;
+            this.rAreaNames = successData.ResponseObject.area;
+            // this.rAreaName = this.rAreaNames.area;
             if (this.sumTitle == 'residence') {
                 for (let i =0; i < this.rAreaName.length; i++) {
                     if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
@@ -1131,8 +1135,8 @@ console.log(value,'fgh');
     }
     public getCityIdSummSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.rAreaNames = successData.ResponseObject;
-            this.rAreaName = this.rAreaNames.area;
+            this.rAreaNames = successData.ResponseObject.area;
+            // this.rAreaName = this.rAreaNames.area;
             if (this.title == 'personal') {
                 for (let i =0; i < this.rAreaName.length; i++) {
                     if (this.rAreaName[i].areaID == this.summaryData.prop_comm_area) {
