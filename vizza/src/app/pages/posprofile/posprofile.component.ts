@@ -68,8 +68,12 @@ export class PosprofileComponent implements OnInit {
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
             this.personal = successData.ResponseObject;
+
         }
+
+
     }
+
     getPosProfileFailure(error) {
     console.log(error);
     }
