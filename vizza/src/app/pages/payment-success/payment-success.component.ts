@@ -5,6 +5,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 
 
@@ -20,8 +21,11 @@ export class PaymentSuccessComponent implements OnInit {
  public proposalid: any;
  public settings: Settings;
  public purchaseStatus: any;
+ type: any;
+ path: any;
+ currenturl: any;
 
-  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -119,8 +123,17 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
-        console.log(successData.ResponseObject);
-        if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
+        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
+        // if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
+        //     this.downloadMessage();
+        // }
+        this.type = successData.ResponseObject.type;
+        this.currenturl = this.config.getimgUrl();
+        if (this.type == 'pdf') {
+            this.path = successData.ResponseObject.path;
+            window.open(this.currenturl + '/' +  this.path,'_blank');
+            // window.location.href = this.fileName + '/' +  this.path  ;
+        } else {
             this.downloadMessage();
         }
     }

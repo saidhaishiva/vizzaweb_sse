@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit {
     DateValidator : any;
     roleId : any;
     img :any;
+    profile : any;
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService,
                 public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
@@ -109,6 +110,7 @@ export class RegisterComponent implements OnInit {
         this.aadharback = '';
         this.pancard = '';
         this.education = '';
+        this.profile = '';
         this.roleId = this.auth.getPosRoleId() ;
                        console.log(this.roleId,'as') ;
         if(this.roleId>0){
@@ -121,6 +123,7 @@ export class RegisterComponent implements OnInit {
     }
     readUrl(event: any, type) {
         this.type = type;
+        console
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
@@ -169,6 +172,9 @@ export class RegisterComponent implements OnInit {
             if (this.type == 'education') {
                 this.education = this.fileUploadPath;
             }
+            if (this.type == 'profile') {
+                this.profile = this.fileUploadPath;
+            }
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -188,6 +194,8 @@ export class RegisterComponent implements OnInit {
             this.toastr.error('Please upload pancard');
         } else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
+        } else if (this.profile == '') {
+            this.toastr.error('Please upload profile');
         } else {
             const data = {
                 "platform": "web",
@@ -197,6 +205,7 @@ export class RegisterComponent implements OnInit {
                 "pos_lastname": this.form.controls['lastname'].value,
                 "pos_gender": this.form.controls['gender'].value,
                 "pos_dob": this.dob,
+                "pos_profile": this.profile,
                 "pos_mobileno": this.form.value['contacts']['phone1'],
                 "pos_email": this.form.value['contacts']['email'],
                 "pos_address1": this.form.value['contacts']['address1'],
@@ -267,7 +276,7 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    public data(event: any) {
+    public character(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -276,6 +285,7 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
+
 
     ageCalculate(dob) {
         let mdate = dob.toString();
@@ -340,4 +350,5 @@ console.log(res);
             }
         }
     }
+
 }

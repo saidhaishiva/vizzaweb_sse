@@ -12,7 +12,7 @@
                         <div >
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> First name</mat-placeholder>
-                                <input matInput formControlName="firstname" minlength="3" (keypress)="data($event)" required>
+                                <input matInput formControlName="firstname" minlength="3" (keypress)="character($event)" required>
                                 <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
                                 <mat-error *ngIf="form.controls.firstname.hasError('minlength')">First name isn't long enough, minimum of 5 characters</mat-error>
 
@@ -20,7 +20,7 @@
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <mat-placeholder><mat-icon>person</mat-icon> Last name</mat-placeholder>
-                                <input matInput formControlName="lastname" maxlength="50" (keypress)="data($event)" required>
+                                <input matInput formControlName="lastname" maxlength="50" (keypress)="character($event)" required>
                                 <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
                                 <mat-error *ngIf="form.controls.firstname.hasError('pattern')">Last name should not contain numbers</mat-error>
 
@@ -48,8 +48,29 @@
                             </mat-form-field>
                             <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
                         </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <p>Profile</p>
+                            </div>
+                            <div class="col-md-6 uploadBtn">
+                                <label class="btn-bs-file btn btn-secondary">
+                                    Browse
+                                    <input type='file' (change)="readUrl($event, 'profile')">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngIf="profile != ''">
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
+                                </div>
+                            </div>
+                        </div>
 
-                    </mat-tab>form
+
+                    </mat-tab>
 
                     <mat-tab label="Contacts" formGroupName="contacts">
                         <div >
