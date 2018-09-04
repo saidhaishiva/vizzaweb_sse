@@ -4,9 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
-import * as FileSaver from 'file-saver';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-
 
 @Component({
   selector: 'app-download-policy',
@@ -17,9 +15,9 @@ export class DownloadPolicyComponent implements OnInit {
     public settings: Settings;
     public proposalId: any;
     type: any;
-    path: any;
     currenturl: any;
-    constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public config: ConfigurationService) {
+    path: any;
+  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.proposalId = params.id;
@@ -62,4 +60,5 @@ export class DownloadPolicyComponent implements OnInit {
     public downloadPdfFailure(error) {
         console.log(error);
     }
+
 }

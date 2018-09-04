@@ -46,43 +46,76 @@
     <div class="col-md-4">
      <figure>
       <img src="assets/img/home/motor-policy.png" alt="">
-      <figcaption>MOTOR INSURANCE</figcaption>
+      <figcaption class="mt-3">MOTOR INSURANCE</figcaption>
      </figure>
     </div>
     <div class="col-md-4">
      <figure>
       <img src="assets/img/home/protect.png" alt="">
-      <figcaption>HEALTH INSURANCE</figcaption>
+      <figcaption class="mt-3">HEALTH INSURANCE</figcaption>
      </figure>
     </div>
     <div class="col-md-4">
      <figure>
       <img src="assets/img/home/sometimes.png" alt="">
-      <figcaption>TRAVEL INSURANCE</figcaption>
+      <figcaption class="mt-3">TRAVEL INSURANCE</figcaption>
      </figure>
     </div>
    </div>
-
   </section>
-
+<div class="container">
+ <section class="row h-faq">
+  <h1 class="text-center w-100 mt-5">FAQ</h1>
+  <div id="faq" class="carousel slide" data-ride="carousel">
+   <ul class="carousel-indicators">
+    <li data-target="#faq" data-slide-to="0" class="active"></li>
+    <li data-target="#faq" data-slide-to="1"></li>
+    <li data-target="#faq" data-slide-to="2"></li>
+   </ul>
+   <div class="carousel-inner">
+    <div class="carousel-item active text-center">
+        <h2>Why buy life insurance when I'm young?</h2>
+     <p>big advantage to buying life insurance or term assurance when you're young and healthy is you'll be able to secure a good rate for the duration of the policy.
+      The premium will not increase as you get older. If you are worried about rising costs in the future, you will have nothing to be worried about as you will have secured a low rate and
+      guaranteed your "insurability". Even as you get older and your health possibly deteriorates, your Life Insurance monthly premium will not change. The older and less healthy you are
+      when you buy a policy, the higher the price, which is why you should get in there while you still can.</p>
+     <p><em>View More</em></p>
+    </div>
+    <div class="carousel-item text-center" >
+     <h2>Why buy life insurance when I'm young?</h2>
+     <p>big advantage to buying life insurance or term assurance when you're young and healthy is you'll be able to secure a good rate for the duration of the policy.
+      The premium will not increase as you get older. If you are worried about rising costs in the future, you will have nothing to be worried about as you will have secured a low rate and
+      guaranteed your "insurability". Even as you get older and your health possibly deteriorates, your Life Insurance monthly premium will not change. The older and less healthy you are
+      when you buy a policy, the higher the price, which is why you should get in there while you still can.</p>
+     <p><em>View More</em></p>
+    </div>
+    <div class="carousel-item text-center">
+     <h2>Why buy life insurance when I'm young?</h2>
+     <p>big advantage to buying life insurance or term assurance when you're young and healthy is you'll be able to secure a good rate for the duration of the policy.
+      The premium will not increase as you get older. If you are worried about rising costs in the future, you will have nothing to be worried about as you will have secured a low rate and
+      guaranteed your "insurability". Even as you get older and your health possibly deteriorates, your Life Insurance monthly premium will not change. The older and less healthy you are
+      when you buy a policy, the higher the price, which is why you should get in there while you still can.</p>
+     <p><em>View More</em></p>
+    </div>
+   </div>
+  </div>
+ </section>
+</div>
 
   <div class="container-fluid">
-   <section class="row h-product">
+   <section class="row h-testimonial">
+    <h3 class="text-center w-100">Customer is our King</h3>
     <div class="col-md-12" style="background: #18CCB4">
      <div id="demo" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
       <ul class="carousel-indicators mt-4">
        <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
       </ul>
-
-      <!-- The slideshow -->
       <div class="carousel-inner text-color">
        <div class="carousel-item " *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
           <div class="row mt-5">
              <div class="col-md-4 text-center">
                <img src="https://www.shareicon.net/download/2017/01/06/868320_people_512x512.png" alt="Avatar" class="avatar">
              </div>
-
               <div class="col-md-8 text-center vl">
               <div class="row" fxLayoutAlign="center center">
                <p>{{list.comments}}</p>
@@ -91,43 +124,120 @@
              </div>
           </div>
        </div>
-
       </div>
-
-      <!-- Left and right controls -->
       <a class="carousel-control-prev" href="#demo" data-slide="prev">
        <span class="carousel-control-prev-icon"></span>
       </a>
       <a class="carousel-control-next" href="#demo" data-slide="next">
        <span class="carousel-control-next-icon"></span>
       </a>
-
      </div>
-
-
-
-
-
      <div class="row" fxLayoutAlign="center center">
       <div class="col-md-12 text-right mb-4">
         <button mat-raised-button color="default" (click)="testiComments()" >Write a Testimonial</button>
-        <!--<mat-icon *ngIf="commentBox" (click)="onNoClick()" style="cursor: pointer">close</mat-icon>-->
       </div>
      </div>
     </div>
-
-
-
-
-
    </section>
   </div>
+     <div class="container-fluid">
+         <section class="row">
+             <img src="assets/img/Partner-strip.png" class="w-100" alt="">
+         </section>
+     </div>
 
 
 
 
+     <div class="container-fluid">
+         <section class="row">
+         <div class="insurance-renewal w-100">
+             <h2 class="text-center">Insurance Renewal Alert</h2>
+             <form>
+                 <div class="container">
+                     <div class="row" fxLayoutAlign="center center">
+                         <div class="col-sm-5">
+                             <div class="form-group">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     </div>
+                                     <input type="text" class="form-control" name="" placeholder="Name">
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                     </div>
+
+                                     <input  type="text" class="form-control" name="" placeholder="Mobile">
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                     </div>
+                                     <input  type="email" class="form-control" name="" placeholder="Email">
+                                 </div>
+                             </div>
 
 
+
+                         </div>
+                         <div class="col-sm-4">
+                             <h4 class="text-center">Upload your policy here</h4>
+                             <ul fxLayoutAlign="center center">
+                                 <li class="pull-left"> <label class="btn-bs-file btn mr-3">
+                                     <i class="fa fa-camera" aria-hidden="true"></i> Take Picture
+                                     <input type="file" accept="image/*;capture=camera" />
+                                 </label></li>
+                                 <li class="pull-right"> <label class="btn-bs-file btn ">
+                                     <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload
+                                     <input type="file" />
+                                 </label></li>
+                             </ul>
+                             <div class="h-border-bottom"></div>
+
+
+                             <div class="col-sm-12 whatsapp">
+                                 <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy @ 86085 00088</span></p>
+                             </div>
+
+
+                         </div>
+                     </div>
+                 </div>
+             </form>
+
+         </div>
+         </section>
+     </div>
+     <div class="container-fluid">
+         <section class="row">
+     <div class="f-social-icons w-100"  fxLayoutAlign="center center">
+         <ul>
+             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+             <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-flickr" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-tumblr" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-pinterest" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+
+
+         </ul>
+
+     </div>
+         </section>
+     </div>
+     <footer class="text-center">
+        <h5 class="font-weight-bold mb-0">VIZZA INSURANCE BROKING SERVICES PVT.LTD</h5>
+         <h6 class="mb-0">IRDA LICENCE NO : IRDA / DB 543 / 13</h6>
+     </footer>
  </section>
 <style>
  .text-color{

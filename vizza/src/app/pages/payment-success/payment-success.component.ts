@@ -70,7 +70,6 @@ export class PaymentSuccessComponent implements OnInit {
 
        if (successData.IsSuccess) {
            this.purchaseStatus = successData.ResponseObject;
-           console.log(this.purchaseStatus, 'purchaseStatus');
            sessionStorage.nomineeDate = '';
            sessionStorage.familyMembers = '';
            sessionStorage.stepper1Details = '';
@@ -154,7 +153,6 @@ export class PaymentSuccessComponent implements OnInit {
 
 
 }
-
 @Component({
     selector: 'downloadmessage',
     template: `<div mat-dialog-content class="text-center">
@@ -164,7 +162,6 @@ export class PaymentSuccessComponent implements OnInit {
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
     </div>`,
 })
-
 export class DownloadMessage {
 
     constructor(
@@ -174,4 +171,5 @@ export class DownloadMessage {
     onNoClick(): void {
         this.dialogRef.close();
     }
+
 }
