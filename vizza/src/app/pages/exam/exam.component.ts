@@ -17,11 +17,9 @@ export class ExamComponent implements OnInit {
     gethours: any;
     getMinutes: any;
     questionLists: any;
-    getOptions: any;
     allQuestionLists: any;
     startTime: boolean;
     startOnlineExam: boolean;
-    favoriteSeason: string;
     selectedData: any;
     seasons = [
         'Winter',
@@ -93,26 +91,6 @@ export class ExamComponent implements OnInit {
     testy(val) {
         this.countdown(val);
 
-    }
-
-    public sumInsuredAmonut(): void {
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-            };
-        this.common.getSumInsuredAmount(data).subscribe(
-            (successData) => {
-                this.getSumInsuredAmountSuccess(successData);
-            },
-            (error) => {
-            }
-        );
-    }
-    public getSumInsuredAmountSuccess(successData) {
-            if (successData.IsSuccess) {
-              console.log(successData);
-            }
     }
 
 

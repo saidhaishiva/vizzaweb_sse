@@ -18,7 +18,6 @@ export class AddcategoryComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     public response: any;
-    public Status: any;
 
   constructor(public dialogRef: MatDialogRef<AddsubjectComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any
@@ -29,15 +28,8 @@ export class AddcategoryComponent implements OnInit {
       this.dialogRef.disableClose = true;
       console.log(data,'data');
       this.form = this.fb.group({
-          'categoryname': ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-          'status':['',Validators.compose([Validators.required])]
-
+          'categoryname': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
       });
-      this.Status = [
-          {value: '0', viewValue: 'Inactive'},
-          {value: '1', viewValue: 'Active'}
-      ];
-      this.form.controls['status'].patchValue(this.Status[1].value);
   }
     onNoClick(): void {
         this.dialogRef.close();

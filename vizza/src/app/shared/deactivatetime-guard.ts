@@ -1,16 +1,15 @@
 import { CanDeactivate } from '@angular/router';
-import { ExamComponent} from '../pages/exam/exam.component';
+import { TrainingComponent} from '../pages/training/training.component';
 import {AuthService} from './services/auth.service';
 import {CommonService} from './services/common.service';
 import {Observable} from 'rxjs/Observable';
 import {OnInit} from '@angular/core';
 
-export  class DeactivatetimeGuard implements CanDeactivate<ExamComponent> {
+export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
     // constructor(private authService: AuthService) { }
 
-    canDeactivate(training: ExamComponent) {
+    canDeactivate(training: TrainingComponent) {
         console.log(training, 'candeactivate');
-        training.sumInsuredAmonut();
         let h ;
         let m ;
         const gethours = training.gethours;
@@ -24,6 +23,8 @@ export  class DeactivatetimeGuard implements CanDeactivate<ExamComponent> {
         console.log(h, 'h');
         console.log(m, 'm');
         console.log(h != undefined ? h : 0 + m !=undefined ? m : 0, 'gethours');
+        let remainingTime = h != undefined ? h : 0 + m !=undefined ? m : 0
+        training.sendRemainingTime(remainingTime);
 
         console.log(gethours, 'gethours');
         console.log(getMinutes, 'getMinutes');

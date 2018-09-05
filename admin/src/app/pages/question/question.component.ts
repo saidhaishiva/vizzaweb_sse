@@ -35,7 +35,6 @@ export class QuestionComponent implements OnInit {
           'optionB': ['', Validators.compose([Validators.required])],
           'optionC': ['', Validators.compose([Validators.required])],
           'optionD': ['', Validators.compose([Validators.required])],
-          'optionE': ['', Validators.compose([Validators.required])],
           'correctanswer': ['', Validators.compose([Validators.required])],
           'status':['',Validators.compose([Validators.required])]
       });
@@ -62,7 +61,6 @@ export class QuestionComponent implements OnInit {
                 'optionB': this.form.controls['optionB'].value,
                 'optionC': this.form.controls['optionC'].value,
                 'optionD': this.form.controls['optionD'].value,
-                'optionE': this.form.controls['optionE'].value,
                 'correctanswer': this.form.controls['correctanswer'].value,
                 'status': this.form.controls['status'].value,
                 'adminid': this.auth.getAdminId(),
@@ -107,7 +105,7 @@ export class QuestionComponent implements OnInit {
     }
     getSubjects(selected) {
         console.log(this.selectedCategory, 'pop');
-        this.getSubjectList(selected);
+        this.getQuestionList(selected);
     }
 
     public getSubjectList(values) {
@@ -170,16 +168,18 @@ export class QuestionComponent implements OnInit {
         this.categoryList = successData.ResponseObject;
         this.categoryList = successData.ResponseObject;
         this.selectedCategory = this.categoryList[0]['category_id'];
+        this.getSubjectList(this.selectedCategory);
         this.getSubjects(this.selectedCategory);
+
         console.log(this.rows, 'this.rowsthis.rowsthis.rows');
 
     }
     public getCategoryFailure(error) {
         this.settings.loadingSpinner = false;
     }
-    getQuestions(){
-        this.getQuestionList(this.selectedSubject);
-    }
+    // getQuestions(){
+    //     this.getQuestionList(this.selectedSubject);
+    // }
     getQuestionList(subjectId){
         this.settings.loadingSpinner = true;
         const data = {
