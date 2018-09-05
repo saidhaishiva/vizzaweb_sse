@@ -351,6 +351,8 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -519,6 +521,9 @@ a:hover {
 
 .horizontal-menu-item a {
   justify-content: center !important; }
+
+.horizontal-menu-item .horizontal-sub-menu a {
+  justify-content: end !important; }
 
 #view-details {
   color: #ffffff !important;
