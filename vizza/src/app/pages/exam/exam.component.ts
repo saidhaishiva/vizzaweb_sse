@@ -203,6 +203,7 @@ export class ExamComponent implements OnInit {
         this.settings.loadingSpinner = false;
         console.log(successData, 'successData');
         if (successData.IsSuccess) {
+            sessionStorage.examBack = 1;
             sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
             sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
             this.router.navigate(['/viewresult']);

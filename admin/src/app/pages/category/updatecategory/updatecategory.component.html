@@ -7,6 +7,13 @@
       <input matInput placeholder="Category Name" formControlName="categoryname" >
       <mat-error *ngIf="form.controls.categoryname.errors?.required">Category is required</mat-error>
     </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Status" formControlName="status"  name="status">
+        <mat-option *ngFor="let list of Status" [value]="list.value">{{list.viewValue}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.status.errors?.required">Status is required</mat-error>
+    </mat-form-field>
+
     <div class="text-center">
       <button mat-raised-button color="primary"  type="submit">Update</button>
     </div>

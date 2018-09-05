@@ -6,9 +6,9 @@ import {AuthService} from './services/auth.service';
 export class ExamactivateGuard implements CanActivate {
     constructor(private router: Router, public auth: AuthService) {}
     canActivate() {
-        const res = this.auth.getPosStatus();
-        console.log(res);
-        if (res == '1') {
+    const status = this.auth.getSessionData('trainingStatus');
+        console.log(status, 'status');
+        if (status == '1') {
             return true;
         } else {
             alert("Please complete training before applying the exam");
