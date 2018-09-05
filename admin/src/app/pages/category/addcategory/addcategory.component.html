@@ -1,18 +1,3 @@
-<!--<div class="text-right">-->
-  <!--<i class="material-icons" style="cursor: pointer" (click)="onNoClick()">close</i>-->
-<!--</div>-->
-<!--<div fxLayout="row" fxLayoutAlign="center center" >-->
-  <!--<form [formGroup]="form" (ngSubmit)="addCategory()" >-->
-    <!--<mat-form-field class="w-100">-->
-      <!--<input matInput placeholder="Category Name" formControlName="categoryname" >-->
-      <!--<mat-error *ngIf="form.controls.categoryname.errors?.required">Category is required</mat-error>-->
-    <!--</mat-form-field>-->
-    <!--<div class="text-center">-->
-      <!--<button mat-raised-button color="primary"  type="submit">Add</button>-->
-    <!--</div>-->
-  <!--</form>-->
-<!--</div>-->
-
 
 
 <div class="col-md-12 text-right" >
@@ -26,6 +11,12 @@
       <mat-form-field class="w-100">
         <input matInput placeholder="Category Name" formControlName="categoryname" >
         <mat-error *ngIf="form.controls.categoryname.errors?.required">Category is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Status" formControlName="status"  name="status">
+          <mat-option *ngFor="let list of Status" [value]="list.value">{{list.viewValue}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls.status.errors?.required">Status is required</mat-error>
       </mat-form-field>
       <div class="text-center">
         <button mat-raised-button color="primary"  type="submit">Save</button>
