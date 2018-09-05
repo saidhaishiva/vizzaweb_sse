@@ -367,7 +367,7 @@ export class ReligareComponent implements OnInit {
                 personalState: ['', Validators.required],
                 personalEmail: ['', Validators.required],
                 personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-                personalAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+                personalAltnumber: '',
                 residenceAddress: ['', Validators.required],
                 residenceAddress2: [''],
                 residencePincode: ['', Validators.required],
