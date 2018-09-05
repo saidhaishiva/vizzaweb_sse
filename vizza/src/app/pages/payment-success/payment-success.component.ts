@@ -67,13 +67,11 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public purchaseStatusSuccess(successData) {
-
        if (successData.IsSuccess) {
            this.purchaseStatus = successData.ResponseObject;
            sessionStorage.nomineeDate = '';
            sessionStorage.familyMembers = '';
            sessionStorage.stepper1Details = '';
-
            sessionStorage.setPage = '';
            sessionStorage.sideMenu = false;
            sessionStorage.setFamilyDetails = '';
@@ -97,6 +95,8 @@ export class PaymentSuccessComponent implements OnInit {
            sessionStorage.proposalId = '';
            sessionStorage.mobileNumber = '';
            sessionStorage.ageRestriction = '';
+       } else {
+           this.purchaseStatus = successData.ResponseObject;
        }
     }
     public purchaseStatusFailure(error) {
@@ -128,9 +128,9 @@ export class PaymentSuccessComponent implements OnInit {
         //     this.downloadMessage();
         // }
         this.type = successData.ResponseObject.type;
+        this.path = successData.ResponseObject.path;
         this.currenturl = this.config.getimgUrl();
         if (this.type == 'pdf') {
-            this.path = successData.ResponseObject.path;
             window.open(this.currenturl + '/' +  this.path,'_blank');
             // window.location.href = this.fileName + '/' +  this.path  ;
         } else {
@@ -143,7 +143,9 @@ export class PaymentSuccessComponent implements OnInit {
 
     downloadMessage() {
         const dialogRef = this.dialog.open(DownloadMessage, {
-            width: '400px'
+            width: '400px',
+            data: this.path
+
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -156,7 +158,7 @@ export class PaymentSuccessComponent implements OnInit {
 @Component({
     selector: 'downloadmessage',
     template: `<div mat-dialog-content class="text-center">
-        <label> Your policy is being prepared. A link has been shared to your registered emailID and Mobile number. </label>
+        <label> {{data}} </label>
     </div>
     <div mat-dialog-actions style="justify-content: center">
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>

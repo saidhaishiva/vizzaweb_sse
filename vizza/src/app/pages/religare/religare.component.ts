@@ -594,6 +594,12 @@ export class ReligareComponent implements OnInit {
         this.personalAge = this.ageCalculate(this.setDateAge);
         sessionStorage.setItem('proposerAge', this.personalAge);
     }
+    addEventInsurer(event) {
+        this.selectDate = event.value;
+        console.log(this.selectDate);
+        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    }
 
     ageCalculate(dob) {
         let mdate = dob.toString();
@@ -765,7 +771,7 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].relationshipcd.patchValue(this.personal.controls['relationshipcd'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
@@ -795,7 +801,7 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].relationshipcd.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
