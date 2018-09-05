@@ -164,7 +164,7 @@ form .mat-icon{
     margin-right: 10px;
   }
   .bg-primary{
-    background-color: #dcdcdc!important;
+    background-color: #0288d1 !important;
     height: 40px;
     color:#313131 !important;
   }
@@ -497,7 +497,16 @@ image-cropper{
     color: #00863f;
   }
   span{
-    color: #666;
+    color: #fff;
+  }
+}
+.ngx-pos {
+  .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    background: #0288d1;
+    color: #fff;
+    border-right: 1px solid #fff;
+    font-weight: bold;
+    font-size: 15px;
   }
 }
 .user-content{

@@ -60,6 +60,10 @@ button:focus{
     margin-top: -16px;
   }
 }
+.sidenav-header{
+  background: #ffe8c6 !important;
+  border-bottom: 1px solid #ccc;
+}
 
 .secondary-bg-color{
   background-color: rgba(0,0,0,.12) !important;
@@ -274,6 +278,9 @@ a:hover {
 #product-list{
   .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
     background-color: rgba(24, 204, 180, 0.35);
+  }
+  .mat-ink-bar{
+    display:none !important;
   }
   .mat-tab-label-active{
     background-color: #f29a1d !important;
