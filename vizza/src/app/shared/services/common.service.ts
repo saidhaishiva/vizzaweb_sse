@@ -44,6 +44,7 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
 // this function will tab update the policy deatils
     updateTabPolicyQuotation(data) {
         console.log(data, 'ssssssssssss');

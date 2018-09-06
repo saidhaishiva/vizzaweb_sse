@@ -31,6 +31,32 @@ export class LearningcenterService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get the total training time
+    trainingTiming(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'pos/get_pos_training_time_left' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will send the remaining training time
+    sendRemainingTime(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'pos/add_training_timezone' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         const body = res;
         return body || {};

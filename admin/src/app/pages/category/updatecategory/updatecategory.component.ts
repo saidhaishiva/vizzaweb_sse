@@ -19,7 +19,7 @@ export class UpdatecategoryComponent implements OnInit {
     rows = [];
     public response: any;
     getDetails: any;
-    public Status: any;
+    selectedValue: string;
 
   constructor(public dialogRef: MatDialogRef<UpdatecategoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public categoryService: CategoryService, public auth: AuthService, public appSettings: AppSettings, private toastr: ToastrService  ) {
       this.settings = this.appSettings.settings;
@@ -27,14 +27,8 @@ export class UpdatecategoryComponent implements OnInit {
       this.getDetails = this.data;
       console.log(this.getDetails, 'this.getDetails');
       this.form = this.fb.group({
-          'categoryname': ['', Validators.compose([Validators.required])],
-          'status':['',Validators.compose([Validators.required])]
+          'categoryname': ['', Validators.compose([Validators.required])]
       });
-      this.Status = [
-          {value: '0', viewValue: 'Inactive'},
-          {value: '1', viewValue: 'Active'}
-      ];
-      this.form.controls['status'].patchValue(this.Status[1].value);
   }
     onNoClick(): void {
         this.dialogRef.close();

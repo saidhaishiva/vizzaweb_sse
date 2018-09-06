@@ -38,7 +38,7 @@ export class ListquestionComponent implements OnInit {
 
   ngOnInit() {
       this.getCategoryList();
-      //this.getSubjects('0');
+      this.getSubjects('0');
         //this.getQuestions();
   }
 
@@ -146,8 +146,8 @@ export class ListquestionComponent implements OnInit {
         );
     }
     getSubjects(selected) {
-        console.log(this.selectedCategory, 'pop');
-        this.getSubjectList(selected);
+        this.getQuestionList(selected);
+
     }
 
     public getCategorySuccess(successData) {
@@ -155,7 +155,9 @@ export class ListquestionComponent implements OnInit {
         this.settings.loadingSpinner = false;
         this.categoryList = successData.ResponseObject;
         this.selectedCategory = this.categoryList[0]['category_id'];
-        this.getSubjects(this.selectedCategory);
+        this.getSubjectList(this.selectedCategory);
+
+
 
     }
     public getCategoryFailure(error) {
@@ -194,16 +196,6 @@ export class ListquestionComponent implements OnInit {
     }
     openEdit(value): void {
         console.log(value, 'value');
-        let dialogRef = this.dialog.open(EditquestionComponent, {
-            width: '500px',
-            data: value
-        });
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log(result);
-            if (result) {
-                this.getQuestions();
-            }
-        });
 
     }
     public deleteQuestion(value) {
