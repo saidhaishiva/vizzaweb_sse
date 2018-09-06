@@ -6,6 +6,8 @@ import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Injectable} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 
 
 
@@ -31,14 +33,29 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
+
   }
 
   ngOnInit() {
       this.proposalid = sessionStorage.proposalID;
-      this.setPurchaseStatus();
-      console.log(this.proposalid, 'this.proposalidthis.proposalid');
+      if ( this.purchasetoken != undefined) {
+          this.setPurchaseStatus();
+      }
+      // let oReq = new XMLHttpRequest();
+      // console.log('service listener');
+      // oReq.addEventListener('load', (evt) => this.reqListener(evt));
+      // // let formData = new FormData();
+      // // console.log(formData);
+      // // console.log(formData.get('transactionRefNum'));
 
+
+
+      console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
+  reqListener (event) {
+      alert();
+        console.log(event, 'evennnnnnttttddddddddd');
+    }
 
     setPurchaseStatus() {
         const data = {
@@ -91,7 +108,6 @@ export class PaymentSuccessComponent implements OnInit {
            sessionStorage.changedTabIndex = '';
            sessionStorage.shorListTab = '';
            sessionStorage.enquiryId = '';
-           sessionStorage.proposalID = '';
            sessionStorage.proposalId = '';
            sessionStorage.mobileNumber = '';
            sessionStorage.ageRestriction = '';

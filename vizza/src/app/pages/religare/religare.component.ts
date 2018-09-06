@@ -140,7 +140,7 @@ export class ReligareComponent implements OnInit {
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            personalMobile:['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: [''],
@@ -156,7 +156,6 @@ export class ReligareComponent implements OnInit {
             'religareNomineeName': ['', Validators.required],
             'religareRelationship': ['', Validators.required]
         });
-        // this.previousInsuranceStatus1 = [];
 
 
         console.log(this.totalData);
@@ -181,6 +180,9 @@ export class ReligareComponent implements OnInit {
 
 
     ngOnInit() {
+
+
+
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
@@ -197,11 +199,8 @@ export class ReligareComponent implements OnInit {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-            console.log(this.insureArray['controls'].items['controls'][i]['controls'].type, 'this.itemsthis.itemsthis.items');
         }
-        // for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-        //     this.previousInsuranceStatus1[i] = false;
-        // }
+
         this.previousinsurance = [
             'IFFCO TOKIO General Insurance Co. Ltd.',
             'Liberty General Insurance Co. Ltd.',
@@ -250,12 +249,46 @@ export class ReligareComponent implements OnInit {
     }
 
 
+
     setStep(index: number) {
         this.step = index;
     }
 
     prevStep() {
         this.step--;
+    }
+
+    initItemRows() {
+        return this.fb.group(
+            {
+                rolecd: 'PRIMARY',
+                personalTitle: ['', Validators.required],
+                personalFirstname: new FormControl(''),
+                personalLastname: ['', Validators.required],
+                personalDob: ['', Validators.compose([Validators.required])],
+                personalGender: ['', Validators.compose([Validators.required])],
+                personalrelationship: ['', Validators.required],
+                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
+                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+                personalGst: ['', Validators.compose([Validators.minLength(15)])],
+                personalAddress: ['', Validators.required],
+                sameAsProposer: '',
+                personalAddress2: ['', Validators.required],
+                personalPincode: ['', Validators.required],
+                personalCity: ['', Validators.required],
+                personalState: ['', Validators.required],
+                personalEmail: ['', Validators.required],
+                personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                personalAltnumber: '',
+                residenceAddress: ['', Validators.required],
+                residenceAddress2: [''],
+                residencePincode: ['', Validators.required],
+                residenceCity: ['', Validators.required],
+                residenceState: ['', Validators.required],
+                sameas: '',
+                type: ''
+            }
+        );
     }
 
     //Insure Details
@@ -291,7 +324,7 @@ export class ReligareComponent implements OnInit {
                     'prop_identity_list': [
                         {
                             'identity_number': this.proposerInsureData[i].personalPan,
-                            'identity_type': 'PAN'
+                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
                         }
                     ],
                     'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
@@ -347,38 +380,7 @@ export class ReligareComponent implements OnInit {
         }
     }
 
-    initItemRows() {
-        return this.fb.group(
-            {
-                personalTitle: ['', Validators.required],
-                personalFirstname: new FormControl(''),
-                personalLastname: ['', Validators.required],
-                personalDob: ['', Validators.compose([Validators.required])],
-                personalGender: ['', Validators.compose([Validators.required])],
-                personalrelationship: ['', Validators.required],
-                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
-                personalGst: ['', Validators.compose([Validators.minLength(15)])],
-                personalAddress: ['', Validators.required],
-                sameAsProposer: '',
-                personalAddress2: ['', Validators.required],
-                personalPincode: ['', Validators.required],
-                personalCity: ['', Validators.required],
-                personalState: ['', Validators.required],
-                personalEmail: ['', Validators.required],
-                personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-                personalAltnumber: '',
-                residenceAddress: ['', Validators.required],
-                residenceAddress2: [''],
-                residencePincode: ['', Validators.required],
-                residenceCity: ['', Validators.required],
-                residenceState: ['', Validators.required],
-                sameas: '',
-                rolecd: 'PRIMARY',
-                type: ''
-            }
-        );
-    }
+
 
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
@@ -791,7 +793,7 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue(this.personal.controls['rolecd'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
             // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
@@ -821,7 +823,7 @@ export class ReligareComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
             // this.previousInsuranceStatus1[0] = false;

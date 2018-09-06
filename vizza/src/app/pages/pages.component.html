@@ -13,7 +13,7 @@
                         <mat-icon>person</mat-icon>
                     </button>
                     <a *ngIf="settings.menu == 'vertical'" mat-raised-button color="accent" routerLink="/" (click)="closeSubMenus()" class="small-logo">V</a>
-                    <a *ngIf="!settings.sidenavIsOpened" class="logo" routerLink="/" (click)="closeSubMenus()" class="ml-5"><img alt=""  src="assets/img/vizza-logoNew.png" style="width: 250px;" ></a>
+                    <a *ngIf="!settings.sidenavIsOpened" class="logo" routerLink="/" (click)="closeSubMenus()"><img alt=""  src="assets/img/vizza-logoNew.png" style="width: 250px;" ></a>
                 </div>
                 <mat-toolbar  *ngIf="settings.menu == 'horizontal'"
                              class="horizontal-menu flex-p-x">
