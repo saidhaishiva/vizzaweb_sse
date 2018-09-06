@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
@@ -13,11 +13,23 @@ import {Settings} from '../../app.settings.model';
   styleUrls: ['./training.component.scss']
 })
 export class TrainingComponent implements OnInit {
+    @HostListener('document:mousemove', ['$event'])
+    onMouseMove(e) {
+        console.log(e, 'eeee');
+        this.timoutWarning = 300000; // Display warning in 14 Mins.
+        this.timoutNow = 300000; // Timeout in 15 mins.
+        this.ResetTimers();
+    }
     getRemainingTime: any;
     getMinutes: any;
-    questionLists: any;
-    getOptions: any;
     allQuestionLists: any;
+
+    warningTimer: any;
+    timeoutTimer: any;
+    timoutWarning: any;
+    timoutNow: any;
+
+
     startTime: boolean;
     startOnlineExam: boolean;
     public settings : Settings;
@@ -28,18 +40,48 @@ export class TrainingComponent implements OnInit {
         this.getMinutes = '';
         this.startTime = true;
         this.startOnlineExam = false;
+        // Set timeout variables.
+        this.timoutWarning = 300000; // Display warning in 14 Mins.
+        this.timoutNow = 300000; // Timeout in 15 mins.
+        this.warningTimer = 0;
+        this.timeoutTimer = 0;
+        this.StartTimers();
+
 
     }
     ngOnInit() {
       this.trainingTiming();
+        // window.addEventListener('beforeunload', function (e) {
+        //     let confirmationMessage = '\o/';
+        //     e.returnValue = confirmationMessage;
+        //     return confirmationMessage;
+        // });
+    }
+    // Start timers.
+    StartTimers() {
+        this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
+        this.timeoutTimer = setTimeout((res) => { this.IdleTimeout() }, this.timoutNow);
+    }
+    // Reset timers.
+    ResetTimers() {
+        clearTimeout(this.warningTimer);
+        clearTimeout(this.timeoutTimer);
+        this.StartTimers();
+    }
+    // Show idle timeout warning dialog.
+    IdleWarning() {
+       // alert('wring');
+    }
+    // Logout the user.
+    IdleTimeout() {
+        console.log('logout');
+        this.router.navigate(['/home']);
     }
 
     countdown(minutes) {
-
         const test = this;
         let timeoutHandle;
         function count() {
-
            // let startTime = '15:00:00';
             let startTime = document.getElementById('timer').innerHTML;
             let pieces = startTime.split(":");
@@ -51,8 +93,16 @@ export class TrainingComponent implements OnInit {
             let timedif = new Date(time.valueOf() - 1000);
             let newtime = timedif.toTimeString().split(" ")[0];
             document.getElementById('timer').innerHTML=newtime;
-            test.getRemainingTime = newtime;
+            console.log(newtime, 'newtime');
+
+            if (newtime == '00:00:00') {
+
+            } else {
+                test.getRemainingTime = newtime;
+                sessionStorage.checkoutTime = newtime;
+            }
             timeoutHandle=setTimeout(count, 1000);
+
         }
         count();
 
@@ -128,6 +178,7 @@ export class TrainingComponent implements OnInit {
     //
     // }
 
+
     public trainingTiming(): void {
         const data = {
             'platform': 'web',
@@ -154,8 +205,21 @@ export class TrainingComponent implements OnInit {
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
             console.log(m, 'minutes');
-            document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
-            this.countdown(840);
+            if (sessionStorage.checkoutTime != '' && sessionStorage.checkoutTime != undefined) {
+                // alert(sessionStorage.checkoutTime);
+                // let fullTime = sessionStorage.checkoutTime.split(":");
+                // let hr = parseInt(fullTime[0]);
+                // console.log(hr, 'hr');
+                // let mins = parseInt(fullTime[1]);
+                // let sec = parseInt(fullTime[2]);
+                // console.log(hr +':'+ mins +':'+ sec, 'sessionStorage.checkoutTime');
+                document.getElementById('timer').innerHTML= sessionStorage.checkoutTime;
+                this.countdown(840);
+            } else {
+                document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
+                this.countdown(840);
+
+            }
 
         }
     }

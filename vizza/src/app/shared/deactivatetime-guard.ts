@@ -9,6 +9,7 @@ export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
     // constructor(private authService: AuthService) { }
 
     canDeactivate(training: TrainingComponent) {
+        sessionStorage.checkoutTime = '';
         console.log(training, 'candeactivate');
         let h ;
         let m ;
