@@ -6,54 +6,42 @@ import {Observable} from 'rxjs/Observable';
 import {OnInit} from '@angular/core';
 
 export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
-    // constructor(private authService: AuthService) { }
-
     canDeactivate(training: TrainingComponent) {
         sessionStorage.checkoutTime = '';
         console.log(training, 'candeactivate');
         let h ;
         let m ;
         const getFulltime = training.getRemainingTime;
+        // split the time
         let pieces = getFulltime.split(":");
-
         let hours = pieces[0];
         let minutes = pieces[1];
         let seconds = pieces[2];
+        hours = hours == '00' ? 0 : hours;
+        minutes = minutes == '00' ? 0 : minutes;
+        let timeLeft = sessionStorage.timeLeft;
         if (hours != 0) {
             h = hours * 60;
+        } else {
+            h = 0;
         }
         if (minutes != 0) {
             m = minutes;
+        } else {
+            m = timeLeft;
         }
-
         let remainingTime = parseInt(h) + parseInt(m);
-        console.log(remainingTime, 'remainingTimewwww');
-
-        let timeLeft = sessionStorage.timeLeft;
-        let stayTime = timeLeft - remainingTime;
-
-        console.log(stayTime, 'stayTime');
-
-        // training.sendRemainingTime(remainingTime);
-
-        // const getMinutes = training.getMinutes;
-        // if (gethours != 0) {
-        //     h = gethours * 60;
-        // }
-        // if (getMinutes != 0) {
-        //     m = getMinutes;
-        // }
-        // console.log(h, 'h');
-        // console.log(m, 'm');
-        //
-        // console.log(h + m, 'totllal');
-        // let hours = h != undefined || h != '' ? h : 0 ;
-        // let minutes = m != undefined || m != '' ? m : 0 ;
-        // let remainingTime = hours + minutes;
-
-
-        // console.log(training);
-
+        // let stayTime = timeLeft - remainingTime;
+        let sendMinutes;
+        if (remainingTime == 0) {
+            sendMinutes = timeLeft;
+        } else {
+            sendMinutes = remainingTime;
+        }
+        // end
+        if (getFulltime != '00:00:00') {
+           training.sendRemainingTime(sendMinutes);
+        }
 
         return true;
     }

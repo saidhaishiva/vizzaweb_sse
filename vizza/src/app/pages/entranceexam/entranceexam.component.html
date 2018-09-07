@@ -1,5 +1,5 @@
 <div class="question-view">
-  <div >
+  <div *ngIf="examStatus == 0">
     <mat-card>
       <mat-card-header>
         <div fxFlex="100" class="flex-p">
@@ -12,9 +12,6 @@
           <mat-card-subtitle style="color: black">Time : <span class="content-color">45</span> </mat-card-subtitle>
         </div>
       </mat-card-header>
-
-      <!--<img mat-card-image src="assets/img/app/7.jpg" alt="7">-->
-
       <mat-card-content  fxLayoutAlign="space-between center" >
         <!--<mat-divider></mat-divider>-->
         <mat-list class="ml-5">
@@ -45,4 +42,20 @@
       </div>
     </mat-card>
   </div>
+  <div  *ngIf="examStatus == 1">
+    <mat-card>
+      <mat-card-header>
+        <div fxFlex="100" class="flex-p" fxLayoutAlign="center center">
+          <mat-card-title>You have completed the exam</mat-card-title>
+        </div>
+
+      </mat-card-header>
+      <mat-card-content  fxLayoutAlign="space-between center" >
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+
 </div>

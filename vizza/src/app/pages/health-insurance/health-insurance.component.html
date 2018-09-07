@@ -24,7 +24,7 @@
         <mat-card-header><h5>Health Insurance plans for..</h5></mat-card-header>
 
         <mat-form-field class="w-100">
-          <mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()" (click)="checkNetwork()">
+          <mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()" >
             <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
               {{amounts.si_amount}}
             </mat-option>

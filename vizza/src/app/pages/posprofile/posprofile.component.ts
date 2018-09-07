@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
@@ -25,8 +25,10 @@ export class PosprofileComponent implements OnInit {
     public settings: Settings;
     public personal: any;
     public webhost: any;
+    public mails: any;
 
-
+    @ViewChild('sidenav') sidenav: any;
+    public sidenavOpen:boolean = true;
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog) {
         this.webhost = this.config.getimgUrl();
@@ -41,6 +43,21 @@ export class PosprofileComponent implements OnInit {
       this.getPosProfile();
       // this.settings.loadingSpinner = false;
 
+      this.mails = [{
+          'name': 'Profile',
+          'value': 'active',
+          'selected': true
+      },{
+          'name': 'Documents',
+          'value': 'active',
+          'selected': false
+      },
+          {
+              'name': 'Profile',
+              'value': 'active',
+              'selected': false
+          }
+      ];
   }
 
   public getPosProfile() {

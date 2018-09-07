@@ -23,6 +23,7 @@ export class TrainingComponent implements OnInit {
     getRemainingTime: any;
     getMinutes: any;
     allQuestionLists: any;
+    trainingStatus: any;
 
     warningTimer: any;
     timeoutTimer: any;
@@ -36,6 +37,7 @@ export class TrainingComponent implements OnInit {
     constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
 
         this.settings = this.appSettings.settings;
+        this.trainingStatus = this.auth.getSessionData('trainingStatus');
         this.getRemainingTime = '';
         this.getMinutes = '';
         this.startTime = true;
@@ -81,11 +83,13 @@ export class TrainingComponent implements OnInit {
     countdown(minutes) {
         const test = this;
         let timeoutHandle;
+        let timeStatus = 0;
+        let h ;
+        let m ;
         function count() {
            // let startTime = '15:00:00';
             let startTime = document.getElementById('timer').innerHTML;
             let pieces = startTime.split(":");
-            console.log(pieces, 'pieces');
             let time = new Date();
             time.setHours(parseInt(pieces[0]));
             time.setMinutes(parseInt(pieces[1]));
@@ -93,91 +97,46 @@ export class TrainingComponent implements OnInit {
             let timedif = new Date(time.valueOf() - 1000);
             let newtime = timedif.toTimeString().split(" ")[0];
             document.getElementById('timer').innerHTML=newtime;
-            console.log(newtime, 'newtime');
-
+            test.getRemainingTime = newtime;
+            sessionStorage.checkoutTime = newtime;
             if (newtime == '00:00:00') {
-
+                const getFulltime = test.getRemainingTime;
+                // split the time
+                let pieces = getFulltime.split(":");
+                let hours = pieces[0];
+                let minutes = pieces[1];
+                let seconds = pieces[2];
+                hours = hours == '00' ? 0 : hours;
+                minutes = minutes == '00' ? 0 : minutes;
+                let timeLeft = sessionStorage.timeLeft;
+                if (hours != 0) {
+                    h = hours * 60;
+                } else {
+                    h = 0;
+                }
+                if (minutes != 0) {
+                    m = minutes;
+                } else {
+                    m = timeLeft;
+                }
+                let remainingTime = parseInt(h) + parseInt(m);
+                // let stayTime = timeLeft - remainingTime;
+                let sendMinutes;
+                if (remainingTime == 0) {
+                    sendMinutes = timeLeft;
+                } else {
+                    sendMinutes = remainingTime;
+                }
+                // end
+                test.sendRemainingTime(sendMinutes);
             } else {
-                test.getRemainingTime = newtime;
-                sessionStorage.checkoutTime = newtime;
+                timeoutHandle=setTimeout(count, 1000);
             }
-            timeoutHandle=setTimeout(count, 1000);
 
         }
+
         count();
-
-
-
-
-
-
-
-
-
-        // this.startTime = true;
-        // const test = this;
-        // let timeoutHandle;
-        // console.log(minutes, 'minutesminutes');
-        // let h = Math.floor(minutes / 60);
-        // console.log(h, 'firsty');
-        // // let hours = 0;
-        // // if (h > 0) {
-        // //     hours = h-1;
-        // // } else {
-        // //     hours = 0;
-        // // }
-        // console.log(h, 'hh');
-        // let m = minutes % 60;
-        // console.log(m, 'mm');
-        //
-        // let seconds = 60;
-        // let mins = m;
-        // // let mins = 0;
-        // // if (m > 0) {
-        // //     mins = m-1;
-        // // } else {
-        // //     mins = 60;
-        // // }
-        //
-        // function tick() {
-        //
-        //     let counter = document.getElementById("timer");
-        //     let current_minutes = mins-1;
-        //     seconds--;
-        //     counter.innerHTML = (h+ ":" +
-        //         current_minutes+ ":" + (seconds < 10 ? "0" : "") + String(seconds)).toString();
-        //
-        //
-        //     setTimeout(() => {
-        //         test.gethours = h;
-        //         test.getMinutes = current_minutes;
-        //     },1500);
-        //
-        //
-        //     if( seconds > 0 ) {
-        //
-        //         timeoutHandle=setTimeout(tick, 1000);
-        //     } else {
-        //
-        //         if(minutes > 1){
-        //             setTimeout(function () { test.countdown(minutes - 1); }, 1000);
-        //         }
-        //         if (current_minutes == 0) {
-        //             this.startTime = false;
-        //             document.getElementById("demo").innerHTML = "EXPIRED";
-        //
-        //         }
-        //
-        //     }
-        //
-        // }
-        // tick();
     }
-    // testy(val) {
-    //     this.countdown(val);
-    //
-    // }
-
 
     public trainingTiming(): void {
         const data = {
@@ -245,6 +204,12 @@ export class TrainingComponent implements OnInit {
         );
     }
     public sendTimeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.auth.setSessionData('trainingStatus', successData.ResponseObject.training_status);
+            if (successData.ResponseObject.training_status == 1) {
+                // this.router.navigate(['/home']);
+            }
+        }
             console.log(successData, 'remainingg');
     }
     public sendTimeTimingError(error) {

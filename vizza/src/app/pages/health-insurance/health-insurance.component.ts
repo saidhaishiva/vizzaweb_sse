@@ -233,12 +233,12 @@ export class HealthInsuranceComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
-    checkNetwork() {
-        if (this.sumInsuredAmountLists == 0) {
-            this.toast.error("Unable to connect to the network");
-
-        }
-    }
+    // checkNetwork() {
+    //     if (this.sumInsuredAmountLists == 0) {
+    //         this.toast.error("Unable to connect to the network");
+    //
+    //     }
+    // }
     // selected members
     ckeckedUser(value, index, name) {
         if (value) {
@@ -672,6 +672,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': value.name,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
+            'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
