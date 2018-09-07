@@ -53,7 +53,6 @@ export class PaymentSuccessComponent implements OnInit {
       console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
   reqListener (event) {
-      alert();
         console.log(event, 'evennnnnnttttddddddddd');
     }
 

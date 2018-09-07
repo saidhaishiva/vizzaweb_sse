@@ -221,9 +221,9 @@
 
 <!--</div>-->
 
-<div class="container-fluid h-100" fxLayoutAlign="center center" *ngIf="status!=200">
+<div class="container-fluid h-100" *ngIf="status!=200">
     <div class="row" fxLayoutAlign="center start">
-        <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="col-md-6">
             <div class="dashboard1" style="width:auto;">
                 <mat-card>
                     <mat-card-header fxLayoutAlign="space-between center">
@@ -233,13 +233,13 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="col-md-6 ">
             <div class="register_page">
                 <form [formGroup]="registerform">
                     <mat-card fxLayout="column"  fxLayoutAlign="center center" style="border-radius: 10px" class="p-0">
                         <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
 
-                        <mat-tab-group  class="horizontal-tabs" [selectedIndex]="selectedtab">
+                        <mat-tab-group  class="horizontal-tabs w-100" [selectedIndex]="selectedtab">
                             <mat-tab label="Personal">
                                     <mat-form-field class="w-100">
                                     <input matInput placeholder="First name" formControlName="firstname"  required>
@@ -340,8 +340,7 @@
 
                             <mat-tab label="Documents" formGroupName="documents">
                                 <mat-form-field class="w-100">
-                                    <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12"
-                                           (keypress)="keyPress($event)" formControlName="aadharnumber">
+                                    <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
                                     <i class="far fa-id-card" matSuffix></i>
                                     <mat-error *ngIf="registerform.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
                                     <mat-error *ngIf="registerform.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
@@ -457,19 +456,15 @@
                                 </mat-form-field>
                             </mat-tab>
                         </mat-tab-group>
-                        <!--<hr>-->
-                        <!--<div style="padding-left: 10px">-->
-                            <!--<button mat-raised-button color="primary" [disabled]="!registerform.valid" (click)="submit()" >-->
-                                <!--Proceed-->
-                            <!--</button>-->
-                        <!--</div>-->
+                        <hr>
+                        <div style="padding-left: 10px">
+                            <button mat-raised-button color="primary" (click)="submit(registerform.value)" >
+                                Proceed
+                            </button>
+                        </div>
                     </mat-card>
                 </form>
-                <div>
-                <button (click)="submit(registerform.value)" >
-                Proceed
-                </button>
-                </div>
+
             </div>
         </div>
     </div>
