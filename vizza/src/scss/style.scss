@@ -2,6 +2,7 @@
 $theme-color:#02810E;
 $green-color:#18CCB4;
 $pink-color:#d81b60;
+$light-green:#2FE827;
 *{
  outline: none;
 }
@@ -63,6 +64,164 @@ button:focus{
 .sidenav-header{
   background: #ffe8c6 !important;
   border-bottom: 1px solid #ccc;
+}
+
+.dashboard1{
+  width: 30em;
+  .mat-card{
+  background: #ECFFF0 !important;
+  }
+  .mat-card-header-text{
+    display: none;
+    color: #13805A;
+  }
+}
+
+//pos page designs
+.pos_login{
+
+  width: 30em;
+
+  //forget link colors
+  a.forget:visited{color: $light-green;}
+  a.forget:link{color: $light-green;}
+  a.forget:active{color: $light-green;}
+  a.forget:hover{color: #939AF6;}
+
+  .forget{
+    cursor: pointer;
+  }
+
+  //login link colors
+  a.sign:active{color: #BBBBBE;}
+  a.sign:visited{color: #BBBBBE;}
+  a.sign:link{color: #BBBBBE;}
+  a.sign:hover{color: #939AF6;}
+
+  mat-form-field{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width:100%;
+  }
+  mat-card{
+    background: #3C463A !important;
+  }
+  mat-icon{
+    color: $light-green;
+  }
+  .white-color{
+    color: #FFFFFF;
+  }
+  input{
+    background-color: #FFFFFF;
+    height: 25px;
+  }
+  button{
+    margin-top: 5px;
+    background-color: $light-green !important;
+    color: #FFFFFF !important;
+  }
+  .sign{
+    margin-top: 18px;
+    color: #BBBBBE;
+    text-align: center;
+  }
+
+  mat-form-field{
+    color: $theme-color;
+  }
+}
+//horizontal page design
+.horizontal-tabs.mat-tab-group{
+  flex-direction: column;
+  width:auto;
+
+  .mat-tab-body-wrapper {
+    color: white;
+  }
+  .mat-tab-label {
+    flex-direction: row;
+  }
+  .mat-ink-bar{
+    display: none;
+  }
+  .mat-tab-header{
+    border: none !important
+  }
+  .mat-tab-body-wrapper{
+    padding: 0 16px;
+  }
+  .custom-file{
+    height: 45px !important;
+  }
+}
+
+//register page design
+.register_page{
+  //.gender{
+  // color: #767B78;
+  //}
+  //width:auto;
+  color: #FFFFFF;
+  flex-direction: column;
+
+  //.mat-tab-body-content{
+  //  overflow: hidden;
+  //}
+
+  .mat-tab-label {
+    background-color: #D6FFCE;
+    justify-content: start;
+  }
+  .mat-tab-label-active{
+    background: #AEFF9E !important;
+    color: $theme-color !important;
+  }
+  .mat-tab-labels{
+    background: #D6FFCE !important;
+  }
+  mat-card{
+    background: #3C463A !important;
+    color:white !important;
+  }
+  mat-icon,i{
+    font-size: 18px !important;
+    color: $light-green;
+  }
+  .mat-ink-bar{
+    display: none;
+  }
+  .mat-tab-header{
+    border: none !important
+  }
+  .mat-tab-body-wrapper{
+    padding: 0 16px;
+  }
+  mat-form-field{
+    background-color: #FFFFFF;
+    padding: 10px  20px;
+    width:100%;
+    color: black;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+  .btncolor {
+    background-color: $light-green !important;
+    color: #FFFFFF !important;
+  }
+
+  button{
+    margin-buttom: 5px;
+    background-color: $light-green !important;
+    color: #FFFFFF !important;
+    margin: -10px 0px 17px 0px;
+  }
+  .mat-tab-header-pagination{
+    background: #fff;
+  }
+  .mat-tab-body.mat-tab-body-active{
+    margin-top: 15px;
+  }
 }
 
 .secondary-bg-color{

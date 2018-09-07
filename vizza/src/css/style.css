@@ -50,6 +50,117 @@ button:focus {
   background: #ffe8c6 !important;
   border-bottom: 1px solid #ccc; }
 
+.dashboard1 {
+  width: 30em; }
+  .dashboard1 .mat-card {
+    background: #ECFFF0 !important; }
+  .dashboard1 .mat-card-header-text {
+    display: none;
+    color: #13805A; }
+
+.pos_login {
+  width: 30em; }
+  .pos_login a.forget:visited {
+    color: #2FE827; }
+  .pos_login a.forget:link {
+    color: #2FE827; }
+  .pos_login a.forget:active {
+    color: #2FE827; }
+  .pos_login a.forget:hover {
+    color: #939AF6; }
+  .pos_login .forget {
+    cursor: pointer; }
+  .pos_login a.sign:active {
+    color: #BBBBBE; }
+  .pos_login a.sign:visited {
+    color: #BBBBBE; }
+  .pos_login a.sign:link {
+    color: #BBBBBE; }
+  .pos_login a.sign:hover {
+    color: #939AF6; }
+  .pos_login mat-form-field {
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 100%; }
+  .pos_login mat-card {
+    background: #3C463A !important; }
+  .pos_login mat-icon {
+    color: #2FE827; }
+  .pos_login .white-color {
+    color: #FFFFFF; }
+  .pos_login input {
+    background-color: #FFFFFF;
+    height: 25px; }
+  .pos_login button {
+    margin-top: 5px;
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important; }
+  .pos_login .sign {
+    margin-top: 18px;
+    color: #BBBBBE;
+    text-align: center; }
+  .pos_login mat-form-field {
+    color: #02810E; }
+
+.horizontal-tabs.mat-tab-group {
+  flex-direction: column;
+  width: auto; }
+  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
+    color: white; }
+  .horizontal-tabs.mat-tab-group .mat-tab-label {
+    flex-direction: row; }
+  .horizontal-tabs.mat-tab-group .mat-ink-bar {
+    display: none; }
+  .horizontal-tabs.mat-tab-group .mat-tab-header {
+    border: none !important; }
+  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
+    padding: 0 16px; }
+  .horizontal-tabs.mat-tab-group .custom-file {
+    height: 45px !important; }
+
+.register_page {
+  color: #FFFFFF;
+  flex-direction: column; }
+  .register_page .mat-tab-label {
+    background-color: #D6FFCE;
+    justify-content: start; }
+  .register_page .mat-tab-label-active {
+    background: #AEFF9E !important;
+    color: #02810E !important; }
+  .register_page .mat-tab-labels {
+    background: #D6FFCE !important; }
+  .register_page mat-card {
+    background: #3C463A !important;
+    color: white !important; }
+  .register_page mat-icon, .register_page i {
+    font-size: 18px !important;
+    color: #2FE827; }
+  .register_page .mat-ink-bar {
+    display: none; }
+  .register_page .mat-tab-header {
+    border: none !important; }
+  .register_page .mat-tab-body-wrapper {
+    padding: 0 16px; }
+  .register_page mat-form-field {
+    background-color: #FFFFFF;
+    padding: 10px  20px;
+    width: 100%;
+    color: black;
+    margin-bottom: 8px;
+    border-radius: 5px; }
+  .register_page .btncolor {
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important; }
+  .register_page button {
+    margin-buttom: 5px;
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important;
+    margin: -10px 0px 17px 0px; }
+  .register_page .mat-tab-header-pagination {
+    background: #fff; }
+  .register_page .mat-tab-body.mat-tab-body-active {
+    margin-top: 15px; }
+
 .secondary-bg-color {
   background-color: rgba(0, 0, 0, 0.12) !important; }
 

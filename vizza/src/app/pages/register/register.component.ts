@@ -35,7 +35,7 @@ export const MY_FORMATS = {
     ]
 })
 export class RegisterComponent implements OnInit {
-    public form: FormGroup;
+    public registerform : FormGroup;
     response: any;
     pin: any;
     fixed: boolean;
@@ -54,19 +54,19 @@ export class RegisterComponent implements OnInit {
     type: any;
     aadharfront: any;
     aadharback: any;
+    chequeleaf: any;
     pancard: any;
     education: any;
     dob: any;
     dobError: any;
     today: any;
     mismatchError: any;
-    DateValidator : any;
-    roleId : any;
-    img :any;
-    profile : any;
+    DateValidator: any;
+    roleId: any;
+    img: any;
+    profile: any;
     public passwordHide: boolean = true;
-    constructor(public config: ConfigurationService,
-                public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+    constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -77,19 +77,17 @@ export class RegisterComponent implements OnInit {
         this.dob = '';
         this.dobError = '';
         this.mismatchError = '';
-        this.img=false;
-        this.form = this.fb.group({
+        this.img = false;
+        this.registerform = this.fb.group({
             id: null,
-            firstname: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z]*$")])],
-            lastname: ['', Validators.compose([Validators.required, Validators.pattern( /^[a-zA-Z]+$/)])],
+            firstname: ['', Validators.compose([Validators.required])],
+            lastname: ['', Validators.compose( [Validators.required])],
             birthday: ['', Validators.compose([Validators.required])],
-
-            gender: ['', Validators.compose([Validators.required])],
+            // gender: ['', Validators.compose([Validators.required])],
+            formemail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             referralcode: '',
-
             contacts: this.fb.group({
-                email: ['',Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-
+                email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
@@ -98,22 +96,28 @@ export class RegisterComponent implements OnInit {
             }),
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
-                pannumber: ['',  Validators.compose([Validators.required, Validators.pattern("^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$")])],
-
+                pannumber: ['',  Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
             }),
             education: this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
 
             }),
+            bankdetails: this.fb.group({
+                bankname: ['', Validators.compose([Validators.required])],
+                bankbranch: ['', Validators.compose([Validators.required])],
+                ifsccode: ['', Validators.compose([Validators.required])],
+                accountnumber: ['', Validators.compose([Validators.required])]
+            })
         });
         this.aadharfront = '';
         this.aadharback = '';
+        this.chequeleaf = '';
+        this.profile = '';
         this.pancard = '';
         this.education = '';
-        this.profile = '';
         this.roleId = this.auth.getPosRoleId() ;
-                       console.log(this.roleId,'as') ;
-        if(this.roleId>0){
+                       console.log(this.roleId,'assss');
+        if(this.roleId > 0){
             this.router.navigate(['/pos-profile']);
         }
     }
@@ -123,7 +127,6 @@ export class RegisterComponent implements OnInit {
     }
     readUrl(event: any, type) {
         this.type = type;
-        console
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
@@ -175,6 +178,9 @@ export class RegisterComponent implements OnInit {
             if (this.type == 'profile') {
                 this.profile = this.fileUploadPath;
             }
+            if (this.type == 'chequeleaf'){
+                this.chequeleaf = this.fileUploadPath;
+            }
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -184,7 +190,8 @@ export class RegisterComponent implements OnInit {
     public fileUploadFailure(error) {
         console.log(error);
     }
-    submit() {
+    submit(value) {
+        console.log(value);
         console.log(this.dob, 'dateeee');
         if (this.aadharfront == '') {
             this.toastr.error('Please upload aadhar front page');
@@ -196,28 +203,37 @@ export class RegisterComponent implements OnInit {
             this.toastr.error('Please upload educational documents');
         } else if (this.profile == '') {
             this.toastr.error('Please upload profile');
-        } else {
+        }
+        else if (this.chequeleaf == '') {
+            this.toastr.error('Please upload Cheque Leaf (or) Passbook');
+        }else {
             const data = {
                 "platform": "web",
                 "pos_hidden_id": "",
-                "pos_referralcode": this.form.controls['referralcode'].value,
-                "pos_firstname": this.form.controls['firstname'].value,
-                "pos_lastname": this.form.controls['lastname'].value,
-                "pos_gender": this.form.controls['gender'].value,
+                "pos_referralcode": this.registerform.controls['referralcode'].value,
+                "pos_firstname": this.registerform.controls['firstname'].value,
+                "pos_lastname": this.registerform.controls['lastname'].value,
+                // "pos_gender": this.registerform.controls['gender'].value,
                 "pos_dob": this.dob,
                 "pos_profile": this.profile,
-                "pos_mobileno": this.form.value['contacts']['phone1'],
-                "pos_email": this.form.value['contacts']['email'],
-                "pos_address1": this.form.value['contacts']['address1'],
-                "pos_address2": this.form.value['contacts']['address2'],
-                "pos_postalcode": this.form.value['contacts']['pincode'],
-                "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
-                "pos_pan_no": this.form.value['documents']['pannumber'],
+                "pos_mobileno": this.registerform.value['contacts']['phone1'],
+                "pos_email": this.registerform.value['contacts']['email'],
+                "pos_address1": this.registerform.value['contacts']['address1'],
+                "pos_address2": this.registerform.value['contacts']['address2'],
+                "pos_postalcode": this.registerform.value['contacts']['pincode'],
+                "pos_aadhar_no": this.registerform.value['documents']['aadharnumber'],
+                "pos_pan_no": this.registerform.value['documents']['pannumber'],
+                "pos_profile_img": this.profile,
                 "pos_aadhar_front_img": this.aadharfront,
                 "pos_aadhar_back_img": this.aadharback,
                 "pos_pan_img": this.pancard,
-                "pos_education": this.form.value['education']['qualification'],
-                "pos_education_doc_img": this.education
+                "check_leaf_upload_img": this.chequeleaf,
+                "pos_education": this.registerform.value['education']['qualification'],
+                "pos_education_doc_img": this.education,
+                "bank_name": this.registerform.value['bankdetails']['bankname'],
+                "bank_acc_no": this.registerform.value['bankdetails']['accountnumber'],
+                "branch_name": this.registerform.value['bankdetails']['bankbranch'],
+                "ifsc_code": this.registerform.value['bankdetails']['ifsccode']
             };
             console.log(data, 'dattatta');
             this.settings.loadingSpinner = true;
@@ -247,7 +263,7 @@ export class RegisterComponent implements OnInit {
     }
 
     checkGender() {
-        if (this.form.controls['gender'].value != '' && this.form.controls['gender'].value != undefined) {
+        if (this.registerform.controls['gender'].value != '' && this.registerform.controls['gender'].value != undefined) {
             this.mismatchError = '';
         } else {
             this.mismatchError = 'Gender is required ';
@@ -320,7 +336,7 @@ console.log(res);
                 selectedDate = event.value._i;
                 this.dob = event.value._i;
 
-                let birth = this.form.controls['birthday'].value;
+                let birth = this.registerform.controls['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
                 if(birth._i.length == '10') {
