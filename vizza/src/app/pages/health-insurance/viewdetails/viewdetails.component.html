@@ -20,7 +20,7 @@
                   <div class="col-md-3 pl-0 pr-1">
                     <div mat-dialog-content >
                       <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active ': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#8e8e8e' : '#d81b60'">
+                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#8e8e8e' : '#d81b60'">
                           <i class="material-icons">keyboard_arrow_right</i>
                           <a matLine  style="font-weight: bold !important;" > {{keys.kf_name | titlecase}}</a>
                         </mat-list-item>
@@ -36,7 +36,7 @@
                           <div class="row" *ngIf="id === i">
                             <div class="col-md-12">
                               <div fxLayoutAlign="left start">
-                                <p>{{keys.kf_details }}</p>
+                                <p class="text-justify">{{keys.kf_details}}</p>
                               </div>
                             </div>
                           </div>
@@ -67,7 +67,7 @@
                     <div class="row" *ngIf="keys.type == 2">
                       <div class="col-md-12">
                         <div fxLayoutAlign="left start">
-                          <p>{{keys.kf_details}}</p>
+                          <p class="text-justify">{{keys.kf_details}}</p>
                         </div>
                       </div>
                     </div>

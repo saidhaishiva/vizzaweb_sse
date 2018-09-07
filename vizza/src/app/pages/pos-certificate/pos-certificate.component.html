@@ -1,21 +1,35 @@
 
+  <div class="container mb-2">
+    <div class="row">
+      <div class="col">
+        <mat-button-toggle-group #group="matButtonToggleGroup" class="float-left" value="1">
+          <mat-button-toggle value="1">
+            Appointment Letter
+          </mat-button-toggle>
+          <mat-button-toggle value="2">
+            Certificate of Training
+          </mat-button-toggle>
+          <mat-button-toggle value="3">
+            Certificate of Examination
+          </mat-button-toggle>
+        </mat-button-toggle-group>    </div>
+      <div class="col text-right">
+        <button mat-raised-button color="primary" (click)="print()">
+          Print <i class="material-icons float-right" style="margin-top: 6px !important;">print</i>
+        </button>
 
+      </div>
+    </div>
+
+  </div>
 <div class="certificate-bg">
-  <mat-button-toggle-group #group="matButtonToggleGroup" class="float-right" value="1">
-    <mat-button-toggle value="1">
-       1
-    </mat-button-toggle>
-    <mat-button-toggle value="2">
-      2
-    </mat-button-toggle>
-    <mat-button-toggle value="3">
-     3
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-<div class="container pt-3 pb-3" id="pos-cirtificate">
+
+<div class="container pt-7 pb-3" id="pos-cirtificate">
   <mat-card class="c-card" *ngIf="group.value == '1'">
- <header class="row">
-     <div class="col-md-6">
+
+ <header>
+   <div class="row" fxLayoutAlign="center center">
+    <div class="col-md-6">
        <img src="assets/img/vizza-logoNewpos.png" alt="">
      </div>
      <div class="col-md-6 text-right">
@@ -27,6 +41,7 @@
          <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>
        </ul>
      </div>
+   </div>
 
  </header>
     <section class="row">
@@ -44,11 +59,11 @@
               </tr>
               <tr>
                 <td>POS’P ID</td>
-                <td>XXXXXXXX</td>
+                <td>{{posId}}</td>
               </tr>
               <tr>
                 <td>Mr / Ms</td>
-                <td>XXXXXXXX</td>
+                <td>{{firstName | titlecase}} {{lastName | titlecase}} </td>
               </tr>
               <tr>
                 <td>Address</td>
@@ -115,7 +130,7 @@
   <section class="row mt-5">
     <div class="c-content w-100">
       <h5 class="c-title"><span>This is to certificaty that</span></h5>
-      <p>Mr./Ms./Mrs. …………………………………. has attended 15 hours of Online
+      <p>Mr./Ms./Mrs. <strong>{{firstName | titlecase}} {{lastName | titlecase}} </strong> has attended 15 hours of Online
         Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
         Insurance Regulatory and Development Authority.</p>
       <p>The Said Candidate, had registered for the online training program on
@@ -136,7 +151,7 @@
         </tr>
         <tr>
           <td>POS’P ID</td>
-          <td>XXXXXXXX</td>
+          <td>{{posId}}</td>
         </tr>
       </table>
     </div>
@@ -174,7 +189,7 @@
     <section class="row mt-5">
       <div class="c-content text-center w-100">
         <h5 class="c-title"><span>This is to certificaty that</span></h5>
-        <p>Mr/Mrs/Ms………………………………….</p>
+        <p>Mr/Mrs/Ms <strong>{{firstName | titlecase}} {{lastName | titlecase}} </strong></p>
         <p>passed the Point of Sales Person Examination held on</p>
         <p>……………………………………..</p>
         <p>and qualified under the stream of</p>
@@ -196,7 +211,7 @@
           </tr>
           <tr>
             <td>POS’P ID</td>
-            <td>XXXXXXXX</td>
+            <td>{{posId}}</td>
           </tr>
         </table>
       </div>

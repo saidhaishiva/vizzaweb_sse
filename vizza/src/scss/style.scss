@@ -61,6 +61,10 @@ button:focus{
     margin-top: -16px;
   }
 }
+.sidenav-header{
+  background: #ffe8c6 !important;
+  border-bottom: 1px solid #ccc;
+}
 
 .dashboard1{
   width: 30em;
@@ -431,6 +435,9 @@ a:hover {
   .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
     background-color: rgba(24, 204, 180, 0.35);
   }
+  .mat-ink-bar{
+    display:none !important;
+  }
   .mat-tab-label-active{
     background-color: #f29a1d !important;
     color: #fff!important;
@@ -616,9 +623,9 @@ background: #ccc !important;
     }
 
   }
-  //.mat-horizontal-stepper-header{
-  //  pointer-events: none !important;
-  //}
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -830,6 +837,10 @@ background: #ccc !important;
 }
 .horizontal-menu-item a{
   justify-content: center !important;
+}
+.horizontal-menu-item .horizontal-sub-menu a{
+  justify-content: end !important;
+
 }
 #view-details {
   color: #ffffff !important;

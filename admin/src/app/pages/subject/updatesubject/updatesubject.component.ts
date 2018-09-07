@@ -67,7 +67,7 @@ export class UpdatesubjectComponent implements OnInit {
         if (successData.IsSuccess) {
             this.dialogRef.close(true);
             this.response = successData.ResponseObject;
-            this.toastr.success(successData.ResponseObject,'Updated Successfully');
+            this.toastr.success(successData.ResponseObject);
         } else {
             this.toastr.error(successData.ErrorObject,'Failed');
         }

@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
       sessionStorage.nomineeDate = '';
       sessionStorage.familyMembers = '';
       sessionStorage.stepper1Details = '';
+      sessionStorage.stepper2Details = '';
+      sessionStorage.stepper3Details = '';
+      sessionStorage.nomineeData = '';
 
       //personalaccident components
       sessionStorage.setOccupation = '';

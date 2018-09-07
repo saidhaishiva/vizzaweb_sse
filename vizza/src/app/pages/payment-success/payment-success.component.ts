@@ -6,6 +6,8 @@ import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Injectable} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 
 
 
@@ -31,14 +33,29 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
+
   }
 
   ngOnInit() {
       this.proposalid = sessionStorage.proposalID;
-      this.setPurchaseStatus();
-      console.log(this.proposalid, 'this.proposalidthis.proposalid');
+      if ( this.purchasetoken != undefined) {
+          this.setPurchaseStatus();
+      }
+      // let oReq = new XMLHttpRequest();
+      // console.log('service listener');
+      // oReq.addEventListener('load', (evt) => this.reqListener(evt));
+      // // let formData = new FormData();
+      // // console.log(formData);
+      // // console.log(formData.get('transactionRefNum'));
 
+
+
+      console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
+  reqListener (event) {
+      alert();
+        console.log(event, 'evennnnnnttttddddddddd');
+    }
 
     setPurchaseStatus() {
         const data = {
@@ -67,13 +84,11 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public purchaseStatusSuccess(successData) {
-
        if (successData.IsSuccess) {
            this.purchaseStatus = successData.ResponseObject;
            sessionStorage.nomineeDate = '';
            sessionStorage.familyMembers = '';
            sessionStorage.stepper1Details = '';
-
            sessionStorage.setPage = '';
            sessionStorage.sideMenu = false;
            sessionStorage.setFamilyDetails = '';
@@ -93,10 +108,11 @@ export class PaymentSuccessComponent implements OnInit {
            sessionStorage.changedTabIndex = '';
            sessionStorage.shorListTab = '';
            sessionStorage.enquiryId = '';
-           sessionStorage.proposalID = '';
            sessionStorage.proposalId = '';
            sessionStorage.mobileNumber = '';
            sessionStorage.ageRestriction = '';
+       } else {
+           this.purchaseStatus = successData.ResponseObject;
        }
     }
     public purchaseStatusFailure(error) {
@@ -128,9 +144,9 @@ export class PaymentSuccessComponent implements OnInit {
         //     this.downloadMessage();
         // }
         this.type = successData.ResponseObject.type;
+        this.path = successData.ResponseObject.path;
         this.currenturl = this.config.getimgUrl();
         if (this.type == 'pdf') {
-            this.path = successData.ResponseObject.path;
             window.open(this.currenturl + '/' +  this.path,'_blank');
             // window.location.href = this.fileName + '/' +  this.path  ;
         } else {
@@ -143,7 +159,9 @@ export class PaymentSuccessComponent implements OnInit {
 
     downloadMessage() {
         const dialogRef = this.dialog.open(DownloadMessage, {
-            width: '400px'
+            width: '400px',
+            data: this.path
+
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -156,7 +174,7 @@ export class PaymentSuccessComponent implements OnInit {
 @Component({
     selector: 'downloadmessage',
     template: `<div mat-dialog-content class="text-center">
-        <label> Your policy is being prepared. A link has been shared to your registered emailID and Mobile number. </label>
+        <label> {{data}} </label>
     </div>
     <div mat-dialog-actions style="justify-content: center">
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>

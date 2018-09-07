@@ -32,6 +32,7 @@ import {PersonalaccidentComponent} from './pages/personalaccident/personalaccide
 import {TravelComponent} from './pages/travel/travel.component';
 import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
+import {TrainingComponent} from './pages/training/training.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -70,7 +71,8 @@ export const routes: Routes = [
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
-            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard], canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
             { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
             { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
             { path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },

@@ -13,6 +13,7 @@ export class EntranceexamComponent implements OnInit {
   ngOnInit() {
   }
     startExam() {
+    sessionStorage.examBack = 0;
     this.router.navigate(['/exam']);
     }
 
