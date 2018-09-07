@@ -26,6 +26,19 @@ export class ProposalService {
             .catch(this.handleError);
     }
 
+    getReligareProposal(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/create_proposal_religare';
+        console.log(url);
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     getPolicyToken(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -35,6 +48,16 @@ export class ProposalService {
         const url = this.configurationService.getHost() + 'quote/get_policy_proposaltoken';
         console.log(url);
         return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    religarePayment(data, action) {
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = action;
+        console.log(url);
+        return this.http.post(url , data, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
     }
@@ -72,6 +95,43 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+
+    getOccupationCode(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/get_religare_occupationcode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    getOccupationClass(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/get_occupationcode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    getReligareQuestions(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/get_religare_questions';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     getRelationshipList(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -94,6 +154,18 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+
+    personalAccident(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/lists';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getDownloadPdf(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -105,7 +177,17 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
+    getPostalReligare(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/get_religare_pincodes';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
 
 

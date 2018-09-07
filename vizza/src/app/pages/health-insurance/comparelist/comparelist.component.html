@@ -30,18 +30,23 @@
                 <!--</p>-->
             </div>
         </div>
-        <div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">
-            <div class="">
-                <p class="content-color text-center">{{clists.product_name}}</p>
-                <img src="{{webhost + '/' + clists.product_logo}}" style="width: 100px;">
-            </div>
-        </div>
+        <!--<div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">-->
+            <!--<div class="">-->
+                <!--<p class="content-color text-center">{{clists.product_name}}</p>-->
+                <!--<img src="{{webhost + '/' + clists.product_logo}}" style="width: 100px;">-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 <div mat-dialog-content class="compare" >
   <div class="row  scrollmenu">
       <div class="col-md-3">
           <table class="table compare">
               <tbody>
+              <tr >
+                  <td class="align-middle">
+                      <p style="height: 52px;">PRODUCT NAME</p>
+                  </td>
+              </tr>
               <tr class="table-warning1" >
                   <td>SUM INSURED</td>
               </tr>
@@ -58,6 +63,12 @@
       <div class="col-md-3" *ngFor="let clists of compareDetails.productdetails">
           <table class="table compare">
               <tbody>
+              <tr >
+                  <td class="text-center">
+                      <p class="content-color text-center">{{clists.product_name}}</p>
+                      <img src="{{webhost + '/' + clists.product_logo}}" style="width: 65px;height: 30px">
+                  </td>
+              </tr>
               <tr class="table-warning1" >
                   <td>&#8377;.{{clists.suminsured_amount}}</td>
               </tr>

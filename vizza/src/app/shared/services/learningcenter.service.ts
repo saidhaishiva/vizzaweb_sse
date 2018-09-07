@@ -1,0 +1,77 @@
+import { Injectable } from '@angular/core';
+import {AuthService} from './auth.service';
+import {ConfigurationService} from './configuration.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+@Injectable()
+export class LearningcenterService {
+
+    constructor(private http: HttpClient, private configurationService: ConfigurationService, private authService: AuthService) {
+    }
+    // get the question lists
+    getQuestionLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'posquestion/questionlist';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // submit the exam
+    submitExam(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'posquestion/answerrequest';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will get the total training time
+    trainingTiming(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'pos/get_pos_training_time_left' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will send the remaining training time
+    sendRemainingTime(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'pos/add_training_timezone' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    private extractData(res: Response) {
+        const body = res;
+        return body || {};
+    }
+    private handleError(error: Response | any) {
+        console.log(error);
+        let errMsg: string;
+        if (error instanceof Response) {
+            // const body = error.json() || '';
+            const err = error || JSON.stringify(error);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        return Observable.throw(error);
+    }
+
+}

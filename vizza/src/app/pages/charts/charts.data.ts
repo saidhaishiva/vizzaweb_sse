@@ -1,27 +1,23 @@
 export const single = [
-  {
-    name: 'Germany',
-    value: 40632
-  },
-  {
-    name: 'United States',
-    value: 49737
-  },
-  {
-    name: 'France',
-    value: 36745
-  },
-  {
-    name: 'United Kingdom',
-    value: 36240
-  },
+  // {
+  //   name: 'Germany',
+  //   value: 40632
+  // },
+  // {
+  //   name: 'United States',
+  //   value: 49737
+  // },
+  // {
+  //   name: 'France',
+  //   value: 36745
+  // },
+  // {
+  //   name: 'United Kingdom',
+  //   value: 36240
+  // },
   {
     name: 'Spain',
-    value: 33000
-  },
-  {
-    name: 'Italy',
-    value: 35800
+    value: 70
   }
 ];
 
@@ -71,21 +67,10 @@ export const multi = [
   {
     name: 'France',
     series: [
-      {
-        name: '2017',
-        value: 51732
-      },
-      {
-        name: '2010',
-        value: 36745
-      },
+
       {
         name: '2000',
         value: 34774
-      },
-      {
-        name: '1990',
-        value: 29476
       }
     ]
   },
@@ -174,29 +159,12 @@ export const bubble = [
   {
     name: 'France',
     series: [
-      {
-        name: '2008',
-        x: new Date(2008, 0, 1),
-        y: 81.4,
-        r: 63
-      },
-      {
-        name: '2000',
-        x: new Date(2000, 0, 1),
-        y: 79.1,
-        r: 59.4
-      },
+
       {
         name: '1994',
         x: new Date(1994, 0, 1),
         y: 76.7,
         r: 58.1
-      },
-      {
-        name: '1990',
-        x: new Date(1990, 0, 1),
-        y: 77.2,
-        r: 56.9
       }
     ]
   },

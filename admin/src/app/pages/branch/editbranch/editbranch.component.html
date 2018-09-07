@@ -18,15 +18,20 @@
 
       </mat-form-field >
 
+      <mat-form-field class="w-100">
 
+      <mat-select placeholder="Status" formControlName="active">
+        <mat-option *ngFor="let actives of active" [value]="actives.value">
+          {{actives.name}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
       <div class="text-center">
         <button mat-raised-button color="primary"  type="submit">Update</button>
-
 
       </div>
 
     </form>
   </div>
 
-</div>
 

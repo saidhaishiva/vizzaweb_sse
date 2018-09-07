@@ -10,6 +10,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {GrouppopupComponent} from './grouppopup/grouppopup.component';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
+import {ViewdetailsComponent} from './viewdetails/viewdetails.component';
 
 @Component({
   selector: 'app-health-insurance',
@@ -72,7 +73,10 @@ export class HealthInsuranceComponent implements OnInit {
     sbtn: boolean;
 
 
+
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
+
+
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
@@ -102,7 +106,9 @@ export class HealthInsuranceComponent implements OnInit {
             {name: 'Daughter', age: '', disabled: false, checked: false, auto: false, error: ''}
         ];
         this.compareArray = [];
+        this.sumInsuredAmountLists = 0;
     }
+
     ngOnInit() {
         this.firstPage = true;
         this.secondPage = false;
@@ -122,6 +128,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.secondPage = true;
         }
         this.count = 0;
+
     }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
@@ -130,6 +137,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         return true;
     }
+
     // this function will get the session data
     sessionData() {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
@@ -225,6 +233,12 @@ export class HealthInsuranceComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
+    // checkNetwork() {
+    //     if (this.sumInsuredAmountLists == 0) {
+    //         this.toast.error("Unable to connect to the network");
+    //
+    //     }
+    // }
     // selected members
     ckeckedUser(value, index, name) {
         if (value) {
@@ -328,7 +342,12 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-    typeAge(index) {
+    typeAge(index, value) {
+        if (value != '') {
+            this.setArray[index].checked = true;
+        } else {
+            this.setArray[index].checked = false;
+        }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
     addOthers(value) {
@@ -390,7 +409,10 @@ export class HealthInsuranceComponent implements OnInit {
                         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
                         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                         'sum_insured': this.selectedAmount,
-                        'family_details': this.finalData
+                        'family_details': this.finalData,
+                        'insurance_type': '1',
+                        'annual_salary': '',
+                        'occupation_code': '',
                     };
                     this.settings.loadingSpinner = true;
                     this.common.getPolicyQuotation(data).subscribe(
@@ -465,8 +487,8 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     public PolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-        this.toast.error(error, 'Failed');
+    this.settings.loadingSpinner = false;
+        this.toast.error('Network is unreachable', 'Failed');
     }
     onSelectedIndexChange(index) {
         if (this.insuranceLists.length == index) {
@@ -650,6 +672,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': value.name,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
+            'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
@@ -725,6 +748,7 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
+            'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
@@ -861,6 +885,9 @@ export class HealthInsuranceComponent implements OnInit {
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,
             'created_by': '0',
+            'insurance_type': '1',
+            'annual_salary': '',
+            'occupation_code': '',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
@@ -907,6 +934,20 @@ export class HealthInsuranceComponent implements OnInit {
         console.log(error);
         this.settings.loadingSpinner = false;
     }
+    // view key features details
+    viewKeyList(value) {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(ViewdetailsComponent, {
+            width: '1500px', data: value.product_id
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+    }
+
+//
 
     compareList(value) {
         this.productLists = [];
@@ -952,6 +993,7 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
+        console.log(value, 'value');
         if (this.auth.getPosStatus() == '0') {
             let dialogRef = this.dialog.open(PosstatusAlert, {
                 width: '700px',
@@ -961,14 +1003,22 @@ export class HealthInsuranceComponent implements OnInit {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
-                    this.router.navigate(['/proposal']);
+                    if (value.product_id <= 5 ) {
+                        this.router.navigate(['/religare']);
+                    } else {
+                        this.router.navigate(['/proposal']);
+                    }
                 } else {
                 }
             });
         } else {
             sessionStorage.buyProductdetails = JSON.stringify(value);
             sessionStorage.groupName = gname;
-            this.router.navigate(['/proposal']);
+            if (value.product_id <= 5) {
+                this.router.navigate(['/religare']);
+            } else {
+                this.router.navigate(['/proposal']);
+            }
         }
     }
 }

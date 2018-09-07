@@ -2,14 +2,30 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BranchService} from '../../shared/services/branch.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 import {Settings} from '../../app.settings.model';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-branchcoordinator',
   templateUrl: './branchcoordinator.component.html',
-  styleUrls: ['./branchcoordinator.component.scss']
+  styleUrls: ['./branchcoordinator.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class BranchcoordinatorComponent implements OnInit {
     public webhost: any;
@@ -21,7 +37,7 @@ export class BranchcoordinatorComponent implements OnInit {
     selected = [];
     public response: any;
     public status: any;
-    public selectedBranch: any;
+    // public selectedBranch: any;
     loadingIndicator: boolean = true;
     public total: any;
     public  branchLists: any;
@@ -29,6 +45,8 @@ export class BranchcoordinatorComponent implements OnInit {
   constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
 
   ngOnInit() {
+      this.branchcoordinatorList();
+      this.branchList();
   }
     public branchcoordinatorList() {
 
@@ -36,19 +54,19 @@ export class BranchcoordinatorComponent implements OnInit {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-
+            'branch_id':''
         };
 
-        this.branchservice.relationalManagerList(data).subscribe(
+        this.branchservice.branchCoordinatorList(data).subscribe(
             (successData) => {
-                this.relationalSuccess(successData);
+                this.CoordinatorListSuccess(successData);
             },
             (error) => {
-                this.relationalFailure(error);
+                this.CoordinatorListFailure(error);
             }
         );
     }
-    public relationalSuccess(success) {
+    public CoordinatorListSuccess(success) {
         console.log(success);
         // this.loadingIndicator = false;
         if (success.IsSuccess) {
@@ -58,8 +76,21 @@ export class BranchcoordinatorComponent implements OnInit {
             this.temp = this.data;
         } else {
         }
+
     }
-    public relationalFailure(error){
+    updateFilter(event) {
+
+            const val = event.target.value.toLowerCase();
+            const temp = this.temp.filter(function(d) {
+                return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
+            });
+            this.rows = temp;
+            console.log(this.rows, 'opo');
+            this.table.offset = 0;
+        }
+
+    
+    public CoordinatorListFailure(error){
 
     }
     public branchList() {
@@ -67,20 +98,20 @@ export class BranchcoordinatorComponent implements OnInit {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
             'userid': this.auth.getAdminId(),
-            'branch_id': []
+            'branchmanagerid': '',
         };
         this.loadingIndicator = false;
 
-        this.branchservice.branchCoordinatorList(data).subscribe(
+        this.branchservice.branchList(data).subscribe(
             (successData) => {
-                this.coordinatorListSuccess(successData);
+                this.branchListSuccess(successData);
             },
             (error) => {
-                this.coordinatorListFailure(error);
+                this.branchListFailure(error);
             }
         );
     }
-    public coordinatorListSuccess(success) {
+    public branchListSuccess(success) {
         this.loadingIndicator = false;
 
         console.log(success);
@@ -91,7 +122,7 @@ export class BranchcoordinatorComponent implements OnInit {
         }
     }
 
-    public coordinatorListFailure(error) {
+    public branchListFailure(error) {
 
     }
 }

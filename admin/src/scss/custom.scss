@@ -164,7 +164,7 @@ form .mat-icon{
     margin-right: 10px;
   }
   .bg-primary{
-    background-color: #dcdcdc!important;
+    background-color: #0288d1 !important;
     height: 40px;
     color:#313131 !important;
   }
@@ -497,7 +497,16 @@ image-cropper{
     color: #00863f;
   }
   span{
-    color: #666;
+    color: #fff;
+  }
+}
+.ngx-pos {
+  .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    background: #0288d1;
+    color: #fff;
+    border-right: 1px solid #fff;
+    font-weight: bold;
+    font-size: 15px;
   }
 }
 .user-content{
@@ -1057,5 +1066,38 @@ a{
 
 }
 
+.file-upload{
+  div {
+    position: relative;
+    overflow: hidden;
+    background-color: #0288d1;
+    border-color: #0288d1;
+    border-radius: 0.2rem !important;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 20px;
+    cursor: pointer !important;
+  }
+  .btn-primary:hover{
+    background-color: #0288d1;
+    border-color: #0288d1;
+  }
+  input {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+  }
+
+}
+
+.file-upload, .file-upload:hover {
+  color: #888888 !important;
+  cursor: pointer;
+}
+.view-upload, view-upload:hover{
+  color: $theme-color !important;
+}
 
 

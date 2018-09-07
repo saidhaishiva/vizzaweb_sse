@@ -16,24 +16,31 @@ export class EditbranchComponent implements OnInit {
     public response: any;
     public status: any;
  public getDetails: any;
+ public active: any;
+
     constructor(public fb: FormBuilder, public auth: AuthService, public dialogRef: MatDialogRef<EditbranchComponent>, private toastr: ToastrService, public appSettings: AppSettings, public branchservice: BranchService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
         this.settings = this.appSettings.settings;
         this.getDetails = data;
         console.log(this.getDetails);
-
+        this.active = [
+            {value: '0', name:'InActive'},
+            {value: '1', name:'Active'}
+        ];
         this.dialogRef.disableClose = true;
 
         this.form = this.fb.group({
           // 'branchid': ['', Validators.compose([Validators.required])],
           'branchname': ['', Validators.compose([Validators.required, ])],
-      });
+            'active': ['', Validators.compose([Validators.required,])]
+
+        });
 
   }
 
   ngOnInit() {
-      //this.form.controls['branchid'].setValue(this.getDetails.branchid);
       this.form.controls['branchname'].setValue(this.getDetails.branchname);
+      this.form.controls['active'].setValue(this.getDetails.branchstatus);
 
   }
     close(): void {
@@ -46,7 +53,9 @@ export class EditbranchComponent implements OnInit {
                 'roleid': this.auth.getAdminRoleId(),
                 'userid': this.auth.getAdminId(),
                 'branch_id': this.getDetails.branch_id,
-                'branch_name':this.form.controls['branchname'].value
+                'branch_name':this.form.controls['branchname'].value,
+                'branch_status': this.form.controls['active'].value
+
             };
             this.settings.loadingSpinner = true;
             this.branchservice.editbranch(data).subscribe(
@@ -67,7 +76,7 @@ export class EditbranchComponent implements OnInit {
             this.response = successData.ResponseObject;
             this.toastr.success(successData.ResponseObject);
         } else {
-            this.toastr.error(successData.ResponseObject);
+            this.toastr.error(successData.ErrorObject);
         }
     }
 

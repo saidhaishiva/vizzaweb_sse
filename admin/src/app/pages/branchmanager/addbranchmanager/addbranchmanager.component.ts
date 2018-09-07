@@ -5,13 +5,31 @@ import { AppSettings} from '../../../app.settings';
 import {AuthService} from '../../../shared/services/auth.service';
 import {BranchService} from '../../../shared/services/branch.service';
 import { FormControl} from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+
 import { DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-addbranchmanager',
   templateUrl: './addbranchmanager.component.html',
-  styleUrls: ['./addbranchmanager.component.scss']
+  styleUrls: ['./addbranchmanager.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class AddbranchmanagerComponent implements OnInit {
     public form: FormGroup;
@@ -79,11 +97,10 @@ export class AddbranchmanagerComponent implements OnInit {
         console.log(success);
         this.loadingIndicator = false;
         if (success.IsSuccess) {
-            this.responsedata = success.ResponseObject;
             this.toastr.success(success.ResponseObject);
 
         } else {
-            this.toastr.error(success.ResponseObject);
+            this.toastr.error(success.ErrorObject);
 
         }
     }

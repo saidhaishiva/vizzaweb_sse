@@ -1,0 +1,61 @@
+<div class="question-view">
+  <div *ngIf="examStatus == 0">
+    <mat-card>
+      <mat-card-header>
+        <div fxFlex="100" class="flex-p">
+          <mat-card-title>Aptitude Test (<span class="content-color">Random Questions</span>) </mat-card-title>
+        </div>
+        <div fxFlex="50" class="flex-p">
+          <mat-card-subtitle style="color: black">Number of questions : <span class="content-color">30</span> </mat-card-subtitle>
+        </div>
+        <div fxFlex="50" class="flex-p">
+          <mat-card-subtitle style="color: black">Time : <span class="content-color">45</span> </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+      <mat-card-content  fxLayoutAlign="space-between center" >
+        <!--<mat-divider></mat-divider>-->
+        <mat-list class="ml-5">
+          <h5 matLine class="content-color"> Instructions </h5>
+          <mat-list-item >
+            <p matLine>
+              <mat-card-subtitle> <span><i class="material-icons">keyboard_arrow_right</i></span> <span>Total number of questions : </span><strong >30.</strong> </mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>Time alloted :</span> <strong>45</strong > minutes.</mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>Each question carry 1 mark, no negative marks.</span> </mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i><span> DO NOT refresh the page.</span> </mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>All the best :-).</span> </mat-card-subtitle>
+            </p>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+
+      <div fxLayoutAlign="center center" class="text-center">
+        <button mat-raised-button color="primary" (click)="startExam()">Start Test</button>
+      </div>
+    </mat-card>
+  </div>
+  <div  *ngIf="examStatus == 1">
+    <mat-card>
+      <mat-card-header>
+        <div fxFlex="100" class="flex-p" fxLayoutAlign="center center">
+          <mat-card-title>You have completed the exam</mat-card-title>
+        </div>
+
+      </mat-card-header>
+      <mat-card-content  fxLayoutAlign="space-between center" >
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+
+</div>

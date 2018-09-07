@@ -20,6 +20,19 @@ import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { EditposComponent } from './pages/editpos/editpos.component';
 import {PaymentSuccessComponent} from './pages/payment-success/payment-success.component';
 import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
+import {DeactivateGuard} from './shared/deactivate-guard';
+import {ReligareComponent} from './pages/religare/religare.component';
+import {DeactivatetimeGuard} from './shared/deactivatetime-guard';
+import {ExamComponent} from './pages/exam/exam.component';
+import {ExamactivateGuard} from './shared/activate-guard';
+import {ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
+import { ViewresultComponent} from './pages/viewresult/viewresult.component';
+import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
+import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
+import {TravelComponent} from './pages/travel/travel.component';
+import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
+import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
+import {TrainingComponent} from './pages/training/training.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,10 +64,19 @@ export const routes: Routes = [
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
-            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' } },
-            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' } },
+            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
+            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
+            { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
+            { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
+            { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
+            { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
+            { path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
+            { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} }
 
         ]
     },

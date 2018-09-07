@@ -1,106 +1,204 @@
 
-<div class="container-fluid ">
-    <mat-card class="doctordetail mb-3">
-        <div class="row">
-            <!--<div class="col-md-5 text-center">-->
+<div fxLayoutWrap fxLayout="row">
+    <div fxFlex="100" class="flex-p">
+        <mat-card class="p-0 mailbox">
+            <mat-sidenav-container>
+                <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="mailbox-sidenav mat-elevation-z1">
+                    <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="center center">
+                      <p fxLayoutAlign="center center">Title</p>
+                    </mat-toolbar>
 
-                <!--&lt;!&ndash;<div class="user-img">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle" >&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h4  class="user-name mt-2">{{personal.pos_firstname}} {{personal.pos_lastname}}</h4>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--</div>-->
-            <div class="col-md-12 text-right">
-                <button mat-raised-button color="primary" [routerLink]="['/pos-edit']">Edit</button>
-            </div>
-            <div class="col-md-7 personaldetails">
+                    <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
+                        <div *ngFor="let mail of mails" (click)="viewDetail(mail)">
+                            <mat-list-item [ngClass]="{'selected': mail.selected}">
+                                <!--<img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">-->
+                                <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
+                                    <h5 class="text-truncate sender">{{mail.name}}</h5>
+                                </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                        </div>
+                    </mat-nav-list>
+                </mat-sidenav>
+                <div>
+                    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <button mat-icon-button (click)="sidenav.toggle()">
+                                <mat-icon>list</mat-icon>
+                            </button>
 
-                <p fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="muted-text">person</mat-icon>&nbsp;
-                    <span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</span>
-                </p>
-                <p fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="muted-text">phone</mat-icon>&nbsp;
-                    <span>{{personal.pos_mobileno}}</span>
-                </p>
-                <!--<mat-divider></mat-divider>-->
-                <p fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="muted-text">mail</mat-icon>&nbsp;
-                    <span class="text-capitalize">{{personal.pos_email}}</span>
-                </p>
-                <!--<mat-divider></mat-divider>-->
-                <p fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="muted-text">location_on</mat-icon>&nbsp;
-                    <span class="text-capitalize">{{personal.pos_address1}}<span *ngIf="personal.pos_address2 != ''">, </span>{{personal.pos_address1}}, {{personal.pos_cityid}}<span *ngIf="personal.pos_cityid != null">-</span>{{personal.pos_postalcode}}</span>
-                </p>
-                <!--<mat-divider></mat-divider>-->
-            </div>
-        </div>
-    </mat-card>
-
-
-    <mat-accordion class="certificate">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Aadhar Card
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
+                        </div>
+                    </mat-toolbar>
+                    <div class="mailbox-content" perfectScrollbar>
+                        <div *ngIf="mail">
+                            <mat-list class="p-0">
+                                <mat-list-item class="h-100 py-1">
+                                    <div matLine  fxLayout="row" fxLayoutAlign="space-between center">
+                                        <h2 class="subject">{{mail.subject}}</h2>
+                                        <mat-icon class="muted-text">print</mat-icon>
+                                    </div>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item class="h-100 py-1">
+                                    <img *ngIf="mail.senderPhoto" matListAvatar  [src]="mail.senderPhoto">
+                                    <img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">
+                                    <h6 matLine fxLayout="row" fxLayoutAlign="space-between center">
+                                        <span>
+                                            <strong class="text-truncate">{{mail.sender}}</strong>
+                                            <span *ngIf="mail.senderMail" class="email">&lt;{{mail.senderMail}}&gt;</span>
+                                        </span>
+                                        <span>{{mail.date}}</span>
+                                    </h6>
+                                    <span matLine>to me</span>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                            </mat-list>
+                            <div class="mail-body" [innerHTML]="mail.body"></div>
+                            <div *ngIf="mail.attachments.length > 0" class="mail-body">
+                                <mat-divider></mat-divider>
+                                <p>
+                                    <strong>{{mail.attachments.length}} attachments</strong>
+                                    <button mat-icon-button matTooltip="Download all attachments" matTooltipPosition="above">
+                                        <mat-icon>file_download</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matTooltip="View all Images" matTooltipPosition="above">
+                                        <mat-icon>pageview</mat-icon>
+                                    </button>
+                                </p>
+                                <div *ngFor="let attachment of mail.attachments; let i = index">
+                                    <img [src]="attachment" alt="attachment">
+                                    <h3>image-{{i + 1}}.jpg</h3>
+                                    <p>
+                                        <span>457K</span>
+                                        <button mat-icon-button>
+                                            <mat-icon>file_download</mat-icon>
+                                        </button>
+                                        <button mat-icon-button>
+                                            <mat-icon>pageview</mat-icon>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                            <mat-icon>user</mat-icon>
+                            <p>Profile details</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">
-                </div>
-                <div class="no-data"  *ngIf="personal.doc_aadhar_front_img == '' && personal.doc_aadhar_back_img == ''" >
-                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
-                    cloud_off
-                    </i> &nbsp; No Aadhar card</p>
-                </div>
-            </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                   Pan Card
-                </mat-panel-title>
-
-            </mat-expansion-panel-header>
-            <div class="row">
-                <div class="col-md-12" *ngIf="personal.doc_pan_img == ''" >
-                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
-                        cloud_off
-                    </i> &nbsp; No Pan Card</p>
-                </div>
-                <div class="col-md-6" *ngIf="personal.doc_pan_img != ''" >
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
-                </div>
-            </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                   Educational Certificates
-                </mat-panel-title>
-
-            </mat-expansion-panel-header>
-            <div class="row">
-                <div *ngIf="personal.doc_edu_certificate_img == ''" >
-                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
-                        cloud_off
-                    </i> &nbsp; No Educational Certificated</p>
-                </div>
-
-                <div class="col-md-6" *ngIf="personal.doc_edu_certificate_img != ''" >
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">
-                </div>
-            </div>
-        </mat-expansion-panel>
-
-    </mat-accordion>
-
+            </mat-sidenav-container>
+        </mat-card>
+    </div>
 </div>
+
+
+
+
+
+
+
+<!--<div class="container-fluid ">-->
+    <!--<mat-card class="doctordetail mb-3">-->
+        <!--<div class="row">-->
+            <!--&lt;!&ndash;<div class="col-md-5 text-center">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash;<div class="user-img">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle" >&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<h4  class="user-name mt-2">{{personal.pos_firstname}} {{personal.pos_lastname}}</h4>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div class="col-md-12 text-right">-->
+                <!--<button mat-raised-button color="primary" [routerLink]="['/pos-edit']">Edit</button>-->
+            <!--</div>-->
+            <!--<div class="col-md-7 personaldetails">-->
+
+                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                    <!--<mat-icon class="muted-text">person</mat-icon>&nbsp;-->
+                    <!--<span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</span>-->
+                <!--</p>-->
+                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                    <!--<mat-icon class="muted-text">phone</mat-icon>&nbsp;-->
+                    <!--<span>{{personal.pos_mobileno}}</span>-->
+                <!--</p>-->
+                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                    <!--<mat-icon class="muted-text">mail</mat-icon>&nbsp;-->
+                    <!--<span class="text-capitalize">{{personal.pos_email}}</span>-->
+                <!--</p>-->
+                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                    <!--<mat-icon class="muted-text">location_on</mat-icon>&nbsp;-->
+                    <!--<span class="text-capitalize">{{personal.pos_address1}}<span *ngIf="personal.pos_address2 != ''">, </span>{{personal.pos_address2}}, {{personal.pos_cityid}}<span *ngIf="personal.pos_cityid != null">-</span>{{personal.pos_postalcode}}</span>-->
+                <!--</p>-->
+                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</mat-card>-->
+
+
+    <!--<mat-accordion class="certificate">-->
+        <!--<mat-expansion-panel>-->
+            <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>-->
+                    <!--Aadhar Card-->
+                <!--</mat-panel-title>-->
+            <!--</mat-expansion-panel-header>-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                    <!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
+                <!--</div>-->
+                <!--<div class="no-data"  *ngIf="personal.doc_aadhar_front_img == '' && personal.doc_aadhar_back_img == ''" >-->
+                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+                    <!--cloud_off-->
+                    <!--</i> &nbsp; No Aadhar card</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</mat-expansion-panel>-->
+        <!--<mat-expansion-panel >-->
+            <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>-->
+                   <!--Pan Card-->
+                <!--</mat-panel-title>-->
+
+            <!--</mat-expansion-panel-header>-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12" *ngIf="personal.doc_pan_img == ''" >-->
+                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+                        <!--cloud_off-->
+                    <!--</i> &nbsp; No Pan Card</p>-->
+                <!--</div>-->
+                <!--<div class="col-md-6" *ngIf="personal.doc_pan_img != ''" >-->
+                    <!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</mat-expansion-panel>-->
+        <!--<mat-expansion-panel >-->
+            <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>-->
+                   <!--Educational Certificates-->
+                <!--</mat-panel-title>-->
+
+            <!--</mat-expansion-panel-header>-->
+            <!--<div class="row">-->
+                <!--<div *ngIf="personal.doc_edu_certificate_img == ''" >-->
+                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+                        <!--cloud_off-->
+                    <!--</i> &nbsp; No Educational Certificated</p>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-6" *ngIf="personal.doc_edu_certificate_img != ''" >-->
+                    <!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</mat-expansion-panel>-->
+
+    <!--</mat-accordion>-->
+
+<!--</div>-->
 
 
 

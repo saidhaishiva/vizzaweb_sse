@@ -15,6 +15,11 @@ import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
+import { LearningcenterService} from './shared/services/learningcenter.service';
+import { DeactivateGuard} from './shared/deactivate-guard';
+import { DeactivatetimeGuard} from './shared/deactivatetime-guard';
+import { ExamactivateGuard} from './shared/activate-guard';
+import { ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -70,6 +75,22 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
+import { TruncatePipe} from '../limit.pipe';
+import { ReligareComponent } from './pages/religare/religare.component';
+import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
+import { SplitLastPipe} from '../splitpipe';
+import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
+import { ExamComponent } from './pages/exam/exam.component';
+import { ResultpageComponent } from './pages/exam/resultpage/resultpage.component';
+import { ConfrimAlert} from './pages/exam/exam.component';
+import { ViewresultComponent } from './pages/viewresult/viewresult.component';
+import { NgxChartsModule} from '@swimlane/ngx-charts';
+import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
+import { TravelComponent } from './pages/travel/travel.component';
+import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
+import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
+import { TrainingComponent } from './pages/training/training.component';
 
 @NgModule({
   imports: [
@@ -81,6 +102,7 @@ import { PosstatusAlert} from './pages/health-insurance/health-insurance.compone
       HttpClientModule,
       HttpModule,
       NgxDatatableModule,
+      NgxChartsModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -129,7 +151,22 @@ import { PosstatusAlert} from './pages/health-insurance/health-insurance.compone
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
-      PosstatusAlert
+      PosstatusAlert,
+      TruncatePipe,
+      ReligareComponent,
+      ViewdetailsComponent,
+      SplitLastPipe,
+      TestimonialComponent,
+      ExamComponent,
+      ResultpageComponent,
+      ConfrimAlert,
+      ViewresultComponent,
+      EntranceexamComponent,
+      PersonalaccidentComponent,
+      TravelComponent,
+      PersonalAccidentProposalComponent,
+      PosCertificateComponent,
+      TrainingComponent
   ],
   providers: [
       AppSettings,
@@ -137,14 +174,19 @@ import { PosstatusAlert} from './pages/health-insurance/health-insurance.compone
       ConfigurationService,
       AuthService,
       CommonService,
+      LearningcenterService,
       ProposalService,
+      DeactivateGuard,
+      DeactivatetimeGuard,
+      ExamactivateGuard,
+      ExamdeactivatetimeGuard,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert
     ]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormGroup,FormBuilder,Validators} from '@angular/forms';
 import {AppSettings} from '../../../app.settings';
 import { ToastrService} from 'ngx-toastr';
+import {ConfigurationService} from '../../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-editquestion',
@@ -16,91 +17,198 @@ export class EditquestionComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     rows = [];
-    public response: any;
-    getQuestions: any;
     subjectList: any;
-    selected : any;
+    categoryList: any;
+    selectedCategory: any;
+    quesList: any;
+    categoryid: any;
+    getDetails: any;
+    selectedSubject: any;
     Status: any;
 
-  constructor(public dialogRef: MatDialogRef<EditquestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public appSettings: AppSettings, public fb: FormBuilder, public auth: AuthService, public categoryService: CategoryService, private toastr: ToastrService) {
-      this.settings = this.appSettings.settings;
-      this.dialogRef.disableClose = true;
-      console.log(this.data,'asdsadasd');
-      this.getQuestions= data;
-      this.form = this.fb.group({
-          'subjectid': ['', Validators.compose([Validators.required])],
-          'questions': ['', Validators.compose([Validators.required])],
-          'optionA': ['', Validators.compose([Validators.required])],
-          'optionB': ['', Validators.compose([Validators.required])],
-          'optionC': ['', Validators.compose([Validators.required])],
-          'optionD': ['', Validators.compose([Validators.required])],
-          'optionE': ['', Validators.compose([Validators.required])],
-          'correctanswer': ['', Validators.compose([Validators.required])],
-          'status': ['', Validators.compose([Validators.required])],
-      });
-  }
-    onNoClick(): void {
-        this.dialogRef.close();
+    constructor(public appSettings: AppSettings,  private toastr: ToastrService, public auth: AuthService,
+                public config: ConfigurationService, public categoryService: CategoryService, public fb: FormBuilder) {
+        this.settings = this.appSettings.settings;
+        this.form = this.fb.group({
+            'subjectid': ['', Validators.compose([Validators.required])],
+            'question': ['', Validators.compose([Validators.required])],
+            'optionA': ['', Validators.compose([Validators.required])],
+            'optionB': ['', Validators.compose([Validators.required])],
+            'optionC': ['', Validators.compose([Validators.required])],
+            'optionD': ['', Validators.compose([Validators.required])],
+            'optionE': ['', Validators.compose([Validators.required])],
+            'correctanswer': ['', Validators.compose([Validators.required])],
+            'status':['',Validators.compose([Validators.required])]
+        });
+
     }
-  ngOnInit() {
-      this.Status = [
-          {value: '0', viewValue: 'Inactive'},
-          {value: '1', viewValue: 'Active'}
-      ];
-      this.form.controls['status'].patchValue(this.Status[1].value);
 
-      this.form.controls['questions'].patchValue(this.getQuestions.question);
-      this.form.controls['optionA'].patchValue(this.getQuestions.option_a);
-      this.form.controls['optionB'].patchValue(this.getQuestions.option_b);
-      this.form.controls['optionC'].patchValue(this.getQuestions.option_c);
-      this.form.controls['optionD'].patchValue(this.getQuestions.option_d);
-      this.form.controls['optionE'].patchValue(this.getQuestions.option_e);
-      this.form.controls['correctanswer'].patchValue(this.getQuestions.correct_answer);
-      this.form.controls['status'].patchValue(this.getQuestions.question_status);
-  }
+    ngOnInit() {
+        this.getCategoryList();
+        this.getSubjects('0');
+        this.Status = [
+            {value: '0', viewValue: 'Inactive'},
+            {value: '1', viewValue: 'Active'}
+        ];
+        this.form.controls['status'].patchValue(this.Status[1].value);
 
-    public editQuestions(): void {
+    }
+    public addQuestions(): void {
 
-            const data = {
-                'questions': this.form.controls['questions'].value,
-                'adminid':  this.auth.getAdminId(),
-                'questionid': this.getQuestions.question_id,
-                'subjectid': this.getQuestions.subject_id,
-                'question': this.form.controls['questions'].value,
-                'optionA': this.form.controls['optionA'].value,
-                'optionB': this.form.controls['optionB'].value,
-                'optionC': this.form.controls['optionC'].value,
-                'optionD': this.form.controls['optionD'].value,
-                'optionE': this.form.controls['optionE'].value,
-                'correctanswer': this.form.controls['correctanswer'].value,
-                'status': this.form.controls['status'].value,
-                'platform': 'web'
-            };
-            console.log(data);
-            this.settings.loadingSpinner = true;
-            this.categoryService.editQuestions(data).subscribe(
-                (successData) => {
-                    this.getQuestionsSuccess(successData);
-                },
-                (error) => {
-                    this.getQuestionsFailure(error);
-                }
-            );
+        this.settings.loadingSpinner = true;
+        const data = {
+            'subjectid': this.selectedSubject,
+            'question': this.form.controls['question'].value,
+            'optionA': this.form.controls['optionA'].value,
+            'optionB': this.form.controls['optionB'].value,
+            'optionC': this.form.controls['optionC'].value,
+            'optionD': this.form.controls['optionD'].value,
+            'optionE': this.form.controls['optionE'].value,
+            'correctanswer': this.form.controls['correctanswer'].value,
+            'status': this.form.controls['status'].value,
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web'
+        };
+        console.log(data);
+        this.settings.loadingSpinner = true ;
+        this.categoryService.addQuestions(data).subscribe(
+            (successData) => {
+                this.getQuestionsSuccess(successData);
+            },
+            (error) => {
+                this.getQuestionsFailure(error);
+            }
+        );
 
     }
     public getQuestionsSuccess(successData) {
         console.log(successData, 'successData');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.dialogRef.close(true);
-            this.response = successData.ResponseObject;
-            this.toastr.success(successData.ResponseObject,'Updated Successfully');
-        } else {
+            this.toastr.success(successData.ResponseObject,'Added Successfully');
+            this.form = this.fb.group({
+                'subjectid': '',
+                'question': '',
+                'optionA':  '',
+                'optionB': '',
+                'optionC': '',
+                'optionD': '',
+                'optionE': '',
+                'correctanswer': '',
+                'status':''
+            });
+            this.selectedSubject = '';
+            this.selectedCategory = '';
+        }else {
             this.toastr.error(successData.ErrorObject,'Failed');
         }
     }
     public getQuestionsFailure(error) {
         this.settings.loadingSpinner = false;
+    }
+    getSubjects(selected) {
+        console.log(this.selectedCategory, 'pop');
+        this.getQuestionList(selected);
+    }
+
+    public getSubjectList(values) {
+
+        console.log(values, 'values');
+
+        this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+            'categoryid': values == '0' ? []: [values]
+        };
+        this.categoryService.getSubjectList(data).subscribe(
+            (successData) => {
+                this.getSubjectSuccess(successData);
+
+            },
+            (error) => {
+                this.getSubjectFailure(error);
+            }
+        );
+    }
+    public getSubjectSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        this.subjectList = successData.ResponseObject;
+        this.subjectList = successData.ResponseObject;
+        this.selectedSubject = this.subjectList[0]['subject_id'];
+        console.log(this.rows, 'this.rowsthis.rowsthis.rows');
+        this.getQuestionList(this.selectedSubject);
+    }
+    public getSubjectFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+    public getCategory(selected) {
+        this.getSubjectList(selected);
 
     }
+    public getCategoryList() {
+        //  this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web'
+        };
+        console.log(data);
+        this.settings.loadingSpinner = true ;
+        this.categoryService.getCategoryList(data).subscribe(
+            (successData) => {
+                this.getCategorySuccess(successData);
+
+            },
+            (error) => {
+                this.getCategoryFailure(error);
+            }
+        );
+    }
+    public getCategorySuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        this.categoryList = successData.ResponseObject;
+        this.categoryList = successData.ResponseObject;
+        this.selectedCategory = this.categoryList[0]['category_id'];
+        this.getSubjectList(this.selectedCategory);
+        this.getSubjects(this.selectedCategory);
+
+        console.log(this.rows, 'this.rowsthis.rowsthis.rows');
+
+    }
+    public getCategoryFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+    // getQuestions(){
+    //     this.getQuestionList(this.selectedSubject);
+    // }
+    getQuestionList(subjectId){
+        this.settings.loadingSpinner = true;
+        const data = {
+            'adminid': this.auth.getAdminId(),
+            'platform': 'web',
+            'subjectid': subjectId
+        };
+        this.categoryService.getQuestionList(data).subscribe(
+            (successData) => {
+                this.getQuestionSuccess(successData);
+
+            },
+            (error) => {
+                this.getQuestionFailure(error);
+            }
+        );
+    }
+    public getQuestionSuccess(successData) {
+        console.log(successData, 'successData');
+        this.settings.loadingSpinner = false;
+        this.quesList = successData.ResponseObject;
+        this.rows = this.quesList;
+
+    }
+    public getQuestionFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
 }

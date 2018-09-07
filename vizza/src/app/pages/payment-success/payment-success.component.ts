@@ -5,6 +5,9 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Injectable} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 
 
 
@@ -20,43 +23,38 @@ export class PaymentSuccessComponent implements OnInit {
  public proposalid: any;
  public settings: Settings;
  public purchaseStatus: any;
+ type: any;
+ path: any;
+ currenturl: any;
 
-  constructor(public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
+
   }
 
   ngOnInit() {
       this.proposalid = sessionStorage.proposalID;
-      this.setPurchaseStatus();
-      console.log(this.proposalid, 'this.proposalidthis.proposalid');
-      sessionStorage.nomineeDate = '';
-      sessionStorage.familyMembers = '';
-      sessionStorage.stepper1Details = '';
+      if ( this.purchasetoken != undefined) {
+          this.setPurchaseStatus();
+      }
+      // let oReq = new XMLHttpRequest();
+      // console.log('service listener');
+      // oReq.addEventListener('load', (evt) => this.reqListener(evt));
+      // // let formData = new FormData();
+      // // console.log(formData);
+      // // console.log(formData.get('transactionRefNum'));
 
-      sessionStorage.setPage = '';
-      sessionStorage.sideMenu = false;
-      sessionStorage.setFamilyDetails = '';
-      sessionStorage.setInsuredAmount = '';
-      sessionStorage.setPincode = '';
-      sessionStorage.setPage = '';
-      sessionStorage.policyLists = '';
-      sessionStorage.sideMenu = '';
-      sessionStorage.sonBTn = '';
-      sessionStorage.daughterBTn = '';
-      sessionStorage.fatherBTn = '';
-      sessionStorage.motherBtn = '';
-      sessionStorage.fatherInLawBTn = '';
-      sessionStorage.motherInLawBtn = '';
-      sessionStorage.changedTabDetails = '';
-      sessionStorage.changeSuninsuredAmount = '';
-      sessionStorage.changedTabIndex = '';
-      sessionStorage.shorListTab = '';
-      sessionStorage.enquiryId = '';
+
+
+      console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
+  reqListener (event) {
+        console.log(event, 'evennnnnnttttddddddddd');
+    }
 
     setPurchaseStatus() {
         const data = {
@@ -85,7 +83,36 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public purchaseStatusSuccess(successData) {
-       this.purchaseStatus = successData.ResponseObject;
+       if (successData.IsSuccess) {
+           this.purchaseStatus = successData.ResponseObject;
+           sessionStorage.nomineeDate = '';
+           sessionStorage.familyMembers = '';
+           sessionStorage.stepper1Details = '';
+           sessionStorage.setPage = '';
+           sessionStorage.sideMenu = false;
+           sessionStorage.setFamilyDetails = '';
+           sessionStorage.setInsuredAmount = '';
+           sessionStorage.setPincode = '';
+           sessionStorage.setPage = '';
+           sessionStorage.policyLists = '';
+           sessionStorage.sideMenu = '';
+           sessionStorage.sonBTn = '';
+           sessionStorage.daughterBTn = '';
+           sessionStorage.fatherBTn = '';
+           sessionStorage.motherBtn = '';
+           sessionStorage.fatherInLawBTn = '';
+           sessionStorage.motherInLawBtn = '';
+           sessionStorage.changedTabDetails = '';
+           sessionStorage.changeSuninsuredAmount = '';
+           sessionStorage.changedTabIndex = '';
+           sessionStorage.shorListTab = '';
+           sessionStorage.enquiryId = '';
+           sessionStorage.proposalId = '';
+           sessionStorage.mobileNumber = '';
+           sessionStorage.ageRestriction = '';
+       } else {
+           this.purchaseStatus = successData.ResponseObject;
+       }
     }
     public purchaseStatusFailure(error) {
         console.log(error);
@@ -111,8 +138,17 @@ export class PaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
-        console.log(successData.ResponseObject);
-        if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
+        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
+        // if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
+        //     this.downloadMessage();
+        // }
+        this.type = successData.ResponseObject.type;
+        this.path = successData.ResponseObject.path;
+        this.currenturl = this.config.getimgUrl();
+        if (this.type == 'pdf') {
+            window.open(this.currenturl + '/' +  this.path,'_blank');
+            // window.location.href = this.fileName + '/' +  this.path  ;
+        } else {
             this.downloadMessage();
         }
     }
@@ -122,7 +158,9 @@ export class PaymentSuccessComponent implements OnInit {
 
     downloadMessage() {
         const dialogRef = this.dialog.open(DownloadMessage, {
-            width: '400px'
+            width: '400px',
+            data: this.path
+
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -135,7 +173,7 @@ export class PaymentSuccessComponent implements OnInit {
 @Component({
     selector: 'downloadmessage',
     template: `<div mat-dialog-content class="text-center">
-        <label> Your policy is being prepared. A link has been shared to your registered emailID and Mobile number. </label>
+        <label> {{data}} </label>
     </div>
     <div mat-dialog-actions style="justify-content: center">
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
