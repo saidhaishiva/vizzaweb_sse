@@ -31,12 +31,14 @@ export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
             m = timeLeft;
         }
         let remainingTime = parseInt(h) + parseInt(m);
+        console.log(remainingTime, 'remainingTime');
         // let stayTime = timeLeft - remainingTime;
+
         let sendMinutes;
         if (remainingTime == 0) {
             sendMinutes = timeLeft;
         } else {
-            sendMinutes = remainingTime;
+            sendMinutes = timeLeft - remainingTime;;
         }
         // end
         if (getFulltime != '00:00:00') {

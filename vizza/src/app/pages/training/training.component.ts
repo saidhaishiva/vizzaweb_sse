@@ -15,7 +15,6 @@ import {Settings} from '../../app.settings.model';
 export class TrainingComponent implements OnInit {
     @HostListener('document:mousemove', ['$event'])
     onMouseMove(e) {
-        console.log(e, 'eeee');
         this.timoutWarning = 300000; // Display warning in 14 Mins.
         this.timoutNow = 300000; // Timeout in 15 mins.
         this.ResetTimers();
@@ -125,7 +124,7 @@ export class TrainingComponent implements OnInit {
                 if (remainingTime == 0) {
                     sendMinutes = timeLeft;
                 } else {
-                    sendMinutes = remainingTime;
+                    sendMinutes = timeLeft - remainingTime;
                 }
                 // end
                 test.sendRemainingTime(sendMinutes);
@@ -165,7 +164,6 @@ export class TrainingComponent implements OnInit {
             m = m < 10 ? 0 + m : m;
             console.log(m, 'minutes');
             if (sessionStorage.checkoutTime != '' && sessionStorage.checkoutTime != undefined) {
-                // alert(sessionStorage.checkoutTime);
                 // let fullTime = sessionStorage.checkoutTime.split(":");
                 // let hr = parseInt(fullTime[0]);
                 // console.log(hr, 'hr');
