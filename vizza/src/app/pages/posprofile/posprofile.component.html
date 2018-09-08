@@ -4,16 +4,16 @@
         <mat-card class="p-0 mailbox">
             <mat-sidenav-container>
                 <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="mailbox-sidenav mat-elevation-z1">
-                    <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="center center">
-                      <p fxLayoutAlign="center center">Title</p>
+                    <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="center center" style="min-height:30px !important;">
+                        <p fxLayoutAlign="center center">Title</p>
                     </mat-toolbar>
 
                     <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
-                        <div *ngFor="let mail of mails" (click)="viewDetail(mail)">
-                            <mat-list-item [ngClass]="{'selected': mail.selected}">
+                        <div *ngFor="let mail of sideNav; let i= index" (click)="viewDetail(i, mail.name)">
+                            <mat-list-item [ngClass]="{'selected':  selectedTab == i}">
                                 <!--<img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">-->
                                 <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
-                                    <h5 class="text-truncate sender">{{mail.name}}</h5>
+                                    <h6 class="text-truncate sender">{{mail.name}}</h6>
                                 </div>
                             </mat-list-item>
                             <mat-divider></mat-divider>
@@ -21,69 +21,327 @@
                     </mat-nav-list>
                 </mat-sidenav>
                 <div>
-                    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" style="min-height:40px !important;">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <button mat-icon-button (click)="sidenav.toggle()">
                                 <mat-icon>list</mat-icon>
                             </button>
 
                         </div>
+                        <button mat-raised-button class="editBtn">Edit
+                            <mat-icon style="font-size: 18px;">edit</mat-icon>
+                        </button>
+
                     </mat-toolbar>
                     <div class="mailbox-content" perfectScrollbar>
-                        <div *ngIf="mail">
-                            <mat-list class="p-0">
-                                <mat-list-item class="h-100 py-1">
-                                    <div matLine  fxLayout="row" fxLayoutAlign="space-between center">
-                                        <h2 class="subject">{{mail.subject}}</h2>
-                                        <mat-icon class="muted-text">print</mat-icon>
+
+                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Personal'">
+                            <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                                <mat-card class="list">
+                                    <mat-card-content>
+                                        <mat-list class="p-0">
+                                            <div fxLayout="row" fxLayoutAlign="center center">
+                                                <mat-list-item class="h-100 py-1">
+                                                    <img style="width: 200px; height: 200px" matListAvatar src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUSEhIVFRUVFRUVFRUWFRUVFRYYFxUXFxUVFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0dHx8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSs3Lf/AABEIAOkA2AMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAAAQIEBQYDBwj/xABDEAABAgMFBQUGAwYDCQAAAAABAAIDBBEFEiExQQZRYXGBIpGhscEHEzJCUtFykvAUFWKCsuEjMzQkQ0VzdKKzwvH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQMCBP/EACERAQEBAQACAgIDAQAAAAAAAAABEQIDIRIxQWETIlEy/9oADAMBAAIRAxEAPwD2dCEJAiEFCARFEIQCJr3ACpNBvUe0Z9kFpc88hqTuCwNr7TPjEgG63RrM+rjhXJY67nLXPNrVT+0TW4Q2l531ut76LP2htHNGt2jdwaKnvP2VPADhiBgcSamvUk4oeyYeKNOG408gaqF8nVWnEhj7SmXu/wAaOGDkwu7hUp4nSDX9qdXf8A6aKumjdN0uhscNC4gHkKYqpnJotqb7Qcq0veiztrWRcz1txjUe+c7dR1fEALjA2jjtpeiYDIHtDuNaLFzUxFNaRWkHc5zfMUVbGixm/M785PjVbkrNx7NZO3VTR90cKmh5HGi28haDIzQ5hXzBCtKKPnd17S0Ni7YxoOTiPLqMvBUls+2LzK+iA6qVeP2X7R45fd7Lhh8vfkt/Ze1cKJRsT/Cccr3wnk7RbncYvFaBIUqRbZIkSpEAhSFKUiAaUicmlANKEFCAtkIQkCISppKAFGnJ6HCFXuA4VxPIKtt/aOHLNri92NGium86LxfafaKLMPvDs0OQosdd56jfPGt9bdpMjOq97QMbrb2IH3WPn7VgMPZqfwkCnQ/dVUrNxyBV2H8tR3Y96kvh3v8ANbUHWhXPfv2vPU9OkLaZoPwO5Xj5HNWLLZdG7LYgZXRwp5EAqp/dNKPhkOZq04gd9VcSnujDIa5rTxFBXLdTwSyGiTtnxWViOayK3M0qDzpVJLW8yE01Y+5TtBwFW8QcQRzVPbUWZh1uxcP4cv8AtCzv7+mGHtG8MjlUDmFvnjWeusXlr2ywuvQ2sI/hFCK/Uw5eSpolrk4hoI4AVVfHnIbnXwznQkHlTULi50N2LSQeBx7tVScYxeliJyG/OgPEeoouc5DbSoFDvBqFAdDDsnCvEU/RT4YeBQmqeYWr3ZVwrVwrjqQAPVbV064txc0t+nEdxpQrK7LsjNHYLAM8QPE5+av2zL8jQk7jeafwn08FLv7b5aKxNqokEhpiXoOVHC8WetOuC9ElJ1rwMheFW41a4Z1adeWa8CmYpa7KmfZ9RvWm2F2k9y8S0Ql0KKf8OpxY/O60nJ27jhmVvjrGeudewpq5S0W8M68d40PDlvC6q0RIUhSlIUwakKcmlAIUIQgLVCEJAhVXbVoiCxzi0uAzpu3lWhWK26m6sLATrWmX8x9Fnu5GuZtef29a74jjur2SM6bj9QWfc8EmoqNTTJWZYHHMeIoubpEtORp3jwXM6HOXhQ6ihdiNDTvGqtZWAQOz2hxbXxCrv2EjFuLeYqFZ2ebuZIPA+YJSNwmHFpJhscx25rwW/lfSg5KHD2mYDdmJd1crzARh416GiuLQky4gh178oHfWq4vseoq9gdyFT+YNqnM/JXVfEfKxSbl11RgHRHNceFHZqmnJdjD2oLmjfmO+7gu9qWZLj5IrTzIH9FVxhTrIbbrYrqfS68f/AEHmtT9EqJuPCBoA5v5T43VDfEZz44HyVlGLHOPwu6+ihRZVg+WnKvqtyxiyo5ZDdkR1T4cOmHrUJWyjTk7oVKkZNznhoBOuFCcOBTtGNFYpDWfA4H62nDqNVKnGEYE3eJFQRv5d65Q2thDsEg/M0igI4tzaeIw5qFORyBWt5h1GbTuO7yKm2JmMfhdp+sDqFArWoOW7WoxDm7ilbFLsK14fZDMDUGor+gfun9E9v9nNsmalQXGsSGfdxOLgBR/8zaHnVasrxz2WWj7mbMMnsxwWkaB7e00jpX8y9kV+LsR6mU1IUpSLTJCmlOKaUAhQgoQFqhCEgQrJbSNFHFzLxAwo00HGoyPFa5V9qQL0MtAz8d/MpdTYfNyvGxK1fg2vT1UqZisY0Xq4b8f/AIodtTpgxXtOBDiMce5VUzPh+dW9T5VXLjpW0OPBOLYra6tLgAehOanlt5lQWkYDDDuOPiqCSspr8aE9w+60NnWMGYiH+Z7z3gOCzcakVs/FcB2YobTS613kQs7OzsY4e9iHk0N+63UazXY3YUJvJhr31VHO7ORHnIdGhKWHeaxcWZjH5oh/E4+WCiuiRicx1qvRrO2BLsXEq9l9hoTaVFVT5fpn4/t5LDkYrhUsBH4V1/dsQZNI4adxXtjbDhtwDQmRbGZ9ISvdOcx4ybOdq1dZGXLXA5EHPHBemzVjtpgFRzdlAHJY/k/1r+NmrRe9xxA/E0486KmixnA48jhn+ILWx5Co8FTTcnia8q+SpzWOoz9+hqFPk3Bx3aH78x5clDmYN00p9jzRKOo6mRVKm2uz8D/apXGh96ytNbpHovdF842VfMzDuE1vtIxyc049a1X0ax1QDwW/Gn2CkSlIVRgiaU4ppQCFCQoQFukSpEgE17apyEB4N7VIXu5x1BSoBrzz8wslJvLnUGWn9l6D7dZciNLvpgWRAT+FzMP1vWAsNlXgcVDr0vz7el7MSoMMLTQ5dVViQ7rQFew1zxcNlQV2bKN3BPhhSGhUkYtMZCASvYulEhC3jKK9q5RApMRqjvWK1FbMtVVNwaq5jhQIwUavGemYICztpQjUn9FbCahqmtWW7NU+bjPU1g52HVRocIupvVhPi65RmYLpn057Pa72Rr+1wHfxsrzvUr5L6EC+fdkGn9vgUyMRtRpnj+uC+glThLshSFKkKowQppTimlANKEFCAt0iVIkAhCEBjPalY4jybnfNDF5vVza+AK8dsOGBGYOK+gto4V6Wit3sd5L58jMdCmIZOHbaacLwUfIt469blGYBWMIKtlYgoKrlF2kgsr2hQa+q55HRWihBdwsczbuVrS9Xi0Fw8FZSe1cq/KK0czRUidaAppXGHNNcKtIPJOMRb0ixFFeFwtC0WwxU8VhrW9o7GEhkNzuOQ6LF9tSY20WirpqKwZkBeXTm3E1HN1gug6NBJ6ldJWYm34OvEHe11ehBWbw1O28mqEVGPJVk+exRUbWzTG4Ow3Gi5Qp2KcHrPwa+ShtoEGqhNfVteFD6H9b1fWjK3gVQCERgrco9NFsc+7MQXfxtoc9QvoGq+bpKO6CA5ji1zSDXduIXsfs+2nM3DLHuvRGAG9Shc3LEbwad4W+L7xPvm5rWlIUqQqyRpSFOKaUA0oQUIC3SJUiQCEIQHONDDgWnIihXjntHswNmmuaMKsB51qfRezLz3bOULnvNKgRGuHDFT8tyK+KbagWhJOi3W3i1utFzm9mJZ7e259OBp1O9WvuC4YLHbXOjNFGNiOrgKYNr/ERj0C53SLQ2Skmj/UFmvxNAWdmrFgA0ZNMdwLhXhinR9lw6VbFc4OjFxvNObQQaUburSqfYOzbnx3OjS5hMLiWsbeddbdwF/XGlFX4+t1H5TcxqNjpkw+wYleFajmFvmRezVYuy9nfdm9oMWmgDuRAzW4lmC5juUpuq9ZjE7YTwY2pXmz6PJdcveDRzK3e3so6I8MHNOs7ZqE4Me29RuTSAW11JGpS5p2MhCizMBsN0OAwCI8MYThecSAKVI1IxNM1Hl9tphxILRQEgkAnyK9MtqzRMwRBikEA7g00piMN+GmiykLZZkDBjd+dXZ8+5V3jEs8mosna7owzHMGoUmTly51c1Is3ZINdfpSuJGnctEJRsMUAAwUrf8Wkt+2TmYWJCpXQWg1Oh/uFo7RweqS2NKZnAeK3z9MdT2pZtxe66Mh4lb/2RtIj1+pjge6vmAsNs9Ll7rpzqV6f7MJO7EefoDx3kU9e5Of8AUjVmcV6OkKUpCupwmlIUpTSgEQgoSC3SJUIBEIQgEVJtBKYF/wBVAeeh/W5Xih2o2sJ3Q9xCz3NjfjudMpLGji3ipMSVa4YhRpwUiAjX0U+C8UXN+XXVdEscaAdQF2/d+Qr0AorFraroGJ4ztV7oIAopUM0ao8wcaKQ34UhWRtplYlVOsdwpQdyj20zM7lH2dmrziNQpflW/TTe6B0C5OlG6NCmMCbEICsnEKIwAKitSLmrWceszakZTqsmRSzbquVTarwHMrkMSrIuVJajQ+K1pywqqRH7qbseKviRSOzUkdV6n7OJYiDEin/ePNOQJNfHwWBsmzXRorYbMiA0NGA4udwAXstnyjYMNkJuTQBz3nqVrx871pebv+vxdikKUpCuhyGlNKcU0oBChIhAXCEIQCIQhACa9oIIORwKckQGQtaVuVrm01HFuhXOVery3ZMuF4CuBBpu0KzEs/Rc3cyuzxdfKL2G5dgVCgOUxpSlHSDNOAfipAe26cVU7SwY5bWXu1OYcPEKkZAnPd1Lw48BdPI5rO5T+OxMtaZZiM1n2xvcRoLzhecGuHB2XjRVdrSM9Uvv3RXBrQCT1IUqztm5mK6G+YifAQ4NHDeVlR6Yx1Qocw9PgvoKLhNuT1mTKq52KspaUbNX1pRKArKTcSqI31fRkI1U6FsNNxnNjQ2tLHZEvAIp2TUHlooEkKuAXtOz7aS0L8APfUq3POubrq8/Su2T2b/ZGlzyHRXChIyaPpbv58FoEpSK0mfTnttu0hTSlKQpkaU0pxTUA0oQUINcIQhBEQhCAEiVIgEIWBituRXNOjiPFb5Y7aeBcjXtHgHqMD6d6l5ZsW8Ny46yr1LL1VSsVE7aLYYJNTyBJ7gufV7FmXLg8jECnELHz+0kaKbkvCfQZki5Xq6i4iBPFt73VNah39kVXnxb91qZ6JDFASK7lzbEAxGSyEeyp8tvGG0E6l+A8FW0nIZJvsqPlF7FLK3eJnp6E+Mo8eYwWfsSLMvFYoa0aUdUnwU2LE0Wamh2nFqszMnEq6tB6o4ypyXVdbN+IV0x7l7Rs2aykA74TP6V4vLm6xzuFBzP9qr2bZg/7JL/8pnkr+P7c3lWaaUqFVA1NKcU1ANKQpSkKAYUIKEGuUIQgiIQhAIhCEAKq2hkfewsB2mdocd4/W5WiErNhy5deeQIlF3Iqaqw2hsm4TFYOycSPpP2VZBeuPvnLjs4633HCcgkYgKBGtyKwXaPpuoaLRwoVVIZZzCcWgrMl/Cv8ufbER7eiv7LREIGlDTxXGHJxX4kXa7816AbNhjJoHRRJmA0J9c2fY/l30oJeWDBvUObOKtpigVHaMwAsYzaqpyJiq8tqV1jRKklVs3N/K1VjNdZuaBIY3Iea9r2Mi3pKAf4KdxI9F4TBgnNey+zWYvSQbqx7299HD+pW8d9o+WemqSJUis5yJpTimlANKaU4prkA0oSFCAukiVCARCEIASIQUAJEIQDXNBwOIOYWFtFohx3sAoA7AcDiKdCt2sftdApGa76m+LTTyopeaf1V8V/s5wJkBTIc3hVZeM57MRioxtwtwIK5pXTjYPm+Kq5ueAGazca3uPgVVTdr13lFunJIt560VnJ6eqd6hzM693BQywlEgtOjzJOC7SMgXYldZCziTitNKyYAyTtwpNVLpK6FDfakeWaXQIj2UNXBpIqOO+i0k3D01Wcn2UqUc9ex1Gq2K28jRjdivDuYFe8L0uXmQ/nu+y+eZGEZeJ7xo7BzA+XpuXt1mxSYEKIDUlrXA76j7K/PSHfMXxKYU2BHDxUdRqE8q0QMKaU4phTBChBSJGuykSlIgghCEAiEIQCIQhAIsxtUbwY7RriB1GfgtDNvo3ngqO3G1gngWnxCn5P+ap4/tQFlQqqakRVXMFJHharkdbOPssHRR4lijctJcTXngkbJvsobkxtnALSvhV0XH9l4I9hEkpMK0bBw3LrAgALq9qeBUzbMCaV/WioLTl8CtVGYqycl6hKeh9q2wrP99dZT4jd+/gvV2QA1jWNya0NA4AUCyHs+s7F8QjBhLW8zn3DzW1eQF0eOetQ8l94q5mMYTgW4nUK1lpkPFRhvG5Z20ZkAl3cE6z472uvbwKjmRgqTrKn1zrSFMK5smgcDgePoV0KpqZpSJSkQF4kSpEEEIQgEQhCARI5wAqVzjRw3nuUR8Uuz7krTkNmYt53Bc5iAIjHM3iiHDFdIZWa3PTKMFM8xgeBGBC6kVUi24Hu4od8sTweBl1HkVHYVy2ZcdMuzXG7RJ7tdogXMuSMx0NcSzFdXvTGNQboxqbEXTRczimTi9qjvly7ADE4DqpwYrKx5Pte8IwAw5pTnad6yLKz5UQobYY0GPE6lQrUng0Uqu0/N3RQZqshShLrz8cK567qLo/Uc8/2uUnKOiOvuHIeqs40AAAaue0d3aPgFIhNy0UeDMX4rqfDD7AO9xxf3YDnVGYVrtHZULiI7ma1CkRG1NVze3RPSx2hTTXcDuKFXxIVELXyZvDZIQhbYCRAQUAjnUzUOPOAZYcT6JZ/RRTmla1IUu1OJQxMKe1ZaBCGmicE1yA5WlKCKwsJzyO4jFpHIhZqVi1BB+JpLXDc4Z9Neq12iyJ/1Mz+Jv/jao+SflXx38JLRVNdBT4Ke5YURHQkCEu701vqg4YIaaIakLtK/EOaJNFrpJ2d80TL6fupEzH0CkzKgRVbM+kN0yFAJN49FMhwN6j2Z8PVWLU4VU9vTjmBsGF/nRqtbrcaPiiHgPMhSJeCGNDBk0AceJJ3qo/4lF/6eH/U5XaAUFNcnD1TX5oJyvcNUJHeqEjf/2Q==">
+                                                    <!--<img src="assets/img/users/default-user.jpg" alt="">-->
+                                                </mat-list-item>
+                                            </div>
+                                            <h6 matLine fxLayout="row" fxLayoutAlign="center center">
+                                                <span>
+                                                    <strong class="text-truncate">{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong>
+                                                </span>
+                                            </h6>
+                                            <div class="row personaldetails">
+                                                <div class="col-md-5"></div>
+                                                <div class="col-md-2">
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text">person</mat-icon>&nbsp;
+                                                        <span>{{personal.pos_gender}}</span>
+                                                    </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text">date_range</mat-icon>&nbsp;
+                                                        <span>{{personal.pos_dob}}</span>
+                                                    </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text">supervised_user_circle</mat-icon>&nbsp;
+                                                        <span class="text-capitalize">{{personal.pos_myreferral_code}}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-5"></div>
+
+                                            </div>
+                                        </mat-list>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <!--Contact details-->
+                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Contact'">
+                            <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                                <mat-card class="list">
+                                    <mat-card-content>
+                                        <mat-list class="p-0">
+                                            <div class="personaldetails">
+                                                <p fxLayout="row" fxLayoutAlign="start center">
+                                                    <mat-icon class="muted-text">phone</mat-icon>&nbsp;
+                                                    <span>{{personal.pos_mobileno}}</span>
+                                                </p>
+                                                <p fxLayout="row" fxLayoutAlign="start center">
+                                                    <mat-icon class="muted-text">mail</mat-icon>&nbsp;
+                                                    <span class="text-capitalize">{{personal.pos_email}}</span>
+                                                </p>
+                                                <div>
+                                                    <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
+                                                        <mat-icon class="muted-text">location_on</mat-icon>&nbsp;
+                                                        <span>{{personal.pos_address1}}</span>
+                                                        <span *ngIf="personal.pos_address2 != ''">,</span>
+                                                        <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
+                                                        <span *ngIf="personal.pos_cityid != ''">,</span>
+                                                    </p>
+
+                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_cityid}}
+                                                        <span *ngIf="personal.pos_cityid != null">-</span>
+                                                        {{personal.pos_postalcode}}
+                                                        <span *ngIf="personal.pos_stateid != ''">,</span>
+                                                    </p>
+                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_stateid}}
+                                                        <span *ngIf="personal.pos_countryid != ''">,</span>
+                                                    </p>
+                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_countryid}}</p>
+                                                </div>
+
+                                            </div>
+                                        </mat-list>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <!--Bank details -->
+                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Bank Details'">
+                            <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                                <mat-card class="list">
+                                    <mat-card-content>
+                                        <mat-list class="p-0">
+                                            <div class="row personaldetails">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8">
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text colorBank">account_balance</mat-icon>&nbsp;<span class="colorBank"> Bank Nmae : </span>
+                                                        <span class="text-capitalize ml-2">{{personal.bank_name}}</span>
+                                                    </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text colorBank">account_circle</mat-icon>&nbsp;<span class="colorBank"> Bank Account No : </span>
+                                                        <span class="ml-2">{{personal.bank_acc_no}}</span>
+                                                    </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text colorBank">dashboard</mat-icon>&nbsp;<span class="colorBank">Branch Name :</span>
+                                                        <span class="text-capitalize ml-2">{{personal.branch_name}}</span>
+                                                    </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center">
+                                                        <mat-icon class="muted-text">code</mat-icon>&nbsp;<span class="colorBank"> IFSC Code : </span>
+                                                        <span class="ml-2">{{personal.ifsc_code}}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                            <div fxLayout="row" fxLayoutAlign="center center" *ngIf="personal.check_leaf_upload_img != ''">
+                                                <mat-list-item class="h-100 py-1">
+                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="">
+                                                </mat-list-item>
+                                            </div>
+                                        </mat-list>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+
+                        <!--Education details-->
+                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
+                            <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                                <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                                <mat-icon>school</mat-icon>
+                                    <p>{{personal.doc_education}}</p>
+                                </div>
+                                <mat-card-title class="m-0 text-center"><h4>Education Doc</h4></mat-card-title>
+
+                                <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+
+                                    <div fxFlex="33.3" class="flex-p">
+                                        <mat-card class="custom-card">
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
+                                                <mat-card-title class="m-0"><h6>Education Doc</h6></mat-card-title>
+                                            </mat-card-header>
+                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="5">
+                                        </mat-card>
                                     </div>
-                                </mat-list-item>
-                                <mat-divider></mat-divider>
-                                <mat-list-item class="h-100 py-1">
-                                    <img *ngIf="mail.senderPhoto" matListAvatar  [src]="mail.senderPhoto">
-                                    <img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">
-                                    <h6 matLine fxLayout="row" fxLayoutAlign="space-between center">
-                                        <span>
-                                            <strong class="text-truncate">{{mail.sender}}</strong>
-                                            <span *ngIf="mail.senderMail" class="email">&lt;{{mail.senderMail}}&gt;</span>
-                                        </span>
-                                        <span>{{mail.date}}</span>
-                                    </h6>
-                                    <span matLine>to me</span>
-                                </mat-list-item>
-                                <mat-divider></mat-divider>
-                            </mat-list>
-                            <div class="mail-body" [innerHTML]="mail.body"></div>
-                            <div *ngIf="mail.attachments.length > 0" class="mail-body">
-                                <mat-divider></mat-divider>
-                                <p>
-                                    <strong>{{mail.attachments.length}} attachments</strong>
-                                    <button mat-icon-button matTooltip="Download all attachments" matTooltipPosition="above">
-                                        <mat-icon>file_download</mat-icon>
-                                    </button>
-                                    <button mat-icon-button matTooltip="View all Images" matTooltipPosition="above">
-                                        <mat-icon>pageview</mat-icon>
-                                    </button>
-                                </p>
-                                <div *ngFor="let attachment of mail.attachments; let i = index">
-                                    <img [src]="attachment" alt="attachment">
-                                    <h3>image-{{i + 1}}.jpg</h3>
-                                    <p>
-                                        <span>457K</span>
-                                        <button mat-icon-button>
-                                            <mat-icon>file_download</mat-icon>
-                                        </button>
-                                        <button mat-icon-button>
-                                            <mat-icon>pageview</mat-icon>
-                                        </button>
-                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                            <mat-icon>user</mat-icon>
-                            <p>Profile details</p>
+
+                        <div *ngIf="currentTab == 'Documents'">
+                            <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
+                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
+                                <div fxFlex="33.3" class="flex-p">
+                                    <mat-card class="custom-card" style="height: 231px">
+                                        <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="center center">
+                                            <mat-card-title class="m-0"><h6>Aadhar Front</h6></mat-card-title>
+                                        </mat-card-header>
+                                        <div fxLayoutAlign="center center">
+                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
+                                        </div>
+                                    </mat-card>
+                                </div>
+                                <div fxFlex="33.3" class="flex-p">
+                                    <mat-card class="custom-card" style="height: 231px">
+                                        <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">
+                                            <mat-card-title class="m-0"><h6>Aadhar Back</h6></mat-card-title>
+                                        </mat-card-header>
+                                        <div fxLayoutAlign="center center">
+                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">
+                                        </div>
+                                    </mat-card>
+                                </div>
+                            </div>
+                            <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
+
+                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+
+                                <div fxFlex="33.3" class="flex-p">
+                                    <mat-card class="custom-card" style="height: 231px">
+                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="center center">
+                                            <mat-card-title class="m-0"><h6>Pan Imgae</h6></mat-card-title>
+                                        </mat-card-header>
+                                        <div fxLayoutAlign="center center">
+                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_pan_img}}" alt="">
+                                        </div>
+                                    </mat-card>
+                                </div>
+                            </div>
+
                         </div>
+
+                        <!--certificate-->
+                        <div class="certificate-bg" *ngIf="currentTab == 'Appointment Letter'">
+                            <div class="container mb-1 mt-1 w-100 text-right">
+                                <button mat-raised-button class="text-right editBtn" (click)="print()">print
+                                    <mat-icon>print</mat-icon>
+                                </button>
+                            </div>
+                            <div class="container pt-7 pb-3" id="pos-cirtificate">
+                                <mat-card class="c-card" >
+                                    <header>
+                                        <div class="row" fxLayoutAlign="center center">
+                                            <div class="col-md-6">
+                                                <img src="assets/img/vizza-logoNewpos.png" alt="">
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <ul class="c-address">
+                                                    <li>044 - 4269 1341 / 4204 4181</li>
+                                                    <li>po_vizzainsbroker@vizzafin.com</li>
+                                                    <li>www.vizzainsure.com</li>
+                                                    <li>Direct Brokers ( Life and General Insurance)</li>
+                                                    <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </header>
+                                    <section class="row">
+                                        <div class="col-md-12">
+                                            <h5 class="text-center font-weight-bold mt-2">Appointment of Registered POS’P</h5>
+                                            <h4 class="text-center font-weight-normal">for VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h4>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Date</td>
+                                                            <td>XXXXXXXX</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>POS’P ID</td>
+                                                            <td>{{personal.pos_id}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mr / Ms</td>
+                                                            <td>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Address</td>
+                                                            <td>
+                                                                <p class="text-capitalize" >
+                                                                    <span>{{personal.pos_address1}}</span>
+                                                                    <span *ngIf="personal.pos_address2 != ''">,</span>
+                                                                    <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
+                                                                    <span *ngIf="personal.pos_cityid != ''">,</span>
+                                                                </p>
+
+                                                                <p *ngIf="personal.pos_cityid != ''" >{{personal.pos_cityid}}
+                                                                    <span *ngIf="personal.pos_cityid != null">-</span>
+                                                                    {{personal.pos_postalcode}}
+                                                                    <span *ngIf="personal.pos_stateid != ''">,</span>
+                                                                </p>
+                                                                <p *ngIf="personal.pos_stateid != ''" >{{personal.pos_stateid}}
+                                                                    <span *ngIf="personal.pos_countryid != ''">,</span>
+                                                                </p>
+                                                                <p *ngIf="personal.pos_countryid != ''">{{personal.pos_countryid}}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    <img src="assets/img/users/default-user.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-5 c-content">
+                                            <p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales
+                                                Person.</p>
+                                            <p>This is to confirm that you have successfully completed the prescribed training and have also
+                                                passed the examination specified for Point of Sales examination conducted by
+                                                <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
+                                                Person for Non-life and Health lnsurers. Your personal details are as under:</p>
+                                            <p><strong>Aadhaar No:</strong></p>
+                                            <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
+                                                intermediary) to market products categorized and identified under the Guidelines only.</p>
+                                            <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
+                                                new insurer/ insurance intermediary in order to act as Point of Sales Person for that entity.</p>
+                                        </div>
+
+                                        <div class="col-md-12 text-left">
+                                            <P>Yours truly,</P>
+                                            <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+                                            <p class="mb-0">Head - Corporate</p>
+                                            <p class="mb-0">(Authorised Signatory)</p>
+                                        </div>
+                                    </section>
+                                    <footer class="mt-3 pt-3">
+                                        <h5 class="text-center">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+                                        <p class="text-center">Ground Floor, Flat No. G-A, Sridev Apartment, No.65, CIT Nagar First Main Road, Chennai - 600 035</p>
+                                    </footer>
+                                </mat-card>
+                            </div>
+                        </div>
+
+                        <div fxFlex="33.3" class="flex-p" *ngIf="currentTab == 'ID Card'">
+                            <mat-card class="custom-card">
+                                <mat-card-header class="bg-accent p-1" fxLayoutAlign="center center">
+                                    <mat-card-title class="m-0"><h3>Id Card</h3></mat-card-title>
+                                </mat-card-header>
+                                <img mat-card-image src="assets/img/app/5.jpg" alt="5">
+                            </mat-card>
+                        </div>
+
+
+
+
+
+                        <!--<div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">-->
+                        <!--<mat-icon>user</mat-icon>-->
+                        <!--<p>Profile details</p>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </mat-sidenav-container>
@@ -98,105 +356,105 @@
 
 
 <!--<div class="container-fluid ">-->
-    <!--<mat-card class="doctordetail mb-3">-->
-        <!--<div class="row">-->
-            <!--&lt;!&ndash;<div class="col-md-5 text-center">&ndash;&gt;-->
+<!--<mat-card class="doctordetail mb-3">-->
+<!--<div class="row">-->
+<!--&lt;!&ndash;<div class="col-md-5 text-center">&ndash;&gt;-->
 
-                <!--&lt;!&ndash;&lt;!&ndash;<div class="user-img">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle" >&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<h4  class="user-name mt-2">{{personal.pos_firstname}} {{personal.pos_lastname}}</h4>&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--<div class="col-md-12 text-right">-->
-                <!--<button mat-raised-button color="primary" [routerLink]="['/pos-edit']">Edit</button>-->
-            <!--</div>-->
-            <!--<div class="col-md-7 personaldetails">-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="user-img">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<h4  class="user-name mt-2">{{personal.pos_firstname}} {{personal.pos_lastname}}</h4>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<div class="col-md-12 text-right">-->
+<!--<button mat-raised-button color="primary" [routerLink]="['/pos-edit']">Edit</button>-->
+<!--</div>-->
+<!--<div class="col-md-7 personaldetails">-->
 
-                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                    <!--<mat-icon class="muted-text">person</mat-icon>&nbsp;-->
-                    <!--<span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</span>-->
-                <!--</p>-->
-                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                    <!--<mat-icon class="muted-text">phone</mat-icon>&nbsp;-->
-                    <!--<span>{{personal.pos_mobileno}}</span>-->
-                <!--</p>-->
-                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
-                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                    <!--<mat-icon class="muted-text">mail</mat-icon>&nbsp;-->
-                    <!--<span class="text-capitalize">{{personal.pos_email}}</span>-->
-                <!--</p>-->
-                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
-                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                    <!--<mat-icon class="muted-text">location_on</mat-icon>&nbsp;-->
-                    <!--<span class="text-capitalize">{{personal.pos_address1}}<span *ngIf="personal.pos_address2 != ''">, </span>{{personal.pos_address2}}, {{personal.pos_cityid}}<span *ngIf="personal.pos_cityid != null">-</span>{{personal.pos_postalcode}}</span>-->
-                <!--</p>-->
-                <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</mat-card>-->
+<!--<p fxLayout="row" fxLayoutAlign="start center">-->
+<!--<mat-icon class="muted-text">person</mat-icon>&nbsp;-->
+<!--<span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</span>-->
+<!--</p>-->
+<!--<p fxLayout="row" fxLayoutAlign="start center">-->
+<!--<mat-icon class="muted-text">phone</mat-icon>&nbsp;-->
+<!--<span>{{personal.pos_mobileno}}</span>-->
+<!--</p>-->
+<!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+<!--<p fxLayout="row" fxLayoutAlign="start center">-->
+<!--<mat-icon class="muted-text">mail</mat-icon>&nbsp;-->
+<!--<span class="text-capitalize">{{personal.pos_email}}</span>-->
+<!--</p>-->
+<!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+<!--<p fxLayout="row" fxLayoutAlign="start center">-->
+<!--<mat-icon class="muted-text">location_on</mat-icon>&nbsp;-->
+<!--<span class="text-capitalize">{{personal.pos_address1}}<span *ngIf="personal.pos_address2 != ''">, </span>{{personal.pos_address2}}, {{personal.pos_cityid}}<span *ngIf="personal.pos_cityid != null">-</span>{{personal.pos_postalcode}}</span>-->
+<!--</p>-->
+<!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-card>-->
 
 
-    <!--<mat-accordion class="certificate">-->
-        <!--<mat-expansion-panel>-->
-            <!--<mat-expansion-panel-header>-->
-                <!--<mat-panel-title>-->
-                    <!--Aadhar Card-->
-                <!--</mat-panel-title>-->
-            <!--</mat-expansion-panel-header>-->
+<!--<mat-accordion class="certificate">-->
+<!--<mat-expansion-panel>-->
+<!--<mat-expansion-panel-header>-->
+<!--<mat-panel-title>-->
+<!--Aadhar Card-->
+<!--</mat-panel-title>-->
+<!--</mat-expansion-panel-header>-->
 
-            <!--<div class="row">-->
-                <!--<div class="col-md-6">-->
-                    <!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
-                <!--</div>-->
-                <!--<div class="col-md-6">-->
-                    <!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
-                <!--</div>-->
-                <!--<div class="no-data"  *ngIf="personal.doc_aadhar_front_img == '' && personal.doc_aadhar_back_img == ''" >-->
-                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
-                    <!--cloud_off-->
-                    <!--</i> &nbsp; No Aadhar card</p>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</mat-expansion-panel>-->
-        <!--<mat-expansion-panel >-->
-            <!--<mat-expansion-panel-header>-->
-                <!--<mat-panel-title>-->
-                   <!--Pan Card-->
-                <!--</mat-panel-title>-->
+<!--<div class="row">-->
+<!--<div class="col-md-6">-->
+<!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_front_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
+<!--</div>-->
+<!--<div class="col-md-6">-->
+<!--<img style="width: 250px; height: 150px;" *ngIf="personal.doc_aadhar_back_img != ''" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(item.path, 'Certificate')">-->
+<!--</div>-->
+<!--<div class="no-data"  *ngIf="personal.doc_aadhar_front_img == '' && personal.doc_aadhar_back_img == ''" >-->
+<!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+<!--cloud_off-->
+<!--</i> &nbsp; No Aadhar card</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-expansion-panel>-->
+<!--<mat-expansion-panel >-->
+<!--<mat-expansion-panel-header>-->
+<!--<mat-panel-title>-->
+<!--Pan Card-->
+<!--</mat-panel-title>-->
 
-            <!--</mat-expansion-panel-header>-->
-            <!--<div class="row">-->
-                <!--<div class="col-md-12" *ngIf="personal.doc_pan_img == ''" >-->
-                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
-                        <!--cloud_off-->
-                    <!--</i> &nbsp; No Pan Card</p>-->
-                <!--</div>-->
-                <!--<div class="col-md-6" *ngIf="personal.doc_pan_img != ''" >-->
-                    <!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</mat-expansion-panel>-->
-        <!--<mat-expansion-panel >-->
-            <!--<mat-expansion-panel-header>-->
-                <!--<mat-panel-title>-->
-                   <!--Educational Certificates-->
-                <!--</mat-panel-title>-->
+<!--</mat-expansion-panel-header>-->
+<!--<div class="row">-->
+<!--<div class="col-md-12" *ngIf="personal.doc_pan_img == ''" >-->
+<!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+<!--cloud_off-->
+<!--</i> &nbsp; No Pan Card</p>-->
+<!--</div>-->
+<!--<div class="col-md-6" *ngIf="personal.doc_pan_img != ''" >-->
+<!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-expansion-panel>-->
+<!--<mat-expansion-panel >-->
+<!--<mat-expansion-panel-header>-->
+<!--<mat-panel-title>-->
+<!--Educational Certificates-->
+<!--</mat-panel-title>-->
 
-            <!--</mat-expansion-panel-header>-->
-            <!--<div class="row">-->
-                <!--<div *ngIf="personal.doc_edu_certificate_img == ''" >-->
-                    <!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
-                        <!--cloud_off-->
-                    <!--</i> &nbsp; No Educational Certificated</p>-->
-                <!--</div>-->
+<!--</mat-expansion-panel-header>-->
+<!--<div class="row">-->
+<!--<div *ngIf="personal.doc_edu_certificate_img == ''" >-->
+<!--<p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">-->
+<!--cloud_off-->
+<!--</i> &nbsp; No Educational Certificated</p>-->
+<!--</div>-->
 
-                <!--<div class="col-md-6" *ngIf="personal.doc_edu_certificate_img != ''" >-->
-                    <!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</mat-expansion-panel>-->
+<!--<div class="col-md-6" *ngIf="personal.doc_edu_certificate_img != ''" >-->
+<!--<img style="width: 250px; height: 150px;" src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(clinic.hospitalimage, 'Clinic Image')">-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-expansion-panel>-->
 
-    <!--</mat-accordion>-->
+<!--</mat-accordion>-->
 
 <!--</div>-->
 
