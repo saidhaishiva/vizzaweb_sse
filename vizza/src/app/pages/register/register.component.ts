@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
             firstname: ['', Validators.compose([Validators.required])],
             lastname: ['', Validators.compose( [Validators.required])],
             birthday: ['', Validators.compose([Validators.required])],
-            // gender: ['', Validators.compose([Validators.required])],
+            gender: ['', Validators.compose([Validators.required])],
             formemail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             referralcode: '',
             contacts: this.fb.group({
@@ -116,7 +116,7 @@ export class RegisterComponent implements OnInit {
         this.pancard = '';
         this.education = '';
         this.roleId = this.auth.getPosRoleId() ;
-                       console.log(this.roleId,'assss');
+        console.log(this.roleId,'assss');
         if(this.roleId > 0){
             this.router.navigate(['/pos-profile']);
         }
@@ -184,8 +184,6 @@ export class RegisterComponent implements OnInit {
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
-
-
     }
     public fileUploadFailure(error) {
         console.log(error);
@@ -213,7 +211,7 @@ export class RegisterComponent implements OnInit {
                 "pos_referralcode": this.registerform.controls['referralcode'].value,
                 "pos_firstname": this.registerform.controls['firstname'].value,
                 "pos_lastname": this.registerform.controls['lastname'].value,
-                // "pos_gender": this.registerform.controls['gender'].value,
+                "pos_gender": this.registerform.controls['gender'].value,
                 "pos_dob": this.dob,
                 "pos_profile": this.profile,
                 "pos_mobileno": this.registerform.value['contacts']['phone1'],
