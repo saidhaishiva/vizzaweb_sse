@@ -28,7 +28,7 @@
                             </button>
 
                         </div>
-                        <button mat-raised-button class="editBtn">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education'">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
 
@@ -42,8 +42,8 @@
                                         <mat-list class="p-0">
                                             <div fxLayout="row" fxLayoutAlign="center center">
                                                 <mat-list-item class="h-100 py-1">
-                                                    <img style="width: 200px; height: 200px" matListAvatar src="data:image/jpeg;base64,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">
-                                                    <!--<img src="assets/img/users/default-user.jpg" alt="">-->
+                                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                                 </mat-list-item>
                                             </div>
                                             <h6 matLine fxLayout="row" fxLayoutAlign="center center">
@@ -138,7 +138,7 @@
                                                         <span class="text-capitalize ml-2">{{personal.branch_name}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">code</mat-icon>&nbsp;<span class="colorBank"> IFSC Code : </span>
+                                                        <mat-icon class="muted-text colorBank">code</mat-icon>&nbsp;<span class="colorBank"> IFSC Code : </span>
                                                         <span class="ml-2">{{personal.ifsc_code}}</span>
                                                     </p>
                                                 </div>
@@ -169,9 +169,9 @@
                                     <div fxFlex="33.3" class="flex-p">
                                         <mat-card class="custom-card">
                                             <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
-                                                <mat-card-title class="m-0"><h6>Education Doc</h6></mat-card-title>
+                                                <mat-card-title class="m-0"><h6>Certificates</h6></mat-card-title>
                                             </mat-card-header>
-                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="5">
+                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
                                         </mat-card>
                                     </div>
                                 </div>
@@ -221,26 +221,45 @@
                         </div>
                         <!--Training-->
                         <div *ngIf="currentTab == 'Training'">
-                            <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" [routerLink]="['/training']">Training Documentaion
-                                    <mat-icon style="font-size: 20px;">note</mat-icon>
-                                </button>
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
-                                <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                                    <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                        <mat-icon>local_library</mat-icon>
-                                    </div>
-                                    <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                        <mat-card-title class="m-0 text-center" style="color:#3dccb1d6 !important"><h4>You have completed your training periods</h4></mat-card-title>
+                            <div *ngIf="trainingStatus == 1">
+                                <div class="container mb-1 mt-1 w-100 text-right">
+                                    <button mat-raised-button class="text-right editBtn" [routerLink]="['/training']">Training Documentaion
+                                        <mat-icon style="font-size: 20px;">note</mat-icon>
+                                    </button>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
+                                    <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                                            <mat-icon>local_library</mat-icon>
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                                            <mat-card-title class="m-0 text-center" style="color:#3dccb1d6 !important"><h4>You have completed your training successfully</h4></mat-card-title>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="trainingStatus == 1">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Minutes</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let lists of trainingDetails">
+                                        <td>{{lists.training_attend_date | date: 'dd-MMM-yy'}}</td>
+                                        <td>{{lists.entry_time}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         <!--Examination-->
                         <div *ngIf="currentTab == 'Examination'">
-                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100"  *ngIf="examStatus == 0">
+                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100"  *ngIf="trainingStatus == 0">
                                 <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                     <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                                         <mat-icon>edit</mat-icon>
@@ -251,7 +270,7 @@
                                 </div>
                             </div>
 
-                            <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center" *ngIf="examStatus == 1">
+                            <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center" *ngIf="examStatus == 2">
                                 <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
@@ -267,9 +286,10 @@
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
+
                             </div>
 
-                            <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center"  *ngIf="examStatus == 2">
+                            <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center"  *ngIf="examStatus == 1">
                                 <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
@@ -282,21 +302,43 @@
                                             <div class="w-100"  fxLayoutAlign="center center">
                                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">
                                             </div>
+                                            <div class="w-100 mt-2"  fxLayoutAlign="center center">
+                                                <button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/startexam']">Re-Exam
+                                                </button>
+                                            </div>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
                             </div>
+                            <div *ngIf="examStatus == 2 || examStatus == 1">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let lists of examDetails">
+                                        <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
+                                        <td>{{lists.percentage_in_exam}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
 
                         <!--Appointment letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Appointment Letter'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="print()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printAppointment()">print
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-cirtificate">
-                                <mat-card class="c-card" >
+                                <mat-card class="c-card" id="appointment">
                                     <header>
                                         <div class="row" fxLayoutAlign="center center">
                                             <div class="col-md-6">
@@ -395,12 +437,12 @@
                         <!--Training letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Certificate of Training'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="print()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printTraining()">print
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-training-cirtificate">
-                                <mat-card class="c2-card">
+                                <mat-card class="c2-card" id="training">
 
                                     <header>
                                         <div class="row" fxLayoutAlign="center center">
@@ -462,12 +504,12 @@
                         <!--Examination letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Certificate of Examination'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="print()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printExamination()">print
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-examination-cirtificate">
-                                <mat-card class="c2-card">
+                                <mat-card class="c2-card" id="examination">
 
                                     <header>
                                         <div class="row" fxLayoutAlign="center center">
