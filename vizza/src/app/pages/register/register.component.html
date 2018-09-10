@@ -235,7 +235,7 @@
 
         <div class="col-md-6 ">
             <div class="register_page">
-                <form [formGroup]="registerform">
+                <form [formGroup]="form">
                     <mat-card fxLayout="column"  fxLayoutAlign="center center" style="border-radius: 10px" class="p-0">
                         <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
 
@@ -244,12 +244,12 @@
                                     <mat-form-field class="w-100">
                                     <input matInput placeholder="First name" formControlName="firstname"  required>
                                         <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="registerform.controls.firstname.errors?.required">First name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
                                     </mat-form-field>
                                     <mat-form-field class="w-100">
                                     <input matInput placeholder="Last name" formControlName="lastname" required>
                                         <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="registerform.controls.lastname.errors?.required">Last name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
                                     </mat-form-field>
 
                                     <mat-form-field class="w-100">
@@ -259,7 +259,7 @@
                                                maxlength="10">
                                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                         <mat-datepicker touchUi #birthday></mat-datepicker>
-                                        <mat-error *ngIf="registerform.controls.birthday.errors?.required">Dob is required</mat-error>
+                                        <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
                                         <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                                         </mat-form-field>
 
@@ -269,16 +269,10 @@
                                     <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                                     <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
                                     <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button>
-                                        <div *ngIf="registerform.controls.gender.errors?.required">Gender is required</div>
+                                        <!--<div *ngIf="form.controls.gender.errors?.required">Gender is required</div>-->
                                     </mat-radio-group>
                                 <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
-                                    <mat-form-field class="w-100">
-                                        <input matInput formControlName="formemail" placeholder="Email ID:" required>
-                                        <i class="far fa-envelope" matSuffix></i>
-                                        <mat-error *ngIf="registerform.controls.formemail.errors?.required">Email ID is required</mat-error>
-                                        <mat-error *ngIf="registerform.controls.formemail.hasError('pattern')">Please Enter Correct Format</mat-error>
-                                    </mat-form-field>
 
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="Referral Code" formControlName="referralcode" maxlength="50">
@@ -309,17 +303,17 @@
                                         <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>-->
                                         <input matInput type="email" placeholder="Email Id" formControlName="email" required>
                                         <i class="far fa-envelope" matSuffix></i>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.email.errors?.required">Email ID is required</mat-error>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                        <mat-error *ngIf="form.controls.contacts.controls.email.errors?.required">Email ID is required</mat-error>
+                                        <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                     </mat-form-field>
                                     <mat-form-field class="w-100">
                                         <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
                                                minlength="10" maxlength="10" formControlName="phone1" required>
                                         <i class="fas fa-phone" matSuffix></i>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.phone1.hasError('minlength')">
+                                        <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">
                                             Enter Valid Mobile Number
                                         </mat-error>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.phone1.hasError('required')">
+                                        <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
                                             Mobile Number is required
                                         </mat-error>
                                     </mat-form-field>
@@ -329,7 +323,7 @@
                                     <mat-form-field class="w-100">
                                         <input matInput formControlName="address1" placeholder="Address1" required>
                                         <mat-icon matSuffix>home</mat-icon>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.address1.errors?.required ">
+                                        <mat-error *ngIf="form.controls.contacts.controls.address1.errors?.required ">
                                             Enter Address1
                                         </mat-error>
                                     </mat-form-field>
@@ -343,9 +337,9 @@
                                                minlength="6" (keypress)="keyPress($event)" formControlName="pincode"
                                                required>
                                         <mat-icon matSuffix>home</mat-icon>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
-                                        <mat-error *ngIf="registerform.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>
+                                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>
 
                                     </mat-form-field>
                             </mat-tab>
@@ -354,16 +348,16 @@
                                 <mat-form-field class="w-100">
                                     <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
                                     <i class="far fa-id-card" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber">
                                     <i class="far fa-id-card" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
-                                    <mat-error *ngIf="registerform.controls.documents.controls.pannumber.hasError('pattern')">Enter Valid Pan</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
+                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('pattern')">Enter Valid Pan</mat-error>
                                 </mat-form-field>
                                 <div class="w-100">
                                     <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
@@ -413,7 +407,7 @@
                                     <mat-form-field class="w-100">
                                         <textarea matInput #message maxlength="300" required placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
                                         <mat-hint align="end">{{message.value.length}} /300</mat-hint>
-                                        <mat-error *ngIf="registerform.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>
+                                        <mat-error *ngIf="form.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>
                                     </mat-form-field>
                                     <div class="w-100">
                                         <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
@@ -449,32 +443,32 @@
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Bank Name" formControlName="bankname">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Bank Branch" formControlName="bankbranch">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
-                                    <!--<mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('pattern')">Enter Valid IFSC Code</mat-error>-->
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
+                                    <!--<mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('pattern')">Enter Valid IFSC Code</mat-error>-->
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
-                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                                 </mat-form-field>
                             </mat-tab>
                         </mat-tab-group>
                         <hr>
                         <div style="padding-left: 10px">
-                            <button mat-raised-button color="primary" (click)="submit(registerform.value)" >
+                            <button mat-raised-button color="primary" (click)="submit(form.value)" >
                                 Proceed
                             </button>
                         </div>
