@@ -7,7 +7,6 @@
                         <div class="user-img">
                             <img *ngIf="posData.pos_profile_img == ''" src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
                             <img *ngIf="posData.pos_profile_img != ''" src="{{webhost + '/' + posData.pos_profile_img}}" class="transition-2 rounded-circle">
-                            </mat-list-item>
                             <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
                                   <!--class="rounded-circle">-->
                             <h4 class="mt-2">{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</h4>
@@ -34,7 +33,7 @@
                                     <i class="material-icons user-name">location_on</i>  <strong class="user-name">Address : </strong>
                                     <span class="text-capitalize" >{{posData.pos_address1 | titlecase}}<span
                                             [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2 | titlecase}}<span
-                                            [hidden]="posData.pos_postalcode == ''"> -</span><span >{{posData.pos_postalcode}}</span>
+                                            [hidden]="posData.pos_postalcode == ''"> - </span><span >{{posData.pos_postalcode}}</span>
                                     </span>
                                 </p>
                             </div>
@@ -135,7 +134,7 @@
                             <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
                                 Reject
                             </button>
-                            <button mat-raised-button color="primary" *ngIf="posstatus != 1" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
+                            <button mat-raised-button color="primary" *ngIf="posstatus != 1" [disabled]="notes == ''" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
                         </div>
                     </div><br>
                 </div>
@@ -202,6 +201,7 @@
             </div>
 
         </mat-expansion-panel>
+
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -236,35 +236,70 @@
                                     </div>
                                     <div class="col-md-2"></div>
                                 </div>
-                                <div fxLayout="row" fxLayoutAlign="center center" *ngIf="posData.check_leaf_upload_img != ''">
-                                    <mat-list-item class="h-100 py-1">
-                                        <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" (click)="viewImage(posData.check_leaf_upload_img, 'Check Leaf')">
-                                    </mat-list-item>
-                                </div>
+
                             </mat-list>
                         </mat-card-content>
                     </mat-card>
                 </div>
             </div>
 
+            <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="posData.check_leaf_upload_img != ''">
+                <div class="mb-2 mt-2">
+                    <h6 class="text-center" style="color: #0288d1">Check Leaf</h6>
+                    <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Check Leaf')">
+                </div>
+            </div>
+
         </mat-expansion-panel>
-        <mat-expansion-panel>
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Training Details
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxLayout="row" fxLayoutAlign="center center" class="h-100"  *ngIf="posData.training_status == 0">
+                <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                    <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                        <mat-card-title class="m-0 text-center" style="color:#0288d1 !important"><h5>Training still in progress.... </h5></mat-card-title>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="posData.training_status == 1">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Minutes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let lists of trainingDetails">
+                        <td>{{lists.training_attend_date | date: 'dd-MMM-yy'}}</td>
+                        <td>{{lists.entry_time}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="posData.training_status != 0 && posData.exam_status != 0">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Examination Details
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div >
-                <div fxLayout="row" fxLayoutAlign="center center" class="h-100"  *ngIf="posData.training_status == 0">
-                    <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                            <mat-icon>edit</mat-icon>
-                        </div>
-                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                            <mat-card-title class="m-0 text-center" style="color:#3dccb1d6 !important"><h4>Please complete training before applying the exam</h4></mat-card-title>
-                        </div>
-                    </div>
-                </div>
+                <!--<div fxLayout="row" fxLayoutAlign="center center" class="h-100"  >-->
+                    <!--<div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">-->
+                        <!--&lt;!&ndash;<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mat-icon>edit</mat-icon>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">-->
+                            <!--<mat-card-title class="m-0 text-center" style="color:red !important"><h5>Please complete training before applying the exam</h5></mat-card-title>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center" *ngIf="posData.exam_status == 2">
                     <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
