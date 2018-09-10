@@ -34,8 +34,10 @@ export class TrainingComponent implements OnInit {
     startOnlineExam: boolean;
     public settings : Settings;
     constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
-
         this.settings = this.appSettings.settings;
+        setTimeout((time) => {
+            this.settings.loadingSpinner = false;
+        },700);
         this.trainingStatus = this.auth.getSessionData('trainingStatus');
         this.getRemainingTime = '';
         this.getMinutes = '';
