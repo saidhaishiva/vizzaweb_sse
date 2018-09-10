@@ -261,13 +261,25 @@
                                         <mat-datepicker touchUi #birthday></mat-datepicker>
                                         <mat-error *ngIf="registerform.controls.birthday.errors?.required">Dob is required</mat-error>
                                         <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
-                                    </mat-form-field>
+                                        </mat-form-field>
+
+
+                                <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
+                                <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+                                    <mat-radio-group formControlName="gender" (change)="checkGender()" required>
+                                    <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
+                                    <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button>
+                                        <div *ngIf="registerform.controls.gender.errors?.required">Gender is required</div>
+                                    </mat-radio-group>
+                                <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
+
                                     <mat-form-field class="w-100">
                                         <input matInput formControlName="formemail" placeholder="Email ID:" required>
                                         <i class="far fa-envelope" matSuffix></i>
                                         <mat-error *ngIf="registerform.controls.formemail.errors?.required">Email ID is required</mat-error>
                                         <mat-error *ngIf="registerform.controls.formemail.hasError('pattern')">Please Enter Correct Format</mat-error>
                                     </mat-form-field>
+
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="Referral Code" formControlName="referralcode" maxlength="50">
                                                 <i class="fas fa-volume-up" matSuffix></i>
@@ -445,14 +457,18 @@
                                     <mat-error *ngIf="registerform.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="IFSC Code" formControlName="ifsccode">
+                                    <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
+                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
+                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
                                     <mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
+                                    <!--<mat-error *ngIf="registerform.controls.bankdetails.controls.ifsccode.hasError('pattern')">Enter Valid IFSC Code</mat-error>-->
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)">
+                                    <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8">
                                     <i class="fas fa-rupee-sign" matSuffix></i>
                                     <mat-error *ngIf="registerform.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
+                                    <mat-error *ngIf="registerform.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                                 </mat-form-field>
                             </mat-tab>
                         </mat-tab-group>
