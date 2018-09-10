@@ -212,7 +212,6 @@ export class RegisterComponent implements OnInit {
                 "pos_lastname": this.form.controls['lastname'].value,
                 "pos_gender": this.form.controls['gender'].value,
                 "pos_dob": this.dob,
-                "pos_profile": this.profile,
                 "pos_mobileno": this.form.value['contacts']['phone1'],
                 "pos_email": this.form.value['contacts']['email'],
                 "pos_address1": this.form.value['contacts']['address1'],
