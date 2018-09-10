@@ -144,11 +144,15 @@
                                                 </div>
                                                 <div class="col-md-2"></div>
                                             </div>
-                                            <div fxLayout="row" fxLayoutAlign="center center" *ngIf="personal.check_leaf_upload_img != ''">
-                                                <mat-list-item class="h-100 py-1">
-                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px">
-                                                </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="personal.check_leaf_upload_img != ''">
+                                                <div class="mb-2 mt-2">
+                                                    <h6 class="text-center colorBank">Check Leaf</h6>
+                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" >
+                                                </div>
                                             </div>
+
+
                                         </mat-list>
                                     </mat-card-content>
                                 </mat-card>

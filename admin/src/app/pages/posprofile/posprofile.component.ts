@@ -83,6 +83,8 @@ export class PosprofileComponent implements OnInit {
         this.doctor = [];
         this.personal = [];
         this.doctorExperience = [];
+        this.notes = '';
+        this.comments = '';
        // this.professional = [];
       //  this.personal.profileimagepath = '';
       //   this.professional.doctorExperience.exp = 0;
@@ -122,7 +124,7 @@ export class PosprofileComponent implements OnInit {
         });
     }
     getPosProfile() {
-        // this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
@@ -140,6 +142,8 @@ export class PosprofileComponent implements OnInit {
     }
     getPosProfileSuccess(successData) {
         console.log(successData, 'successDatasuccessData');
+        this.settings.loadingSpinner = false;
+
         if (successData.IsSuccess) {
             this.posData = successData.ResponseObject;
         } else {
@@ -148,13 +152,15 @@ export class PosprofileComponent implements OnInit {
     }
     getPosProfileFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
+
     }
 
     public getTrainingDetails(posid) {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId(),
+            'adminid': this.auth.getAdminId(),
             'pos_id': posid
         };
         this.common.getTrainingDetails(data).subscribe(
@@ -180,7 +186,7 @@ export class PosprofileComponent implements OnInit {
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
-            'userid': this.auth.getAdminId(),
+            'adminid': this.auth.getAdminId(),
             'pos_id': posid
         };
         this.common.getExamDetails(data).subscribe(
@@ -263,6 +269,8 @@ export class PosprofileComponent implements OnInit {
         });
     }
     verificationSubmit() {
+        console.log(this.notes, 'this.notes');
+        console.log(this.comments, 'this.notes');
         this.field = [];
         for (let i=0; i < this.documentslist.length; i++) {
                 this.field.push({
@@ -305,6 +313,8 @@ export class PosprofileComponent implements OnInit {
             this.getComments();
             this.comments = '';
             this.notes = '';
+            this.router.navigate(['/pos']);
+
         }
 
     }
@@ -367,7 +377,7 @@ export class PosprofileComponent implements OnInit {
             'message_type': 'comments'
 
         }
-        this.common.getNotes(data).subscribe(
+            this.common.getComments(data).subscribe(
             (successData) => {
                 this.getCommentSuccess(successData);
             },
