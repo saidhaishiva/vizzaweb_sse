@@ -121,6 +121,7 @@ button:focus{
     background-color: $light-green !important;
     color: #FFFFFF !important;
   }
+
   .sign{
     margin-top: 18px;
     color: #BBBBBE;
@@ -221,6 +222,22 @@ button:focus{
   }
   .mat-tab-body.mat-tab-body-active{
     margin-top: 15px;
+  }
+  .custom-file-label::after {
+    content: "Attach File" !important;
+    background-color: $light-green;
+    color: white;
+    border: none;
+  }
+  .mat-radio-outer-circle{
+    border-left-color: $light-green !important;
+    border-right-color: $light-green !important;
+    border-top-color: $light-green !important;
+    border-bottom-color: $light-green !important;
+
+  }
+  .mat-radio-inner-circle {
+    background-color: $light-green !important;
   }
 }
 
