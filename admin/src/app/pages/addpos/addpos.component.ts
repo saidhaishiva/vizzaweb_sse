@@ -40,6 +40,8 @@ export class AddposComponent implements OnInit {
     dobError: any;
     today: any;
     mismatchError: any;
+    profile: any;
+    chequeleaf: any;
     constructor(public config: ConfigurationService,
                 public fb: FormBuilder,public router: Router, public appSettings: AppSettings,public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
@@ -74,11 +76,19 @@ export class AddposComponent implements OnInit {
                 qualification: ['', Validators.compose([Validators.required])],
 
             }),
+            bankdetails: this.fb.group({
+                bankname: ['', Validators.compose([Validators.required])],
+                bankbranch: ['', Validators.compose([Validators.required])],
+                ifsccode: ['', Validators.compose([Validators.required])],
+                accountnumber: ['', Validators.compose([Validators.required])]
+            })
         });
+        this.profile = '';
         this.aadharfront = '';
         this.aadharback = '';
         this.pancard = '';
         this.education = '';
+        this.chequeleaf= '';
     }
 
 
@@ -122,6 +132,9 @@ export class AddposComponent implements OnInit {
     public fileUploadSuccess(successData) {
             if (successData.IsSuccess == true) {
                 this.fileUploadPath =  successData.ResponseObject.imagePath;
+                if (this.type == 'profile'){
+                    this.profile = this.fileUploadPath;
+                }
                 if (this.type == 'aadhar front') {
                     this.aadharfront = this.fileUploadPath;
                 }
@@ -133,6 +146,9 @@ export class AddposComponent implements OnInit {
                 }
                 if (this.type == 'education') {
                     this.education = this.fileUploadPath;
+                }
+                if (this.type == 'chequeleaf') {
+                    this.chequeleaf = this.fileUploadPath;
                 }
             } else {
                 this.toastr.error(successData.ErrorObject, 'Failed');
@@ -153,6 +169,11 @@ export class AddposComponent implements OnInit {
             this.toastr.error('Please upload pancard');
         } else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
+        }else if (this.profile == '') {
+            this.toastr.error('Please upload profile');
+        }
+        else if (this.chequeleaf == '') {
+            this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
             const data = {
                 'admin_id': this.auth.getAdminId(),
@@ -171,11 +192,17 @@ export class AddposComponent implements OnInit {
                 "pos_postalcode": this.form.value['contacts']['pincode'],
                 "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
                 "pos_pan_no": this.form.value['documents']['pannumber'],
+                "pos_profile_img": this.profile,
                 "pos_aadhar_front_img": this.aadharfront,
                 "pos_aadhar_back_img": this.aadharback,
                 "pos_pan_img": this.pancard,
                 "pos_education": this.form.value['education']['qualification'],
-                "pos_education_doc_img": this.education
+                "pos_education_doc_img": this.education,
+                "check_leaf_upload_img": this.chequeleaf,
+                "bank_name": this.form.value['bankdetails']['bankname'],
+                "bank_acc_no": this.form.value['bankdetails']['accountnumber'],
+                "branch_name": this.form.value['bankdetails']['bankbranch'],
+                "ifsc_code": this.form.value['bankdetails']['ifsccode']
             };
             console.log(data);
             this.settings.loadingSpinner = true;
@@ -219,6 +246,7 @@ export class AddposComponent implements OnInit {
             }
         }
     }
+
     addEvent(event) {
         if (event.value != null) {
             console.log(event.value._i,  'kjfhasdjfh');

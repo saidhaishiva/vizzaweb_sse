@@ -157,7 +157,11 @@ a{
 }
 .vertical-tabs.mat-tab-group{
     flex-direction: row;
-    .mat-tab-labels{
+
+    .mat-tab-body-wrapper {
+        color: white;
+    }
+    .mat-tab-label {
         flex-direction: column;
     }
     .mat-ink-bar{
@@ -170,7 +174,6 @@ a{
         padding: 0 16px;
     }
 }
-
 
 .app{
     &.fixed-header{
