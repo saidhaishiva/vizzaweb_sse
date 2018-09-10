@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+// import { ImageUploadModule } from "angular2-image-upload";
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -103,6 +104,7 @@ import { TrainingComponent } from './pages/training/training.component';
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
