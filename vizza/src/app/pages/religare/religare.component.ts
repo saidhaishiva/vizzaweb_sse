@@ -1330,4 +1330,13 @@ export class ReligareComponent implements OnInit {
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
+    // public validate(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[a-zA-Z0-9\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
 }
