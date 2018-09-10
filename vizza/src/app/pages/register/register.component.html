@@ -265,13 +265,13 @@
 
 
                                 <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
-                                <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+                                <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                                     <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                                     <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
                                     <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button>
                                         <div *ngIf="registerform.controls.gender.errors?.required">Gender is required</div>
                                     </mat-radio-group>
-                                <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
+                                <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
                                     <mat-form-field class="w-100">
                                         <input matInput formControlName="formemail" placeholder="Email ID:" required>
