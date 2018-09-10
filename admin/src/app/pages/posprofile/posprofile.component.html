@@ -5,7 +5,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="user-img">
-                            <img  src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
+                            <img *ngIf="posData.pos_profile_img == ''" src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
+                            <img *ngIf="posData.pos_profile_img != ''" src="{{webhost + '/' + posData.pos_profile_img}}" class="transition-2 rounded-circle">
+                            </mat-list-item>
                             <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
                                   <!--class="rounded-circle">-->
                             <h4 class="mt-2">{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</h4>
