@@ -1212,5 +1212,13 @@ a{
 .view-upload, view-upload:hover{
   color: $theme-color !important;
 }
+.mailbox[_ngcontent-c15] .empty[_ngcontent-c15] mat-icon[_ngcontent-c15] {
+  font-size: 137px !important;
+  height: 149px !important;
+  //width: 205px;
+}
+.docCard {
+  height: 225px !important;
+}
 
 

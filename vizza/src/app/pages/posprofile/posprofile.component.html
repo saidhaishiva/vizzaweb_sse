@@ -163,17 +163,17 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                <mat-icon>school</mat-icon>
+                                <mat-icon >school</mat-icon>
                                     <p>{{personal.doc_education}}</p>
                                 </div>
-                                <mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>
+                                <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
 
-                                <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+                                <div fxLayout="row" fxLayoutAlign="center center">
 
-                                    <div fxFlex="33.3" class="flex-p">
-                                        <mat-card class="custom-card">
+                                    <div  class="flex-p">
+                                        <mat-card class="custom-card customCard">
                                             <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
-                                                <mat-card-title class="m-0"><h6>Certificates</h6></mat-card-title>
+                                                <mat-card-title class="m-0"><h6>Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
                                             <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
                                         </mat-card>
@@ -184,24 +184,24 @@
 
                         <div *ngIf="currentTab == 'Documents'">
                             <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
-                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
+                            <div fxLayout="row" fxLayoutAlign="center center" >
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card" style="height: 231px">
+                                    <mat-card class="custom-card docCard">
                                         <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="center center">
                                             <mat-card-title class="m-0"><h6>Aadhar Front</h6></mat-card-title>
                                         </mat-card-header>
                                         <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
+                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
                                             </div>
                                     </mat-card>
                                 </div>
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card" style="height: 231px">
+                                    <mat-card class="custom-card docCard">
                                         <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">
                                             <mat-card-title class="m-0"><h6>Aadhar Back</h6></mat-card-title>
                                         </mat-card-header>
                                         <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">
+                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">
                                         </div>
                                     </mat-card>
                                 </div>
@@ -211,12 +211,12 @@
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
 
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card" style="height: 231px">
+                                    <mat-card class="custom-card docCard" >
                                         <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="center center">
                                             <mat-card-title class="m-0"><h6>Pan Imgae</h6></mat-card-title>
                                         </mat-card-header>
                                         <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 288px" src="{{webhost +'/'+ personal.doc_pan_img}}" alt="">
+                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_pan_img}}" alt="">
                                         </div>
                                     </mat-card>
                                 </div>
@@ -602,7 +602,11 @@
 
 
 
-
+<style>
+    .customCard {
+        height: 250px !important;
+    }
+</style>
 
 
 

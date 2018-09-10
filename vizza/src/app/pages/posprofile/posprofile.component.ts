@@ -150,7 +150,6 @@ export class PosprofileComponent implements OnInit {
               }];
 
 
-
       }
       this.sideNav[0].selected = true;
   }
@@ -163,11 +162,9 @@ export class PosprofileComponent implements OnInit {
         let examStatus = sessionStorage.examStatus;
 
         if (value == 'Training') {
-            if (trainingStatus == 0) {
-                this.settings.loadingSpinner = true;
-                this.router.navigate(['/training']);
-            }
 
+            this.settings.loadingSpinner = true;
+            this.router.navigate(['/training']);
         } else if (value == 'Examination') {
 
             if (trainingStatus == 0) {
@@ -175,7 +172,7 @@ export class PosprofileComponent implements OnInit {
             } else if (examStatus == 0) {
                 this.router.navigate(['/startexam']);
             } else if (examStatus == 1) {
-                // this.router.navigate(['/startexam']);
+                this.router.navigate(['/startexam']);
             }
         }
     }
