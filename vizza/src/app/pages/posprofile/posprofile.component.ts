@@ -25,7 +25,9 @@ export class PosprofileComponent implements OnInit {
     public settings: Settings;
     public personal: any;
     public webhost: any;
-    public mails: any;
+    public sideNav: any;
+    public currentTab: any;
+    public selectedTab: any;
 
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
@@ -42,23 +44,75 @@ export class PosprofileComponent implements OnInit {
   ngOnInit() {
       this.getPosProfile();
       // this.settings.loadingSpinner = false;
-
-      this.mails = [{
-          'name': 'Profile',
+      this.currentTab = 'Personal';
+      this.sideNav = [{
+          'name': 'Personal',
           'value': 'active',
-          'selected': true
+          'selected': false
       },{
+          'name': 'Contact',
+          'value': 'active',
+          'selected': false
+      },
+      {
           'name': 'Documents',
           'value': 'active',
           'selected': false
       },
-          {
-              'name': 'Profile',
-              'value': 'active',
-              'selected': false
-          }
+      {
+          'name': 'Bank Details',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Education',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Training Period',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Examinations',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Approval Letter',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Appointment Letter',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'ID Card',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Visiting Card',
+          'value': 'active',
+          'selected': false
+      },
+      {
+          'name': 'Payment Options',
+          'value': 'active',
+          'selected': false
+      }
       ];
+      this.sideNav[0].selected = true;
   }
+
+    viewDetail(i, value) {
+       // this.sideNav[i].selected = true;
+        this.selectedTab = i;
+        this.currentTab = value;
+    }
 
   public getPosProfile() {
       console.log(this.settings.loadingSpinner);
@@ -94,5 +148,10 @@ export class PosprofileComponent implements OnInit {
     getPosProfileFailure(error) {
     console.log(error);
     }
+    print() {
+        window.print();
+    }
 
 }
+
+

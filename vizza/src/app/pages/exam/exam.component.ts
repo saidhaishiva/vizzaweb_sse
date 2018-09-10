@@ -35,6 +35,11 @@ export class ExamComponent implements OnInit {
   ngOnInit() {
     this.getQuestions();
     this.countdown('1');
+      window.addEventListener('beforeunload', function (e) {
+          let confirmationMessage = '\o/';
+          e.returnValue = confirmationMessage;
+          return confirmationMessage;
+      });
 
   }
       countdown(minutes) {
@@ -177,7 +182,7 @@ export class ExamComponent implements OnInit {
             <label>Are you sure want to submit the Test now?</label>
         </div>
         <div mat-dialog-content class="text-center" *ngIf="expiredStatus">
-            <label>Time up </label>
+            <label>Your time's up this is auto update on 2 seconds </label>
 
         </div>
         <div mat-dialog-actions style="justify-content: center">
