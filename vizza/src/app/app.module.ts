@@ -8,6 +8,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import {ScrollToModule} from 'ng2-scroll-to';
+
 // import { ImageUploadModule } from "angular2-image-upload";
 
 // services
@@ -104,6 +106,7 @@ import { TrainingComponent } from './pages/training/training.component';
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      ScrollToModule.forRoot(),
       // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'

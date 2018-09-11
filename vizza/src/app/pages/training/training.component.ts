@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import {AppSettings} from '../../app.settings';
-import {Router} from '@angular/router';
+import {RouterModule, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
