@@ -1,0 +1,29 @@
+.training_page{
+  h1{
+    color:green;
+    text-align: center;
+  }
+  h2{
+    text-align: center;
+  }
+  h3{
+    color:blue;
+  }
+  table, td, th {
+    border: 1px solid black;
+    padding: 10px;
+  }
+  th{
+    text-align: center;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  a {
+    text-decoration: none !important;
+  }
+  .no{
+    text-align: center;
+  }
+}
