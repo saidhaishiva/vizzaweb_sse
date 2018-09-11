@@ -199,6 +199,8 @@ a:hover {
 
 .mt-registration .mat-tab-header-pagination {
   background: #ffe8c6 !important; }
+.mt-registration .mat-tab-label {
+  pointer-events: none !important; }
 .mt-registration mat-tab-header {
   margin-bottom: 15px; }
 .mt-registration mat-card {
@@ -484,8 +486,6 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
-.proposal .mat-horizontal-stepper-header {
-  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {

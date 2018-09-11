@@ -3,20 +3,20 @@
         <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" fxFlex.sm="60" class="mt-registration">
             <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner"
                       style="border-radius: 10px">
-                <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
+                <!--<span class="box-content-header"><img class="login-logo mb-3" src="assets/img/vizza-logoNew.png"> </span>-->
                 <mat-card-subtitle><h3>Register</h3></mat-card-subtitle>
 
-                <mat-tab-group class="horizantal-tabs w-100" [selectedIndex]="selectedtab">
-                    <mat-tab label="Personal">
+                <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+                    <mat-tab label="Personal" formGroupName="personal">
                         <mat-form-field class="w-100">
                         <input matInput placeholder="First name" formControlName="firstname"  required>
                         <mat-icon matSuffix>person</mat-icon>
-                        <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
+                        <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Last name" formControlName="lastname" required>
                         <mat-icon matSuffix>person</mat-icon>
-                        <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
+                        <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
@@ -26,7 +26,7 @@
                         maxlength="10">
                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                         <mat-datepicker touchUi #birthday></mat-datepicker>
-                        <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
+                        <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
                         <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                         </mat-form-field>
 
@@ -60,8 +60,11 @@
                         </div>
                         </div>
                         </div>
-
-                        </mat-tab>
+                        <hr>
+                        <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                        <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+                        </div>
+                    </mat-tab>
 
                         <mat-tab label="Contacts" formGroupName="contacts">
                         <mat-form-field class="w-100">
@@ -109,6 +112,11 @@
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>
 
                         </mat-form-field>
+                            <hr>
+                            <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                                <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid" type="button">Next</button>
+                            </div>
                         </mat-tab>
 
                         <mat-tab label="Documents" formGroupName="documents">
@@ -168,6 +176,11 @@
                         </div>
                         </div>
                         </div>
+                            <hr>
+                            <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                                <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.documents.valid" type="button">Next</button>
+                            </div>
                         </mat-tab>
 
                         <mat-tab label="Education" formGroupName="education">
@@ -192,6 +205,11 @@
                         </div>
                         </div>
                         </div>
+                            <hr>
+                            <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                                <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+                            </div>
                         </mat-tab>
                         <mat-tab label="BankDetails" formGroupName="bankdetails">
 
@@ -209,17 +227,17 @@
                         </div>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Name" formControlName="bankname">
-                        <i class="fas fa-rupee-sign" matSuffix></i>
+                            <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Branch" formControlName="bankbranch">
-                        <i class="fas fa-rupee-sign" matSuffix></i>
+                            <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11">
-                        <i class="fas fa-rupee-sign" matSuffix></i>
+                            <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
@@ -227,16 +245,18 @@
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8">
-                        <i class="fas fa-rupee-sign" matSuffix></i>
+                            <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                         </mat-form-field>
+                            <hr>
+                            <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                                <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
+                                <button color="primary" mat-raised-button (click)="submit(form.value)" [disabled]="!form.valid"  type="button">Save</button>
+                            </div>
                         </mat-tab>
                 </mat-tab-group>
-                <hr>
-                <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
-                    <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Save</button>
-                </div>
+
                 <div class="login-options">
                     <div><span>Already You have an account ? </span> <a [routerLink]="['/pos']"> Login</a></div>
                 </div>

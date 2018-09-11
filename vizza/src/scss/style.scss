@@ -268,9 +268,12 @@ a:hover {
   margin: 4em auto 70px;
 }
 .mt-registration {
-  .mat-tab-header-pagination
-  {
+  .mat-tab-header-pagination {
     background: #ffe8c6 !important;
+  }
+  .mat-tab-label{
+    pointer-events: none!important;
+
   }
 
   mat-tab-header{
@@ -660,9 +663,9 @@ background: #ccc !important;
     }
 
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
