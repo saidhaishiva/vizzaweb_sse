@@ -291,7 +291,8 @@ export class ReligareComponent implements OnInit {
                 residenceState: ['', Validators.required],
                 sameas: '',
                 type: '',
-                cityHide: ''
+                cityHide: '',
+                pCityHide: ''
             }
         );
     }
@@ -502,7 +503,10 @@ export class ReligareComponent implements OnInit {
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                stepper.next();
+                console.log(this.mobileNumber, 'jjjjjjjjjjjjjjjjjjj')
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+            }
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -519,7 +523,7 @@ export class ReligareComponent implements OnInit {
                 this.questionEmpty = true;
             }
         }
-        if (this.questionEmpty) {
+        if (this.questionEmpty ) {
             stepper.next();
 
         } else {
@@ -728,7 +732,6 @@ export class ReligareComponent implements OnInit {
                 }
             setTimeout(() => {
                 if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                    alert('innnn');
                     this.getPostal(this.getStepper1.residencePincode, 'residence');
                     this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
                     this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
@@ -746,43 +749,36 @@ export class ReligareComponent implements OnInit {
 
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 if (this.getStepper2.items[i].personalPincode != '') {
-                    this.getPostalInsurer(this.getStepper2.items[i].personalPincode, i, 'personal');
+                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
                     this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
                     this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
                     this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
 
                     if (this.getStepper2.items[0].sameAsProposer) {
-                        this.insureCity = true;
+                        this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
                         this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
                     }
                         if (this.getStepper2.items[i].sameas) {
-                              this.insureCity = this.getStepper2.items[i].sameas;
-                            //this.getPostalInsurer(this.getStepper2.items[i].personalPincode, i, 'residence');
+                            this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
                             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
                             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
                             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
                         }
                         if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                            this.getPostalInsurer(this.getStepper1.residencePincode, i, 'residence');
+                            this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
                             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
                             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
                         }
-
-
                 }
             }
-
-
-
     }
 
 
     sameProposer(value: any) {
-
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-            this.insureCity = this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value;
+            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
@@ -814,7 +810,7 @@ export class ReligareComponent implements OnInit {
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
-            this.insureCity = this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value;
+            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
@@ -1010,6 +1006,7 @@ export class ReligareComponent implements OnInit {
     getPostal(pin, title) {
         this.pin = pin;
         this.title = title;
+        console.log(this.title, 'kjhjkghkhk')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1030,27 +1027,45 @@ export class ReligareComponent implements OnInit {
 
     public getpostalSuccess(successData) {
 
-        if (successData.IsSuccess == true) {
+
             if (this.title == 'personal') {
                 this.personalCitys = [];
                 this.response = successData.ResponseObject;
-                this.personal.controls['personalState'].setValue(this.response[0].state);
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city});
+                if (successData.IsSuccess) {
+
+                    this.personal.controls['personalState'].setValue(this.response[0].state);
+                    for (let i = 0; i < this.response.length; i++) {
+                        this.personalCitys.push({city: this.response[i].city});
+                    }
+                } else if(successData.IsSuccess != true) {
+
+                    this.personal.controls['personalState'].setValue('');
+                    for (let i = 0; i < this.response.length; i++) {
+                        this.personalCitys.push({city: this.response[i].city = ''});
+                    }
+                    this.toastr.error('In valid Pincode');
                 }
             }
             if (this.title == 'residence') {
                 this.residenceCitys = [];
                 this.rResponse = successData.ResponseObject;
-                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city});
+                if (successData.IsSuccess) {
+                    this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
+                    for (let i = 0; i < this.rResponse.length; i++) {
+                        this.residenceCitys.push({city: this.rResponse[i].city});
+                    }
+                } else if(successData.IsSuccess != true) {
+                    this.personal.controls['residenceState'].setValue('');
+                    for (let i = 0; i < this.rResponse.length; i++) {
+                        this.residenceCitys.push({city: this.rResponse[i].city = ''});
+                    }
+                    this.toastr.error('In valid Pincode');
                 }
+            }
             }
 
 
-        }
-    }
+
 
     public getpostalFailure(error) {
         console.log(error);
@@ -1082,28 +1097,47 @@ export class ReligareComponent implements OnInit {
 
     public getpostalInsurerSuccess(successData) {
 
-        if (successData.IsSuccess == true) {
+
             if (this.title == 'personal') {
                 this.iPersonalCitys = [];
                 this.response = successData.ResponseObject;
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city});
+                if (successData.IsSuccess) {
+                    for (let i = 0; i < this.response.length; i++) {
+                        this.iPersonalCitys.push({city: this.response[i].city});
+                    }
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+                } else if(successData.IsSuccess != true && this.title == 'personal') {
+                    for (let i = 0; i < this.response.length; i++) {
+                        this.iPersonalCitys.push({city: this.response[i].city = ''});
+                    }
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+                    this.toastr.error('In valid Pincode');
                 }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                //this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
             }
             if (this.title == 'residence') {
                 this.iResidenceCitys = [];
                 this.rResponse = successData.ResponseObject;
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.iResidenceCitys.push({city: this.rResponse[i].city});
+                if (successData.IsSuccess) {
+                    for (let i = 0; i < this.rResponse.length; i++) {
+                        this.iResidenceCitys.push({city: this.rResponse[i].city});
+                    }
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
                 }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
+                else if (successData.IsSuccess != true && this.title == 'residence') {
+                    for (let i = 0; i < this.rResponse.length; i++) {
+                        this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
+                    }
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
+                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
+                    this.toastr.error('In valid Pincode');
+                }
             }
 
 
-        }
+
     }
 
     public getpostalInsurerFailure(error) {
@@ -1195,7 +1229,6 @@ export class ReligareComponent implements OnInit {
     public religareQuestionsFailure(error) {
         console.log(error);
     }
-
 
 
 

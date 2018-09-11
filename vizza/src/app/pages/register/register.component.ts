@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatTabChangeEvent } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { CommonService } from '../../shared/services/common.service';
 import { AuthService } from '../../shared/services/auth.service';
@@ -65,6 +65,7 @@ export class RegisterComponent implements OnInit {
     roleId: any;
     img: any;
     profile: any;
+    selectedIndex: any;
     public passwordHide: boolean = true;
     constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
@@ -77,14 +78,17 @@ export class RegisterComponent implements OnInit {
         this.dob = '';
         this.dobError = '';
         this.mismatchError = '';
+        this.selectedIndex = 0
         this.img = false;
         this.form = this.fb.group({
-            id: null,
-            firstname: ['', Validators.compose([Validators.required])],
-            lastname: ['', Validators.compose( [Validators.required])],
-            birthday: ['', Validators.compose([Validators.required])],
-            gender: ['', Validators.compose([Validators.required])],
-            referralcode: '',
+            personal: this.fb.group({
+                id: null,
+                firstname: ['', Validators.compose([Validators.required])],
+                lastname: ['', Validators.compose([Validators.required])],
+                birthday: ['', Validators.compose([Validators.required])],
+                gender: ['', Validators.compose([Validators.required])],
+                referralcode: '',
+            }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -123,6 +127,17 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
           this.settings.loadingSpinner = false;
+    }
+    public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+        this.selectedIndex = tabChangeEvent.index;
+    }
+
+    public nextStep() {
+        this.selectedIndex += 1;
+    }
+
+    public previousStep() {
+        this.selectedIndex -= 1;
     }
     readUrl(event: any, type) {
         this.type = type;
@@ -205,31 +220,31 @@ export class RegisterComponent implements OnInit {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         }else {
             const data = {
-                "platform": "web",
-                "pos_hidden_id": "",
-                "pos_referralcode": this.form.controls['referralcode'].value,
-                "pos_firstname": this.form.controls['firstname'].value,
-                "pos_lastname": this.form.controls['lastname'].value,
-                "pos_gender": this.form.controls['gender'].value,
-                "pos_dob": this.dob,
-                "pos_mobileno": this.form.value['contacts']['phone1'],
-                "pos_email": this.form.value['contacts']['email'],
-                "pos_address1": this.form.value['contacts']['address1'],
-                "pos_address2": this.form.value['contacts']['address2'],
-                "pos_postalcode": this.form.value['contacts']['pincode'],
-                "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
-                "pos_pan_no": this.form.value['documents']['pannumber'],
-                "pos_profile_img": this.profile,
-                "pos_aadhar_front_img": this.aadharfront,
-                "pos_aadhar_back_img": this.aadharback,
-                "pos_pan_img": this.pancard,
-                "check_leaf_upload_img": this.chequeleaf,
-                "pos_education": this.form.value['education']['qualification'],
-                "pos_education_doc_img": this.education,
-                "bank_name": this.form.value['bankdetails']['bankname'],
-                "bank_acc_no": this.form.value['bankdetails']['accountnumber'],
-                "branch_name": this.form.value['bankdetails']['bankbranch'],
-                "ifsc_code": this.form.value['bankdetails']['ifsccode']
+                'platform': 'web',
+                'pos_hidden_id': '',
+                'pos_referralcode': this.form.value['personal']['referralcode'].value,
+                'pos_firstname': this.form.value['personal']['firstname'].value,
+                'pos_lastname': this.form.value['personal']['lastname'].value,
+                'pos_gender': this.form.value['personal']['gender'].value,
+                'pos_dob': this.dob,
+                'pos_mobileno': this.form.value['contacts']['phone1'],
+                'pos_email': this.form.value['contacts']['email'],
+                'pos_address1': this.form.value['contacts']['address1'],
+                'pos_address2': this.form.value['contacts']['address2'],
+                'pos_postalcode': this.form.value['contacts']['pincode'],
+                'pos_aadhar_no': this.form.value['documents']['aadharnumber'],
+                'pos_pan_no': this.form.value['documents']['pannumber'],
+                'pos_profile_img': this.profile,
+                'pos_aadhar_front_img': this.aadharfront,
+                'pos_aadhar_back_img': this.aadharback,
+                'pos_pan_img': this.pancard,
+                'check_leaf_upload_img': this.chequeleaf,
+                'pos_education': this.form.value['education']['qualification'],
+                'pos_education_doc_img': this.education,
+                'bank_name': this.form.value['bankdetails']['bankname'],
+                'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
+                'branch_name': this.form.value['bankdetails']['bankbranch'],
+                'ifsc_code': this.form.value['bankdetails']['ifsccode']
             };
             console.log(data, 'dattatta');
             this.settings.loadingSpinner = true;
@@ -259,7 +274,7 @@ export class RegisterComponent implements OnInit {
     }
 
     checkGender() {
-        if (this.form.controls['gender'].value != '' && this.form.controls['gender'].value != undefined) {
+        if (this.form['controls'].personal['controls']['gender'].value != '' && this.form['controls'].personal['controls']['gender'].value != undefined) {
             this.mismatchError = '';
         } else {
             this.mismatchError = 'Gender is required ';
