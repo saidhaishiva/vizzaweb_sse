@@ -1198,6 +1198,7 @@ export class ReligareComponent implements OnInit {
 
 
 
+
     questionYes(id, value: any) {
         if (value.checked) {
             this.religareQuestionsList[id].mStatus = 'Yes';
