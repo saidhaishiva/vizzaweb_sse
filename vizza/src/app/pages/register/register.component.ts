@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
         this.dobError = '';
         this.mismatchError = '';
         this.selectedIndex = 0
+        this.profile = '';
         this.img = false;
         this.form = this.fb.group({
             personal: this.fb.group({
@@ -115,7 +116,7 @@ export class RegisterComponent implements OnInit {
         this.aadharfront = '';
         this.aadharback = '';
         this.chequeleaf = '';
-        this.profile = '';
+        // this.profile = '';
         this.pancard = '';
         this.education = '';
         this.roleId = this.auth.getPosRoleId() ;
@@ -189,11 +190,11 @@ export class RegisterComponent implements OnInit {
             if (this.type == 'education') {
                 this.education = this.fileUploadPath;
             }
-            if (this.type == 'profile') {
-                this.profile = this.fileUploadPath;
-            }
             if (this.type == 'chequeleaf'){
                 this.chequeleaf = this.fileUploadPath;
+            }
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
             }
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
@@ -213,10 +214,7 @@ export class RegisterComponent implements OnInit {
             this.toastr.error('Please upload pancard');
         } else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
-        } else if (this.profile == '') {
-            this.toastr.error('Please upload profile');
-        }
-        else if (this.chequeleaf == '') {
+        } else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         }else {
             console.log(this.form.value['personal']['firstname'].value, 'ppp');
@@ -236,7 +234,7 @@ export class RegisterComponent implements OnInit {
                 'pos_postalcode': this.form.value['contacts']['pincode'],
                 'pos_aadhar_no': this.form.value['documents']['aadharnumber'],
                 'pos_pan_no': this.form.value['documents']['pannumber'],
-                'pos_profile_img': this.profile,
+                'pos_profile_img': this.profile == undefined ? '' : this.profile,
                 'pos_aadhar_front_img': this.aadharfront,
                 'pos_aadhar_back_img': this.aadharback,
                 'pos_pan_img': this.pancard,
