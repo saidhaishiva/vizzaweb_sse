@@ -143,11 +143,6 @@ export class PosprofileComponent implements OnInit {
                   'name': 'Education',
                   'value': 'active',
                   'selected': false
-              },
-              {
-                  'name': 'Payment Options',
-                  'value': 'active',
-                  'selected': false
               }];
 
 
