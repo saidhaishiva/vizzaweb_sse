@@ -136,7 +136,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number"   maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                        <input matInput placeholder="Alternate Number"   maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="keyPress($event)">
                         <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
@@ -351,6 +351,7 @@
                     <!--</mat-form-field></div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
+                      <mat-error *ngIf="insureArray.invalid">Aadhar Number is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -384,6 +385,7 @@
                     <!--</div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
+                      <mat-error *ngIf="insureArray.invalid">Email Id is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -393,7 +395,7 @@
                     </mat-form-field></div>
 
                 <div class="col-md-6"><mat-form-field class="w-100">
-                  <input matInput placeholder="Alternate Number" maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                  <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="keyPress($event)" formControlName="personalAltnumber" (keyup)="alternateChange($event)">
                 </mat-form-field>
                   <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                 </div>
