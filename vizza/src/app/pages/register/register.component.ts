@@ -203,7 +203,7 @@ export class RegisterComponent implements OnInit {
         console.log(error);
     }
     submit(value) {
-        console.log(value);
+        console.log(value, 'vall');
         console.log(this.dob, 'dateeee');
         if (this.aadharfront == '') {
             this.toastr.error('Please upload aadhar front page');
@@ -219,13 +219,15 @@ export class RegisterComponent implements OnInit {
         else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         }else {
+            console.log(this.form.value['personal']['firstname'].value, 'ppp');
+
             const data = {
                 'platform': 'web',
                 'pos_hidden_id': '',
-                'pos_referralcode': this.form.value['personal']['referralcode'].value,
-                'pos_firstname': this.form.value['personal']['firstname'].value,
-                'pos_lastname': this.form.value['personal']['lastname'].value,
-                'pos_gender': this.form.value['personal']['gender'].value,
+                'pos_referralcode': this.form.value['personal']['referralcode'],
+                'pos_firstname': this.form.value['personal']['firstname'],
+                'pos_lastname': this.form.value['personal']['lastname'],
+                'pos_gender': this.form.value['personal']['gender'],
                 'pos_dob': this.dob,
                 'pos_mobileno': this.form.value['contacts']['phone1'],
                 'pos_email': this.form.value['contacts']['email'],
