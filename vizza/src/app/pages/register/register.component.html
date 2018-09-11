@@ -20,7 +20,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="birthday" placeholder="Date of Birth(DD/MM/YY)"
+                        <input matInput [matDatepicker]="birthday" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)"
                         formControlName="birthday" (dateInput)="addEvent($event)"
                         (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required
                         maxlength="10">
