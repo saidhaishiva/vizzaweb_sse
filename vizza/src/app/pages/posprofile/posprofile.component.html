@@ -163,7 +163,8 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                <mat-icon >school</mat-icon>
+                                <!--<mat-icon >school</mat-icon>-->
+                                    <img src="assets/img/graduation-icon.svg" class="logo-img">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
@@ -172,8 +173,8 @@
 
                                     <div  class="flex-p">
                                         <mat-card class="custom-card customCard">
-                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
-                                                <mat-card-title class="m-0"><h6>Certificate of Education</h6></mat-card-title>
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="center center">
+                                                <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
                                             <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
                                         </mat-card>
@@ -279,8 +280,8 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">80%</h1>
+                                                <img style="width: 150px" src="assets/img/pass-logo.png" >
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>
@@ -298,8 +299,8 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">20%</h1>
+                                                <img style="width: 150px" src="assets/img/fail-logo.png" >
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>

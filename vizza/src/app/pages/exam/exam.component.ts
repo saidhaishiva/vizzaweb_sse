@@ -34,7 +34,7 @@ export class ExamComponent implements OnInit {
   }
   ngOnInit() {
     this.getQuestions();
-    this.countdown('1');
+    this.countdown('45');
       window.addEventListener('beforeunload', function (e) {
           let confirmationMessage = '\o/';
           e.returnValue = confirmationMessage;
