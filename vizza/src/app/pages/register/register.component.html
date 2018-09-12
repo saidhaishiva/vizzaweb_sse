@@ -134,11 +134,11 @@
                         <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" (kepress)="character($event)" formControlName="pannumber">
+                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber">
                         <i class="far fa-id-card" matSuffix></i>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
-                        <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('pattern')">Enter Valid Pan</mat-error>
+                            <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
                         </mat-form-field>
                         <div class="w-100">
                         <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
@@ -232,12 +232,12 @@
                         </div>
                         </div>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Name" formControlName="bankname">
+                        <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Branch" formControlName="bankbranch">
+                        <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
                         </mat-form-field>
