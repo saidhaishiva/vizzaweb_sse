@@ -105,7 +105,8 @@ export class ReligareComponent implements OnInit {
     public iResidenceCitys: any;
     public sameField: any;
     public insureCity: any;
-public isDisable: any;
+    public isDisable: any;
+    public inputReadonly: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -123,6 +124,7 @@ public isDisable: any;
         this.proposalId = 0;
         this.step = 0;
         this.mobileNumber = 'true';
+        this.inputReadonly = false;
         this.sameField = false;
         this.isDisable = false;
         this.insureCity = false;
@@ -152,7 +154,7 @@ public isDisable: any;
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceState: ['', Validators.required],
-            sameas: '',
+            sameas: false,
             rolecd: 'PROPOSER',
             type: '',
 
@@ -290,7 +292,7 @@ public isDisable: any;
                 residencePincode: ['', Validators.required],
                 residenceCity: ['', Validators.required],
                 residenceState: ['', Validators.required],
-                sameas: '',
+                sameas: false,
                 type: '',
                 cityHide: '',
                 pCityHide: ''
@@ -556,6 +558,7 @@ public isDisable: any;
     sameAddress(values: any) {
         this.sameField = values.checked;
         if (values.checked) {
+            this.inputReadonly = true;
             console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
@@ -564,6 +567,7 @@ public isDisable: any;
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
 
         } else {
+            this.inputReadonly = false;
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
@@ -571,22 +575,6 @@ public isDisable: any;
             this.personal.controls['residenceState'].setValue('');
 
         }
-
-        if (values.checked) {
-            this.personal.controls['residenceAddress'].disable();
-            this.personal.controls['residenceAddress2'].disable();
-            this.personal.controls['residenceCity'].disable();
-            this.personal.controls['residencePincode'].disable();
-            this.personal.controls['residenceState'].disable();
-
-        } else {
-            this.personal.controls['residenceAddress'].enable();
-            this.personal.controls['residenceAddress2'].enable();
-            this.personal.controls['residenceCity'].enable();
-            this.personal.controls['residencePincode'].enable();
-            this.personal.controls['residenceState'].enable();
-        }
-
     }
 
     sameAddressInsurer(values: any, index) {
@@ -599,6 +587,7 @@ public isDisable: any;
             this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
+
         } else {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
@@ -606,23 +595,10 @@ public isDisable: any;
             this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
             this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
             this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
+
         }
 
-        if (values.checked) {
-            this.insureArray['controls'].items['controls'][index]['controls'].cityHide.disable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.disable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.disable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.disable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.disable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.disable();
-        } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].cityHide.enable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.enable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.enable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.enable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.enable();
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.enable();
-        }
+
     }
 
     public keyPress(event: any) {
@@ -700,9 +676,7 @@ public isDisable: any;
             });
 
         }
-        // if (this.getStepper1.previousinsuranceChecked) {
-        //     this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
-        // }
+
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -732,9 +706,7 @@ public isDisable: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-                // this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.patchValue(this.getStepper2.items[i].previousinsuranceChecked);
-                // this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.patchValue(this.getStepper2.items[i].previousinsurance);
-                // this.previousInsuranceStatus1[i] = this.getStepper2.items[i].previousinsuranceChecked;
+
             }
         }
 
@@ -756,7 +728,7 @@ public isDisable: any;
 
                 if (this.getStepper1.sameas) {
                     this.sameField = this.getStepper1.sameas;
-                    //this.getPostal(this.getStepper1.personalPincode, 'residence');
+                    this.inputReadonly = true;
                     this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
                     this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
                     this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
@@ -839,6 +811,7 @@ public isDisable: any;
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
             // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
 
+
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
@@ -870,71 +843,9 @@ public isDisable: any;
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
             // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
             // this.previousInsuranceStatus1[0] = false;
-        }
-        if (value.checked) {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.disable();
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
-            // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
 
-        } else {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.enable();
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
-            // this.previousInsuranceStatus1[0] = false;
         }
+
     }
 
 
