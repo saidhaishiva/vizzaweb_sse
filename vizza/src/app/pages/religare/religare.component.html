@@ -191,7 +191,7 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-green">PROPOSER RESIDENCE ADDRESS</h6>
                     <div class="row">
-                      <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
+                      <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required autocomplete="off"></textarea>
