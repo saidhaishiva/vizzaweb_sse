@@ -34,7 +34,6 @@ export class PosprofileComponent implements OnInit {
     public documentStatus: any;
     public trainingDetails: any;
     public examDetails: any;
-    public recentMark: any;
 
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
@@ -48,7 +47,7 @@ export class PosprofileComponent implements OnInit {
         this.examStatus = sessionStorage.examStatus;
         this.trainingStatus = sessionStorage.trainingStatus;
         this.documentStatus = this.auth.getSessionData('documentStatus');
-
+        this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
 
     }
@@ -59,7 +58,34 @@ export class PosprofileComponent implements OnInit {
       this.getExamDetails();
       // this.settings.loadingSpinner = false;
       this.currentTab = 'Personal';
-      if (this.documentStatus == 1) {
+      if (this.documentStatus != 2) {
+          this.sideNav = [{
+              'name': 'Personal',
+              'value': 'active',
+              'selected': false
+          }, {
+              'name': 'Contact',
+              'value': 'active',
+              'selected': false
+          },{
+              'name': 'Documents',
+              'value': 'active',
+              'selected': false
+          },
+              {
+                  'name': 'Bank Details',
+                  'value': 'active',
+                  'selected': false
+              },
+              {
+                  'name': 'Education',
+                  'value': 'active',
+                  'selected': false
+              }];
+
+
+      }
+      if (this.documentStatus == 2) {
           this.sideNav = [{
               'name': 'Personal',
               'value': 'active',
@@ -120,31 +146,21 @@ export class PosprofileComponent implements OnInit {
                   'selected': false
               }
           ];
-      } else {
-          this.sideNav = [{
-              'name': 'Personal',
-              'value': 'active',
-              'selected': false
-          }, {
-              'name': 'Contact',
-              'value': 'active',
-              'selected': false
-          },{
-              'name': 'Documents',
-              'value': 'active',
-              'selected': false
-          },
-              {
-                  'name': 'Bank Details',
+      }  else if (this.documentStatus == 1 && this.trainingStatus == 1) {
+          this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
+      }  else if (this.documentStatus == 1 && this.examStatus == 1) {
+          this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
+      }  else if (this.documentStatus == 1) {
+          this.sideNav.push({
+                  'name': 'Training',
                   'value': 'active',
                   'selected': false
               },
               {
-                  'name': 'Education',
+                  'name': 'Examination',
                   'value': 'active',
                   'selected': false
-              }];
-
+              });
 
       }
       this.sideNav[0].selected = true;
@@ -218,7 +234,7 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getTrainingDetailSuccess(successData) {
-        console.log(successData, 'tr');
+        console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
         }
@@ -244,11 +260,9 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getExamDetailSuccess(successData) {
-        console.log(successData,'ex');
+        console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
-            let length = successData.ResponseObject;
-            this.recentMark = this.examDetails[length].percentage_in_exam;
         }
     }
     getExamDetailFailure(error) {
