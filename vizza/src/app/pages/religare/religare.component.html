@@ -29,13 +29,13 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)" required >
+                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)"  autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" required >
+                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)"   autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>
@@ -46,7 +46,7 @@
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  (keypress)="add($event)"
-                               required>
+                               autocomplete="off"   required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -87,18 +87,18 @@
 
                       <!--</mat-form-field></div>-->
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
+                        <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan">
+                        <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$">
+                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter valid GST</mat-error>
 
@@ -124,19 +124,19 @@
                         <!--</div>-->
                       <!--</div>-->
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"   formControlName="personalEmail" required>
+                        <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number"   maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="keyPress($event)">
+                        <input matInput placeholder="Alternate Number"   maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="keyPress($event)" autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
@@ -153,27 +153,27 @@
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" autocomplete="off" required></textarea>
                           <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off"></textarea>
                           <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="personalCity" required>
+                        <mat-select placeholder="City" formControlName="personalCity" autocomplete="off" required>
                           <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
                             {{city.city}}
                           </mat-option>
@@ -181,7 +181,7 @@
                         <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="personalState" required>
+                        <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
 
                       </mat-form-field></div>
@@ -194,20 +194,20 @@
                       <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required ></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required autocomplete="off"></textarea>
                           <mat-error *ngIf="personal.controls.residenceAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" ></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off"></textarea>
                           <mat-error *ngIf="personal.controls.residenceAddress2.errors?.required">Address2 is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -215,7 +215,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6" *ngIf="sameField != true"><mat-form-field class="w-100">
-                        <mat-select placeholder="City" formControlName="residenceCity" required>
+                        <mat-select placeholder="City" formControlName="residenceCity" autocomplete="off" required>
                           <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                             {{citys.city}}
                           </mat-option>
@@ -224,11 +224,11 @@
                       </mat-form-field></div>
 
                       <div class="col-md-6" *ngIf="sameField"><mat-form-field class="w-100" >
-                        <input matInput placeholder="City" formControlName="residenceCity" required >
+                        <input matInput placeholder="City" formControlName="residenceCity" autocomplete="off" required >
                         <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="residenceState" required>
+                        <input matInput placeholder="State" formControlName="residenceState" autocomplete="off" required>
                       </mat-form-field></div>
 
 
@@ -292,14 +292,14 @@
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)" required >
+                        <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="data($event)" autocomplete="off" required >
                         <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                       </mat-form-field>
 
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" required >
+                        <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="data($event)" autocomplete="off" required >
                         <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -308,7 +308,7 @@
                       <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" required>
+                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" autocomplete="off" required>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -350,17 +350,17 @@
 
                     <!--</mat-form-field></div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar">
+                      <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" autocomplete="off">
                       <mat-error *ngIf="insureArray.invalid">Aadhar Number is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan">
+                      <input matInput placeholder="PAN Number"  minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off">
                       <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$">
+                      <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" autocomplete="off">
                          <mat-error *ngIf="insureArray.invalid">Enter valid GST</mat-error>
 
                     </mat-form-field></div>
@@ -384,18 +384,18 @@
                       <!--</div>-->
                     <!--</div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" required>
+                      <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">Email Id is required</mat-error>
 
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" required>
+                      <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
 
                     </mat-form-field></div>
 
                 <div class="col-md-6"><mat-form-field class="w-100">
-                  <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="keyPress($event)" formControlName="personalAltnumber" (keyup)="alternateChange($event)">
+                  <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="keyPress($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="alternateChange($event)">
                 </mat-form-field>
                   <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                 </div>
@@ -406,26 +406,26 @@
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" required></textarea>
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" autocomplete="off" required></textarea>
                         <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
 
                       </mat-form-field>
                     </div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" required></textarea>
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off" required></textarea>
                         <mat-error *ngIf="insureArray.invalid">Address 2 is required</mat-error>
 
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="add($event)"   maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'personal')" formControlName="personalPincode" required>
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="add($event)"   maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'personal')" formControlName="personalPincode" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
 
 
                     </mat-form-field></div>
-                    <div class="col-md-6" *ngIf="this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.value != true "><mat-form-field class="w-100">
-                      <mat-select placeholder="City" formControlName="personalCity" required>
+                    <div class="col-md-6" *ngIf="this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.value != true " ><mat-form-field class="w-100">
+                      <mat-select placeholder="City" formControlName="personalCity" autocomplete="off" required>
                         <mat-option *ngFor="let city of iPersonalCitys" [value]= 'city.city'>
                           {{city.city}}
                         </mat-option>
@@ -434,11 +434,11 @@
 
                     </mat-form-field></div>
                     <div class="col-md-6" *ngIf="this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.value"><mat-form-field class="w-100">
-                      <input matInput placeholder="City" maxlength="10"  formControlName="personalCity">
+                      <input matInput placeholder="City" maxlength="10"  formControlName="personalCity" autocomplete="off">
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="personalState" required>
+                      <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
 
                     </mat-form-field></div>
@@ -455,22 +455,22 @@
                     <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddressInsurer($event, i)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required></textarea>
+                        <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" autocomplete="off" required></textarea>
                         <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" required></textarea>
+                        <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" required></textarea>
                         <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"  (keypress)="add($event)"  maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'residence')" formControlName="residencePincode" required>
+                      <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"  (keypress)="add($event)"  maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'residence')" formControlName="residencePincode" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">PIN Code is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6" *ngIf="insureArray['controls'].items['controls'][i]['controls'].cityHide.value != true"><mat-form-field class="w-100" >
-                      <mat-select placeholder="City" formControlName="residenceCity" required>
+                      <mat-select placeholder="City" formControlName="residenceCity" autocomplete="off" required>
                         <mat-option *ngFor="let citys of iResidenceCitys" [value]= 'citys.city'>
                           {{citys.city}}
                         </mat-option>
@@ -478,11 +478,11 @@
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6" *ngIf="insureArray['controls'].items['controls'][i]['controls'].cityHide.value"><mat-form-field class="w-100">
-                      <input matInput placeholder="City" maxlength="10"  formControlName="residenceCity">
+                      <input matInput placeholder="City" maxlength="10"  formControlName="residenceCity" autocomplete="off">
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="residenceState" required>
+                      <input matInput placeholder="State" formControlName="residenceState" autocomplete="off" required>
                       <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
                     </mat-form-field></div>
 
@@ -580,12 +580,12 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName"  required>
+                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" required>
+                          <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" required>
                          <mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                     </mat-form-field></div>
 
