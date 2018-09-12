@@ -395,9 +395,9 @@
                     </mat-form-field></div>
 
                 <div class="col-md-6"><mat-form-field class="w-100">
-                  <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="keyPress($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="alternateChange($event)" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                  <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="keyPress($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="insuredalternateChange($event,i)" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                 </mat-form-field>
-                  <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
+                  <div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value !='' ">{{insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value}}</div>
                 </div>
               </div>
               </div>
