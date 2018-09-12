@@ -34,7 +34,6 @@ export class PosprofileComponent implements OnInit {
     public documentStatus: any;
     public trainingDetails: any;
     public examDetails: any;
-    public recentMark: any;
 
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
@@ -235,7 +234,7 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getTrainingDetailSuccess(successData) {
-        console.log(successData, 'tr');
+        console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
         }
@@ -261,11 +260,9 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getExamDetailSuccess(successData) {
-        console.log(successData,'ex');
+        console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
-            let length = successData.ResponseObject;
-            this.recentMark = this.examDetails[length].percentage_in_exam;
         }
     }
     getExamDetailFailure(error) {

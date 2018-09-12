@@ -25,7 +25,7 @@
                         (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required
                         maxlength="10">
                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-                        <mat-datepicker touchUi #birthday></mat-datepicker>
+                        <mat-datepicker  #birthday></mat-datepicker>
                         <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
                         <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                         </mat-form-field>
