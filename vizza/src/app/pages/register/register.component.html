@@ -34,8 +34,8 @@
                         <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                         <mat-radio-group formControlName="gender" (change)="checkGender()" required>
-                        <mat-radio-button value="male" class="mr-2">Male</mat-radio-button>
-                        <mat-radio-button value="female" >Female</mat-radio-button>
+                        <mat-radio-button value="male" class="mr-2">Male<span class="error"> *</span></mat-radio-button>
+                        <mat-radio-button value="female" >Female<span class="error"> *</span></mat-radio-button>
                         <!--<div *ngIf="form.controls.gender.errors?.required">Gender is required</div>-->
                         </mat-radio-group>
                         <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
@@ -87,6 +87,12 @@
                         Mobile Number is required
                         </mat-error>
                         </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <input matInput (keypress)="keyPress($event)" placeholder="Mobile No2"
+                                       minlength="10" maxlength="10" formControlName="phone2">
+                                <i class="fas fa-phone" matSuffix></i>
+                            </mat-form-field>
                         <!--<mat-form-field class="w-100">-->
                         <!--<input matInput placeholder="Phone2" (keypress)="keyPress($event)"  maxlength="13" formControlName="phone2">-->
                         <!--</mat-form-field>-->

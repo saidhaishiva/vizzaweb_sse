@@ -324,6 +324,18 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    // public characteralpha(event: any) {
+    //     const pattern = /[0-9\+\-\ ]/;
+    //
+    //     let inputChar = String.fromCharCode(event.charCode);
+    //     if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    //         event.preventDefault();
+    //     }
+    // }
+
+    public eventHandler(event) {
+        console.log(event, event.keyCode, event.keyIdentifier);
+    }
 
     ageCalculate(dob) {
         let mdate = dob.toString();
