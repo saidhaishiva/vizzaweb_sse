@@ -228,6 +228,7 @@ export class RegisterComponent implements OnInit {
                 'pos_gender': this.form.value['personal']['gender'],
                 'pos_dob': this.dob,
                 'pos_mobileno': this.form.value['contacts']['phone1'],
+                // 'pos_mobileno2': this.form.value['contacts']['phone2'],
                 'pos_email': this.form.value['contacts']['email'],
                 'pos_address1': this.form.value['contacts']['address1'],
                 'pos_address2': this.form.value['contacts']['address2'],
@@ -303,16 +304,19 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    public character(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
 
+    // public characteralpha(event: any) {
+    //     const pattern = /[0-9\+\-\ ]/;
+    //
+    //     let inputChar = String.fromCharCode(event.charCode);
+    //     if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    //         event.preventDefault();
+    //     }
+    // }
+
+    public eventHandler(event) {
+        console.log(event, event.keyCode, event.keyIdentifier);
+    }
 
     ageCalculate(dob) {
         let mdate = dob.toString();
