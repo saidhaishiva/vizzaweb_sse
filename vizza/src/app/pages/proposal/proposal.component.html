@@ -326,8 +326,10 @@
                         <mat-option value="Female">Female</mat-option>
                       </mat-select>
                     </mat-form-field></div>
-                    <div class="col-md-6"  fxLayoutAlign="start center">
-                      <p class="mr-3">Do you have any health problem?<span class="error">*</span></p>
+                    <div class="col-md-6" >
+                      <p class="mr-3" *ngIf="buyProductdetails.product_id != '7'">Do you have any health problem?<span class="error">*</span></p>
+                      <p class="mr-3" *ngIf="buyProductdetails.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility?<span class="error">*</span></p>
+                        <div  fxLayoutAlign="start center">
                       <mat-radio-group [(ngModel)]="item.illness" (change)="illnessStatus($event, i)" required>
                         <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="false">No</mat-radio-button>
@@ -335,6 +337,7 @@
                       <mat-form-field class="w-100" *ngIf="item.illness == 'true'">
                         <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" required >
                       </mat-form-field>
+                    </div>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <input matInput placeholder="Height(cms)" (keypress)="keyPress($event)"  maxlength="3"  [(ngModel)]="item.ins_height" required >
@@ -361,28 +364,28 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field></div>
-                    <div class="col-md-12" *ngIf="this.buyProductdetails.product_id == 6">
-                      <p>Additional Cover</p>
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 6">
+                      <p>Additional premium applicable</p>
                       <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
                         <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
                     </div>
-                    <div class="col-md-12" *ngIf="this.buyProductdetails.product_id == 6">
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 6">
                       <strong>(cash benefit of Rs.1000/- for each and every completed day of hospitalization subject to a maximum of 7 days per hospitalization and 14 days per policy year .Date of admission and Date of discharge not considered.)</strong>
                     </div>
-                    <div class="col-md-12" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                    <div class="col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>personal Accident Applicable</p>
                       <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required [disabled]="item.ins_accident_status" >
                         <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
                     </div>
-                    <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
+                    <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
                       <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
-                      <input matInput placeholder="Engage Winter Sports" [(ngModel)]="item.ins_engage_winter_sports" required>
+                      <input matInput placeholder="Engage Winter Sport" [(ngModel)]="item.ins_engage_winter_sports" required>
                     </mat-form-field></div>
                   </div>
                   <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
@@ -417,10 +420,16 @@
                       <div class="col-md-2"><mat-form-field class="w-100">
                         <input matInput placeholder="Age" (keypress)="keyPress($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  required>
                       </mat-form-field></div>
-
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
-                      </mat-form-field></div>
+                        <div class="col-md-4"><mat-form-field class="w-100">
+                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
+                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
+                                    {{relationship.relationship_name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field></div>
+                      <!--<div class="col-md-4"><mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>-->
+                      <!--</mat-form-field></div>-->
                       <div class="col-md-2"><mat-form-field class="w-100">
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
                       </mat-form-field></div>
@@ -435,12 +444,20 @@
                       <div class="col-md-2"><mat-form-field class="w-100">
                         <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18" >
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
-                      </mat-form-field></div>
-                    </div><br><br>
+                        <div class="col-md-4"><mat-form-field class="w-100">
+                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
+                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
+                                    {{relationship.relationship_name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field></div>
+                      <!--<div class="col-md-4"><mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">-->
+                      <!--</mat-form-field></div>-->
+                    <!--</div><br><br>-->
+                    </div>
                   </mat-card>
-                  <br><br>
+
                 </div>
                 <!--<div class="col-md-6 box-card pt-3">-->
                 <!--<h6 class="color-green text-center mb-3">PREVIOUS INSURER DETAILS</h6>-->
