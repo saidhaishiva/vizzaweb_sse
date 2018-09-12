@@ -134,7 +134,7 @@
                         <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber">
+                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" character($event) formControlName="pannumber">
                         <i class="far fa-id-card" matSuffix></i>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
