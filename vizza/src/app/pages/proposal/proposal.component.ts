@@ -166,50 +166,7 @@ export class ProposalComponent implements OnInit {
 
         });
 
-        // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-        //     (successData) => {
-        //         this.testProposalSuccess(successData);
-        //     },
-        //     (error) => {
-        //         this.proposalFailure(error);
-        //     }
-        // );
 
-        // this.personal = this.fb.group({
-        //     personalTitle: [''],
-        //     personalFirstname: [''],
-        //     personalLastname: [''],
-        //     personalDob: [''],
-        //     personalOccupation: [''],
-        //     personalIncome: [''],
-        //     personalAadhar: [''],
-        //     personalPan: [''],
-        //     personalGst: [''],
-        //     socialStatus: '',
-        //     socialAnswer1: '',
-        //     socialAnswer2: '',
-        //     socialAnswer3: '',
-        //     socialAnswer4: '',
-        //     personalAddress: [''],
-        //     previousinsurance: '',
-        //     personalAddress2: '',
-        //     personalPincode: [''],
-        //     personalCity: [''],
-        //     personalState: [''],
-        //     personalEmail: [''],
-        //     personalMobile: [''],
-        //     personalAltnumber: [''],
-        //     residenceAddress: '',
-        //     residenceAddress2: '',
-        //     residencePincode: '',
-        //     residenceCity: '',
-        //     residenceState: '',
-        //     residenceEmail: '',
-        //     residenceMobile: [''],
-        //     residenceAltnumber: [''],
-        //     illnessCheck: ''
-        //
-        // });
     }
 
     ngOnInit() {
@@ -339,8 +296,8 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'Nill';
-            this.familyMembers[i].ins_engage_winter_sports = 'Nill';
+            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_winter_sports = '';
             this.familyMembers[i].ins_personal_accident_applicable = '1';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
             this.familyMembers[i].ageRestriction = '';
@@ -481,14 +438,7 @@ export class ProposalComponent implements OnInit {
                         this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
                         this.personal.controls['residenceArea'].setValue(this.getStepper1.residenceArea);
                     }
-                    // else {
-                    //     this.personal.controls['residenceAddress'].setValue('');
-                    //     this.personal.controls['residenceAddress2'].setValue('');
-                    //     this.personal.controls['residenceCity'].setValue('');
-                    //     this.personal.controls['residencePincode'].setValue('');
-                    //     this.personal.controls['residenceState'].setValue('');
-                    //     this.personal.controls['residenceArea'].setValue('');
-                    // }
+
                 },2000);
 
             }

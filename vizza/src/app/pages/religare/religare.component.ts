@@ -794,13 +794,7 @@ export class ReligareComponent implements OnInit {
                             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
                         }
                 }
-                if (sessionStorage.altmobileNumber[i] != '') {
-                    this.altmobileNumber = sessionStorage.altmobileNumber[i];
-                } else {
-                    this.altmobileNumber = 'true'
-                }
             }
-
     }
 
 
