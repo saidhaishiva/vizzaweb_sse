@@ -141,7 +141,7 @@
                         <div class="w-100">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Aadhar Front Page</label>
+                        <label class="custom-file-label">Aadhar Front Image</label>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -185,7 +185,7 @@
 
                         <mat-tab label="Education" formGroupName="education">
                         <mat-form-field class="w-100">
-                        <textarea matInput #message maxlength="300" required placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
+                        <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification"></textarea>
                         <mat-hint align="end">{{message.value.length}} /300</mat-hint>
                         <mat-error *ngIf="form.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>
                         </mat-form-field>
