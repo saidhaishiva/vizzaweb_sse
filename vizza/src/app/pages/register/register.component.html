@@ -9,12 +9,12 @@
                 <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
                     <mat-tab label="Personal" formGroupName="personal">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="First name" formControlName="firstname" required>
+                        <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
                         <mat-icon matSuffix>person</mat-icon>
                         <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Last name" formControlName="lastname" required>
+                        <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" required>
                         <mat-icon matSuffix>person</mat-icon>
                         <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
                         </mat-form-field>
@@ -191,7 +191,7 @@
 
                         <mat-tab label="Education" formGroupName="education">
                         <mat-form-field class="w-100">
-                        <textarea matInput #message maxlength="300" required placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
+                        <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification"></textarea>
                         <mat-hint align="end">{{message.value.length}} /300</mat-hint>
                         <mat-error *ngIf="form.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>
                         </mat-form-field>

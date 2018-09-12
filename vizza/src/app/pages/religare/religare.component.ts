@@ -86,7 +86,7 @@ export class ReligareComponent implements OnInit {
     public questionEmpty: any;
     public proposerInsureData: any;
     public mobileNumber: any;
-
+    public  altmobileNumber: any;
     public insurerData: any;
     public totalReligareData: any;
     public getStepper1: any;
@@ -295,7 +295,8 @@ export class ReligareComponent implements OnInit {
                 sameas: false,
                 type: '',
                 cityHide: '',
-                pCityHide: ''
+                pCityHide: '',
+                altmobileNumber:''
             }
         );
     }
@@ -385,7 +386,23 @@ export class ReligareComponent implements OnInit {
             if (key == 'createProposal') {
                 this.proposal();
             }
-            stepper.next();
+            let aterMobile = [];
+            for(let i=0;i<this.insurerData.items.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '') {
+                    aterMobile.push(0);
+
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value == '') {
+                    aterMobile.push(1);
+
+                }
+            }
+
+            if(aterMobile.includes(0)) {
+                this.toastr.error('Alternative and personal number should be different');
+            } else{
+                stepper.next();
+            }
+
         }
     }
 
@@ -510,6 +527,7 @@ export class ReligareComponent implements OnInit {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
             }
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -748,9 +766,11 @@ export class ReligareComponent implements OnInit {
                 this.mobileNumber = 'true';
             }
 
+
         } },4000);
 
             for (let i = 0; i < this.getStepper2.items.length; i++) {
+
                 if (this.getStepper2.items[i].personalPincode != '') {
                     this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
                     this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
@@ -1369,13 +1389,16 @@ export class ReligareComponent implements OnInit {
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
-    // public validate(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[a-zA-Z0-9\\ ]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
+    insuredalternateChange(event ,index) {
+        if (event.target.value.length == 10) {
+
+            if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value == this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value) {
+                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('Alternate number should be different from mobile number');
+            } else {
+                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
+            }
+        }
+        sessionStorage.this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
+        }
+
 }
