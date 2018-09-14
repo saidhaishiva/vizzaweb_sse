@@ -52,6 +52,8 @@ export class RegisterComponent implements OnInit {
     url: string;
     selectedtab: number;
     type: any;
+    public title: any;
+
     aadharfront: any;
     aadharback: any;
     chequeleaf: any;
@@ -67,7 +69,8 @@ export class RegisterComponent implements OnInit {
     profile: any;
     selectedIndex: any;
     public passwordHide: boolean = true;
-
+    personalCitys: any;
+    pincodeErrors : any;
     constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -129,6 +132,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.settings.loadingSpinner = false;
+        this.pincodeErrors = false;
     }
 
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
@@ -410,4 +414,46 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
+    getPin(pin, title) {
+        console.log("FFff");
+        console.log(pin);
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPincode(data).subscribe(
+                (successData) => {
+                    this.getPinSuccess(successData);
+                },
+                (error) => {
+                    this.getPinlFailure(error);
+                }
+            );
+        }
+
+
+    }
+    public getPinSuccess(successData) {
+        if (this.title == 'form') {
+            this.personalCitys = [];
+            this.response = successData.ResponseObject;
+            console.log( this.response,'dfghj');
+            if (successData.IsSuccess) {
+if(this.response <=0) {
+    this.pincodeErrors = true;
+        }
+else {
+    this.pincodeErrors = false;
 }
+            }
+        }
+    }
+    public getPinlFailure(error) {
+    }
+
+    }
