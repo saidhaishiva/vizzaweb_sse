@@ -381,15 +381,23 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         this.finalData = [];
+        let validArray=[];
+
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i].checked) {
+                validArray.push(1);
                 if (this.setArray[i].age == '') {
                     this.setArray[i].error = 'Required';
-                } else {
+
+                    } else {
                     this.setArray[i].error = '';
                     this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
                 }
             }
+        }
+        if(!validArray.includes(1)){
+            this.toast.error("Please select atleast one member");
+
         }
 
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
@@ -418,16 +426,20 @@ export class HealthInsuranceComponent implements OnInit {
                     this.common.getPolicyQuotation(data).subscribe(
                         (successData) => {
                             this.PolicyQuotationSuccess(successData, 0);
+                            console.log( successData,'hjj');
+
                         },
                         (error) => {
                             this.PolicyQuotationFailure(error);
+                            // if(this.setArray[i].type == ''){
+
                         }
                     );
                 // }
                 // }
 
             } else {
-                this.toast.error("Please select atleast one member");
+                    // this.toast.error("Please select atleast one member");
             }
         }
     }
@@ -478,6 +490,8 @@ export class HealthInsuranceComponent implements OnInit {
                     if (this.setArray[i].name == this.getArray[j].type) {
                         this.setArray[i].auto = true;
                     }
+                    console.log( this.setArray[i],'uuuu');
+                    console.log(this.getArray[j],'fffff');
                 }
             }
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
