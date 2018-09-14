@@ -20,16 +20,13 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="birthday" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)"
-                        formControlName="birthday" (dateInput)="addEvent($event)"
-                        (dateChange)="addEvent($event)" (keypress)="keyPress($event)" required
-                        maxlength="10">
+                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)"
+                        formControlName="birthday" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                         <mat-datepicker  #birthday></mat-datepicker>
                         <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
                         <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                         </mat-form-field>
-
 
                         <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
@@ -44,13 +41,15 @@
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Referral Code" formControlName="referralcode" maxlength="50">
                         <i class="fas fa-volume-up" matSuffix></i>
+                            <mat-error *ngIf="form.controls.personal.controls.referralcode.errors?.required">Referral Code is required</mat-error>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
                         <div class="w-100 mt-2">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Profile</label>
+                            <div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -80,12 +79,10 @@
                         <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
                         minlength="10" maxlength="10" formControlName="phone1" required>
                         <i class="fas fa-phone" matSuffix></i>
-                        <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">
-                        Enter Valid Mobile Number
-                        </mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
                         Mobile Number is required
                         </mat-error>
+                            <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
                         </mat-form-field>
 
                             <mat-form-field class="w-100">
@@ -147,8 +144,9 @@
 
                         <div class="w-100">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Front Image</label>
+                            <div class="error" [hidden]="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -160,8 +158,9 @@
                         </div>
                         <div class="w-100 mb-3">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Back Image</label>
+                            <div class="error" [hidden]="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -173,8 +172,9 @@
                         </div>
                         <div class="w-100">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">PAN Card Front Image</label>
+                            <div class="error" [hidden]="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -202,8 +202,9 @@
                         </div>
                         <div class="w-100">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Educational Documents</label>
+                            <div class="error" [hidden]="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -222,8 +223,9 @@
 
                         <div class="w-100">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
+                            <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
