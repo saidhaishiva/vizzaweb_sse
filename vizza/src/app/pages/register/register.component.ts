@@ -89,11 +89,12 @@ export class RegisterComponent implements OnInit {
                 lastname: ['', Validators.compose([Validators.required])],
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
-                referralcode: '',
+                referralcode: ['', Validators.compose( [Validators.required])],
+                profile: ['',Validators.compose( [Validators.required])],
             }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-                phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+                phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
@@ -102,16 +103,21 @@ export class RegisterComponent implements OnInit {
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
                 pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
+                aadharfront: ['',Validators.compose( [Validators.required])],
+                aadharback: ['',Validators.compose( [Validators.required])],
+                pancard: ['',Validators.compose( [Validators.required])]
             }),
             education: this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
+                educationdocument:['', Validators.compose( [Validators.required])]
 
             }),
             bankdetails: this.fb.group({
                 bankname: ['', Validators.compose([Validators.required])],
                 bankbranch: ['', Validators.compose([Validators.required])],
                 ifsccode: ['', Validators.compose([Validators.required])],
-                accountnumber: ['', Validators.compose([Validators.required])]
+                accountnumber: ['', Validators.compose([Validators.required])],
+                chequeleaf:['', Validators.compose( [Validators.required])]
             })
         });
         this.aadharfront = '';
