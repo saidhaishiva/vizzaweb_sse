@@ -80,12 +80,10 @@
                         <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
                         minlength="10" maxlength="10" formControlName="phone1" required>
                         <i class="fas fa-phone" matSuffix></i>
-                        <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">
-                        Enter Valid Mobile Number
-                        </mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
                         Mobile Number is required
                         </mat-error>
+                            <mat-error *ngIf="personal.controls.contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
                         </mat-form-field>
 
                             <mat-form-field class="w-100">
