@@ -93,7 +93,7 @@ export class RegisterComponent implements OnInit {
             }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-                phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
@@ -314,6 +314,16 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
     public character(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z0-9 ]/;
@@ -356,7 +366,7 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    addEvent(event) {
+    addEvent(event, i) {
         if (event.value != null) {
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
