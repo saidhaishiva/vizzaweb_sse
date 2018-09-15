@@ -34,6 +34,7 @@ export class PosprofileComponent implements OnInit {
     public documentStatus: any;
     public trainingDetails: any;
     public examDetails: any;
+    public posDataAvailable : boolean;
 
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
@@ -49,11 +50,14 @@ export class PosprofileComponent implements OnInit {
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
+        this.posDataAvailable = false;
+        this.getPosProfile();
+
 
     }
 
   ngOnInit() {
-      this.getPosProfile();
+
       this.getTrainingDetails();
       this.getExamDetails();
       // this.settings.loadingSpinner = false;
@@ -211,6 +215,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
+            this.posDataAvailable = true;
         }
     }
 
