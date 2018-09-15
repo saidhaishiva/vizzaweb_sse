@@ -207,7 +207,7 @@ export class PosprofileComponent implements OnInit {
       );
   }
     getPosProfileSuccess(successData) {
-        console.log(successData);
+        console.log(successData ,('sdsdsdsdsdsdsdsdsdsdsdsdsd'));
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
         }

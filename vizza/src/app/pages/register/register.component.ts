@@ -179,7 +179,7 @@ export class RegisterComponent implements OnInit {
             'uploadtype': 'single',
             'images': this.getUrl,
         };
-        console.log(data, 'dattattatata');
+        console.log(data, 'dfdfdsfdsfdsfds');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -458,7 +458,7 @@ export class RegisterComponent implements OnInit {
         } else {
             this.pincodeErrors = true;
             this.form['controls'].contacts['controls'].pincode.patchValue('');
-            this.toastr.error('Invalid pincode');
+            // this.toastr.error('Invalid pincode');
 
         }
             }
