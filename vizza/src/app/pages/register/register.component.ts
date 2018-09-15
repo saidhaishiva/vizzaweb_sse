@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
                 lastname: ['', Validators.compose([Validators.required])],
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
-                referralcode: ['', Validators.compose( [Validators.required])],
+                referralconduct: ['', Validators.compose( [Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 profile: ['',Validators.compose( [Validators.required])],
             }),
             contacts: this.fb.group({
@@ -239,7 +239,7 @@ export class RegisterComponent implements OnInit {
             const data = {
                 'platform': 'web',
                 'pos_hidden_id': '',
-                'pos_referralcode': this.form.value['personal']['referralcode'],
+                'pos_referralcode': this.form.value['personal']['referralconduct'],
                 'pos_firstname': this.form.value['personal']['firstname'],
                 'pos_lastname': this.form.value['personal']['lastname'],
                 'pos_gender': this.form.value['personal']['gender'],

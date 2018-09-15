@@ -20,8 +20,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)"
-                        formControlName="birthday" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
+                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                         <mat-datepicker  #birthday></mat-datepicker>
                         <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
@@ -39,16 +38,17 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Code" formControlName="referralcode" maxlength="50">
-                        <i class="fas fa-volume-up" matSuffix></i>
-                            <mat-error *ngIf="form.controls.personal.controls.referralcode.errors?.required">Referral Code is required</mat-error>
+                        <input matInput placeholder="Referral Conduct Number" formControlName="referralconduct" minlength="10" maxlength="10">
+                            <i class="fas fa-phone" matSuffix></i>
+                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.errors?.required">Referral Conduct Number is required</mat-error>
+                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
                         <div class="w-100 mt-2">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Profile</label>
+                        <label class="custom-file-label">Attach Your Profile Picture</label>
                             <div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>
                         </div>
                         </div>
@@ -86,7 +86,7 @@
                         </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate No"
+                                <input matInput (keypress)="keyPress($event)" placeholder="Mobile No2"
                                        minlength="10" maxlength="10" formControlName="phone2">
                                 <i class="fas fa-phone" matSuffix></i>
                             </mat-form-field>
@@ -108,19 +108,20 @@
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
                         minlength="6" (keypress)="keyPress($event);getPin($event.target.value, 'form')" formControlName="pincode" (input)="getPin($event.target.value)"
+                        <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
+                        minlength="6" (keypress)="keyPress($event);getPin($event.target.value, 'form')" formControlName="pincode" (input)="getPin($event.target.value, 'form')"
                         required>
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
-                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>
+                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern') || pincodeErrors">Enter Valid Pin</mat-error>
 
 
                         </mat-form-field>
-
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid || pincodeErrors" type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid" type="button">Next</button>
                             </div>
                         </mat-tab>
 
@@ -221,20 +222,6 @@
                             </div>
                         </mat-tab>
                         <mat-tab label="BankDetails" formGroupName="bankdetails">
-
-                        <div class="w-100">
-                        <div class="custom-file">
-                        <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
-                            <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
-                        </div>
-                        </div>
-                        <div class="row w-100">
-                        <div class="col-md-12">
-                        <div *ngIf="chequeleaf != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + chequeleaf}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
-                        </div>
-                        </div>
-                        </div>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname">
                             <mat-icon matSuffix>account_balance</mat-icon>
@@ -259,6 +246,19 @@
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                         </mat-form-field>
+                            <div class="w-100">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
+                                    <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
+                                </div>
+                            </div>
+                            <div class="row w-100">
+                                <div class="col-md-12">
+                                    <div *ngIf="chequeleaf != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + chequeleaf}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>

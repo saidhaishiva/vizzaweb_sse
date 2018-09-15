@@ -1369,17 +1369,16 @@ export class ReligareComponent implements OnInit {
     public setRelationshipFailure(error) {
         console.log(error);
     }
-    add(event){
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
+    add(event: any){
+            if (event.charCode !== 0) {
+                const pattern = /[0-9/\\ ]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
             }
         }
-    }
+
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
