@@ -71,6 +71,7 @@ export class HealthInsuranceComponent implements OnInit {
     ageUpdateFlag: boolean;
     nonEditable: boolean;
     sbtn: boolean;
+    hideChild : any;
 
 
 
@@ -99,6 +100,8 @@ export class HealthInsuranceComponent implements OnInit {
         this.memberLength = [];
         this.finalData = [];
         this.indexList = [];
+        this.hideChild = [];
+
         this.setArray = [
             {name: 'Self', age: '', disabled: false, checked: false, auto: false, error: ''},
             {name: 'Spouse', age: '', disabled: false, checked: false, auto: false, error: ''},
@@ -345,13 +348,25 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-    typeAge(index, value) {
+    typeAge(checked, name, index, value) {
+        let checkTrue = true;
+        let checkFalse = false;
+        if (name == 'Son' || name == 'Daughter') {
+            if (value.length == 1) {
+                this.ckeckedUser(checkTrue, index, name);
+            } else if (value.length == 0) {
+                this.ckeckedUser(checkFalse, index, name);
+            }
+        }
+
+
         if (value != '') {
             this.setArray[index].checked = true;
         } else {
             this.setArray[index].checked = false;
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
+        console.log(this.hideChild, 'hideChild')
     }
 
     addOthers(value) {

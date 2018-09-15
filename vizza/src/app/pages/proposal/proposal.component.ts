@@ -783,8 +783,8 @@ console.log(value,'fgh');
             this.familyMembers[index].ins_engage_winter_sports = '';
 
         } else {
-            this.familyMembers[index].ins_engage_manual_labour = 'Nill';
-            this.familyMembers[index].ins_engage_winter_sports = 'Nill';
+            this.familyMembers[index].ins_engage_manual_labour = 'Nil';
+            this.familyMembers[index].ins_engage_winter_sports = 'Nil';
 
         }
 

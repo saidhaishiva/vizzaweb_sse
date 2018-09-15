@@ -94,6 +94,7 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
 import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
+import { RelianceComponent } from './pages/reliance/reliance.component';
 
 @NgModule({
   imports: [
@@ -171,7 +172,8 @@ import { TrainingComponent } from './pages/training/training.component';
       TravelComponent,
       PersonalAccidentProposalComponent,
       PosCertificateComponent,
-      TrainingComponent
+      TrainingComponent,
+      RelianceComponent
   ],
   providers: [
       AppSettings,
