@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
                 lastname: ['', Validators.compose([Validators.required])],
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
-                referralcode: ['', Validators.compose( [Validators.required])],
+                referralconduct: ['', Validators.compose( [Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 profile: ['',Validators.compose( [Validators.required])],
             }),
             contacts: this.fb.group({
