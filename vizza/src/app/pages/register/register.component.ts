@@ -239,7 +239,7 @@ export class RegisterComponent implements OnInit {
             const data = {
                 'platform': 'web',
                 'pos_hidden_id': '',
-                'pos_referralcode': this.form.value['personal']['referralcode'],
+                'pos_referralcode': this.form.value['personal']['referralconduct'],
                 'pos_firstname': this.form.value['personal']['firstname'],
                 'pos_lastname': this.form.value['personal']['lastname'],
                 'pos_gender': this.form.value['personal']['gender'],
