@@ -191,12 +191,13 @@ export class PosprofileComponent implements OnInit {
 
   public getPosProfile() {
       const data = {
-      'platform': 'web',
+        'platform': 'web',
         'roleid': this.auth.getPosRoleId(),
         'userid': this.auth.getPosUserId(),
         'pos_id': this.auth.getPosUserId()
     };
       this.common.getPosProfile(data).subscribe(
+
           (successData) => {
               this.getPosProfileSuccess(successData);
 
@@ -207,7 +208,7 @@ export class PosprofileComponent implements OnInit {
       );
   }
     getPosProfileSuccess(successData) {
-        console.log(successData);
+        console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
         }
