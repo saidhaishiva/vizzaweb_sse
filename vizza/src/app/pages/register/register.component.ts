@@ -52,6 +52,8 @@ export class RegisterComponent implements OnInit {
     url: string;
     selectedtab: number;
     type: any;
+    public title: any;
+
     aadharfront: any;
     aadharback: any;
     chequeleaf: any;
@@ -67,7 +69,8 @@ export class RegisterComponent implements OnInit {
     profile: any;
     selectedIndex: any;
     public passwordHide: boolean = true;
-
+    personalCitys: any;
+    pincodeErrors : any;
     constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -89,11 +92,12 @@ export class RegisterComponent implements OnInit {
                 lastname: ['', Validators.compose([Validators.required])],
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
-                referralcode: '',
+                referralconduct: ['', Validators.compose( [Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                profile: ['',Validators.compose( [Validators.required])],
             }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-                phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+                phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
@@ -102,16 +106,21 @@ export class RegisterComponent implements OnInit {
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
                 pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
+                aadharfront: ['',Validators.compose( [Validators.required])],
+                aadharback: ['',Validators.compose( [Validators.required])],
+                pancard: ['',Validators.compose( [Validators.required])]
             }),
             education: this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
+                educationdocument:['', Validators.compose( [Validators.required])]
 
             }),
             bankdetails: this.fb.group({
                 bankname: ['', Validators.compose([Validators.required])],
                 bankbranch: ['', Validators.compose([Validators.required])],
                 ifsccode: ['', Validators.compose([Validators.required])],
-                accountnumber: ['', Validators.compose([Validators.required])]
+                accountnumber: ['', Validators.compose([Validators.required])],
+                chequeleaf:['', Validators.compose( [Validators.required])]
             })
         });
         this.aadharfront = '';
@@ -129,6 +138,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.settings.loadingSpinner = false;
+        this.pincodeErrors = false;
     }
 
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
@@ -229,7 +239,7 @@ export class RegisterComponent implements OnInit {
             const data = {
                 'platform': 'web',
                 'pos_hidden_id': '',
-                'pos_referralcode': this.form.value['personal']['referralcode'],
+                'pos_referralcode': this.form.value['personal']['referralconduct'],
                 'pos_firstname': this.form.value['personal']['firstname'],
                 'pos_lastname': this.form.value['personal']['lastname'],
                 'pos_gender': this.form.value['personal']['gender'],
@@ -314,6 +324,16 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
     public character(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z0-9 ]/;
@@ -356,7 +376,7 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    addEvent(event) {
+    addEvent(event, i) {
         if (event.value != null) {
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
@@ -410,4 +430,40 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-}
+    getPin(pin) {
+        this.pin = pin;
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPincode(data).subscribe(
+                (successData) => {
+                    this.getPinSuccess(successData);
+                },
+                (error) => {
+                    this.getPinlFailure(error);
+                }
+            );
+        }
+
+
+    }
+    public getPinSuccess(successData) {
+
+        if (successData.IsSuccess) {
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+            this.form['controls'].contacts['controls'].pincode.patchValue('');
+            this.toastr.error('Invalid pincode');
+
+        }
+            }
+
+    public getPinlFailure(error) {
+    }
+
+    }

@@ -36,7 +36,7 @@
         <div class="w-100 mb-2 son" >
           <div id="clonehead" >
             <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-              <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>
+              <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
               <div class="col-md-3">{{item.name}}</div>
               <div class="col-md-5"> <mat-form-field class="w-100">
                 <input matInput placeholder="Age" name="age" [(ngModel)]="item.age" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, item.name, i,item.age)">

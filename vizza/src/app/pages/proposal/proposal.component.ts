@@ -186,6 +186,35 @@ export class ProposalComponent implements OnInit {
             console.log('family membersssssssssss');
             this.familyMembers  = JSON.parse(sessionStorage.familyMembers);
         }
+        for (let i = 0; i < this.familyMembers.length; i++) {
+            if (this.familyMembers[i].type == 'Spouse') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Son') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Daughter') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father In Law') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother In Law') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Brother') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Sister') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+        }
         console.log(sessionStorage.nomineeDate, 'sessionStorage.nomineeDate');
         if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
             this.nomineeDate = [{
@@ -547,6 +576,8 @@ console.log(value,'fgh');
         this.illnesStatus = false;
         this.insureStatus = false;
         console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
+
+
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
