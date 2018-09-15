@@ -20,8 +20,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)"
-                        formControlName="birthday" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
+                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
                         <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                         <mat-datepicker  #birthday></mat-datepicker>
                         <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
