@@ -6,6 +6,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {AuthService} from './../../shared/services/auth.service';
 import {LoginService} from './../../shared/services/login.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -18,14 +19,16 @@ export class ConfirmPasswordComponent implements OnInit {
     public settings: Settings;
     public response: any;
     public status: any;
+    newps = true;
+    conps = true;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, public router: Router,
-                public loginService: LoginService, public authService: AuthService, private route: ActivatedRoute) {
+                public loginService: LoginService, public authService: AuthService, private route: ActivatedRoute, public toaster: ToastrService) {
         this.settings = this.appSettings.settings;
         this.response = [];
 
         this.form = this.fb.group({
-            'mobileotp': ['', Validators.compose([Validators.required])],
+            'otp': ['', Validators.compose([Validators.required])],
             'password': ['', Validators.compose([Validators.required])],
             'confirmPassword': ['', Validators.compose([Validators.required])]
         }, {validator: matchingPasswords('password', 'confirmPassword')});
@@ -38,12 +41,10 @@ export class ConfirmPasswordComponent implements OnInit {
             this.settings.loadingSpinner = true;
             console.log(sessionStorage.token,'ppp');
             const data = {
-                'contact': sessionStorage.username,
-                'otpcode': this.form.controls['mobileotp'].value,
-                'newpassword': this.form.controls['password'].value,
-                'confirmpassword': this.form.controls['confirmPassword'].value,
-                "platform": "web",
-                "roleid": 2
+                'mobilenumber': sessionStorage.username,
+                'otp': this.form.controls['otp'].value,
+                'password': this.form.controls['confirmPassword'].value,
+                "platform": "web"
                // "patientid": 90
             };
 
@@ -69,8 +70,13 @@ export class ConfirmPasswordComponent implements OnInit {
         this.response = successData;
         console.log(successData);
         // this.authService.setToken(this.response.age, this.response.patientid, this.response.token, this.response.familycode, this.response.roleid);
+         if(successData.IsSuccess){
+             this.toaster.success(successData.ResponseObject.msg, 'Success!!!');
+             this.router.navigate(['/login']);
+         } else {
+             this.toaster.error(successData.ErrorObject,'Failed');
+         }
 
-        this.router.navigate(['/login']);
     }
 
     public loginFailure(error) {

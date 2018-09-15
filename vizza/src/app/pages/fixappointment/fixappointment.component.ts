@@ -23,8 +23,12 @@ export class FixappointmentComponent implements OnInit {
         'appdate': ['', Validators.required],
         'apptime': null,
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+        'contactperson': ['', Validators.compose([Validators.required])],
         'mobile': ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-        'email': ['', Validators.compose([Validators.required, Validators.email])]
+        'email': ['', Validators.compose([Validators.required, Validators.email])],
+        'pincode': ['', Validators.compose([Validators.required])],
+        'insurance': ['',Validators.compose([Validators.required])],
+        'appointmentwith': ['',Validators.compose([Validators.required])]
     });
     this.productName = '';
 
@@ -33,19 +37,20 @@ export class FixappointmentComponent implements OnInit {
   ngOnInit() {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-      this.fixapp.controls['apptime'].patchValue('00:00');
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.productName = params.id;
       });
   }
     addEvent(event) {
-        this.selectDate = event.value;
+            this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
 
-    fixAppointment() {
+    fixAppointment(values) {
+
     if (this.fixapp.valid) {
+        console.log(values,'sasdasd');
         const data = {
             'platform': 'web',
             'product_type': 'offline',
@@ -54,9 +59,14 @@ export class FixappointmentComponent implements OnInit {
             'appointment_time': this.fixapp.controls['apptime'].value,
             'customer_name': this.fixapp.controls['name'].value,
             'customer_mobile': this.fixapp.controls['mobile'].value,
-            'customer_email': this.fixapp.controls['email'].value
+            'customer_email': this.fixapp.controls['email'].value,
+            'contact_person' : this.fixapp.controls['contactperson'].value,
+            'pincode': this.fixapp.controls['pincode'].value,
+            'insurance_type': this.fixapp.controls['insurance'].value,
+            'appointment_with': this.fixapp.controls['appointmentwith'].value,
 
         };
+
         this.commonservices.setFixAppointment(data).subscribe(
             (successData) => {
                 this.fixAppointmentSuccess(successData);

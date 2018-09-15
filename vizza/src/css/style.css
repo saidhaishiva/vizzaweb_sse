@@ -962,7 +962,7 @@ footer {
   position: absolute;
   left: -29px;
   bottom: 47%;
-  z-index: 9999999;
+  z-index: 99;
   width: 0;
   height: 0;
   border-top: 30px solid transparent;
