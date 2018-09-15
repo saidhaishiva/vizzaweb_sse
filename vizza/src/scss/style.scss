@@ -671,9 +671,9 @@ background: #ccc !important;
     }
 
   }
-  //.mat-horizontal-stepper-header{
-  //  pointer-events: none !important;
-  //}
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1292,6 +1292,29 @@ footer{
     font-size: 20px;
   }
   .center-section{
+
+  }
+}
+.letUs{
+  .arrow-left {
+    position: absolute;
+    left: -29px;
+    bottom: 47%;
+    z-index: 9999999;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-right: 30px solid #f8b03e;
+  }
+  .let1{
+    background: #e8e8e8;
+    h1{
+      color: #bbb;
+    }
+  }
+  .mat-select-value span span{
+    color:  #fff !important;
 
   }
 }
