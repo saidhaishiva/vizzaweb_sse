@@ -430,11 +430,8 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    getPin(pin, title) {
-        console.log("FFff");
-        console.log(pin);
+    getPin(pin) {
         this.pin = pin;
-        this.title = title;
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -455,20 +452,17 @@ export class RegisterComponent implements OnInit {
 
     }
     public getPinSuccess(successData) {
-        if (this.title == 'form') {
-            this.personalCitys = [];
-            this.response = successData.ResponseObject;
-            console.log( this.response,'dfghj');
-            if (successData.IsSuccess) {
-if(this.response <=0) {
-    this.pincodeErrors = true;
+
+        if (successData.IsSuccess) {
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+            this.form['controls'].contacts['controls'].pincode.patchValue('');
+            this.toastr.error('Invalid pincode');
+
         }
-else {
-    this.pincodeErrors = false;
-}
             }
-        }
-    }
+
     public getPinlFailure(error) {
     }
 

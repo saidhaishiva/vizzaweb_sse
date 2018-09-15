@@ -86,7 +86,7 @@
                         </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput (keypress)="keyPress($event)" placeholder="Mobile No2"
+                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate No"
                                        minlength="10" maxlength="10" formControlName="phone2">
                                 <i class="fas fa-phone" matSuffix></i>
                             </mat-form-field>
@@ -106,20 +106,21 @@
                         <mat-icon matSuffix>home</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="7"
-                        minlength="6" (keypress)="keyPress($event);getPin($event.target.value, 'form')" formControlName="pincode" (input)="getPin($event.target.value, 'form')"
+                        <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
+                        minlength="6" (keypress)="keyPress($event);getPin($event.target.value, 'form')" formControlName="pincode" (input)="getPin($event.target.value)"
                         required>
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
-                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern') || pincodeErrors">Enter Valid Pin</mat-error>
+                        <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>
 
 
                         </mat-form-field>
+
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid" type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid || pincodeErrors" type="button">Next</button>
                             </div>
                         </mat-tab>
 

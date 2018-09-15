@@ -52,6 +52,7 @@ export class ReligareComponent implements OnInit {
     public personalData: any;
     public occupationList: any;
     public relationshipList: any;
+    public relationshipLists: any;
     public today: any;
     public declaration: boolean;
     public summaryData: any;
@@ -73,6 +74,7 @@ export class ReligareComponent implements OnInit {
     public rResponse: any;
     public summaryCity: any;
     public rSummaryCity: any;
+    public summaryRelationship : any;
     public sumTitle: any;
     public sumPin: any;
     public sumAreaName: any;
@@ -412,6 +414,7 @@ export class ReligareComponent implements OnInit {
     religareNomineeDetails(stepper: MatStepper, value) {
         this.lastStepper = stepper;
         console.log(value);
+
         if (this.nomineeDetails.valid) {
             sessionStorage.nomineeData = '';
             sessionStorage.nomineeData = JSON.stringify(value);
@@ -916,6 +919,14 @@ export class ReligareComponent implements OnInit {
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
+            for (let i = 0; i < this.relationshipList.length; i++) {
+                if (this.relationshipList[i].relationship_code == this.summaryData.relationship_code) {
+                    this.summaryRelationship = this.relationshipList[i].relationship_name;
+
+
+                }
+            }
+            console.log( this.summaryRelationship,'aaaaaa');
             this.lastStepper.next();
 
         } else {
@@ -1351,6 +1362,8 @@ export class ReligareComponent implements OnInit {
     public setRelationshipSuccess(successData) {
         console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
+        this.relationshipLists = this.relationshipList.name;
+
     }
 
     public setRelationshipFailure(error) {
