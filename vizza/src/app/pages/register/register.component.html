@@ -39,9 +39,10 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Conduct Number" formControlName="referralcode" maxlength="10">
+                        <input matInput placeholder="Referral Conduct Number" formControlName="referralconduct" minlength="10" maxlength="10">
                             <i class="fas fa-phone" matSuffix></i>
-                            <mat-error *ngIf="form.controls.personal.controls.referralcode.errors?.required">Referral Code is required</mat-error>
+                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.errors?.required">Referral Conduct Number is required</mat-error>
+                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
@@ -220,20 +221,6 @@
                             </div>
                         </mat-tab>
                         <mat-tab label="BankDetails" formGroupName="bankdetails">
-
-                        <div class="w-100">
-                        <div class="custom-file">
-                        <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
-                            <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
-                        </div>
-                        </div>
-                        <div class="row w-100">
-                        <div class="col-md-12">
-                        <div *ngIf="chequeleaf != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + chequeleaf}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
-                        </div>
-                        </div>
-                        </div>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname">
                             <mat-icon matSuffix>account_balance</mat-icon>
@@ -258,6 +245,19 @@
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                         </mat-form-field>
+                            <div class="w-100">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
+                                    <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
+                                </div>
+                            </div>
+                            <div class="row w-100">
+                                <div class="col-md-12">
+                                    <div *ngIf="chequeleaf != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + chequeleaf}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
