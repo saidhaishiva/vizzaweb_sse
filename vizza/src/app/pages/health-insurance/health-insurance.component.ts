@@ -241,6 +241,7 @@ export class HealthInsuranceComponent implements OnInit {
     // }
     // selected members
     ckeckedUser(value, index, name) {
+
         if (value) {
             if (name == 'Son' || name == 'Daughter') {
                 this.count++;
@@ -258,6 +259,8 @@ export class HealthInsuranceComponent implements OnInit {
             }
 
         } else {
+            this.setArray[index].age = '';
+
             if (this.setArray[index].name == 'Son') {
                 this.setArray[3].disabled = false;
             } else if (this.setArray[index].name == 'Daughter') {
@@ -350,6 +353,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
+
     addOthers(value) {
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: false, error: ''});
         if (value == 'Father') {
