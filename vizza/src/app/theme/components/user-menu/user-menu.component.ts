@@ -32,7 +32,7 @@ export class UserMenuComponent implements OnInit {
       sessionStorage.clear();
       this.settings.userId = 0;
       this.settings.username = '';
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
     }
     passwordChange() {
         let dialogRef = this.dialog.open(ChangepasswordComponent, {

@@ -57,6 +57,8 @@ export class PosprofileComponent implements OnInit {
     notesListCount: any;
     commentsListCount: any;
     posData: any;
+    trainingDetails: any;
+    examDetails: any;
     comments: string;
     notes: string;
     rows = [];
@@ -81,6 +83,8 @@ export class PosprofileComponent implements OnInit {
         this.doctor = [];
         this.personal = [];
         this.doctorExperience = [];
+        this.notes = '';
+        this.comments = '';
        // this.professional = [];
       //  this.personal.profileimagepath = '';
       //   this.professional.doctorExperience.exp = 0;
@@ -103,6 +107,8 @@ export class PosprofileComponent implements OnInit {
       this.getFields();
       this.getNotify();
       this.getComments();
+      this.getTrainingDetails(this.posid);
+      this.getExamDetails(this.posid);
 
   }
 
@@ -118,7 +124,7 @@ export class PosprofileComponent implements OnInit {
         });
     }
     getPosProfile() {
-        // this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'roleid': this.auth.getAdminRoleId(),
@@ -136,8 +142,9 @@ export class PosprofileComponent implements OnInit {
     }
     getPosProfileSuccess(successData) {
         console.log(successData, 'successDatasuccessData');
+        this.settings.loadingSpinner = false;
+
         if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
             this.posData = successData.ResponseObject;
         } else {
             this.settings.loadingSpinner = false;
@@ -145,7 +152,65 @@ export class PosprofileComponent implements OnInit {
     }
     getPosProfileFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
+
     }
+
+    public getTrainingDetails(posid) {
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            'pos_id': posid
+        };
+        this.common.getTrainingDetails(data).subscribe(
+            (successData) => {
+                this.getTrainingDetailSuccess(successData);
+
+            },
+            (error) => {
+                this.getTrainingDetailFailure(error);
+            }
+        );
+    }
+    getTrainingDetailSuccess(successData) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            this.trainingDetails = successData.ResponseObject;
+        }
+    }
+    getTrainingDetailFailure(error) {
+        console.log(error);
+    }
+    public getExamDetails(posid) {
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            'pos_id': posid
+        };
+        this.common.getExamDetails(data).subscribe(
+            (successData) => {
+                this.getExamDetailSuccess(successData);
+
+            },
+            (error) => {
+                this.getExamDetailFailure(error);
+            }
+        );
+    }
+    getExamDetailSuccess(successData) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            this.examDetails = successData.ResponseObject;
+        }
+    }
+    getExamDetailFailure(error) {
+        console.log(error);
+    }
+
+
+
     getFields() {
         const data = {
             'platform': 'web',
@@ -204,6 +269,8 @@ export class PosprofileComponent implements OnInit {
         });
     }
     verificationSubmit() {
+        console.log(this.notes, 'this.notes');
+        console.log(this.comments, 'this.notes');
         this.field = [];
         for (let i=0; i < this.documentslist.length; i++) {
                 this.field.push({
@@ -246,6 +313,8 @@ export class PosprofileComponent implements OnInit {
             this.getComments();
             this.comments = '';
             this.notes = '';
+            this.router.navigate(['/pos']);
+
         }
 
     }
@@ -308,7 +377,7 @@ export class PosprofileComponent implements OnInit {
             'message_type': 'comments'
 
         }
-        this.common.getNotes(data).subscribe(
+            this.common.getComments(data).subscribe(
             (successData) => {
                 this.getCommentSuccess(successData);
             },

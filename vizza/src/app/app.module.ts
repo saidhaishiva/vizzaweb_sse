@@ -8,6 +8,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import {ScrollToModule} from 'ng2-scroll-to';
+
+// import { ImageUploadModule } from "angular2-image-upload";
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -88,6 +91,10 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
+import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
+import { TrainingComponent } from './pages/training/training.component';
+import { RelianceComponent } from './pages/reliance/reliance.component';
 
 @NgModule({
   imports: [
@@ -100,6 +107,8 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      ScrollToModule.forRoot(),
+      // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -160,7 +169,11 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
       ViewresultComponent,
       EntranceexamComponent,
       PersonalaccidentComponent,
-      TravelComponent
+      TravelComponent,
+      PersonalAccidentProposalComponent,
+      PosCertificateComponent,
+      TrainingComponent,
+      RelianceComponent
   ],
   providers: [
       AppSettings,

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Parisienne");
 * {
   outline: none; }
 
@@ -45,6 +46,139 @@ button:focus {
   font-size: 11px;
   margin-top: -16px; }
 
+.sidenav-header {
+  background: #ffe8c6 !important;
+  border-bottom: 1px solid #ccc; }
+
+.dashboard1 {
+  width: 30em; }
+  .dashboard1 .mat-card {
+    background: #ECFFF0 !important; }
+  .dashboard1 .mat-card-header-text {
+    display: none;
+    color: #13805A; }
+
+.pos_login {
+  width: 30em; }
+  .pos_login a.forget:visited {
+    color: #2FE827; }
+  .pos_login a.forget:link {
+    color: #2FE827; }
+  .pos_login a.forget:active {
+    color: #2FE827; }
+  .pos_login a.forget:hover {
+    color: #939AF6; }
+  .pos_login .forget {
+    cursor: pointer; }
+  .pos_login a.sign:active {
+    color: #BBBBBE; }
+  .pos_login a.sign:visited {
+    color: #BBBBBE; }
+  .pos_login a.sign:link {
+    color: #BBBBBE; }
+  .pos_login a.sign:hover {
+    color: #939AF6; }
+  .pos_login mat-form-field {
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 100%; }
+  .pos_login mat-card {
+    background: #3C463A !important; }
+  .pos_login mat-icon {
+    color: #2FE827; }
+  .pos_login .white-color {
+    color: #FFFFFF; }
+  .pos_login input {
+    background-color: #FFFFFF;
+    height: 25px; }
+  .pos_login button {
+    margin-top: 5px;
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important; }
+  .pos_login .sign {
+    margin-top: 18px;
+    color: #BBBBBE;
+    text-align: center; }
+  .pos_login mat-form-field {
+    color: #02810E; }
+
+.horizontal-tabs.mat-tab-group {
+  flex-direction: column;
+  width: auto; }
+  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
+    color: white; }
+  .horizontal-tabs.mat-tab-group .mat-tab-label {
+    flex-direction: row; }
+  .horizontal-tabs.mat-tab-group .mat-ink-bar {
+    display: none; }
+  .horizontal-tabs.mat-tab-group .mat-tab-header {
+    border: none !important; }
+  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
+    padding: 0 16px; }
+  .horizontal-tabs.mat-tab-group .custom-file {
+    height: 45px !important; }
+
+.register_page {
+  color: #FFFFFF;
+  flex-direction: column; }
+  .register_page .mat-tab-label {
+    background-color: #D6FFCE;
+    justify-content: start; }
+  .register_page .mat-tab-label-active {
+    background: #AEFF9E !important;
+    color: #02810E !important; }
+  .register_page .mat-tab-labels {
+    background: #D6FFCE !important; }
+  .register_page mat-card {
+    background: #3C463A !important;
+    color: white !important; }
+  .register_page mat-icon, .register_page i {
+    font-size: 18px !important;
+    color: #2FE827; }
+  .register_page .mat-ink-bar {
+    display: none; }
+  .register_page .mat-tab-header {
+    border: none !important; }
+  .register_page .mat-tab-body-wrapper {
+    padding: 0 16px; }
+  .register_page mat-form-field {
+    background-color: #FFFFFF;
+    padding: 10px  20px;
+    width: 100%;
+    color: black;
+    margin-bottom: 8px;
+    border-radius: 5px; }
+  .register_page .btncolor {
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important; }
+  .register_page button {
+    margin-buttom: 5px;
+    background-color: #2FE827 !important;
+    color: #FFFFFF !important;
+    margin: -10px 0px 17px 0px; }
+  .register_page .mat-tab-header-pagination {
+    background: #fff; }
+  .register_page .mat-tab-body.mat-tab-body-active {
+    margin-top: 15px; }
+  .register_page .mat-radio-outer-circle {
+    border-left-color: #2FE827 !important;
+    border-right-color: #2FE827 !important;
+    border-top-color: #2FE827 !important;
+    border-bottom-color: #2FE827 !important; }
+  .register_page .mat-radio-inner-circle {
+    background-color: #2FE827 !important; }
+
+.custom-file-label {
+  border-radius: 0 !important;
+  border: 1px solid #a7a7a7; }
+
+.custom-file-label::after {
+  content: "Attach File" !important;
+  background-color: #00695c;
+  color: white;
+  border: none;
+  border-radius: 0; }
+
 .secondary-bg-color {
   background-color: rgba(0, 0, 0, 0.12) !important; }
 
@@ -63,12 +197,26 @@ a:hover {
   width: 460px;
   margin: 4em auto 70px; }
 
+.mt-registration .mat-tab-header-pagination {
+  background: #ffe8c6 !important;
+  display: none !important; }
+.mt-registration .mat-tab-label {
+  pointer-events: none !important;
+  display: none;
+  width: 100%; }
+.mt-registration .mat-tab-label-active {
+  display: block;
+  font-size: 17px;
+  padding-top: 10px;
+  border-radius: 6px 6px 0 0; }
+.mt-registration mat-tab-header {
+  margin-bottom: 15px; }
 .mt-registration mat-card {
   position: absolute;
   left: 0;
   top: 5px;
   right: 0;
-  width: 700px;
+  width: 600px;
   margin: 4em auto 70px; }
   .mt-registration mat-card .mat-tab-body.mat-tab-body-active {
     overflow-y: hidden !important; }
@@ -210,6 +358,8 @@ a:hover {
 
 #product-list .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
   background-color: rgba(24, 204, 180, 0.35); }
+#product-list .mat-ink-bar {
+  display: none !important; }
 #product-list .mat-tab-label-active {
   background-color: #f29a1d !important;
   color: #fff !important; }
@@ -344,6 +494,8 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -506,9 +658,15 @@ a:hover {
     text-align: center; }
     .vizza-home .h-plans img {
       width: 100%; }
+    .vizza-home .h-plans figcaption {
+      font-size: 16px;
+      font-weight: bold; }
 
 .horizontal-menu-item a {
   justify-content: center !important; }
+
+.horizontal-menu-item .horizontal-sub-menu a {
+  justify-content: end !important; }
 
 #view-details {
   color: #ffffff !important;
@@ -582,5 +740,239 @@ a:hover {
   color: white !important;
   width: 130px !important;
   height: 40px !important; }
+
+.app.teal-light mat-toolbar {
+  min-height: 95px !important; }
+  .app.teal-light mat-toolbar.top-nav {
+    background: #ffe8c6 !important; }
+  .app.teal-light mat-toolbar.horizontal-menu {
+    background: #ffe8c6 !important; }
+
+.inner-sidenav-content {
+  top: 105px !important; }
+
+.pie-grid .percent-label {
+  font-size: 16px;
+  font-weight: 400;
+  display: none !important; }
+
+.h-testimonial h3 {
+  background: #00b39b;
+  margin-bottom: 0;
+  padding: 10px 0;
+  color: #fff; }
+
+.h-faq {
+  width: 100%;
+  margin-bottom: 50px; }
+  .h-faq h1 {
+    color: #ed1490; }
+
+.certificate-bg {
+  background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
+  width: 100%;
+  background-attachment: fixed; }
+
+#pos-cirtificate .c-card {
+  border-left: 20px solid #219c44; }
+  #pos-cirtificate .c-card li {
+    display: block; }
+  #pos-cirtificate .c-card header {
+    border-bottom: 1px solid #000;
+    padding-bottom: 15px; }
+    #pos-cirtificate .c-card header img {
+      width: 400px; }
+  #pos-cirtificate .c-card .c-content, #pos-cirtificate .c-card .c-address, #pos-cirtificate .c-card p, #pos-cirtificate .c-card table {
+    font-size: 16px; }
+  #pos-cirtificate .c-card footer {
+    border-top: 2px solid #1c9a42; }
+    #pos-cirtificate .c-card footer h5 {
+      color: #1c9a42; }
+    #pos-cirtificate .c-card footer p {
+      font-size: 19px;
+      margin-bottom: 0; }
+  #pos-cirtificate .c-card table tr td {
+    padding: 10px;
+    vertical-align: top; }
+  #pos-cirtificate .c-card table tr td:first-child {
+    color: #1c9a42; }
+
+.insurance-renewal li {
+  display: block; }
+.insurance-renewal h2 {
+  background: #eaeaea;
+  padding: 20px;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #1d968b;
+  font-weight: bold; }
+.insurance-renewal form {
+  padding: 50px;
+  background: #d4d4d4; }
+.insurance-renewal .input-group-addon {
+  color: #fff;
+  background-color: #13a89e;
+  border: 1px solid #13a89e; }
+.insurance-renewal .btn-bs-file {
+  position: relative;
+  width: 175px;
+  background: #ababab;
+  color: #fff;
+  border-radius: 31px; }
+.insurance-renewal .btn-bs-file:hover {
+  background: #666; }
+.insurance-renewal .btn-bs-file input[type="file"] {
+  position: absolute;
+  top: -9999999;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  width: 0;
+  height: 0;
+  outline: none;
+  cursor: inherit; }
+.insurance-renewal .whatsapp {
+  font-weight: bold;
+  padding-top: 0;
+  font-size: 16px; }
+.insurance-renewal .fa-whatsapp {
+  background: #25d366;
+  padding: 7px 15px 17px 10px;
+  border-radius: 50%;
+  font-size: 30px;
+  width: 45px;
+  height: 45px;
+  color: #fff;
+  margin-right: 6px; }
+.insurance-renewal .h-border-bottom {
+  width: 60%;
+  margin: auto; }
+.insurance-renewal .h-border-bottom:before {
+  content: "";
+  border: 1px solid #ababab;
+  width: 100%;
+  float: left;
+  margin-bottom: 5px;
+  text-align: center;
+  margin-top: 10px; }
+.insurance-renewal .whatsapp span {
+  vertical-align: super; }
+
+.f-social-icons ul {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+.f-social-icons i {
+  text-align: center;
+  background: #d4d4d4;
+  border-radius: 50%;
+  height: 90px;
+  margin: 44px;
+  font-size: 59px;
+  color: #fff;
+  padding-top: 15px;
+  width: 90px;
+  margin: 10px;
+  margin-top: 21px; }
+
+.f-social-icons li {
+  cursor: pointer;
+  display: block; }
+.f-social-icons li a, .f-social-icons li a:hover {
+  color: #fff; }
+.f-social-icons i:nth-child(1):hover {
+  background: #55acee; }
+.f-social-icons i:nth-child(2):hover {
+  background: #3b5998; }
+.f-social-icons i:nth-child(3):hover {
+  background: #007bb6; }
+.f-social-icons i:nth-child(4):hover {
+  background: #0063dc; }
+.f-social-icons i:nth-child(5):hover {
+  background: #cd201f; }
+.f-social-icons i:nth-child(6):hover {
+  background: #d93175; }
+.f-social-icons i:nth-child(7):hover {
+  background: #35465c; }
+.f-social-icons i:nth-child(8):hover {
+  background: #cb2027; }
+.f-social-icons i:nth-child(9):hover {
+  background: #dc4e40; }
+
+footer {
+  width: 100%;
+  float: left;
+  padding: 10px; }
+
+.c2-card {
+  border-left: 20px solid #219c44;
+  background-image: url("./assets/img/pos-bg.png") !important;
+  width: 100%;
+  background-size: cover !important; }
+  .c2-card header {
+    border-bottom: 1px solid #006738;
+    padding-bottom: 20px; }
+    .c2-card header h5 {
+      color: #006738; }
+    .c2-card header img {
+      width: 470px; }
+  .c2-card .c-profile .c-font {
+    font-family: 'Parisienne', cursive;
+    font-size: 170px;
+    color: #443034;
+    text-align: right; }
+  .c2-card .c-profile h5 span {
+    background: #443034;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 30px; }
+  .c2-card .c-content {
+    position: relative;
+    border: 2px solid #443034;
+    border-radius: 30px;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 45px; }
+    .c2-card .c-content .c-title {
+      position: absolute;
+      top: -15px;
+      right: 0px;
+      bottom: 0;
+      width: 100%;
+      text-align: center; }
+      .c2-card .c-content .c-title span {
+        padding: 10px 35px;
+        color: #fff;
+        font-size: 25px;
+        background: #f01818;
+        background: linear-gradient(to right, #f01818 0%, #f7947b 64%, #ff2121 100%); }
+    .c2-card .c-content p {
+      font-size: 22px; }
+  .c2-card table {
+    font-size: 20px;
+    margin: 185px 28px 100px 28px; }
+    .c2-card table tr td {
+      padding: 10px;
+      vertical-align: top; }
+    .c2-card table tr td:first-child {
+      color: #443034; }
+  .c2-card footer {
+    font-size: 20px; }
+
+.letUs .arrow-left {
+  position: absolute;
+  left: -29px;
+  bottom: 47%;
+  z-index: 9999999;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 30px solid #f8b03e; }
+.letUs .let1 {
+  background: #e8e8e8; }
+  .letUs .let1 h1 {
+    color: #bbb; }
+.letUs .mat-select-value span span {
+  color: #fff !important; }
 
 /*# sourceMappingURL=style.css.map */

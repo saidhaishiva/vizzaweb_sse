@@ -16,32 +16,32 @@
             <!--<mat-icon>person</mat-icon>-->
             <!--<span>{{fristName | uppercase}}</span>-->
         <!--</a>-->
-        <a mat-menu-item routerLink="settings">
+        <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
             <mat-icon class="matIclass">remove_red_eye</mat-icon>
             <!--<i class="material-icons">remove_red_eye</i>-->
-            <span class="color-blue" [routerLink]="['/pos-profile']">View Profile</span>
+            <span class="color-blue" >View Profile</span>
         </a>
-        <a mat-menu-item >
+        <a mat-menu-item (click)="passwordChange()">
             <mat-icon class="matIclass">lock</mat-icon>
-            <span class="color-blue" (click)="passwordChange()">Change Password</span>
+            <span class="color-blue">Change Password</span>
         </a>
-        <a mat-menu-item >
-            <mat-icon class="matIclass">local_library
-            </mat-icon>
-            <span class="color-blue" >Training</span>
-        </a>
-        <a mat-menu-item [routerLink]="['/startexam']">
-            <mat-icon class="matIclass">edit</mat-icon>
-            <span class="color-blue" >Exam</span>
-        </a>
+        <!--<a mat-menu-item [routerLink]="['/training']">-->
+            <!--<mat-icon class="matIclass">local_library-->
+            <!--</mat-icon>-->
+            <!--<span class="color-blue" >Training</span>-->
+        <!--</a>-->
+        <!--<a mat-menu-item [routerLink]="['/startexam']">-->
+            <!--<mat-icon class="matIclass">edit</mat-icon>-->
+            <!--<span class="color-blue" >Exam</span>-->
+        <!--</a>-->
         <!--<a mat-menu-item routerLink="help">-->
             <!--<mat-icon>help</mat-icon>-->
             <!--<span>Help</span>-->
         <!--</a>-->
         <div class="divider"></div>
-        <a mat-menu-item>
+        <a mat-menu-item (click)="logout();">
             <mat-icon>power_settings_new</mat-icon>
-            <span (click)="logout();">Log out</span>
+            <span>Log out</span>
         </a>
     <!--</span>-->
 </mat-menu>

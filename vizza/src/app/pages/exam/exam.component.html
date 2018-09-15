@@ -1,94 +1,36 @@
 <div class="question-view">
-      <!--<div *ngIf="startOnlineExam">-->
-          <!--<mat-card>-->
-            <!--<mat-card-header>-->
-              <!--<div fxFlex="100" class="flex-p">-->
-                <!--<mat-card-title>Aptitude Test (<span class="content-color">Random Questions</span>) </mat-card-title>-->
-              <!--</div>-->
-              <!--<div fxFlex="50" class="flex-p">-->
-                <!--<mat-card-subtitle style="color: black">Number of questions : <span class="content-color">30</span> </mat-card-subtitle>-->
-              <!--</div>-->
-              <!--<div fxFlex="50" class="flex-p">-->
-                <!--<mat-card-subtitle style="color: black">Time : <span class="content-color">45</span> </mat-card-subtitle>-->
-              <!--</div>-->
-            <!--</mat-card-header>-->
-
-          <!--&lt;!&ndash;<img mat-card-image src="assets/img/app/7.jpg" alt="7">&ndash;&gt;-->
-
-          <!--<mat-card-content  fxLayoutAlign="space-between center" >-->
-            <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
-            <!--<mat-list class="ml-5">-->
-              <!--<h5 matLine class="content-color"> Instructions </h5>-->
-              <!--<mat-list-item >-->
-                <!--<p matLine>-->
-                  <!--<mat-card-subtitle> <span><i class="material-icons">keyboard_arrow_right</i></span> <span>Total number of questions : </span><strong >30.</strong> </mat-card-subtitle>-->
-                <!--</p>-->
-                <!--<p matLine>-->
-                  <!--<mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>Time alloted :</span> <strong>45</strong > minutes.</mat-card-subtitle>-->
-                <!--</p>-->
-                <!--<p matLine>-->
-                  <!--<mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>Each question carry 1 mark, no negative marks.</span> </mat-card-subtitle>-->
-                <!--</p>-->
-                <!--<p matLine>-->
-                   <!--<mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i><span> DO NOT refresh the page.</span> </mat-card-subtitle>-->
-                <!--</p>-->
-                <!--<p matLine>-->
-                  <!--<mat-card-subtitle> <i class="material-icons">keyboard_arrow_right</i> <span>All the best :-).</span> </mat-card-subtitle>-->
-                <!--</p>-->
-              <!--</mat-list-item>-->
-            <!--</mat-list>-->
-
-          <!--</mat-card-content>-->
-
-            <!--<div fxLayoutAlign="center center" class="text-center">-->
-              <!--<button mat-raised-button color="primary" (click)="startExam()">Start Test</button>-->
-            <!--</div>-->
-        <!--</mat-card>-->
-      <!--</div>-->
-
-      <!--<div [hidden]="startOnlineExam">-->
-          <mat-card class="p-0">
-            <mat-card-header class="p-1" fxLayoutAlign="space-between center">
-              <mat-card-subtitle class="m-0">Questions</mat-card-subtitle>
-              <!--<mat-divider></mat-divider>-->
-
-              <mat-chip-list>
-                <mat-chip color="accent" selected="true" class="info-chip" >
-                  <mat-icon class="icon-sm">access_time</mat-icon>
-                  <p id="timer" class="mt-3"></p>
-                </mat-chip>
-              </mat-chip-list>
-            </mat-card-header>
-            <mat-card-content fxLayoutAlign="space-between center" >
-              <div class="row " perfectScrollbar>
-                  <div class="col-md-12 " *ngFor="let questions of questionLists; let pi = index">
-                    <p class="px-3">{{pi +1}}. {{questions.question}}</p>
-                    <mat-radio-group [(ngModel)]="questions.checkedStatus" fxLayout="column" fxLayoutAlign="center" (change)="selectOption(questions, pi)">
-                        <div class="row px-5">
-                          <mat-radio-button *ngFor="let lists of questions.optionlist" [value]="lists" class="season-item">
-                          <div class="col-md-6  px-3">
-                            {{lists}}
-                          </div>
-                          </mat-radio-button>
-                        </div>
-                    </mat-radio-group>
-                    <div class="py-1 px-3">Your selected answer is: <b> {{questions.checkedStatus}} </b></div>
-                    <mat-divider></mat-divider>
-                    <br>
-
+  <mat-card class="p-0">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between center">
+      <mat-card-subtitle class="m-0">Questions</mat-card-subtitle>
+      <!--<mat-divider></mat-divider>-->
+      <mat-chip-list>
+        <mat-chip color="accent" selected="true" class="info-chip" >
+          <mat-icon class="icon-sm ml-1">access_time </mat-icon>
+          <p id="timer" class="mt-3 ml-2"></p>
+        </mat-chip>
+      </mat-chip-list>
+    </mat-card-header>
+    <mat-card-content fxLayoutAlign="space-between center" >
+      <div class="row " perfectScrollbar>
+          <div class="col-md-12 " *ngFor="let questions of questionLists; let pi = index">
+            <p class="px-3">{{pi +1}}. {{questions.question}}</p>
+            <mat-radio-group [(ngModel)]="questions.checkedStatus" fxLayout="column" fxLayoutAlign="center" (change)="selectOption(questions, pi)">
+                <div class="row px-5">
+                  <mat-radio-button *ngFor="let lists of questions.optionlist" [value]="lists" class="season-item">
+                  <div class="col-md-6  px-3">
+                    {{lists}}
                   </div>
-              </div>
-            </mat-card-content>
-            <div fxLayoutAlign="center center" class="text-center mb-3">
-              <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-            </div>
-          </mat-card>
-
-
-
-      <!--</div>-->
-
-
-
-
+                  </mat-radio-button>
+                </div>
+            </mat-radio-group>
+            <div class="py-1 px-3">Your selected answer is: <b> {{questions.checkedStatus}} </b></div>
+            <mat-divider></mat-divider>
+            <br>
+          </div>
+      </div>
+    </mat-card-content>
+    <div fxLayoutAlign="center center" class="text-center mb-3">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+  </mat-card>
 </div>

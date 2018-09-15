@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Righteous');
 $theme-color: #0288d1;
+$light-green:#2FE827;
 *{
   outline: none !important;
 }
@@ -121,6 +122,118 @@ form .mat-icon{
 
 }
 
+//horizontal page design
+.horizontal-tabs.mat-tab-group{
+  flex-direction: column;
+  width:auto;
+
+  .mat-tab-body-wrapper {
+    color: white;
+  }
+  .mat-tab-label {
+    flex-direction: row;
+  }
+  .mat-ink-bar{
+    display: none;
+  }
+  .mat-tab-header{
+    border: none !important
+  }
+  .mat-tab-body-wrapper{
+    padding: 0 16px;
+  }
+  .custom-file{
+    height: 45px !important;
+  }
+}
+
+//addpos page design
+.addpos_page{
+  //.gender{
+  // color: #767B78;
+  //}
+  //width:auto;
+  color: #FFFFFF !important;
+  flex-direction: column;
+
+  //.mat-tab-body-content{
+  //  overflow: hidden;
+  //}
+
+  .mat-tab-label {
+    background-color: #D6FFCE;
+    justify-content: start;
+  }
+  .mat-tab-label-active{
+    background: #AEFF9E !important;
+    color: $theme-color !important;
+  }
+  .mat-tab-labels{
+    background: #D6FFCE !important;
+  }
+  .mat-card{
+    background: #3C463A !important;
+    color:white !important;
+  }
+  .mat-icon,i{
+    font-size: 18px !important;
+    color: $light-green !important;
+  }
+  .mat-ink-bar{
+    display: none;
+  }
+  .mat-tab-header{
+    border: none !important
+  }
+  .mat-tab-body-wrapper{
+    padding: 0 16px;
+  }
+  .mat-form-field{
+    background-color: #FFFFFF;
+    padding: 10px  20px;
+    width:100%;
+    color: black;
+    margin-bottom: 8px;
+    border-radius: 5px;
+  }
+  .i{
+    color: $light-green !important;
+  }
+  .btncolor {
+    background-color: $light-green !important;
+    color: #FFFFFF !important;
+  }
+
+  button{
+    margin-buttom: 5px;
+    background-color: $light-green !important;
+    color: #FFFFFF !important;
+    margin: -10px 0px 17px 0px;
+  }
+  .mat-tab-header-pagination{
+    background: #fff;
+  }
+  .mat-tab-body.mat-tab-body-active{
+    margin-top: 15px;
+  }
+  .custom-file-label::after {
+    content: "Attach File" !important;
+    background-color: $light-green;
+    color: white;
+    border: none;
+  }
+  .mat-radio-outer-circle{
+    border-left-color: $light-green !important;
+    border-right-color: $light-green !important;
+    border-top-color: $light-green !important;
+    border-bottom-color: $light-green !important;
+
+  }
+  .mat-radio-inner-circle {
+    background-color: $light-green !important;
+  }
+}
+
 .mt-registration mat-card{
   position: absolute;
   left: 0;
@@ -164,7 +277,7 @@ form .mat-icon{
     margin-right: 10px;
   }
   .bg-primary{
-    background-color: #dcdcdc!important;
+    background-color: #0288d1 !important;
     height: 40px;
     color:#313131 !important;
   }
@@ -491,13 +604,22 @@ image-cropper{
 
 
 .user-name{
-  padding: 0 12px;
+  padding: 0 5px;
   font-weight: 400;
   i{
     color: #00863f;
   }
   span{
-    color: #666;
+    color: #fff;
+  }
+}
+.ngx-pos {
+  .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    background: #0288d1;
+    color: #fff;
+    border-right: 1px solid #fff;
+    font-weight: bold;
+    font-size: 15px;
   }
 }
 .user-content{
@@ -1089,6 +1211,14 @@ a{
 }
 .view-upload, view-upload:hover{
   color: $theme-color !important;
+}
+.mailbox[_ngcontent-c15] .empty[_ngcontent-c15] mat-icon[_ngcontent-c15] {
+  font-size: 137px !important;
+  height: 149px !important;
+  //width: 205px;
+}
+.docCard {
+  height: 225px !important;
 }
 
 

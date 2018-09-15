@@ -1,34 +1,49 @@
 import { CanDeactivate } from '@angular/router';
-import { ExamComponent} from '../pages/exam/exam.component';
+import { TrainingComponent} from '../pages/training/training.component';
 import {AuthService} from './services/auth.service';
 import {CommonService} from './services/common.service';
 import {Observable} from 'rxjs/Observable';
 import {OnInit} from '@angular/core';
 
-export  class DeactivatetimeGuard implements CanDeactivate<ExamComponent> {
-    // constructor(private authService: AuthService) { }
-
-    canDeactivate(training: ExamComponent) {
+export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
+    canDeactivate(training: TrainingComponent) {
+        sessionStorage.checkoutTime = '';
         console.log(training, 'candeactivate');
-        training.sumInsuredAmonut();
         let h ;
         let m ;
-        const gethours = training.gethours;
-        const getMinutes = training.getMinutes;
-        if (gethours != 0) {
-            h = gethours * 60;
+        const getFulltime = training.getRemainingTime;
+        // split the time
+        let pieces = getFulltime.split(":");
+        let hours = pieces[0];
+        let minutes = pieces[1];
+        let seconds = pieces[2];
+        hours = hours == '00' ? 0 : hours;
+        minutes = minutes == '00' ? 0 : minutes;
+        let timeLeft = sessionStorage.timeLeft;
+        if (hours != 0) {
+            h = hours * 60;
+        } else {
+            h = 0;
         }
-        if (getMinutes != 0) {
-            m = getMinutes;
+        if (minutes != 0) {
+            m = minutes;
+        } else {
+            m = timeLeft;
         }
-        console.log(h, 'h');
-        console.log(m, 'm');
-        console.log(h != undefined ? h : 0 + m !=undefined ? m : 0, 'gethours');
+        let remainingTime = parseInt(h) + parseInt(m);
+        console.log(remainingTime, 'remainingTime');
+        // let stayTime = timeLeft - remainingTime;
 
-        console.log(gethours, 'gethours');
-        console.log(getMinutes, 'getMinutes');
-        console.log(training);
-
+        let sendMinutes;
+        if (remainingTime == 0) {
+            sendMinutes = timeLeft;
+        } else {
+            sendMinutes = timeLeft - remainingTime;;
+        }
+        // end
+        if (getFulltime != '00:00:00') {
+           training.sendRemainingTime(sendMinutes);
+        }
 
         return true;
     }

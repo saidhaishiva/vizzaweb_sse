@@ -7,12 +7,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./entranceexam.component.scss']
 })
 export class EntranceexamComponent implements OnInit {
-
-  constructor(public router: Router) { }
+    examStatus: any;
+  constructor(public router: Router) {
+      this.examStatus = sessionStorage.examStatus;
+  }
 
   ngOnInit() {
   }
     startExam() {
+    sessionStorage.examBack = 0;
     this.router.navigate(['/exam']);
     }
 

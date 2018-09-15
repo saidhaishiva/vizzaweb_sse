@@ -103,6 +103,35 @@ form .mat-icon {
     right: 0;
     top: 0; }
 
+.mt-registration mat-card {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  right: 0;
+  width: 700px;
+  margin: 4em auto 70px; }
+  .mt-registration mat-card .mat-tab-body.mat-tab-body-active {
+    overflow-y: hidden !important; }
+  .mt-registration mat-card .mat-tab-body-content {
+    overflow: hidden; }
+
+.uploadBtn .btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 0.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+
 .mt-viwe-profile .user-name {
   font-size: 15px;
   margin-bottom: 0; }
@@ -110,7 +139,7 @@ form .mat-icon {
   padding: 0 !important;
   margin-right: 10px; }
 .mt-viwe-profile .bg-primary {
-  background-color: #dcdcdc !important;
+  background-color: #0288d1 !important;
   height: 40px;
   color: #313131 !important; }
 .mt-viwe-profile p, .mt-viwe-profile label {
@@ -391,7 +420,14 @@ image-cropper {
   .user-name i {
     color: #00863f; }
   .user-name span {
-    color: #666; }
+    color: #fff; }
+
+.ngx-pos .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  background: #0288d1;
+  color: #fff;
+  border-right: 1px solid #fff;
+  font-weight: bold;
+  font-size: 15px; }
 
 .user-content {
   padding: 10px; }
@@ -845,5 +881,31 @@ a {
 
   .bg-map {
     padding: 0; } }
+.file-upload div {
+  position: relative;
+  overflow: hidden;
+  background-color: #0288d1;
+  border-color: #0288d1;
+  border-radius: 0.2rem !important;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 7px 20px;
+  cursor: pointer !important; }
+.file-upload .btn-primary:hover {
+  background-color: #0288d1;
+  border-color: #0288d1; }
+.file-upload input {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0; }
+
+.file-upload, .file-upload:hover {
+  color: #888888 !important;
+  cursor: pointer; }
+
+.view-upload, view-upload:hover {
+  color: #0288d1 !important; }
 
 /*# sourceMappingURL=custom.css.map */

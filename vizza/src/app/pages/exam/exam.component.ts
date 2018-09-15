@@ -3,7 +3,6 @@ import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { ResultpageComponent} from './resultpage/resultpage.component';
 import { Router} from '@angular/router';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
@@ -17,18 +16,11 @@ export class ExamComponent implements OnInit {
     gethours: any;
     getMinutes: any;
     questionLists: any;
-    getOptions: any;
     allQuestionLists: any;
     startTime: boolean;
     startOnlineExam: boolean;
-    favoriteSeason: string;
     selectedData: any;
-    seasons = [
-        'Winter',
-        'Spring',
-        'Summer',
-        'Autumn',
-    ];
+    expired: boolean;
     public settings : Settings;
   constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
       this.settings = this.appSettings.settings;
@@ -37,42 +29,37 @@ export class ExamComponent implements OnInit {
       this.startTime = true;
       this.startOnlineExam = false;
       this.selectedData = [];
-
-
+      this.expired = false;
 
   }
-
   ngOnInit() {
     this.getQuestions();
-    this.countdown('80');
+    this.countdown('1');
+      window.addEventListener('beforeunload', function (e) {
+          let confirmationMessage = '\o/';
+          e.returnValue = confirmationMessage;
+          return confirmationMessage;
+      });
 
   }
-
       countdown(minutes) {
-          this.startTime = true;
-          const test = this;
+        this.startTime = true;
+        const test = this;
         let timeoutHandle;
         let h = Math.floor(minutes / 60);
         let m = minutes % 60;
         let seconds = 60;
         let mins = m
         function tick() {
-
             let counter = document.getElementById("timer");
             let current_minutes = mins-1
             seconds--;
-            counter.innerHTML = (h+ ":" +
-                current_minutes+ ":" + (seconds < 10 ? "0" : "") + String(seconds)).toString();
-
-
+            counter.innerHTML = (current_minutes+ ":" + (seconds < 10 ? "0" : "") + String(seconds)).toString();
             setTimeout(() => {
                 test.gethours = h;
                 test.getMinutes = current_minutes;
-            },1500);
-
-
+            },1000);
             if( seconds > 0 ) {
-
                 timeoutHandle=setTimeout(tick, 1000);
             } else {
 
@@ -81,45 +68,21 @@ export class ExamComponent implements OnInit {
                 }
                 if (current_minutes == 0) {
                     this.startTime = false;
-                    document.getElementById("demo").innerHTML = "EXPIRED";
+                    this.expired = true;
+                    test.submit();
+                    document.getElementById("timer").innerHTML = "EXPIRED";
 
                 }
-
             }
 
         }
         tick();
     }
-    testy(val) {
-        this.countdown(val);
-
-    }
-
-    public sumInsuredAmonut(): void {
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-            };
-        this.common.getSumInsuredAmount(data).subscribe(
-            (successData) => {
-                this.getSumInsuredAmountSuccess(successData);
-            },
-            (error) => {
-            }
-        );
-    }
-    public getSumInsuredAmountSuccess(successData) {
-            if (successData.IsSuccess) {
-              console.log(successData);
-            }
-    }
-
 
     public getQuestions(): void {
         const data = {
             'platform': 'web',
-            'pos_id': '1'
+            'pos_id': this.auth.getPosUserId()
         };
         this.learning.getQuestionLists(data).subscribe(
             (successData) => {
@@ -139,7 +102,7 @@ export class ExamComponent implements OnInit {
                 options = [];
                 this.questionLists[i].checkedStatus = '';
                 if (this.questionLists[i].question != 'question') {
-                    options.push(this.questionLists[i].option_a,this.questionLists[i].option_b,this.questionLists[i].option_c,this.questionLists[i].option_d,this.questionLists[i].option_e);
+                    options.push(this.questionLists[i].option_a,this.questionLists[i].option_b,this.questionLists[i].option_c,this.questionLists[i].option_d);
                     this.questionLists[i].optionlist = options;
                 }
             }
@@ -149,16 +112,9 @@ export class ExamComponent implements OnInit {
     public getQuestionListsError(error) {
         console.log(error);
     }
-
-    // startExam() {
-    //   this.startOnlineExam = false;
-    //   this.countdown('80');
-    //
-    // }
     selectOption(value, pi) {
-
     }
-
+    // submit the test
     submit() {
 
         this.selectedData = [];
@@ -174,7 +130,7 @@ export class ExamComponent implements OnInit {
         sessionStorage.unAnsweredQuestions = total.length;
 
         let dialogRef = this.dialog.open(ConfrimAlert, {
-            width: '500px', data: total.length});
+            width: '500px', data:{total: total.length, expired: this.expired}});
         dialogRef.disableClose = true;
 
         dialogRef.afterClosed().subscribe(result => {
@@ -203,30 +159,34 @@ export class ExamComponent implements OnInit {
         this.settings.loadingSpinner = false;
         console.log(successData, 'successData');
         if (successData.IsSuccess) {
+            sessionStorage.examBack = 1;
             sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
             sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
+            sessionStorage.examPercentage = successData.ResponseObject.percentage;
+            sessionStorage.examStatus = successData.ResponseObject.exam_status;
             this.router.navigate(['/viewresult']);
         }
 
     }
     public submitExamError(error) {
         console.log(error, 'error');
-
+        this.settings.loadingSpinner = false;
     }
-
-
 
 }
 @Component({
     selector: 'confrimalert',
     template: `
-        <div mat-dialog-content class="text-center">
+        <div mat-dialog-content class="text-center" *ngIf="!expiredStatus">
             <label>Total Number of unanswered questions = <span style="color: red">{{total}}</span></label><br>
             <label>Are you sure want to submit the Test now?</label>
+        </div>
+        <div mat-dialog-content class="text-center" *ngIf="expiredStatus">
+            <label>Your time's up this is auto update on 2 seconds </label>
 
         </div>
         <div mat-dialog-actions style="justify-content: center">
-            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>
+            <button mat-button class="secondary-bg-color" *ngIf="!expiredStatus" (click)="onNoClick()" >Cancel</button>
             <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
         </div>
     `
@@ -234,10 +194,16 @@ export class ExamComponent implements OnInit {
 })
 export class ConfrimAlert {
     total: any;
+    expiredStatus: boolean;
     constructor(
         public dialogRef: MatDialogRef<ConfrimAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.total = data;
+        console.log(data, 'data');
+        this.total = data.total;
+        this.expiredStatus = data.expired;
+        setTimeout((res)=> {
+            this.dialogRef.close(true);
+        },2000);
     }
 
     onNoClick(): void {

@@ -17,6 +17,7 @@ export class ViewresultComponent implements OnInit {
     unAnsweredQuestions: any;
     allQuestions: any;
     correctAns: any;
+    examPercentage: any;
     answeredQuestions: any;
     public colorScheme = {
         domain: ['#378D3B']
@@ -30,32 +31,27 @@ export class ViewresultComponent implements OnInit {
     constructor(public appSettings: AppSettings) {
         this.unAnsweredQuestions = sessionStorage.unAnsweredQuestions;
         this.allQuestions = sessionStorage.allQuestions;
-        this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions
+        this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions;
         this.correctAns = sessionStorage.correctAns;
+        this.examPercentage = sessionStorage.examPercentage;
         let perQuestionMark = 2;
-        let marks = (this.correctAns * perQuestionMark);
-        console.log(marks, 'status');
-        let status;
-        if (marks >= 20) {
-            status = true;
-        } else {
-            status = false;
-        }
-        if (status) {
-             this.single = [
+        // let marks = (this.correctAns * perQuestionMark);
+        // console.log(marks, 'status');
+        // let status;
+        if (sessionStorage.examStatus == 1) {
+            this.single = [
                 {
                     name: 'Pass',
-                    value: marks,
+                    value: this.examPercentage,
                     status: 'pass'
                 }
             ]
             this.examStatus = this.single[0].status;
-
         } else {
             this.single = [
                 {
                     name: 'Fail',
-                    value: marks,
+                    value: this.examPercentage,
                     status: 'fail'
 
                 }
