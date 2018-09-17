@@ -194,6 +194,7 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     // get the training details
     getTrainingDetails(data) {
         const json = JSON.stringify(data);

@@ -1,5 +1,5 @@
 <div class="question-view">
-  <div *ngIf="examStatus == 0">
+  <div *ngIf="examStatus == 0 || examStatus == 1">
     <mat-card>
       <mat-card-header>
         <div fxFlex="100" class="flex-p">
@@ -42,7 +42,7 @@
       </div>
     </mat-card>
   </div>
-  <div  *ngIf="examStatus == 1">
+  <div  *ngIf="examStatus == 2">
     <mat-card>
       <mat-card-header>
         <div fxFlex="100" class="flex-p" fxLayoutAlign="center center">

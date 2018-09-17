@@ -34,7 +34,7 @@ export class ExamComponent implements OnInit {
   }
   ngOnInit() {
     this.getQuestions();
-    this.countdown('1');
+    this.countdown('45');
       window.addEventListener('beforeunload', function (e) {
           let confirmationMessage = '\o/';
           e.returnValue = confirmationMessage;
@@ -138,7 +138,7 @@ export class ExamComponent implements OnInit {
                 console.log(this.selectedData, 'pop');
                 const data = {
                     'platform': 'web',
-                    'pos_id': '1',
+                    'pos_id': this.auth.getPosUserId(),
                     'question_details': this.selectedData
                 };
                 this.settings.loadingSpinner = true;
@@ -201,9 +201,12 @@ export class ConfrimAlert {
         console.log(data, 'data');
         this.total = data.total;
         this.expiredStatus = data.expired;
-        setTimeout((res)=> {
-            this.dialogRef.close(true);
-        },2000);
+        if (this.expiredStatus) {
+            setTimeout((res)=> {
+                this.dialogRef.close(true);
+            },2000);
+        }
+
     }
 
     onNoClick(): void {
@@ -211,4 +214,122 @@ export class ConfrimAlert {
     }
 
 }
+
+
+// ngOnInit() {
+//
+//     this.getTrainingDetails();
+//     this.getExamDetails();
+//     // this.settings.loadingSpinner = false;
+//     this.currentTab = 'Personal';
+//     if (this.documentStatus != 2 || this.documentStatus == 2) {
+//         this.sideNav = [{
+//             'name': 'Personal',
+//             'value': 'active',
+//             'selected': false
+//         }, {
+//             'name': 'Contact',
+//             'value': 'active',
+//             'selected': false
+//         },{
+//             'name': 'Documents',
+//             'value': 'active',
+//             'selected': false
+//         },
+//             {
+//                 'name': 'Bank Details',
+//                 'value': 'active',
+//                 'selected': false
+//             },
+//             {
+//                 'name': 'Education',
+//                 'value': 'active',
+//                 'selected': false
+//             }];
+//     }
+//     if (this.documentStatus == 2 ) {
+//         this.sideNav.push({
+//                 'name': 'Training',
+//                 'value': 'active',
+//                 'selected': false
+//             },
+//             {
+//                 'name': 'Examination',
+//                 'value': 'active',
+//                 'selected': false
+//             });
+//
+//     }
+//     if (this.documentStatus == 2 && this.trainingStatus == 1) {
+//         this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
+//     }  else if (this.documentStatus == 2 && this.examStatus == 1) {
+//         this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
+//     }
+//     // if (this.documentStatus == 2) {
+//     //     this.sideNav = [{
+//     //         'name': 'Personal',
+//     //         'value': 'active',
+//     //         'selected': false
+//     //     },{
+//     //         'name': 'Contact',
+//     //         'value': 'active',
+//     //         'selected': false
+//     //     },
+//     //         {
+//     //             'name': 'Documents',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Bank Details',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Education',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Training',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Examination',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Approval Letter',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Appointment Letter',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Certificate of Training',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Certificate of Examination',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         },
+//     //         {
+//     //             'name': 'Payment Options',
+//     //             'value': 'active',
+//     //             'selected': false
+//     //         }
+//     //     ];
+//     // }
+//
+//
+//     this.sideNav[0].selected = true;
+// }
+
 

@@ -115,18 +115,23 @@ export class TrainingComponent implements OnInit {
                 } else {
                     h = 0;
                 }
+                let sendMinutes;
                 if (minutes != 0) {
                     m = minutes;
+                    sendMinutes = true;
                 } else {
                     m = timeLeft;
+                    sendMinutes = false;
+
                 }
-                let remainingTime = parseInt(h) + parseInt(m);
                 // let stayTime = timeLeft - remainingTime;
-                let sendMinutes;
-                if (remainingTime == 0) {
-                    sendMinutes = timeLeft;
+                if (sendMinutes) {
+                    let remainingTime = parseInt(h) + parseInt(m);
+                    console.log(remainingTime, 'remainingTime');
+                    sendMinutes = timeLeft - remainingTime;;
                 } else {
-                    sendMinutes = timeLeft - remainingTime;
+                    sendMinutes = timeLeft;
+                    sessionStorage.timeLeft = '';
                 }
                 // end
                 test.sendRemainingTime(sendMinutes);

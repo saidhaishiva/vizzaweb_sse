@@ -34,33 +34,35 @@ export class ViewresultComponent implements OnInit {
         this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions;
         this.correctAns = sessionStorage.correctAns;
         this.examPercentage = sessionStorage.examPercentage;
+        this.examStatus = sessionStorage.examStatus;
+        console.log(this.examStatus, 'examStatus');
         let perQuestionMark = 2;
         // let marks = (this.correctAns * perQuestionMark);
         // console.log(marks, 'status');
         // let status;
-        if (sessionStorage.examStatus == 1) {
-            this.single = [
-                {
-                    name: 'Pass',
-                    value: this.examPercentage,
-                    status: 'pass'
-                }
-            ]
-            this.examStatus = this.single[0].status;
-        } else {
-            this.single = [
-                {
-                    name: 'Fail',
-                    value: this.examPercentage,
-                    status: 'fail'
-
-                }
-            ]
-            this.examStatus = this.single[0].status;
-        }
-
-        this.settings = this.appSettings.settings;
-        Object.assign(this.single);
+        // if (sessionStorage.examStatus == 1) {
+        //     this.single = [
+        //         {
+        //             name: 'Pass',
+        //             value: this.examPercentage,
+        //             status: 'pass'
+        //         }
+        //     ]
+        //     this.examStatus = this.single[0].status;
+        // } else {
+        //     this.single = [
+        //         {
+        //             name: 'Fail',
+        //             value: this.examPercentage,
+        //             status: 'fail'
+        //
+        //         }
+        //     ]
+        //     this.examStatus = this.single[0].status;
+        // }
+        //
+        // this.settings = this.appSettings.settings;
+        // Object.assign(this.single);
     }
 
     public onSelect(event) {
