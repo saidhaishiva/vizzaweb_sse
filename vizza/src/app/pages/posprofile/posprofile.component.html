@@ -28,7 +28,7 @@
                             </button>
 
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education'">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="(currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education') && documentStatus !=2">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
 

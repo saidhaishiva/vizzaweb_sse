@@ -61,7 +61,7 @@
                                          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                                              <h3 class="user-name"  style="cursor: pointer"><span>{{row.pos_firstname | titlecase}} {{row.pos_lastname | titlecase}}</span></h3>
                                              <button mat-raised-button color="primary" class="text-right" (click)="POSProfile(row.pos_id, row.pos_status)">
-                                                 View & Approved
+                                                 View <span *ngIf="posStatus !=1">& Approve</span>
                                              </button>
                                          </div>
 
