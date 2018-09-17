@@ -21,7 +21,9 @@
                         <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
                     </div>
                 </mat-toolbar>
-                <p class="login-name">Hi, {{settings.username}}</p>
+
+
+                <p class="login-name" *ngIf="settings.username != 'null null' && settings.username != ''">Hi, {{settings.username}}</p>
                 <!--<nav class="navbar navbar-expand-sm home-nav">-->
 
                     <!--&lt;!&ndash; Links &ndash;&gt;-->
