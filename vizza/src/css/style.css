@@ -118,6 +118,26 @@ button:focus {
   .horizontal-tabs.mat-tab-group .custom-file {
     height: 45px !important; }
 
+training_page h1 {
+  color: green;
+  text-align: center; }
+training_page h2 {
+  text-align: center; }
+training_page h3 {
+  color: blue; }
+training_page table, training_page td, training_page th {
+  border: 1px solid black;
+  padding: 10px; }
+training_page th {
+  text-align: center; }
+training_page table {
+  border-collapse: collapse;
+  width: 100%; }
+training_page a {
+  text-decoration: none !important; }
+training_page .no {
+  text-align: center; }
+
 .register_page {
   color: #FFFFFF;
   flex-direction: column; }
@@ -494,8 +514,6 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
-.proposal .mat-horizontal-stepper-header {
-  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -974,5 +992,18 @@ footer {
     color: #bbb; }
 .letUs .mat-select-value span span {
   color: #fff !important; }
+
+.login-name {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #289e44; }
+
+.selected {
+  background-color: #006E5E !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF !important; }
 
 /*# sourceMappingURL=style.css.map */

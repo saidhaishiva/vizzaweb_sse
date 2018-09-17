@@ -701,9 +701,9 @@ background: #ccc !important;
     }
 
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1348,9 +1348,16 @@ footer{
 
   }
 }
+.login-name{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #289e44;
+}
 
-
-  .selected {
+.selected {
     background-color: #006E5E !important;
     color: #FFFFFF !important;
     border: 2px solid #FFFFFF !important;

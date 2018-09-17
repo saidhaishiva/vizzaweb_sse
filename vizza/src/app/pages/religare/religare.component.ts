@@ -109,12 +109,14 @@ export class ReligareComponent implements OnInit {
     public insureCity: any;
     public isDisable: any;
     public inputReadonly: any;
+    public back: boolean;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
+        this.back = false;
         this.hideQuestion = false;
         this.declaration = false;
         this.settings = this.appSettings.settings;
@@ -660,6 +662,11 @@ export class ReligareComponent implements OnInit {
         return year_age;
     }
 
+    stepback() {
+        this.back = true;
+        console.log(this.back);
+    }
+
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
 
@@ -897,7 +904,11 @@ export class ReligareComponent implements OnInit {
             'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
         };
-        this.processDiseaseData(this.totalData);
+        if (!this.back){
+            console.log("FFDFASFSDFSDFSFSD");
+            this.processDiseaseData(this.totalData);
+        }
+
         const data = this.totalData;
         this.settings.loadingSpinner = true;
         this.proposalservice.getReligareProposal(data).subscribe(
@@ -938,6 +949,7 @@ export class ReligareComponent implements OnInit {
 
 
     processDiseaseData(diseaseData) {
+        console.log("welcome to uindai");
         let updatedFinalData = [];
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
