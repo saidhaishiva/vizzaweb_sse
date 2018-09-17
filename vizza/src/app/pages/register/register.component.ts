@@ -457,7 +457,7 @@ export class RegisterComponent implements OnInit {
             this.pincodeErrors = false;
         } else {
             this.pincodeErrors = true;
-            this.form['controls'].contacts['controls'].pincode.patchValue('');
+            // this.form['controls'].contacts['controls'].pincode.patchValue('');
             // this.toastr.error('Invalid pincode');
 
         }

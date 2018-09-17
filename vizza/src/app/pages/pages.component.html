@@ -22,6 +22,8 @@
                     </div>
                 </mat-toolbar>
 
+
+                <p class="login-name" *ngIf="settings.username != 'null null' && settings.username != ''">Hi, {{settings.username}}</p>
                 <!--<nav class="navbar navbar-expand-sm home-nav">-->
 
                     <!--&lt;!&ndash; Links &ndash;&gt;-->

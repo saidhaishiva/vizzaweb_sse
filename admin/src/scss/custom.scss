@@ -149,88 +149,38 @@ form .mat-icon{
 
 //addpos page design
 .addpos_page{
-  //.gender{
-  // color: #767B78;
-  //}
-  //width:auto;
-  color: #FFFFFF !important;
-  flex-direction: column;
-
-  //.mat-tab-body-content{
-  //  overflow: hidden;
-  //}
-
-  .mat-tab-label {
-    background-color: #D6FFCE;
-    justify-content: start;
+  .mat-tab-header-pagination {
+    background: #ffe8c6 !important;
+    display: none !important;
+  }
+  .mat-tab-label{
+    pointer-events: none!important;
+    display: none;
+    width: 100%;
   }
   .mat-tab-label-active{
-    background: #AEFF9E !important;
-    color: $theme-color !important;
-  }
-  .mat-tab-labels{
-    background: #D6FFCE !important;
-  }
-  .mat-card{
-    background: #3C463A !important;
-    color:white !important;
-  }
-  .mat-icon,i{
-    font-size: 18px !important;
-    color: $light-green !important;
-  }
-  .mat-ink-bar{
-    display: none;
-  }
-  .mat-tab-header{
-    border: none !important
-  }
-  .mat-tab-body-wrapper{
-    padding: 0 16px;
-  }
-  .mat-form-field{
-    background-color: #FFFFFF;
-    padding: 10px  20px;
-    width:100%;
-    color: black;
-    margin-bottom: 8px;
-    border-radius: 5px;
-  }
-  .i{
-    color: $light-green !important;
-  }
-  .btncolor {
-    background-color: $light-green !important;
-    color: #FFFFFF !important;
+    display: block;
+    font-size: 17px;
+    padding-top: 10px;
+    border-radius: 6px 6px 0 0;
   }
 
-  button{
-    margin-buttom: 5px;
-    background-color: $light-green !important;
-    color: #FFFFFF !important;
-    margin: -10px 0px 17px 0px;
+  mat-tab-header{
+    margin-bottom: 15px;
   }
-  .mat-tab-header-pagination{
-    background: #fff;
-  }
-  .mat-tab-body.mat-tab-body-active{
-    margin-top: 15px;
-  }
-  .custom-file-label::after {
-    content: "Attach File" !important;
-    background-color: $light-green;
-    color: white;
-    border: none;
-  }
-  .mat-radio-outer-circle{
-    border-left-color: $light-green !important;
-    border-right-color: $light-green !important;
-    border-top-color: $light-green !important;
-    border-bottom-color: $light-green !important;
-
-  }
-  .mat-radio-inner-circle {
-    background-color: $light-green !important;
+  mat-card {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    right: 0;
+    width: 600px;
+    margin: 4em auto 70px;
+    .mat-tab-body.mat-tab-body-active {
+      overflow-y: hidden !important;
+    }
+    .mat-tab-body-content {
+      overflow: hidden;
+    }
   }
 }
 

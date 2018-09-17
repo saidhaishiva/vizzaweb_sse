@@ -5,19 +5,19 @@
         <div class="addpos_page">
             <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60">
                 <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
-                    <mat-tab-group class="horizontal-tabs" [selectedIndex]="selectedtab">
-                        <mat-tab label="Personal">
+                    <mat-tab-group class="horizantal-tabs" [selectedIndex]="selectedtab">
+                        <mat-tab label="Personal" formGroupName="personal">
                             <div >
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="First name" formControlName="firstname" minlength="3" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
-                                    <mat-error *ngIf="form.controls.firstname.hasError('minlength')">Fis name isn't long enough, minimum of 5 characters</mat-error>
+                                    <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personal.controls.firstname.hasError('minlength')">Fis name isn't long enough, minimum of 5 characters</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Last name" formControlName="lastname" maxlength="50" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100">
@@ -27,14 +27,14 @@
                                            maxlength="10">
                                     <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                     <mat-datepicker touchUi #birthday></mat-datepicker>
-                                    <mat-error *ngIf="form.controls.birthday.errors?.required">Dob is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
                                     <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                                 </mat-form-field>
 
                                 <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                                 <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                                     <mat-radio-button value="male" labelPosition="before">Male</mat-radio-button>
-                                    <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button> <span *ngIf="form.controls.gender.errors?.required " style="color: red"> &nbsp;*</span>
+                                    <mat-radio-button value="female" labelPosition="before">Female</mat-radio-button> <span *ngIf="form.controls.personal.controls.gender.errors?.required " style="color: red"> &nbsp;*</span>
                                 </mat-radio-group>
                                 <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
@@ -57,6 +57,10 @@
                                         <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
                                     </div>
                                 </div>
+                            </div>
+                            <hr>
+                            <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
                             </div>
 
                         </mat-tab>
@@ -223,10 +227,10 @@
                             </mat-form-field>
                         </mat-tab>
                     </mat-tab-group>
-                    <hr>
-                    <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
-                        <button mat-raised-button color="primary" (click)="submit()"  [disabled]="!form.valid">Save</button>
-                    </div>
+                    <!--<hr>-->
+                    <!--<div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">-->
+                        <!--<button mat-raised-button color="primary" (click)="submit()"  [disabled]="!form.valid">Save</button>-->
+                    <!--</div>-->
                 </mat-card>
             </form>
         </div>

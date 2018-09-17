@@ -157,6 +157,36 @@ button:focus{
   }
 }
 
+training_page{
+  h1{
+    color:green;
+    text-align: center;
+  }
+  h2{
+    text-align: center;
+  }
+  h3{
+    color:blue;
+  }
+  table, td, th {
+    border: 1px solid black;
+    padding: 10px;
+  }
+  th{
+    text-align: center;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  a {
+    text-decoration: none !important;
+  }
+  .no{
+    text-align: center;
+  }
+}
+
 //register page design
 .register_page{
   //.gender{
@@ -671,9 +701,9 @@ background: #ccc !important;
     }
 
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1318,6 +1348,17 @@ footer{
 
   }
 }
-.logo-img {
-  width: 100px !important;
+.login-name{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #289e44;
 }
+
+.selected {
+    background-color: #006E5E !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
+  }
