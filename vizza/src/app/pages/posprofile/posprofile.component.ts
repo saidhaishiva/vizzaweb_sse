@@ -105,7 +105,8 @@ export class PosprofileComponent implements OnInit {
     }
     if (this.documentStatus == 2 && this.trainingStatus == 1) {
         this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
-    }  else if (this.documentStatus == 2 && this.examStatus == 1) {
+    }
+    if (this.documentStatus == 2 && this.examStatus == 2) {
         this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
     }
     // if (this.documentStatus == 2) {
