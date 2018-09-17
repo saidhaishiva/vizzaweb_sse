@@ -401,7 +401,6 @@ export class PosprofileComponent implements OnInit {
                 fieldid: this.educationalDocId
             },
         ];
-        if (this.notes != '' && this.notes != undefined) {
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getAdminRoleId(),
@@ -422,9 +421,7 @@ export class PosprofileComponent implements OnInit {
                     this.verificationFailure(error);
                 }
             );
-        } else {
-            this.toastr.error('Please enter notes');
-        }
+
 
     }
     verificationSuccess(successData) {
