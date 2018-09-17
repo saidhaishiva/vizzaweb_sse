@@ -419,14 +419,14 @@
                     <div class="row"  >
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname" (keypress)="data($event)" autocomplete="off" required>
+                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname" (keypress)="data($event)" autocomplete="off" >
                         </mat-form-field>
                       </div>
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" (keypress)="keyPress($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  required>
+                        <input matInput placeholder="Age" (keypress)="keyPress($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>
+                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" >
                                 <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
                                     {{relationship.relationship_name}}
                                 </mat-option>
@@ -436,21 +436,21 @@
                         <!--<input matInput placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" required>-->
                       <!--</mat-form-field></div>-->
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  required>
+                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  >
                       </mat-form-field></div>
                     </div>
                     <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS</h6>
                     <div class="row" *ngIf="nomineeadd.ageSetting">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Appointee" [(ngModel)]="nomineeadd.aname" [required]="nomineeadd.nage < 18" (keypress)="data($event)">
+                          <input matInput placeholder="Name of Appointee" [(ngModel)]="nomineeadd.aname" [required]="nomineeadd.nage < 18 && nomineeadd.nage != '' " (keypress)="data($event)">
                         </mat-form-field>
                       </div>
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18" >
+                        <input matInput placeholder="Age" (keypress)="keyPress($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''" >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18">
+                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
                                 <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
                                     {{relationship.relationship_name}}
                                 </mat-option>

@@ -677,7 +677,7 @@ console.log(value,'fgh');
     nomineeDetails(stepper: MatStepper, index, key) {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
         this.lastStepper = stepper;
-        if (key == 'Nominee Details') {
+        if (key == 'Nominee Details' && this.nomineeDate[index].nominee[0].nage != '' ) {
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
                 if (this.nomineeDate[index].nominee[i].nname != '' &&
                     this.nomineeDate[index].nominee[i].nage != '' &&
@@ -705,6 +705,8 @@ console.log(value,'fgh');
                 }
 
             }
+        } else {
+            this.proposal();
         }
         console.log(this.nomineeDate, 'this.nomineeDate');
     }
