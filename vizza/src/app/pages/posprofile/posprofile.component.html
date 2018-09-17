@@ -28,7 +28,7 @@
                             </button>
 
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education'" [routerLink]="['/pos-edit']">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="(currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education') && documentStatus !=2" [routerLink]="['/pos-edit']">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
 
@@ -163,7 +163,8 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                <mat-icon >school</mat-icon>
+                                <!--<mat-icon >school</mat-icon>-->
+                                    <img src="assets/img/graduation-icon.svg" class="logo-img">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->

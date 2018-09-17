@@ -48,6 +48,7 @@ export class PosComponent implements OnInit {
     holdPOSCount: number;
     rejectedPOSCount: number;
     POSStatus: any;
+    posStatus: any;
 
 
     pageOffSet: any;
@@ -116,6 +117,7 @@ export class PosComponent implements OnInit {
             if (value == 'inactive') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '0') {
+                        this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
@@ -124,6 +126,7 @@ export class PosComponent implements OnInit {
                 }
             } else if (value == 'active') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
+                    this.posStatus = successData.ResponseObject[i].pos_status;
                     if (successData.ResponseObject[i].pos_status === '1') {
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
@@ -134,6 +137,7 @@ export class PosComponent implements OnInit {
             } else if (value == 'rejected') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '2') {
+                        this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
@@ -143,6 +147,7 @@ export class PosComponent implements OnInit {
             } else if (value == 'onhold') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '3') {
+                        this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
