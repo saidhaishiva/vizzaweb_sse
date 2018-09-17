@@ -166,50 +166,7 @@ export class ProposalComponent implements OnInit {
 
         });
 
-        // this.http.get('http://localhost:4203/assets/mockjson/sample.json').subscribe(
-        //     (successData) => {
-        //         this.testProposalSuccess(successData);
-        //     },
-        //     (error) => {
-        //         this.proposalFailure(error);
-        //     }
-        // );
 
-        // this.personal = this.fb.group({
-        //     personalTitle: [''],
-        //     personalFirstname: [''],
-        //     personalLastname: [''],
-        //     personalDob: [''],
-        //     personalOccupation: [''],
-        //     personalIncome: [''],
-        //     personalAadhar: [''],
-        //     personalPan: [''],
-        //     personalGst: [''],
-        //     socialStatus: '',
-        //     socialAnswer1: '',
-        //     socialAnswer2: '',
-        //     socialAnswer3: '',
-        //     socialAnswer4: '',
-        //     personalAddress: [''],
-        //     previousinsurance: '',
-        //     personalAddress2: '',
-        //     personalPincode: [''],
-        //     personalCity: [''],
-        //     personalState: [''],
-        //     personalEmail: [''],
-        //     personalMobile: [''],
-        //     personalAltnumber: [''],
-        //     residenceAddress: '',
-        //     residenceAddress2: '',
-        //     residencePincode: '',
-        //     residenceCity: '',
-        //     residenceState: '',
-        //     residenceEmail: '',
-        //     residenceMobile: [''],
-        //     residenceAltnumber: [''],
-        //     illnessCheck: ''
-        //
-        // });
     }
 
     ngOnInit() {
@@ -228,6 +185,35 @@ export class ProposalComponent implements OnInit {
         } else {
             console.log('family membersssssssssss');
             this.familyMembers  = JSON.parse(sessionStorage.familyMembers);
+        }
+        for (let i = 0; i < this.familyMembers.length; i++) {
+            if (this.familyMembers[i].type == 'Spouse') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Son') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Daughter') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father In Law') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother In Law') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Brother') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Sister') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
         }
         console.log(sessionStorage.nomineeDate, 'sessionStorage.nomineeDate');
         if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
@@ -339,8 +325,8 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'Nill';
-            this.familyMembers[i].ins_engage_winter_sports = 'Nill';
+            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_winter_sports = '';
             this.familyMembers[i].ins_personal_accident_applicable = '1';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
             this.familyMembers[i].ageRestriction = '';
@@ -481,14 +467,7 @@ export class ProposalComponent implements OnInit {
                         this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
                         this.personal.controls['residenceArea'].setValue(this.getStepper1.residenceArea);
                     }
-                    // else {
-                    //     this.personal.controls['residenceAddress'].setValue('');
-                    //     this.personal.controls['residenceAddress2'].setValue('');
-                    //     this.personal.controls['residenceCity'].setValue('');
-                    //     this.personal.controls['residencePincode'].setValue('');
-                    //     this.personal.controls['residenceState'].setValue('');
-                    //     this.personal.controls['residenceArea'].setValue('');
-                    // }
+
                 },2000);
 
             }
@@ -597,6 +576,8 @@ console.log(value,'fgh');
         this.illnesStatus = false;
         this.insureStatus = false;
         console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
+
+
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
@@ -802,8 +783,8 @@ console.log(value,'fgh');
             this.familyMembers[index].ins_engage_winter_sports = '';
 
         } else {
-            this.familyMembers[index].ins_engage_manual_labour = 'Nill';
-            this.familyMembers[index].ins_engage_winter_sports = 'Nill';
+            this.familyMembers[index].ins_engage_manual_labour = 'Nil';
+            this.familyMembers[index].ins_engage_winter_sports = 'Nil';
 
         }
 

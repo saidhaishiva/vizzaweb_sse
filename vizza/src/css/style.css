@@ -198,9 +198,17 @@ a:hover {
   margin: 4em auto 70px; }
 
 .mt-registration .mat-tab-header-pagination {
-  background: #ffe8c6 !important; }
+  background: #ffe8c6 !important;
+  display: none !important; }
 .mt-registration .mat-tab-label {
-  pointer-events: none !important; }
+  pointer-events: none !important;
+  display: none;
+  width: 100%; }
+.mt-registration .mat-tab-label-active {
+  display: block;
+  font-size: 17px;
+  padding-top: 10px;
+  border-radius: 6px 6px 0 0; }
 .mt-registration mat-tab-header {
   margin-bottom: 15px; }
 .mt-registration mat-card {
@@ -208,7 +216,7 @@ a:hover {
   left: 0;
   top: 5px;
   right: 0;
-  width: 500px;
+  width: 600px;
   margin: 4em auto 70px; }
   .mt-registration mat-card .mat-tab-body.mat-tab-body-active {
     overflow-y: hidden !important; }
@@ -486,6 +494,8 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -947,5 +957,22 @@ footer {
       color: #443034; }
   .c2-card footer {
     font-size: 20px; }
+
+.letUs .arrow-left {
+  position: absolute;
+  left: -29px;
+  bottom: 47%;
+  z-index: 99;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 30px solid #f8b03e; }
+.letUs .let1 {
+  background: #e8e8e8; }
+  .letUs .let1 h1 {
+    color: #bbb; }
+.letUs .mat-select-value span span {
+  color: #fff !important; }
 
 /*# sourceMappingURL=style.css.map */

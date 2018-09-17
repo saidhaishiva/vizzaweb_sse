@@ -25,22 +25,22 @@ export class ForgotPasswordComponent implements OnInit {
         this.response = [];
 
         this.form = this.fb.group({
-            'mobilenumber': ['', Validators.compose([Validators.required])]
+            'mobile': ['', Validators.compose([Validators.required])]
         });
     }
 
     public forgot(): void {
         if (this.form.valid) {
             this.settings.loadingSpinner = true;
-            sessionStorage.username = this.form.controls['mobilenumber'].value;
+            sessionStorage.username = this.form.controls['mobile'].value;
             const data = {
-                'contact': this.form.controls['mobilenumber'].value,
+                'mobile': this.form.controls['mobile'].value,
                 "platform": "web",
                 "roleid": 2
                // "patientid": 90
             };
 
-            this.loginService.doForgot(data).subscribe(
+            this.loginService.generateOtp(data).subscribe(
                 (successData) => {
                     this.loginSuccess(successData);
 

@@ -1,5 +1,5 @@
 
-<div fxLayoutWrap fxLayout="row">
+<div fxLayoutWrap fxLayout="row" *ngIf = "posDataAvailable">
     <div fxFlex="100" class="flex-p">
         <mat-card class="p-0 mailbox">
             <mat-sidenav-container>
@@ -28,7 +28,7 @@
                             </button>
 
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="(currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education') && documentStatus !=2">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="(currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education') && documentStatus !=2" [routerLink]="['/pos-edit']">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
 
@@ -173,8 +173,8 @@
 
                                     <div  class="flex-p">
                                         <mat-card class="custom-card customCard">
-                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="center center">
-                                                <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
+                                                <mat-card-title class="m-0"><h6>Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
                                             <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
                                         </mat-card>
@@ -280,8 +280,8 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="assets/img/pass-logo.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
+                                                <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">80%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>
@@ -299,8 +299,8 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="assets/img/fail-logo.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
+                                                <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">20%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>

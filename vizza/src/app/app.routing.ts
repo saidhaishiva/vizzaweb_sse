@@ -22,6 +22,7 @@ import {PaymentSuccessComponent} from './pages/payment-success/payment-success.c
 import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
 import {DeactivateGuard} from './shared/deactivate-guard';
 import {ReligareComponent} from './pages/religare/religare.component';
+import {RelianceComponent} from './pages/reliance/reliance.component';
 import {DeactivatetimeGuard} from './shared/deactivatetime-guard';
 import {ExamComponent} from './pages/exam/exam.component';
 import {ExamactivateGuard} from './shared/activate-guard';
@@ -76,7 +77,8 @@ export const routes: Routes = [
             { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
             { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
             { path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
-            { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} }
+            { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
+            { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} }
 
         ]
     },
