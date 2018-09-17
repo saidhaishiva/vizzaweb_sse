@@ -52,13 +52,14 @@ export class AddposComponent implements OnInit {
         this.dobError = '';
         this.mismatchError = '';
         this.form = this.fb.group({
-            id: null,
-            firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-            lastname: ['', Validators.compose([Validators.required])],
-            birthday: ['', Validators.compose([Validators.required])],
-            gender: ['', Validators.compose([Validators.required])],
-            referralcode: '',
-
+            personal: this.fb.group({
+                id: null,
+                firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+                lastname: ['', Validators.compose([Validators.required])],
+                birthday: ['', Validators.compose([Validators.required])],
+                gender: ['', Validators.compose([Validators.required])],
+                referralcode: '',
+            }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],

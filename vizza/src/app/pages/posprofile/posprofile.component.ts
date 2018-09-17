@@ -36,7 +36,7 @@ export class PosprofileComponent implements OnInit {
     public examDetails: any;
     public posDataAvailable : boolean;
 
-    @ViewChild('sidenav') sidenav: any;
+        @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog, public router: Router) {
@@ -52,6 +52,7 @@ export class PosprofileComponent implements OnInit {
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
         this.getPosProfile();
+
 
 
     }
@@ -77,12 +78,12 @@ export class PosprofileComponent implements OnInit {
               'selected': false
           },
               {
-                  'name': 'Bank Details',
+                  'name': 'Education',
                   'value': 'active',
                   'selected': false
               },
               {
-                  'name': 'Education',
+                  'name': 'Bank Details',
                   'value': 'active',
                   'selected': false
               }];
