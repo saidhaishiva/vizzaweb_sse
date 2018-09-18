@@ -276,7 +276,7 @@ export class ReligareComponent implements OnInit {
                 personalTitle: ['', Validators.required],
                 personalFirstname: new FormControl(''),
                 personalLastname: ['', Validators.required],
-                personalDob: ['', Validators.compose([Validators.required])],
+                personalDob: ['', Validators.required],
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
@@ -401,9 +401,9 @@ export class ReligareComponent implements OnInit {
                 }
             }
 
-            if(aterMobile.includes(0)) {
+            if (aterMobile.includes(0)) {
                 this.toastr.error('Alternative and personal number should be different');
-            } else{
+            } else {
                 stepper.next();
             }
 
@@ -518,13 +518,16 @@ export class ReligareComponent implements OnInit {
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
+
+        console.log(this.personal.value, 'this.personal');
         this.personalData = value;
         this.personalData.rolecd = 'PROPOSER';
         this.personalData.type = 'SELF';
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
+        console.log(value.personalDob, 'value');
         if (this.personal.valid) {
+
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);

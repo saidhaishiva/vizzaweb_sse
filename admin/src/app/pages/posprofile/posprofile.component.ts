@@ -13,14 +13,14 @@ import { AgmCoreModule } from '@agm/core';
 import { ToastrService } from 'ngx-toastr';
 import {Router } from '@angular/router';
 import { CommonService } from '../../shared/services/common.service';
-
+import {DatePipe} from '@angular/common';
 import {PosnotesComponent} from './posnotes/posnotes.component';
 declare var google: any;
 
 @Component({
-  selector: 'app-doctorprofile',
-  templateUrl: './posprofile.component.html',
-  styleUrls: ['./posprofile.component.scss'],
+    selector: 'app-doctorprofile',
+    templateUrl: './posprofile.component.html',
+    styleUrls: ['./posprofile.component.scss'],
     animations: [ listTransition ],
     host: {
         '[@listTransition]': ''
@@ -75,6 +75,7 @@ export class PosprofileComponent implements OnInit {
     getUrl: any;
     doaError: any;
     step: any;
+    recentMark: any;
     comments: string;
     notes: string;
     rows = [];
@@ -82,7 +83,7 @@ export class PosprofileComponent implements OnInit {
     temp = [];
 
 
-    constructor(public route: ActivatedRoute, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
+    constructor(public route: ActivatedRoute, public datepipe: DatePipe, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
 
         this.physical = [];
@@ -104,10 +105,10 @@ export class PosprofileComponent implements OnInit {
         this.notes = '';
         this.comments = '';
         this.step = 0;
-       // this.professional = [];
-      //  this.personal.profileimagepath = '';
-      //   this.professional.doctorExperience.exp = 0;
-      //   this.professional.doctorExperience.experiencemonths = 0;
+        // this.professional = [];
+        //  this.personal.profileimagepath = '';
+        //   this.professional.doctorExperience.exp = 0;
+        //   this.professional.doctorExperience.experiencemonths = 0;
 
         this.route.params.forEach((params: Params) => {
             console.log(params, 'params');
@@ -117,19 +118,19 @@ export class PosprofileComponent implements OnInit {
 
     }
 
-  ngOnInit() {
+    ngOnInit() {
         this.zoom = 15;
-      this.settings = this.appSettings.settings;
-      this.webhost = this.config.getimgUrl();
-      // this.settings.loadingSpinner = false;
-      this.getPosProfile();
-      this.getFields();
-      this.getNotify();
-      this.getComments();
-      this.getTrainingDetails(this.posid);
-      this.getExamDetails(this.posid);
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        // this.settings.loadingSpinner = false;
+        this.getPosProfile();
+        this.getFields();
+        this.getNotify();
+        this.getComments();
+        this.getTrainingDetails(this.posid);
+        this.getExamDetails(this.posid);
 
-  }
+    }
 
     viewImage(path, title) {
         const dialogRef = this.dialog.open(ClinicimageviewComponent, {
@@ -222,6 +223,8 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
+            let len = successData.ResponseObject.length-1;
+            this.recentMark = this.examDetails[len].percentage_in_exam;
         }
     }
     getExamDetailFailure(error) {
@@ -401,26 +404,28 @@ export class PosprofileComponent implements OnInit {
                 fieldid: this.educationalDocId
             },
         ];
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getAdminRoleId(),
-                'admin_id':  this.auth.getAdminId(),
-                'fields': this.field,
-                'online_verification_notes': this.notes,
-                'online_verification_message': this.comments,
-                'pos_id': this.posid,
-                'appointment_date': this.appointmentdate ? this.appointmentdate : '',
-                'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
-            };
-            this.settings.loadingSpinner = true;
-            this.common.updateVerification(data).subscribe(
-                (successData) => {
-                    this.verificationSuccess(successData);
-                },
-                (error) => {
-                    this.verificationFailure(error);
-                }
-            );
+
+        let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id':  this.auth.getAdminId(),
+            'fields': this.field,
+            'online_verification_notes': this.notes,
+            'online_verification_message': this.comments,
+            'pos_id': this.posid,
+            'appointment_date': appointDate == undefined ? '' : appointDate,
+            'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
+        };
+        this.settings.loadingSpinner = true;
+        this.common.updateVerification(data).subscribe(
+            (successData) => {
+                this.verificationSuccess(successData);
+            },
+            (error) => {
+                this.verificationFailure(error);
+            }
+        );
 
 
     }
@@ -437,7 +442,7 @@ export class PosprofileComponent implements OnInit {
         }
     }
     verificationFailure(error) {
-    console.log(error);
+        console.log(error);
         this.settings.loadingSpinner = false;
     }
     onSelectedIndexChange(newTabIndex) {
@@ -495,7 +500,7 @@ export class PosprofileComponent implements OnInit {
             'message_type': 'comments'
 
         }
-            this.common.getComments(data).subscribe(
+        this.common.getComments(data).subscribe(
             (successData) => {
                 this.getCommentSuccess(successData);
             },

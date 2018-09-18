@@ -3,6 +3,7 @@ import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import {AuthService} from './../../shared/services/auth.service';
 import {DashboardService} from '../../shared/services/dashboard.service';
+import { orders, products, customers, refunds } from './dashboard.data';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,10 +13,15 @@ import {DashboardService} from '../../shared/services/dashboard.service';
 export class DashboardComponent implements OnInit {
 
     public settings: Settings;
+    public orders: any[];
+    public products: any[];
     response: any;
     status: any;
     data: any;
     details: any;
+    public colorScheme = {
+        domain: ['#999']
+    };
 
 
     constructor(public appSettings: AppSettings, public Dashboard: DashboardService, public authService: AuthService) {
@@ -25,6 +31,9 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.orders = orders;
+        this.products = products;
+
         // call service
         // this.settings.loadingSpinner = true;
         this.doctorDetails();

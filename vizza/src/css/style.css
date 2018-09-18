@@ -102,22 +102,6 @@ button:focus {
   .pos_login mat-form-field {
     color: #02810E; }
 
-.horizontal-tabs.mat-tab-group {
-  flex-direction: column;
-  width: auto; }
-  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
-    color: white; }
-  .horizontal-tabs.mat-tab-group .mat-tab-label {
-    flex-direction: row; }
-  .horizontal-tabs.mat-tab-group .mat-ink-bar {
-    display: none; }
-  .horizontal-tabs.mat-tab-group .mat-tab-header {
-    border: none !important; }
-  .horizontal-tabs.mat-tab-group .mat-tab-body-wrapper {
-    padding: 0 16px; }
-  .horizontal-tabs.mat-tab-group .custom-file {
-    height: 45px !important; }
-
 training_page h1 {
   color: green;
   text-align: center; }
