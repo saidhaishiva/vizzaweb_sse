@@ -132,30 +132,7 @@ button:focus{
     color: $theme-color;
   }
 }
-//horizontal page design
-.horizontal-tabs.mat-tab-group{
-  flex-direction: column;
-  width:auto;
 
-  .mat-tab-body-wrapper {
-    color: white;
-  }
-  .mat-tab-label {
-    flex-direction: row;
-  }
-  .mat-ink-bar{
-    display: none;
-  }
-  .mat-tab-header{
-    border: none !important
-  }
-  .mat-tab-body-wrapper{
-    padding: 0 16px;
-  }
-  .custom-file{
-    height: 45px !important;
-  }
-}
 
 training_page{
   h1{
@@ -1357,7 +1334,7 @@ footer{
   color: #289e44;
 }
 
-  .mat-list-item.selected {
+.selected {
     background-color: #006E5E !important;
     color: #FFFFFF !important;
     border: 2px solid #FFFFFF !important;
