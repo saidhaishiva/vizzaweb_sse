@@ -13,7 +13,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ToastrService } from 'ngx-toastr';
 import {Router } from '@angular/router';
 import { CommonService } from '../../shared/services/common.service';
-
+import {DatePipe} from '@angular/common';
 import {PosnotesComponent} from './posnotes/posnotes.component';
 declare var google: any;
 
@@ -75,6 +75,7 @@ export class PosprofileComponent implements OnInit {
     getUrl: any;
     doaError: any;
     step: any;
+    recentMark: any;
     comments: string;
     notes: string;
     rows = [];
@@ -82,7 +83,7 @@ export class PosprofileComponent implements OnInit {
     temp = [];
 
 
-    constructor(public route: ActivatedRoute, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
+    constructor(public route: ActivatedRoute, public datepipe: DatePipe, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
 
         this.physical = [];
@@ -222,6 +223,9 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
+            let len = successData.ResponseObject.length-1;
+            this.recentMark = this.examDetails[len].percentage_in_exam;
+            console.log(this.recentMark, 'this.recentMark');
         }
     }
     getExamDetailFailure(error) {
@@ -401,7 +405,9 @@ export class PosprofileComponent implements OnInit {
                 fieldid: this.educationalDocId
             },
         ];
-            const data = {
+
+        let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
+        const data = {
                 'platform': 'web',
                 'role_id': this.auth.getAdminRoleId(),
                 'admin_id':  this.auth.getAdminId(),
@@ -409,7 +415,7 @@ export class PosprofileComponent implements OnInit {
                 'online_verification_notes': this.notes,
                 'online_verification_message': this.comments,
                 'pos_id': this.posid,
-                'appointment_date': this.appointmentdate ? this.appointmentdate : '',
+                'appointment_date': appointDate == undefined ? '' : appointDate,
                 'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
             };
             this.settings.loadingSpinner = true;

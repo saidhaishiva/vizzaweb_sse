@@ -9,19 +9,51 @@
     </div>
 <div class="row dashbord-icon">
     <div class="col-md-3">
-    <mat-card [routerLink]="['/my-doctor']"><img src="assets/img/stethoscope.png" alt=""> My Doctors</mat-card>
+    <mat-card [routerLink]="['/my-doctor']"><img src="assets/img/stethoscope.png" alt="">Pos</mat-card>
     </div>
     <div class="col-md-3">
     <mat-card [routerLink]="['/order-medicine']"><img src="assets/img/pills.png" alt=""> Order Medicine</mat-card>
     </div>
     <div class="col-md-3">
-    <mat-card><img src="assets/img/science.png" alt=""> Lab & Diagnostics</mat-card>
-    </div>
+        <mat-card class="p-0">
+            <mat-card-header class="p-1" fxLayoutAlign="space-between center">
+                <mat-card-subtitle class="m-0">Products profit</mat-card-subtitle>
+                <mat-chip-list>
+                    <mat-chip color="accent" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">trending_up</mat-icon>37%
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-card-header>
+            <div class="w-100 h-100p">
+                <ngx-charts-bar-vertical
+                        [scheme]="colorScheme"
+                        [results]="products"
+                        (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+        </mat-card>    </div>
     <div class="col-md-3">
-    <mat-card [routerLink]="['/medical-record']"><img src="assets/img/report.png" alt=""> Medical Record</mat-card>
+        <mat-card class="p-0">
+            <mat-card-header class="p-1" fxLayoutAlign="space-between center">
+                <mat-card-subtitle class="m-0">Total orders</mat-card-subtitle>
+                <mat-chip-list>
+                    <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">trending_up</mat-icon>15%
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-card-header>
+            <div class="w-100 h-100p">
+                <ngx-charts-line-chart
+                        [scheme]="colorScheme"
+                        [results]="orders"
+                        [autoScale]="autoScale"
+                        (select)="onSelect($event)">
+                </ngx-charts-line-chart>
+            </div>
+        </mat-card>
     </div>
 </div>
-</div>
+
 <!--<div class="row">-->
     <!--<div class="col-md-6">-->
         <!--<mat-card>-->
