@@ -52,6 +52,7 @@ export class EditposComponent implements OnInit {
     personal: any;
     mismatchError: any;
     aadharfront: any;
+    profile: any;
     aadharback: any;
     pancard: any;
     education: any;
@@ -68,13 +69,15 @@ export class EditposComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.mismatchError = '';
         this.form = this.fb.group({
-            id: null,
-            firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-            lastname: ['', Validators.compose([Validators.required])],
-            birthday: ['', Validators.compose([Validators.required])],
-            gender: ['', Validators.compose([Validators.required])],
-            referralcode: '',
-
+            personal: this.fb.group({
+                id: null,
+                firstname: ['', Validators.compose([Validators.required])],
+                lastname: ['', Validators.compose([Validators.required])],
+                birthday: ['', Validators.compose([Validators.required])],
+                gender: ['', Validators.compose([Validators.required])],
+                referralconduct: ['', Validators.compose( [Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                profile: ['',Validators.compose( [Validators.required])],
+            }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required])],
                 phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -96,6 +99,7 @@ export class EditposComponent implements OnInit {
         this.aadharback = '';
         this.pancard = '';
         this.education = '';
+        this.profile='';
         this.type = '';
         this.getPosProfile();
     }
@@ -149,12 +153,14 @@ export class EditposComponent implements OnInit {
           console.log(date, 'dateee');
 
             this.form = this.fb.group({
+                personal: this.fb.group({
                 id: null,
                 firstname: this.personal.pos_firstname,
                 lastname: this.personal.pos_lastname,
                 birthday: date,
                 gender: this.personal.pos_gender,
-                referralcode: this.personal.pos_referral_code,
+                    referralconduct: this.personal.pos_referralcode
+                }),
                 contacts: this.fb.group({
                     email: this.personal.pos_email,
                     phone1: this.personal.pos_mobileno,
@@ -176,6 +182,7 @@ export class EditposComponent implements OnInit {
 
                 }),
             });
+            this.profile =  this.personal.doc_profile_img;
             this.aadharfront = this.personal.doc_aadhar_front_img;
             this.aadharback = this.personal.doc_aadhar_back_img;
             this.pancard = this.personal.doc_pan_img;
@@ -355,11 +362,11 @@ export class EditposComponent implements OnInit {
             "platform": "web",
             "pos_hidden_id": this.authService.getPosUserId(),
             "role_id": this.authService.getPosRoleId(),
-            "pos_referralcode": this.form.controls['referralcode'].value,
-            "pos_firstname": this.form.controls['firstname'].value,
-            "pos_lastname": this.form.controls['lastname'].value ,
+            "pos_referralcode": this.form.value['personal']['referralconduct'],
+            "pos_firstname": this.form.value['personal']['firstname'],
+            "pos_lastname": this.form.value['personal']['lastname'] ,
             "pos_dob": date,
-            "pos_gender": this.form.controls['gender'].value,
+            "pos_gender": this.form.value['personal']['gender'],
             "pos_mobileno": this.form.value['contacts']['phone1'],
             "pos_email": this.form.value['contacts']['email'],
             "pos_address1": this.form.value['contacts']['address1'],
