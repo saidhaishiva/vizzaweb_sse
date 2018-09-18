@@ -1038,6 +1038,8 @@ export class HealthInsuranceComponent implements OnInit {
                     sessionStorage.groupName = gname;
                     if (value.product_id <= 5 ) {
                         this.router.navigate(['/religare']);
+                    } else if(value.product_id == 11){
+                        this.router.navigate(['/reliance']);
                     } else {
                         this.router.navigate(['/proposal']);
                     }
@@ -1049,6 +1051,8 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.groupName = gname;
             if (value.product_id <= 5) {
                 this.router.navigate(['/religare']);
+            }  else if(value.product_id == 11){
+                this.router.navigate(['/reliance']);
             } else {
                 this.router.navigate(['/proposal']);
             }

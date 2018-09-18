@@ -327,7 +327,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = '';
-            this.familyMembers[i].ins_personal_accident_applicable = '1';
+            this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
             this.familyMembers[i].ageRestriction = '';
         }
@@ -619,7 +619,7 @@ console.log(value,'fgh');
                         this.errorMessage = false;
                         this.insureStatus = false;
                         if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                            if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                            if (this.familyMembers[i].ins_personal_accident_applicable == '2') {
                                 if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
                                     if (i == this.familyMembers.length - 1) {
                                         this.insureStatus = true;
@@ -653,15 +653,31 @@ console.log(value,'fgh');
         console.log(this.ageRestriction, 'ageRestriction');
 
         if (this.insureStatus) {
-            if (this.ageRestriction == '') {
-                stepper.next();
-            } else if (this.ageRestriction == 'true') {
-                stepper.next();
+
+            let previousInsurence = [];
+            console.log(previousInsurence, 'ilness');
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
             }
+            if (this.ageRestriction == '') {
+                if (previousInsurence.includes('2')) {
+                    stepper.next();
+                } else {
+                    this.toastr.error('You need to select one adult for personal accident cover');
+                }
+            }
+            if (this.ageRestriction == 'true') {
+                if (previousInsurence.includes('2')) {
+                    stepper.next();
+                } else {
+                    this.toastr.error('You need to select one adult for personal accident cover');
+                }
+
+            }
+
+
         }
 
-        // }
-        console.log(this.illnesStatus, 'ilness');
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
 
@@ -768,7 +784,7 @@ console.log(value,'fgh');
 
 
     personalAccident(values: any, index) {
-        if (values.value == 1) {
+        if (values.value == 2) {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (i != index) {
                     this.familyMembers[i].ins_accident_status = true;
@@ -780,7 +796,7 @@ console.log(value,'fgh');
             }
         }
 
-        if (values.value == '1') {
+        if (values.value == '2') {
             this.familyMembers[index].ins_engage_manual_labour = '';
             this.familyMembers[index].ins_engage_winter_sports = '';
 
