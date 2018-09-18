@@ -13,9 +13,9 @@ import { CommonService } from '../../shared/services/common.service';
 declare var google: any;
 
 @Component({
-  selector: 'app-posprofile',
-  templateUrl: './posprofile.component.html',
-  styleUrls: ['./posprofile.component.scss'],
+    selector: 'app-posprofile',
+    templateUrl: './posprofile.component.html',
+    styleUrls: ['./posprofile.component.scss'],
     animations: [ listTransition ],
     host: {
         '[@listTransition]': ''
@@ -34,9 +34,11 @@ export class PosprofileComponent implements OnInit {
     public documentStatus: any;
     public trainingDetails: any;
     public examDetails: any;
+    public recentMark: any;
+    public startTrainingDate: any;
     public posDataAvailable : boolean;
 
-        @ViewChild('sidenav') sidenav: any;
+    @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
 
     constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService, public dialog: MatDialog, public router: Router) {
@@ -54,164 +56,166 @@ export class PosprofileComponent implements OnInit {
         this.getPosProfile();
 
 
-
     }
 
-  ngOnInit() {
-
-      this.getTrainingDetails();
-      this.getExamDetails();
-      // this.settings.loadingSpinner = false;
-      this.currentTab = 'Personal';
-      if (this.documentStatus != 2) {
-          this.sideNav = [{
-              'name': 'Personal',
-              'value': 'active',
-              'selected': false
-          }, {
-              'name': 'Contact',
-              'value': 'active',
-              'selected': false
-          },{
-              'name': 'Documents',
-              'value': 'active',
-              'selected': false
-          },
-              {
-                  'name': 'Education',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Bank Details',
-                  'value': 'active',
-                  'selected': false
-              }];
+    ngOnInit() {
 
 
-      }
-      if (this.documentStatus == 2) {
-          this.sideNav = [{
-              'name': 'Personal',
-              'value': 'active',
-              'selected': false
-          },{
-              'name': 'Contact',
-              'value': 'active',
-              'selected': false
-          },
-              {
-                  'name': 'Documents',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Bank Details',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Education',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Training',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Examination',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Approval Letter',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Appointment Letter',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Certificate of Training',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Certificate of Examination',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Payment Options',
-                  'value': 'active',
-                  'selected': false
-              }
-          ];
-      }  else if (this.documentStatus == 1 && this.trainingStatus == 1) {
-          this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
-      }  else if (this.documentStatus == 1 && this.examStatus == 1) {
-          this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
-      }  else if (this.documentStatus == 1) {
-          this.sideNav.push({
-                  'name': 'Training',
-                  'value': 'active',
-                  'selected': false
-              },
-              {
-                  'name': 'Examination',
-                  'value': 'active',
-                  'selected': false
-              });
+        this.getTrainingDetails();
+        this.getExamDetails();
+        // this.settings.loadingSpinner = false;
+        this.currentTab = 'Personal';
+        if (this.documentStatus != 2 || this.documentStatus == 2) {
+            this.sideNav = [{
+                'name': 'Personal',
+                'value': 'active',
+                'selected': false
+            }, {
+                'name': 'Contact',
+                'value': 'active',
+                'selected': false
+            },{
+                'name': 'Documents',
+                'value': 'active',
+                'selected': false
+            },
+                {
+                    'name': 'Bank Details',
+                    'value': 'active',
+                    'selected': false
+                },
+                {
+                    'name': 'Education',
+                    'value': 'active',
+                    'selected': false
+                }];
+        }
+        if (this.documentStatus == 2 ) {
+            this.sideNav.push({
+                    'name': 'Training',
+                    'value': 'active',
+                    'selected': false
+                },
+                {
+                    'name': 'Examination',
+                    'value': 'active',
+                    'selected': false
+                });
 
-      }
-      this.sideNav[0].selected = true;
-  }
+        }
+        if (this.documentStatus == 2 && this.trainingStatus == 1) {
+            this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
+        }
+        if (this.documentStatus == 2 && this.examStatus == 2) {
+            this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
+        }
+        // if (this.documentStatus == 2) {
+        //     this.sideNav = [{
+        //         'name': 'Personal',
+        //         'value': 'active',
+        //         'selected': false
+        //     },{
+        //         'name': 'Contact',
+        //         'value': 'active',
+        //         'selected': false
+        //     },
+        //         {
+        //             'name': 'Documents',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Bank Details',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Education',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Training',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Examination',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Approval Letter',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Appointment Letter',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Certificate of Training',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Certificate of Examination',
+        //             'value': 'active',
+        //             'selected': false
+        //         },
+        //         {
+        //             'name': 'Payment Options',
+        //             'value': 'active',
+        //             'selected': false
+        //         }
+        //     ];
+        // }
+
+
+        this.sideNav[0].selected = true;
+    }
 
     viewDetail(i, value) {
-       // this.sideNav[i].selected = true;
+        // this.sideNav[i].selected = true;
         this.selectedTab = i;
         this.currentTab = value;
         let trainingStatus = sessionStorage.trainingStatus;
         let examStatus = sessionStorage.examStatus;
 
         if (value == 'Training') {
-
-            this.settings.loadingSpinner = true;
-            this.router.navigate(['/training']);
+            if (trainingStatus == 0) {
+                this.settings.loadingSpinner = true;
+                this.router.navigate(['/training']);
+            }
         } else if (value == 'Examination') {
 
             if (trainingStatus == 0) {
                 this.examSchedule = 'Please complete training before applying the exam';
             } else if (examStatus == 0) {
                 this.router.navigate(['/startexam']);
-            } else if (examStatus == 1) {
-                this.router.navigate(['/startexam']);
             }
         }
     }
 
-  public getPosProfile() {
-      const data = {
-      'platform': 'web',
-        'roleid': this.auth.getPosRoleId(),
-        'userid': this.auth.getPosUserId(),
-        'pos_id': this.auth.getPosUserId()
-    };
-      this.common.getPosProfile(data).subscribe(
+    public getPosProfile() {
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getPosRoleId(),
+            'userid': this.auth.getPosUserId(),
+            'pos_id': this.auth.getPosUserId()
+        };
+        this.common.getPosProfile(data).subscribe(
 
-          (successData) => {
-              this.getPosProfileSuccess(successData);
+            (successData) => {
+                this.getPosProfileSuccess(successData);
 
-          },
-          (error) => {
-              this.getPosProfileFailure(error);
-          }
-      );
-  }
+            },
+            (error) => {
+                this.getPosProfileFailure(error);
+            }
+        );
+    }
     getPosProfileSuccess(successData) {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
@@ -221,7 +225,7 @@ export class PosprofileComponent implements OnInit {
     }
 
     getPosProfileFailure(error) {
-    console.log(error);
+        console.log(error);
     }
     public getTrainingDetails() {
         const data = {
@@ -244,6 +248,8 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
+            let len = successData.ResponseObject.length -1;
+            this.startTrainingDate = this.examDetails[len].training_attend_date;
         }
     }
     getTrainingDetailFailure(error) {
@@ -270,6 +276,8 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
+            let len = successData.ResponseObject.length -1;
+            this.recentMark = this.examDetails[len].percentage_in_exam;
         }
     }
     getExamDetailFailure(error) {

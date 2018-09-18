@@ -1,5 +1,5 @@
 
-<div fxLayoutWrap fxLayout="row" *ngIf = "posDataAvailable">
+<div fxLayoutWrap fxLayout="row">
     <div fxFlex="100" class="flex-p">
         <mat-card class="p-0 mailbox">
             <mat-sidenav-container>
@@ -28,7 +28,7 @@
                             </button>
 
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="(currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education') && documentStatus !=2" [routerLink]="['/pos-edit']">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="currentTab == 'Personal' || currentTab == 'Contact' || currentTab == 'Bank Details' || currentTab == 'Documents' || currentTab == 'Education'" [routerLink]="['/pos-edit']">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
 
@@ -163,8 +163,7 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                <!--<mat-icon >school</mat-icon>-->
-                                    <img src="assets/img/graduation-icon.svg" class="logo-img">
+                                    <img src="https://rcpsg.ac.uk/images/svg/icon-graduation-cap.svg" class="logo-img" style="width: 60px !important;">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
@@ -173,8 +172,8 @@
 
                                     <div  class="flex-p">
                                         <mat-card class="custom-card customCard">
-                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
-                                                <mat-card-title class="m-0"><h6>Certificate of Education</h6></mat-card-title>
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="center center">
+                                                <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
                                             <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
                                         </mat-card>
@@ -193,7 +192,7 @@
                                         </mat-card-header>
                                         <div fxLayoutAlign="center center">
                                             <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
-                                            </div>
+                                        </div>
                                     </mat-card>
                                 </div>
                                 <div fxFlex="33.3" class="flex-p">
@@ -281,7 +280,7 @@
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
                                                 <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">80%</h1>
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>
@@ -300,7 +299,7 @@
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
                                                 <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
-                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">20%</h1>
+                                                <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
                                         <mat-card-content>
@@ -474,8 +473,8 @@
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
                                             <p>The Said Candidate, had registered for the online training program on
-                                                ................................and completed the 15 hours of POS’P Online Training on
-                                                ………………...</p>
+                                                {{personal.startTrainingDate}} and completed the 15 hours of POS’P Online Training on
+                                                {{personal.training_completed_date}}</p>
                                         </div>
                                     </section>
                                     <section class="row mt-5">
