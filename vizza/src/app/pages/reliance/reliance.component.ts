@@ -109,6 +109,7 @@ export class RelianceComponent implements OnInit {
     public inputReadonly: any;
     public defaultTrue: boolean;
     public maritalDetail: any;
+    public nationalityList: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -139,25 +140,39 @@ export class RelianceComponent implements OnInit {
             personalFirstname: new FormControl(''),
             personalLastname: ['', Validators.required],
             maritalStatus: ['', Validators.required],
+            occupation: ['', Validators.required],
+            nationality: ['', Validators.compose([ Validators.minLength(8)])],
+            passportNo: ['', Validators.required],
             personalMidname: '',
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+            personalFax: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
+            personalAddress3: '',
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
+            personalCountry: ['', Validators.required],
+            personalDistrict: ['', Validators.required],
+            personalArea: ['', Validators.required],
+            personalNearestLandMark: '',
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
-            residenceAddress2: [''],
+            residenceAddress2: ['', Validators.required],
+            residenceAddress3: '',
+            residenceNearestLandMark: '',
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
+            residenceArea: ['', Validators.required],
+            residenceCountry: ['', Validators.required],
+            residenceDistrict: ['', Validators.required],
             residenceState: ['', Validators.required],
             sameas: false,
             rolecd: 'PROPOSER',
@@ -165,8 +180,20 @@ export class RelianceComponent implements OnInit {
 
         });
         this.nomineeDetails = this.fb.group({
-            'religareNomineeName': ['', Validators.required],
-            'religareRelationship': ['', Validators.required]
+            'nomineeFirstName': ['', Validators.required],
+            'nomineeMidName': '',
+            'nomineeLastName': ['', Validators.required],
+            'nomineeRelationship': ['', Validators.required],
+            'nomineeAddress': ['', Validators.required],
+            'nomineeAddress2': ['', Validators.required],
+            'nomineeAddress3': '',
+            'nomineePincode': ['', Validators.required],
+            'nomineeCountry': ['', Validators.required],
+            'nomineeState': ['', Validators.required],
+            'nomineeDistrict': ['', Validators.required],
+            'nomineeCity': ['', Validators.required],
+            'nomineeArea': ['', Validators.required],
+            'nearestLandMark': ['', Validators.required]
         });
 
 
@@ -204,6 +231,7 @@ export class RelianceComponent implements OnInit {
         this.setOccupationList();
         this.setRelationship();
         this.maritalStatus();
+        this.NationalityList();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -276,9 +304,15 @@ export class RelianceComponent implements OnInit {
                 personalTitle: ['', Validators.required],
                 personalFirstname: new FormControl(''),
                 personalLastname: ['', Validators.required],
+                personalMidname: '',
                 personalDob: ['', Validators.compose([Validators.required])],
                 personalGender: ['', Validators.compose([Validators.required])],
+                personalAge: ['', Validators.compose([Validators.required])],
+                maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
+                occupation: ['', Validators.required],
+                personalWidth: ['', Validators.required],
+                personalHeight: ['', Validators.required],
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
                 personalPan: ['', Validators.compose([ Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
@@ -672,9 +706,12 @@ export class RelianceComponent implements OnInit {
                 personalLastname: this.getStepper1.personalLastname,
                 personalMidname: this.getStepper1.personalMidname,
                 maritalStatus: this.getStepper1.maritalStatus,
+                occupation: this.getStepper1.occupation,
+                nationality: this.getStepper1.nationality,
+                personalFax: this.getStepper1.personalFax,
+                passportNo: this.getStepper1.passportNo,
                 personalDob: this.getStepper1.personalDob,
                 personalArea: this.getStepper1.personalArea,
-                residenceArea: this.getStepper1.residenceArea,
                 personalAadhar: this.getStepper1.personalAadhar,
                 personalrelationship: this.getStepper1.personalrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
@@ -683,16 +720,25 @@ export class RelianceComponent implements OnInit {
                 personalGst: this.getStepper1.personalGst,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
+                personalAddress3: this.getStepper1.personalAddress3,
+                personalNearestLandMark: this.getStepper1.personalNearestLandMark,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
                 personalState: this.getStepper1.personalState,
+                personalCountry: this.getStepper1.personalCountry,
+                personalDistrict: this.getStepper1.personalDistrict,
                 personalEmail: this.getStepper1.personalEmail,
                 personalMobile: this.getStepper1.personalMobile,
                 personalAltnumber: this.getStepper1.personalAltnumber,
                 residenceAddress: this.getStepper1.residenceAddress,
                 residenceAddress2: this.getStepper1.residenceAddress2,
+                residenceAddress3: this.getStepper1.residenceAddress3,
+                residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
                 residencePincode: this.getStepper1.residencePincode,
                 residenceCity: this.getStepper1.residenceCity,
+                residenceArea: this.getStepper1.residenceArea,
+                residenceCountry: this.getStepper1.residenceCountry,
+                residenceDistrict: this.getStepper1.residenceDistrict,
                 residenceState: this.getStepper1.residenceState,
                 rolecd: this.getStepper1.rolecd,
                 relationshipcd: this.getStepper1.relationshipcd,
@@ -707,10 +753,15 @@ export class RelianceComponent implements OnInit {
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getStepper2.items[i].personalAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalWidth.patchValue(this.getStepper2.items[i].personalWidth);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
@@ -719,6 +770,7 @@ export class RelianceComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+                this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
@@ -739,8 +791,20 @@ export class RelianceComponent implements OnInit {
             console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
-                religareNomineeName: this.getNomineeData.religareNomineeName,
-                religareRelationship: this.getNomineeData.religareRelationship
+                nomineeFirstName: this.getNomineeData.nomineeFirstName,
+                nomineeMidName: this.getNomineeData.nomineeMidName,
+                nomineeLastName: this.getNomineeData.nomineeLastName,
+                nomineeRelationship: this.getNomineeData.nomineeRelationship,
+                nomineeAddress: this.getNomineeData.nomineeAddress,
+                nomineeAddress2: this.getNomineeData.nomineeAddress2,
+                nomineeAddress3: this.getNomineeData.nomineeAddress3,
+                nomineePincode: this.getNomineeData.nomineePincode,
+                nomineeCountry: this.getNomineeData.nomineeCountry,
+                nomineeState: this.getNomineeData.nomineeState,
+                nomineeDistrict: this.getNomineeData.nomineeDistrict,
+                nomineeCity: this.getNomineeData.nomineeCity,
+                nomineeArea: this.getNomineeData.nomineeArea,
+                nearestLandMark: this.getNomineeData.nearestLandMark
             });
         }
         setTimeout(() => {
@@ -1062,6 +1126,36 @@ export class RelianceComponent implements OnInit {
 
 
 
+    //Nationality List
+    NationalityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelianceNationality(data).subscribe(
+            (successData) => {
+                this.getNationalityStatusSuccess(successData);
+            },
+            (error) => {
+                this.getNationalityStatusFailure(error);
+            }
+        );
+    }
+
+    public getNationalityStatusSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.nationalityList = successData.ResponseObject;
+        }
+    }
+
+    public getNationalityStatusFailure(error) {
+        console.log(error);
+    }
+
+
+
 
 
 //personal city detail
@@ -1333,8 +1427,10 @@ export class RelianceComponent implements OnInit {
     }
 
     public occupationListSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.occupationList = successData.ResponseObject;
+        console.log(successData.ResponseObject, 'occcccccccccccccccccc');
+        if (successData.IsSuccess == true) {
+            this.occupationList = successData.ResponseObject;
+        }
     }
 
     public occupationListFailure(error) {
@@ -1350,7 +1446,7 @@ export class RelianceComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getRelationshipList(data).subscribe(
+        this.proposalservice.getRelatioshipProposerList(data).subscribe(
             (successData) => {
                 this.setRelationshipSuccess(successData);
             },
