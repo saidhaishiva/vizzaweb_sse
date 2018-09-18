@@ -1,19 +1,17 @@
 <div class="container-fluid doctorprofile">
     <mat-card class="doctordetail mb-3">
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-12 text-center">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
                         <div class="user-img">
                             <img *ngIf="posData.pos_profile_img == ''" src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
                             <img *ngIf="posData.pos_profile_img != ''" src="{{webhost + '/' + posData.pos_profile_img}}" class="transition-2 rounded-circle">
-                            <!--<img [hidden]="personal.profileimagepath ==''" src="{{webhost +'/' + personal.profileimagepath}}"-->
-                                  <!--class="rounded-circle">-->
                             <h4 class="mt-2">{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</h4>
-
                             <div class="container personaldetails ">
                                 <p fxLayout="row" fxLayoutAlign="start center">
-
                                     <i class="material-icons user-name" >school</i>  <strong class="user-name">Qualifications : </strong>
                                     <span> {{posData.doc_education | titlecase}}</span>
                                 </p>
@@ -25,10 +23,6 @@
                                     <i class="material-icons user-name">mail</i>  <strong class="user-name">Email : </strong>
                                     <span > {{posData.pos_email}}</span>
                                 </p>
-                                <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span *ngIf="registrationDetails.length > 0">>Registration:</span>-->
-                                <!--<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>-->
-                                <!--</p>-->
                                 <p fxLayout="row" fxLayoutAlign="start center">
                                     <i class="material-icons user-name">location_on</i>  <strong class="user-name">Address : </strong>
                                     <span class="text-capitalize" >{{posData.pos_address1 | titlecase}}<span
@@ -39,104 +33,9 @@
                             </div>
 
                         </div>
-                        <!--<div class="card-footer">-->
-                        <!--<span class="float-left">-->
-                             <!--<div class="float-left"><i-->
-                                     <!--class="fas fa-user-md"></i>-->
-                                                <!--<span >{{doctorExperience.pos_email}} Year(s), </span>-->
-                                                <!--<span >{{doctorExperience.experiencemonths}} Month(s)</span>-->
-                                            <!--</div>-->
-                        <!--</span>-->
-                            <!--<span class="float-right"><i class="fas fa-phone"></i> {{posData.pos_mobileno}}</span>-->
-                        <!--</div>-->
                     </div>
-                    <!--<div class="col-md-12">-->
-                        <!--<div class=" personaldetails mt-3">-->
-                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span>Qualifications:</span>-->
-                                <!--<span>{{posData.doc_education}}</span>-->
-                            <!--</p>-->
-                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span>Phone:</span>-->
-                                <!--<span>{{posData.pos_mobileno}}</span>-->
-                            <!--</p>-->
-                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span>Email:</span>-->
-                                <!--<span>{{posData.pos_email}}</span>-->
-                            <!--</p>-->
-                            <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span *ngIf="registrationDetails.length > 0">>Registration:</span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span><div *ngFor="let item of registrationDetails" class="float-left">{{item.registrationTypeId}} : {{item.registrationNo}}</div></span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
-                            <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                                <!--<span>Address:</span>-->
-                                <!--<span class="text-capitalize">{{posData.pos_address1}}<span-->
-                                        <!--[hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2}}<span-->
-                                        <!--[hidden]="posData.pos_postalcode == ''">-{{posData.pos_postalcode}}</span></span>-->
-                            <!--</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                </div>
-            </div>
-            <div class="col-md-6 pt-2" >
-                <mat-tab-group #tabGroup [selectedIndex]="tabIndex"
-                               (selectedIndexChange)="onSelectedIndexChange($event)">
-                    <!--<mat-tab label="Physical verification">-->
-                        <!--<div class="p-5 pt-2">-->
-                            <!--<div class="row">-->
-                                <!--<div class="col-md-6" *ngFor="let item of physical">-->
-                                    <!--<mat-checkbox [(ngModel)]="item.checked">{{item.displayname}}</mat-checkbox>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
-                    <!--</mat-tab>-->
-                    <mat-tab label="Verification">
-                        <div class="p-5 pt-2">
-                            <div class="row">
-                                <div class="col-md-6" *ngFor="let item of documentslist">
-                                    <mat-checkbox [(ngModel)]="item.checked" >{{item.doc_field_name}}</mat-checkbox>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-tab>
-
-                </mat-tab-group>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div mat-dialog-content >
-                            <mat-form-field class="w-100">
-                                <textarea matInput placeholder="Notify via mailer" rows="4" [(ngModel)]="notes"></textarea>
-                            </mat-form-field>
-                        </div>
-                        <div mat-dialog-content >
-                            <mat-form-field class="w-100">
-                                <textarea matInput placeholder="Internal comments" rows="4" [(ngModel)]="comments"></textarea>
-                            </mat-form-field>
-                        </div>
-
+                    <div class="col-md-3">
                     </div>
-                </div>
-
-                <div class="col-md-12 mt-4">
-                    <div class="row">
-                        <div class="col-md-6 text-left">
-                            <!--<button mat-raised-button color="primary-notess" style="background-color: #e8a662!important; color:white" (click)="getNotes('Notify')">Notify-->
-                            <!--</button>-->
-                            <!--<button mat-raised-button class="secondary-bg-color" *ngIf="currentTap == 0"-->
-                                    <!--(click)="getNotes('Physical Comments')">Comments-->
-                            <!--</button>-->
-                            <!--<button mat-raised-button color="primary"-->
-                                    <!--(click)="getNotes('Online Comments')">Comments-->
-                            <!--</button>-->
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
-                                Reject
-                            </button>
-                            <button mat-raised-button color="primary" *ngIf="posstatus != 1" [disabled]="notes == ''" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
-                        </div>
-                    </div><br>
                 </div>
             </div>
 
@@ -152,9 +51,15 @@
             </mat-expansion-panel-header>
             <div class="row">
                 <div class="col-md-6">
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="aadharFront" >Aadhar Front Image</mat-checkbox>
+                    </div>
                     <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
                 </div>
                 <div class="col-md-6">
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="aadharBack" >Aadhar Back Image</mat-checkbox>
+                    </div>
                     <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
                 </div>
                 <div class="no-data"  *ngIf="posData.doc_aadhar_front_img == '' && posData.doc_aadhar_back_img == ''" >
@@ -178,6 +83,9 @@
                     </i> &nbsp; No Pan Card</p>
                 </div>
                 <div class="col-md-6" *ngIf="posData.doc_pan_img != ''" >
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="panImage" >Pan Image</mat-checkbox>
+                    </div>
                     <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
                 </div>
             </div>
@@ -196,6 +104,9 @@
                 </div>
 
                 <div class="col-md-6" *ngIf="posData.doc_edu_certificate_img != ''" >
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="educationalDoc" >Educational Documents</mat-checkbox>
+                    </div>
                     <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_edu_certificate_img, 'Educational Certificate')">
                 </div>
             </div>
@@ -282,7 +193,7 @@
                 </table>
             </div>
 
-        </mat-expansion-panel>
+        </mat-expansion-panel >
         <mat-expansion-panel *ngIf="posData.training_status != 0 && posData.exam_status != 0">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -291,14 +202,14 @@
             </mat-expansion-panel-header>
             <div >
                 <!--<div fxLayout="row" fxLayoutAlign="center center" class="h-100"  >-->
-                    <!--<div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">-->
-                        <!--&lt;!&ndash;<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-icon>edit</mat-icon>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">-->
-                            <!--<mat-card-title class="m-0 text-center" style="color:red !important"><h5>Please complete training before applying the exam</h5></mat-card-title>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">-->
+                <!--&lt;!&ndash;<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">&ndash;&gt;-->
+                <!--&lt;!&ndash;<mat-icon>edit</mat-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">-->
+                <!--<mat-card-title class="m-0 text-center" style="color:red !important"><h5>Please complete training before applying the exam</h5></mat-card-title>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center" *ngIf="posData.exam_status == 2">
@@ -307,7 +218,7 @@
                             <mat-card-header fxLayoutAlign="center center">
                                 <mat-card-subtitle>
                                     <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
-                                    <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">80%</h1>
+                                    <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                 </mat-card-subtitle>
                             </mat-card-header>
                             <mat-card-content>
@@ -334,8 +245,8 @@
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">
                                 </div>
                                 <!--<div class="w-100 mt-2"  fxLayoutAlign="center center">-->
-                                    <!--<button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/startexam']">Re-Exam-->
-                                    <!--</button>-->
+                                <!--<button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/startexam']">Re-Exam-->
+                                <!--</button>-->
                                 <!--</div>-->
                             </mat-card-content>
                         </mat-card>
@@ -361,8 +272,35 @@
 
             </div>
 
+        </mat-expansion-panel>
+        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Agreement Details
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"   aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label">Letter</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                        <input matInput [matDatepicker]="birthday" placeholder="Date of Birth(DD/MM/YY)"
+                               [(ngModel)]="appointmentdate" (dateInput)="addEvent($event)"
+                               (dateChange)="addEvent($event)" required
+                               maxlength="10">
+                        <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #birthday></mat-datepicker>
+                        <mat-error *ngIf="doaError != ''">Invalid date</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
 
-        </mat-expansion-panel><br>
+        </mat-expansion-panel>
+
 
 
 
@@ -370,9 +308,40 @@
 
 </div>
 
-<div class="row ngx-pos">
+<div class="container-fluid ">
+    <mat-card class="doctordetail mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div mat-dialog-content >
+                    <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Notify via mailer" rows="4" [(ngModel)]="notes"></textarea>
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-content >
+                    <mat-form-field class="w-100">
+                        <textarea matInput placeholder="Internal comments" rows="4" [(ngModel)]="comments"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-4">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                </div>
+                <div class="col-md-6 text-right">
+                    <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
+                        Reject
+                    </button>
+                    <button mat-raised-button color="primary" *ngIf="posstatus != 1" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
+                </div>
+            </div><br>
+        </div>
+    </mat-card>
+</div>
+
+<div class="row">
     <div class="col-md-6">
-        <div class="row mt-5" >
+        <div class="row mb-3" >
             <div class="col-md-12" >
                 <div fxLayout="column">
                     <div class="flex-p">
@@ -408,7 +377,7 @@
 
     </div>
     <div class="col-md-6">
-        <div class="row mt-5" >
+        <div class="row mb-3" >
             <div class="col-md-12" >
                 <div fxLayout="column">
                     <div class="flex-p">
@@ -443,5 +412,5 @@
         </div>
 
     </div>
-</div>
 
+</div>

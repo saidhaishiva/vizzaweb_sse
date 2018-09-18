@@ -18,9 +18,9 @@ import {PosnotesComponent} from './posnotes/posnotes.component';
 declare var google: any;
 
 @Component({
-  selector: 'app-doctorprofile',
-  templateUrl: './posprofile.component.html',
-  styleUrls: ['./posprofile.component.scss'],
+    selector: 'app-doctorprofile',
+    templateUrl: './posprofile.component.html',
+    styleUrls: ['./posprofile.component.scss'],
     animations: [ listTransition ],
     host: {
         '[@listTransition]': ''
@@ -105,10 +105,10 @@ export class PosprofileComponent implements OnInit {
         this.notes = '';
         this.comments = '';
         this.step = 0;
-       // this.professional = [];
-      //  this.personal.profileimagepath = '';
-      //   this.professional.doctorExperience.exp = 0;
-      //   this.professional.doctorExperience.experiencemonths = 0;
+        // this.professional = [];
+        //  this.personal.profileimagepath = '';
+        //   this.professional.doctorExperience.exp = 0;
+        //   this.professional.doctorExperience.experiencemonths = 0;
 
         this.route.params.forEach((params: Params) => {
             console.log(params, 'params');
@@ -118,19 +118,19 @@ export class PosprofileComponent implements OnInit {
 
     }
 
-  ngOnInit() {
+    ngOnInit() {
         this.zoom = 15;
-      this.settings = this.appSettings.settings;
-      this.webhost = this.config.getimgUrl();
-      // this.settings.loadingSpinner = false;
-      this.getPosProfile();
-      this.getFields();
-      this.getNotify();
-      this.getComments();
-      this.getTrainingDetails(this.posid);
-      this.getExamDetails(this.posid);
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        // this.settings.loadingSpinner = false;
+        this.getPosProfile();
+        this.getFields();
+        this.getNotify();
+        this.getComments();
+        this.getTrainingDetails(this.posid);
+        this.getExamDetails(this.posid);
 
-  }
+    }
 
     viewImage(path, title) {
         const dialogRef = this.dialog.open(ClinicimageviewComponent, {
@@ -225,7 +225,6 @@ export class PosprofileComponent implements OnInit {
             this.examDetails = successData.ResponseObject;
             let len = successData.ResponseObject.length-1;
             this.recentMark = this.examDetails[len].percentage_in_exam;
-            console.log(this.recentMark, 'this.recentMark');
         }
     }
     getExamDetailFailure(error) {
@@ -408,25 +407,25 @@ export class PosprofileComponent implements OnInit {
 
         let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
         const data = {
-                'platform': 'web',
-                'role_id': this.auth.getAdminRoleId(),
-                'admin_id':  this.auth.getAdminId(),
-                'fields': this.field,
-                'online_verification_notes': this.notes,
-                'online_verification_message': this.comments,
-                'pos_id': this.posid,
-                'appointment_date': appointDate == undefined ? '' : appointDate,
-                'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
-            };
-            this.settings.loadingSpinner = true;
-            this.common.updateVerification(data).subscribe(
-                (successData) => {
-                    this.verificationSuccess(successData);
-                },
-                (error) => {
-                    this.verificationFailure(error);
-                }
-            );
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id':  this.auth.getAdminId(),
+            'fields': this.field,
+            'online_verification_notes': this.notes,
+            'online_verification_message': this.comments,
+            'pos_id': this.posid,
+            'appointment_date': appointDate == undefined ? '' : appointDate,
+            'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
+        };
+        this.settings.loadingSpinner = true;
+        this.common.updateVerification(data).subscribe(
+            (successData) => {
+                this.verificationSuccess(successData);
+            },
+            (error) => {
+                this.verificationFailure(error);
+            }
+        );
 
 
     }
@@ -443,7 +442,7 @@ export class PosprofileComponent implements OnInit {
         }
     }
     verificationFailure(error) {
-    console.log(error);
+        console.log(error);
         this.settings.loadingSpinner = false;
     }
     onSelectedIndexChange(newTabIndex) {
@@ -501,7 +500,7 @@ export class PosprofileComponent implements OnInit {
             'message_type': 'comments'
 
         }
-            this.common.getComments(data).subscribe(
+        this.common.getComments(data).subscribe(
             (successData) => {
                 this.getCommentSuccess(successData);
             },
