@@ -933,13 +933,13 @@ export class ReligareComponent implements OnInit {
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                if (this.relationshipList[i].relationship_code == this.summaryData.relationship_code) {
-                    this.summaryRelationship = this.relationshipList[i].relationship_name;
-
-
-                }
-            }
+            // for (let i = 0; i < this.relationshipList.length; i++) {
+            //     if (this.relationshipList[i].relationship_code == this.summaryData.relationship_code) {
+            //         this.summaryRelationship = this.relationshipList[i].relationship_name;
+            //
+            //
+            //     }
+            // }
             console.log( this.summaryRelationship,'aaaaaa');
             this.lastStepper.next();
 
