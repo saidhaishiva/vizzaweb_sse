@@ -401,9 +401,9 @@ export class ReligareComponent implements OnInit {
                 }
             }
 
-            if(aterMobile.includes(0)) {
+            if (aterMobile.includes(0)) {
                 this.toastr.error('Alternative and personal number should be different');
-            } else{
+            } else {
                 stepper.next();
             }
 

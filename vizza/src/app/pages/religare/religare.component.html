@@ -44,22 +44,14 @@
                         <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
                         <mat-error *ngIf="personal.controls.personalGender.errors?.required">Gender is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="add($event)    autocomplete="off" required >
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="add($event)"    autocomplete="off" required >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                       </mat-form-field>
                       </div>
-
-                      <!--<div class="col-md-6"><mat-form-field class="w-100">-->
-                        <!--<input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  (keypress)="add($event)"-->
-                               <!--autocomplete="off" maxlength="10"  required>-->
-                        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                        <!--<mat-datepicker #picker></mat-datepicker>-->
-                        <!--<mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>-->
-                      <!--</mat-form-field>-->
-                      <!--</div>-->
 
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar"  autocomplete="off">
@@ -634,7 +626,7 @@
           </section>
 
           <div class="proposal-buttom mt-3 text-right w-100">
-            <button mat-button matStepperPrevious >Back</button>
+            <button mat-button matStepperPrevious (click)="stepback()" >Back</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
