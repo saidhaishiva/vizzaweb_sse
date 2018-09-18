@@ -378,7 +378,7 @@
                                                             <td>{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Mr / Ms</td>
+                                                            <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
                                                             <td>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </td>
                                                         </tr>
                                                         <tr>
@@ -459,7 +459,8 @@
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                         <div class="col-md-3">
-                                            <img src="assets/img/users/default-user.jpg" alt="">
+                                            <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                            <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
                                         <div class="col-md-9">
                                             <h1 class="c-font">Certification</h1>
@@ -469,11 +470,11 @@
                                     <section class="row mt-5">
                                         <div class="c-content w-100">
                                             <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                            <p>Mr./Ms./Mrs. <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span> <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
                                             <p>The Said Candidate, had registered for the online training program on
-                                                {{personal.startTrainingDate}} and completed the 15 hours of POS’P Online Training on
+                                                {{startTrainingDate}} and completed the 15 hours of POS’P Online Training on
                                                 {{personal.training_completed_date}}</p>
                                         </div>
                                     </section>
@@ -526,7 +527,8 @@
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                         <div class="col-md-3">
-                                            <img src="assets/img/users/default-user.jpg" alt="">
+                                            <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                            <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
                                         <div class="col-md-9">
                                             <h1 class="c-font">Certificate</h1>
@@ -536,7 +538,7 @@
                                     <section class="row mt-5">
                                         <div class="c-content text-center w-100">
                                             <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                            <p>Mr/Mrs/Ms <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span><strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
                                             <p>passed the Point of Sales Person Examination held on</p>
                                             <p>……………………………………..</p>
                                             <p>and qualified under the stream of</p>

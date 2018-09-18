@@ -35,6 +35,7 @@ export class PosprofileComponent implements OnInit {
     public trainingDetails: any;
     public examDetails: any;
     public recentMark: any;
+    public posStatus: any;
     public startTrainingDate: any;
     public posDataAvailable : boolean;
 
@@ -50,6 +51,8 @@ export class PosprofileComponent implements OnInit {
         this.examStatus = sessionStorage.examStatus;
         this.trainingStatus = sessionStorage.trainingStatus;
         this.documentStatus = this.auth.getSessionData('documentStatus');
+        this.posStatus = this.auth.getSessionData('posStatus');
+
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
@@ -102,6 +105,14 @@ export class PosprofileComponent implements OnInit {
                     'selected': false
                 });
 
+        }
+        if (this.posStatus == 1 ) {
+            this.sideNav.push(
+                {
+                    'name': 'Appointment Letter',
+                    'value': 'active',
+                    'selected': false
+                });
         }
         if (this.documentStatus == 2 && this.trainingStatus == 1) {
             this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
@@ -220,6 +231,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
+            this.posStatus = this.personal.pos_status;
             this.posDataAvailable = true;
         }
     }
@@ -248,8 +260,8 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
-            let len = successData.ResponseObject.length -1;
-            this.startTrainingDate = this.examDetails[len].training_attend_date;
+            // let len = successData.ResponseObject.length -1;
+            this.startTrainingDate = this.trainingDetails[0].training_attend_date;
         }
     }
     getTrainingDetailFailure(error) {
