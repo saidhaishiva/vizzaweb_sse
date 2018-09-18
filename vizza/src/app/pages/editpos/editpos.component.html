@@ -8,39 +8,85 @@
         <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
         <mat-card-subtitle><h3>Profile Edit</h3></mat-card-subtitle>
 
-        <mat-tab-group class="horizontal-tabs" [selectedIndex]="selectedtab">
-          <mat-tab label="Personal">
-            <div >
-              <mat-form-field class="w-100">
-                <mat-placeholder><mat-icon>person</mat-icon> First name</mat-placeholder>
-                <input matInput formControlName="firstname" minlength="3" required>
-                <mat-error *ngIf="form.controls.firstname.errors?.required">First name is required</mat-error>
-                <mat-error *ngIf="form.controls.firstname.hasError('minlength')">Fis name isn't long enough, minimum of 5 characters</mat-error>
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <mat-placeholder><mat-icon>person</mat-icon> Last name</mat-placeholder>
-                <input matInput formControlName="lastname" maxlength="50" required>
-                <mat-error *ngIf="form.controls.lastname.errors?.required">Last name is required</mat-error>
-              </mat-form-field>
+        <mat-tab-group class="horizontal-tabs w-100" [selectedIndex]="selectedtab">
+          <mat-tab label="Personal" formGroupName="personal">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" required>
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
+              <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
+              <mat-datepicker  #birthday></mat-datepicker>
+              <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
+              <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
+            </mat-form-field>
+
+            <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
+            <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+            <mat-radio-group formControlName="gender" (change)="checkGender()" required>
+              <mat-radio-button value="male" class="mr-2">Male<span class="error"> *</span></mat-radio-button>
+              <mat-radio-button value="female" >Female<span class="error"> *</span></mat-radio-button>
+              <!--<div *ngIf="form.controls.gender.errors?.required">Gender is required</div>-->
+            </mat-radio-group>
+            <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
 
-              <mat-radio-group formControlName="gender">
-                <mat-radio-button value="male" [checked]="personal.gender === 'male'" labelPosition="before">Male</mat-radio-button>
-                <mat-radio-button value="female" [checked]="personal.gender === 'female'" labelPosition="before">Female</mat-radio-button>
-              </mat-radio-group>
-              <mat-form-field class="w-100">
-                <input matInput [matDatepicker]="birthday"  placeholder="Dateofbirth" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
-                <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-                <mat-datepicker touchUi  #birthday></mat-datepicker>
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <mat-placeholder>Referral Code</mat-placeholder>
-                <input matInput formControlName="referralcode" >
-              </mat-form-field>
-              <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" minlength="10" maxlength="10">
+              <i class="fas fa-phone" matSuffix></i>
+              <mat-error *ngIf="form.controls.personal.controls.referralconduct.errors?.required">Referral Contacts Number is required</mat-error>
+              <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
+            </mat-form-field>
+            <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
-            </div>
 
+
+              <div>
+                  <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+              </div>
+
+              <div class="row col-md-12">
+                  <div class="col-md-6">
+                      <p>Aadhar Front Image</p>
+                  </div>
+                  <div class="col-md-6 uploadBtn" *ngIf="personal.doc_profile_img != 2">
+                      <label class="btn-bs-file btn btn-secondary">
+                          Browse
+                          <input type='file' (change)="readUrl($event, 'aadhar front')">
+                      </label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div *ngIf="aadharfront != ''">
+                                            <span class="imageclose mr-2">
+                                                <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                            </span>
+                      </div>
+                  </div>
+              </div>
+            <!--<div class="w-100 mt-2">-->
+              <!--<div class="custom-file">-->
+                <!--<input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">-->
+                <!--<label class="custom-file-label">Attach Your Profile Picture</label>-->
+                <!--<div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row w-100">-->
+              <!--<div class="col-md-12">-->
+                <!--<div *ngIf="profile != ''">-->
+                  <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
           </mat-tab>
 
           <mat-tab label="Contacts" formGroupName="contacts">
@@ -87,7 +133,6 @@
                 <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
                 <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Enter Valid Pan Number</mat-error>
                 <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('maxlength')">Enter Valid Pan Number</mat-error>
-
               </mat-form-field>
 
 
