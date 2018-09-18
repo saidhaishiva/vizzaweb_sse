@@ -546,7 +546,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Doctor rejected successfully');
+            this.toastr.success('Rejected successfully');
             this.router.navigate(['/pos']);
         }
 
