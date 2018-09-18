@@ -382,7 +382,7 @@
                     <div class="col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>personal Accident Applicable</p>
                       <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required [disabled]="item.ins_accident_status" >
-                        <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
+                        <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
                     </div>
@@ -427,7 +427,7 @@
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" >
-                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
+                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_name}}" >
                                     {{relationship.relationship_name}}
                                 </mat-option>
                             </mat-select>

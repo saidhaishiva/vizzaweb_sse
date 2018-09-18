@@ -108,6 +108,7 @@ export class RelianceComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public defaultTrue: boolean;
+    public maritalDetail: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -137,6 +138,8 @@ export class RelianceComponent implements OnInit {
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
             personalLastname: ['', Validators.required],
+            maritalStatus: ['', Validators.required],
+            personalMidname: '',
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
@@ -197,10 +200,10 @@ export class RelianceComponent implements OnInit {
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
-        this.setOccupationListCode();
         this.religareQuestions();
         this.setOccupationList();
         this.setRelationship();
+        this.maritalStatus();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -215,7 +218,6 @@ export class RelianceComponent implements OnInit {
             'Liberty General Insurance Co. Ltd.',
             'Shriram General Insurance Co. Ltd.',
             'Reliance General Insurance Co. Ltd',
-            'Reliance General Insurance Co. Ltd.',
             'DHFL General Insurance Co. Ltd.',
             'Bajaj Allianz Allianz General Insurance Co. Ltd.',
             'Edelweiss General Insurance Co.Ltd.',
@@ -668,6 +670,8 @@ export class RelianceComponent implements OnInit {
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalLastname: this.getStepper1.personalLastname,
+                personalMidname: this.getStepper1.personalMidname,
+                maritalStatus: this.getStepper1.maritalStatus,
                 personalDob: this.getStepper1.personalDob,
                 personalArea: this.getStepper1.personalArea,
                 residenceArea: this.getStepper1.residenceArea,
@@ -1028,6 +1032,37 @@ export class RelianceComponent implements OnInit {
         console.log(error);
     }
 
+//Marital Status
+    maritalStatus() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getMaritalStatus(data).subscribe(
+            (successData) => {
+                this.getMaritalStatusSuccess(successData);
+            },
+            (error) => {
+                this.getMaritalStatusFailure(error);
+            }
+        );
+    }
+
+    public getMaritalStatusSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.maritalDetail = successData.ResponseObject;
+        }
+    }
+
+    public getMaritalStatusFailure(error) {
+        console.log(error);
+    }
+
+
+
+
 
 //personal city detail
     getPostal(pin, title) {
@@ -1282,11 +1317,11 @@ export class RelianceComponent implements OnInit {
     setOccupationList() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
+            'product_id': '11',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getOccupationList(data).subscribe(
+        this.proposalservice.getRelianceOccupation(data).subscribe(
             (successData) => {
                 this.occupationListSuccess(successData);
             },
@@ -1307,31 +1342,6 @@ export class RelianceComponent implements OnInit {
     }
 
 
-    setOccupationListCode() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getOccupationCode(data).subscribe(
-            (successData) => {
-                this.occupationCodeSuccess(successData);
-            },
-            (error) => {
-                this.occupationCodeFailure(error);
-            }
-        );
-
-    }
-
-    public occupationCodeSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.occupationCode = successData.ResponseObject;
-    }
-
-    public occupationCodeFailure(error) {
-        console.log(error);
-    }
 
     setRelationship() {
         const data = {
