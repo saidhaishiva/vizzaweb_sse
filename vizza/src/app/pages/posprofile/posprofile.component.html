@@ -52,22 +52,22 @@
                                                 </span>
                                             </h6>
                                             <div class="row personaldetails">
-                                                <div class="col-md-5"></div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-5">
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">person</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_gender}}</span>
+                                                        <mat-icon class="muted-text  colorBank">person</mat-icon>&nbsp;<span class="colorBank"> Gender : </span>
+                                                        <span class="text-capitalize ml-1" > {{personal.pos_gender}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">date_range</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_dob}}</span>
+                                                        <mat-icon class="muted-text colorBank ">date_range</mat-icon>&nbsp;<span class="colorBank"> DOB : </span>
+                                                        <span class="ml-1"> {{personal.pos_dob}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">supervised_user_circle</mat-icon>&nbsp;
-                                                        <span class="text-capitalize">{{personal.pos_myreferral_code}}</span>
+                                                        <mat-icon class="muted-text colorBank">supervised_user_circle</mat-icon>&nbsp;<span class="colorBank"> Referral Code : </span>
+                                                        <span class="text-capitalize ml-1"> {{personal.pos_myreferral_code}}</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-md-5"></div>
+                                                <div class="col-md-3"></div>
 
                                             </div>
                                         </mat-list>
@@ -82,32 +82,32 @@
                                     <mat-card-content>
                                         <mat-list class="p-0">
                                             <div class="personaldetails">
-                                                <p fxLayout="row" fxLayoutAlign="start center">
-                                                    <mat-icon class="muted-text">phone</mat-icon>&nbsp;
-                                                    <span>{{personal.pos_mobileno}}</span>
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Phone No : </span>
+                                                    <span class="ml-1"> {{personal.pos_mobileno}}</span>
                                                 </p>
                                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                                    <mat-icon class="muted-text">mail</mat-icon>&nbsp;
-                                                    <span class="text-capitalize">{{personal.pos_email}}</span>
+                                                    <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
+                                                    <span class="ml-1"> {{personal.pos_email}}</span>
                                                 </p>
                                                 <div>
                                                     <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
-                                                        <mat-icon class="muted-text">location_on</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_address1}}</span>
+                                                        <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
+                                                        <span class="ml-1"> {{personal.pos_address1}}</span>
                                                         <span *ngIf="personal.pos_address2 != ''">,</span>
                                                         <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
                                                         <span *ngIf="personal.pos_cityid != ''">,</span>
                                                     </p>
 
-                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_cityid}}
+                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.pos_cityid}}
                                                         <span *ngIf="personal.pos_cityid != null">-</span>
                                                         {{personal.pos_postalcode}}
                                                         <span *ngIf="personal.pos_stateid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_stateid}}
+                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_stateid}}
                                                         <span *ngIf="personal.pos_countryid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_countryid}}</p>
+                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_countryid}}</p>
                                                 </div>
 
                                             </div>
@@ -126,7 +126,7 @@
                                                 <div class="col-md-2"></div>
                                                 <div class="col-md-8">
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text colorBank">account_balance</mat-icon>&nbsp;<span class="colorBank"> Bank Nmae : </span>
+                                                        <mat-icon class="muted-text colorBank">account_balance</mat-icon>&nbsp;<span class="colorBank"> Bank Name : </span>
                                                         <span class="text-capitalize ml-2">{{personal.bank_name}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
@@ -169,7 +169,7 @@
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
 
                                 <div fxLayout="row" fxLayoutAlign="center center">
-                                    <div fxFlex="33.3" class="flex-p">
+                                    <div fxFlex="50" class="flex-p">
                                         <mat-card class="custom-card">
                                             <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
                                                 <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
@@ -624,6 +624,12 @@
 <style>
     .customCard {
         height: 250px !important;
+    }
+</style>
+
+<style>
+    .cursor {
+        cursor: pointer;
     }
 </style>
 
