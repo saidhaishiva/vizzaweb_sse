@@ -13,7 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule} from '@angular/material';
-
+import { PdfViewerModule} from 'ng2-pdf-viewer';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 
@@ -107,6 +107,7 @@ import { UploadExcel} from './pages/question/listquestion/listquestion.component
         SharedModule,
         PipesModule,
         NgxPaginationModule,
+        PdfViewerModule,
         routing
     ],
     declarations: [
