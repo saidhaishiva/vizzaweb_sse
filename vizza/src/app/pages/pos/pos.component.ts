@@ -84,7 +84,7 @@ export class PosComponent implements OnInit {
             // training_status
             this.settings.userId = this.authService.getPosUserId();
             this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
-            this.router.navigate(['/home']);
+            this.router.navigate(['/pos-profile']);
         } else {
             this.toast.error(successData.ErrorObject);
         }

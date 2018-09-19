@@ -9,6 +9,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmCoreModule } from '@agm/core';
 import { CommonService } from '../../shared/services/common.service';
+import {DocumentViewComponent} from './document-view/document-view.component';
 
 declare var google: any;
 
@@ -48,7 +49,7 @@ export class PosprofileComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
-        this.examStatus = sessionStorage.examStatus;
+        this.examStatus = this.auth.getSessionData('examStatus');
         this.trainingStatus = sessionStorage.trainingStatus;
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.posStatus = this.auth.getSessionData('posStatus');
@@ -106,19 +107,25 @@ export class PosprofileComponent implements OnInit {
                 });
 
         }
+
+        if (this.documentStatus == 2 && this.trainingStatus == 1) {
+            this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
+        }
+        if (this.documentStatus == 2 && this.examStatus == 2) {
+            this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
+        }
         if (this.posStatus == 1 ) {
             this.sideNav.push(
                 {
                     'name': 'Appointment Letter',
                     'value': 'active',
                     'selected': false
-                });
-        }
-        if (this.documentStatus == 2 && this.trainingStatus == 1) {
-            this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
-        }
-        if (this.documentStatus == 2 && this.examStatus == 2) {
-            this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
+                },
+                {
+                    'name': 'Agreement Letter',
+                    'value': 'active',
+                    'selected': false
+                },);
         }
         // if (this.documentStatus == 2) {
         //     this.sideNav = [{
@@ -192,7 +199,8 @@ export class PosprofileComponent implements OnInit {
         this.selectedTab = i;
         this.currentTab = value;
         let trainingStatus = sessionStorage.trainingStatus;
-        let examStatus = sessionStorage.examStatus;
+        let examStatus = this.auth.getSessionData('examStatus');
+
 
         if (value == 'Training') {
             if (trainingStatus == 0) {
@@ -203,7 +211,7 @@ export class PosprofileComponent implements OnInit {
 
             if (trainingStatus == 0) {
                 this.examSchedule = 'Please complete training before applying the exam';
-            } else if (examStatus == 0) {
+            } else if (examStatus == '0') {
                 this.router.navigate(['/startexam']);
             }
         }
@@ -233,11 +241,27 @@ export class PosprofileComponent implements OnInit {
             this.personal = successData.ResponseObject;
             this.posStatus = this.personal.pos_status;
             this.posDataAvailable = true;
+console.log(this.personal.exam_status, 'statuse');
+            if (this.personal.exam_status == 2) {
+                this.auth.setSessionData('examStatus', this.personal.exam_status);
+            }
+
         }
     }
 
     getPosProfileFailure(error) {
         console.log(error);
+    }
+    viewImage(path, title) {
+        const dialogRef = this.dialog.open(DocumentViewComponent, {
+            width: '800px',
+            data: {'img': path, 'title': title}
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
     }
     public getTrainingDetails() {
         const data = {

@@ -163,19 +163,18 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                    <img src="https://rcpsg.ac.uk/images/svg/icon-graduation-cap.svg" class="logo-img" style="width: 60px !important;">
+                                    <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
 
                                 <div fxLayout="row" fxLayoutAlign="center center">
-
-                                    <div  class="flex-p">
-                                        <mat-card class="custom-card customCard">
-                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="center center">
+                                    <div fxFlex="33.3" class="flex-p">
+                                        <mat-card class="custom-card">
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
                                                 <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
-                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
+                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="" (click)="viewImage(personal.doc_edu_certificate_img, 'Educational Certificate')">
                                         </mat-card>
                                     </div>
                                 </div>
@@ -184,40 +183,45 @@
 
                         <div *ngIf="currentTab == 'Documents'">
                             <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Aadhar No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" >
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard">
-                                        <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Aadhar Front</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Front Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="" (click)="viewImage(personal.doc_aadhar_front_img, 'Aadhar Fron Image')">
                                     </mat-card>
                                 </div>
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard">
-                                        <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Aadhar Back</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Back Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="" (click)="viewImage(personal.doc_aadhar_back_img, 'Aadhar Back Image')">
                                     </mat-card>
                                 </div>
+                                <!--<div fxFlex="33.3" class="flex-p">-->
+                                    <!--<mat-card class="custom-card docCard">-->
+                                        <!--<mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">-->
+                                            <!--<mat-card-title class="m-0"><h6>Aadhar Back Image</h6></mat-card-title>-->
+                                        <!--</mat-card-header>-->
+                                        <!--<div fxLayoutAlign="center center">-->
+                                            <!--<img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">-->
+                                        <!--</div>-->
+                                    <!--</mat-card>-->
+                                <!--</div>-->
                             </div>
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
 
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard" >
-                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Pan Imgae</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Pan Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_pan_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_pan_img}}" alt="" (click)="viewImage(personal.doc_pan_img, 'Pan Image')">
                                     </mat-card>
                                 </div>
                             </div>
@@ -279,7 +283,7 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
+                                                <img style="width: 150px" src="assets/img/pass-logo.png" >
                                                 <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
@@ -298,7 +302,7 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
+                                                <img style="width: 150px" src="assets/img/fail-logo.png" >
                                                 <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
@@ -319,13 +323,18 @@
                                     <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Time</th>
                                         <th>Percentage</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let lists of examDetails">
                                         <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
+                                        <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                                         <td>{{lists.percentage_in_exam}}</td>
+                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
+                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
                                     </tr>
 
                                     </tbody>
@@ -371,11 +380,11 @@
                                                     <table>
                                                         <tr>
                                                             <td>Date</td>
-                                                            <td>XXXXXXXX</td>
+                                                            <td>{{personal.appointment_date}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>POS’P ID</td>
-                                                            <td>{{personal.pos_id}}</td>
+                                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
@@ -405,7 +414,8 @@
                                                     </table>
                                                 </div>
                                                 <div class="col-md-6 text-right">
-                                                    <img src="assets/img/users/default-user.jpg" alt="">
+                                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -483,15 +493,15 @@
                                             <table>
                                                 <tr>
                                                     <td>Place</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>Chennai</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>{{personal.training_completed_date }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
-                                                    <td>{{personal.pos_id}}</td>
+                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -540,7 +550,7 @@
                                             <h5 class="c-title"><span>This is to certificaty that</span></h5>
                                             <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span><strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
                                             <p>passed the Point of Sales Person Examination held on</p>
-                                            <p>……………………………………..</p>
+                                            <p>{{personal.exam_completed_date }}</p>
                                             <p>and qualified under the stream of</p>
                                             <p>Point of Sales Person</p>
                                             <p>as per regulations 2017 of</p>
@@ -552,15 +562,15 @@
                                             <table>
                                                 <tr>
                                                     <td>Place</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>Chennai</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>{{personal.exam_completed_date }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
-                                                    <td>{{personal.pos_id}}</td>
+                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -576,7 +586,13 @@
                             </div>
                         </div>
 
+                        <div fxFlex="33.3" class="flex-p" *ngIf="currentTab == 'Agreement Letter'">
+                            <pdf-viewer src="{{webhost +'/' + personal.pos_profile_img}}"
+                                        [render-text]="true"
+                                        style="display: block;"
+                            ></pdf-viewer>
 
+                        </div>
 
                         <div fxFlex="33.3" class="flex-p" *ngIf="currentTab == 'ID Card'">
                             <mat-card class="custom-card">
