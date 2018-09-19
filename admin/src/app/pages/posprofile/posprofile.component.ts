@@ -78,6 +78,8 @@ export class PosprofileComponent implements OnInit {
     recentMark: any;
     bankDocId: any;
     bankDoc: any;
+    isAlreadyAgent: any;
+    isAlreadyAgentId: any;
     comments: string;
     notes: string;
     rows = [];
@@ -199,6 +201,15 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
+            for (let i = 0; i < this.trainingDetails.length; i++) {
+                let num = this.trainingDetails[i].entry_time;
+                let hours = (num / 60);
+                let rhours = Math.floor(hours);
+                let minutes = (hours - rhours) * 60;
+                let rminutes = Math.round(minutes);
+                this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+            }
+
         }
     }
     getTrainingDetailFailure(error) {
@@ -273,6 +284,8 @@ export class PosprofileComponent implements OnInit {
             this.educationalDocId = this.documentslist[3].doc_field_id;
             this.bankDoc = this.documentslist[4].checked;
             this.bankDocId = this.documentslist[4].doc_field_id;
+            this.isAlreadyAgent = this.documentslist[5].checked;
+            this.isAlreadyAgentId = this.documentslist[5].doc_field_id;
             console.log(this.documentslist);
 
         }

@@ -1170,5 +1170,51 @@ a{
 .docCard {
   height: 225px !important;
 }
+.text-title-color {
+  color: darkgreen;
+}
 
+.certificate-bg{
+  background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
+  width: 100%;
+  background-attachment: fixed;
+}
+#pos-cirtificate {
+  .c-card {
+    border-left: 20px solid #219c44;
 
+    li {
+      display: block;
+    }
+    header {
+      border-bottom: 1px solid #000;
+      padding-bottom: 15px;
+      img {
+        width: 400px;
+      }
+    }
+    .c-content, .c-address, p, table {
+      font-size: 16px
+    }
+    footer {
+      border-top: 2px solid #1c9a42;
+      h5 {
+        color: #1c9a42;
+      }
+      p {
+        font-size: 19px;
+        margin-bottom: 0;
+      }
+    }
+    table {
+      tr td {
+        padding: 10px;
+        vertical-align: top;
+      }
+      tr td:first-child {
+        color: #1c9a42;
+      }
+    }
+  }
+
+}

@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import {Component, OnInit, HostListener, Inject} from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {RouterModule, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
@@ -28,6 +28,7 @@ export class TrainingComponent implements OnInit {
     timeoutTimer: any;
     timoutWarning: any;
     timoutNow: any;
+    trainingCompleted: any;
 
 
     startTime: boolean;
@@ -49,6 +50,12 @@ export class TrainingComponent implements OnInit {
         this.warningTimer = 0;
         this.timeoutTimer = 0;
         this.StartTimers();
+        if (this.trainingStatus == 1) {
+            this.trainingCompleted = true;
+        } else {
+            this.trainingCompleted = false;
+
+        }
 
 
     }
@@ -101,6 +108,7 @@ export class TrainingComponent implements OnInit {
             test.getRemainingTime = newtime;
             sessionStorage.checkoutTime = newtime;
             if (newtime == '00:00:00') {
+                this.trainingCompleted = true;
                 const getFulltime = test.getRemainingTime;
                 // split the time
                 let pieces = getFulltime.split(":");
@@ -135,6 +143,19 @@ export class TrainingComponent implements OnInit {
                 }
                 // end
                 test.sendRemainingTime(sendMinutes);
+
+                let dialogRef = this.dialog.open(TrainingcompletedAlert, {
+                    width: '700px',
+                });
+
+                dialogRef.disableClose = true;
+                dialogRef.afterClosed().subscribe(result => {
+                    if (result) {
+
+                    } else {
+                    }
+                });
+
             } else {
                 timeoutHandle=setTimeout(count, 1000);
             }
@@ -221,5 +242,29 @@ export class TrainingComponent implements OnInit {
             console.log(error);
     }
 
+
+}
+@Component({
+    selector: 'trainingcompletedalert',
+    template: `
+        <div mat-dialog-content class="text-center">
+            <label>You have completed your training successfully. Do you want to continue?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>-->
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
+        </div>
+    `
+
+})
+export class TrainingcompletedAlert {
+
+    constructor(
+        public dialogRef: MatDialogRef<TrainingcompletedAlert>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }

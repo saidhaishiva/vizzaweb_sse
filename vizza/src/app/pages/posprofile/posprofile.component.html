@@ -251,13 +251,17 @@
                                     <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Minutes</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let lists of trainingDetails">
+                                    <tr *ngFor="let lists of trainingDetails; let last = last">
                                         <td>{{lists.training_attend_date | date: 'dd-MMM-yy'}}</td>
-                                        <td>{{lists.entry_time}}</td>
+                                        <td>{{lists.time}}</td>
+                                        <td *ngIf="last"> <span class="text-title-color">Completed</span></td>
+                                        <td *ngIf="!last"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Progress</span></td>
+
                                     </tr>
 
                                     </tbody>
@@ -586,9 +590,8 @@
                             </div>
                         </div>
 
-                        <div fxFlex="33.3" class="flex-p" *ngIf="currentTab == 'Agreement Letter'">
-                            <p>ddd</p>
-                            <pdf-viewer src="{{webhost +'/' + personal.pos_profile_img}}"
+                        <div  class="flex-p" *ngIf="currentTab == 'Agreement Letter'">
+                            <pdf-viewer src="assets/img/sample-file.pdf"
                                         [render-text]="true"
                                         style="display: block;"
                             ></pdf-viewer>

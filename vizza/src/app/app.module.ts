@@ -97,6 +97,7 @@ import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate
 import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
 import { DocumentViewComponent } from './pages/posprofile/document-view/document-view.component';
+import { TrainingcompletedAlert} from './pages/training/training.component';
 
 @NgModule({
   imports: [
@@ -177,7 +178,8 @@ import { DocumentViewComponent } from './pages/posprofile/document-view/document
       PosCertificateComponent,
       TrainingComponent,
       RelianceComponent,
-      DocumentViewComponent
+      DocumentViewComponent,
+      TrainingcompletedAlert
   ],
   providers: [
       AppSettings,
@@ -197,7 +199,7 @@ import { DocumentViewComponent } from './pages/posprofile/document-view/document
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert
     ]
 })
 export class AppModule { }
