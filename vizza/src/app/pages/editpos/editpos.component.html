@@ -1,255 +1,298 @@
 
 
-<div  class="bg-map">
+<div  class="bg-map" *ngIf="posDataAvailable">
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
     <div class="addpos_page">
-    <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration">
       <mat-card fxLayout="column"  fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
-        <!--<span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logo.png"> </span>-->
-        <mat-card-subtitle><h3>Profile Edit</h3></mat-card-subtitle>
-
-        <mat-tab-group class="horizontal-tabs w-100" [selectedIndex]="selectedtab">
-          <mat-tab label="Personal" formGroupName="personal">
+        <mat-card-subtitle><h3>{{showTab}} Edit</h3></mat-card-subtitle>
+        <!--personal-->
+        <form [formGroup]="personal" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration" *ngIf="showTab == 'Personal'">
             <mat-form-field class="w-100">
               <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
               <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
+              <mat-error *ngIf="personal.controls.firstname.errors?.required">First name is required</mat-error>
             </mat-form-field>
             <mat-form-field class="w-100">
               <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" required>
               <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
+              <mat-error *ngIf="personal.controls.lastname.errors?.required">Last name is required</mat-error>
             </mat-form-field>
 
             <mat-form-field class="w-100">
               <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
               <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
               <mat-datepicker  #birthday></mat-datepicker>
-              <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
-              <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
+              <mat-error *ngIf="personal.controls.birthday.errors?.required">Dob is required</mat-error>
             </mat-form-field>
 
-            <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
             <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
-            <mat-radio-group formControlName="gender" (change)="checkGender()" required>
+            <mat-radio-group personalControlName="gender" (change)="checkGender()" required>
               <mat-radio-button value="male" class="mr-2">Male<span class="error"> *</span></mat-radio-button>
               <mat-radio-button value="female" >Female<span class="error"> *</span></mat-radio-button>
-              <!--<div *ngIf="form.controls.gender.errors?.required">Gender is required</div>-->
             </mat-radio-group>
             <div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>
 
-
             <mat-form-field class="w-100">
-              <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" minlength="10" maxlength="10">
+              <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" minlength="10" maxlength="10" readonly>
               <i class="fas fa-phone" matSuffix></i>
-              <mat-error *ngIf="form.controls.personal.controls.referralconduct.errors?.required">Referral Contacts Number is required</mat-error>
-              <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
+              <mat-error *ngIf="personal.controls.referralconduct.errors?.required">Referral Contacts Number is required</mat-error>
+              <mat-error *ngIf="personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
             </mat-form-field>
-            <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
-
-
-
               <div>
-                  <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+                  <p><span class="imglabel" *ngIf=" profileedit.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
               </div>
 
               <div class="row col-md-12">
                   <div class="col-md-6">
-                      <p>Aadhar Front Image</p>
+                      <p>Profile Image</p>
                   </div>
-                  <div class="col-md-6 uploadBtn" *ngIf="personal.doc_profile_img != 2">
+                  <div class="col-md-6 uploadBtn" *ngIf=" profileedit.pos_profile_img != 2">
                       <label class="btn-bs-file btn btn-secondary">
                           Browse
-                          <input type='file' (change)="readUrl($event, 'aadhar front')">
+                          <input type='file' (change)="readUrl($event, 'profile')">
                       </label>
                   </div>
               </div>
               <div class="row">
                   <div class="col-md-12">
-                      <div *ngIf="aadharfront != ''">
+                      <div *ngIf="profile != ''">
                                             <span class="imageclose mr-2">
-                                                <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
+                                                <img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                             </span>
                       </div>
                   </div>
               </div>
-            <!--<div class="w-100 mt-2">-->
-              <!--<div class="custom-file">-->
-                <!--<input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">-->
-                <!--<label class="custom-file-label">Attach Your Profile Picture</label>-->
-                <!--<div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row w-100">-->
-              <!--<div class="col-md-12">-->
-                <!--<div *ngIf="profile != ''">-->
-                  <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          </mat-tab>
-
-          <mat-tab label="Contacts" formGroupName="contacts">
-            <div >
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Emailid" formControlName="email">
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength="10" readonly maxlength="13"  formControlName="phone1" required >
-                <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('minlength')">Enter Valid Mobile Number</mat-error>
-                <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">Mobile is required</mat-error>
+          <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" (click)="updatePosProfile($event)"  [disabled]="!personal.valid">Update</button>
+          </div>
+          </form>
 
 
-              </mat-form-field>
-              <!--<mat-form-field class="w-100">-->
-                <!--<input matInput placeholder="Phone2" (keypress)="keyPress($event)"  maxlength="13" formControlName="phone2">-->
-              <!--</mat-form-field>-->
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Address1" formControlName="address1" required >
-                <mat-error *ngIf="form.controls.contacts.controls.address1.errors?.required ">
-                  Enter Address
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Address2" formControlName="address2">
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keypress)="keyPress($event)"  formControlName="pincode" required >
-                <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
-                <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+          <!--contact-->
+        <form [formGroup]="contacts" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration" *ngIf="showTab == 'Contact'" >
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Emailid" formControlName="email">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput (keypress)="keyPress($event)" placeholder="Mobile No" minlength="10" maxlength="10" formControlName="phone1" required readonly>
+            <i class="fas fa-phone" matSuffix></i>
+            <mat-error *ngIf="contacts.controls.phone1.hasError('required')">Mobile Number is required</mat-error>
+            <mat-error *ngIf="contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+          </mat-form-field>
 
-              </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Address1" formControlName="address1" required >
+            <mat-error *ngIf="contacts.controls.address1.errors?.required ">
+              Enter Address
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Address2" formControlName="address2">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keypress)="keyPress($event)"  formControlName="pincode" required >
+            <mat-error *ngIf="contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+            <mat-error *ngIf="contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
+            <mat-error *ngIf="contacts.controls.pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
+          </mat-form-field>
+
+        <hr>
+        <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
+          <button mat-raised-button color="primary" (click)="updatePosProfile($event)"  [disabled]="!contacts.valid">Update</button>
+        </div>
+        </form>
+
+
+      <!--documents-->
+        <form [formGroup]="documents" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration"  *ngIf="showTab == 'Documents'">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Aadhar Number" required maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
+            <mat-error *ngIf="documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
+            <mat-error *ngIf="documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
+            <mat-error *ngIf="documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
+            <mat-error *ngIf="documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
+            <mat-error *ngIf="documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
+            <mat-error *ngIf="documents.controls.pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
+          </mat-form-field>
+          <div>
+            <p><span class="imglabel" *ngIf=" profileedit.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-6">
+              <p>Aadhar Front Image</p>
             </div>
-          </mat-tab>
-          <mat-tab label="Documents" formGroupName="documents">
-            <div >
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Aadhar Number" required maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
-                <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Enter Valid Aadhar Number</mat-error>
-                <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Enter Valid Aadhar Number</mat-error>
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
-                <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Enter Valid Pan Number</mat-error>
-                <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('maxlength')">Enter Valid Pan Number</mat-error>
-              </mat-form-field>
-
-
-              <div>
-                <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
-              </div>
-
-              <div class="row col-md-12">
-                <div class="col-md-6">
-                  <p>Aadhar Front Image</p>
-                </div>
-                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
-                  <label class="btn-bs-file btn btn-secondary">
-                    Browse
-                    <input type='file' (change)="readUrl($event, 'aadhar front')">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div *ngIf="aadharfront != ''">
+            <div class="col-md-6 uploadBtn" *ngIf=" profileedit.doc_verified_status != 2">
+              <label class="btn-bs-file btn btn-secondary">
+                Browse
+                <input type='file' (change)="readUrl($event, 'aadhar front')">
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="aadharfront != ''">
                                             <span class="imageclose mr-2">
                                                 <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                             </span>
-                  </div>
-                </div>
               </div>
-              <div class="row col-md-12">
-                <div class="col-md-6">
-                  <p>Aadhar Back Image</p>
-                </div>
-                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
-                  <label class="btn-bs-file btn btn-secondary">
-                    Browse
-                    <input type='file' (change)="readUrl($event, 'aadhar back')">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div *ngIf="aadharback != ''">
+            </div>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-6">
+              <p>Aadhar Back Image</p>
+            </div>
+            <div class="col-md-6 uploadBtn" *ngIf=" profileedit.doc_verified_status != 2">
+              <label class="btn-bs-file btn btn-secondary">
+                Browse
+                <input type='file' (change)="readUrl($event, 'aadhar back')">
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="aadharback != ''">
                                             <span class="imageclose mr-2">
                                                 <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                             </span>
-                  </div>
-                </div>
               </div>
-              <div class="row col-md-12">
-                <div class="col-md-6">
-                  <p>Pancard Image Front</p>
-                </div>
-                <div class="col-md-6 uploadBtn" *ngIf="personal.doc_verified_status != 2">
-                  <label class="btn-bs-file btn btn-secondary">
-                    Browse
-                    <input type='file' (change)="readUrl($event, 'pancard')">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div *ngIf="pancard != ''">
+            </div>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-6">
+              <p>Pancard Image Front</p>
+            </div>
+            <div class="col-md-6 uploadBtn" *ngIf=" profileedit.doc_verified_status != 2">
+              <label class="btn-bs-file btn btn-secondary">
+                Browse
+                <input type='file' (change)="readUrl($event, 'pancard')">
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="pancard != ''">
                                             <span class="imageclose mr-2">
                                                 <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                             </span>
-                  </div>
-                </div>
               </div>
-
             </div>
-          </mat-tab>
-          <mat-tab label="Education"  formGroupName="education">
-              <mat-form-field class="w-100">
-                <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
-                <mat-hint align="end">{{message.value.length}} /300</mat-hint>
+          </div>
 
-              </mat-form-field>
-
-              <div>
-                <p><span class="imglabel" *ngIf="personal.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
-              </div>
-              <div class="row col-md-12">
-                <div class="col-md-10">
-                  <p>Educational Documents</p>
-                </div>
-                <div class="col-md-2 uploadBtn" *ngIf="personal.doc_verified_status != 2">
-                  <label class="btn-bs-file btn btn-secondary">
-                    Browse
-                    <input type='file' (change)="readUrl($event, 'education')">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div *ngIf="education != ''">
-                    <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-
-
-          </mat-tab>
-        </mat-tab-group>
         <hr>
         <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
-          <button mat-raised-button color="primary" (click)="updatePosProfile()"  [disabled]="!form.valid">Update</button>
+          <button mat-raised-button color="primary" (click)="updatePosProfile($event)"  [disabled]="!documents.valid">Update</button>
         </div>
-      </mat-card>
+        </form>
 
 
-    </form>
-    </div>
 
+         <!--education-->
+        <form [formGroup]="educationlist" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration" *ngIf="showTab == 'Education'">
+          <mat-form-field class="w-100">
+            <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
+            <mat-hint align="end">{{message.value.length}} /300</mat-hint>
+          </mat-form-field>
+
+          <div>
+            <p><span class="imglabel" *ngIf=" profileedit.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-10">
+              <p>Educational Documents</p>
+            </div>
+            <div class="col-md-2 uploadBtn" *ngIf=" profileedit.doc_verified_status != 2">
+              <label class="btn-bs-file btn btn-secondary">
+                Browse
+                <input type='file' (change)="readUrl($event, 'education')">
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="education != ''">
+                    <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/>
+                    </span>
+              </div>
+            </div>
+          </div>
+
+        <hr>
+        <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
+          <button mat-raised-button color="primary" (click)="updatePosProfile($event)"  [disabled]="!educationlist.valid">Update</button>
+        </div>
+        </form>
+
+        <!--bank details-->
+        <form [formGroup]="bankdetails" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration" *ngIf="showTab == 'Bank Details'">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname">
+            <mat-icon matSuffix>account_balance</mat-icon>
+            <mat-error *ngIf="bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch">
+            <mat-icon matSuffix>account_balance</mat-icon>
+            <mat-error *ngIf="bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)">
+            <mat-icon matSuffix>account_balance</mat-icon>
+            <mat-error *ngIf="bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
+            <mat-error *ngIf="bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
+            <mat-error *ngIf="bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8">
+            <mat-icon matSuffix>account_balance</mat-icon>
+            <mat-error *ngIf="bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
+            <mat-error *ngIf="bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
+          </mat-form-field>
+
+
+          <div>
+            <p><span class="imglabel" *ngIf=" profileedit.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-10">
+              <p>Attached Cancelled Cheque Leaf (or) Passbook</p>
+            </div>
+            <div class="col-md-2 uploadBtn" *ngIf=" profileedit.check_leaf_upload_img != 2">
+              <label class="btn-bs-file btn btn-secondary">
+                Browse
+                <input type='file' (change)="readUrl($event, 'chequeleaf')">
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="chequeleaf != ''">
+                    <span class="imageclose mr-2"><img src="{{webhost + '/' + chequeleaf}}" class="img-thumbnail"  style="height:150px;width: 250px;"/>
+                    </span>
+              </div>
+            </div>
+          </div>
+
+        <hr>
+        <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
+          <button mat-raised-button color="primary" (click)="updatePosProfile($event)"  [disabled]="!bankdetails.valid">Update</button>
+        </div>
+        </form>
+    </mat-card>
   </div>
-
 </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

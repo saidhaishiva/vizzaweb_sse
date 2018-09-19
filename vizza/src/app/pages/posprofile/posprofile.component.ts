@@ -53,6 +53,7 @@ export class PosprofileComponent implements OnInit {
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
+        this.currentTab = 'personal';
         this.getPosProfile();
 
 
@@ -179,9 +180,12 @@ export class PosprofileComponent implements OnInit {
     viewDetail(i, value) {
         // this.sideNav[i].selected = true;
         this.selectedTab = i;
+        console.log(this.selectedTab);
         this.currentTab = value;
+        console.log(this.currentTab);
         let trainingStatus = sessionStorage.trainingStatus;
         let examStatus = sessionStorage.examStatus;
+        sessionStorage.currentTab = this.currentTab;
 
         if (value == 'Training') {
             if (trainingStatus == 0) {
