@@ -736,6 +736,8 @@ a:hover {
   font-size: 22px !important; }
 .question-view .content-color {
   color: #0b9444; }
+.question-view p {
+  text-align: justify; }
 
 .app.teal-light .mat-chip.mat-chip-selected.mat-accent {
   background-color: #3dccb1d6 !important;
@@ -989,5 +991,8 @@ footer {
   background-color: #006E5E !important;
   color: #FFFFFF !important;
   border: 2px solid #FFFFFF !important; }
+
+.text-title-color {
+  color: darkgreen; }
 
 /*# sourceMappingURL=style.css.map */

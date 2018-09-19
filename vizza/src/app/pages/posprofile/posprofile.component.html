@@ -42,8 +42,8 @@
                                         <mat-list class="p-0">
                                             <div fxLayout="row" fxLayoutAlign="center center">
                                                 <mat-list-item class="h-100 py-1">
-                                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
-                                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                                                    <img *ngIf="personal.pos_profile_img  != ''" style="width: 200px; height: 200px" class="img-thumbnail" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" class="img-thumbnail" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                                 </mat-list-item>
                                             </div>
                                             <h6 matLine fxLayout="row" fxLayoutAlign="center center">
@@ -182,7 +182,7 @@
                         </div>
 
                         <div *ngIf="currentTab == 'Documents'">
-                            <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
+                            <mat-card-title class=" text-center mt-2"><h4>Aadhar Details</h4></mat-card-title>
                             <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Aadhar No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" >
                                 <div fxFlex="33.3" class="flex-p">
@@ -212,7 +212,7 @@
                                     <!--</mat-card>-->
                                 <!--</div>-->
                             </div>
-                            <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
+                            <mat-card-title class=" text-center mt-2"><h4>Pan Details</h4></mat-card-title>
                             <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
 
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
@@ -460,11 +460,12 @@
                                 </button>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-training-cirtificate">
-                                <mat-card class="c2-card" id="training">
+                                <div id="training">
+                                <mat-card class="c2-card" >
 
                                     <header>
                                         <div class="row" fxLayoutAlign="center center">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" style="text-align: left">
                                                 <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
                                                 <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
                                             </div>
@@ -518,6 +519,7 @@
                                         </div>
                                     </footer>
                                 </mat-card>
+                                </div>
                             </div>
                         </div>
                         <!--Examination letter-->
