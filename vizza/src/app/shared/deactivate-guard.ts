@@ -1,5 +1,6 @@
 import { CanDeactivate } from '@angular/router';
 import { ProposalComponent} from '../pages/proposal/proposal.component';
+import {ReligareComponent} from '../pages/religare/religare.component';
 import { ExamComponent} from '../pages/exam/exam.component';
 
 // import { Router} from '@angular/router';

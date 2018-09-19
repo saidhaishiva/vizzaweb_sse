@@ -56,6 +56,7 @@
     "ng2-bootstrap-modal": "^1.0.1",
     "ng2-datetime": "^1.4.0",
     "ng2-dragula": "1.5.0",
+    "ng2-pdf-viewer": "^5.1.2",
     "ng2-simple-timepicker": "^0.1.11",
     "ng2-toastr": "^4.1.2",
     "ngx-image-cropper": "^0.2.3",

@@ -76,18 +76,14 @@
         <mat-card>
             <mat-card-header fxLayoutAlign="space-between center">
                 <mat-chip-list >
-                    <p *ngIf="trainingStatus == 1" style="color:#3dccb1d6 !important">You have completed the training</p>
-                    <mat-chip color="accent" selected="true" class="info-chip" *ngIf="trainingStatus == 0">
+                    <p *ngIf="trainingStatus == 1 && trainingCompleted" style="color:#3dccb1d6 !important">You have completed the training</p>
+                    <mat-chip color="accent" selected="true" class="info-chip" *ngIf="trainingStatus == 0 && !trainingCompleted">
                         <mat-icon class="icon-sm">access_time</mat-icon>
                         <p id="timer" class="mt-3"></p>
                     </mat-chip>
                 </mat-chip-list>
             </mat-card-header>
-
-            <mat-card-header fxLayoutAlign="center center">
-                <mat-card-subtitle><h5>POS Training Documentation</h5></mat-card-subtitle>
-
-            </mat-card-header>
+            <mat-card-title fxLayoutAlign="center center"  style="color:#3dccb1d6 !important">Training Time : 15 hours</mat-card-title>
 
             <div class="container">
                 <div class="row">
@@ -96,8 +92,8 @@
                         <h1>Table Of Contents</h1>
                         <table>
                             <tr>
-                                <th>Module</th>
-                                <th>Title</th>
+                                <th><h4>Module</h4></th>
+                                <th><h4>Title</h4></th>
                             </tr>
                             <tr>
                                 <td class="no">1.</td>

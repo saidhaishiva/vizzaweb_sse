@@ -106,6 +106,8 @@ export class ProposalComponent implements OnInit {
     public socialAnswer2: any;
     public socialAnswer3: any;
     public socialAnswer4: any;
+    public inputReadonly: any;
+    public previousInsurence: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -120,6 +122,8 @@ export class ProposalComponent implements OnInit {
         this.nomineeAdd = true;
         this.nomineeRemove = true;
         this.declaration = false;
+        this.inputReadonly = false;
+
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -327,7 +331,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = '';
-            this.familyMembers[i].ins_personal_accident_applicable = '1';
+            this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
             this.familyMembers[i].ageRestriction = '';
         }
@@ -452,6 +456,7 @@ export class ProposalComponent implements OnInit {
 
                 setTimeout(() =>{
                     if (this.getStepper1.sameas) {
+                        this.inputReadonly = true;
                         this.getPostal(this.getStepper1.personalPincode, 'residence');
                         this.getCityIdF2('residence', this.getStepper1.personalCity, this.getStepper1.personalPincode);
                         this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
@@ -601,7 +606,6 @@ console.log(value,'fgh');
             } else if (this.illnesStatus) {
                 this.toastr.error('Please fill the empty fields', key);
             } else if (this.illnesStatus == false) {
-                console.log('tyy');
                 for (let i = 0; i < this.familyMembers.length; i++) {
                     if (this.buyProductdetails.product_id == 6) {
                         this.insureStatus = false;
@@ -615,11 +619,21 @@ console.log(value,'fgh');
                         }
 
                     } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                        console.log('p8 || p9');
                         this.errorMessage = false;
                         this.insureStatus = false;
+                        this.previousInsurence = [];
+                        for (let i = 0; i < this.familyMembers.length; i++) {
+                            this.previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
+                        }
+
+
                         if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-                            if (this.familyMembers[i].ins_personal_accident_applicable == '1') {
+                            if (!this.previousInsurence.includes('2')) {
+                                this.insureStatus = false;
+                                this.toastr.error('You need to select one adult for personal accident cover');
+                                break;
+                            }
+                            if (this.familyMembers[i].ins_personal_accident_applicable == '2') {
                                 if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
                                     if (i == this.familyMembers.length - 1) {
                                         this.insureStatus = true;
@@ -654,20 +668,21 @@ console.log(value,'fgh');
 
         if (this.insureStatus) {
             if (this.ageRestriction == '') {
-                stepper.next();
-            } else if (this.ageRestriction == 'true') {
-                stepper.next();
+                    stepper.next();
+                }
+            if (this.ageRestriction == 'true') {
+                    stepper.next();
             }
+
+
         }
 
-        // }
-        console.log(this.illnesStatus, 'ilness');
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
 
     }
     typeAge(value, index, ci) {
-        if (value > 18) {
+        if (value >= 18) {
             this.nomineeDate[index].nominee[ci].ageSetting = false;
         } else {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
@@ -768,7 +783,7 @@ console.log(value,'fgh');
 
 
     personalAccident(values: any, index) {
-        if (values.value == 1) {
+        if (values.value == 2) {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (i != index) {
                     this.familyMembers[i].ins_accident_status = true;
@@ -780,7 +795,7 @@ console.log(value,'fgh');
             }
         }
 
-        if (values.value == '1') {
+        if (values.value == '2') {
             this.familyMembers[index].ins_engage_manual_labour = '';
             this.familyMembers[index].ins_engage_winter_sports = '';
 
@@ -796,6 +811,7 @@ console.log(value,'fgh');
     sameAddress(values: any) {
         console.log(this.personal.controls['personalCity'].value);
         if (values.checked) {
+            this.inputReadonly = true;
             this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
             this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -806,6 +822,7 @@ console.log(value,'fgh');
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
         } else {
+            this.inputReadonly = false;
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
@@ -818,7 +835,7 @@ console.log(value,'fgh');
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern =/[0-9 ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -828,6 +845,24 @@ console.log(value,'fgh');
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public onAlternative(event: any) {
+        if (event.charCode !== 0) {
+            const pattern =/[0-9- ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -1133,6 +1168,7 @@ console.log(value,'fgh');
             'created_by': '0',
             'insured_details': this.familyMembers
         }];
+        this.settings.loadingSpinner = true;
         this.proposalservice.getProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
@@ -1144,6 +1180,7 @@ console.log(value,'fgh');
 
     }
     public proposalSuccess( successData) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
@@ -1262,24 +1299,42 @@ console.log(value,'fgh');
 
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
-                this.personal.controls['personalState'].setValue(this.response.state_name);
-                this.personalCitys = this.response.city;
-                console.log(this.personalCitys, 'this.personalCitys');
-                for (let i = 0; i < this.personalCitys.length; i++) {
-                    if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
-                        this.summaryCity = this.personalCitys[i].city_name;
+                if (this.response.length == 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personal.controls['personalArea'].setValue('');
+                    this.toastr.error('In valid Pincode');
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state_name);
+                    this.personalCitys = this.response.city;
+                    console.log(this.personalCitys, 'this.personalCitys');
+                    for (let i = 0; i < this.personalCitys.length; i++) {
+                        if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
+                            this.summaryCity = this.personalCitys[i].city_name;
+                        }
                     }
                 }
+
+
             }
             if (this.title == 'residence') {
                 this.rResponse = successData.ResponseObject;
-                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
-                this.residenceCitys = this.rResponse.city;
-            }
+                if (this.rResponse.length == 0) {
+                    this.personal.controls['residenceCity'].setValue('');
+                    this.personal.controls['residenceState'].setValue('');
+                    this.personal.controls['residenceArea'].setValue('');
+                    this.toastr.error('In valid Pincode');
+                } else {
+                    this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
+                    this.residenceCitys = this.rResponse.city;
+                }
 
+
+            }
+                }
 
         }
-    }
+
 
     public getpostalFailure(error) {
         console.log(error);

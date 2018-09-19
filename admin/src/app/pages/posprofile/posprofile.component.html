@@ -45,6 +45,30 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
+                    Pan Card
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="col-md-12" *ngIf="posData.doc_pan_img == ''" >
+                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
+                        cloud_off
+                    </i> &nbsp; No Pan Card</p>
+                </div>
+                <div class="col-md-6" *ngIf="posData.doc_pan_img != ''" >
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="isAlreadyAgent" >Already a Agent</mat-checkbox>
+                    </div>
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="panImage" >Pan Image</mat-checkbox>
+                    </div>
+                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
                     Aadhar Card
                 </mat-panel-title>
 
@@ -69,26 +93,6 @@
                 </div>
             </div>
 
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Pan Card
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="row">
-                <div class="col-md-12" *ngIf="posData.doc_pan_img == ''" >
-                    <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
-                        cloud_off
-                    </i> &nbsp; No Pan Card</p>
-                </div>
-                <div class="col-md-6" *ngIf="posData.doc_pan_img != ''" >
-                    <div class="text-left">
-                        <mat-checkbox [(ngModel)]="panImage" >Pan Image</mat-checkbox>
-                    </div>
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
-                </div>
-            </div>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -122,6 +126,9 @@
 
             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
                 <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                    <div class="text-left">
+                        <mat-checkbox [(ngModel)]="bankDoc" >Bank Details</mat-checkbox>
+                    </div>
                     <mat-card class="list">
                         <mat-card-content>
                             <mat-list class="p-0">
@@ -180,13 +187,17 @@
                     <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Minutes</th>
+                        <th>Time</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let lists of trainingDetails">
+                    <tr *ngFor="let lists of trainingDetails; let last = last">
                         <td>{{lists.training_attend_date | date: 'dd-MMM-yy'}}</td>
-                        <td>{{lists.entry_time}}</td>
+                        <td>{{lists.time}}</td>
+                        <td *ngIf="last"> <span class="text-title-color">Completed</span></td>
+                        <td *ngIf="!last"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Progress</span></td>
+
                     </tr>
 
                     </tbody>
@@ -217,7 +228,7 @@
                         <mat-card class="list">
                             <mat-card-header fxLayoutAlign="center center">
                                 <mat-card-subtitle>
-                                    <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
+                                    <img style="width: 150px" src="assets/img/pass-logo.png" >
                                     <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                 </mat-card-subtitle>
                             </mat-card-header>
@@ -236,7 +247,7 @@
                         <mat-card class="list">
                             <mat-card-header fxLayoutAlign="center center">
                                 <mat-card-subtitle>
-                                    <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
+                                    <img style="width: 150px" src="assets/img/fail-logo.png" >
                                     <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
                                 </mat-card-subtitle>
                             </mat-card-header>
@@ -257,14 +268,20 @@
                         <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Time</th>
                             <th>Percentage</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let lists of examDetails">
                             <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
+                            <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                             <td>{{lists.percentage_in_exam}}</td>
+                            <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
+                            <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
                         </tr>
+
 
                         </tbody>
                     </table>
@@ -273,7 +290,271 @@
             </div>
 
         </mat-expansion-panel>
-        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2">
+
+        <mat-expansion-panel *ngIf="posData.training_status != 0">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Certificate of Training
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="certificate-bg" >
+                <div class="container mb-1 mt-1 w-100 text-right">
+                    <button mat-raised-button class="text-right editBtn" (click)="printTraining()">print
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                <div class="container pt-7 pb-3" id="pos-training-cirtificate">
+                    <mat-card class="c2-card" id="training">
+
+                        <header>
+                            <div class="row" fxLayoutAlign="center center">
+                                <div class="col-md-6">
+                                    <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+                                    <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
+                                </div>
+                                <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+                            </div>
+                        </header>
+                        <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
+                            <div class="col-md-3">
+                                <img *ngIf="posData.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                <img *ngIf="posData.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                            </div>
+                            <div class="col-md-9">
+                                <h1 class="c-font">Certification</h1>
+                                <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
+                            </div>
+                        </section>
+                        <section class="row mt-5">
+                            <div class="c-content w-100">
+                                <h5 class="c-title"><span>This is to certificaty that</span></h5>
+                                <p><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span> <strong>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                    Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
+                                    Insurance Regulatory and Development Authority.</p>
+                                <p>The Said Candidate, had registered for the online training program on
+                                    {{startTrainingDate}} and completed the 15 hours of POS’P Online Training on
+                                    {{posData.training_completed_date}}</p>
+                            </div>
+                        </section>
+                        <section class="row mt-5">
+                            <div class="col-md-12">
+                                <table>
+                                    <tr>
+                                        <td>Place</td>
+                                        <td>Chennai</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>{{posData.training_completed_date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>POS’P ID</td>
+                                        <td>VIZAA/POS'P/{{posData.pos_id}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </section>
+                        <footer class="row mt-5">
+                            <div class="col-md-12 text-center">
+                                <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+                                <p class="mb-0">Head - Corporate</p>
+                                <p class="mb-0">(Authorised Signatory)</p>
+                            </div>
+                        </footer>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="posData.exam_status == 2">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Certificate of Examination
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="certificate-bg" >
+                <div class="container mb-1 mt-1 w-100 text-right">
+                    <button mat-raised-button class="text-right editBtn" (click)="printExamination()">print
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                <div class="container pt-7 pb-3" id="pos-examination-cirtificate">
+                    <mat-card class="c2-card" id="examination">
+
+                        <header>
+                            <div class="row" fxLayoutAlign="center center">
+                                <div class="col-md-6">
+                                    <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+                                    <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
+                                </div>
+                                <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+                            </div>
+                        </header>
+                        <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
+                            <div class="col-md-3">
+                                <img *ngIf="posData.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                <img *ngIf="posData.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                            </div>
+                            <div class="col-md-9">
+                                <h1 class="c-font">Certificate</h1>
+                                <h5 class="w-100 text-right"><span>Of Qualification for POS’P Examination</span></h5>
+                            </div>
+                        </section>
+                        <section class="row mt-5">
+                            <div class="c-content text-center w-100">
+                                <h5 class="c-title"><span>This is to certificaty that</span></h5>
+                                <p><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span><strong>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</strong></p>
+                                <p>passed the Point of Sales Person Examination held on</p>
+                                <p>{{posData.exam_completed_date }}</p>
+                                <p>and qualified under the stream of</p>
+                                <p>Point of Sales Person</p>
+                                <p>as per regulations 2017 of</p>
+                                <p>Insurance Regulatory and Development Authority</p>
+                            </div>
+                        </section>
+                        <section class="row mt-5">
+                            <div class="col-md-12">
+                                <table>
+                                    <tr>
+                                        <td>Place</td>
+                                        <td>Chennai</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>{{posData.exam_completed_date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>POS’P ID</td>
+                                        <td>VIZAA/POS'P/{{posData.pos_id}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </section>
+                        <footer class="row mt-5">
+                            <div class="col-md-12 text-center">
+                                <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+                                <p class="mb-0">Head - Corporate</p>
+                                <p class="mb-0">(Authorised Signatory)</p>
+                            </div>
+                        </footer>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="posData.pos_status == 1">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Certificate of Appointment
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="certificate-bg" >
+                <div class="container mb-1 mt-1 w-100 text-right">
+                    <button mat-raised-button class="text-right editBtn" (click)="printAppointment()">print
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                <div class="container pt-7 pb-3" id="pos-cirtificate">
+                    <mat-card class="c-card" id="appointment">
+                        <header>
+                            <div class="row" fxLayoutAlign="center center">
+                                <div class="col-md-6">
+                                    <img src="assets/img/vizza-logoNewpos.png" alt="">
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <ul class="c-address">
+                                        <li>044 - 4269 1341 / 4204 4181</li>
+                                        <li>po_vizzainsbroker@vizzafin.com</li>
+                                        <li>www.vizzainsure.com</li>
+                                        <li>Direct Brokers ( Life and General Insurance)</li>
+                                        <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </header>
+                        <section class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-center font-weight-bold mt-2">Appointment of Registered POS’P</h5>
+                                <h4 class="text-center font-weight-normal">for VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h4>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <table>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>{{posData.appointment_date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>POS’P ID</td>
+                                                <td>VIZAA/POS'P/{{posData.pos_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span></td>
+                                                <td>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address</td>
+                                                <td>
+                                                    <p class="text-capitalize" >
+                                                        <span>{{posData.pos_address1}}</span>
+                                                        <span *ngIf="posData.pos_address2 != ''">,</span>
+                                                        <span *ngIf="posData.pos_address2 != ''">{{posData.pos_address2}}</span>
+                                                        <span *ngIf="posData.pos_cityid != ''">,</span>
+                                                    </p>
+
+                                                    <p *ngIf="posData.pos_cityid != ''" >{{posData.pos_cityid}}
+                                                        <span *ngIf="posData.pos_cityid != null">-</span>
+                                                        {{posData.pos_postalcode}}
+                                                        <span *ngIf="posData.pos_stateid != ''">,</span>
+                                                    </p>
+                                                    <p *ngIf="posData.pos_stateid != ''" >{{posData.pos_stateid}}
+                                                        <span *ngIf="posData.pos_countryid != ''">,</span>
+                                                    </p>
+                                                    <p *ngIf="posData.pos_countryid != ''">{{posData.pos_countryid}}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <img *ngIf="posData.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                        <img *ngIf="posData.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-5 c-content">
+                                <p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales
+                                    Person.</p>
+                                <p>This is to confirm that you have successfully completed the prescribed training and have also
+                                    passed the examination specified for Point of Sales examination conducted by
+                                    <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
+                                    Person for Non-life and Health lnsurers. Your personal details are as under:</p>
+                                <p><strong>Aadhaar No:</strong></p>
+                                <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
+                                    intermediary) to market products categorized and identified under the Guidelines only.</p>
+                                <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
+                                    new insurer/ insurance intermediary in order to act as Point of Sales Person for that entity.</p>
+                            </div>
+
+                            <div class="col-md-12 text-left">
+                                <P>Yours truly,</P>
+                                <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
+                                <p class="mb-0">Head - Corporate</p>
+                                <p class="mb-0">(Authorised Signatory)</p>
+                            </div>
+                        </section>
+                        <footer class="mt-3 pt-3">
+                            <h5 class="text-center">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+                            <p class="text-center">Ground Floor, Flat No. G-A, Sridev Apartment, No.65, CIT Nagar First Main Road, Chennai - 600 035</p>
+                        </footer>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2 && posData.pos_status != 1">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Agreement Details
@@ -300,6 +581,20 @@
             </div>
 
         </mat-expansion-panel>
+        <mat-expansion-panel  *ngIf="posData.pos_status == 1">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Agreement Letter
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div  class="flex-p">
+                <pdf-viewer src="assets/img/sample-file.pdf"
+                            [render-text]="true"
+                            style="display: block;"
+                ></pdf-viewer>
+            </div>
+
+        </mat-expansion-panel><br>
 
 
 
@@ -332,7 +627,7 @@
                     <button mat-raised-button color="warn"  (click)=" rejectConfirm()">
                         Reject
                     </button>
-                    <button mat-raised-button color="primary" *ngIf="posstatus != 1" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
+                    <button mat-raised-button color="primary" *ngIf="posstatus != 1 && !isAlreadyAgent" style="background-color: #2ea04c!important;" (click)="verificationSubmit()">Submit</button>
                 </div>
             </div><br>
         </div>

@@ -126,8 +126,8 @@ export class PosComponent implements OnInit {
                 }
             } else if (value == 'active') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
-                    this.posStatus = successData.ResponseObject[i].pos_status;
                     if (successData.ResponseObject[i].pos_status === '1') {
+                        this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;

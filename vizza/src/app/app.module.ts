@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -95,6 +96,8 @@ import { PersonalAccidentProposalComponent } from './pages/personal-accident-pro
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
+import { DocumentViewComponent } from './pages/posprofile/document-view/document-view.component';
+import { TrainingcompletedAlert} from './pages/training/training.component';
 
 @NgModule({
   imports: [
@@ -107,6 +110,7 @@ import { RelianceComponent } from './pages/reliance/reliance.component';
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      PdfViewerModule,
       ScrollToModule.forRoot(),
       // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
@@ -173,7 +177,9 @@ import { RelianceComponent } from './pages/reliance/reliance.component';
       PersonalAccidentProposalComponent,
       PosCertificateComponent,
       TrainingComponent,
-      RelianceComponent
+      RelianceComponent,
+      DocumentViewComponent,
+      TrainingcompletedAlert
   ],
   providers: [
       AppSettings,
@@ -193,7 +199,7 @@ import { RelianceComponent } from './pages/reliance/reliance.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert
     ]
 })
 export class AppModule { }

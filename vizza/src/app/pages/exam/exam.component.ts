@@ -164,6 +164,8 @@ export class ExamComponent implements OnInit {
             sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
             sessionStorage.examPercentage = successData.ResponseObject.percentage;
             sessionStorage.examStatus = successData.ResponseObject.exam_status;
+            this.auth.setSessionData('examStatus', successData.ResponseObject.exam_status);
+
             this.router.navigate(['/viewresult']);
         }
 

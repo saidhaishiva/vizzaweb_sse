@@ -76,6 +76,10 @@ export class PosprofileComponent implements OnInit {
     doaError: any;
     step: any;
     recentMark: any;
+    bankDocId: any;
+    bankDoc: any;
+    isAlreadyAgent: any;
+    isAlreadyAgentId: any;
     comments: string;
     notes: string;
     rows = [];
@@ -197,6 +201,15 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
+            for (let i = 0; i < this.trainingDetails.length; i++) {
+                let num = this.trainingDetails[i].entry_time;
+                let hours = (num / 60);
+                let rhours = Math.floor(hours);
+                let minutes = (hours - rhours) * 60;
+                let rminutes = Math.round(minutes);
+                this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+            }
+
         }
     }
     getTrainingDetailFailure(error) {
@@ -269,6 +282,10 @@ export class PosprofileComponent implements OnInit {
             this.panDocId = this.documentslist[0].doc_field_id;
             this.educationalDoc = this.documentslist[3].checked;
             this.educationalDocId = this.documentslist[3].doc_field_id;
+            this.bankDoc = this.documentslist[4].checked;
+            this.bankDocId = this.documentslist[4].doc_field_id;
+            this.isAlreadyAgent = this.documentslist[5].checked;
+            this.isAlreadyAgentId = this.documentslist[5].doc_field_id;
             console.log(this.documentslist);
 
         }
@@ -403,6 +420,11 @@ export class PosprofileComponent implements OnInit {
                 verification_status: (this.educationalDoc == true) ? '1' : '0',
                 fieldid: this.educationalDocId
             },
+            {
+                verification_status: (this.bankDoc == true) ? '1' : '0',
+                fieldid: this.bankDocId
+            }
+
         ];
 
         let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
@@ -546,7 +568,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Doctor rejected successfully');
+            this.toastr.success('Rejected successfully');
             this.router.navigate(['/pos']);
         }
 

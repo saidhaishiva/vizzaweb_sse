@@ -106,13 +106,15 @@
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
-                        minlength="6" (keypress)="keyPress($event);getPin($event.target.value, 'form')" formControlName="pincode" (input)="getPin($event.target.value, 'form')"
+                        minlength="6" (keypress)="keyPress($event)" (keyup)="getPin($event.target.value)" formControlName="pincode"
                         required>
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
                         </mat-form-field>
+                            <div *ngIf="pincodeErrors" style="color: red">Invalid Pincode</div>
+
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>

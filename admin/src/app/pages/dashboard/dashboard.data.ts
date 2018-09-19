@@ -5,7 +5,19 @@ export const orders = [
       {
         name: "1980",
         value: 21632
-      }
+      },
+        {
+            name: "1980",
+            value: 21632
+        },
+        {
+            name: "1980",
+            value: 21632
+        },
+        {
+            name: "1980",
+            value: 21632
+        }
     ]
   }
 ]

@@ -110,7 +110,8 @@ export class ReligareComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public back: boolean;
-
+public  relationshipcode : any;
+array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -185,6 +186,9 @@ export class ReligareComponent implements OnInit {
       } else {
           this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
       }
+      // this. array = [
+      //
+      // ]
     }
 
 
@@ -637,7 +641,24 @@ export class ReligareComponent implements OnInit {
         }
     }
 
-
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public onAlternative(event: any) {
+        if (event.charCode !== 0) {
+            const pattern =/[0-9-]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     addEvent(event) {
         this.selectDate = event.value;
         console.log(this.selectDate);
@@ -933,14 +954,12 @@ export class ReligareComponent implements OnInit {
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
-            // for (let i = 0; i < this.relationshipList.length; i++) {
-            //     if (this.relationshipList[i].relationship_code == this.summaryData.relationship_code) {
-            //         this.summaryRelationship = this.relationshipList[i].relationship_name;
-            //
-            //
-            //     }
-            // }
-            console.log( this.summaryRelationship,'aaaaaa');
+            this.relationshipcode = [];
+            console.log(this.relationshipList,'lll');
+            for (let i = 0; i < this.relationshipList.length; i++) {
+                this.relationshipcode.push(this.relationshipList[i].relationship_name);
+            }
+            console.log(this.relationshipcode ,'ooooo');
             this.lastStepper.next();
 
         } else {

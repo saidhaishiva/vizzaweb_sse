@@ -678,9 +678,9 @@ background: #ccc !important;
     }
 
   }
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
+  //.mat-horizontal-stepper-header{
+  //  pointer-events: none !important;
+  //}
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1339,3 +1339,6 @@ footer{
     color: #FFFFFF !important;
     border: 2px solid #FFFFFF !important;
   }
+.text-title-color {
+  color: darkgreen;
+}

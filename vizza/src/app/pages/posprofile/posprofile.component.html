@@ -52,22 +52,22 @@
                                                 </span>
                                             </h6>
                                             <div class="row personaldetails">
-                                                <div class="col-md-5"></div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-5">
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">person</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_gender}}</span>
+                                                        <mat-icon class="muted-text  colorBank">person</mat-icon>&nbsp;<span class="colorBank"> Gender : </span>
+                                                        <span class="text-capitalize ml-1" > {{personal.pos_gender}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">date_range</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_dob}}</span>
+                                                        <mat-icon class="muted-text colorBank ">date_range</mat-icon>&nbsp;<span class="colorBank"> DOB : </span>
+                                                        <span class="ml-1"> {{personal.pos_dob}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text">supervised_user_circle</mat-icon>&nbsp;
-                                                        <span class="text-capitalize">{{personal.pos_myreferral_code}}</span>
+                                                        <mat-icon class="muted-text colorBank">supervised_user_circle</mat-icon>&nbsp;<span class="colorBank"> Referral Code : </span>
+                                                        <span class="text-capitalize ml-1"> {{personal.pos_myreferral_code}}</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-md-5"></div>
+                                                <div class="col-md-3"></div>
 
                                             </div>
                                         </mat-list>
@@ -82,32 +82,32 @@
                                     <mat-card-content>
                                         <mat-list class="p-0">
                                             <div class="personaldetails">
-                                                <p fxLayout="row" fxLayoutAlign="start center">
-                                                    <mat-icon class="muted-text">phone</mat-icon>&nbsp;
-                                                    <span>{{personal.pos_mobileno}}</span>
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Phone No : </span>
+                                                    <span class="ml-1"> {{personal.pos_mobileno}}</span>
                                                 </p>
                                                 <p fxLayout="row" fxLayoutAlign="start center">
-                                                    <mat-icon class="muted-text">mail</mat-icon>&nbsp;
-                                                    <span class="text-capitalize">{{personal.pos_email}}</span>
+                                                    <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
+                                                    <span class="ml-1"> {{personal.pos_email}}</span>
                                                 </p>
                                                 <div>
                                                     <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
-                                                        <mat-icon class="muted-text">location_on</mat-icon>&nbsp;
-                                                        <span>{{personal.pos_address1}}</span>
+                                                        <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
+                                                        <span class="ml-1"> {{personal.pos_address1}}</span>
                                                         <span *ngIf="personal.pos_address2 != ''">,</span>
                                                         <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
                                                         <span *ngIf="personal.pos_cityid != ''">,</span>
                                                     </p>
 
-                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_cityid}}
+                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.pos_cityid}}
                                                         <span *ngIf="personal.pos_cityid != null">-</span>
                                                         {{personal.pos_postalcode}}
                                                         <span *ngIf="personal.pos_stateid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_stateid}}
+                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_stateid}}
                                                         <span *ngIf="personal.pos_countryid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4">{{personal.pos_countryid}}</p>
+                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_countryid}}</p>
                                                 </div>
 
                                             </div>
@@ -126,7 +126,7 @@
                                                 <div class="col-md-2"></div>
                                                 <div class="col-md-8">
                                                     <p fxLayout="row" fxLayoutAlign="left center">
-                                                        <mat-icon class="muted-text colorBank">account_balance</mat-icon>&nbsp;<span class="colorBank"> Bank Nmae : </span>
+                                                        <mat-icon class="muted-text colorBank">account_balance</mat-icon>&nbsp;<span class="colorBank"> Bank Name : </span>
                                                         <span class="text-capitalize ml-2">{{personal.bank_name}}</span>
                                                     </p>
                                                     <p fxLayout="row" fxLayoutAlign="left center">
@@ -162,20 +162,19 @@
                         <!--Education details-->
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                                <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                    <img src="https://rcpsg.ac.uk/images/svg/icon-graduation-cap.svg" class="logo-img" style="width: 60px !important;">
+                                <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
+                                    <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;margin-top: 150px;">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
 
                                 <div fxLayout="row" fxLayoutAlign="center center">
-
-                                    <div  class="flex-p">
-                                        <mat-card class="custom-card customCard">
-                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="center center">
+                                    <div fxFlex="50" class="flex-p">
+                                        <mat-card class="custom-card">
+                                            <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
                                                 <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
-                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="">
+                                            <img mat-card-image src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="" (click)="viewImage(personal.doc_edu_certificate_img, 'Educational Certificate')">
                                         </mat-card>
                                     </div>
                                 </div>
@@ -184,40 +183,45 @@
 
                         <div *ngIf="currentTab == 'Documents'">
                             <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Aadhar No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" >
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard">
-                                        <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Aadhar Front</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Front Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="" (click)="viewImage(personal.doc_aadhar_front_img, 'Aadhar Fron Image')">
                                     </mat-card>
                                 </div>
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard">
-                                        <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Aadhar Back</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Back Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="" (click)="viewImage(personal.doc_aadhar_back_img, 'Aadhar Back Image')">
                                     </mat-card>
                                 </div>
+                                <!--<div fxFlex="33.3" class="flex-p">-->
+                                    <!--<mat-card class="custom-card docCard">-->
+                                        <!--<mat-card-header class="bg-primary1 p-1" fxLayoutAlign="center center">-->
+                                            <!--<mat-card-title class="m-0"><h6>Aadhar Back Image</h6></mat-card-title>-->
+                                        <!--</mat-card-header>-->
+                                        <!--<div fxLayoutAlign="center center">-->
+                                            <!--<img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="">-->
+                                        <!--</div>-->
+                                    <!--</mat-card>-->
+                                <!--</div>-->
                             </div>
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
 
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-
                                 <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card docCard" >
-                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="center center">
-                                            <mat-card-title class="m-0"><h6>Pan Imgae</h6></mat-card-title>
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Pan Image</h6></mat-card-title>
                                         </mat-card-header>
-                                        <div fxLayoutAlign="center center">
-                                            <img mat-card-image style="width: 324px" src="{{webhost +'/'+ personal.doc_pan_img}}" alt="">
-                                        </div>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_pan_img}}" alt="" (click)="viewImage(personal.doc_pan_img, 'Pan Image')">
                                     </mat-card>
                                 </div>
                             </div>
@@ -247,13 +251,17 @@
                                     <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Minutes</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let lists of trainingDetails">
+                                    <tr *ngFor="let lists of trainingDetails; let last = last">
                                         <td>{{lists.training_attend_date | date: 'dd-MMM-yy'}}</td>
-                                        <td>{{lists.entry_time}}</td>
+                                        <td>{{lists.time}}</td>
+                                        <td *ngIf="last"> <span class="text-title-color">Completed</span></td>
+                                        <td *ngIf="!last"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Progress</span></td>
+
                                     </tr>
 
                                     </tbody>
@@ -279,7 +287,7 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="https://cdn.lifehacker.ru/wp-content/uploads/2013/12/02054251-Screenshot-2013-12-02-12.39.21.png" >
+                                                <img style="width: 150px" src="assets/img/pass-logo.png" >
                                                 <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
@@ -298,7 +306,7 @@
                                     <mat-card class="list">
                                         <mat-card-header fxLayoutAlign="center center">
                                             <mat-card-subtitle>
-                                                <img style="width: 150px" src="http://aarondinin.com/wp-content/uploads/2018/04/Fail-Stamp.png" >
+                                                <img style="width: 150px" src="assets/img/fail-logo.png" >
                                                 <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
                                             </mat-card-subtitle>
                                         </mat-card-header>
@@ -319,13 +327,18 @@
                                     <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Time</th>
                                         <th>Percentage</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let lists of examDetails">
                                         <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
+                                        <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                                         <td>{{lists.percentage_in_exam}}</td>
+                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
+                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
                                     </tr>
 
                                     </tbody>
@@ -371,14 +384,14 @@
                                                     <table>
                                                         <tr>
                                                             <td>Date</td>
-                                                            <td>XXXXXXXX</td>
+                                                            <td>{{personal.appointment_date}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>POS’P ID</td>
-                                                            <td>{{personal.pos_id}}</td>
+                                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Mr / Ms</td>
+                                                            <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
                                                             <td>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </td>
                                                         </tr>
                                                         <tr>
@@ -405,7 +418,8 @@
                                                     </table>
                                                 </div>
                                                 <div class="col-md-6 text-right">
-                                                    <img src="assets/img/users/default-user.jpg" alt="">
+                                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -459,7 +473,8 @@
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                         <div class="col-md-3">
-                                            <img src="assets/img/users/default-user.jpg" alt="">
+                                            <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                            <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
                                         <div class="col-md-9">
                                             <h1 class="c-font">Certification</h1>
@@ -469,11 +484,11 @@
                                     <section class="row mt-5">
                                         <div class="c-content w-100">
                                             <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                            <p>Mr./Ms./Mrs. <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span> <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
                                             <p>The Said Candidate, had registered for the online training program on
-                                                {{personal.startTrainingDate}} and completed the 15 hours of POS’P Online Training on
+                                                {{startTrainingDate}} and completed the 15 hours of POS’P Online Training on
                                                 {{personal.training_completed_date}}</p>
                                         </div>
                                     </section>
@@ -482,15 +497,15 @@
                                             <table>
                                                 <tr>
                                                     <td>Place</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>Chennai</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>{{personal.training_completed_date }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
-                                                    <td>{{personal.pos_id}}</td>
+                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -526,7 +541,8 @@
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                         <div class="col-md-3">
-                                            <img src="assets/img/users/default-user.jpg" alt="">
+                                            <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
+                                            <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
                                         <div class="col-md-9">
                                             <h1 class="c-font">Certificate</h1>
@@ -536,9 +552,9 @@
                                     <section class="row mt-5">
                                         <div class="c-content text-center w-100">
                                             <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                            <p>Mr/Mrs/Ms <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span><strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
                                             <p>passed the Point of Sales Person Examination held on</p>
-                                            <p>……………………………………..</p>
+                                            <p>{{personal.exam_completed_date }}</p>
                                             <p>and qualified under the stream of</p>
                                             <p>Point of Sales Person</p>
                                             <p>as per regulations 2017 of</p>
@@ -550,15 +566,15 @@
                                             <table>
                                                 <tr>
                                                     <td>Place</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>Chennai</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>XXXXXXXX</td>
+                                                    <td>{{personal.exam_completed_date }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
-                                                    <td>{{personal.pos_id}}</td>
+                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -574,7 +590,13 @@
                             </div>
                         </div>
 
+                        <div  class="flex-p" *ngIf="currentTab == 'Agreement Letter'">
+                            <pdf-viewer src="assets/img/sample-file.pdf"
+                                        [render-text]="true"
+                                        style="display: block;"
+                            ></pdf-viewer>
 
+                        </div>
 
                         <div fxFlex="33.3" class="flex-p" *ngIf="currentTab == 'ID Card'">
                             <mat-card class="custom-card">
@@ -605,6 +627,12 @@
 <style>
     .customCard {
         height: 250px !important;
+    }
+</style>
+
+<style>
+    .cursor {
+        cursor: pointer;
     }
 </style>
 
