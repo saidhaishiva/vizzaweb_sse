@@ -106,6 +106,7 @@ export class ProposalComponent implements OnInit {
     public socialAnswer2: any;
     public socialAnswer3: any;
     public socialAnswer4: any;
+    public inputReadonly: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -120,6 +121,8 @@ export class ProposalComponent implements OnInit {
         this.nomineeAdd = true;
         this.nomineeRemove = true;
         this.declaration = false;
+        this.inputReadonly = false;
+
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -452,6 +455,7 @@ export class ProposalComponent implements OnInit {
 
                 setTimeout(() =>{
                     if (this.getStepper1.sameas) {
+                        this.inputReadonly = true;
                         this.getPostal(this.getStepper1.personalPincode, 'residence');
                         this.getCityIdF2('residence', this.getStepper1.personalCity, this.getStepper1.personalPincode);
                         this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
@@ -812,6 +816,7 @@ console.log(value,'fgh');
     sameAddress(values: any) {
         console.log(this.personal.controls['personalCity'].value);
         if (values.checked) {
+            this.inputReadonly = true;
             this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
             this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -822,6 +827,7 @@ console.log(value,'fgh');
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
         } else {
+            this.inputReadonly = false;
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
@@ -834,7 +840,7 @@ console.log(value,'fgh');
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern =/[0-9 ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -844,6 +850,24 @@ console.log(value,'fgh');
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public onAlternative(event: any) {
+        if (event.charCode !== 0) {
+            const pattern =/[0-9- ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
