@@ -1299,24 +1299,42 @@ console.log(value,'fgh');
 
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
-                this.personal.controls['personalState'].setValue(this.response.state_name);
-                this.personalCitys = this.response.city;
-                console.log(this.personalCitys, 'this.personalCitys');
-                for (let i = 0; i < this.personalCitys.length; i++) {
-                    if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
-                        this.summaryCity = this.personalCitys[i].city_name;
+                if (this.response.length == 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personal.controls['personalArea'].setValue('');
+                    this.toastr.error('In valid Pincode');
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state_name);
+                    this.personalCitys = this.response.city;
+                    console.log(this.personalCitys, 'this.personalCitys');
+                    for (let i = 0; i < this.personalCitys.length; i++) {
+                        if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
+                            this.summaryCity = this.personalCitys[i].city_name;
+                        }
                     }
                 }
+
+
             }
             if (this.title == 'residence') {
                 this.rResponse = successData.ResponseObject;
-                this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
-                this.residenceCitys = this.rResponse.city;
-            }
+                if (this.rResponse.length == 0) {
+                    this.personal.controls['residenceCity'].setValue('');
+                    this.personal.controls['residenceState'].setValue('');
+                    this.personal.controls['residenceArea'].setValue('');
+                    this.toastr.error('In valid Pincode');
+                } else {
+                    this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
+                    this.residenceCitys = this.rResponse.city;
+                }
 
+
+            }
+                }
 
         }
-    }
+
 
     public getpostalFailure(error) {
         console.log(error);
