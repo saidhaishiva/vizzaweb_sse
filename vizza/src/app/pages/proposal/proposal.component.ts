@@ -107,6 +107,7 @@ export class ProposalComponent implements OnInit {
     public socialAnswer3: any;
     public socialAnswer4: any;
     public inputReadonly: any;
+    public previousInsurence: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -605,7 +606,6 @@ console.log(value,'fgh');
             } else if (this.illnesStatus) {
                 this.toastr.error('Please fill the empty fields', key);
             } else if (this.illnesStatus == false) {
-                console.log('tyy');
                 for (let i = 0; i < this.familyMembers.length; i++) {
                     if (this.buyProductdetails.product_id == 6) {
                         this.insureStatus = false;
@@ -619,10 +619,20 @@ console.log(value,'fgh');
                         }
 
                     } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-                        console.log('p8 || p9');
                         this.errorMessage = false;
                         this.insureStatus = false;
+                        this.previousInsurence = [];
+                        for (let i = 0; i < this.familyMembers.length; i++) {
+                            this.previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
+                        }
+
+
                         if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+                            if (!this.previousInsurence.includes('2')) {
+                                this.insureStatus = false;
+                                this.toastr.error('You need to select one adult for personal accident cover');
+                                break;
+                            }
                             if (this.familyMembers[i].ins_personal_accident_applicable == '2') {
                                 if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
                                     if (i == this.familyMembers.length - 1) {
@@ -657,26 +667,11 @@ console.log(value,'fgh');
         console.log(this.ageRestriction, 'ageRestriction');
 
         if (this.insureStatus) {
-
-            let previousInsurence = [];
-            console.log(previousInsurence, 'ilness');
-            for (let i = 0; i < this.familyMembers.length; i++) {
-                previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
-            }
             if (this.ageRestriction == '') {
-                if (previousInsurence.includes('2')) {
                     stepper.next();
-                } else {
-                    this.toastr.error('You need to select one adult for personal accident cover');
                 }
-            }
             if (this.ageRestriction == 'true') {
-                if (previousInsurence.includes('2')) {
                     stepper.next();
-                } else {
-                    this.toastr.error('You need to select one adult for personal accident cover');
-                }
-
             }
 
 
@@ -687,7 +682,7 @@ console.log(value,'fgh');
 
     }
     typeAge(value, index, ci) {
-        if (value > 18) {
+        if (value >= 18) {
             this.nomineeDate[index].nominee[ci].ageSetting = false;
         } else {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
@@ -1173,6 +1168,7 @@ console.log(value,'fgh');
             'created_by': '0',
             'insured_details': this.familyMembers
         }];
+        this.settings.loadingSpinner = true;
         this.proposalservice.getProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
@@ -1184,6 +1180,7 @@ console.log(value,'fgh');
 
     }
     public proposalSuccess( successData) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
