@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -108,6 +109,7 @@ import { DocumentViewComponent } from './pages/posprofile/document-view/document
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      PdfViewerModule,
       ScrollToModule.forRoot(),
       // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
