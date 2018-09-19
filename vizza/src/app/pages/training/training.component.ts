@@ -40,6 +40,7 @@ export class TrainingComponent implements OnInit {
             this.settings.loadingSpinner = false;
         },700);
         this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        console.log(this.trainingStatus, 'this.trainingStatus');
         this.getRemainingTime = '';
         this.getMinutes = '';
         this.startTime = true;
@@ -56,6 +57,7 @@ export class TrainingComponent implements OnInit {
             this.trainingCompleted = false;
 
         }
+        console.log(this.trainingCompleted, 'this.trainingCompleted');
 
 
     }
@@ -108,6 +110,7 @@ export class TrainingComponent implements OnInit {
             test.getRemainingTime = newtime;
             sessionStorage.checkoutTime = newtime;
             if (newtime == '00:00:00') {
+
                 this.trainingCompleted = true;
                 const getFulltime = test.getRemainingTime;
                 // split the time
@@ -141,20 +144,21 @@ export class TrainingComponent implements OnInit {
                     sendMinutes = timeLeft;
                     sessionStorage.timeLeft = '';
                 }
+                setTimeout(() => {
+                    let dialogRef = test.dialog.open(TrainingcompletedAlert, {
+                        width: '700px',
+                    });
+
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                        if (result) {
+                            test.sendRemainingTime(sendMinutes);
+
+                        } else {
+                        }
+                    });
+                },800);
                 // end
-                test.sendRemainingTime(sendMinutes);
-
-                let dialogRef = this.dialog.open(TrainingcompletedAlert, {
-                    width: '700px',
-                });
-
-                dialogRef.disableClose = true;
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result) {
-
-                    } else {
-                    }
-                });
 
             } else {
                 timeoutHandle=setTimeout(count, 1000);
@@ -231,7 +235,10 @@ export class TrainingComponent implements OnInit {
     }
     public sendTimeSuccess(successData) {
         if (successData.IsSuccess) {
+            this.trainingCompleted = true;
+            console.log(successData.ResponseObject.training_status, 'successData.ResponseObject.training_status');
             this.auth.setSessionData('trainingStatus', successData.ResponseObject.training_status);
+            this.trainingStatus = successData.ResponseObject.training_status;
             if (successData.ResponseObject.training_status == 1) {
                 // this.router.navigate(['/home']);
             }
