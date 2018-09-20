@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="user-img">
                             <img *ngIf="posData.pos_profile_img == ''" src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">
                             <img *ngIf="posData.pos_profile_img != ''" src="{{webhost + '/' + posData.pos_profile_img}}" class="transition-2 rounded-circle">
@@ -34,7 +34,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
             </div>
 
         </mat-expansion-panel>
-        <mat-expansion-panel >
+        <mat-expansion-panel *ngIf="posData.training_status == 0">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Training Details
@@ -554,20 +554,48 @@
 
 
 
-        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2 && posData.pos_status != 1">
+        <mat-expansion-panel  [expanded]="step === 0" >
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Agreement Details
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Letter</label>
+                <div class="col-md-4 insurance-renewal">
+
+                    <!--<div>-->
+                        <!--<h2>Hello {{name}}</h2>-->
+                        <!--<input type="file" multiple (change)="onChange($event, showFileNames)" />-->
+                        <!--<input #showFileNames />-->
+                    <!--</div>-->
+
+
+
+                    <!--<input type="file" ng2FileSelect [uploader]="uploader" multiple  >-->
+
+                    <!--<image-upload (uploadFinished)="readUrl($event)" >-->
+                    <!--</image-upload>-->
+                    <!--<div class="custom-file">-->
+                        <!--<input type="file" class="custom-file-input" multiple (change)="readUrl($event, showFileNames)"  accept=".pdf,.doc,.docx" aria-describedby="inputGroupFileAddon01">-->
+                        <!--<label class="custom-file-label">Letter</label>-->
+                    <!--</div>-->
+                    <div>
+                        <label class="btn-bs-file btn ">
+                            <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload Agreement Copy
+                            <input type="file" multiple (change)="readUrl($event, showFileNames)"  accept=".pdf,.doc,.docx"/>
+                        </label>
                     </div>
+
+                    <div *ngFor="let names of fileDetails" class="mb-2">
+                        <a>{{names.name}}</a>
+                    </div>
+                    <!--<pdf-viewer [src]="pdfSrc"-->
+                                <!--[render-text]="true"-->
+                                <!--style="display: block;"-->
+                    <!--&gt;</pdf-viewer>-->
+
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="w-100">
                         <input matInput [matDatepicker]="birthday" placeholder="Date of Birth(DD/MM/YY)"
                                [(ngModel)]="appointmentdate" (dateInput)="addEvent($event)"
@@ -578,9 +606,33 @@
                         <mat-error *ngIf="doaError != ''">Invalid date</mat-error>
                     </mat-form-field>
                 </div>
+                <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                        <mat-select placeholder="Manager List" [(ngModel)]="posManager" >
+                            <mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">
+                                {{list.manager_name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
 
         </mat-expansion-panel>
+
+
+
+        <!--<tr *ngFor="let item of uploader.queue">-->
+            <!--<td><strong>{{ item?.file?.name }}</strong></td>-->
+            <!--<td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>-->
+            <!--<td *ngIf="uploader.isHTML5">-->
+                <!--<div class="progress" style="margin-bottom: 0;">-->
+                    <!--<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>-->
+                <!--</div>-->
+            <!--</td>-->
+        <!--</tr>-->
+
+
+
         <mat-expansion-panel  *ngIf="posData.pos_status == 1">
             <mat-expansion-panel-header>
                 <mat-panel-title>

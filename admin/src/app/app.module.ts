@@ -87,6 +87,8 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
 import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
 import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 import { UploadExcel} from './pages/question/listquestion/listquestion.component';
+import { ImageUploadModule} from 'angular2-image-upload';
+// import { FileUploader} from 'ng2-file-upload';
 import { PosmanagerComponent } from './pages/posmanager/posmanager.component';
 import { AddposmanagerComponent } from './pages/posmanager/addposmanager/addposmanager.component';
 import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editposmanager.component';
@@ -159,6 +161,8 @@ import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editpo
         AddbranchComponent,
         EditquestionComponent,
         EditbranchComponent,
+        UploadExcel,
+
         UploadExcel,
         PosmanagerComponent,
         AddposmanagerComponent,
