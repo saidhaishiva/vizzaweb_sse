@@ -196,7 +196,7 @@ export class PosprofileComponent implements OnInit {
     }
 
     viewDetail(i, value) {
-        // this.sideNav[i].selected = true;
+        this.settings.loadingSpinner = true;
         this.selectedTab = i;
         this.currentTab = value;
         let trainingStatus = sessionStorage.trainingStatus;
@@ -216,6 +216,10 @@ export class PosprofileComponent implements OnInit {
                 this.router.navigate(['/startexam']);
             }
         }
+        setTimeout(() => {
+            this.settings.loadingSpinner = false;
+
+        },700);
     }
 
     public getPosProfile() {

@@ -230,17 +230,18 @@
                         <!--Training-->
                         <div *ngIf="currentTab == 'Training'">
                             <div *ngIf="trainingStatus == 1">
-                                <div class="container mb-1 mt-1 w-100 text-right">
-                                    <button mat-raised-button class="text-right editBtn" [routerLink]="['/training']">Training Documentaion
-                                        <mat-icon style="font-size: 20px;">note</mat-icon>
+                                <div class="text-right mt-6">
+                                    <button mat-raised-button [routerLink]="['/training']">Training Documentaion
+                                        <mat-icon >note</mat-icon>
                                     </button>
                                 </div>
-                                <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
+                                <div fxLayout="row" fxLayoutAlign="center center" class="h-100 mb-3" >
                                     <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                         <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                                            <mat-icon>local_library</mat-icon>
+                                            <!--<mat-icon>local_library</mat-icon>-->
+                                            <img style="width:115px;" src="assets/img/train.png">
                                         </div>
-                                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="h-100 empty mt-2">
                                             <mat-card-title class="m-0 text-center" style="color:#3dccb1d6 !important"><h4>You have completed your training successfully</h4></mat-card-title>
                                         </div>
                                     </div>
