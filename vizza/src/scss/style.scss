@@ -1345,36 +1345,105 @@ footer{
 .text-title-color {
   color: darkgreen;
 }
-.h-claim{
-h4:nth-child(1){
-  background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%);
-  padding: 11px;
-  border-radius: 50px;
-  text-align: right;
-  color: #fff;
-  font-size: 18px;
-  position: relative;
-  span{
-    background: #fff;
-    width: 70px;
-    height: 70px;
-    border-radius: 100%;
-    position: absolute;
-    padding-top: 10px;
-    font-size: 30px;
-    color: #000;
-    border: 10px solid #ff2525;
-    top: -14px;
-    left: 0;
+.h-claim {
+  .bottomQoute{
+    font-size: 16px;
     text-align: center;
+    margin-top: 15px;
+    color: #a9a4a4;
+    font-weight: bold;
+    font-style: italic;
   }
-  p{
-    background: bisque;
-    padding: 15px;
-    text-align: justify;
-    border-radius: 15px;
-    margin-top: -32px;
-    padding-top: 45px;
+  .col{
+    h4 {
+      padding: 13px;
+      border-radius: 50px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      position: relative;
+      span {
+        background: #fff;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        position: absolute;
+        padding-top: 10px;
+        font-size: 30px;
+        color: #000;
+        border: 10px solid;
+        top: -13px;
+        left: 0;
+        text-align: center;
+      }
+    }
+    p {
+      padding: 15px;
+      text-align: justify;
+      border-radius: 15px;
+      margin-top: -32px;
+      padding-top: 45px;
+    }
   }
-}
+  .col:nth-child(5){
+    h4 {
+      background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%);
+    }
+    span {
+      border-color: #0066cc;
+    }
+    p{
+      background:  #99edea;
+    }
+
+  }
+  .col:nth-child(4){
+    h4 {
+      background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%);
+    }
+    span {
+      border-color: #0066cc;
+    }
+    p{
+      background:  #99edea;
+    }
+
+  }
+  .col:nth-child(3){
+    h4 {
+      background: linear-gradient(to bottom, #66ff99 0%, #006600 100%);
+    }
+    span {
+      border-color: #006600;
+    }
+    p{
+      background:  #99edaa;
+    }
+
+  }
+  .col:nth-child(2){
+    h4 {
+      background: linear-gradient(to bottom, #ff9999 0%, #ff9900 100%);
+    }
+    span {
+      border-color: #ff9900;
+    }
+    p{
+      background:  #f6c577;
+    }
+
+  }
+
+  .col:nth-child(1){
+    h4 {
+      background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%);
+    }
+    span {
+      border-color: #ff2525;
+    }
+    p{
+      background:  #ffa0b2;
+    }
+
+  }
 }
