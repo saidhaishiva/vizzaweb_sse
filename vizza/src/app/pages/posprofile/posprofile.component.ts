@@ -57,6 +57,7 @@ export class PosprofileComponent implements OnInit {
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
+        this.currentTab = 'personal';
         this.getPosProfile();
 
 
@@ -199,8 +200,8 @@ export class PosprofileComponent implements OnInit {
         this.selectedTab = i;
         this.currentTab = value;
         let trainingStatus = sessionStorage.trainingStatus;
-        let examStatus = this.auth.getSessionData('examStatus');
-
+        let examStatus = sessionStorage.examStatus;
+        sessionStorage.currentTab = this.currentTab;
 
         if (value == 'Training') {
             if (trainingStatus == 0) {
@@ -241,7 +242,8 @@ export class PosprofileComponent implements OnInit {
             this.personal = successData.ResponseObject;
             this.posStatus = this.personal.pos_status;
             this.posDataAvailable = true;
-console.log(this.personal.exam_status, 'statuse');
+            this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
+            console.log(this.personal.exam_status, 'statuse');
             if (this.personal.exam_status == 2) {
                 this.auth.setSessionData('examStatus', this.personal.exam_status);
             }
@@ -284,18 +286,21 @@ console.log(this.personal.exam_status, 'statuse');
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
-            for (let i = 0; i < this.trainingDetails.length; i++) {
-                let num = this.trainingDetails[i].entry_time;
-                let hours = (num / 60);
-                let rhours = Math.floor(hours);
-                let minutes = (hours - rhours) * 60;
-                let rminutes = Math.round(minutes);
-                this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+            if (typeof (this.trainingDetails) != 'string') {
+
+                for (let i = 0; i < this.trainingDetails.length; i++) {
+                    let num = this.trainingDetails[i].entry_time;
+                    let hours = (num / 60);
+                    let rhours = Math.floor(hours);
+                    let minutes = (hours - rhours) * 60;
+                    let rminutes = Math.round(minutes);
+                    this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+                }
+
+
+                // let len = successData.ResponseObject.length -1;
+                this.startTrainingDate = this.trainingDetails[0].training_attend_date;
             }
-
-
-            // let len = successData.ResponseObject.length -1;
-            this.startTrainingDate = this.trainingDetails[0].training_attend_date;
         }
     }
     getTrainingDetailFailure(error) {

@@ -38,7 +38,11 @@ export const MY_FORMATS = {
 export class EditposComponent implements OnInit {
 
     public settings: Settings;
-    public form: FormGroup;
+    public personal: FormGroup;
+    public contacts: FormGroup;
+    public documents: FormGroup;
+    public educationlist: FormGroup;
+    public bankdetails: FormGroup;
     pincode: any;
     response: any;
     isChecked: boolean;
@@ -49,16 +53,19 @@ export class EditposComponent implements OnInit {
     fileUploadPath: any;
     imagepath: any;
     webhost: any;
-    personal: any;
+    profile: any;
     mismatchError: any;
     aadharfront: any;
-    profile: any;
+    profileedit: any;
     aadharback: any;
     pancard: any;
     education: any;
     dobError: any;
     dob: any;
     type: any;
+    chequeleaf: any;
+    showTab: any;
+    public posDataAvailable : boolean;
 
     constructor(public appSettings: AppSettings, public authService: AuthService , public fb: FormBuilder , public common: CommonService ,
                 public toastr: ToastrService , public router: Router, public datepipe: DatePipe,  public config: ConfigurationService) {
@@ -68,8 +75,9 @@ export class EditposComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.mismatchError = '';
-        this.form = this.fb.group({
-            personal: this.fb.group({
+        this.posDataAvailable = false;
+        this.showTab = sessionStorage.currentTab;
+        this.personal = this.fb.group({
                 id: null,
                 firstname: ['', Validators.compose([Validators.required])],
                 lastname: ['', Validators.compose([Validators.required])],
@@ -77,30 +85,39 @@ export class EditposComponent implements OnInit {
                 gender: ['', Validators.compose([Validators.required])],
                 referralconduct: ['', Validators.compose( [Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 profile: ['',Validators.compose( [Validators.required])],
-            }),
-            contacts: this.fb.group({
-                email: ['', Validators.compose([Validators.required])],
-                phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+            });
+        this.contacts = this.fb.group({
+                email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+                phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                phone2: '',
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
                 pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
-            }),
-            documents: this.fb.group({
+            });
+        this.documents = this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
-                pannumber: ['', Validators.compose([Validators.required])],
-
-            }),
-            education: this.fb.group({
+                pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
+                aadharfront: ['',Validators.compose( [Validators.required])],
+                aadharback: ['',Validators.compose( [Validators.required])],
+                pancard: ['',Validators.compose( [Validators.required])]
+            });
+        this.educationlist = this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
-
-            }),
-        });
+            });
+        this.bankdetails = this.fb.group({
+                bankname: ['', Validators.compose([Validators.required])],
+                bankbranch: ['', Validators.compose([Validators.required])],
+                ifsccode: ['', Validators.compose([Validators.required])],
+                accountnumber: ['', Validators.compose([Validators.required])],
+                chequeleaf:['', Validators.compose( [Validators.required])]
+            });
         this.aadharfront = '';
         this.aadharback = '';
         this.pancard = '';
         this.education = '';
         this.profile='';
         this.type = '';
+        this.chequeleaf ='';
         this.getPosProfile();
     }
   ngOnInit() {
@@ -117,6 +134,25 @@ export class EditposComponent implements OnInit {
             }
         }
     }
+
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
+    checkGender() {
+        if (this.personal['controls']['gender'].value != '' && this.personal['controls']['gender'].value != undefined) {
+            this.mismatchError = '';
+        } else {
+            this.mismatchError = 'Gender is required ';
+        }
+    }
+
     public getPosProfile() {
         console.log(this.settings.loadingSpinner);
         this.settings.loadingSpinner = true;
@@ -141,52 +177,60 @@ export class EditposComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
-            this.personal = successData.ResponseObject;
-            console.log(this.personal);
+            this. profileedit = successData.ResponseObject;
+            this.posDataAvailable = true;
+            console.log(this.profile);
            // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
             let date;
-            date = this.personal.pos_dob.split('/');
+            date = this. profileedit.pos_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
             date = this.datepipe.transform(date, 'y-MM-dd');
           //  let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
 
           console.log(date, 'dateee');
 
-            this.form = this.fb.group({
-                personal: this.fb.group({
+
+          this.personal = this.fb.group({
                 id: null,
-                firstname: this.personal.pos_firstname,
-                lastname: this.personal.pos_lastname,
+                firstname: this. profileedit.pos_firstname,
+                lastname: this. profileedit.pos_lastname,
                 birthday: date,
-                gender: this.personal.pos_gender,
-                    referralconduct: this.personal.pos_referralcode
-                }),
-                contacts: this.fb.group({
-                    email: this.personal.pos_email,
-                    phone1: this.personal.pos_mobileno,
+                gender: this. profileedit.pos_gender,
+                    referralconduct: this. profileedit.pos_referral_code,
+                });
+          this.contacts = this.fb.group({
+                    email: this. profileedit.pos_email,
+                    phone1: this. profileedit.pos_mobileno,
                     phone2: '',
-                    address1: this.personal.pos_address1,
-                    address2: this.personal.pos_address2,
-                    pincode: this.personal.pos_postalcode
+                    address1: this. profileedit.pos_address1,
+                    address2: this. profileedit.pos_address2,
+                    pincode: this. profileedit.pos_postalcode,
                     // city: this.personal.pos_cityid,
                     // state: this.personal.pos_stateid,
                     // country: this.personal.pos_countryid
-                }),
-                documents: this.fb.group({
-                    aadharnumber: this.personal.doc_aadhar_no,
-                    pannumber: this.personal.doc_pan_no,
+                });
+          this.documents = this.fb.group({
+                    aadharnumber: this. profileedit.doc_aadhar_no,
+                    pannumber: this. profileedit.doc_pan_no,
 
-                }),
-                education: this.fb.group({
-                    qualification: this.personal.doc_education,
+                });
+          this.educationlist = this.fb.group({
+                    qualification: this. profileedit.doc_education,
 
-                }),
-            });
-            this.profile =  this.personal.doc_profile_img;
-            this.aadharfront = this.personal.doc_aadhar_front_img;
-            this.aadharback = this.personal.doc_aadhar_back_img;
-            this.pancard = this.personal.doc_pan_img;
-            this.education = this.personal.doc_edu_certificate_img;
+                });
+          this.bankdetails = this.fb.group({
+                    bankname: this. profileedit.bank_name,
+                    bankbranch: this. profileedit.branch_name,
+                    ifsccode: this. profileedit.ifsc_code,
+                    accountnumber: this. profileedit.bank_acc_no
+                });
+
+            this.profile =  this. profileedit.pos_profile_img;
+            this.aadharfront = this. profileedit.doc_aadhar_front_img;
+            this.aadharback = this. profileedit.doc_aadhar_back_img;
+            this.pancard = this. profileedit.doc_pan_img;
+            this.education = this. profileedit.doc_edu_certificate_img;
+            this.chequeleaf = this. profileedit.check_leaf_upload_img;
         }
     }
     getPosProfileFailure(error) {
@@ -213,9 +257,10 @@ export class EditposComponent implements OnInit {
     public getpostalSuccess(successData) {
         if (successData.IsSuccess) {
             this.response = successData.ResponseObject;
-            this.form.controls['city'].setValue(this.response.city);
-            this.form.controls['state'].setValue(this.response.state);
-            this.form.controls['country'].setValue(this.response.country);
+            console.log(this.response);
+            this.contacts.controls['city'].setValue(this.response.city);
+            this.contacts.controls['state'].setValue(this.response.state);
+            this.contacts.controls['country'].setValue(this.response.country);
         } else {
             this.toastr.error('Invalid Pincode');
         }
@@ -273,6 +318,7 @@ export class EditposComponent implements OnInit {
     readUrl(event: any, type) {
         this.type = type;
         this.size = event.srcElement.files[0].size;
+        console.log(this.size);
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -321,6 +367,10 @@ export class EditposComponent implements OnInit {
             if (this.type == 'education') {
                 this.education = this.fileUploadPath;
             }
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
+            }
+            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -339,7 +389,7 @@ export class EditposComponent implements OnInit {
     }
 
     reset() {
-        this.form = this.fb.group({
+        this.personal = this.fb.group({
             'name': '',
             'mobile': '',
             'email': '',
@@ -355,23 +405,47 @@ export class EditposComponent implements OnInit {
             'gst': '',
             'pan': ''
         });
+        this.contacts = this.fb.group({
+
+        });
+        this.documents = this.fb.group({
+
+        });
+        this.educationlist = this.fb.group({
+
+        });
+        this.bankdetails = this.fb.group({
+
+        });
     }
     updatePosProfile() {
-        let date = this.datepipe.transform(this.form.controls['birthday'].value, 'y-MM-dd');
+        // const formData = new FormData();
+        // formData.append("uploadedImage", this.data.image);
+        //
+        // this._http.post(this.postUrl, formData, { headers: headers })
+        //     .subscribe();
+
+        let date = this.datepipe.transform(this.personal.value['birthday'], 'y-MM-dd');
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.authService.getPosUserId(),
             "role_id": this.authService.getPosRoleId(),
-            "pos_referralcode": this.form.value['personal']['referralconduct'],
-            "pos_firstname": this.form.value['personal']['firstname'],
-            "pos_lastname": this.form.value['personal']['lastname'] ,
+            "pos_referralcode": this.personal.value['referralconduct'],
+            "pos_firstname": this.personal.value['firstname'],
+            "pos_lastname": this.personal.value['lastname'] ,
             "pos_dob": date,
-            "pos_gender": this.form.value['personal']['gender'],
-            "pos_mobileno": this.form.value['contacts']['phone1'],
-            "pos_email": this.form.value['contacts']['email'],
-            "pos_address1": this.form.value['contacts']['address1'],
-            "pos_address2": this.form.value['contacts']['address2'],
-            "pos_postalcode": this.form.value['contacts']['pincode'],
+            "pos_gender": this.personal.value['gender'],
+            "pos_mobileno": this.contacts.value['phone1'],
+            "pos_email": this.contacts.value['email'],
+            "pos_address1": this.contacts.value['address1'],
+            "pos_address2": this.contacts.value['address2'],
+            "pos_postalcode": this.contacts.value['pincode'],
+            "pos_profile_img": this.profile == undefined ? '' : this.profile,
+            'bank_name': this.bankdetails.value['bankname'],
+            'bank_acc_no': this.bankdetails.value['accountnumber'],
+            'branch_name': this.bankdetails.value['bankbranch'],
+            'ifsc_code': this.bankdetails.value['ifsccode'],
+            'check_leaf_upload_img':this.chequeleaf
         };
         this.settings.loadingSpinner = true;
         this.common.updatePosProfile(data).subscribe(
@@ -391,14 +465,14 @@ export class EditposComponent implements OnInit {
             this.toastr.success(successData.ResponseObject);
             this.settings.userId = this.authService.getPosUserId();
             this.settings.username = this.authService.getPosFirstName() +' '+ this.authService.getPosLastName();
-             if (this.personal.doc_verified_status < 2) {
+             if (this.profileedit.doc_verified_status < 2) {
                  const data = {
                      "platform": "web",
                      "pos_id": this.authService.getPosUserId(),
                      "role_id": this.authService.getPosRoleId(),
-                     "pos_pan_no": this.form.value['documents']['pannumber'],
-                     "pos_education": this.form.value['education']['qualification'],
-                     "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
+                     "pos_pan_no": this.documents.value['pannumber'],
+                     "pos_education": this.educationlist.value['qualification'],
+                     "pos_aadhar_no": this.documents.value['aadharnumber'],
                      "pos_aadhar_front_img": this.aadharfront,
                      "pos_aadhar_back_img": this.aadharback,
                      "pos_pan_img": this.pancard,
@@ -412,6 +486,10 @@ export class EditposComponent implements OnInit {
                      this.toastr.error('Please upload pancard');
                  } else if (this.education == '') {
                      this.toastr.error('Please upload educational documents');
+                 }else if (this.chequeleaf == ''){
+                     this.toastr.error('please upload chequeleaf')
+                 }else if (this.chequeleaf == ''){
+                     this.toastr.error('please upload chequeleaf')
                  } else {
                      this.updateDocuments(data);
                  }
@@ -477,6 +555,16 @@ export class EditposComponent implements OnInit {
                 }
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
+            }
+        }
+    }
+
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
             }
         }
     }
