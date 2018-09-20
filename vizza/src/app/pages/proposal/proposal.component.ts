@@ -851,15 +851,15 @@ console.log(value,'fgh');
             }
         }
     }
-    public dobkeyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
+    // public dobkeyPress(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9/\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
     public onAlternative(event: any) {
         if (event.charCode !== 0) {
             const pattern =/[0-9- ]/;
@@ -1300,11 +1300,16 @@ console.log(value,'fgh');
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
                 if (this.response.length == 0) {
+                    console.log('jj');
                     this.personal.controls['personalState'].setValue('');
-                    this.personal.controls['personalCity'].setValue('');
+                     this.personal.controls['personalCity'].setValue('');
                     this.personal.controls['personalArea'].setValue('');
+                    this.personalCitys = [];
+                    this.summaryCity = [];
+                    this.areaNames = [];
                     this.toastr.error('In valid Pincode');
                 } else {
+                    console.log('kk');
                     this.personal.controls['personalState'].setValue(this.response.state_name);
                     this.personalCitys = this.response.city;
                     console.log(this.personalCitys, 'this.personalCitys');
@@ -1317,6 +1322,11 @@ console.log(value,'fgh');
 
 
             }
+
+            console.log(this.personalCitys,'hhh');
+            console.log(this.summaryCity,'jjj');
+
+
             if (this.title == 'residence') {
                 this.rResponse = successData.ResponseObject;
                 if (this.rResponse.length == 0) {
@@ -1485,17 +1495,17 @@ console.log(value,'fgh');
         console.log(error);
     }
 
-// add(event){
-//    // residencePincode = this.personal.controls.residencePincode.value;
-//   //  console.log(residencePincode,'fgh');
-//     if (event.charCode !== 0) {
-//         const pattern = /[0-9/\\ ]/;
-//         const inputChar = String.fromCharCode(event.charCode);
-//
-//         if (!pattern.test(inputChar)) {
-//             // invalid character, prevent input
-//             event.preventDefault();
-//         }
-//     }
-// }
+add(event){
+   // residencePincode = this.personal.controls.residencePincode.value;
+  //  console.log(residencePincode,'fgh');
+    if (event.charCode !== 0) {
+        const pattern = /[0-9/\\ ]/;
+        const inputChar = String.fromCharCode(event.charCode);
+
+        if (!pattern.test(inputChar)) {
+            // invalid character, prevent input
+            event.preventDefault();
+        }
+    }
+}
 }

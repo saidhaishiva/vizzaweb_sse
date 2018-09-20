@@ -36,22 +36,22 @@
                   [selected]="selected"
                   [selectionType]="'checkbox'">
 
-            <ngx-datatable-column name="id">
+            <ngx-datatable-column name="Id">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <div>{{row.manager_id}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="name">
+            <ngx-datatable-column name="Name">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.manager_name}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="mobile">
+            <ngx-datatable-column name="Mobile">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.manager_mobile}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="email">
+            <ngx-datatable-column name="Email">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.manager_email}}
               </ng-template>
