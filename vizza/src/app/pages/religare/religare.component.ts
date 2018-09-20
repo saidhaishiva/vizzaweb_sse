@@ -221,7 +221,6 @@ array: any;
             'Liberty General Insurance Co. Ltd.',
             'Shriram General Insurance Co. Ltd.',
             'Reliance General Insurance Co. Ltd',
-            'Reliance General Insurance Co. Ltd.',
             'DHFL General Insurance Co. Ltd.',
             'Bajaj Allianz Allianz General Insurance Co. Ltd.',
             'Edelweiss General Insurance Co.Ltd.',
