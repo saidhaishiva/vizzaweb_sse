@@ -87,6 +87,8 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
 import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
 import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 import { UploadExcel} from './pages/question/listquestion/listquestion.component';
+import { ImageUploadModule} from 'angular2-image-upload';
+// import { FileUploader} from 'ng2-file-upload';
 
 @NgModule({
     imports: [
@@ -108,6 +110,7 @@ import { UploadExcel} from './pages/question/listquestion/listquestion.component
         PipesModule,
         NgxPaginationModule,
         PdfViewerModule,
+        ImageUploadModule.forRoot(),
         routing
     ],
     declarations: [
@@ -156,7 +159,8 @@ import { UploadExcel} from './pages/question/listquestion/listquestion.component
         AddbranchComponent,
         EditquestionComponent,
         EditbranchComponent,
-        UploadExcel
+        UploadExcel,
+
 
     ],
     providers: [

@@ -1,4 +1,23 @@
-<h1 mat-dialog-title class="w-100 float-left">{{data.title}}  <button mat-button class="secondary-bg-color float-right mb-2"  (click)="onNoClick()">Close</button></h1>
+<div class="row">
+  <div class="col-md-6">
+   <p>{{data.title}}</p>
+  </div>
+  <div class="col-md-6 ">
+    <div class="float-right">
+      <a download href="assets/img/users/default-user.jpg" title="ImageName">
+      <button mat-button class="secondary-bg-color">Download</button>
+      </a>
+      <mat-icon class="text-right h-100" (click)="onNoClick()" style="cursor: pointer;margin-bottom:27px">close</mat-icon>
+    </div>
+  </div>
+</div>
+<!--<h1 mat-dialog-title class="w-100 float-left">{{data.title}}-->
+  <!--<a download href="assets/img/users/default-user.jpg" title="ImageName">-->
+    <!--<button mat-button class="secondary-bg-color float-right">Download</button>-->
+  <!--</a>-->
+  <!--<mat-icon class="float-right h-100" (click)="onNoClick()" style="cursor: pointer">close</mat-icon>-->
+
+<!--</h1>-->
 <div mat-dialog-content>
   <img src="{{webhost +'/' + data.img}}" alt="" class="w-100">
 </div>

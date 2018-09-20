@@ -148,7 +148,7 @@
                                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="personal.check_leaf_upload_img != ''">
                                                 <div class="mb-2 mt-2">
                                                     <h6 class="text-center colorBank">Check Leaf</h6>
-                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" >
+                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(personal.doc_pan_img, 'Check Leaf')">
                                                 </div>
                                             </div>
 
@@ -163,7 +163,7 @@
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
-                                    <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;margin-top: 150px;">
+                                    <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;margin-top: 50px;">
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
@@ -213,7 +213,7 @@
                                 <!--</div>-->
                             </div>
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
-                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
 
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
                                 <div fxFlex="33.3" class="flex-p">
