@@ -1000,6 +1000,9 @@ background: #ccc !important;
   .content-color{
     color: #0b9444;
   }
+  p{
+    text-align: justify;
+  }
 }
 .app.teal-light .mat-chip.mat-chip-selected.mat-accent {
   background-color: #3dccb1d6 !important;;
@@ -1341,4 +1344,37 @@ footer{
   }
 .text-title-color {
   color: darkgreen;
+}
+.h-claim{
+h4:nth-child(1){
+  background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%);
+  padding: 11px;
+  border-radius: 50px;
+  text-align: right;
+  color: #fff;
+  font-size: 18px;
+  position: relative;
+  span{
+    background: #fff;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    position: absolute;
+    padding-top: 10px;
+    font-size: 30px;
+    color: #000;
+    border: 10px solid #ff2525;
+    top: -14px;
+    left: 0;
+    text-align: center;
+  }
+  p{
+    background: bisque;
+    padding: 15px;
+    text-align: justify;
+    border-radius: 15px;
+    margin-top: -32px;
+    padding-top: 45px;
+  }
+}
 }

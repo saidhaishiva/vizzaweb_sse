@@ -11,6 +11,8 @@ export const verticalMenuItems = [
     // new Menu (6, 'Answered Queries', '/answered-queries', null, 'chat', null, false, 0),
     // new Menu (7, 'Lab Order', '/lab-order', null, 'content_paste', null, false, 0),
     // new Menu (8, 'Pharmacy Order', '/pharmacy-order', null, 'add_shopping_cart', null, false, 0),
+    new Menu (18, 'POS Manager', '/posmanager', null, 'supervisor_account', null, false, 0),
+
     new Menu (17, 'Branch Manager', '/branchmanager', null, 'supervisor_account', null, false, 0),
     new Menu (18, 'Sales Manager', '/salesmanager', null, 'supervisor_account', null, false, 0),
     new Menu (19, 'Relational Manager', '/relationalmanager', null, 'supervisor_account', null, false, 0),
