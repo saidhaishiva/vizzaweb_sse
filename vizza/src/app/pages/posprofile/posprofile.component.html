@@ -9,8 +9,8 @@
                     </mat-toolbar>
 
                     <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
-                        <div *ngFor="let mail of sideNav; let i= index" (click)="viewDetail(i, mail.name)" [ngClass]="viewTab == true ? '' : 'stopEvent'">
-                            <mat-list-item [ngClass]="{'selected':  selectedTab == i}" >
+                        <div *ngFor="let mail of sideNav; let i= index" (click)="viewDetail(i, mail.name)">
+                            <mat-list-item [ngClass]="{'selected':  selectedTab == i}">
                                 <!--<img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">-->
                                 <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
                                     <h6 class="text-truncate sender">{{mail.name}}</h6>
@@ -603,8 +603,8 @@
                                         <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
                                         <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                                         <td>{{lists.percentage_in_exam}}</td>
-                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
-                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
+                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Success</span></td>
+                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Try again</span></td>
                                     </tr>
 
                                     </tbody>
@@ -785,6 +785,7 @@
                                         </div>
                                     </footer>
                                 </mat-card>
+                                </div>
                             </div>
                         </div>
                         <!--Examination letter-->
