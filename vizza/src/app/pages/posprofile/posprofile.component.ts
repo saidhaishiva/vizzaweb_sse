@@ -94,6 +94,8 @@ export class PosprofileComponent implements OnInit {
     tabValue: any;
     public personalshow: any;
 
+
+
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
 
