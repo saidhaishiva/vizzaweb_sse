@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
     mismatchError: any;
     DateValidator: any;
     roleId: any;
-    img: any;
+    img: boolean;
     profile: any;
     selectedIndex: any;
     public passwordHide: boolean = true;
@@ -367,7 +367,7 @@ export class RegisterComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         let res = year_age;
-        console.log(res);
+        console.log(res,'fghjk');
         if (res >= 18) {
             this.img = false;
         } else {
@@ -376,48 +376,66 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    // addEvent(event, i) {
+    //     alert();
+    //     if (event.value != null) {
+    //         let selectedDate = '';
+    //         if (typeof event.value._i == 'string') {
+    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+    //
+    //             if (pattern.test(event.value._i) && event.value._i.length == 10) {
+    //                 this.dobError = '';
+    //             } else {
+    //                 this.dobError = 'Enter Valid Date';
+    //             }
+    //             selectedDate = event.value._i;
+    //             this.dob = event.value._i;
+    //
+    //             let birth = this.form.controls['birthday'].value;
+    //             let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+    //             console.log(dob,'dob');
+    //
+    //             if (birth._i.length == '10') {
+    //
+    //                 this.ageCalculate(dob);
+    //             } else {
+    //                 this.img = false;
+    //
+    //             }
+    //
+    //         } else if (typeof event.value._i == 'object') {
+    //
+    //             this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+    //
+    //             this.dobError = '';
+    //             let date = event.value._i.date;
+    //             if (date.toString().length == 1) {
+    //                 date = '0' + date;
+    //             }
+    //             let month = (parseInt(event.value._i.month) + 1).toString();
+    //
+    //             if (month.length == 1) {
+    //                 month = '0' + month;
+    //             }
+    //             let year = event.value._i.year;
+    //             this.dob = date + '-' + month + '-' + year;
+    //         }
+    //     }
+    // }
     addEvent(event, i) {
-        if (event.value != null) {
-            let selectedDate = '';
-            if (typeof event.value._i == 'string') {
-                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-                } else {
-                    this.dobError = 'Enter Valid Date';
-                }
-                selectedDate = event.value._i;
-                this.dob = event.value._i;
-
-                let birth = this.form.controls['birthday'].value;
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
-                if (birth._i.length == '10') {
-
-                    this.ageCalculate(dob);
-                } else {
-                    this.img = false;
-
-                }
-
-            } else if (typeof event.value._i == 'object') {
-
-                this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
-
-                this.dobError = '';
-                let date = event.value._i.date;
-                if (date.toString().length == 1) {
-                    date = '0' + date;
-                }
-                let month = (parseInt(event.value._i.month) + 1).toString();
-
-                if (month.length == 1) {
-                    month = '0' + month;
-                }
-                let year = event.value._i.year;
-                this.dob = date + '-' + month + '-' + year;
-            }
+        let setDate = this.datepipe.transform(event.value, 'dd-MM-y');
+        if (setDate == null) {
+            this.dobError = '';
+        }
+        let setDateAge = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (event.value._i.length == 10) {
+            this.dobError = '';
+            this.dob = event.value._i;
+            this.ageCalculate(setDateAge);
+        }  else if (event.value._i.length > 10) {
+            this.dobError = 'Enter valid dob';
+        } else {
+            this.dobError = 'Enter valid dob';
         }
     }
 
