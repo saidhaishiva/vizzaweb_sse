@@ -804,15 +804,15 @@ a:hover {
 .insurance-renewal li {
   display: block; }
 .insurance-renewal h2 {
-  background: #eaeaea;
-  padding: 20px;
+  background: linear-gradient(to bottom, #993366 0%, #993399 100%);
+  padding: 12px;
   margin-bottom: 0;
   margin-top: 0;
-  color: #1d968b;
-  font-weight: bold; }
+  color: #fff;
+  font-size: 22px; }
 .insurance-renewal form {
   padding: 50px;
-  background: #d4d4d4; }
+  background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%); }
 .insurance-renewal .input-group-addon {
   color: #fff;
   background-color: #13a89e;
@@ -995,6 +995,8 @@ footer {
 .text-title-color {
   color: darkgreen; }
 
+.h-claim h3 {
+  color: #a9a4a4; }
 .h-claim .bottomQoute {
   font-size: 16px;
   text-align: center;
@@ -1005,7 +1007,7 @@ footer {
 .h-claim .col h4 {
   padding: 13px;
   border-radius: 50px;
-  text-align: center;
+  text-align: right;
   color: #fff;
   font-size: 18px;
   position: relative; }
@@ -1027,13 +1029,14 @@ footer {
   text-align: justify;
   border-radius: 15px;
   margin-top: -32px;
-  padding-top: 45px; }
+  padding-top: 45px;
+  min-height: 270px; }
 .h-claim .col:nth-child(5) h4 {
-  background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%); }
+  background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%); }
 .h-claim .col:nth-child(5) span {
-  border-color: #0066cc; }
+  border-color: #cc00cc; }
 .h-claim .col:nth-child(5) p {
-  background: #99edea; }
+  background: #fdcbf4; }
 .h-claim .col:nth-child(4) h4 {
   background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%); }
 .h-claim .col:nth-child(4) span {
