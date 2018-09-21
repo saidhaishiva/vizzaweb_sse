@@ -88,6 +88,18 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    branchList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/get_pos_manager_details_list';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getComments(data) {
         const json = JSON.stringify(data);
         console.log(json);

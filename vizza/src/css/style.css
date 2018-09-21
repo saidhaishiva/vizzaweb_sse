@@ -736,6 +736,8 @@ a:hover {
   font-size: 22px !important; }
 .question-view .content-color {
   color: #0b9444; }
+.question-view p {
+  text-align: justify; }
 
 .app.teal-light .mat-chip.mat-chip-selected.mat-accent {
   background-color: #3dccb1d6 !important;
@@ -989,5 +991,72 @@ footer {
   background-color: #006E5E !important;
   color: #FFFFFF !important;
   border: 2px solid #FFFFFF !important; }
+
+.text-title-color {
+  color: darkgreen; }
+
+.h-claim .bottomQoute {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 15px;
+  color: #a9a4a4;
+  font-weight: bold;
+  font-style: italic; }
+.h-claim .col h4 {
+  padding: 13px;
+  border-radius: 50px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  position: relative; }
+  .h-claim .col h4 span {
+    background: #fff;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    position: absolute;
+    padding-top: 10px;
+    font-size: 30px;
+    color: #000;
+    border: 10px solid;
+    top: -13px;
+    left: 0;
+    text-align: center; }
+.h-claim .col p {
+  padding: 15px;
+  text-align: justify;
+  border-radius: 15px;
+  margin-top: -32px;
+  padding-top: 45px; }
+.h-claim .col:nth-child(5) h4 {
+  background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%); }
+.h-claim .col:nth-child(5) span {
+  border-color: #0066cc; }
+.h-claim .col:nth-child(5) p {
+  background: #99edea; }
+.h-claim .col:nth-child(4) h4 {
+  background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%); }
+.h-claim .col:nth-child(4) span {
+  border-color: #0066cc; }
+.h-claim .col:nth-child(4) p {
+  background: #99edea; }
+.h-claim .col:nth-child(3) h4 {
+  background: linear-gradient(to bottom, #66ff99 0%, #006600 100%); }
+.h-claim .col:nth-child(3) span {
+  border-color: #006600; }
+.h-claim .col:nth-child(3) p {
+  background: #99edaa; }
+.h-claim .col:nth-child(2) h4 {
+  background: linear-gradient(to bottom, #ff9999 0%, #ff9900 100%); }
+.h-claim .col:nth-child(2) span {
+  border-color: #ff9900; }
+.h-claim .col:nth-child(2) p {
+  background: #f6c577; }
+.h-claim .col:nth-child(1) h4 {
+  background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%); }
+.h-claim .col:nth-child(1) span {
+  border-color: #ff2525; }
+.h-claim .col:nth-child(1) p {
+  background: #ffa0b2; }
 
 /*# sourceMappingURL=style.css.map */

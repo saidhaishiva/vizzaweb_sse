@@ -16,6 +16,10 @@ import { CommonService } from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
 import {PosnotesComponent} from './posnotes/posnotes.component';
 declare var google: any;
+import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload';
+
+
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 @Component({
     selector: 'app-doctorprofile',
@@ -80,24 +84,41 @@ export class PosprofileComponent implements OnInit {
     bankDoc: any;
     isAlreadyAgent: any;
     isAlreadyAgentId: any;
+    allManagerLists: any;
+    fileDetails: any;
+    allImage: any;
+    pdfSrc: any;
     comments: string;
     notes: string;
     rows = [];
     rows1 = [];
     temp = [];
 
+    public uploader:FileUploader = new FileUploader({url: URL});
+    public hasBaseDropZoneOver:boolean = false;
+    public hasAnotherDropZoneOver:boolean = false;
+
+    public fileOverBase(e:any):void {
+        this.hasBaseDropZoneOver = e;
+    }
+
+    public fileOverAnother(e:any):void {
+        this.hasAnotherDropZoneOver = e;
+    }
 
     constructor(public route: ActivatedRoute, public datepipe: DatePipe, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
 
         this.physical = [];
+        this.fileDetails = [];
         this.online = [];
+        this.allImage = [];
         this.currentTap = 0;
         this.onlineVerificationMessage = '';
         this.physicalVerificationNotes = '';
         this.onlineVerificationNotes = '';
         this.appointmentdate = '';
-        this.fileUploadPath = '';
+        this.fileUploadPath = [];
         this.qualifications = [];
         this.registrationDetails = [];
         this.specialityDetails = [];
@@ -133,12 +154,20 @@ export class PosprofileComponent implements OnInit {
         this.getComments();
         this.getTrainingDetails(this.posid);
         this.getExamDetails(this.posid);
+        this.managerList();
 
+    }
+
+    onChange(event: any, input: any) {
+        let files = [].slice.call(event.target.files);
+
+        input.value = files.map(f => f.name).join(', ');
+        console.log(input.value, 'input.value');
     }
 
     viewImage(path, title) {
         const dialogRef = this.dialog.open(ClinicimageviewComponent, {
-            width: '800px',
+            width: '900px',
             data: {'img': path, 'title': title}
 
         });
@@ -316,37 +345,42 @@ export class PosprofileComponent implements OnInit {
         });
     }
     readUrl(event: any) {
-        this.size = event.srcElement.files[0].size;
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+        console.log(event.target.files, 'event');
+        this.pdfSrc = event.target.files[0].name;
+        this.getUrl1 = [];
+        this.fileDetails = [];
+        for (let i = 0; i < event.target.files.length; i++) {
+            this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+        }
+        for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+            this.url = event.target.result;
+            this.getUrl1.push(this.url.split(','));
+            this.onUploadFinished(this.getUrl1);
+        };
+        reader.readAsDataURL(event.target.files[0]);
         }
 
     }
     onUploadFinished(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            'uploadtype': 'single',
-            'agreement_file': this.getUrl,
-        };
-        console.log(data, 'dattattatata');
-        this.common.agreementUpload(data).subscribe(
-            (successData) => {
-                this.fileUploadSuccess(successData);
-            },
-            (error) => {
-                this.fileUploadFailure(error);
-            }
-        );
+        this.allImage.push(event);
+        console.log(this.allImage, 'eventevent');
+        // this.getUrl = event[1];
+        // const data = {
+        //     'platform': 'web',
+        //     'uploadtype': 'single',
+        //     'agreement_file': this.getUrl,
+        // };
+        // console.log(data, 'dattattatata');
+        // this.common.agreementUpload(data).subscribe(
+        //     (successData) => {
+        //         this.fileUploadSuccess(successData);
+        //     },
+        //     (error) => {
+        //         this.fileUploadFailure(error);
+        //     }
+        // );
     }
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
@@ -394,8 +428,8 @@ export class PosprofileComponent implements OnInit {
     }
 
     verificationSubmit() {
-        console.log(this.notes, 'this.notes');
-        console.log(this.comments, 'this.notes');
+        console.log(this.fileDetails, 'this.notes');
+        console.log(this.allImage, 'this.this.allImage');
         this.field = [];
         // for (let i=0; i < this.documentslist.length; i++) {
         //         this.field.push({
@@ -427,6 +461,18 @@ export class PosprofileComponent implements OnInit {
 
         ];
 
+        for (let i = 0; i < this.fileDetails.length; i++) {
+            for (let j = 0; j < this.allImage.length; j++) {
+                for (let k = 0; k < this.allImage[j].length; k++) {
+                    console.log(this.allImage[j][k], 'pppp');
+                    this.fileDetails[i].image = this.allImage[j][k][1];
+                }
+            }
+        }
+
+        console.log(this.fileUploadPath, 'this.fileUploadPath');
+        console.log(this.fileDetails, 'this.fileDetails');
+
         let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
         const data = {
             'platform': 'web',
@@ -437,7 +483,7 @@ export class PosprofileComponent implements OnInit {
             'online_verification_message': this.comments,
             'pos_id': this.posid,
             'appointment_date': appointDate == undefined ? '' : appointDate,
-            'agreement_filepath': this.fileUploadPath ? this.fileUploadPath : ''
+            'agreement_filepath': this.fileDetails ? this.fileDetails : '',
         };
         this.settings.loadingSpinner = true;
         this.common.updateVerification(data).subscribe(
@@ -513,6 +559,34 @@ export class PosprofileComponent implements OnInit {
         console.log(error);
     }
 
+    public managerList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId()
+        };
+        this.common.branchList(data).subscribe(
+            (successData) => {
+                this.branchListSuccess(successData);
+            },
+            (error) => {
+                this.branchListFailure(error);
+            }
+        );
+    }
+    public branchListSuccess(success) {
+        console.log(success);
+        if (success.IsSuccess) {
+            this.allManagerLists = success.ResponseObject;
+
+        } else {
+        }
+    }
+
+    public branchListFailure(error) {
+
+    }
+
     getComments() {
         const data = {
             'platform': 'web',
@@ -540,6 +614,9 @@ export class PosprofileComponent implements OnInit {
     }
     getCommentFailure(error) {
         console.log(error);
+    }
+    openPdf(adress) {
+        window.open(adress);
     }
 
 

@@ -9,25 +9,27 @@
                 <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
                     <mat-tab label="Personal" formGroupName="personal">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
+                        <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" autocomplete="off" required>
                         <mat-icon matSuffix>person</mat-icon>
                         <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" required>
+                        <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" autocomplete="off" required>
                         <mat-icon matSuffix>person</mat-icon>
                         <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" require>
-                        <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-                        <mat-datepicker  #birthday></mat-datepicker>
+                        <mat-form-field class="w-100" >
+                        <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                        <mat-datepicker-toggle matSuffix [for]="birthday" ></mat-datepicker-toggle>
+                        <mat-datepicker  #birthday ></mat-datepicker>
                         <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
-                        <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
+                            <!--<mat-error *ngIf="img">Age limit should be greater than 18 age</mat-error>-->
+
+                            <!--<mat-error *ngIf="form.controls.birthday.hasError('pattern')">Enter Valid Date</mat-error>-->
                         </mat-form-field>
 
-                        <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
+                        <div *ngIf="img" style="color: red">Age should be greater than 18</div>
                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                         <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                         <mat-radio-button value="male" class="mr-2">Male<span class="error"> *</span></mat-radio-button>
@@ -38,17 +40,17 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" minlength="10" maxlength="10">
+                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">
                             <i class="fas fa-phone" matSuffix></i>
-                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Conduct Number is Not Valid</mat-error>
+                            <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
                         <div class="w-100 mt-2">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Attach Your Profile Picture</label>
-                            <div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>
+                        <label class="custom-file-label">Attach Your Photo</label>
+                            <div class="error" *ngIf !="form.controls.personal.controls.profile.valid">Profile Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -69,14 +71,14 @@
                         <!--<input matInput placeholder="Email Id" required formControlName="email" required>-->
                         <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>-->
                         <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>-->
-                        <input matInput type="email" placeholder="Email Id" formControlName="email" required>
+                        <input matInput type="email" placeholder="Email Id" formControlName="email" autocomplete="off" required>
                             <mat-icon matSuffix>email</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.email.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
-                        minlength="10" maxlength="10" formControlName="phone1" required>
+                        minlength="10" maxlength="10" formControlName="phone1" autocomplete="off" required>
                         <i class="fas fa-phone" matSuffix></i>
                         <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
                         Mobile Number is required
@@ -93,7 +95,7 @@
                         <!--<input matInput placeholder="Phone2" (keypress)="keyPress($event)"  maxlength="13" formControlName="phone2">-->
                         <!--</mat-form-field>-->
                         <mat-form-field class="w-100">
-                        <input matInput formControlName="address1" placeholder="Address1" required>
+                        <input matInput formControlName="address1" placeholder="Address1" autocomplete="off" required>
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.address1.errors?.required ">
                         Enter Address1
@@ -101,13 +103,13 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Address2" formControlName="address2">
+                        <input matInput placeholder="Address2" formControlName="address2" autocomplete="off">
                         <mat-icon matSuffix>home</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
                         minlength="6" (keypress)="keyPress($event)" (keyup)="getPin($event.target.value)" formControlName="pincode"
-                        required>
+                        required autocomplete="off">
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
@@ -124,14 +126,14 @@
 
                         <mat-tab label="Documents" formGroupName="documents">
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
+                        <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
                         <i class="far fa-id-card" matSuffix></i>
                         <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber">
+                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off">
                         <i class="far fa-id-card" matSuffix></i>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
@@ -145,7 +147,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Front Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -159,7 +161,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Back Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -173,7 +175,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">PAN Card Front Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -191,7 +193,7 @@
 
                         <mat-tab label="Education" formGroupName="education">
                         <mat-form-field class="w-100">
-                        <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification"></textarea>
+                        <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
                         <mat-hint align="end">{{message.value.length}} /300</mat-hint>
                         <mat-error *ngIf="form.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>
                         </mat-form-field>
@@ -203,7 +205,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Educational Documents</label>
-                            <div class="error" [hidden]="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
+                            <div class="error" *ngIf !="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -220,17 +222,17 @@
                         </mat-tab>
                         <mat-tab label="BankDetails" formGroupName="bankdetails">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname">
+                        <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch">
+                        <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)">
+                        <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
@@ -238,14 +240,14 @@
                         <!--<mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('pattern')">Enter Valid IFSC Code</mat-error>-->
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8">
+                        <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
                         <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                         </mat-form-field>
                             <div class="w-100">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01">
+                                    <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
                                     <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
                                     <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
                                 </div>

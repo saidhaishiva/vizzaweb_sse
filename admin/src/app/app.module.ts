@@ -87,6 +87,11 @@ import { AddbranchComponent } from './pages/branch/addbranch/addbranch.component
 import { EditbranchComponent } from './pages/branch/editbranch/editbranch.component';
 import { EditquestionComponent } from './pages/question/editquestion/editquestion.component';
 import { UploadExcel} from './pages/question/listquestion/listquestion.component';
+import { ImageUploadModule} from 'angular2-image-upload';
+// import { FileUploader} from 'ng2-file-upload';
+import { PosmanagerComponent } from './pages/posmanager/posmanager.component';
+import { AddposmanagerComponent } from './pages/posmanager/addposmanager/addposmanager.component';
+import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editposmanager.component';
 
 @NgModule({
     imports: [
@@ -156,7 +161,12 @@ import { UploadExcel} from './pages/question/listquestion/listquestion.component
         AddbranchComponent,
         EditquestionComponent,
         EditbranchComponent,
-        UploadExcel
+        UploadExcel,
+
+        UploadExcel,
+        PosmanagerComponent,
+        AddposmanagerComponent,
+        EditposmanagerComponent
 
     ],
     providers: [
@@ -176,6 +186,6 @@ import { UploadExcel} from './pages/question/listquestion/listquestion.component
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel ]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent]
 })
 export class AppModule { }

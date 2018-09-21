@@ -25,6 +25,8 @@ export class ClinicimageviewComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
     }
-
+    saveImageAs1(adress) {
+        window.open(adress);
+    }
 
 }

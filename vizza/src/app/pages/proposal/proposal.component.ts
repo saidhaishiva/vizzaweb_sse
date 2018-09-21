@@ -24,10 +24,10 @@ export const MY_FORMATS = {
     },
     display: {
         dateInput: 'DD/MM/YYYY',
-        monthYearLabel: 'MM YYYY',
+        // monthYearLabel: 'MM YYYY',
         dateA11yLabel: 'DD/MM/YYYY',
 
-        monthYearA11yLabel: 'MM YYYY',
+        // monthYearA11yLabel: 'MM YYYY',
     },
 };
 @Component({
@@ -391,7 +391,7 @@ export class ProposalComponent implements OnInit {
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalLastname: this.getStepper1.personalLastname,
-                personalDob: this.getStepper1.personalDob,
+                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
                 personalOccupation: this.getStepper1.personalOccupation,
                 personalIncome: this.getStepper1.personalIncome,
                 personalArea: this.getStepper1.personalArea,
@@ -852,6 +852,7 @@ console.log(value,'fgh');
         }
     }
     public dobkeyPress(event: any) {
+
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -875,6 +876,7 @@ console.log(value,'fgh');
         if (this.datepipe.transform(event.value, 'dd-MM-y') == null) {
             this.insurerDobError = '';
         }
+        console.log(event.value);
         if (event.value._i.length == 10) {
             this.insurerDobError = '';
             this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
@@ -1300,11 +1302,16 @@ console.log(value,'fgh');
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
                 if (this.response.length == 0) {
+                    console.log('jj');
                     this.personal.controls['personalState'].setValue('');
-                    this.personal.controls['personalCity'].setValue('');
+                     this.personal.controls['personalCity'].setValue('');
                     this.personal.controls['personalArea'].setValue('');
+                    this.personalCitys = [];
+                    this.summaryCity = [];
+                    this.areaNames = [];
                     this.toastr.error('In valid Pincode');
                 } else {
+                    console.log('kk');
                     this.personal.controls['personalState'].setValue(this.response.state_name);
                     this.personalCitys = this.response.city;
                     console.log(this.personalCitys, 'this.personalCitys');
@@ -1317,6 +1324,11 @@ console.log(value,'fgh');
 
 
             }
+
+            console.log(this.personalCitys,'hhh');
+            console.log(this.summaryCity,'jjj');
+
+
             if (this.title == 'residence') {
                 this.rResponse = successData.ResponseObject;
                 if (this.rResponse.length == 0) {
