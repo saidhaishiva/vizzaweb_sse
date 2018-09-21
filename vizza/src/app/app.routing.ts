@@ -11,6 +11,15 @@ import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthi
 import { HomeComponent} from './pages/home/home.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
+import {ShopkeeperpolicyComponent} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
+import {MarinecargoComponent} from './pages/marinecargo/marinecargo.component';
+import {MoneyComponent} from './pages/money/money.component';
+import {FireComponent} from './pages/fire/fire.component';
+import { BurglaryComponent} from './pages/burglary/burglary.component';
+import { MachineryComponent} from './pages/machinery/machinery.component';
+import { ElectronicsComponent} from './pages/electronics/electronics.component';
+import { ContractorsComponent} from './pages/contractors/contractors.component';
+import { ProfessionalComponent} from './pages/professional/professional.component';
 import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ProposalComponent} from './pages/proposal/proposal.component';
@@ -34,6 +43,19 @@ import {TravelComponent} from './pages/travel/travel.component';
 import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
+import {HouseholdComponent} from './pages/household/household.component';
+import {PublicComponent} from './pages/public/public.component';
+import {WorkmenComponent} from './pages/workmen/workmen.component';
+import {GroupmedicalComponent} from './pages/groupmedical/groupmedical.component';
+import {GrouppersonalComponent} from './pages/grouppersonal/grouppersonal.component';
+import {GrouptermComponent} from './pages/groupterm/groupterm.component';
+import {JewelersblockComponent} from './pages/jewelersblock/jewelersblock.component';
+import {BankersComponent} from './pages/bankers/bankers.component';
+import {MarinehullComponent} from './pages/marinehull/marinehull.component';
+import {AviationComponent} from './pages/aviation/aviation.component';
+import {ErectionComponent} from './pages/erection/erection.component';
+import {DirectorsComponent} from './pages/directors/directors.component';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -64,6 +86,27 @@ export const routes: Routes = [
             { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
+            { path: 'shopkeeperpolicy', component: ShopkeeperpolicyComponent, data: { breadcrumb: 'Shopkeeper Policy'} },
+            { path: 'marinecargo', component: MarinecargoComponent, data: {breadcrumb: 'Marine Cargo Policy'}},
+            { path: 'marinehull', component: MarinehullComponent, data: {breadcrumb: 'Marine Hull policy'}},
+            { path: 'aviation', component: AviationComponent, data: {breadcrumb: 'Aviation Insurance'}},
+            { path: 'money', component: MoneyComponent, data: {breadcrumb: ' Money Insurance'}},
+            { path: 'fire', component: FireComponent, data: {breadcrumb: 'Fire Policy'}},
+            { path: 'burglary', component: BurglaryComponent, data: {breadcrumb: 'Burglary Policy'}},
+            { path: 'machinery', component: MachineryComponent, data: {breadcrumb: 'Machinery Breakdown Policy'}},
+            { path: 'electronics', component: ElectronicsComponent, data: {breadcrumb: 'Electronics Equiptment Policy'}},
+            { path: 'contractors', component: ContractorsComponent, data: {breadcrumb: 'Contractors All Risk Policy'}},
+            { path: 'household', component: HouseholdComponent, data: {breadcrumb: 'House Holders Policy'}},
+            { path: 'public', component: PublicComponent, data: {breadcrumb: 'Public Liability Policy'}},
+            { path: 'professional', component: ProfessionalComponent, data: {breadcrumb: 'Professional Indemnity Policy'}},
+            { path: 'workmen', component: WorkmenComponent, data: {breadcrumb: 'Workmen Compensation'}},
+            { path: 'groupmedical', component: GroupmedicalComponent, data: {breadcrumb: 'Group Medical Insurance'}},
+            { path: 'grouppersonal', component: GrouppersonalComponent, data: {breadcrumb: 'Group Personal Accident'}},
+            { path: 'groupterm', component: GrouptermComponent, data: {breadcrumb: 'Group Term Life Insurance'}},
+            { path: 'jewelersblock', component: JewelersblockComponent, data: {breadcrumb: 'Jewelers Block Policy'}},
+            { path: 'directors', component: DirectorsComponent, data: {breadcrumb: 'Directors and Officers Liability Policy'}},
+            { path: 'bankers', component: BankersComponent, data: {breadcrumb: 'Bankers Identity Policy'}},
+            { path: 'erection', component: ErectionComponent, data: {breadcrumb: 'Erection All rick Policy'}},
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},

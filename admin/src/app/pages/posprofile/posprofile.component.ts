@@ -110,6 +110,7 @@ export class PosprofileComponent implements OnInit {
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
 
         this.physical = [];
+        this.fileDetails = [];
         this.online = [];
         this.allImage = [];
         this.currentTap = 0;
@@ -427,8 +428,8 @@ export class PosprofileComponent implements OnInit {
     }
 
     verificationSubmit() {
-        console.log(this.notes, 'this.notes');
-        console.log(this.comments, 'this.notes');
+        console.log(this.fileDetails, 'this.notes');
+        console.log(this.allImage, 'this.this.allImage');
         this.field = [];
         // for (let i=0; i < this.documentslist.length; i++) {
         //         this.field.push({
@@ -462,7 +463,10 @@ export class PosprofileComponent implements OnInit {
 
         for (let i = 0; i < this.fileDetails.length; i++) {
             for (let j = 0; j < this.allImage.length; j++) {
-                this.fileDetails[i].image = this.allImage[j][1][1];
+                for (let k = 0; k < this.allImage[j].length; k++) {
+                    console.log(this.allImage[j][k], 'pppp');
+                    this.fileDetails[i].image = this.allImage[j][k][1];
+                }
             }
         }
 
@@ -479,7 +483,7 @@ export class PosprofileComponent implements OnInit {
             'online_verification_message': this.comments,
             'pos_id': this.posid,
             'appointment_date': appointDate == undefined ? '' : appointDate,
-            'agreement_filepath': this.fileDetails,
+            'agreement_filepath': this.fileDetails ? this.fileDetails : '',
         };
         this.settings.loadingSpinner = true;
         this.common.updateVerification(data).subscribe(
@@ -610,6 +614,9 @@ export class PosprofileComponent implements OnInit {
     }
     getCommentFailure(error) {
         console.log(error);
+    }
+    openPdf(adress) {
+        window.open(adress);
     }
 
 
