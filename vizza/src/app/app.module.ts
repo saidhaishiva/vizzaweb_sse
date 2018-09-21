@@ -98,6 +98,27 @@ import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
 import { DocumentViewComponent } from './pages/posprofile/document-view/document-view.component';
 import { TrainingcompletedAlert} from './pages/training/training.component';
+import {ShopkeeperpolicyComponent} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
+import {MarinecargoComponent} from './pages/marinecargo/marinecargo.component';
+import {MarinehullComponent} from './pages/marinehull/marinehull.component';
+import {AviationComponent} from './pages/aviation/aviation.component';
+import {MoneyComponent} from './pages/money/money.component';
+import {FireComponent} from './pages/fire/fire.component';
+import {BurglaryComponent} from './pages/burglary/burglary.component';
+import {MachineryComponent} from './pages/machinery/machinery.component';
+import {ElectronicsComponent} from './pages/electronics/electronics.component';
+import {ContractorsComponent} from './pages/contractors/contractors.component';
+import {HouseholdComponent} from './pages/household/household.component';
+import {PublicComponent} from './pages/public/public.component';
+import {ProfessionalComponent} from './pages/professional/professional.component';
+import {WorkmenComponent} from './pages/workmen/workmen.component';
+import {GroupmedicalComponent} from './pages/groupmedical/groupmedical.component';
+import {GrouppersonalComponent} from './pages/grouppersonal/grouppersonal.component';
+import {GrouptermComponent} from './pages/groupterm/groupterm.component';
+import {JewelersblockComponent} from './pages/jewelersblock/jewelersblock.component';
+import {DirectorsComponent} from './pages/directors/directors.component';
+import {BankersComponent} from './pages/bankers/bankers.component';
+import {ErectionComponent} from './pages/erection/erection.component';
 
 @NgModule({
   imports: [
@@ -179,7 +200,28 @@ import { TrainingcompletedAlert} from './pages/training/training.component';
       TrainingComponent,
       RelianceComponent,
       DocumentViewComponent,
-      TrainingcompletedAlert
+      TrainingcompletedAlert,
+      ShopkeeperpolicyComponent,
+      MarinecargoComponent,
+      MarinehullComponent,
+      AviationComponent,
+      MoneyComponent,
+      FireComponent,
+      BurglaryComponent,
+      MachineryComponent,
+      ElectronicsComponent,
+      ContractorsComponent,
+      HouseholdComponent,
+      PublicComponent,
+      ProfessionalComponent,
+      WorkmenComponent,
+      GroupmedicalComponent,
+      GrouppersonalComponent,
+      GrouptermComponent,
+      JewelersblockComponent,
+      DirectorsComponent,
+      BankersComponent,
+      ErectionComponent
   ],
   providers: [
       AppSettings,

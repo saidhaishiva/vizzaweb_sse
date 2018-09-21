@@ -6,7 +6,7 @@
   </div>
   <div class="col-md-6 pl-0">
     <div class="arrow-left"></div>
-    <mat-card class="p-5"  style="background: #f8b03e; color: #fff">
+    <mat-card class="p-5" [ngStyle] = "{'background': productName == 'params.id' ? 'green' : 'red'}" >
       <h2 class="w-100 text-center" >Let us assist you</h2>
       <form [formGroup]="fixapp" (submit)="fixAppointment(fixapp.value)">
 
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-12">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Company Name"formControlName="name" required>
+            <input matInput placeholder="Company Name" formControlName="name" required>
             <mat-error *ngIf="fixapp.controls.name.errors?.required">Name is required</mat-error>
             <mat-error *ngIf="fixapp.controls.name.hasError('minlength')">Name isn't long enough, minimum of 3 characters</mat-error>
 
@@ -97,6 +97,5 @@
     </mat-card>
   </div>
 </div>
-
   </div>
 </div>
