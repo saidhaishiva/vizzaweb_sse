@@ -7,6 +7,24 @@
                 <mat-card-subtitle><h3>Register</h3></mat-card-subtitle>
 
                 <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+
+                    <mat-tab label="Register Notes">
+                        <div>
+                            <p>Please ensure the following documents are kept ready</p>
+                        </div>
+                        <mat-list role="list">
+                            <mat-list-item role="listitem">Aadhar Card(Front and Back)</mat-list-item>
+                            <mat-list-item role="listitem">PAN Card</mat-list-item>
+                            <mat-list-item role="listitem">Highest Educational Qualification</mat-list-item>
+                            <mat-list-item role="listitem">Cancelled Cheque Leaf</mat-list-item>
+                            <mat-list-item role="listitem">Your Photo</mat-list-item>
+                        </mat-list>
+                        <hr>
+                        <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
+                            <button color="primary" mat-raised-button (click)="nextStep()" type="button">Next</button>
+                        </div>
+                    </mat-tab>
+
                     <mat-tab label="Personal" formGroupName="personal">
                         <mat-form-field class="w-100">
                         <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" autocomplete="off" required>
@@ -62,7 +80,8 @@
                         </div>
                         <hr>
                         <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
-                        <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+                            <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
+                            <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
                         </div>
                     </mat-tab>
 

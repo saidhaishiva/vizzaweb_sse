@@ -4,13 +4,13 @@ $green-color:#18CCB4;
 $pink-color:#d81b60;
 $light-green:#2FE827;
 *{
- outline: none;
+  outline: none;
 }
 button:focus{
   outline: none;
 }
 .color-green{
- color: $green-color !important;
+  color: $green-color !important;
 }
 .color-pink{
   color:$pink-color;
@@ -69,7 +69,7 @@ button:focus{
 .dashboard1{
   width: 30em;
   .mat-card{
-  background: #ECFFF0 !important;
+    background: #ECFFF0 !important;
   }
   .mat-card-header-text{
     display: none;
@@ -364,7 +364,7 @@ a:hover {
 
   a:first-child i{
     background: #3B5998;
-}
+  }
   a:nth-child(2) i{
     background: #00aced;
   }
@@ -543,14 +543,14 @@ a:hover {
       color: #ffff;
     }
 
-     thead th{
+    thead th{
       border: none;
-       vertical-align: bottom;
-       border-bottom: 2px solid #dee2e6;
-       background: #18ccb4;
-       color: #fff;
-       font-weight: normal;
-       font-size: 12px;
+      vertical-align: bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #18ccb4;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
     }
 
   }
@@ -576,15 +576,15 @@ a:hover {
       background: rgba(242, 154, 29, 0.05);
     }
   }
-.mat-tab-labels{
- .mat-tab-label:first-child{
-   border-radius: 10px 0 0 0;
- }
-  .mat-tab-label:last-child{
-    border-radius: 0 10px 0 0;
+  .mat-tab-labels{
+    .mat-tab-label:first-child{
+      border-radius: 10px 0 0 0;
+    }
+    .mat-tab-label:last-child{
+      border-radius: 0 10px 0 0;
+    }
   }
-}
- .linkClor {
+  .linkClor {
     color: #117ab7;
   }
 }
@@ -612,7 +612,7 @@ a:hover {
   }
 }
 .add-disable.mat-raised-button[disabled][disabled]{
-background: #ccc !important;
+  background: #ccc !important;
   cursor: default;
 }
 .card-group-pop {
@@ -645,7 +645,7 @@ background: #ccc !important;
   cursor: inherit;
 }
 .nav-item.active{
- background: #eaeaea;
+  background: #eaeaea;
 }
 .scrollmenu{
   flex-wrap: nowrap;
@@ -909,10 +909,10 @@ background: #ccc !important;
     display: block;
   }
   .mat-dialog-content{
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow-y: scroll !important;
-}
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: scroll !important;
+  }
   .row{
     margin: 0;
   }
@@ -1012,15 +1012,15 @@ background: #ccc !important;
 
 }
 .app.teal-light{
-mat-toolbar {
-  min-height: 95px !important;
-  &.top-nav {
-    background: #ffe8c6 !important;
+  mat-toolbar {
+    min-height: 95px !important;
+    &.top-nav {
+      background: #ffe8c6 !important;
+    }
+    &.horizontal-menu {
+      background: #ffe8c6 !important;
+    }
   }
-  &.horizontal-menu {
-    background: #ffe8c6 !important;
-  }
-}
 }
 .inner-sidenav-content{
   top:105px !important;
@@ -1094,16 +1094,16 @@ mat-toolbar {
     display: block;
   }
   h2 {
-    background: #eaeaea;
-    padding: 20px;
+    background: linear-gradient(to bottom, #993366 0%, #993399 100%);
+    padding: 12px;
     margin-bottom: 0;
     margin-top: 0;
-    color: #1d968b;
-    font-weight: bold;
+    color: #fff;
+    font-size: 22px;
   }
   form{
     padding: 50px;
-    background: #d4d4d4;
+    background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%);
   }
   .input-group-addon{
     color: #fff;
@@ -1245,7 +1245,7 @@ footer{
       width: 470px;
     }
 
-    }
+  }
   .c-profile{
     .c-font{
       font-family: 'Parisienne', cursive;
@@ -1338,14 +1338,17 @@ footer{
 }
 
 .selected {
-    background-color: #006E5E !important;
-    color: #FFFFFF !important;
-    border: 2px solid #FFFFFF !important;
-  }
+  background-color: #006E5E !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF !important;
+}
 .text-title-color {
   color: darkgreen;
 }
 .h-claim {
+  h3{
+    color: #a9a4a4;
+  }
   .bottomQoute{
     font-size: 16px;
     text-align: center;
@@ -1358,7 +1361,7 @@ footer{
     h4 {
       padding: 13px;
       border-radius: 50px;
-      text-align: center;
+      text-align: right;
       color: #fff;
       font-size: 18px;
       position: relative;
@@ -1383,17 +1386,18 @@ footer{
       border-radius: 15px;
       margin-top: -32px;
       padding-top: 45px;
+      min-height: 270px;
     }
   }
   .col:nth-child(5){
     h4 {
-      background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%);
+      background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%);
     }
     span {
-      border-color: #0066cc;
+      border-color: #cc00cc;
     }
     p{
-      background:  #99edea;
+      background:  #fdcbf4;
     }
 
   }

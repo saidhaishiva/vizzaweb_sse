@@ -40,6 +40,7 @@ export class FixappointmentComponent implements OnInit {
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.productName = params.id;
+
       });
   }
     addEvent(event) {
