@@ -699,7 +699,7 @@ array: any;
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalLastname: this.getStepper1.personalLastname,
-                personalDob: this.getStepper1.personalDob,
+                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
                 personalArea: this.getStepper1.personalArea,
                 residenceArea: this.getStepper1.residenceArea,
                 personalAadhar: this.getStepper1.personalAadhar,
