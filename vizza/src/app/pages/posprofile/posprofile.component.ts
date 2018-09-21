@@ -92,6 +92,16 @@ export class PosprofileComponent implements OnInit {
     hideTab: any;
     tabKey: any;
     tabValue: any;
+
+
+
+
+    personalEdit: any;
+    contactEdit: any;
+    bankEdit: any;
+
+
+
     public personalshow: any;
 
 
@@ -106,6 +116,9 @@ export class PosprofileComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
+
+
+        this.personalEdit = false;
 
         this.examStatus = this.auth.getSessionData('examStatus');
         this.trainingStatus = sessionStorage.trainingStatus;
@@ -297,6 +310,10 @@ export class PosprofileComponent implements OnInit {
         this.sideNav[0].selected = true;
     }
     viewDetail(i, value) {
+        this.personalEdit = false;
+        this.contactEdit = false;
+        this.bankEdit = false;
+
         this.settings.loadingSpinner = true;
         this.selectedTab = i;
         this.currentTab = value;
@@ -304,6 +321,9 @@ export class PosprofileComponent implements OnInit {
         let trainingStatus = sessionStorage.trainingStatus;
         let examStatus = sessionStorage.examStatus;
         sessionStorage.currentTab = this.currentTab;
+        if (value == 'Contact') {
+            this.contactEdit = false;
+        }
 
         if (value == 'Training') {
             if (trainingStatus == 0) {
@@ -848,8 +868,16 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.personalEdit = false;
+            this.contactEdit = false;
+            this.bankEdit = false;
+
+
+
             this.toastr.success(successData.ResponseObject);
             this.settings.userId = this.auth.getPosUserId();
+            this.getPosProfile();
+
             this.settings.username = this.auth.getPosFirstName() +' '+ this.auth.getPosLastName();
             if (this.personal.doc_verified_status < 2) {
                 const data = {
@@ -881,7 +909,6 @@ export class PosprofileComponent implements OnInit {
                 }
 
             } else {
-                this.router.navigate(['/pos-profile']);
             }
         }
     }
@@ -902,8 +929,8 @@ export class PosprofileComponent implements OnInit {
     }
     public updateDocumentsSuccess(successData) {
         if (successData.IsSuccess) {
-            this.router.navigate(['/pos-profile']);
-            console.log(successData, 'in');
+            console.log(successData, 'successData2');
+            this.getPosProfile();
         }
     }
     public updateDocumentsProfileFailure(error) {
@@ -952,51 +979,68 @@ export class PosprofileComponent implements OnInit {
         }
     }
     changeEdit(value, key){
-        this.tabKey = key;
-        this.tabValue = value;
-        if (key == 'edit'){
-            if(value == 'Personal'){
-                this.viewTab = true
-                this.hideTab = false
-            } else if(value == 'Contact'){
-                this.viewTab = true
-                this.hideTab = false
+        if (key == 'edit') {
+            this.personalEdit = true;
+            this.contactEdit = true;
+            this.bankEdit = true;
 
-            } else if(value == 'Documents'){
-                this.viewTab = true
-                this.hideTab = false
+        } else if (key == 'close') {
+            this.personalEdit = false;
+            this.contactEdit = false;
+            this.bankEdit = false;
 
-            } else if(value == 'Bank Details'){
-                this.viewTab = true
-                this.hideTab = false
-
-            } else if(value == 'Education'){
-                this.viewTab = true
-                this.hideTab = false
-            }
         }
 
-        if(key == 'close'){
-            if(value == 'Personal'){
-                this.viewTab = false
-                this.hideTab = true
-            } else if(value == 'Contact'){
-                this.viewTab = false
-                this.hideTab = true
 
-            } else if(value == 'Documents'){
-                this.viewTab = false
-                this.hideTab = true
 
-            } else if(value == 'Bank Details'){
-                this.viewTab = false
-                this.hideTab = true
 
-            } else if(value == 'Education'){
-                this.viewTab = false
-                this.hideTab = true
-            }
-        }
+
+        //
+        // this.tabKey = key;
+        // this.tabValue = value;
+        // if (key == 'edit'){
+        //     if(value == 'Personal'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //     } else if(value == 'Contact'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Documents'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Bank Details'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Education'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //     }
+        // }
+        //
+        // if(key == 'close'){
+        //     if(value == 'Personal'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //     } else if(value == 'Contact'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Documents'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Bank Details'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Education'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //     }
+        // }
 
     }
 
