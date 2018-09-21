@@ -166,7 +166,7 @@ export class PosprofileComponent implements OnInit {
 
     viewImage(path, title) {
         const dialogRef = this.dialog.open(ClinicimageviewComponent, {
-            width: '800px',
+            width: '900px',
             data: {'img': path, 'title': title}
 
         });
