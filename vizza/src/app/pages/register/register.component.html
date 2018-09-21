@@ -58,10 +58,19 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">
+                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)"  minlength="10" maxlength="10" autocomplete="off">
                             <i class="fas fa-phone" matSuffix></i>
                             <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                         </mat-form-field>
+
+                        <!--<input matInput placeholder="Referral Contact Number" formControlName="referralName" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">-->
+                        <!--<i class="fas fa-phone" matSuffix></i>-->
+                        <!--<mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<input matInput placeholder="Referral Contact Number" formControlName="referralCode" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">-->
+                        <!--<i class="fas fa-phone" matSuffix></i>-->
+                        <!--<mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>-->
+                        <!--</mat-form-field>-->
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
                         <div class="w-100 mt-2">
@@ -81,7 +90,9 @@
                         <hr>
                         <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                             <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                            <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+                            <button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>
+                            <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+
                         </div>
                     </mat-tab>
 

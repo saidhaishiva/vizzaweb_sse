@@ -10,6 +10,7 @@
         </mat-chip>
       </mat-chip-list>
     </mat-card-header>
+    <div id="staticTime">
     <mat-card-content fxLayoutAlign="space-between center" >
       <div class="row " perfectScrollbar>
           <div class="col-md-12 " *ngFor="let questions of questionLists; let pi = index">
@@ -29,6 +30,7 @@
           </div>
       </div>
     </mat-card-content>
+    </div>
     <div fxLayoutAlign="center center" class="text-center mb-3">
       <button mat-raised-button color="primary" (click)="submit()">Submit</button>
     </div>

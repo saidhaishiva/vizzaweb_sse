@@ -85,12 +85,11 @@ export class PosprofileComponent implements OnInit {
                 'selected': false
             },
                 {
-                    'name': 'Bank Details',
+                    'name': 'Education',
                     'value': 'active',
                     'selected': false
-                },
-                {
-                    'name': 'Education',
+                },{
+                    'name': 'Bank Details',
                     'value': 'active',
                     'selected': false
                 }];
@@ -219,7 +218,7 @@ export class PosprofileComponent implements OnInit {
         setTimeout(() => {
             this.settings.loadingSpinner = false;
 
-        },700);
+        },500);
     }
 
     public getPosProfile() {

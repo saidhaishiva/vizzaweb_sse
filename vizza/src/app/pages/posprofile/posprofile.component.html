@@ -182,13 +182,26 @@
                         </div>
 
                         <div *ngIf="currentTab == 'Documents'">
-                            <mat-card-title class="m-0 text-center"><h4>Aadhar Details</h4></mat-card-title>
-                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Aadhar No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
+
+                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+                                <div fxFlex="33.3" class="flex-p">
+                                    <mat-card class="custom-card">
+                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="space-between center">
+                                            <mat-card-title class="m-0"><h6 class="text-center">Pan Image</h6></mat-card-title>
+                                        </mat-card-header>
+                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_pan_img}}" alt="" (click)="viewImage(personal.doc_pan_img, 'Pan Image')">
+                                    </mat-card>
+                                </div>
+                            </div>
+                            <mat-card-title class="m-0 text-center"><h4>Aadhaar Details</h4></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Aadhaar No : {{personal.doc_aadhar_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" >
                                 <div fxFlex="33.3" class="flex-p">
                                     <mat-card class="custom-card">
                                         <mat-card-header class="bg-primary2 p-1" fxLayoutAlign="space-between center">
-                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Front Image</h6></mat-card-title>
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhaar Front Image</h6></mat-card-title>
                                         </mat-card-header>
                                         <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_front_img}}" alt="" (click)="viewImage(personal.doc_aadhar_front_img, 'Aadhar Fron Image')">
                                     </mat-card>
@@ -196,7 +209,7 @@
                                 <div fxFlex="33.3" class="flex-p">
                                     <mat-card class="custom-card">
                                         <mat-card-header class="bg-primary1 p-1" fxLayoutAlign="space-between center">
-                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhar Back Image</h6></mat-card-title>
+                                            <mat-card-title class="m-0"><h6 class="text-center">Aadhaar Back Image</h6></mat-card-title>
                                         </mat-card-header>
                                         <img mat-card-image src="{{webhost +'/'+ personal.doc_aadhar_back_img}}" alt="" (click)="viewImage(personal.doc_aadhar_back_img, 'Aadhar Back Image')">
                                     </mat-card>
@@ -212,19 +225,7 @@
                                     <!--</mat-card>-->
                                 <!--</div>-->
                             </div>
-                            <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
-                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
 
-                            <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-                                <div fxFlex="33.3" class="flex-p">
-                                    <mat-card class="custom-card">
-                                        <mat-card-header class="bg-accent1 p-1" fxLayoutAlign="space-between center">
-                                            <mat-card-title class="m-0"><h6 class="text-center">Pan Image</h6></mat-card-title>
-                                        </mat-card-header>
-                                        <img mat-card-image src="{{webhost +'/'+ personal.doc_pan_img}}" alt="" (click)="viewImage(personal.doc_pan_img, 'Pan Image')">
-                                    </mat-card>
-                                </div>
-                            </div>
 
                         </div>
                         <!--Training-->
@@ -338,8 +339,8 @@
                                         <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
                                         <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                                         <td>{{lists.percentage_in_exam}}</td>
-                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
-                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
+                                        <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Success</span></td>
+                                        <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Try again</span></td>
                                     </tr>
 
                                     </tbody>
