@@ -554,7 +554,7 @@
 
 
 
-        <mat-expansion-panel  [expanded]="step === 0" >
+        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 1">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Agreement Details
@@ -582,12 +582,12 @@
                     <div>
                         <label class="btn-bs-file btn ">
                             <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload Agreement Copy
-                            <input type="file" multiple (change)="readUrl($event, showFileNames)"  accept=".pdf,.doc,.docx"/>
+                            <input type="file" multiple (change)="readUrl($event)"  accept=".pdf,.doc,.docx"/>
                         </label>
                     </div>
 
                     <div *ngFor="let names of fileDetails" class="mb-2">
-                        <a>{{names.name}}</a>
+                        <a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHWSURBVFhH7ZbBS8JwFMf93yzxEAleBAvBU0fpIIjg0avmoS6K4qGzJ710DRSHFmFaaVorkPAiNkVd26v32NYgA2FvGrEPPNi+v7ff74O/n2MuB7uout3AVTWv91Kblg+cmAOcpxkIqOySnILLRoNfklMQ7u/5JbkF2SXtEGSVtEuQTdJOQRZJuwWxLElyCq5T2rLrgw9tCkfQKo6gVVgFX8/PoX9yAoPTUxhdXACoKuVioQD9dBrEXA7e223KkLdKBR5TKaMWo5E28g2rYH1/H+p7e3AdDtPEL8Ui5Xgt+P3QDAahurMDw1KJ8m4ySWPNgwNoHh7CTBQpN8Mu2IpEQFUUuAqFSAjB/k48Dsp8TiKCzweqLBuCH5JEfauwRRC5OTqiXwbRBZF+JkP30sPDdgRRCs8T9jydnVGO17ogbjvejwXhxxZ/TKfUYwbHtWXXBx9aBQrWPB46g2I+D8piQblZEKXxftJqGYKYPWezRr8ZdkF9i82YBdvRKP1R5Mlku2fQDPbfHh/DW7kMtd1duEskKP9Tgnp1YjFYjseUb1xQ6vVWvstmgwFI3S7ImpjOfDgE6evbD19Lv8EqaAeOoFUcQas4glZxBK3yfwU3WdqyDsy4XJ9IgqXpXHIZ/QAAAABJRU5ErkJggg==">{{names.name}}</a>
                     </div>
                     <!--<pdf-viewer [src]="pdfSrc"-->
                                 <!--[render-text]="true"-->
@@ -643,7 +643,7 @@
                 <pdf-viewer src="assets/img/sample-file.pdf"
                             [render-text]="true"
                             style="display: block;"
-                ></pdf-viewer>
+                            (click)="viewImage('assets/img/sample-file.pdf', 'Agreement Letter')" ></pdf-viewer>
             </div>
 
         </mat-expansion-panel><br>
