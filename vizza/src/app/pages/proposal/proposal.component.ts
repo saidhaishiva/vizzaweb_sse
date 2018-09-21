@@ -24,10 +24,10 @@ export const MY_FORMATS = {
     },
     display: {
         dateInput: 'DD/MM/YYYY',
-        monthYearLabel: 'MM YYYY',
+        // monthYearLabel: 'MM YYYY',
         dateA11yLabel: 'DD/MM/YYYY',
 
-        monthYearA11yLabel: 'MM YYYY',
+        // monthYearA11yLabel: 'MM YYYY',
     },
 };
 @Component({
@@ -391,7 +391,7 @@ export class ProposalComponent implements OnInit {
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalLastname: this.getStepper1.personalLastname,
-                personalDob: this.getStepper1.personalDob,
+                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
                 personalOccupation: this.getStepper1.personalOccupation,
                 personalIncome: this.getStepper1.personalIncome,
                 personalArea: this.getStepper1.personalArea,
@@ -851,15 +851,16 @@ console.log(value,'fgh');
             }
         }
     }
-    // public dobkeyPress(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9/\\ ]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
+    public dobkeyPress(event: any) {
+
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     public onAlternative(event: any) {
         if (event.charCode !== 0) {
             const pattern =/[0-9- ]/;
@@ -875,6 +876,7 @@ console.log(value,'fgh');
         if (this.datepipe.transform(event.value, 'dd-MM-y') == null) {
             this.insurerDobError = '';
         }
+        console.log(event.value);
         if (event.value._i.length == 10) {
             this.insurerDobError = '';
             this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd-MM-y');
@@ -1495,17 +1497,17 @@ console.log(value,'fgh');
         console.log(error);
     }
 
-add(event){
-   // residencePincode = this.personal.controls.residencePincode.value;
-  //  console.log(residencePincode,'fgh');
-    if (event.charCode !== 0) {
-        const pattern = /[0-9/\\ ]/;
-        const inputChar = String.fromCharCode(event.charCode);
-
-        if (!pattern.test(inputChar)) {
-            // invalid character, prevent input
-            event.preventDefault();
-        }
-    }
-}
+// add(event){
+//    // residencePincode = this.personal.controls.residencePincode.value;
+//   //  console.log(residencePincode,'fgh');
+//     if (event.charCode !== 0) {
+//         const pattern = /[0-9/\\ ]/;
+//         const inputChar = String.fromCharCode(event.charCode);
+//
+//         if (!pattern.test(inputChar)) {
+//             // invalid character, prevent input
+//             event.preventDefault();
+//         }
+//     }
+// }
 }
