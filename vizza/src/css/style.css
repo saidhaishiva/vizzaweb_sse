@@ -381,12 +381,16 @@ a:hover {
   font-size: 12px;
   padding: 0 10px;
   line-height: 2; }
+#product-list .health-table td:nth-child(3) {
+  text-align: left !important; }
 #product-list .health-table th {
   text-align: center; }
 #product-list .health-table td {
   vertical-align: middle;
   color: rgba(4, 78, 67, 0.87);
-  font-size: 13px; }
+  font-size: 13px;
+  border: 1px solid #ccc;
+  text-align: center; }
 #product-list .health-table .mat-raised-button.mat-primary {
   background-color: #18CCB4; }
 #product-list .health-table .mat-raised-button.mat-primary1 {
