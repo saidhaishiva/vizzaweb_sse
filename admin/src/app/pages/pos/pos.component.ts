@@ -111,8 +111,8 @@ export class PosComponent implements OnInit {
         );
     }
     getPOSListSuccess(successData, value) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
             let POS = [];
             if (value == 'inactive') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
@@ -159,26 +159,18 @@ export class PosComponent implements OnInit {
         }
     }
     getPOSListFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     public tabChange(value) {
         console.log(value);
         this.temp = [];
         this.rows = [];
-        // if (value == 'inactive') {
-        //     this.getPOSList('inactive')
-        // } else if (value == 'active') {
-        //     this.getPOSList('active')
-        // } else if (value == 'rejected') {
-        //    this.getPOSList('rejected')
-        // } else if (value == 'onhold') {
             this.getPOSList(value);
-        // }
 
     }
     POSProfile(id, status) {
         console.log(id, 'skfkhsdkfhdkf');
-        // this.settings.loadingSpinner = true;
         this.router.navigate(['/pos-profile/' + id + '/' + status]);
 
     }

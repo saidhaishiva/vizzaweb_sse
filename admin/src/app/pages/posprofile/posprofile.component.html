@@ -554,7 +554,7 @@
 
 
 
-        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 1">
+        <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2 && posData.pos_status != 1">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Agreement Details
@@ -640,10 +640,12 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div  class="flex-p">
-                <pdf-viewer src="assets/img/sample-file.pdf"
+                <button mat-button class="secondary-bg-color float-right" (click)="openPdf(webhost +'/' + posData.aggrement_file_path)">Download</button>
+
+                <pdf-viewer src="{{webhost + '/' + posData.aggrement_file_path}}"
                             [render-text]="true"
                             style="display: block;"
-                            (click)="viewImage('assets/img/sample-file.pdf', 'Agreement Letter')" ></pdf-viewer>
+                            (click)="viewImage(posData.aggrement_file_path, 'Agreement Letter')" ></pdf-viewer>
             </div>
 
         </mat-expansion-panel><br>
