@@ -48,7 +48,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Attach Your Profile Picture</label>
-                            <div class="error" [hidden]="form.controls.personal.controls.profile.valid">Profile Image is required</div>
+                            <div class="error" *ngIf !="form.controls.personal.controls.profile.valid">Profile Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -145,7 +145,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Front Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -159,7 +159,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Aadhar Back Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -173,7 +173,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">PAN Card Front Image</label>
-                            <div class="error" [hidden]="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
+                            <div class="error" *ngIf !="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -203,7 +203,7 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label">Educational Documents</label>
-                            <div class="error" [hidden]="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
+                            <div class="error" *ngIf !="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
