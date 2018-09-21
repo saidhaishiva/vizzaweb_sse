@@ -27,17 +27,17 @@
                                 <mat-icon>list</mat-icon>
                             </button>
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="viewTab"  (click)="changeEdit(currentTab, 'close')">Edit
+                        <button mat-raised-button class="editBtn" *ngIf="!personalEdit || !contactEdit"  (click)="changeEdit(currentTab, 'edit')">Edit
                             <mat-icon style="font-size: 18px;">edit</mat-icon>
                         </button>
-                        <button mat-raised-button class="editBtn"  *ngIf="hideTab"  (click)="changeEdit(currentTab, 'edit')">Close
+                        <button mat-raised-button class="editBtn"  *ngIf="personalEdit || contactEdit"  (click)="changeEdit(currentTab, 'close')">Close
                             <mat-icon style="font-size: 18px;">close</mat-icon>
                         </button>
                     </mat-toolbar>
                     <div class="mailbox-content" perfectScrollbar>
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Personal'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                                <mat-card class="list" *ngIf="viewTab && tabValue =='Personal' && tabKey == 'edit'">
+                                <mat-card class="list" *ngIf="!personalEdit">
                                     <mat-card-content >
                                         <mat-list class="p-0">
                                             <div fxLayout="row" fxLayoutAlign="center center">
@@ -73,11 +73,8 @@
                                         </mat-list>
                                     </mat-card-content>
                                 </mat-card>
-
-                                <mat-card *ngIf="hideTab && tabValue == 'Personal' && tabKey == 'close'">
-
-
-                                    <!--personal Edit-->
+                                <!--personal Edit-->
+                                <mat-card *ngIf="personalEdit">
                                     <form [formGroup]="personaledit"  class="mt-registration"  >
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
@@ -147,7 +144,7 @@
                         <!--Contact details-->
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Contact'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                                <mat-card class="list" *ngIf="viewTab && tabValue =='Contact' && tabKey == 'edit'">
+                                <mat-card class="list" *ngIf="!contactEdit">
                                     <mat-card-content>
                                         <mat-list class="p-0">
                                             <div class="personaldetails">
@@ -183,7 +180,7 @@
                                     </mat-card-content>
                                 </mat-card>
 
-                                <mat-card *ngIf="hideTab && tabValue == 'Contact' && tabKey == 'close'">
+                                <mat-card *ngIf="contactEdit">
                                     <!--contact Edit-->
                                     <form [formGroup]="contacts" class="mt-registration">
                                         <mat-form-field class="w-100">
@@ -223,7 +220,7 @@
                         <!--Bank details -->
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Bank Details'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-                                <mat-card class="list" *ngIf="viewTab && tabValue =='Bank Details' && tabKey == 'edit'">
+                                <mat-card class="list" *ngIf="!bankEdit">
                                     <mat-card-content>
                                         <mat-list class="p-0">
                                             <div class="row personaldetails">
@@ -259,7 +256,7 @@
                                     </mat-card-content>
                                 </mat-card>
 
-                                <mat-card *ngIf="hideTab && tabValue == 'Bank Details' && tabKey == 'close'">
+                                <mat-card *ngIf="bankEdit">
                                     <!--bank details Edit-->
                                     <form [formGroup]="bankdetails" class="mt-registration">
                                         <mat-form-field class="w-100">
