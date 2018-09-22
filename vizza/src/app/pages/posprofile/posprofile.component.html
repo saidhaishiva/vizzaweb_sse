@@ -265,9 +265,9 @@
                                             <mat-error *ngIf="bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch">
+                                            <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch">
                                             <mat-icon matSuffix>account_balance</mat-icon>
-                                            <mat-error *ngIf="bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
+                                            <mat-error *ngIf="bankdetails.controls.bankbranch.hasError('required')">Branch name details required</mat-error>
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)">
@@ -373,8 +373,8 @@
                         </div>
 
 
-                    <div *ngIf="currentTab == 'Documents'">
-                        <div *ngIf="!documentEdit">
+                    <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Documents'">
+                        <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!documentEdit">
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
                             <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
@@ -413,7 +413,7 @@
                         <div *ngIf="documentEdit">
                             <div  class="flex-p">
                                 <mat-card class="custom-card">
-                                    <form [formGroup]="documents" fxFlex="100" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration">
+                                    <form [formGroup]="documents" class="mt-registration">
                                     <mat-form-field class="w-100">
                                     <input matInput placeholder="Aadhaar Number" required maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber">
                                     <mat-error *ngIf="documents.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
@@ -429,59 +429,63 @@
                                     <div>
                                     <p><span class="imglabel" *ngIf=" personalshow.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
                                     </div>
-                                    <div class="row col-md-12">
-                                    <div class="col-md-6">
+                                    <div class="row ">
+                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
                                     <p>Aadhaar Front Image</p>
-                                    </div>
-                                    <div class="col-md-6 uploadBtn" *ngIf=" personalshow.doc_verified_status != 2">
+
+                                    <div class="uploadBtn">
                                     <label class="btn-bs-file btn btn-secondary">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'aadhar front')">
                                     </label>
                                     </div>
                                     </div>
-                                    <div class="row">
-                                    <div class="col-md-12">
+
+                                    <div class="col-md-4">
+                                        <p>Aadhaar Front Image</p>
                                     <div *ngIf="aadharfront != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                     </span>
                                     </div>
                                     </div>
-                                    </div>
-                                    <div class="row col-md-12">
-                                    <div class="col-md-6">
+
+
+
+                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
                                     <p>Aadhaar Back Image</p>
-                                    </div>
-                                    <div class="col-md-6 uploadBtn" *ngIf=" personalshow.doc_verified_status != 2">
+                                    <div class="uploadBtn">
                                     <label class="btn-bs-file btn btn-secondary">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'aadhar back')">
                                     </label>
                                     </div>
                                     </div>
-                                    <div class="row">
-                                    <div class="col-md-12">
+
+
+                                    <div class="col-md-4">
+                                        <p>Aadhaar Back Image</p>
                                     <div *ngIf="aadharback != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
                                     </span>
                                     </div>
                                     </div>
-                                    </div>
-                                    <div class="row col-md-12">
-                                    <div class="col-md-6">
+
+
+                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
                                     <p>Pancard Image</p>
-                                    </div>
-                                    <div class="col-md-6 uploadBtn" *ngIf=" personalshow.doc_verified_status != 2">
+                                    <div class=" uploadBtn" >
                                     <label class="btn-bs-file btn btn-secondary">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'pancard')">
                                     </label>
                                     </div>
                                     </div>
-                                    <div class="row">
-                                    <div class="col-md-12">
+
+
+                                    <div class="col-md-4">
+                                        <p>Pancard Image</p>
                                     <div *ngIf="pancard != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -914,9 +918,7 @@
     .cursor {
         cursor: pointer;
     }
-    .listDisabled {
-        pointer-events: none!important;
-    }
+
 </style>
 
 

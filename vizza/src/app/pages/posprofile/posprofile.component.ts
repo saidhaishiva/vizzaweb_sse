@@ -1055,52 +1055,7 @@ export class PosprofileComponent implements OnInit {
 
 
 
-        //
-        // this.tabKey = key;
-        // this.tabValue = value;
-        // if (key == 'edit'){
-        //     if(value == 'Personal'){
-        //         this.viewTab = true
-        //         this.hideTab = false
-        //     } else if(value == 'Contact'){
-        //         this.viewTab = true
-        //         this.hideTab = false
-        //
-        //     } else if(value == 'Documents'){
-        //         this.viewTab = true
-        //         this.hideTab = false
-        //
-        //     } else if(value == 'Bank Details'){
-        //         this.viewTab = true
-        //         this.hideTab = false
-        //
-        //     } else if(value == 'Education'){
-        //         this.viewTab = true
-        //         this.hideTab = false
-        //     }
-        // }
-        //
-        // if(key == 'close'){
-        //     if(value == 'Personal'){
-        //         this.viewTab = false
-        //         this.hideTab = true
-        //     } else if(value == 'Contact'){
-        //         this.viewTab = false
-        //         this.hideTab = true
-        //
-        //     } else if(value == 'Documents'){
-        //         this.viewTab = false
-        //         this.hideTab = true
-        //
-        //     } else if(value == 'Bank Details'){
-        //         this.viewTab = false
-        //         this.hideTab = true
-        //
-        //     } else if(value == 'Education'){
-        //         this.viewTab = false
-        //         this.hideTab = true
-        //     }
-        // }
+
 
     }
 

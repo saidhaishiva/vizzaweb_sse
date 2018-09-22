@@ -1468,3 +1468,6 @@ footer{
   height: calc(100vh - 200px);
   overflow: scroll;
 }
+.listDisabled {
+  pointer-events: none!important;
+}
