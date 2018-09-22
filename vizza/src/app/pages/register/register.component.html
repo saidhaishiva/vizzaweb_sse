@@ -13,7 +13,7 @@
                             <p>Please ensure the following documents are kept ready</p>
                         </div>
                         <mat-list role="list">
-                            <mat-list-item role="listitem">Aadhar Card(Front and Back)</mat-list-item>
+                            <mat-list-item role="listitem">Aadhaar Card(Front and Back)</mat-list-item>
                             <mat-list-item role="listitem">PAN Card</mat-list-item>
                             <mat-list-item role="listitem">Highest Educational Qualification</mat-list-item>
                             <mat-list-item role="listitem">Cancelled Cheque Leaf</mat-list-item>
@@ -156,11 +156,11 @@
 
                         <mat-tab label="Documents" formGroupName="documents">
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
+                        <input matInput required placeholder="Aadhaar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
                         <i class="far fa-id-card" matSuffix></i>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off">
@@ -176,8 +176,8 @@
                         <div class="w-100">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Aadhar Front Image</label>
-                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
+                        <label class="custom-file-label">Aadhaar Front Image</label>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhaar Front Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -190,8 +190,8 @@
                         <div class="w-100 mb-3">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Aadhar Back Image</label>
-                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
+                        <label class="custom-file-label">Aadhaar Back Image</label>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhaar Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -254,12 +254,12 @@
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
+                        <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
+                        <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
+                        <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Branch Name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off">
