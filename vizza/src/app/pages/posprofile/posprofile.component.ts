@@ -87,7 +87,6 @@ export class PosprofileComponent implements OnInit {
     dob: any;
     type: any;
     chequeleaf: any;
-    showTab: any;
     viewTab: any;
     hideTab: any;
     tabKey: any;
@@ -99,6 +98,9 @@ export class PosprofileComponent implements OnInit {
     personalEdit: any;
     contactEdit: any;
     bankEdit: any;
+    educationEdit: any;
+    documentEdit: any;
+    disabledList: any;
 
 
 
@@ -116,15 +118,13 @@ export class PosprofileComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
-
-
         this.personalEdit = false;
-
+        this.disabledList = false;
+        this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('examStatus');
         this.trainingStatus = sessionStorage.trainingStatus;
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.posStatus = this.auth.getSessionData('posStatus');
-
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
@@ -132,7 +132,6 @@ export class PosprofileComponent implements OnInit {
         this.tabKey = 'edit';
         this.viewTab = true;
         this.hideTab = false;
-        this.getPosProfile();
         this.personaledit = this.fb.group({
             id: null,
             firstname: ['', Validators.compose([Validators.required])],
@@ -313,6 +312,8 @@ export class PosprofileComponent implements OnInit {
         this.personalEdit = false;
         this.contactEdit = false;
         this.bankEdit = false;
+        this.educationEdit = false;
+        this.documentEdit = false;
 
         this.settings.loadingSpinner = true;
         this.selectedTab = i;
@@ -368,6 +369,57 @@ export class PosprofileComponent implements OnInit {
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
             this.posDataAvailable = true;
+
+            // edit
+            this.personalshow = successData.ResponseObject;
+            console.log(this.personalshow);
+            let date;
+            date = this.personalshow.pos_dob.split('/');
+            date = date[2] + '-' + date[1] + '-' + date[0];
+            date = this.datepipe.transform(date, 'y-MM-dd');
+            console.log(date, 'dateee');
+            this.personaledit = this.fb.group({
+                id: null,
+                firstname: this.personalshow.pos_firstname,
+                lastname: this.personalshow.pos_lastname,
+                birthday: date,
+                gender: this.personalshow.pos_gender,
+                referralconduct: this.personalshow.pos_referral_code,
+            });
+            this.contacts = this.fb.group({
+                email: this.personalshow.pos_email,
+                phone1: this.personalshow.pos_mobileno,
+                phone2: '',
+                address1: this.personalshow.pos_address1,
+                address2: this.personalshow.pos_address2,
+                pincode: this.personalshow.pos_postalcode,
+                // city: this.personalshow.pos_cityid,
+                // state: this.personalshow.pos_stateid,
+                // country: this.personalshow.pos_countryid
+            });
+            this.documents = this.fb.group({
+                aadharnumber: this.personalshow.doc_aadhar_no,
+                pannumber: this.personalshow.doc_pan_no,
+
+            });
+            this.educationlist = this.fb.group({
+                qualification: this.personalshow.doc_education,
+
+            });
+            this.bankdetails = this.fb.group({
+                bankname: this.personalshow.bank_name,
+                bankbranch: this.personalshow.branch_name,
+                ifsccode: this.personalshow.ifsc_code,
+                accountnumber: this.personalshow.bank_acc_no
+            });
+
+            this.profile =  this.personalshow.pos_profile_img;
+            this.aadharfront = this.personalshow.doc_aadhar_front_img;
+            this.aadharback = this.personalshow.doc_aadhar_back_img;
+            this.pancard = this.personalshow.doc_pan_img;
+            this.education = this.personalshow.doc_edu_certificate_img;
+            this.chequeleaf = this.personalshow.check_leaf_upload_img;
+
         }
     }
 
@@ -871,6 +923,8 @@ export class PosprofileComponent implements OnInit {
             this.personalEdit = false;
             this.contactEdit = false;
             this.bankEdit = false;
+            this.educationEdit = false;
+            this.documentEdit = false;
 
 
 
@@ -980,14 +1034,20 @@ export class PosprofileComponent implements OnInit {
     }
     changeEdit(value, key){
         if (key == 'edit') {
+            this.disabledList = true;
             this.personalEdit = true;
             this.contactEdit = true;
             this.bankEdit = true;
+            this.educationEdit = true;
+            this.documentEdit = true;
 
         } else if (key == 'close') {
+            this.disabledList = false;
             this.personalEdit = false;
             this.contactEdit = false;
             this.bankEdit = false;
+            this.educationEdit = false;
+            this.documentEdit = false;
 
         }
 
