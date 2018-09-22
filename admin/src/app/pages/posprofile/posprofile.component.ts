@@ -88,6 +88,7 @@ export class PosprofileComponent implements OnInit {
     fileDetails: any;
     allImage: any;
     pdfSrc: any;
+    posManager: any;
     comments: string;
     notes: string;
     rows = [];
@@ -129,6 +130,7 @@ export class PosprofileComponent implements OnInit {
         this.doctorExperience = [];
         this.notes = '';
         this.comments = '';
+        this.posManager = '';
         this.step = 0;
         // this.professional = [];
         //  this.personal.profileimagepath = '';
@@ -482,6 +484,7 @@ export class PosprofileComponent implements OnInit {
             'online_verification_notes': this.notes,
             'online_verification_message': this.comments,
             'pos_id': this.posid,
+            'pos_manager_id': this.posManager,
             'appointment_date': appointDate == undefined ? '' : appointDate,
             'agreement_filepath': this.fileDetails ? this.fileDetails : '',
         };

@@ -1,7 +1,7 @@
 <section id="appointment" class="doctorlist">
   <div class="row pr-2 pl-2">
       <div class="col-md-6">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="tabChange(group.value)" value="pending">
+          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="tabChange(group.value)" [value]="tabValue">
               <mat-button-toggle value="inactive">
                   <mat-icon style="color: #8c40a5;">timer</mat-icon>Pending
               </mat-button-toggle>
@@ -16,14 +16,28 @@
               </mat-button-toggle>
           </mat-button-toggle-group>
       </div>
-      <div class="col-md-6 text-right">
-          <button mat-raised-button color="primary"  [routerLink]="['/addpos']">
-              <i class="material-icons">
-                  add
-              </i>
+      <div class="col-md-6">
+          <div class="row">
+              <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                      <mat-select placeholder="Manager List" [(ngModel)]="posManager" (change)="filtermanagerWise()">
+                          <mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">
+                              {{list.manager_name}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+              <div class="col-md-6 text-right">
+                  <button mat-raised-button color="primary"  [routerLink]="['/addpos']">
+                      <i class="material-icons">
+                          add
+                      </i>
 
-               Add POS
-          </button>
+                      Add POS
+                  </button>
+              </div>
+          </div>
+
       </div>
   </div>
             <div class="row">
@@ -60,6 +74,9 @@
                                      <mat-card class="mt-viwe-profile">
                                          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                                              <h3 class="user-name"  style="cursor: pointer"><span>{{row.pos_firstname | titlecase}} {{row.pos_lastname | titlecase}}</span></h3>
+                                             <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status != 2">Document pending</p>
+                                             <p class="docStatus" *ngIf="row.pos_status == 3 && row.training_status != 1">Training pending</p>
+                                             <p class="docStatus" *ngIf="row.pos_status == 3 && row.exam_status != 2">Examination pending</p>
                                              <button mat-raised-button color="primary" class="text-center" (click)="POSProfile(row.pos_id, row.pos_status)">
                                                  View <span *ngIf="posStatus !=1">& Approve</span>
                                              </button>
@@ -220,6 +237,9 @@
     }
     .datatable-header-cell-wrapper{
         display: none;
+    }
+    .docStatus {
+        color: #cc3210 !important;
     }
 </style>
 

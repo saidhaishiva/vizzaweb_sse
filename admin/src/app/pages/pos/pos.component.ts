@@ -40,7 +40,6 @@ export class PosComponent implements OnInit {
     temp = [];
     selected = [];
     loadingIndicator: boolean = true;
-    reorderable: boolean = true;
     tabValue: string;
     totalPOS: any;
     pendingPOSCount: number;
@@ -49,11 +48,11 @@ export class PosComponent implements OnInit {
     rejectedPOSCount: number;
     POSStatus: any;
     posStatus: any;
-
-
     pageOffSet: any;
+    allManagerLists: any;
+    posManager: any;
+    filterStatus: any;
     searchTag: string;
-    infoWindow: any;
     columns = [
         {prop: 'doctorname'},
         {prop: 'mobilenumber'},
@@ -61,7 +60,6 @@ export class PosComponent implements OnInit {
         {name: 'speciality'},
         {name: 'designation'}
     ];
-
     constructor(public router: Router, public route: ActivatedRoute,
                 public appSettings: AppSettings, private toastr: ToastrService,
                 public dialog: MatDialog, public auth: AuthService,
@@ -81,25 +79,33 @@ export class PosComponent implements OnInit {
         this.rejectedPOSList = [];
         this.totalPOS = 0;
         this.searchTag = '';
+        this.posManager = '';
         this.pendingPOSCount = 0;
         this.approvedPOSCount = 0;
         this.holdPOSCount = 0;
         this.rejectedPOSCount = 0;
         this.POSStatus = '0';
-
-
+        this.filterStatus = false;
     }
     ngOnInit() {
         this.getPOSList('inactive');
+        this.managerList();
     }
-
+    filtermanagerWise() {
+        this.filterStatus = true;
+        this.temp = [];
+        this.rows = [];
+        this.totalPOS = '';
+        this.getPOSList('inactive');
+    }
     getPOSList(value) {
         this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
-            'status': ''
+            'status': '',
+            'pos_manager_id': this.posManager ? this.posManager : ''
         };
         this.common.getPOSList(data).subscribe(
             (successData) => {
@@ -113,6 +119,21 @@ export class PosComponent implements OnInit {
     getPOSListSuccess(successData, value) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            console.log(successData.ResponseObject[0].pos_status, 'poss');
+            if (this.filterStatus) {
+                if (successData.ResponseObject[0].pos_status == '0') {
+                    this.tabValue = 'inactive';
+                } else  if (successData.ResponseObject[0].pos_status == '1') {
+                    this.tabValue = 'active';
+                }else  if (successData.ResponseObject[0].pos_status == '2') {
+                    this.tabValue = 'rejected';
+                }else  if (successData.ResponseObject[0].pos_status == '3') {
+                    this.tabValue = 'onhold';
+                }
+            } else {
+                this.tabValue = 'inactive';
+            }
+
             let POS = [];
             if (value == 'inactive') {
                 for (let i =0; i < successData.ResponseObject.length; i++) {
@@ -142,6 +163,7 @@ export class PosComponent implements OnInit {
                         this.temp = [...POS];
                         this.rows = POS;
                         this.totalPOS = successData.ResponseObject.length;
+
                     }
                 }
             } else if (value == 'onhold') {
@@ -152,6 +174,7 @@ export class PosComponent implements OnInit {
                         this.temp = [...POS];
                         this.rows = POS;
                         this.totalPOS = successData.ResponseObject.length;
+
                     }
                 }
             }
@@ -181,6 +204,33 @@ export class PosComponent implements OnInit {
         });
         this.rows = temp;
         this.table.offset = 0;
+    }
+    public managerList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId()
+        };
+        this.common.branchList(data).subscribe(
+            (successData) => {
+                this.branchListSuccess(successData);
+            },
+            (error) => {
+                this.branchListFailure(error);
+            }
+        );
+    }
+    public branchListSuccess(success) {
+        console.log(success);
+        if (success.IsSuccess) {
+            this.allManagerLists = success.ResponseObject;
+
+        } else {
+        }
+    }
+
+    public branchListFailure(error) {
+
     }
 }
 
