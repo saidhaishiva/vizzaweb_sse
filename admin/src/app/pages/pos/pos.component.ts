@@ -52,14 +52,10 @@ export class PosComponent implements OnInit {
     allManagerLists: any;
     posManager: any;
     filterStatus: any;
+    allLists: any;
+    selectedList: any;
     searchTag: string;
-    columns = [
-        {prop: 'doctorname'},
-        {prop: 'mobilenumber'},
-        {name: 'hospitalname'},
-        {name: 'speciality'},
-        {name: 'designation'}
-    ];
+
     constructor(public router: Router, public route: ActivatedRoute,
                 public appSettings: AppSettings, private toastr: ToastrService,
                 public dialog: MatDialog, public auth: AuthService,
@@ -86,6 +82,12 @@ export class PosComponent implements OnInit {
         this.rejectedPOSCount = 0;
         this.POSStatus = '0';
         this.filterStatus = false;
+        this.allLists = [
+            {name: 'All'},
+            {name: 'Documents'},
+            {name: 'Training'},
+            {name: 'Examination'}
+        ];
     }
     ngOnInit() {
         this.getPOSList('inactive');
@@ -98,6 +100,46 @@ export class PosComponent implements OnInit {
         this.totalPOS = '';
         this.getPOSList('inactive');
     }
+    filterPending() {
+        console.log(this.temp, 'this.temp');
+        console.log(this.selectedList, 'this.selectedList');
+        if (this.selectedList != 'All') {
+            this.temp = [];
+            this.rows = [];
+            this.totalPOS = '';
+            let POS = [];
+            for (let i = 0; i < this.temp.length; i++) {
+
+                if (this.temp[i].doc_verified_status == '1' && this.selectedList == 'Documents') {
+                    this.posStatus = this.temp[i].pos_status;
+                    POS.push(this.temp[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = this.temp.length;
+                    console.log(this.temp, 'this.temp');
+                } else if (this.temp[i].training_status == '1' && this.selectedList == 'Training') {
+                    this.posStatus = this.temp[i].pos_status;
+                    POS.push(this.temp[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = this.temp.length;
+                    console.log(this.temp, 'this.temp' && this.selectedList == 'Examination');
+                } else if (this.temp[i].exam_status == '1') {
+                    this.posStatus = this.temp[i].pos_status;
+                    POS.push(this.temp[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = this.temp.length;
+                    console.log(this.temp, 'this.temp');
+                } else {
+                    this.temp = [];
+                    this.rows = [];
+                    this.totalPOS = '';
+                }
+            }
+        }
+    }
+
     getPOSList(value) {
         this.settings.loadingSpinner = true;
         const data = {
