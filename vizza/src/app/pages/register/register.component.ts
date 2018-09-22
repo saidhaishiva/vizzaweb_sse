@@ -489,12 +489,13 @@ export class RegisterComponent implements OnInit {
         }
     }
     getPin(pin) {
+        console.log(pin, 'pin');
         this.pin = pin;
         const data = {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'pincode': this.pin
+            'postalcode': this.pin
         }
         if (this.pin.length == 6) {
             this.common.getPincode(data).subscribe(
