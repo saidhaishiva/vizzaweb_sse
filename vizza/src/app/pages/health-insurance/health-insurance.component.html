@@ -88,7 +88,7 @@
   <div class="col-sm-9">
     <div fxLayout="column" *ngIf="secondPage">
       <div class="flex-p">
-        <mat-card>
+        <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
           <mat-card-header fxLayoutAlign="left left">
           </mat-card-header>
           <mat-card-content>
@@ -286,8 +286,8 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="compareArray != ''">
-  <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
+<div class="row compar-fix" *ngIf="compareArray != ''">
+  <div style="width: 200px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
