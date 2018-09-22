@@ -47,8 +47,10 @@ button:focus {
   margin-top: -16px; }
 
 .sidenav-header {
-  background: #ffe8c6 !important;
   border-bottom: 1px solid #ccc; }
+
+.sidenav {
+  width: 300px !important; }
 
 .dashboard1 {
   width: 30em; }
@@ -464,6 +466,12 @@ a:hover {
 .horizontal-menu-item .horizontal-sub-menu a.mat-button {
   color: #fff !important; }
 
+.horizontal-menu-item .mat-button {
+  height: 40px !important; }
+
+.app.teal-light .active-link {
+  border-radius: 36px !important; }
+
 .horizontal-menu .inner-sidenav-content {
   padding-top: 7px !important; }
 
@@ -812,7 +820,7 @@ a:hover {
   color: #fff;
   font-size: 22px; }
 .insurance-renewal form {
-  padding: 50px;
+  padding: 20px 0;
   background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%); }
 .insurance-renewal .input-group-addon {
   color: #fff;
@@ -870,12 +878,12 @@ a:hover {
   text-align: center;
   background: #d4d4d4;
   border-radius: 50%;
-  height: 90px;
+  height: 55px;
   margin: 44px;
-  font-size: 59px;
+  font-size: 25px;
   color: #fff;
   padding-top: 15px;
-  width: 90px;
+  width: 55px;
   margin: 10px;
   margin-top: 21px; }
 
@@ -907,6 +915,12 @@ footer {
   width: 100%;
   float: left;
   padding: 10px; }
+  footer p {
+    background: #676767;
+    padding: 10px;
+    margin-bottom: 0;
+    color: #fff;
+    margin-top: 15px; }
 
 .c2-card {
   border-left: 20px solid #219c44;
@@ -1031,7 +1045,8 @@ footer {
   border-radius: 15px;
   margin-top: -32px;
   padding-top: 45px;
-  min-height: 270px; }
+  min-height: 240px;
+  font-size: 12px; }
 .h-claim .col:nth-child(5) h4 {
   background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%); }
 .h-claim .col:nth-child(5) span {
