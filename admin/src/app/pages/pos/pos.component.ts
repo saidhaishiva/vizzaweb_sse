@@ -6,18 +6,12 @@ import {FormControl} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {AuthService} from '../../shared/services/auth.service';
 import {DoctorsService} from '../../shared/services/doctors.service';
-
-
-
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { CommonService } from '../../shared/services/common.service';
-
 declare var google: any;
-
-
 @Component({
     selector: 'app-doctors',
     templateUrl: './pos.component.html',
@@ -54,13 +48,12 @@ export class PosComponent implements OnInit {
     filterStatus: any;
     allLists: any;
     selectedList: any;
+    allPosLists: any;
     searchTag: string;
-
     constructor(public router: Router, public route: ActivatedRoute,
                 public appSettings: AppSettings, private toastr: ToastrService,
                 public dialog: MatDialog, public auth: AuthService,
                 public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService) {
-
         this.settings = this.appSettings.settings;
         // this.settings.loadingSpinner = true;
         this.webhost = this.config.getimgUrl();
@@ -97,46 +90,59 @@ export class PosComponent implements OnInit {
         this.filterStatus = true;
         this.temp = [];
         this.rows = [];
-        this.totalPOS = '';
+        this.totalPOS = 0;
         this.getPOSList('inactive');
     }
     filterPending() {
-        console.log(this.temp, 'this.temp');
-        console.log(this.selectedList, 'this.selectedList');
-        if (this.selectedList != 'All') {
-            this.temp = [];
-            this.rows = [];
-            this.totalPOS = '';
-            let POS = [];
-            for (let i = 0; i < this.temp.length; i++) {
-
-                if (this.temp[i].doc_verified_status == '1' && this.selectedList == 'Documents') {
-                    this.posStatus = this.temp[i].pos_status;
-                    POS.push(this.temp[i]);
+        this.temp = [];
+        this.rows = [];
+        this.totalPOS = 0;
+        let POS = [];
+        if (this.selectedList == 'All') {
+            for (let i =0; i < this.allPosLists.length; i++) {
+                if (this.allPosLists[i].pos_status =='3') {
+                    this.posStatus = this.allPosLists[i].pos_status;
+                    POS.push(this.allPosLists[i]);
                     this.temp = [...POS];
                     this.rows = POS;
-                    this.totalPOS = this.temp.length;
-                    console.log(this.temp, 'this.temp');
-                } else if (this.temp[i].training_status == '1' && this.selectedList == 'Training') {
-                    this.posStatus = this.temp[i].pos_status;
-                    POS.push(this.temp[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = this.temp.length;
-                    console.log(this.temp, 'this.temp' && this.selectedList == 'Examination');
-                } else if (this.temp[i].exam_status == '1') {
-                    this.posStatus = this.temp[i].pos_status;
-                    POS.push(this.temp[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = this.temp.length;
-                    console.log(this.temp, 'this.temp');
-                } else {
-                    this.temp = [];
-                    this.rows = [];
-                    this.totalPOS = '';
+                    this.totalPOS = POS.length;
                 }
             }
+        } else if (this.selectedList == 'Documents') {
+            for (let i = 0; i < this.allPosLists.length; i++) {
+                if (this.allPosLists[i].pos_status == '3' && this.allPosLists[i].doc_verified_status == '1') {
+                    this.posStatus = this.allPosLists[i].pos_status;
+                    POS.push(this.allPosLists[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = this.temp.length;
+                    console.log(this.temp, 'this.temp');
+                }
+            }
+
+        } else if (this.selectedList == 'Training') {
+            for (let i = 0; i < this.allPosLists.length; i++) {
+                    if (this.allPosLists[i].pos_status == '3' && this.allPosLists[i].doc_verified_status == '2' && this.allPosLists[i].training_status == '0') {
+                    this.posStatus = this.allPosLists[i].pos_status;
+                    POS.push(this.allPosLists[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = this.temp.length;
+                    console.log(this.temp, 'this.temp');
+                }
+            }
+        } else if (this.selectedList == 'Examination') {
+            for (let i =0; i < this.allPosLists.length; i++) {
+                if (this.allPosLists[i].pos_status == '3' && this.allPosLists[i].doc_verified_status == '2' && (this.allPosLists[i].exam_status == '1' || this.allPosLists[i].exam_status == '0')) {
+                    this.posStatus = this.allPosLists[i].pos_status;
+                    POS.push(this.allPosLists[i]);
+                    this.temp = [...POS];
+                    this.rows = POS;
+                    this.totalPOS = POS.length;
+                    console.log(this.rows, 'this.allPosLists[i].pos_status');
+                }
+            }
+
         }
     }
 
@@ -162,19 +168,20 @@ export class PosComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             console.log(successData.ResponseObject[0].pos_status, 'poss');
-            if (this.filterStatus) {
-                if (successData.ResponseObject[0].pos_status == '0') {
-                    this.tabValue = 'inactive';
-                } else  if (successData.ResponseObject[0].pos_status == '1') {
-                    this.tabValue = 'active';
-                }else  if (successData.ResponseObject[0].pos_status == '2') {
-                    this.tabValue = 'rejected';
-                }else  if (successData.ResponseObject[0].pos_status == '3') {
-                    this.tabValue = 'onhold';
-                }
-            } else {
-                this.tabValue = 'inactive';
-            }
+            this.allPosLists = successData.ResponseObject;
+            // if (this.filterStatus) {
+            //     if (successData.ResponseObject[0].pos_status == '0') {
+            //         this.tabValue = 'inactive';
+            //     } else  if (successData.ResponseObject[0].pos_status == '1') {
+            //         this.tabValue = 'active';
+            //     }else  if (successData.ResponseObject[0].pos_status == '2') {
+            //         this.tabValue = 'rejected';
+            //     }else  if (successData.ResponseObject[0].pos_status == '3') {
+            //         this.tabValue = 'onhold';
+            //     }
+            // } else {
+            //     this.tabValue = 'inactive';
+            // }
 
             let POS = [];
             if (value == 'inactive') {
@@ -182,9 +189,9 @@ export class PosComponent implements OnInit {
                     if (successData.ResponseObject[i].pos_status === '0') {
                         this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
-                        this.temp = [...POS];
+                        this.temp = POS;
                         this.rows = POS;
-                        this.totalPOS = successData.ResponseObject.length;
+                        this.totalPOS = POS.length;
                     }
                 }
             } else if (value == 'active') {
@@ -229,15 +236,14 @@ export class PosComponent implements OnInit {
     }
     public tabChange(value) {
         console.log(value);
+        this.tabValue = value;
         this.temp = [];
         this.rows = [];
-            this.getPOSList(value);
+        this.getPOSList(value);
 
     }
     POSProfile(id, status) {
-        console.log(id, 'skfkhsdkfhdkf');
         this.router.navigate(['/pos-profile/' + id + '/' + status]);
-
     }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
