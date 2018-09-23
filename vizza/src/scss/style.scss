@@ -1095,6 +1095,9 @@ a:hover {
         color: #1c9a42;
       }
     }
+    .view-profile img{
+      width:200px
+    }
   }
 
 }
@@ -1237,13 +1240,13 @@ footer{
   width: 100%;
   float: left;
   padding: 10px;
-  p{
-    background: #676767;
-    padding: 10px;
-    margin-bottom: 0;
-    color: #fff;
-    margin-top: 15px;
-  }
+  //p{
+  //  background: #676767;
+  //  padding: 10px;
+  //  margin-bottom: 0;
+  //  color: #fff;
+  //  margin-top: 15px;
+  //}
 }
 .c2-card{
 
@@ -1317,9 +1320,7 @@ footer{
   footer{
     font-size: 20px;
   }
-  .center-section{
 
-  }
 }
 .letUs{
   .arrow-left {

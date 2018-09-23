@@ -223,13 +223,13 @@ export class PosprofileComponent implements OnInit {
 
         }
 
-        if (this.documentStatus == 2 && this.trainingStatus == 1) {
+        if (this.documentStatus != 2 || this.documentStatus == 2) {
             this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
         }
-        if (this.documentStatus == 2 && this.examStatus == 2) {
+        if (this.documentStatus != 2 || this.documentStatus == 2) {
             this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
         }
-        if (this.posStatus == 1 ) {
+        if (this.documentStatus != 2 || this.documentStatus == 2) {
             this.sideNav.push(
                 {
                     'name': 'Appointment Letter',
@@ -505,6 +505,75 @@ export class PosprofileComponent implements OnInit {
       <html>
         <head >
          <style>
+        
+
+    .c-card li {
+      display: block;
+    }
+    .c-card header {
+      border-bottom: 1px solid #000;
+      padding-bottom: 15px;
+      }
+      .c-card header img {
+        width: 350px;
+      }
+   
+    .c-card .c-content, .c-card .c-address, .c-card p, .c-card table {
+      font-size: 16px
+    }
+    .c-card .c-content, .print-sign, .print-footer{
+    width: 100%;
+    float: left;
+    }
+    .print-footer{
+    text-align: center;
+    }
+   
+    .c-card footer {
+      border-top: 2px solid #1c9a42;
+      }
+      .c-card footer h5 {
+        color: #1c9a42;
+      }
+      .c-card footer p {
+        font-size: 19px;
+        margin-bottom: 0;
+      }
+    
+     
+     .c-card table tr td {
+        padding-bottom: 5px;
+        vertical-align: top;
+      }
+      .c-card table tr td p {
+         margin: 0;
+         padding: 0;
+         margin-bottom: 5px;
+      }
+      .c-card table tr td:first-child {
+        color: #1c9a42;
+      }
+      .c-card .print-address{
+      float: left;
+      text-align: right;
+      }
+      .c-card .print-profile{
+      text-align: right;
+      }
+       .c-card .print-profile img{
+        width: 150px !important;
+        margin-top: 15px;
+       }
+      
+      .c-card .print-title{
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      }
+      
+  
         </style>
         </head>
        <body onload="window.print();window.close()" >${printContents}
