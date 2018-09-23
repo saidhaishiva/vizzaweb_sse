@@ -11,6 +11,10 @@ import {GrouppopupComponent} from './grouppopup/grouppopup.component';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {ViewdetailsComponent} from './viewdetails/viewdetails.component';
+import { Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+
+
 
 @Component({
   selector: 'app-health-insurance',
@@ -73,6 +77,7 @@ export class HealthInsuranceComponent implements OnInit {
     sbtn: boolean;
     hideChild : any;
 
+    private keyUp = new Subject<string>();
 
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
@@ -110,6 +115,19 @@ export class HealthInsuranceComponent implements OnInit {
         ];
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
+
+        const observable = this.keyUp
+            .map(value => event)
+            .debounceTime(800)
+            .distinctUntilChanged()
+            .flatMap((search) => {
+                return Observable.of(search).delay(500);
+            })
+            .subscribe((data) => {
+                console.log(data.target);
+                console.log(data.target);
+                this.typeAge(data.target);
+            });
     }
 
     ngOnInit() {
@@ -249,6 +267,9 @@ export class HealthInsuranceComponent implements OnInit {
             if (name == 'Son' || name == 'Daughter') {
                 this.count++;
             }
+
+            console.log(this.count, 'this.count');
+
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
@@ -272,6 +293,7 @@ export class HealthInsuranceComponent implements OnInit {
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
             }
+            console.log(this.count, 'this.count--');
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
@@ -313,6 +335,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
     // add new user
     addUser(value, index) {
+        console.log(this.count, 'add');
         if (value == 'Son' || value == 'Daughter') {
             this.count++;
             this.addSonItems = this.count;
@@ -348,22 +371,33 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-    typeAge(checked, name, index, value) {
+    // typeAge(checked, name, index, value) {
+    typeAge(value) {
+        console.log(value, 'vklllll');
+        console.log(value.value, 'value');
+        console.log(value.max, 'indx');
+        // if (this.setArray[2].age == '' || this.setArray[2].checked == false) {
+        //     this.count = 0;
+        // }
         let checkTrue = true;
         let checkFalse = false;
-        if (name == 'Son' || name == 'Daughter') {
-            if (value.length == 1) {
-                this.ckeckedUser(checkTrue, index, name);
-            } else if (value.length == 0) {
-                this.ckeckedUser(checkFalse, index, name);
+        if (value.max == 'Son' || value.max == 'Daughter') {
+        // else if (value.length == 0) {
+            if (value.value != '') {
+                console.log('in');
+                this.ckeckedUser(checkTrue, value.alt, value.max);
+            } else if (value.value == '') {
+                console.log('out');
+
+                this.ckeckedUser(checkFalse, value.alt, value.max);
             }
         }
 
 
-        if (value != '') {
-            this.setArray[index].checked = true;
+        if (value.value != '') {
+            this.setArray[value.alt].checked = true;
         } else {
-            this.setArray[index].checked = false;
+            this.setArray[value.alt].checked = false;
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
         console.log(this.hideChild, 'hideChild')
