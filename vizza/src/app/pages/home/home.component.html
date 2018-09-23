@@ -43,22 +43,24 @@
 
     <section class="container-fluid">
         <div class="row h-plans">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <figure>
-                    <img src="assets/img/home/motor-policy.png" alt="">
-                    <figcaption class="mt-3">MOTOR INSURANCE</figcaption>
+                    <img src="assets/img/home/JOY-relicare.png" alt="">
                 </figure>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <figure>
                     <img src="assets/img/home/protect.png" alt="">
-                    <figcaption class="mt-3">HEALTH INSURANCE</figcaption>
                 </figure>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <figure>
                     <img src="assets/img/home/sometimes.png" alt="">
-                    <figcaption class="mt-3">TRAVEL INSURANCE</figcaption>
+                </figure>
+            </div>
+            <div class="col-md-3">
+                <figure>
+                    <img src="assets/img/home/Reliance-Health1.png" alt="">
                 </figure>
             </div>
         </div>
@@ -173,14 +175,13 @@
         </section>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
         <section class="row">
+            <div class="col-md-12">
             <img src="assets/img/Partner-strip.png" class="w-100" alt="">
+            </div>
         </section>
     </div>
-
-
-
 
     <div class="container-fluid">
         <section class="row">
@@ -189,35 +190,79 @@
                 <form>
                     <div class="container">
                         <div class="row" fxLayoutAlign="center center">
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" name="" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                        </div>
+                            <div class="col-sm-8 pr-4" >
+                               <div class="row" style="border-right: 2px solid #ababab;">
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput placeholder="Insured Name">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput placeholder="Mobile No">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput placeholder="Email id">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <mat-select placeholder="Insurance Policy Type">
+                                               <mat-option value="option1">Option 1</mat-option>
+                                               <mat-option value="option2">Option 2</mat-option>
+                                               <mat-option value="option3">Option 3</mat-option>
+                                           </mat-select>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput placeholder="Policy No">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput placeholder="Premium Amount">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <mat-select placeholder="Insurance Company Name">
+                                               <mat-option value="option1">Option 1</mat-option>
+                                               <mat-option value="option2">Option 2</mat-option>
+                                               <mat-option value="option3">Option 3</mat-option>
+                                           </mat-select>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <mat-select placeholder="Payment Frequency">
+                                               <mat-option value="option1">Option 1</mat-option>
+                                               <mat-option value="option2">Option 2</mat-option>
+                                               <mat-option value="option3">Option 3</mat-option>
+                                           </mat-select>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput [matDatepicker]="picker" placeholder="Start date">
+                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                           <mat-datepicker #picker></mat-datepicker>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <mat-form-field class="w-100">
+                                           <input matInput [matDatepicker]="picker1" placeholder="End date">
+                                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                           <mat-datepicker #picker1></mat-datepicker>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-12 float-right">
+                                   <button mat-raised-button color="primary">Submit</button>
+                                   </div>
 
-                                        <input  type="text" class="form-control" name="" placeholder="Mobile">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                        </div>
-                                        <input  type="email" class="form-control" name="" placeholder="Email">
-                                    </div>
-                                </div>
-
-
-
+                               </div>
                             </div>
                             <div class="col-sm-4">
                                 <h4 class="text-center">Upload your policy here</h4>
@@ -270,6 +315,7 @@
     <footer class="text-center">
         <h5 class="font-weight-bold mb-0">VIZZA INSURANCE BROKING SERVICES PVT.LTD</h5>
         <h6 class="mb-0">IRDA LICENCE NO : IRDA / DB 543 / 13</h6>
+        <p>© copyright 2018 @ VIZZA INSURANCE BROKING SERVICES PVT.LTD</p>
     </footer>
 </section>
 <style>
