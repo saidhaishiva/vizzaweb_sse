@@ -179,8 +179,6 @@ export class PosprofileComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
         this.getTrainingDetails();
         this.getExamDetails();
         // this.settings.loadingSpinner = false;
@@ -220,16 +218,15 @@ export class PosprofileComponent implements OnInit {
                     'value': 'active',
                     'selected': false
                 });
-
         }
 
-        if (this.documentStatus != 2 || this.documentStatus == 2) {
+        if (this.documentStatus == 2 && this.trainingStatus == 1) {
             this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
         }
-        if (this.documentStatus != 2 || this.documentStatus == 2) {
+        if (this.documentStatus == 2 && this.examStatus == 2) {
             this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
         }
-        if (this.documentStatus != 2 || this.documentStatus == 2) {
+        if (this.posStatus == 1 ) {
             this.sideNav.push(
                 {
                     'name': 'Appointment Letter',
@@ -242,70 +239,6 @@ export class PosprofileComponent implements OnInit {
                     'selected': false
                 },);
         }
-        // if (this.documentStatus == 2) {
-        //     this.sideNav = [{
-        //         'name': 'Personal',
-        //         'value': 'active',
-        //         'selected': false
-        //     },{
-        //         'name': 'Contact',
-        //         'value': 'active',
-        //         'selected': false
-        //     },
-        //         {
-        //             'name': 'Documents',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Bank Details',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Education',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Training',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Examination',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Approval Letter',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Appointment Letter',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Certificate of Training',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Certificate of Examination',
-        //             'value': 'active',
-        //             'selected': false
-        //         },
-        //         {
-        //             'name': 'Payment Options',
-        //             'value': 'active',
-        //             'selected': false
-        //         }
-        //     ];
-        // }
-
-
         this.sideNav[0].selected = true;
     }
     viewDetail(i, value) {
@@ -505,75 +438,6 @@ export class PosprofileComponent implements OnInit {
       <html>
         <head >
          <style>
-        
-
-    .c-card li {
-      display: block;
-    }
-    .c-card header {
-      border-bottom: 1px solid #000;
-      padding-bottom: 15px;
-      }
-      .c-card header img {
-        width: 350px;
-      }
-   
-    .c-card .c-content, .c-card .c-address, .c-card p, .c-card table {
-      font-size: 16px
-    }
-    .c-card .c-content, .print-sign, .print-footer{
-    width: 100%;
-    float: left;
-    }
-    .print-footer{
-    text-align: center;
-    }
-   
-    .c-card footer {
-      border-top: 2px solid #1c9a42;
-      }
-      .c-card footer h5 {
-        color: #1c9a42;
-      }
-      .c-card footer p {
-        font-size: 19px;
-        margin-bottom: 0;
-      }
-    
-     
-     .c-card table tr td {
-        padding-bottom: 5px;
-        vertical-align: top;
-      }
-      .c-card table tr td p {
-         margin: 0;
-         padding: 0;
-         margin-bottom: 5px;
-      }
-      .c-card table tr td:first-child {
-        color: #1c9a42;
-      }
-      .c-card .print-address{
-      float: left;
-      text-align: right;
-      }
-      .c-card .print-profile{
-      text-align: right;
-      }
-       .c-card .print-profile img{
-        width: 150px !important;
-        margin-top: 15px;
-       }
-      
-      .c-card .print-title{
-      text-align: center;
-      padding: 0;
-      margin: 0;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      }
-      
-  
         </style>
         </head>
        <body onload="window.print();window.close()" >${printContents}
@@ -952,28 +816,28 @@ export class PosprofileComponent implements OnInit {
         });
     }
     updatePosProfile() {
-    let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
-    const data =  {
-        "platform": "web",
-        "pos_hidden_id": this.auth.getPosUserId(),
-        "role_id": this.auth.getPosRoleId(),
-        "pos_referralcode": this.personaledit.value['referralconduct'],
-        "pos_firstname": this.personaledit.value['firstname'],
-        "pos_lastname": this.personaledit.value['lastname'] ,
-        "pos_dob": date,
-        "pos_gender": this.personaledit.value['gender'],
-        "pos_mobileno": this.contacts.value['phone1'],
-        "pos_email": this.contacts.value['email'],
-        "pos_address1": this.contacts.value['address1'],
-        "pos_address2": this.contacts.value['address2'],
-        "pos_postalcode": this.contacts.value['pincode'],
-        "pos_profile_img": this.profile == undefined ? '' : this.profile,
-        'bank_name': this.bankdetails.value['bankname'],
-        'bank_acc_no': this.bankdetails.value['accountnumber'],
-        'branch_name': this.bankdetails.value['bankbranch'],
-        'ifsc_code': this.bankdetails.value['ifsccode'],
-        'check_leaf_upload_img':this.chequeleaf
-    };
+        let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
+        const data =  {
+            "platform": "web",
+            "pos_hidden_id": this.auth.getPosUserId(),
+            "role_id": this.auth.getPosRoleId(),
+            "pos_referralcode": this.personaledit.value['referralconduct'],
+            "pos_firstname": this.personaledit.value['firstname'],
+            "pos_lastname": this.personaledit.value['lastname'] ,
+            "pos_dob": date,
+            "pos_gender": this.personaledit.value['gender'],
+            "pos_mobileno": this.contacts.value['phone1'],
+            "pos_email": this.contacts.value['email'],
+            "pos_address1": this.contacts.value['address1'],
+            "pos_address2": this.contacts.value['address2'],
+            "pos_postalcode": this.contacts.value['pincode'],
+            "pos_profile_img": this.profile == undefined ? '' : this.profile,
+            'bank_name': this.bankdetails.value['bankname'],
+            'bank_acc_no': this.bankdetails.value['accountnumber'],
+            'branch_name': this.bankdetails.value['bankbranch'],
+            'ifsc_code': this.bankdetails.value['ifsccode'],
+            'check_leaf_upload_img':this.chequeleaf
+        };
         this.settings.loadingSpinner = true;
         this.common.updatePosProfile(data).subscribe(
             (successData) => {
@@ -1111,7 +975,6 @@ export class PosprofileComponent implements OnInit {
             this.documentEdit = true;
 
         } else if (key == 'close') {
-            this.disabledList = false;
             this.personalEdit = false;
             this.contactEdit = false;
             this.bankEdit = false;
@@ -1124,7 +987,52 @@ export class PosprofileComponent implements OnInit {
 
 
 
-
+        //
+        // this.tabKey = key;
+        // this.tabValue = value;
+        // if (key == 'edit'){
+        //     if(value == 'Personal'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //     } else if(value == 'Contact'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Documents'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Bank Details'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //
+        //     } else if(value == 'Education'){
+        //         this.viewTab = true
+        //         this.hideTab = false
+        //     }
+        // }
+        //
+        // if(key == 'close'){
+        //     if(value == 'Personal'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //     } else if(value == 'Contact'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Documents'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Bank Details'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //
+        //     } else if(value == 'Education'){
+        //         this.viewTab = false
+        //         this.hideTab = true
+        //     }
+        // }
 
     }
 
