@@ -429,8 +429,8 @@ export class RegisterComponent implements OnInit {
                 let birth = this.form.value['personal']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
-                console.log(birth,'dob');
-                if (dob.length == 10) {
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
                     this.img = false;
@@ -440,8 +440,13 @@ export class RegisterComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(selectedDate, 'selectedDate.dob');
+                if (selectedDate.length == 10) {
+                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                } else {
+                    this.img = false;
 
-                this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                }
 
                 this.dobError = '';
                 let date = event.value._i.date;
