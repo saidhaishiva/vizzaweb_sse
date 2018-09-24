@@ -102,6 +102,7 @@ export class PosprofileComponent implements OnInit {
     documentEdit: any;
     disabledList: any;
     editAccess: any;
+    pincodeErrors: any;
 
 
 
@@ -123,12 +124,15 @@ export class PosprofileComponent implements OnInit {
         this.disabledList = false;
         this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('examStatus');
-        this.trainingStatus = sessionStorage.trainingStatus;
+        this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        console.log(this.examStatus, 'this.examStatus');
+        console.log(this.trainingStatus, 'this.trainingStatus');
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.posStatus = this.auth.getSessionData('posStatus');
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
+        this.pincodeErrors = false;
         this.editAccess = true;
         this.tabValue = 'Personal';
         this.tabKey = 'edit';
@@ -259,21 +263,21 @@ export class PosprofileComponent implements OnInit {
             this.editAccess = false;
         }
         console.log(this.currentTab);
-        let trainingStatus = sessionStorage.trainingStatus;
-        let examStatus = sessionStorage.examStatus;
+        let trainingStatus = this.auth.getSessionData('trainingStatus');
+        let examStatus = this.auth.getSessionData('examStatus');
         sessionStorage.currentTab = this.currentTab;
         if (value == 'Contact') {
             this.contactEdit = false;
         }
 
         if (value == 'Training') {
-            if (trainingStatus == 0) {
+            if (trainingStatus == '0') {
                 this.settings.loadingSpinner = true;
                 this.router.navigate(['/training']);
             }
         } else if (value == 'Examination') {
 
-            if (trainingStatus == 0) {
+            if (trainingStatus == '0') {
                 this.examSchedule = 'Please complete training before applying the exam';
             } else if (examStatus == '0') {
                 this.router.navigate(['/startexam']);
@@ -310,11 +314,11 @@ export class PosprofileComponent implements OnInit {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
             this.posDataAvailable = true;
-
-            this.examStatus = this.auth.setSessionData('examStatus', this.personal.exam_status);
-            this.trainingStatus = this.auth.setSessionData('examStatus', this.personal.training_status);
-            this.documentStatus = this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
-            this.posStatus = this.auth.setSessionData('posStatus', this.personal.pos_status);
+            this.auth.setSessionData('examStatus', this.personal.exam_status);
+            this.auth.setSessionData('examStatus', this.personal.exam_status);
+            this.auth.setSessionData('examStatus', this.personal.training_status);
+            this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
+            this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
             this.personalshow = successData.ResponseObject;
             console.log(this.personalshow);
@@ -704,6 +708,41 @@ export class PosprofileComponent implements OnInit {
         console.log(error);
     }
 
+    getPin(pin) {
+        console.log(pin, 'pin');
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'postalcode': pin
+        }
+        if (pin.length == 6) {
+            this.common.getPincode(data).subscribe(
+                (successData) => {
+                    this.getPinSuccess(successData);
+                },
+                (error) => {
+                    this.getPinlFailure(error);
+                }
+            );
+        }
+
+
+    }
+    public getPinSuccess(successData) {
+
+        if (successData.IsSuccess) {
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+            // this.form['controls'].contacts['controls'].pincode.patchValue('');
+            // this.toastr.error('Invalid pincode');
+
+        }
+    }
+
+    public getPinlFailure(error) {
+    }
     // handle error data
 
     public labFailure(error) {
@@ -821,6 +860,8 @@ export class PosprofileComponent implements OnInit {
                 }
 
             } else {
+                this.toastr.error(successData.ErrorObject);
+
             }
         }
     }

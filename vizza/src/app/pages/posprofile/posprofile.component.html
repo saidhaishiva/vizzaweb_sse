@@ -190,7 +190,7 @@
                                     <!--contact Edit-->
                                     <form [formGroup]="contacts" class="mt-registration">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Emailid" formControlName="email">
+                                            <input matInput placeholder="Email id" formControlName="email" readonly>
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
                                             <input matInput (keypress)="keyPress($event)" placeholder="Mobile No" minlength="10" maxlength="10" formControlName="phone1" required readonly>
@@ -209,11 +209,12 @@
                                             <input matInput placeholder="Address2" formControlName="address2">
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keypress)="keyPress($event)"  formControlName="pincode" required >
+                                            <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keyup)="getPin($event.target.value)" (keypress)="keyPress($event)"  formControlName="pincode" required >
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
                                         </mat-form-field>
+                                        <div *ngIf="pincodeErrors" style="color: red">Invalid Pincode</div>
 
                                         <hr>
                                         <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
@@ -382,7 +383,7 @@
                     <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Documents'">
                         <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!documentEdit">
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
-                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color" style="text-transform: uppercase">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
                                 <div fxFlex="33.3" class="flex-p">
                                     <mat-card class="custom-card">
@@ -427,7 +428,7 @@
                                     <mat-error *ngIf="documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
                                     </mat-form-field>
                                     <mat-form-field class="w-100">
-                                    <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
+                                    <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" style="text-transform: uppercase">
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
