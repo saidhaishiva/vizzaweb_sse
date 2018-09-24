@@ -92,6 +92,7 @@ import { ImageUploadModule} from 'angular2-image-upload';
 import { PosmanagerComponent } from './pages/posmanager/posmanager.component';
 import { AddposmanagerComponent } from './pages/posmanager/addposmanager/addposmanager.component';
 import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editposmanager.component';
+import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
 
 @NgModule({
     imports: [
@@ -166,7 +167,8 @@ import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editpo
         UploadExcel,
         PosmanagerComponent,
         AddposmanagerComponent,
-        EditposmanagerComponent
+        EditposmanagerComponent,
+        PosEditComponent
 
     ],
     providers: [
