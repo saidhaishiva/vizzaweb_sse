@@ -315,8 +315,7 @@ export class PosprofileComponent implements OnInit {
             this.documentStatus = this.personal.doc_verified_status;
             this.posDataAvailable = true;
             this.auth.setSessionData('examStatus', this.personal.exam_status);
-            this.auth.setSessionData('examStatus', this.personal.exam_status);
-            this.auth.setSessionData('examStatus', this.personal.training_status);
+            this.auth.setSessionData('trainingStatus', this.personal.training_status);
             this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
             this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
