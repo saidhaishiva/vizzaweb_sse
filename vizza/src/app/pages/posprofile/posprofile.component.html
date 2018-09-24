@@ -27,12 +27,15 @@
                                 <mat-icon>list</mat-icon>
                             </button>
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="!personalEdit || !contactEdit"  (click)="changeEdit(currentTab, 'edit')">Edit
-                            <mat-icon style="font-size: 18px;">edit</mat-icon>
-                        </button>
-                        <button mat-raised-button class="editBtn"  *ngIf="personalEdit || contactEdit"  (click)="changeEdit(currentTab, 'close')">Close
-                            <mat-icon style="font-size: 18px;">close</mat-icon>
-                        </button>
+                        <div *ngIf="editAccess">
+                            <button mat-raised-button class="editBtn" *ngIf="!personalEdit || !contactEdit"  (click)="changeEdit(currentTab, 'edit')">Edit
+                                <mat-icon style="font-size: 18px;">edit</mat-icon>
+                            </button>
+                            <button mat-raised-button class="editBtn"  *ngIf="personalEdit || contactEdit"  (click)="changeEdit(currentTab, 'close')">Close
+                                <mat-icon style="font-size: 18px;">close</mat-icon>
+                            </button>
+                        </div>
+
                     </mat-toolbar>
                     <div class="mailbox-content" perfectScrollbar>
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Personal'">

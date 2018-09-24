@@ -101,6 +101,7 @@ export class PosprofileComponent implements OnInit {
     educationEdit: any;
     documentEdit: any;
     disabledList: any;
+    editAccess: any;
 
 
 
@@ -128,6 +129,7 @@ export class PosprofileComponent implements OnInit {
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
+        this.editAccess = true;
         this.tabValue = 'Personal';
         this.tabKey = 'edit';
         this.viewTab = true;
@@ -249,10 +251,14 @@ export class PosprofileComponent implements OnInit {
         this.bankEdit = false;
         this.educationEdit = false;
         this.documentEdit = false;
-
         this.settings.loadingSpinner = true;
         this.selectedTab = i;
         this.currentTab = value;
+        if (value == 'Personal' || value == 'Contact' || value == 'Documents' || value == 'Education' || value == 'Bank Details') {
+            this.editAccess = true;
+        } else {
+            this.editAccess = false;
+        }
         console.log(this.currentTab);
         let trainingStatus = sessionStorage.trainingStatus;
         let examStatus = sessionStorage.examStatus;
