@@ -179,6 +179,7 @@ export class PosprofileComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.getTrainingDetails();
         this.getExamDetails();
         // this.settings.loadingSpinner = false;
@@ -218,6 +219,7 @@ export class PosprofileComponent implements OnInit {
                     'value': 'active',
                     'selected': false
                 });
+
         }
 
         if (this.documentStatus == 2 && this.trainingStatus == 1) {
