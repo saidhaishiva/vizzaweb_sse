@@ -338,7 +338,7 @@ export class PosprofileComponent implements OnInit {
             this.contacts = this.fb.group({
                 email: this.personalshow.pos_email,
                 phone1: this.personalshow.pos_mobileno,
-                phone2: '',
+                phone2: this.personalshow.pos_alternate_mobileno,
                 address1: this.personalshow.pos_address1,
                 address2: this.personalshow.pos_address2,
                 pincode: this.personalshow.pos_postalcode,
@@ -792,6 +792,7 @@ export class PosprofileComponent implements OnInit {
             "pos_gender": this.personaledit.value['gender'],
             "pos_mobileno": this.contacts.value['phone1'],
             "pos_email": this.contacts.value['email'],
+            "pos_alternate_mobileno": this.contacts.value['phone2'],
             "pos_address1": this.contacts.value['address1'],
             "pos_address2": this.contacts.value['address2'],
             "pos_postalcode": this.contacts.value['pincode'],

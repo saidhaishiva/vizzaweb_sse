@@ -158,6 +158,10 @@
                                                     <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Phone No : </span>
                                                     <span class="ml-1"> {{personal.pos_mobileno}}</span>
                                                 </p>
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Alternate Phone No : </span>
+                                                    <span class="ml-1"> {{personal.pos_alternate_mobileno}}</span>
+                                                </p>
                                                 <p fxLayout="row" fxLayoutAlign="start center">
                                                     <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                                                     <span class="ml-1"> {{personal.pos_email}}</span>
@@ -197,6 +201,11 @@
                                             <i class="fas fa-phone" matSuffix></i>
                                             <mat-error *ngIf="contacts.controls.phone1.hasError('required')">Mobile Number is required</mat-error>
                                             <mat-error *ngIf="contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="w-100">
+                                            <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
+                                                   maxlength="15" formControlName="phone2">
+                                            <i class="fas fa-phone" matSuffix></i>
                                         </mat-form-field>
 
                                         <mat-form-field class="w-100">
@@ -256,7 +265,7 @@
                                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="personal.check_leaf_upload_img != ''">
                                                 <div class="mb-2 mt-2">
                                                     <h6 class="text-center colorBank">Check Leaf</h6>
-                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(personal.doc_pan_img, 'Check Leaf')">
+                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(personal.check_leaf_upload_img, 'Check Leaf')">
                                                 </div>
                                             </div>
                                         </mat-list>
