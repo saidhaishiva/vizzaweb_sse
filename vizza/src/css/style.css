@@ -809,6 +809,8 @@ a:hover {
     vertical-align: top; }
   #pos-cirtificate .c-card table tr td:first-child {
     color: #1c9a42; }
+  #pos-cirtificate .c-card .view-profile img {
+    width: 200px; }
 
 .insurance-renewal li {
   display: block; }
@@ -915,12 +917,6 @@ footer {
   width: 100%;
   float: left;
   padding: 10px; }
-  footer p {
-    background: #676767;
-    padding: 10px;
-    margin-bottom: 0;
-    color: #fff;
-    margin-top: 15px; }
 
 .c2-card {
   border-left: 20px solid #219c44;
@@ -1091,7 +1087,9 @@ footer {
 
 #staticTime {
   height: calc(100vh - 200px);
-  overflow: scroll; }
+  overflow: scroll;
+  width: 100%;
+  padding-right: 30px; }
 
 .listDisabled {
   pointer-events: none !important; }
