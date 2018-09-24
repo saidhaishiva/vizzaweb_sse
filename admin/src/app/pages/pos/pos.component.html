@@ -95,9 +95,27 @@
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 1">Document pending</p>
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 2 && row.training_status == 0">Training pending</p>
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 2 && row.exam_status != 2">Examination pending</p>
-                                             <button mat-raised-button color="primary" class="text-center" (click)="POSProfile(row.pos_id, row.pos_status)">
-                                                 View <span *ngIf="posStatus !=1">& Approve</span>
-                                             </button>
+
+                                             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                                                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                                                     <mat-icon style="text-align: center;color: white;" class="pull-right">more_vert</mat-icon>
+                                                 </button>
+                                             </div>
+                                             <mat-menu #menu="matMenu" xPosition="before">
+                                                <span (mouseleave)="menuTrigger.closeMenu()">
+                                                    <button mat-menu-item (click)="POSProfile(row.pos_id, row.pos_status)">
+                                                        View <span *ngIf="posStatus !=1">& Approve</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="POSEdit()">
+                                                        <mat-icon>mode_edit</mat-icon>
+                                                        <span>Edit</span>
+                                                    </button>
+                                                </span>
+                                             </mat-menu>
+
+                                             <!--<button mat-raised-button color="primary" class="text-center" (click)="POSProfile(row.pos_id, row.pos_status)">-->
+                                                 <!--View <span *ngIf="posStatus !=1">& Approve</span>-->
+                                             <!--</button>-->
                                          </div>
 
                                          <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
@@ -116,15 +134,15 @@
                                              <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
                                                  <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                                                      <p fxLayout="row" fxLayoutAlign="start center">
-                                                     <mat-icon class="muted-text" matTooltip="Mobileno">phone</mat-icon>
+                                                     <mat-icon class="muted-text" matTooltip="Mobile Number">phone</mat-icon>
                                                         <span>{{row.pos_mobileno}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
-                                                     <mat-icon class="muted-text" matTooltip=EmailId>mail</mat-icon>
+                                                     <mat-icon class="muted-text" matTooltip="Email Id">mail</mat-icon>
                                                      <span>{{row.pos_email}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
-                                                         <mat-icon class="muted-text" matTooltip="ReferralPhoneNo">phone</mat-icon>
+                                                         <mat-icon class="muted-text" matTooltip="Referral Phone Number">phone</mat-icon>
                                                          <span>{{row.pos_referral_code}}</span>
                                                      </p>
 
@@ -135,11 +153,11 @@
                                                          <span>{{row.doc_education}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
-                                                     <mat-icon class="muted-text" matTooltip="Aadhar No">credit_card</mat-icon>
+                                                     <mat-icon class="muted-text" matTooltip="Aadhar Number">credit_card</mat-icon>
                                                      <span>{{row.doc_aadhar_no}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
-                                                     <mat-icon class="muted-text" matTooltip="Pan No">credit_card</mat-icon>
+                                                     <mat-icon class="muted-text" matTooltip="Pan Number">credit_card</mat-icon>
                                                      <span>{{row.doc_pan_no}}</span>
                                                      </p>
                                                  </div>
