@@ -245,6 +245,9 @@ export class PosComponent implements OnInit {
     POSProfile(id, status) {
         this.router.navigate(['/pos-profile/' + id + '/' + status]);
     }
+    POSEdit(){
+        this.router.navigate(['/pos-edit/']);
+    }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
         const temp = this.temp.filter(function(d) {

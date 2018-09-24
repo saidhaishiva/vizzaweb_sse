@@ -34,6 +34,7 @@ import {AddbranchcoordinatorComponent} from './pages/branchcoordinator/addbranch
 import {BranchComponent} from './pages/branch/branch.component';
 import {PosmanagerComponent} from './pages/posmanager/posmanager.component';
 import {AddposmanagerComponent} from './pages/posmanager/addposmanager/addposmanager.component';
+import {PosEditComponent} from './pages/pos-edit/pos-edit.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -61,8 +62,9 @@ export const routes: Routes = [
             { path: 'addpos', component: AddposComponent, data: { breadcrumb: 'Add POS' } },
             { path: 'pos-profile/:id/:status', component: PosprofileComponent, data: { breadcrumb: 'POS Profile' } },
             { path: 'branch', component: BranchComponent, data: { breadcrumb: ' Branch' } },
-            { path: 'posmanager', component: PosmanagerComponent, data: { breadcrumb: ' POS Manager' } },
+            { path: 'posmanager', component: PosmanagerComponent, data: { breadcrumb: 'POS Manager' } },
             { path: 'addposmanager', component: AddposmanagerComponent, data: { breadcrumb: 'Add POS Manager' } },
+            { path: 'pos-edit', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } }
 
 
         ]
