@@ -442,10 +442,6 @@
                                     <input type='file' (change)="readUrl($event, 'aadhar front')">
                                     </label>
                                     </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p>Aadhaar Front Image</p>
                                     <div *ngIf="aadharfront != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -463,11 +459,6 @@
                                     <input type='file' (change)="readUrl($event, 'aadhar back')">
                                     </label>
                                     </div>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <p>Aadhaar Back Image</p>
                                     <div *ngIf="aadharback != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -484,11 +475,6 @@
                                     <input type='file' (change)="readUrl($event, 'pancard')">
                                     </label>
                                     </div>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <p>Pancard Image</p>
                                     <div *ngIf="pancard != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
