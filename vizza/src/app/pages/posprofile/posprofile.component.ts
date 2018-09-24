@@ -103,6 +103,7 @@ export class PosprofileComponent implements OnInit {
     disabledList: any;
     editAccess: any;
     pincodeErrors: any;
+    img: any;
 
 
 
@@ -122,6 +123,7 @@ export class PosprofileComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.personalEdit = false;
         this.disabledList = false;
+        this.img = false;
         this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('examStatus');
         this.trainingStatus = this.auth.getSessionData('trainingStatus');
@@ -779,7 +781,7 @@ export class PosprofileComponent implements OnInit {
         });
     }
     updatePosProfile() {
-        let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
+       // let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.auth.getPosUserId(),
@@ -787,7 +789,7 @@ export class PosprofileComponent implements OnInit {
             "pos_referralcode": this.personaledit.value['referralconduct'],
             "pos_firstname": this.personaledit.value['firstname'],
             "pos_lastname": this.personaledit.value['lastname'] ,
-            "pos_dob": date,
+            "pos_dob": this.dob,
             "pos_gender": this.personaledit.value['gender'],
             "pos_mobileno": this.contacts.value['phone1'],
             "pos_email": this.contacts.value['email'],
@@ -890,9 +892,9 @@ export class PosprofileComponent implements OnInit {
 
     }
 
-    addEvent(event) {
+
+    addEvent(event, i) {
         if (event.value != null) {
-            console.log(event.value._i,  'kjfhasdjfh');
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -903,15 +905,35 @@ export class PosprofileComponent implements OnInit {
                     this.dobError = 'Enter Valid Date';
                 }
                 selectedDate = event.value._i;
-                this.dob = event.value._i;
+                // this.dob = event.value._i;
+                // let birth = this.personaledit['controls']['birthday'].value;
+                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.dob = dob;
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
+                    this.ageCalculate(dob);
+                } else {
+                    this.img = false;
+
+                }
+
             } else if (typeof event.value._i == 'object') {
-                console.log(event.value._i.date, 'objectttttt');
+
+                this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(event.value._i, 'selectedDate.dob');
+                if (this.dob.length == 10) {
+                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                } else {
+                    this.img = false;
+
+                }
+
                 this.dobError = '';
                 let date = event.value._i.date;
                 if (date.toString().length == 1) {
-                    date = '0'+date;
+                    date = '0' + date;
                 }
-                let month =  (parseInt(event.value._i.month)+1).toString();
+                let month = (parseInt(event.value._i.month) + 1).toString();
 
                 if (month.length == 1) {
                     month = '0' + month;
@@ -919,6 +941,26 @@ export class PosprofileComponent implements OnInit {
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
             }
+        }
+    }
+
+    ageCalculate(dob) {
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring(8, 10), 10);
+        let monthThen = parseInt(mdate.substring(5, 7), 10);
+        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let todays = new Date();
+        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        let res = year_age;
+        console.log(res,'fghjk');
+        if (res >= 18) {
+            this.img = false;
+            // this.nectStatus = true;
+        } else {
+            this.img = true;
+            // this.nectStatus = false;
         }
     }
 
