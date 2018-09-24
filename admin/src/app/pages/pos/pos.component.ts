@@ -88,10 +88,7 @@ export class PosComponent implements OnInit {
     }
     filtermanagerWise() {
         this.filterStatus = true;
-        this.temp = [];
-        this.rows = [];
-        this.totalPOS = 0;
-        this.getPOSList('inactive');
+        this.getPOSList('active');
     }
     filterPending() {
         this.temp = [];
@@ -147,6 +144,9 @@ export class PosComponent implements OnInit {
     }
 
     getPOSList(value) {
+        this.temp = [];
+        this.rows = [];
+        this.totalPOS = 0;
         this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',

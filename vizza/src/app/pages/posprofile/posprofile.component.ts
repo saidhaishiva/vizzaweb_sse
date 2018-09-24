@@ -101,6 +101,8 @@ export class PosprofileComponent implements OnInit {
     educationEdit: any;
     documentEdit: any;
     disabledList: any;
+    editAccess: any;
+    pincodeErrors: any;
 
 
 
@@ -122,12 +124,16 @@ export class PosprofileComponent implements OnInit {
         this.disabledList = false;
         this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('examStatus');
-        this.trainingStatus = sessionStorage.trainingStatus;
+        this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        console.log(this.examStatus, 'this.examStatus');
+        console.log(this.trainingStatus, 'this.trainingStatus');
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.posStatus = this.auth.getSessionData('posStatus');
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
+        this.pincodeErrors = false;
+        this.editAccess = true;
         this.tabValue = 'Personal';
         this.tabKey = 'edit';
         this.viewTab = true;
@@ -175,10 +181,10 @@ export class PosprofileComponent implements OnInit {
         this.type = '';
         this.chequeleaf ='';
         this.getPosProfile();
-        this.getPosProfile1();
     }
 
     ngOnInit() {
+
         this.getTrainingDetails();
         this.getExamDetails();
         // this.settings.loadingSpinner = false;
@@ -218,6 +224,7 @@ export class PosprofileComponent implements OnInit {
                     'value': 'active',
                     'selected': false
                 });
+
         }
 
         if (this.documentStatus == 2 && this.trainingStatus == 1) {
@@ -247,26 +254,30 @@ export class PosprofileComponent implements OnInit {
         this.bankEdit = false;
         this.educationEdit = false;
         this.documentEdit = false;
-
         this.settings.loadingSpinner = true;
         this.selectedTab = i;
         this.currentTab = value;
+        if (value == 'Personal' || value == 'Contact' || value == 'Documents' || value == 'Education' || value == 'Bank Details') {
+            this.editAccess = true;
+        } else {
+            this.editAccess = false;
+        }
         console.log(this.currentTab);
-        let trainingStatus = sessionStorage.trainingStatus;
-        let examStatus = sessionStorage.examStatus;
+        let trainingStatus = this.auth.getSessionData('trainingStatus');
+        let examStatus = this.auth.getSessionData('examStatus');
         sessionStorage.currentTab = this.currentTab;
         if (value == 'Contact') {
             this.contactEdit = false;
         }
 
         if (value == 'Training') {
-            if (trainingStatus == 0) {
+            if (trainingStatus == '0') {
                 this.settings.loadingSpinner = true;
                 this.router.navigate(['/training']);
             }
         } else if (value == 'Examination') {
 
-            if (trainingStatus == 0) {
+            if (trainingStatus == '0') {
                 this.examSchedule = 'Please complete training before applying the exam';
             } else if (examStatus == '0') {
                 this.router.navigate(['/startexam']);
@@ -301,8 +312,12 @@ export class PosprofileComponent implements OnInit {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
+            this.documentStatus = this.personal.doc_verified_status;
             this.posDataAvailable = true;
-
+            this.auth.setSessionData('examStatus', this.personal.exam_status);
+            this.auth.setSessionData('trainingStatus', this.personal.training_status);
+            this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
+            this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
             this.personalshow = successData.ResponseObject;
             console.log(this.personalshow);
@@ -322,7 +337,7 @@ export class PosprofileComponent implements OnInit {
             this.contacts = this.fb.group({
                 email: this.personalshow.pos_email,
                 phone1: this.personalshow.pos_mobileno,
-                phone2: '',
+                phone2: this.personalshow.pos_alternate_mobileno,
                 address1: this.personalshow.pos_address1,
                 address2: this.personalshow.pos_address2,
                 pincode: this.personalshow.pos_postalcode,
@@ -815,93 +830,6 @@ export class PosprofileComponent implements OnInit {
         }
     }
 
-
-
-    public getPosProfile1() {
-        console.log(this.settings.loadingSpinner);
-        this.settings.loadingSpinner = true;
-        console.log(this.settings, 'settings');
-        const data = {
-            'platform': 'web',
-            'roleid': this.auth.getPosRoleId(),
-            'userid': this.auth.getPosUserId(),
-            'pos_id': this.auth.getPosUserId()
-        };
-        this.common.getPosProfile(data).subscribe(
-            (successData) => {
-                this.getPosProfile1Success(successData);
-
-            },
-            (error) => {
-                this.getPosProfile1Failure(error);
-            }
-        );
-    }
-    getPosProfile1Success(successData) {
-        console.log(successData);
-        if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
-            this.personalshow = successData.ResponseObject;
-            console.log(this.personalshow);
-            this.posDataAvailable = true;
-            console.log(this.personalshow);
-            // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
-            let date;
-            date = this.personalshow.pos_dob.split('/');
-            date = date[2] + '-' + date[1] + '-' + date[0];
-            date = this.datepipe.transform(date, 'y-MM-dd');
-
-            console.log(date, 'dateee');
-
-            this.personaledit = this.fb.group({
-                id: null,
-                firstname: this.personalshow.pos_firstname,
-                lastname: this.personalshow.pos_lastname,
-                birthday: date,
-                gender: this.personalshow.pos_gender,
-                referralconduct: this.personalshow.pos_referral_code,
-            });
-            this.contacts = this.fb.group({
-                email: this.personalshow.pos_email,
-                phone1: this.personalshow.pos_mobileno,
-                phone2: '',
-                address1: this.personalshow.pos_address1,
-                address2: this.personalshow.pos_address2,
-                pincode: this.personalshow.pos_postalcode,
-                // city: this.personalshow.pos_cityid,
-                // state: this.personalshow.pos_stateid,
-                // country: this.personalshow.pos_countryid
-            });
-            this.documents = this.fb.group({
-                aadharnumber: this.personalshow.doc_aadhar_no,
-                pannumber: this.personalshow.doc_pan_no,
-
-            });
-            this.educationlist = this.fb.group({
-                qualification: this.personalshow.doc_education,
-
-            });
-            this.bankdetails = this.fb.group({
-                bankname: this.personalshow.bank_name,
-                bankbranch: this.personalshow.branch_name,
-                ifsccode: this.personalshow.ifsc_code,
-                accountnumber: this.personalshow.bank_acc_no
-            });
-
-            this.profile =  this.personalshow.pos_profile_img;
-            this.aadharfront = this.personalshow.doc_aadhar_front_img;
-            this.aadharback = this.personalshow.doc_aadhar_back_img;
-            this.pancard = this.personalshow.doc_pan_img;
-            this.education = this.personalshow.doc_edu_certificate_img;
-            this.chequeleaf = this.personalshow.check_leaf_upload_img;
-
-        }
-    }
-
-    getPosProfile1Failure(error) {
-        console.log(error);
-    }
-
     //Pincode Validation
     public getpostalSuccess(successData) {
         if (successData.IsSuccess) {
@@ -998,6 +926,41 @@ export class PosprofileComponent implements OnInit {
         console.log(error);
     }
 
+    getPin(pin) {
+        console.log(pin, 'pin');
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'postalcode': pin
+        }
+        if (pin.length == 6) {
+            this.common.getPincode(data).subscribe(
+                (successData) => {
+                    this.getPinSuccess(successData);
+                },
+                (error) => {
+                    this.getPinlFailure(error);
+                }
+            );
+        }
+
+
+    }
+    public getPinSuccess(successData) {
+
+        if (successData.IsSuccess) {
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+            // this.form['controls'].contacts['controls'].pincode.patchValue('');
+            // this.toastr.error('Invalid pincode');
+
+        }
+    }
+
+    public getPinlFailure(error) {
+    }
     // handle error data
 
     public labFailure(error) {
@@ -1047,6 +1010,7 @@ export class PosprofileComponent implements OnInit {
             "pos_gender": this.personaledit.value['gender'],
             "pos_mobileno": this.contacts.value['phone1'],
             "pos_email": this.contacts.value['email'],
+            "pos_alternate_mobileno": this.contacts.value['phone2'],
             "pos_address1": this.contacts.value['address1'],
             "pos_address2": this.contacts.value['address2'],
             "pos_postalcode": this.contacts.value['pincode'],
@@ -1115,6 +1079,8 @@ export class PosprofileComponent implements OnInit {
                 }
 
             } else {
+                this.toastr.error(successData.ErrorObject);
+
             }
         }
     }
