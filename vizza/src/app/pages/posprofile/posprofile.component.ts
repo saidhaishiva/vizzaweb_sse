@@ -1047,7 +1047,8 @@ export class PosprofileComponent implements OnInit {
             this.toastr.success(successData.ResponseObject);
             this.settings.userId = this.auth.getPosUserId();
             this.getPosProfile();
-
+            this.auth.setSessionData('vizza-pos-firstname', this.personaledit.value['firstname']);
+            this.auth.setSessionData('vizza-pos-lastname', this.personaledit.value['lastname']);
             this.settings.username = this.auth.getPosFirstName() +' '+ this.auth.getPosLastName();
             if (this.personal.doc_verified_status < 2) {
                 const data = {
