@@ -177,7 +177,6 @@ export class PosprofileComponent implements OnInit {
         this.type = '';
         this.chequeleaf ='';
         this.getPosProfile();
-        this.getPosProfile1();
     }
 
     ngOnInit() {
@@ -309,8 +308,13 @@ export class PosprofileComponent implements OnInit {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
+            this.documentStatus = this.personal.doc_verified_status;
             this.posDataAvailable = true;
 
+            this.examStatus = this.auth.setSessionData('examStatus', this.personal.exam_status);
+            this.trainingStatus = this.auth.setSessionData('examStatus', this.personal.training_status);
+            this.documentStatus = this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
+            this.posStatus = this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
             this.personalshow = successData.ResponseObject;
             console.log(this.personalshow);
@@ -602,93 +606,6 @@ export class PosprofileComponent implements OnInit {
         } else {
             this.mismatchError = 'Gender is required ';
         }
-    }
-
-
-
-    public getPosProfile1() {
-        console.log(this.settings.loadingSpinner);
-        this.settings.loadingSpinner = true;
-        console.log(this.settings, 'settings');
-        const data = {
-            'platform': 'web',
-            'roleid': this.auth.getPosRoleId(),
-            'userid': this.auth.getPosUserId(),
-            'pos_id': this.auth.getPosUserId()
-        };
-        this.common.getPosProfile(data).subscribe(
-            (successData) => {
-                this.getPosProfile1Success(successData);
-
-            },
-            (error) => {
-                this.getPosProfile1Failure(error);
-            }
-        );
-    }
-    getPosProfile1Success(successData) {
-        console.log(successData);
-        if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
-            this.personalshow = successData.ResponseObject;
-            console.log(this.personalshow);
-            this.posDataAvailable = true;
-            console.log(this.personalshow);
-            // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
-            let date;
-            date = this.personalshow.pos_dob.split('/');
-            date = date[2] + '-' + date[1] + '-' + date[0];
-            date = this.datepipe.transform(date, 'y-MM-dd');
-
-            console.log(date, 'dateee');
-
-            this.personaledit = this.fb.group({
-                id: null,
-                firstname: this.personalshow.pos_firstname,
-                lastname: this.personalshow.pos_lastname,
-                birthday: date,
-                gender: this.personalshow.pos_gender,
-                referralconduct: this.personalshow.pos_referral_code,
-            });
-            this.contacts = this.fb.group({
-                email: this.personalshow.pos_email,
-                phone1: this.personalshow.pos_mobileno,
-                phone2: '',
-                address1: this.personalshow.pos_address1,
-                address2: this.personalshow.pos_address2,
-                pincode: this.personalshow.pos_postalcode,
-                // city: this.personalshow.pos_cityid,
-                // state: this.personalshow.pos_stateid,
-                // country: this.personalshow.pos_countryid
-            });
-            this.documents = this.fb.group({
-                aadharnumber: this.personalshow.doc_aadhar_no,
-                pannumber: this.personalshow.doc_pan_no,
-
-            });
-            this.educationlist = this.fb.group({
-                qualification: this.personalshow.doc_education,
-
-            });
-            this.bankdetails = this.fb.group({
-                bankname: this.personalshow.bank_name,
-                bankbranch: this.personalshow.branch_name,
-                ifsccode: this.personalshow.ifsc_code,
-                accountnumber: this.personalshow.bank_acc_no
-            });
-
-            this.profile =  this.personalshow.pos_profile_img;
-            this.aadharfront = this.personalshow.doc_aadhar_front_img;
-            this.aadharback = this.personalshow.doc_aadhar_back_img;
-            this.pancard = this.personalshow.doc_pan_img;
-            this.education = this.personalshow.doc_edu_certificate_img;
-            this.chequeleaf = this.personalshow.check_leaf_upload_img;
-
-        }
-    }
-
-    getPosProfile1Failure(error) {
-        console.log(error);
     }
 
     //Pincode Validation
