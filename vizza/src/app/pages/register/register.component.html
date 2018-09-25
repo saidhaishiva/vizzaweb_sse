@@ -8,7 +8,7 @@
 
                 <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
 
-                    <mat-tab label="Register Notes">
+                    <mat-tab label="Notes">
                         <div>
                             <p>Please ensure the following documents are kept ready</p>
                         </div>
@@ -119,7 +119,7 @@
 
                             <mat-form-field class="w-100">
                                 <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
-                                        maxlength="15" formControlName="phone2">
+                                       minlength="10" maxlength="10" formControlName="phone2">
                                 <i class="fas fa-phone" matSuffix></i>
                             </mat-form-field>
                         <!--<mat-form-field class="w-100">-->

@@ -57,8 +57,8 @@
             </div>
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
-              <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-              <button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>
+              <!--<button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>-->
+              <!--<button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>-->
               <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personal.valid" type="button">Next</button>
 
             </div>
