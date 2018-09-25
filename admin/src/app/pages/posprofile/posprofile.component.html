@@ -319,8 +319,8 @@
                             </header>
                             <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                 <div class="col-md-3 profile-pic">
-                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
-                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                                    <img *ngIf="posData.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                    <img *ngIf="posData.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                 </div>
                                 <div class="col-md-9 off-pos">
                                     <h1 class="c-font">Certification</h1>
@@ -330,12 +330,12 @@
                             <section class="row mt-5">
                                 <div class="c-content w-100">
                                     <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                    <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span> <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                    <p><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span> <strong>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                         Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                         Insurance Regulatory and Development Authority.</p>
                                     <p>The Said Candidate, had registered for the online training program on
                                         {{startTrainingDate}} and completed the 15 hours of POS’P Online Training on
-                                        {{personal.training_completed_date}}</p>
+                                        {{posData.training_completed_date}}</p>
                                 </div>
                             </section>
                             <section class="row mt-5">
@@ -347,11 +347,11 @@
                                         </tr>
                                         <tr>
                                             <td>Date</td>
-                                            <td>{{personal.training_completed_date }}</td>
+                                            <td>{{posData.training_completed_date }}</td>
                                         </tr>
                                         <tr>
                                             <td>POS’P ID</td>
-                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                            <td>VIZAA/POS'P/{{posData.pos_id}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -398,8 +398,8 @@
                             </header>
                             <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
                                 <div class="col-md-3  profile-pic">
-                                    <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
-                                    <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                                    <img *ngIf="posData.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                    <img *ngIf="posData.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                 </div>
                                 <div class="col-md-9">
                                     <h1 class="c-font">Certificate</h1>
@@ -409,9 +409,9 @@
                             <section class="row mt-5">
                                 <div class="c-content text-center w-100">
                                     <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                    <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span><strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
+                                    <p><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span><strong>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</strong></p>
                                     <p>passed the Point of Sales Person Examination held on</p>
-                                    <p>{{personal.exam_completed_date }}</p>
+                                    <p>{{posData.exam_completed_date }}</p>
                                     <p>and qualified under the stream of</p>
                                     <p>Point of Sales Person</p>
                                     <p>as per regulations 2017 of</p>
@@ -427,11 +427,11 @@
                                         </tr>
                                         <tr>
                                             <td>Date</td>
-                                            <td>{{personal.exam_completed_date }}</td>
+                                            <td>{{posData.exam_completed_date }}</td>
                                         </tr>
                                         <tr>
                                             <td>POS’P ID</td>
-                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                            <td>VIZAA/POS'P/{{posData.pos_id}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -493,42 +493,42 @@
                                             <table>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>{{personal.appointment_date}}</td>
+                                                    <td>{{posData.appointment_date}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
-                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                    <td>VIZAA/POS'P/{{posData.pos_id}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
-                                                    <td>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </td>
+                                                    <td><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span></td>
+                                                    <td>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}} </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Address</td>
                                                     <td>
                                                         <p class="text-capitalize" >
-                                                            <span>{{personal.pos_address1}}</span>
-                                                            <span *ngIf="personal.pos_address2 != ''">,</span>
-                                                            <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
-                                                            <span *ngIf="personal.pos_cityid != ''">,</span>
+                                                            <span>{{posData.pos_address1}}</span>
+                                                            <span *ngIf="posData.pos_address2 != ''">,</span>
+                                                            <span *ngIf="posData.pos_address2 != ''">{{posData.pos_address2}}</span>
+                                                            <span *ngIf="posData.pos_cityid != ''">,</span>
                                                         </p>
 
-                                                        <p *ngIf="personal.pos_cityid != ''" >{{personal.pos_cityid}}
-                                                            <span *ngIf="personal.pos_cityid != null">-</span>
-                                                            {{personal.pos_postalcode}}
-                                                            <span *ngIf="personal.pos_stateid != ''">,</span>
+                                                        <p *ngIf="posData.pos_cityid != ''" >{{posData.pos_cityid}}
+                                                            <span *ngIf="posData.pos_cityid != null">-</span>
+                                                            {{posData.pos_postalcode}}
+                                                            <span *ngIf="posData.pos_stateid != ''">,</span>
                                                         </p>
-                                                        <p *ngIf="personal.pos_stateid != ''" >{{personal.pos_stateid}}
-                                                            <span *ngIf="personal.pos_countryid != ''">,</span>
+                                                        <p *ngIf="posData.pos_stateid != ''" >{{posData.pos_stateid}}
+                                                            <span *ngIf="posData.pos_countryid != ''">,</span>
                                                         </p>
-                                                        <p *ngIf="personal.pos_countryid != ''">{{personal.pos_countryid}}</p>
+                                                        <p *ngIf="posData.pos_countryid != ''">{{posData.pos_countryid}}</p>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
                                         <div class="col-md-6 text-right view-profile print-profile">
-                                            <img *ngIf="personal.pos_profile_img != ''"  matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
-                                            <img *ngIf="personal.pos_profile_img == ''"  matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                                            <img *ngIf="posData.pos_profile_img != ''"  matListAvatar src="{{webhost + '/' + posData.pos_profile_img}}">
+                                            <img *ngIf="posData.pos_profile_img == ''"  matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
                                     </div>
                                 </div>
