@@ -29,7 +29,8 @@ export class TestimonialComponent implements OnInit {
             'name': ['', Validators.compose([Validators.required])],
             'designation': ['', Validators.compose([Validators.required])],
             'company': ['', Validators.compose([Validators.required])],
-            'profile': ['', Validators.compose([Validators.required])]
+            //'profile': ['', Validators.compose([Validators.required])],
+            'comments': ['', Validators.compose([Validators.required])],
         });
     }
 
@@ -41,6 +42,7 @@ export class TestimonialComponent implements OnInit {
     }
 
     submit(form) {
+        console.log(form.value, 'formform');
       if (this.form.valid) {
           const data = {
               'platform': 'web',
@@ -48,6 +50,7 @@ export class TestimonialComponent implements OnInit {
               'designation': this.form.controls['designation'].value,
               'company_name': this.form.controls['company'].value,
               'profile_pic': this.profile == undefined ? '' : this.profile,
+              'comments': this.form.controls['comments'].value
           }
           console.log(data);
           this.common.addTestimonial(data).subscribe(
