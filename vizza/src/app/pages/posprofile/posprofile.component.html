@@ -80,8 +80,8 @@
                                     </mat-card-content>
                                 </mat-card>
                                 <!--personal Edit-->
-                                <mat-card *ngIf="personalEdit">
-                                    <form [formGroup]="personaledit"  class="mt-registration"  class="mt-8 h-100">
+                                <mat-card *ngIf="personalEdit"  class="mt-10 h-100">
+                                    <form [formGroup]="personaledit"  class="mt-registration" >
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
                                             <mat-icon matSuffix>person</mat-icon>
