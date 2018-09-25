@@ -150,6 +150,19 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get the Renewal lists
+    policyRenewal(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'policyrenewal/create_policy_renewal_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     setFixAppointment(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
