@@ -459,6 +459,10 @@ export class PosprofileComponent implements OnInit {
             {
                 verification_status: (this.bankDoc == true) ? '1' : '0',
                 fieldid: this.bankDocId
+            },
+            {
+                verification_status: (this.isAlreadyAgent == true) ? '1' : '0',
+                fieldid: this.isAlreadyAgentId
             }
 
         ];
@@ -487,6 +491,7 @@ export class PosprofileComponent implements OnInit {
             'pos_manager_id': this.posManager,
             'appointment_date': appointDate == undefined ? '' : appointDate,
             'agreement_filepath': this.fileDetails ? this.fileDetails : '',
+            'already_aget': this.isAlreadyAgent ? 1 : 0
         };
         this.settings.loadingSpinner = true;
         this.common.updateVerification(data).subscribe(
@@ -504,6 +509,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.getPosProfile();
             this.toastr.success('Verification successfully');
             this.getNotify();
             this.getComments();

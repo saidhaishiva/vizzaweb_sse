@@ -27,12 +27,18 @@
                                 <mat-icon>list</mat-icon>
                             </button>
                         </div>
-                        <button mat-raised-button class="editBtn" *ngIf="!personalEdit || !contactEdit"  (click)="changeEdit(currentTab, 'edit')">Edit
-                            <mat-icon style="font-size: 18px;">edit</mat-icon>
-                        </button>
-                        <button mat-raised-button class="editBtn"  *ngIf="personalEdit || contactEdit"  (click)="changeEdit(currentTab, 'close')">Close
-                            <mat-icon style="font-size: 18px;">close</mat-icon>
-                        </button>
+                        <div *ngIf="documentStatus != 2">
+                            <div *ngIf="editAccess">
+                                <button mat-raised-button class="editBtn" *ngIf="!personalEdit || !contactEdit"  (click)="changeEdit(currentTab, 'edit')">Edit
+                                    <mat-icon style="font-size: 18px;">edit</mat-icon>
+                                </button>
+                                <button mat-raised-button class="editBtn"  *ngIf="personalEdit || contactEdit"  (click)="changeEdit(currentTab, 'close')">Close
+                                    <mat-icon style="font-size: 18px;">close</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+
                     </mat-toolbar>
                     <div class="mailbox-content" perfectScrollbar>
                         <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Personal'">
@@ -88,13 +94,14 @@
                                         </mat-form-field>
 
                                         <mat-form-field class="w-100">
-                                            <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" required>
+                                            <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" required>
                                             <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                             <mat-datepicker  #birthday></mat-datepicker>
                                             <mat-error *ngIf="personaledit.controls.birthday.errors?.required">Dob is required</mat-error>
                                         </mat-form-field>
+                                        <div *ngIf="img" style="color: red">Age should be greater than 18</div>
 
-                                        <!--<div *ngIf="img" style="color: red">Age should be greater than 18</div>-->
+
                                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                                         <mat-radio-group formControlName="gender" (change)="checkGender()" required>
                                             <mat-radio-button value="male" class="mr-2">Male<span class="error"> *</span></mat-radio-button>
@@ -152,6 +159,10 @@
                                                     <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Phone No : </span>
                                                     <span class="ml-1"> {{personal.pos_mobileno}}</span>
                                                 </p>
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text colorBank" >phone</mat-icon>&nbsp;<span class="colorBank"> Alternate Phone No : </span>
+                                                    <span class="ml-1"> {{personal.pos_alternate_mobileno}}</span>
+                                                </p>
                                                 <p fxLayout="row" fxLayoutAlign="start center">
                                                     <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                                                     <span class="ml-1"> {{personal.pos_email}}</span>
@@ -184,13 +195,18 @@
                                     <!--contact Edit-->
                                     <form [formGroup]="contacts" class="mt-registration">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Emailid" formControlName="email">
+                                            <input matInput placeholder="Email id" formControlName="email" readonly>
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
                                             <input matInput (keypress)="keyPress($event)" placeholder="Mobile No" minlength="10" maxlength="10" formControlName="phone1" required readonly>
                                             <i class="fas fa-phone" matSuffix></i>
                                             <mat-error *ngIf="contacts.controls.phone1.hasError('required')">Mobile Number is required</mat-error>
                                             <mat-error *ngIf="contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="w-100">
+                                            <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
+                                                   maxlength="15" formControlName="phone2">
+                                            <i class="fas fa-phone" matSuffix></i>
                                         </mat-form-field>
 
                                         <mat-form-field class="w-100">
@@ -203,11 +219,12 @@
                                             <input matInput placeholder="Address2" formControlName="address2">
                                         </mat-form-field>
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keypress)="keyPress($event)"  formControlName="pincode" required >
+                                            <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6" minlength="6" (keyup)="getPin($event.target.value)" (keypress)="keyPress($event)"  formControlName="pincode" required >
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
                                             <mat-error *ngIf="contacts.controls.pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
                                         </mat-form-field>
+                                        <div *ngIf="pincodeErrors" style="color: red">Invalid Pincode</div>
 
                                         <hr>
                                         <div style="padding-left: 10px" fxLayout="row"  fxLayoutAlign="end end">
@@ -249,7 +266,7 @@
                                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="personal.check_leaf_upload_img != ''">
                                                 <div class="mb-2 mt-2">
                                                     <h6 class="text-center colorBank">Check Leaf</h6>
-                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(personal.doc_pan_img, 'Check Leaf')">
+                                                    <img src="{{webhost +'/'+ personal.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(personal.check_leaf_upload_img, 'Check Leaf')">
                                                 </div>
                                             </div>
                                         </mat-list>
@@ -376,7 +393,7 @@
                     <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Documents'">
                         <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!documentEdit">
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
-                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
+                            <mat-card-title class="m-0 text-center"><h6 class="text-title-color" style="text-transform: uppercase">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
                             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
                                 <div fxFlex="33.3" class="flex-p">
                                     <mat-card class="custom-card">
@@ -421,7 +438,7 @@
                                     <mat-error *ngIf="documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
                                     </mat-form-field>
                                     <mat-form-field class="w-100">
-                                    <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber">
+                                    <input matInput placeholder="Pan Number" required maxlength="10" minlength="10" formControlName="pannumber" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" style="text-transform: uppercase">
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
                                     <mat-error *ngIf="documents.controls.pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
@@ -430,19 +447,14 @@
                                     <p><span class="imglabel" *ngIf=" personalshow.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
                                     </div>
                                     <div class="row ">
-                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
+                                    <div class="col-md-4">
                                     <p>Aadhaar Front Image</p>
-
                                     <div class="uploadBtn">
-                                    <label class="btn-bs-file btn btn-secondary">
+                                    <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'aadhar front')">
                                     </label>
                                     </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p>Aadhaar Front Image</p>
                                     <div *ngIf="aadharfront != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -452,19 +464,14 @@
 
 
 
-                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
+                                    <div class="col-md-4" >
                                     <p>Aadhaar Back Image</p>
                                     <div class="uploadBtn">
-                                    <label class="btn-bs-file btn btn-secondary">
+                                    <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'aadhar back')">
                                     </label>
                                     </div>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <p>Aadhaar Back Image</p>
                                     <div *ngIf="aadharback != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -473,19 +480,14 @@
                                     </div>
 
 
-                                    <div class="col-md-4"  *ngIf=" personalshow.doc_verified_status != 2">
+                                    <div class="col-md-4">
                                     <p>Pancard Image</p>
                                     <div class=" uploadBtn" >
-                                    <label class="btn-bs-file btn btn-secondary">
+                                    <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
                                     <input type='file' (change)="readUrl($event, 'pancard')">
                                     </label>
                                     </div>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <p>Pancard Image</p>
                                     <div *ngIf="pancard != ''">
                                     <span class="imageclose mr-2">
                                     <img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;" />
@@ -724,6 +726,7 @@
 
                                         <div class="col-md-12 text-left print-sign">
                                             <P>Yours truly,</P>
+                                            <p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>
                                             <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
                                             <p class="mb-0">Head - Corporate</p>
                                             <p class="mb-0">(Authorised Signatory)</p>
@@ -749,20 +752,20 @@
                                 <mat-card class="c2-card" >
 
                                     <header>
-                                        <div class="row" fxLayoutAlign="center center">
+                                        <div class="row print-head" fxLayoutAlign="center center">
                                             <div class="col-md-6" style="text-align: left">
-                                                <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
+                                                <h5 class="font-weight-bold ">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
                                                 <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
                                             </div>
-                                            <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+                                            <div class="col-md-6 print-title" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
                                         </div>
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 profile-pic">
                                             <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
                                             <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 off-pos">
                                             <h1 class="c-font">Certification</h1>
                                             <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
                                         </div>
@@ -796,8 +799,9 @@
                                             </table>
                                         </div>
                                     </section>
-                                    <footer class="row mt-5">
+                                    <footer class="row mt-5 print-sign">
                                         <div class="col-md-12 text-center">
+                                            <p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>
                                             <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
                                             <p class="mb-0">Head - Corporate</p>
                                             <p class="mb-0">(Authorised Signatory)</p>
@@ -815,19 +819,20 @@
                                 </button>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-examination-cirtificate">
-                                <mat-card class="c2-card" id="examination">
+                                <div id="examination">
+                                <mat-card class="c2-card">
 
                                     <header>
-                                        <div class="row" fxLayoutAlign="center center">
+                                        <div class="row print-head" fxLayoutAlign="center center">
                                             <div class="col-md-6">
                                                 <h5 class="font-weight-bold">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>
                                                 <h5>IRDA Licence No: IRDA /DB 543 /13</h5>
                                             </div>
-                                            <div class="col-md-6" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
+                                            <div class="col-md-6 print-title" style="border-left: 2px solid #006738;"> <img src="assets/img/vizza-logoNewpos.png" alt=""></div>
                                         </div>
                                     </header>
                                     <section class="row mt-5 c-profile" fxLayoutAlign="center center" >
-                                        <div class="col-md-3">
+                                        <div class="col-md-3  profile-pic">
                                             <img *ngIf="personal.pos_profile_img != ''" style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + personal.pos_profile_img}}">
                                             <img *ngIf="personal.pos_profile_img == ''" style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                                         </div>
@@ -866,14 +871,16 @@
                                             </table>
                                         </div>
                                     </section>
-                                    <footer class="row mt-5">
+                                    <footer class="row mt-5 print-sign">
                                         <div class="col-md-12 text-center">
+                                            <p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>
                                             <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
                                             <p class="mb-0">Head - Corporate</p>
                                             <p class="mb-0">(Authorised Signatory)</p>
                                         </div>
                                     </footer>
                                 </mat-card>
+                                </div>
                             </div>
                         </div>
 
