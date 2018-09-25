@@ -31,7 +31,7 @@
                 <figure>
                     <img src="assets/img/home/Pay-Icon.png" alt="">
                     <figcaption>
-                        <h3>Coverd</h3>
+                        <h3>Insured</h3>
                         <p>Use Vizza Benefits to access your full benefits
                             and network map. Search for symptoms
                             and specialists covered by your policy.</p>
@@ -103,15 +103,15 @@
     <!--</div>-->
     <!--</section>-->
     <!--</div>-->
-    <div class="container-fluid">
-        <section class="row h-testimonial">
-            <h3 class="text-center w-100">Customer is our King</h3>
-            <div class="col-md-12" style="background: #18CCB4">
+    <div class="container-fluid mt-4">
+        <section class="row h-testimonial" fxLayoutAlign="center center">
+
+            <div class="col-md-8">
                 <div id="demo" class="carousel slide" data-ride="carousel">
                     <ul class="carousel-indicators mt-4">
                         <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
                     </ul>
-                    <div class="carousel-inner text-color">
+                    <div class="carousel-inner">
                         <div class="carousel-item " *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
                             <div class="row mt-5">
                                 <div class="col-md-4 text-center">
@@ -127,12 +127,12 @@
                             </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
+                    <!--<a class="carousel-control-prev" href="#demo" data-slide="prev">-->
+                        <!--<span class="carousel-control-prev-icon"></span>-->
+                    <!--</a>-->
+                    <!--<a class="carousel-control-next" href="#demo" data-slide="next">-->
+                        <!--<span class="carousel-control-next-icon"></span>-->
+                    <!--</a>-->
                 </div>
                 <div class="row" fxLayoutAlign="center center">
                     <div class="col-md-12 text-right mb-4">
@@ -140,12 +140,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/btBjPnjMqSU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
         </section>
     </div>
     <div class="container-fluid">
         <section class="row h-claim">
-            <h3 class="text-center w-100 mt-5 mb-4">Claim Assistance</h3>
-            <div class="row pr-5 pl-5">
+            <h3 class="text-center w-100 mt-5 mb-5">Claim Assistance</h3>
+            <div class="row">
                 <div class="col">
                     <h4><span>1</span>Connect with Vizza</h4>
                     <p>Your broker is your primary contact when it comes to your insurance policy – they should understand your situation and how to proceed. Once you give your broker a detailed list of all the items that were damaged or lost, and any photos or videos that help to explain the circumstances, an adjuster will follow up with you to</p>

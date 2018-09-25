@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <!--Contact details-->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Contact'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Contact'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <mat-card class="list" *ngIf="!contactEdit">
                                     <mat-card-content>
@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <!--Bank details -->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Bank Details'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Bank Details'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <mat-card class="list" *ngIf="!bankEdit">
                                     <mat-card-content>
@@ -333,7 +333,7 @@
                         </div>
 
                         <!--Education details-->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!educationEdit">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
                                     <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;margin-top: 50px;">
@@ -390,7 +390,7 @@
                         </div>
 
 
-                    <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Documents'">
+                    <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Documents'">
                         <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!documentEdit">
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
                             <mat-card-title class="m-0 text-center"><h6 class="text-title-color" style="text-transform: uppercase">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
