@@ -1409,6 +1409,14 @@ array: any;
                 }
             }
         }
+    public keyEvent(event: any) {
+        if (event.charCode !== 0) {
+            const pattern =/[0-9a-zA-Z ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
 
     public data(event: any) {
         if (event.charCode !== 0) {
