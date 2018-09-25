@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
         this.dob = '';
         this.dobError = '';
         this.mismatchError = '';
-        this.selectedIndex = 0
+        this.selectedIndex = 0;
         this.profile = '';
         this.img = false;
         this.form = this.fb.group({
@@ -336,18 +336,6 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    // checkPassword() {
-    //     if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
-    //         this.mismatchError = '';
-    //     } else {
-    //         this.mismatchError = 'Passwords do not match ';
-    //     }
-    //     if (this.form.controls['password'].value == '') {
-    //         this.mismatchError = '';
-    //     }
-    // }
-
-
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9 ]/;
@@ -380,14 +368,6 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    // public characteralpha(event: any) {
-    //     const pattern = /[0-9\+\-\ ]/;
-    //
-    //     let inputChar = String.fromCharCode(event.charCode);
-    //     if (event.keyCode != 8 && !pattern.test(inputChar)) {
-    //         event.preventDefault();
-    //     }
-    // }
 
     public eventHandler(event) {
         console.log(event, event.keyCode, event.keyIdentifier);
@@ -463,27 +443,6 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    // addEvent(event, i) {
-    //     let setDate = this.datepipe.transform(event.value, 'dd-MM-y');
-    //     console.log(setDate, 'setDate');
-    //     if (setDate == null) {
-    //         this.dobError = '';
-    //     } else {
-    //         console.log(setDate, '22222');
-    //
-    //         this.ageCalculate(setDate);
-    //     }
-    //     let setDateAge = this.datepipe.transform(event.value, 'y-MM-dd');
-    //     if (event.value._i.length == 10) {
-    //         this.dobError = '';
-    //         this.dob = event.value._i;
-    //         this.ageCalculate(setDateAge);
-    //     }  else if (event.value._i.length > 10) {
-    //         this.dobError = 'Enter valid dob';
-    //     } else {
-    //         this.dobError = 'Enter valid dob';
-    //     }
-    // }
 
     public data(event: any) {
         if (event.charCode !== 0) {
