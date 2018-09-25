@@ -40,8 +40,8 @@
 
 
                     </mat-toolbar>
-                    <div class="mailbox-content" perfectScrollbar>
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Personal'">
+                    <div class="mailbox-content mt-4" perfectScrollbar >
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Personal'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <mat-card class="list" *ngIf="!personalEdit">
                                     <mat-card-content >
@@ -80,8 +80,8 @@
                                     </mat-card-content>
                                 </mat-card>
                                 <!--personal Edit-->
-                                <mat-card *ngIf="personalEdit">
-                                    <form [formGroup]="personaledit"  class="mt-registration"  >
+                                <mat-card *ngIf="personalEdit" >
+                                    <form [formGroup]="personaledit"  class="mt-registration" >
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" required>
                                             <mat-icon matSuffix>person</mat-icon>
@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <!--Contact details-->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Contact'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Contact'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <mat-card class="list" *ngIf="!contactEdit">
                                     <mat-card-content>
@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <!--Bank details -->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Bank Details'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Bank Details'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
                                 <mat-card class="list" *ngIf="!bankEdit">
                                     <mat-card-content>
@@ -333,7 +333,7 @@
                         </div>
 
                         <!--Education details-->
-                        <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Education'">
+                        <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Education'">
                             <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!educationEdit">
                                 <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
                                     <img src="assets/img/edu.svg" class="logo-img" style="width: 60px !important;margin-top: 50px;">
@@ -390,7 +390,7 @@
                         </div>
 
 
-                    <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="currentTab == 'Documents'">
+                    <div fxLayout="row" fxLayoutAlign="center start" class="h-100" *ngIf="currentTab == 'Documents'">
                         <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80" *ngIf="!documentEdit">
                             <mat-card-title class="m-0 text-center"><h4>Pan Details</h4></mat-card-title>
                             <mat-card-title class="m-0 text-center"><h6 class="text-title-color" style="text-transform: uppercase">Pan No : {{personal.doc_pan_no}}</h6></mat-card-title>
@@ -634,7 +634,7 @@
                         <!--Appointment letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Appointment Letter'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="printAppointment()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printAppointment()">Print & Download
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
@@ -743,7 +743,7 @@
                         <!--Training letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Certificate of Training'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="printTraining()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printTraining()">Print & Download
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
@@ -814,7 +814,7 @@
                         <!--Examination letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Certificate of Examination'">
                             <div class="container mb-1 mt-1 w-100 text-right">
-                                <button mat-raised-button class="text-right editBtn" (click)="printExamination()">print
+                                <button mat-raised-button class="text-right editBtn" (click)="printExamination()">Print & Download
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </div>
@@ -885,7 +885,7 @@
                         </div>
 
                         <div  class="flex-p" *ngIf="currentTab == 'Agreement Letter'">
-                            <pdf-viewer src="assets/img/sample-file.pdf"
+                            <pdf-viewer src="{{webhost + '/' + personal.aggrement_file_path}}"
                                         [render-text]="true"
                                         style="display: block;"
                             ></pdf-viewer>
