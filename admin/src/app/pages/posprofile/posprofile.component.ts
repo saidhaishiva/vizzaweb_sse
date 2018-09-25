@@ -675,31 +675,6 @@ export class PosprofileComponent implements OnInit {
             }
         });
     }
-}
-
-@Component({
-    selector: 'rejectpos',
-    template: `
-        <!--<h1 mat-dialog-title>Reject POS</h1>-->
-        <div mat-dialog-content>
-            <label>Are you sure. Do you want to Reject?</label>
-        </div>
-        <div mat-dialog-actions style="justify-content: center">
-            <button mat-button class="secondary-bg-color" (click)="onNoClick('No')" >Cancel</button>
-            <button mat-raised-button color="primary" (click)="onNoClick('Yes')">Ok</button>
-        </div>
-    `
-})
-export class RejectPOS {
-
-    constructor(
-        public dialogRef: MatDialogRef<RejectPOS>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
-
-    onNoClick(value) {
-        this.dialogRef.close(value);
-    }
     // print the Appointment letter
     printAppointment () {
         let printContents, popupWin;
@@ -1055,6 +1030,32 @@ export class RejectPOS {
         );
         popupWin.document.close();
     }
+}
+
+@Component({
+    selector: 'rejectpos',
+    template: `
+        <!--<h1 mat-dialog-title>Reject POS</h1>-->
+        <div mat-dialog-content>
+            <label>Are you sure. Do you want to Reject?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick('No')" >Cancel</button>
+            <button mat-raised-button color="primary" (click)="onNoClick('Yes')">Ok</button>
+        </div>
+    `
+})
+export class RejectPOS {
+
+    constructor(
+        public dialogRef: MatDialogRef<RejectPOS>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+    onNoClick(value) {
+        this.dialogRef.close(value);
+    }
+
 
 }
 

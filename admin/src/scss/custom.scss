@@ -1333,4 +1333,77 @@ a{
     vertical-align: super;
   }
 }
+.c2-card{
+  border-left: 20px solid #219c44;
+  background-image: url("./assets/img/pos-bg.png") !important;
+  width: 100%;
+  background-size: cover !important;
+  header{
+    border-bottom: 1px solid #006738;
+    padding-bottom: 20px;
+    h5{
+      color: #006738;
+    }
+    img{
+      width: 470px;
+    }
+
+  }
+  .c-profile{
+    .c-font{
+      font-family: 'Parisienne', cursive;
+      font-size: 170px;
+      color: #443034;
+      text-align: right;
+    }
+    h5 span{
+      background:  #443034;
+      color: #fff;
+      padding: 10px 30px;
+      font-size: 30px;
+    }
+  }
+  .c-content{
+    position: relative;
+    border: 2px solid #443034;
+    border-radius: 30px;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 45px;
+    .c-title{
+      position: absolute;
+      top: -15px;
+      right: 0px;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      span{
+        padding: 10px 35px;
+        color: #fff;
+        font-size: 25px;
+        background: rgba(240,24,24,1);
+        background: linear-gradient(to right, rgba(240,24,24,1) 0%, rgba(247,148,123,1) 64%, rgba(255,33,33,1) 100%);
+      }
+
+    }
+    p{
+      font-size: 22px;
+    }
+  }
+  table {
+    font-size: 20px;
+    margin: 185px 28px 100px 28px;
+    tr td {
+      padding: 10px;
+      vertical-align: top;
+    }
+    tr td:first-child {
+      color: #443034;
+    }
+  }
+  footer{
+    font-size: 20px;
+  }
+
+}
 
