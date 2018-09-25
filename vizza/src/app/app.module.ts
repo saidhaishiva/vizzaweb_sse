@@ -119,6 +119,7 @@ import {JewelersblockComponent} from './pages/jewelersblock/jewelersblock.compon
 import {DirectorsComponent} from './pages/directors/directors.component';
 import {BankersComponent} from './pages/bankers/bankers.component';
 import {ErectionComponent} from './pages/erection/erection.component';
+import { HealthComponent } from './health/health.component';
 
 @NgModule({
   imports: [
@@ -221,7 +222,8 @@ import {ErectionComponent} from './pages/erection/erection.component';
       JewelersblockComponent,
       DirectorsComponent,
       BankersComponent,
-      ErectionComponent
+      ErectionComponent,
+      HealthComponent
   ],
   providers: [
       AppSettings,
