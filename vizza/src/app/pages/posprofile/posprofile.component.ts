@@ -182,6 +182,7 @@ export class PosprofileComponent implements OnInit {
         this.profile='';
         this.type = '';
         this.chequeleaf ='';
+        this.dob = '';
         this.getPosProfile();
     }
 
@@ -1001,6 +1002,7 @@ export class PosprofileComponent implements OnInit {
     }
     updatePosProfile() {
        // let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
+
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.auth.getPosUserId(),
@@ -1008,7 +1010,7 @@ export class PosprofileComponent implements OnInit {
             "pos_referralcode": this.personaledit.value['referralconduct'],
             "pos_firstname": this.personaledit.value['firstname'],
             "pos_lastname": this.personaledit.value['lastname'] ,
-            "pos_dob": this.dob,
+            "pos_dob": this.dob == '' ? this.personaledit.value['birthday'] : this.dob,
             "pos_gender": this.personaledit.value['gender'],
             "pos_mobileno": this.contacts.value['phone1'],
             "pos_email": this.contacts.value['email'],
