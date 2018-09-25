@@ -55,7 +55,7 @@ import {MarinehullComponent} from './pages/marinehull/marinehull.component';
 import {AviationComponent} from './pages/aviation/aviation.component';
 import {ErectionComponent} from './pages/erection/erection.component';
 import {DirectorsComponent} from './pages/directors/directors.component';
-
+import {HealthComponent} from './health/health.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -110,6 +110,7 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},
+            { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
