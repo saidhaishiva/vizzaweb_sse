@@ -47,8 +47,10 @@ button:focus {
   margin-top: -16px; }
 
 .sidenav-header {
-  background: #ffe8c6 !important;
   border-bottom: 1px solid #ccc; }
+
+.sidenav {
+  width: 300px !important; }
 
 .dashboard1 {
   width: 30em; }
@@ -381,12 +383,16 @@ a:hover {
   font-size: 12px;
   padding: 0 10px;
   line-height: 2; }
+#product-list .health-table td:nth-child(3) {
+  text-align: left !important; }
 #product-list .health-table th {
   text-align: center; }
 #product-list .health-table td {
   vertical-align: middle;
   color: rgba(4, 78, 67, 0.87);
-  font-size: 13px; }
+  font-size: 13px;
+  border: 1px solid #ccc;
+  text-align: center; }
 #product-list .health-table .mat-raised-button.mat-primary {
   background-color: #18CCB4; }
 #product-list .health-table .mat-raised-button.mat-primary1 {
@@ -459,6 +465,12 @@ a:hover {
 
 .horizontal-menu-item .horizontal-sub-menu a.mat-button {
   color: #fff !important; }
+
+.horizontal-menu-item .mat-button {
+  height: 40px !important; }
+
+.app.teal-light .active-link {
+  border-radius: 36px !important; }
 
 .horizontal-menu .inner-sidenav-content {
   padding-top: 7px !important; }
@@ -654,7 +666,8 @@ a:hover {
       padding: 20px;
       min-height: 260px; }
       .vizza-home .h-product figure img {
-        width: 100px; }
+        width: 60px;
+        margin-bottom: 12px; }
   .vizza-home .h-plans {
     margin-top: 20px;
     text-align: center; }
@@ -663,6 +676,18 @@ a:hover {
     .vizza-home .h-plans figcaption {
       font-size: 16px;
       font-weight: bold; }
+  .vizza-home footer p {
+    background: #656464;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 15px; }
+  .vizza-home .h-testimonial {
+    background: url("./assets/img/testimonial-Strip.png");
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+    padding: 10px; }
 
 .horizontal-menu-item a {
   justify-content: center !important; }
@@ -747,10 +772,6 @@ a:hover {
 
 .app.teal-light mat-toolbar {
   min-height: 95px !important; }
-  .app.teal-light mat-toolbar.top-nav {
-    background: #ffe8c6 !important; }
-  .app.teal-light mat-toolbar.horizontal-menu {
-    background: #ffe8c6 !important; }
 
 .inner-sidenav-content {
   top: 105px !important; }
@@ -800,6 +821,8 @@ a:hover {
     vertical-align: top; }
   #pos-cirtificate .c-card table tr td:first-child {
     color: #1c9a42; }
+  #pos-cirtificate .c-card .view-profile img {
+    width: 200px; }
 
 .insurance-renewal li {
   display: block; }
@@ -811,7 +834,7 @@ a:hover {
   color: #fff;
   font-size: 22px; }
 .insurance-renewal form {
-  padding: 50px;
+  padding: 20px 0;
   background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%); }
 .insurance-renewal .input-group-addon {
   color: #fff;
@@ -869,12 +892,12 @@ a:hover {
   text-align: center;
   background: #d4d4d4;
   border-radius: 50%;
-  height: 90px;
+  height: 55px;
   margin: 44px;
-  font-size: 59px;
+  font-size: 25px;
   color: #fff;
   padding-top: 15px;
-  width: 90px;
+  width: 55px;
   margin: 10px;
   margin-top: 21px; }
 
@@ -1030,7 +1053,8 @@ footer {
   border-radius: 15px;
   margin-top: -32px;
   padding-top: 45px;
-  min-height: 270px; }
+  min-height: 240px;
+  font-size: 12px; }
 .h-claim .col:nth-child(5) h4 {
   background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%); }
 .h-claim .col:nth-child(5) span {
@@ -1061,5 +1085,97 @@ footer {
   border-color: #ff2525; }
 .h-claim .col:nth-child(1) p {
   background: #ffa0b2; }
+
+.compar-fix {
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  background: antiquewhite;
+  padding: 5px 14px; }
+
+.margin-bottom170 {
+  margin-bottom: 170px; }
+
+#staticTime {
+  height: calc(100vh - 200px);
+  overflow: scroll;
+  width: 100%;
+  padding-right: 30px; }
+
+.listDisabled {
+  pointer-events: none !important; }
+
+#draggable {
+  position: relative;
+  margin: 10px auto;
+  width: 450px;
+  height: 281px;
+  z-index: 1; }
+
+.dashboard {
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 1.0s linear;
+  transition: all 1.0s linear; }
+
+.loadable {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.a {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 10s infinite;
+  animation: mymoveback 10s infinite; }
+
+.b {
+  -webkit-animation: mymove 10s infinite;
+  animation: mymove 10s infinite; }
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+  40% {
+    -webkit-transform: rotateY(0deg); }
+  50% {
+    -webkit-transform: rotateY(180deg); }
+  90% {
+    -webkit-transform: rotateY(180deg); }
+  100% {
+    -webkit-transform: rotateY(0deg); } }
+@-webkit-keyframes mymoveback {
+  40% {
+    -webkit-transform: rotateY(-180deg); }
+  50% {
+    -webkit-transform: rotateY(0deg); }
+  90% {
+    -webkit-transform: rotateY(0deg); }
+  100% {
+    -webkit-transform: rotateY(-180deg); } }
+@keyframes mymove {
+  40% {
+    transform: rotateY(0deg); }
+  50% {
+    transform: rotateY(180deg); }
+  90% {
+    transform: rotateY(180deg); }
+  100% {
+    transform: rotateY(0deg); } }
+@keyframes mymoveback {
+  40% {
+    transform: rotateY(-180deg); }
+  50% {
+    transform: rotateY(0deg); }
+  90% {
+    transform: rotateY(0deg); }
+  100% {
+    transform: rotateY(-180deg); } }
 
 /*# sourceMappingURL=style.css.map */

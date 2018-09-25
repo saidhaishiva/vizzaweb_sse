@@ -8,12 +8,12 @@
 
                 <mat-tab-group class="horizantal-tabs w-100" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
 
-                    <mat-tab label="Register Notes">
+                    <mat-tab label="Notes">
                         <div>
                             <p>Please ensure the following documents are kept ready</p>
                         </div>
                         <mat-list role="list">
-                            <mat-list-item role="listitem">Aadhar Card(Front and Back)</mat-list-item>
+                            <mat-list-item role="listitem">Aadhaar Card(Front and Back)</mat-list-item>
                             <mat-list-item role="listitem">PAN Card</mat-list-item>
                             <mat-list-item role="listitem">Highest Educational Qualification</mat-list-item>
                             <mat-list-item role="listitem">Cancelled Cheque Leaf</mat-list-item>
@@ -58,16 +58,26 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">
+                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)"  minlength="10" maxlength="10" autocomplete="off">
                             <i class="fas fa-phone" matSuffix></i>
                             <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                         </mat-form-field>
+
+                        <!--<input matInput placeholder="Referral Contact Number" formControlName="referralName" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">-->
+                        <!--<i class="fas fa-phone" matSuffix></i>-->
+                        <!--<mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<input matInput placeholder="Referral Contact Number" formControlName="referralCode" (keypress)="keyPress($event)" minlength="10" maxlength="10" autocomplete="off">-->
+                        <!--<i class="fas fa-phone" matSuffix></i>-->
+                        <!--<mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>-->
+                        <!--</mat-form-field>-->
                         <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
 
                         <div class="w-100 mt-2">
-                        <div class="custom-file">
+                            <div class="custom-file">
                         <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Attach Your Photo</label>
+                        <label class="custom-file-label"><span class="error">*</span>
+                            Attach Your Photo</label>
                             <div class="error" *ngIf !="form.controls.personal.controls.profile.valid">Profile Image is required</div>
                         </div>
                         </div>
@@ -81,14 +91,16 @@
                         <hr>
                         <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                             <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                            <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+                            <button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>
+                            <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+
                         </div>
                     </mat-tab>
+
 
                         <mat-tab label="Contacts" formGroupName="contacts">
                         <mat-form-field class="w-100">
                         <!--<input matInput placeholder="Email Id" required formControlName="email" required>-->
-                        <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('required')">Email is required</mat-error>-->
                         <!--<mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Enter valid Email</mat-error>-->
                         <input matInput type="email" placeholder="Email Id" formControlName="email" autocomplete="off" required>
                             <mat-icon matSuffix>email</mat-icon>
@@ -106,7 +118,7 @@
                         </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate mobile No"
+                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
                                        minlength="10" maxlength="10" formControlName="phone2">
                                 <i class="fas fa-phone" matSuffix></i>
                             </mat-form-field>
@@ -127,7 +139,7 @@
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Pincode" pattern="[1-9][0-9]{5}" maxlength="6"
-                        minlength="6" (keypress)="keyPress($event)" (keyup)="getPin($event.target.value)" formControlName="pincode"
+                        minlength="6" (keypress)="keyPress($event);getPin($event.target.value)" (keyup)="getPin($event.target.value)" formControlName="pincode"
                         required autocomplete="off">
                         <mat-icon matSuffix>home</mat-icon>
                         <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -145,14 +157,14 @@
 
                         <mat-tab label="Documents" formGroupName="documents">
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Aadhar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
+                        <input matInput required placeholder="Aadhaar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
                         <i class="far fa-id-card" matSuffix></i>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhar Number should be Minimum 12 digits</mat-error>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhar Number should be MAximum 12 digits</mat-error>
-                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhar Number</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>
+                        <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off">
+                        <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off" style="text-transform: uppercase">
                         <i class="far fa-id-card" matSuffix></i>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
                         <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
@@ -165,8 +177,8 @@
                         <div class="w-100">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Aadhar Front Image</label>
-                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhar Front Image is required</div>
+                        <label class="custom-file-label"><span class="error">*</span> Aadhaar Front Image</label>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhaar Front Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100 mb-3">
@@ -179,8 +191,8 @@
                         <div class="w-100 mb-3">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Aadhar Back Image</label>
-                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhar Back Image is required</div>
+                        <label class="custom-file-label"><span class="error">*</span> Aadhaar Back Image</label>
+                            <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhaar Back Image is required</div>
                         </div>
                         </div>
                         <div class="row w-100">
@@ -193,7 +205,7 @@
                         <div class="w-100">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">PAN Card Front Image</label>
+                        <label class="custom-file-label"><span class="error">*</span> PAN Card Front Image</label>
                             <div class="error" *ngIf !="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
                         </div>
                         </div>
@@ -223,7 +235,7 @@
                         <div class="w-100">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label">Educational Documents</label>
+                        <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
                             <div class="error" *ngIf !="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
                         </div>
                         </div>
@@ -239,16 +251,16 @@
                                 <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
                             </div>
                         </mat-tab>
-                        <mat-tab label="BankDetails" formGroupName="bankdetails">
+                        <mat-tab label="Bank Details" formGroupName="bankdetails">
                         <mat-form-field class="w-100">
                         <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name details required</mat-error>
+                        <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Bank Branch" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
+                        <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
                             <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Bank Branch details required</mat-error>
+                        <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Branch Name is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-100">
                         <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off">
@@ -267,8 +279,8 @@
                             <div class="w-100">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
-                                    <label class="custom-file-label">Attached Cancelled Cheque Leaf (or) Passbook</label>
-                                    <div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>
+                                    <label class="custom-file-label"> <span class="error">*</span> Attached Cancelled Cheque Leaf (or) Passbook</label>
+                                    <!--<div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>-->
                                 </div>
                             </div>
                             <div class="row w-100">

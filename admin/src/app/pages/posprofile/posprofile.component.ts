@@ -88,6 +88,7 @@ export class PosprofileComponent implements OnInit {
     fileDetails: any;
     allImage: any;
     pdfSrc: any;
+    posManager: any;
     comments: string;
     notes: string;
     rows = [];
@@ -129,6 +130,7 @@ export class PosprofileComponent implements OnInit {
         this.doctorExperience = [];
         this.notes = '';
         this.comments = '';
+        this.posManager = '';
         this.step = 0;
         // this.professional = [];
         //  this.personal.profileimagepath = '';
@@ -457,6 +459,10 @@ export class PosprofileComponent implements OnInit {
             {
                 verification_status: (this.bankDoc == true) ? '1' : '0',
                 fieldid: this.bankDocId
+            },
+            {
+                verification_status: (this.isAlreadyAgent == true) ? '1' : '0',
+                fieldid: this.isAlreadyAgentId
             }
 
         ];
@@ -482,8 +488,10 @@ export class PosprofileComponent implements OnInit {
             'online_verification_notes': this.notes,
             'online_verification_message': this.comments,
             'pos_id': this.posid,
+            'pos_manager_id': this.posManager,
             'appointment_date': appointDate == undefined ? '' : appointDate,
             'agreement_filepath': this.fileDetails ? this.fileDetails : '',
+            'already_aget': this.isAlreadyAgent ? 1 : 0
         };
         this.settings.loadingSpinner = true;
         this.common.updateVerification(data).subscribe(
@@ -501,6 +509,7 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.getPosProfile();
             this.toastr.success('Verification successfully');
             this.getNotify();
             this.getComments();
@@ -690,6 +699,361 @@ export class RejectPOS {
 
     onNoClick(value) {
         this.dialogRef.close(value);
+    }
+    // print the Appointment letter
+    printAppointment () {
+        let printContents, popupWin;
+        printContents = document.getElementById('appointment').innerHTML;
+        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin.document.open();
+        popupWin.document.write(`
+      <html>
+        <head >
+         <style>
+    .c-card li {
+      display: block;
+    }
+    .c-card header {
+      border-bottom: 1px solid #000;
+      padding-bottom: 15px;
+      }
+      .c-card header img {
+        width: 320px;
+      }
+    .c-card .c-content, .c-card .c-address, .c-card p, .c-card table {
+      font-size: 16px
+    }
+    .c-card .print-title{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    }
+    .c-card footer {
+      border-top: 2px solid #1c9a42;
+      }
+      .c-card footer h5 {
+        color: #1c9a42;
+      }
+      .c-card footer p {
+        font-size: 19px;
+        margin-bottom: 0;
+      }
+       .c-card table  tr td {
+        padding: 0;
+         padding-bottom: 8px;
+         padding-right: 8px;
+        vertical-align: top;
+      }
+      .c-card table  tr td p{
+          margin: 0;
+          margin-bottom: 8px;
+      }
+       .c-card table  tr td:first-child {
+        color: #1c9a42;
+      }
+      .c-card .print-footer, .c-card .print-sign,  .c-card .c-content{
+      width: 100%;
+      float: left;
+      }
+      .print-footer{
+      text-align: center;
+      }
+    
+    .view-profile img{
+      width:200px
+    }
+    .c-card .print-profile{
+    text-align: right;
+    }
+    .c-card .print-profile img{
+     width: 200px;
+     margin-top: 15px;
+    }
+    .c-card .print-address{
+         float: left;
+    }
+        </style>
+        </head>
+       <body onload="window.print();window.close()" >${printContents}
+       </body>
+        
+      
+      </html>`
+        );
+        popupWin.document.close();
+    }
+    // print the training letter
+    printTraining () {
+        let printContents, popupWin;
+        printContents = document.getElementById('training').innerHTML;
+        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin.document.open();
+        popupWin.document.write(`
+      <html>
+        <head >
+         <style>
+     @media print {
+     .c2-card{
+  background-image: url("../assets/img/pos-bg.png") !important;
+  width: 100%;
+  background-size: cover !important;
+  }
+  .c2-card header{
+    border-bottom: 1px solid #006738;
+    padding-bottom: 20px;
+    }
+    .print-head .print-title{
+    padding: 0 15px;
+    }
+     .print-head h5{
+     font-size: 12px;
+     padding-right: 15px;
+     margin-bottom: 5px;
+     }
+    .c2-card h5{
+      color: #006738;
+    }
+    .c2-card img{
+      width: 350px;
+    }
+    .c2-card .c-profile{
+       margin-top: 30px;
+    }
+    .c2-card .c-profile .c-font{
+      font-family: 'Parisienne', cursive;
+      font-size: 70px;
+      color: #443034;
+      text-align: right;
+    }
+    .c2-card .c-profile h5 span{
+      background-color:  #443034;
+      color: #666;
+      font-size: 20px;
+    }
+     .c2-card .c-profile h1{
+      margin: 0;
+      margin-left: 10px;
+     }
+     .c2-card .profile-pic{
+     text-align: left;
+     }
+     .c2-card .profile-pic img{
+     margin-right: 25px;
+     
+     }
+     
+    .c2-card .c-profile h5{
+    margin-bottom: 0;
+    text-align: right;
+    }
+    
+  
+  .c2-card .c-content{
+    position: relative;
+    border: 2px solid #443034;
+    border-radius: 30px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 45px;
+    margin-bottom: 30px;
+    }
+    .c2-card .c-title{
+      position: absolute;
+      top: -40px;
+      right: 0px;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      }
+       .c2-card .c-title span{
+        padding: 10px 10px;
+        color: #443034;
+        font-size: 25px;
+        background: rgba(240,24,24,1);
+        background: linear-gradient(to right, rgba(240,24,24,1) 0%, rgba(247,148,123,1) 64%, rgba(255,33,33,1) 100%);
+      }
+
+    
+    .c2-card p{
+      font-size: 22px;
+    }
+ 
+  .c2-card table {
+    font-size: 20px;
+    margin: 20px ;
+    }
+   .c2-card .print-sign{
+        text-align: center;
+   }
+    .c2-card table  tr td {
+      padding: 3px 5px;
+      vertical-align: top;
+    }
+    .c2-card table  tr td:first-child {
+      color: #443034;
+  }
+  .c2-card footer{
+    font-size: 20px;
+     margin-top: 0;
+  }
+  .c2-card footer.print-sign p{
+    margin: 0;
+  }
+  .c2-card footer img{
+     width: 250px;
+     margin-top: 15px;
+  }
+  }
+  
+        </style>
+        </head>
+       <body onload="window.print();window.close()" >${printContents}
+       </body>
+        
+      
+      </html>`
+        );
+        popupWin.document.close();
+    }
+    // print the examination letter
+    printExamination () {
+        let printContents, popupWin;
+        printContents = document.getElementById('examination').innerHTML;
+        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin.document.open();
+        popupWin.document.write(`
+      <html>
+        <head >
+         <style>
+         @media print {
+     .c2-card{
+  background-image: url("../assets/img/pos-bg.png") !important;
+  width: 100%;
+  background-size: cover !important;
+  }
+  .c2-card header{
+    border-bottom: 1px solid #006738;
+    padding-bottom: 20px;
+    }
+    .print-head .print-title{
+    padding: 0 15px;
+    }
+     .print-head h5{
+     font-size: 12px;
+     padding-right: 15px;
+     margin-bottom: 5px;
+     }
+    .c2-card h5{
+      color: #006738;
+    }
+    .c2-card img{
+      width: 350px;
+    }
+    .c2-card .c-profile{
+       margin-top: 30px;
+    }
+    .c2-card .c-profile .c-font{
+      font-family: 'Parisienne', cursive;
+      font-size: 70px;
+      color: #443034;
+      text-align: right;
+    }
+    .c2-card .c-profile h5 span{
+      background-color:  #443034;
+      color: #666;
+      font-size: 20px;
+    }
+     .c2-card .c-profile h1{
+      margin: 0;
+      margin-left: 10px;
+     }
+     .c2-card .profile-pic{
+     text-align: left;
+     }
+     .c2-card .profile-pic img{
+     margin-right: 25px;
+     
+     }
+     
+    .c2-card .c-profile h5{
+    margin-bottom: 0;
+    text-align: right;
+    }
+    
+  
+  .c2-card .c-content{
+    position: relative;
+    border: 2px solid #443034;
+    border-radius: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 45px;
+    margin-bottom: 30px;
+    text-align: center;
+    }
+     .c2-card .c-content p{
+     margin: 0;
+     margin-bottom: 8px;
+     }
+    .c2-card .c-title{
+      position: absolute;
+      top: -40px;
+      right: 0px;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      }
+       .c2-card .c-title span{
+        padding: 10px 10px;
+        color: #443034;
+        font-size: 25px;
+        background: rgba(240,24,24,1);
+        background: linear-gradient(to right, rgba(240,24,24,1) 0%, rgba(247,148,123,1) 64%, rgba(255,33,33,1) 100%);
+      }
+
+    
+    .c2-card p{
+      font-size: 22px;
+    }
+ 
+  .c2-card table {
+    font-size: 20px;
+    margin: 20px ;
+    }
+   .c2-card .print-sign{
+        text-align: center;
+   }
+    .c2-card table  tr td {
+      padding: 3px 5px;
+      vertical-align: top;
+    }
+    .c2-card table  tr td:first-child {
+      color: #443034;
+  }
+  .c2-card footer{
+    font-size: 20px;
+     margin-top: 0;
+  }
+  .c2-card footer.print-sign p{
+    margin: 0;
+  }
+  .c2-card footer img{
+     width: 250px;
+     margin-top: 15px;
+  }
+  }
+        </style>
+        </head>
+       <body onload="window.print();window.close()" >${printContents}
+       </body>
+        
+      
+      </html>`
+        );
+        popupWin.document.close();
     }
 
 }

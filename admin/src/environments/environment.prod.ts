@@ -6,6 +6,7 @@
 export const environment = {
     production: false,
     apiHost: 'https://vizzainsurance.com/vizza/api/index.php/admin/',
-    webHost: 'https://13.127.24.123',
-    imgUrl:  'https://13.127.24.123/vizza'
+    webHost: 'https://vizzainsurance.com',
+    imgUrl:  'https://vizzainsurance.com/vizza'
+    // imgUrl:  'https://vizzainsurance.com/vizza'
 };

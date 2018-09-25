@@ -442,7 +442,7 @@
                           </mat-checkbox>
                             <section class="w-100" *ngIf="fGroup.status">
                             <div class="w-100" *ngIf="subQes.question_details.checkbox == '1'"><mat-form-field>
-                              <input matInput [matDatepicker]="picker" placeholder="Existing Since"  [(ngModel)]="fGroup.existingSince">
+                              <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since"  [(ngModel)]="fGroup.existingSince" (keypress)="dobkeyPress($event)" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field></div>

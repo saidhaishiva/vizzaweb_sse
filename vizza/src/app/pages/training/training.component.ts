@@ -255,7 +255,7 @@ export class TrainingComponent implements OnInit {
     selector: 'trainingcompletedalert',
     template: `
         <div mat-dialog-content class="text-center">
-            <label>You have completed your training successfully. Do you want to continue?</label>
+            <label>You have completed your training successfully. Get ready for your Examination. Do you want to continue?</label>
         </div>
         <div mat-dialog-actions style="justify-content: center">
             <!--<button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>-->

@@ -522,7 +522,7 @@ array: any;
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
 
-        console.log(this.personal.value, 'this.personal');
+        console.log(this.personal.value, 'dfgdfg');
         this.personalData = value;
         this.personalData.rolecd = 'PROPOSER';
         this.personalData.type = 'SELF';
@@ -975,8 +975,6 @@ array: any;
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
                 let updatedData = [];
-
-
                 for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
                     let newObject = {};
                     // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];

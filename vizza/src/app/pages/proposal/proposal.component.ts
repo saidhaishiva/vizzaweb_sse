@@ -864,6 +864,7 @@ console.log(value,'fgh');
         // return ret;
         //
     }
+
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;

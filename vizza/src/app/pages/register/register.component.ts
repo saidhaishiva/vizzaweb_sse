@@ -62,6 +62,7 @@ export class RegisterComponent implements OnInit {
     dob: any;
     dobError: any;
     today: any;
+    nectStatus: any;
     mismatchError: any;
     DateValidator: any;
     roleId: any;
@@ -78,11 +79,12 @@ export class RegisterComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectedtab = 0;
+        this.nectStatus = true;
         this.today = new Date();
         this.dob = '';
         this.dobError = '';
         this.mismatchError = '';
-        this.selectedIndex = 0
+        this.selectedIndex = 0;
         this.profile = '';
         this.img = false;
         this.form = this.fb.group({
@@ -93,7 +95,8 @@ export class RegisterComponent implements OnInit {
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
                 referralconduct: ['', Validators.compose( [ Validators.pattern('[6789][0-9]{9}')])],
-                profile: ['',Validators.compose( [Validators.required])],
+                profile: ['',Validators.compose( [Validators.required])]
+
             }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -219,6 +222,38 @@ export class RegisterComponent implements OnInit {
     public fileUploadFailure(error) {
         console.log(error);
     }
+    getReferral(event) {
+            this.getUrl = event[1];
+            const data = {
+                'platform': 'web',
+                'pos_id': 'single',
+                'pos_referral_code': event.target.value,
+                'roleid': this.auth.getPosUserId()
+            };
+            console.log(data, 'dfdfdsfdsfdsfds');
+            this.common.getReferral(data).subscribe(
+                (successData) => {
+                    this.referralSuccess(successData);
+                },
+                (error) => {
+                    this.referralFailure(error);
+                }
+            );
+        }
+
+    public referralSuccess(successData) {
+            if (successData.IsSuccess == true) {
+                console.log(successData, 'successData');
+                this.fileUploadPath = successData.ResponseObject.imagePath;
+            } else {
+                this.toastr.error(successData.ErrorObject, 'Failed');
+            }
+        }
+
+    public referralFailure(error) {
+            console.log(error);
+        }
+
 
     submit(value) {
         console.log(value, 'vall');
@@ -245,6 +280,7 @@ export class RegisterComponent implements OnInit {
                 'pos_gender': this.form.value['personal']['gender'],
                 'pos_dob': this.dob,
                 'pos_mobileno': this.form.value['contacts']['phone1'],
+                'pos_alternate_mobileno': this.form.value['contacts']['phone2'],
                 'pos_email': this.form.value['contacts']['email'],
                 'pos_address1': this.form.value['contacts']['address1'],
                 'pos_address2': this.form.value['contacts']['address2'],
@@ -300,18 +336,6 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    // checkPassword() {
-    //     if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
-    //         this.mismatchError = '';
-    //     } else {
-    //         this.mismatchError = 'Passwords do not match ';
-    //     }
-    //     if (this.form.controls['password'].value == '') {
-    //         this.mismatchError = '';
-    //     }
-    // }
-
-
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9 ]/;
@@ -344,14 +368,6 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    // public characteralpha(event: any) {
-    //     const pattern = /[0-9\+\-\ ]/;
-    //
-    //     let inputChar = String.fromCharCode(event.charCode);
-    //     if (event.keyCode != 8 && !pattern.test(inputChar)) {
-    //         event.preventDefault();
-    //     }
-    // }
 
     public eventHandler(event) {
         console.log(event, event.keyCode, event.keyIdentifier);
@@ -370,72 +386,60 @@ export class RegisterComponent implements OnInit {
         console.log(res,'fghjk');
         if (res >= 18) {
             this.img = false;
+            this.nectStatus = true;
         } else {
             this.img = true;
-
+            this.nectStatus = false;
         }
     }
 
-    // addEvent(event, i) {
-    //     alert();
-    //     if (event.value != null) {
-    //         let selectedDate = '';
-    //         if (typeof event.value._i == 'string') {
-    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    //
-    //             if (pattern.test(event.value._i) && event.value._i.length == 10) {
-    //                 this.dobError = '';
-    //             } else {
-    //                 this.dobError = 'Enter Valid Date';
-    //             }
-    //             selectedDate = event.value._i;
-    //             this.dob = event.value._i;
-    //
-    //             let birth = this.form.controls['birthday'].value;
-    //             let dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //             console.log(dob,'dob');
-    //
-    //             if (birth._i.length == '10') {
-    //
-    //                 this.ageCalculate(dob);
-    //             } else {
-    //                 this.img = false;
-    //
-    //             }
-    //
-    //         } else if (typeof event.value._i == 'object') {
-    //
-    //             this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
-    //
-    //             this.dobError = '';
-    //             let date = event.value._i.date;
-    //             if (date.toString().length == 1) {
-    //                 date = '0' + date;
-    //             }
-    //             let month = (parseInt(event.value._i.month) + 1).toString();
-    //
-    //             if (month.length == 1) {
-    //                 month = '0' + month;
-    //             }
-    //             let year = event.value._i.year;
-    //             this.dob = date + '-' + month + '-' + year;
-    //         }
-    //     }
-    // }
     addEvent(event, i) {
-        let setDate = this.datepipe.transform(event.value, 'dd-MM-y');
-        if (setDate == null) {
-            this.dobError = '';
-        }
-        let setDateAge = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (event.value._i.length == 10) {
-            this.dobError = '';
-            this.dob = event.value._i;
-            this.ageCalculate(setDateAge);
-        }  else if (event.value._i.length > 10) {
-            this.dobError = 'Enter valid dob';
-        } else {
-            this.dobError = 'Enter valid dob';
+        if (event.value != null) {
+            let selectedDate = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                // this.dob = event.value._i;
+                let birth = this.form.value['personal']['birthday'].value;
+                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.dob = dob;
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
+                    this.ageCalculate(dob);
+                } else {
+                    this.img = false;
+
+                }
+
+            } else if (typeof event.value._i == 'object') {
+
+                this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (this.dob.length == 10) {
+                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                } else {
+                    this.img = false;
+
+                }
+
+                this.dobError = '';
+                let date = event.value._i.date;
+                if (date.toString().length == 1) {
+                    date = '0' + date;
+                }
+                let month = (parseInt(event.value._i.month) + 1).toString();
+
+                if (month.length == 1) {
+                    month = '0' + month;
+                }
+                let year = event.value._i.year;
+                this.dob = date + '-' + month + '-' + year;
+            }
         }
     }
 
@@ -449,12 +453,13 @@ export class RegisterComponent implements OnInit {
         }
     }
     getPin(pin) {
+        console.log(pin, 'pin');
         this.pin = pin;
         const data = {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'pincode': this.pin
+            'postalcode': this.pin
         }
         if (this.pin.length == 6) {
             this.common.getPincode(data).subscribe(
