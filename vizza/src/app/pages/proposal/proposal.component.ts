@@ -842,6 +842,7 @@ console.log(value,'fgh');
             }
         }
     }
+
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
