@@ -63,6 +63,7 @@ export class PosprofileComponent implements OnInit {
     commentsListCount: any;
     posData: any;
     trainingDetails: any;
+    startTrainingDate: any;
     examDetails: any;
     aadharBack: any;
     aadharFront: any;
@@ -232,14 +233,19 @@ export class PosprofileComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
-            for (let i = 0; i < this.trainingDetails.length; i++) {
-                let num = this.trainingDetails[i].entry_time;
-                let hours = (num / 60);
-                let rhours = Math.floor(hours);
-                let minutes = (hours - rhours) * 60;
-                let rminutes = Math.round(minutes);
-                this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+            if (typeof (this.trainingDetails) != 'string') {
+
+                for (let i = 0; i < this.trainingDetails.length; i++) {
+                    let num = this.trainingDetails[i].entry_time;
+                    let hours = (num / 60);
+                    let rhours = Math.floor(hours);
+                    let minutes = (hours - rhours) * 60;
+                    let rminutes = Math.round(minutes);
+                    this.trainingDetails[i].time = rhours + " hour(s) and " + rminutes + " minute(s).";
+                }
+                this.startTrainingDate = this.trainingDetails[0].training_attend_date;
             }
+
 
         }
     }
@@ -675,8 +681,10 @@ export class PosprofileComponent implements OnInit {
             }
         });
     }
+
     // print the Appointment letter
     printAppointment () {
+        alert()
         let printContents, popupWin;
         printContents = document.getElementById('appointment').innerHTML;
         popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
