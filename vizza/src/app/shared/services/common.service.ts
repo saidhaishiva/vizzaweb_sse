@@ -324,6 +324,18 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    //Get company list
+    getcompanyList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'policyrenewal/get_insurance_company_list' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     // pincode
     getPincode(data) {
         console.log(data, 'ssssssssssss');
