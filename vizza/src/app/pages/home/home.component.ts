@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     public settings: Settings;
     commentBox: boolean;
     testimonialLists: any;
+    companyList: any;
     comments: any;
     webhost: any;
 
@@ -87,6 +88,7 @@ export class HomeComponent implements OnInit {
       sessionStorage.mobileNumber = '';
       sessionStorage.ageRestriction = '';
       this.testimonialList();
+      this.getcompanyList();
   }
     addEvent(event) {
       console.log(event, 'chek dateeeeee');
@@ -136,13 +138,39 @@ export class HomeComponent implements OnInit {
     public testimonialListFailure(error) {
         console.log(error);
     }
+    getcompanyList() {
+        const data = {
+            'platform': 'web',
+            "user_id": this.auth.getPosUserId(),
+            "role_id": this.auth.getPosRoleId()
+        }
+        this.common.getcompanyList(data).subscribe(
+            (successData) => {
+                this.getcompanyListSuccess(successData);
+            },
+            (error) => {
+                this.getcompanyListFailure(error);
+            }
+        );
+    }
+    public getcompanyListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.companyList = successData.ResponseObject;
+            console.log(this.companyList, 'this.companyList');
+
+        }
+    }
+    public getcompanyListFailure(error) {
+        console.log(error);
+    }
+
     home(values){
         if (this.form.valid) {
             console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
-                'user_id': '0',
-                'role_id': '1',
+                'user_id': this.auth.getPosUserId(),
+                'role_id': this.auth.getPosRoleId(),
                 'insure_name': 'offline',
                 'insure_start_date': this.setDate,
                 'insure_end_date': this.setDate,

@@ -986,12 +986,11 @@ footer {
   position: absolute;
   left: -29px;
   bottom: 47%;
-  z-index: 99;
+  z-index: 1;
   width: 0;
   height: 0;
   border-top: 30px solid transparent;
-  border-bottom: 30px solid transparent;
-  border-right: 30px solid #f8b03e; }
+  border-bottom: 30px solid transparent; }
 .letUs .let1 {
   background: #e8e8e8; }
   .letUs .let1 h1 {
@@ -1096,7 +1095,7 @@ footer {
 
 #staticTime {
   height: calc(100vh - 200px);
-  overflow: scroll;
+  overflow-y: scroll;
   width: 100%;
   padding-right: 30px; }
 
@@ -1204,5 +1203,7 @@ footer {
     transform: rotateY(0deg); }
   100% {
     transform: rotateY(-180deg); } }
+.active-link {
+  background-color: #90d050 !important; }
 
 /*# sourceMappingURL=style.css.map */
