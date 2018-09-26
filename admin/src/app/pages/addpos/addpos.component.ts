@@ -380,8 +380,7 @@ export class AddposComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(selectedDate, 'selectedDate.dob');
-                if (selectedDate.length == 10) {
+                if (this.dob.length == 10) {
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
                 } else {
                     this.img = false;
