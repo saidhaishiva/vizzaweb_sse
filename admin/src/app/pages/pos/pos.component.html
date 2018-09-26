@@ -106,7 +106,7 @@
                                                     <button mat-menu-item (click)="POSProfile(row.pos_id, row.pos_status)">
                                                         View <span *ngIf="posStatus !=1">& Approve</span>
                                                     </button>
-                                                    <button mat-menu-item (click)="POSEdit()">
+                                                    <button mat-menu-item (click)="POSEdit(row.pos_id)">
                                                         <mat-icon>mode_edit</mat-icon>
                                                         <span>Edit</span>
                                                     </button>

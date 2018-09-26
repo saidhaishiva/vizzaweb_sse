@@ -638,9 +638,7 @@ a:hover {
 .horizontal-menu-item .mat-button {
   height: 40px !important;
 }
-.app.teal-light .active-link {
-  border-radius: 36px !important;
-}
+
 .horizontal-menu .inner-sidenav-content{
   padding-top: 7px !important;
 }
@@ -1342,12 +1340,11 @@ footer{
     position: absolute;
     left: -29px;
     bottom: 47%;
-    z-index: 99;
+    z-index: 1;
     width: 0;
     height: 0;
     border-top: 30px solid transparent;
     border-bottom: 30px solid transparent;
-    border-right: 30px solid #f8b03e;
   }
   .let1{
     background: #e8e8e8;
@@ -1498,25 +1495,24 @@ footer{
 }
 #staticTime{
   height: calc(100vh - 200px);
-  overflow: scroll;
+  overflow-y: scroll;
   width: 100%;
   padding-right: 30px;
 }
 .listDisabled {
   pointer-events: none!important;
 }
-#draggable {
+.draggable {
   position: relative;
-  margin: 10px auto;
-  width: 450px;
-  height: 281px;
+  height: 430px;
   z-index: 1;
 }
-
-
 .dashboard {
   -webkit-perspective: 1000;
   perspective: 1000;
+}
+
+.dashboard {
   width: 100%;
   height: 100%;
   -webkit-transform-style: preserve-3d;
@@ -1533,15 +1529,45 @@ footer{
   backface-visibility: hidden;
 }
 
-.a{
+#a{
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 6s infinite;
+  animation: mymoveback 6s infinite;
+}
+#b {
+  -webkit-animation: mymove 6s infinite;
+  animation: mymove 6s infinite;
+}
+#a1{
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 8s infinite;
+  animation: mymoveback 8s infinite;
+}
+#b1 {
+  -webkit-animation: mymove 8s infinite;
+  animation: mymove 8s infinite;
+}
+#a2{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
   -webkit-animation: mymoveback 10s infinite;
   animation: mymoveback 10s infinite;
 }
-.b {
+#b2 {
   -webkit-animation: mymove 10s infinite;
   animation: mymove 10s infinite;
+}
+#a3{
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 12s infinite;
+  animation: mymoveback 12s infinite;
+}
+#b3 {
+  -webkit-animation: mymove 12s infinite;
+  animation: mymove 12s infinite;
 }
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
@@ -1600,4 +1626,7 @@ footer{
   100% {
     transform: rotateY(-180deg);
   }
+}
+.active-link {
+  background-color: #90d050 !important;
 }

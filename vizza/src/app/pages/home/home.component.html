@@ -44,46 +44,54 @@
     <section class="container-fluid">
         <div class="row h-plans">
             <div class="col-md-3">
+                <div class="draggable">
                 <div class="dashboard">
-                <figure class="widget-inner loadable" class="a">
+                <figure class="widget-inner loadable" id="a">
                     <img src="assets/img/home/JOY-relicare.png" alt="">
                 </figure>
-                <figure class="widget-inner loadable" class="b">
+                <figure class="widget-inner loadable" id="b">
                     <img src="assets/img/home/protect.png" alt="">
                 </figure>
             </div>
+                </div>
             </div>
 
-            <!--<div class="col-md-3">-->
-                <!--<div class="dashboard">-->
-                    <!--<figure class="widget-inner loadable" class="a">-->
-                        <!--<img src="assets/img/home/protect.png" alt="">-->
-                    <!--</figure>-->
-                    <!--<figure class="widget-inner loadable" class="b">-->
-                        <!--<img src="assets/img/home/protect.png" alt="">-->
-                    <!--</figure>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-3">-->
-                <!--<div class="dashboard">-->
-                    <!--<figure class="widget-inner loadable" class="a">-->
-                        <!--<img src="assets/img/home/sometimes.png" alt="">-->
-                    <!--</figure>-->
-                    <!--<figure class="widget-inner loadable" class="b">-->
-                        <!--<img src="assets/img/home/protect.png" alt="">-->
-                    <!--</figure>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-3">-->
-                <!--<div class="dashboard">-->
-                    <!--<figure class="widget-inner loadable" class="a">-->
-                        <!--<img src="assets/img/home/Reliance-Health1.png" alt="">-->
-                    <!--</figure>-->
-                    <!--<figure class="widget-inner loadable" class="b">-->
-                        <!--<img src="assets/img/home/protect.png" alt="">-->
-                    <!--</figure>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="col-md-3">
+                <div class="draggable">
+                <div class="dashboard">
+                    <figure class="widget-inner loadable" id="a1">
+                        <img src="assets/img/home/Short-walks---munich.png" alt="">
+                    </figure>
+                    <figure class="widget-inner loadable" id="b1">
+                        <img src="assets/img/home/senior-citizen---star-health.png" alt="">
+                    </figure>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="draggable">
+                <div class="dashboard">
+                    <figure class="widget-inner loadable" id="a2">
+                        <img src="assets/img/home/sometimes.png" alt="">
+                    </figure>
+                    <figure class="widget-inner loadable" id="b2">
+                        <img src="assets/img/home/protect.png" alt="">
+                    </figure>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="draggable">
+                <div class="dashboard">
+                    <figure class="widget-inner loadable" id="a3">
+                        <img src="assets/img/home/Reliance-Health1.png" alt="">
+                    </figure>
+                    <figure class="widget-inner loadable" id="b3">
+                        <img src="assets/img/home/JOY-relicare.png" alt="">
+                    </figure>
+                </div>
+                </div>
+            </div>
         </div>
     </section>
     <!--<div class="container">-->
@@ -265,9 +273,7 @@
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
                                            <mat-select placeholder="Insurance Company Name" formControlName="insurecompanyname">
-                                               <mat-option value="option1">Option 1</mat-option>
-                                               <mat-option value="option2">Option 2</mat-option>
-                                               <mat-option value="option3">Option 3</mat-option>
+                                               <mat-option *ngFor="let list of companyList" value="{{list.insure_company_id}}">{{list.insure_company_name}}</mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="form.controls.insurecompanyname.errors?.required">Insurance Company Name is required</mat-error>
                                        </mat-form-field>

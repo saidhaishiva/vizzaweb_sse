@@ -10,18 +10,18 @@
 
                     <mat-tab label="Notes">
                         <div>
-                            <p>Please ensure the following documents are kept ready</p>
+                            <p><strong>Please ensure the following documents are kept ready</strong></p>
                         </div>
-                        <mat-list role="list">
-                            <mat-list-item role="listitem">Aadhaar Card(Front and Back)</mat-list-item>
-                            <mat-list-item role="listitem">PAN Card</mat-list-item>
-                            <mat-list-item role="listitem">Highest Educational Qualification</mat-list-item>
-                            <mat-list-item role="listitem">Cancelled Cheque Leaf</mat-list-item>
-                            <mat-list-item role="listitem">Your Photo</mat-list-item>
-                        </mat-list>
+                        <ul>
+                            <li style="display: flex; align-items: center;"><i class="material-icons">chevron_right</i> Aadhaar Card(Front and Back)</li>
+                            <li style="display: flex; align-items: center;"><i class="material-icons">chevron_right</i> PAN Card</li>
+                            <li style="display: flex; align-items: center;"><i class="material-icons">chevron_right</i> Highest Educational Qualification</li>
+                            <li style="display: flex; align-items: center;"><i class="material-icons">chevron_right</i> Cancelled Cheque Leaf</li>
+                            <li style="display: flex; align-items: center;"><i class="material-icons">chevron_right</i> Your Photo</li>
+                        </ul>
                         <hr>
                         <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
-                            <button color="primary" mat-raised-button (click)="nextStep()" type="button">Next</button>
+                            <button color="primary" mat-raised-button (click)="nextStep()" type="button">Ok</button>
                         </div>
                     </mat-tab>
 
