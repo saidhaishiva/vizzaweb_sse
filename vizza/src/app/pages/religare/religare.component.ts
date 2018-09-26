@@ -1411,14 +1411,15 @@ array: any;
         }
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
-            const pattern =/[0-9a-zA-Z ]/;
+            const pattern = /[0-9a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
             }
         }
+    }
 
-    public data(event: any) {
+        public typeValidate(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
