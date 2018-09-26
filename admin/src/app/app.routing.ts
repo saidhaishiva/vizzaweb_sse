@@ -64,7 +64,7 @@ export const routes: Routes = [
             { path: 'branch', component: BranchComponent, data: { breadcrumb: ' Branch' } },
             { path: 'posmanager', component: PosmanagerComponent, data: { breadcrumb: 'POS Manager' } },
             { path: 'addposmanager', component: AddposmanagerComponent, data: { breadcrumb: 'Add POS Manager' } },
-            { path: 'pos-edit', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } }
+            { path: 'pos-edit/:id', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } }
 
 
         ]

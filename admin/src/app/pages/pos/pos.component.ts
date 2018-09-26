@@ -169,7 +169,6 @@ export class PosComponent implements OnInit {
         if (successData.IsSuccess) {
             console.log(successData.ResponseObject[0].pos_status, 'poss');
             this.allPosLists = successData.ResponseObject;
-            sessionStorage.posid = this.allPosLists[0].pos_id;
 
 
             let POS = [];
@@ -234,8 +233,8 @@ export class PosComponent implements OnInit {
     POSProfile(id, status) {
         this.router.navigate(['/pos-profile/' + id + '/' + status]);
     }
-    POSEdit(){
-        this.router.navigate(['/pos-edit/']);
+    POSEdit(id){
+        this.router.navigate(['/pos-edit/' + id]);
     }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();

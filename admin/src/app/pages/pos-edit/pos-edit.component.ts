@@ -6,7 +6,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { ConfigurationService} from '../../shared/services/configuration.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../shared/services/login.service';
-import { ActivatedRoute, Params,Router} from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
@@ -139,13 +139,10 @@ export class PosEditComponent implements OnInit {
       this.pancard = '';
       this.education = '';
       this.chequeleaf= '';
-      this.getPosProfileList();
-
       this.route.params.forEach((params: Params) => {
-          console.log(params, 'params');
           this.posid = params.id;
-          this.posstatus = params.status;
       });
+      this.getPosProfileList();
   }
 
   ngOnInit() {
@@ -155,11 +152,6 @@ export class PosEditComponent implements OnInit {
 //get Admin pos ProfileList
     getPosProfileList(){
         const data = {
-            // 'platform': 'web',
-            // 'admin_id': this.auth.getAdminId(),
-            // 'pos_id': this.auth.getPosUserId(),
-            // "roleid": this.auth.getPosUserId()
-
             'platform': 'web',
             'adminid': this.auth.getAdminId(),
             'roleid': this.auth.getAdminRoleId(),
