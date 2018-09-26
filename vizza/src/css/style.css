@@ -469,9 +469,6 @@ a:hover {
 .horizontal-menu-item .mat-button {
   height: 40px !important; }
 
-.app.teal-light .active-link {
-  border-radius: 36px !important; }
-
 .horizontal-menu .inner-sidenav-content {
   padding-top: 7px !important; }
 
@@ -1106,16 +1103,16 @@ footer {
 .listDisabled {
   pointer-events: none !important; }
 
-#draggable {
+.draggable {
   position: relative;
-  margin: 10px auto;
-  width: 450px;
-  height: 281px;
+  height: 430px;
   z-index: 1; }
 
 .dashboard {
   -webkit-perspective: 1000;
-  perspective: 1000;
+  perspective: 1000; }
+
+.dashboard {
   width: 100%;
   height: 100%;
   -webkit-transform-style: preserve-3d;
@@ -1130,15 +1127,45 @@ footer {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 
-.a {
+#a {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 6s infinite;
+  animation: mymoveback 6s infinite; }
+
+#b {
+  -webkit-animation: mymove 6s infinite;
+  animation: mymove 6s infinite; }
+
+#a1 {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 8s infinite;
+  animation: mymoveback 8s infinite; }
+
+#b1 {
+  -webkit-animation: mymove 8s infinite;
+  animation: mymove 8s infinite; }
+
+#a2 {
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
   -webkit-animation: mymoveback 10s infinite;
   animation: mymoveback 10s infinite; }
 
-.b {
+#b2 {
   -webkit-animation: mymove 10s infinite;
   animation: mymove 10s infinite; }
+
+#a3 {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 12s infinite;
+  animation: mymoveback 12s infinite; }
+
+#b3 {
+  -webkit-animation: mymove 12s infinite;
+  animation: mymove 12s infinite; }
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
