@@ -285,9 +285,9 @@ export class AddposComponent implements OnInit {
         this.settings.loadingSpinner = false
         if (successData.IsSuccess) {
             this.router.navigate(['/pos']);
-            this.toastr.success('Admin Registration Completed', 'Success!!!');
+            this.toastr.success('Pos added successfully');
         }else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
+            this.toastr.error(successData.ErrorObject);
         }
     }
     RegisterPosFailure(error) {
@@ -380,8 +380,7 @@ export class AddposComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(selectedDate, 'selectedDate.dob');
-                if (selectedDate.length == 10) {
+                if (this.dob.length == 10) {
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
                 } else {
                     this.img = false;
