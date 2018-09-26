@@ -335,7 +335,7 @@
                                         Insurance Regulatory and Development Authority.</p>
                                     <p>The Said Candidate, had registered for the online training program on
                                         {{startTrainingDate | date: 'dd-MMM-y'}} and completed the 15 hours of POS’P Online Training on
-                                        {{posData.training_completed_date }}</p>
+                                        {{posData.training_completed_date | date:'dd-MMM-yy'}}</p>
                                 </div>
                             </section>
                             <section class="row mt-5">
@@ -347,7 +347,7 @@
                                         </tr>
                                         <tr>
                                             <td>Date</td>
-                                            <td>{{posData.training_completed_date }}</td>
+                                            <td>{{posData.training_completed_date | date:'dd-MMM-yy' }}</td>
                                         </tr>
                                         <tr>
                                             <td>POS’P ID</td>
@@ -411,7 +411,7 @@
                                     <h5 class="c-title"><span>This is to certificaty that</span></h5>
                                     <p><span *ngIf="posData.pos_gender == 'male'">Mr.</span><span *ngIf="posData.pos_gender == 'female'">Ms.</span><strong>{{posData.pos_firstname | titlecase}} {{posData.pos_lastname | titlecase}}</strong></p>
                                     <p>passed the Point of Sales Person Examination held on</p>
-                                    <p>{{posData.exam_completed_date }}</p>
+                                    <p>{{posData.exam_completed_date | date:'dd-MMM-yy'}}</p>
                                     <p>and qualified under the stream of</p>
                                     <p>Point of Sales Person</p>
                                     <p>as per regulations 2017 of</p>
@@ -427,7 +427,7 @@
                                         </tr>
                                         <tr>
                                             <td>Date</td>
-                                            <td>{{posData.exam_completed_date }}</td>
+                                            <td>{{posData.exam_completed_date | date:'dd-MMM-yy'}}</td>
                                         </tr>
                                         <tr>
                                             <td>POS’P ID</td>
@@ -493,7 +493,7 @@
                                             <table>
                                                 <tr>
                                                     <td>Date</td>
-                                                    <td>{{posData.appointment_date}}</td>
+                                                    <td>{{posData.appointment_date | date:'dd-MMM-yy'}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>POS’P ID</td>
