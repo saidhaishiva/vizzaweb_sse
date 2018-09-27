@@ -11,23 +11,23 @@
                     <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
                         <mat-card-subtitle><h3>Register</h3></mat-card-subtitle>
                         <mat-tab-group class="horizantal-tabs" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
-                            <mat-tab label="Personal" formGroupName="personal">
+                            <mat-tab label="Personal" formGroupName="personalEdit">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" autocomplete="off" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.personal.controls.firstname.errors?.required">First name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit.controls.firstname.errors?.required">First name is required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" autocomplete="off" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.personal.controls.lastname.errors?.required">Last name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit.controls.lastname.errors?.required">Last name is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100" >
                                     <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" minlength="10" required>
                                     <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                     <mat-datepicker  #birthday ></mat-datepicker>
-                                    <mat-error *ngIf="form.controls.personal.controls.birthday.errors?.required">Dob is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit.controls.birthday.errors?.required">Dob is required</mat-error>
                                 </mat-form-field>
 
                                 <div *ngIf="img" style="color: red">Age should be greater than 18</div>
@@ -42,18 +42,18 @@
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)"  minlength="10" maxlength="10" autocomplete="off">
                                     <i class="fas fa-phone" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                                 </mat-form-field>
 
-                                <!--<div>-->
-                                    <!--<p><span class="imglabel" *ngIf="personalshow.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>-->
-                                <!--</div>-->
+                                <div>
+                                    <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
+                                </div>
                                 <div class="w-100 mt-2">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"    aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label"><span class="error">*</span>
                                             Attach Your Photo</label>
-                                        <div class="error" *ngIf !="form.controls.personal.controls.profile.valid">Profile Image is required</div>
+                                        <!--<div class="error" *ngIf !="form.controls.personalEdit.controls.profile.valid">Profile Image is required</div>-->
                                     </div>
                                 </div>
                                 <div class="row w-100">
@@ -67,7 +67,7 @@
                                 <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                     <!--<button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>-->
                                     <!--<button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>-->
-                                    <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+                                    <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personalEdit.valid" type="button">Next</button>
 
                                 </div>
                             </mat-tab>
@@ -145,26 +145,26 @@
 
                                 <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input"  (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label"><span class="error">*</span> Aadhaar Front Image</label>
-                                        <div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhaar Front Image is required</div>
+                                        <!--<div class="error" *ngIf !="form.controls.documents.controls.aadharfront.valid">Aadhaar Front Image is required</div>-->
                                     </div>
                                 </div>
-                                <div class="row w-100 mb-3">
+                                <div class="row w-100  mb-3">
                                     <div class="col-md-12">
                                         <div *ngIf="aadharfront != ''">
                                             <span class="imageclose mr-2"><img src="{{webhost + '/' + aadharfront}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-100 mb-3">
+                                <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input"  (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label"><span class="error">*</span> Aadhaar Back Image</label>
-                                        <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhaar Back Image is required</div>
+                                        <!--<div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhaar Back Image is required</div>-->
                                     </div>
                                 </div>
-                                <div class="row w-100">
+                                <div class="row w-100  mb-3">
                                     <div class="col-md-12">
                                         <div *ngIf="aadharback != ''">
                                             <span class="imageclose mr-2"><img src="{{webhost + '/' + aadharback}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
@@ -173,12 +173,12 @@
                                 </div>
                                 <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input"  (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label"><span class="error">*</span> PAN Card Front Image</label>
-                                        <div class="error" *ngIf !="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>
+                                        <!--<div class="error" *ngIf !="form.controls.documents.controls.pancard.valid">PAN Card Image is required</div>-->
                                     </div>
                                 </div>
-                                <div class="row w-100">
+                                <div class="row w-100  mb-3">
                                     <div class="col-md-12">
                                         <div *ngIf="pancard != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + pancard}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
                                         </div>
@@ -203,9 +203,9 @@
                                 </div>
                                 <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
-                                        <div class="error" *ngIf !="form.controls.educationlist.controls.educationdocument.valid">Education Back Image is required</div>
+                                        <!--<div class="error" *ngIf !="form.controls.educationlist.controls.educationdocument.valid">Education Back Image is required</div>-->
                                     </div>
                                 </div>
                                 <div class="row w-100">
@@ -246,7 +246,7 @@
                                 </mat-form-field>
                                 <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
+                                        <input type="file" class="custom-file-input"  (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
                                         <label class="custom-file-label"> <span class="error">*</span> Attached Cancelled Cheque Leaf (or) Passbook</label>
                                     </div>
                                 </div>
