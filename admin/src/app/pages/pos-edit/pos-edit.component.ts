@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTabChangeEvent } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { CommonService } from '../../shared/services/common.service';
@@ -6,7 +6,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { ConfigurationService} from '../../shared/services/configuration.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../shared/services/login.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
@@ -29,7 +29,11 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-pos-edit',
   templateUrl: './pos-edit.component.html',
-  styleUrls: ['./pos-edit.component.scss']
+  styleUrls: ['./pos-edit.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class PosEditComponent implements OnInit {
     public form: FormGroup;
@@ -69,12 +73,17 @@ export class PosEditComponent implements OnInit {
     public passwordHide: boolean = true;
     personalCitys: any;
     pincodeErrors : any;
+    public personal: any;
+    public currentTab: any;
+    public documentStatus: any;
+    public posid: any;
+    public posstatus: any;
 
-  constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+  constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe,
+              public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService,
+              private toastr: ToastrService, public route: ActivatedRoute) {
       this.settings = this.appSettings.settings;
       // this.settings.HomeSidenavUserBlock = false;
-      this.settings.sidenavIsOpened = false;
-      this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.selectedtab = 0;
       this.nectStatus = true;
@@ -111,7 +120,7 @@ export class PosEditComponent implements OnInit {
               aadharback: ['',Validators.compose( [Validators.required])],
               pancard: ['',Validators.compose( [Validators.required])]
           }),
-          education: this.fb.group({
+          educationlist: this.fb.group({
               qualification: ['', Validators.compose([Validators.required])],
               educationdocument:['', Validators.compose( [Validators.required])]
 
@@ -124,23 +133,149 @@ export class PosEditComponent implements OnInit {
               chequeleaf:['', Validators.compose( [Validators.required])]
           })
       });
+      this.profile = '';
       this.aadharfront = '';
       this.aadharback = '';
-      this.chequeleaf = '';
-      // this.profile = '';
       this.pancard = '';
       this.education = '';
-      // this.roleId = this.auth.getPosRoleId();
-      // console.log(this.roleId, 'assss');
-      // if (this.roleId > 0) {
-      //     this.router.navigate(['/pos-profile']);
-      // }
+      this.chequeleaf= '';
+      this.route.params.forEach((params: Params) => {
+          this.posid = params.id;
+      });
+      this.getPosProfileList();
   }
 
   ngOnInit() {
       this.settings.loadingSpinner = false;
       this.pincodeErrors = false;
   }
+//get Admin pos ProfileList
+    getPosProfileList(){
+        const data = {
+            'platform': 'web',
+            'adminid': this.auth.getAdminId(),
+            'roleid': this.auth.getAdminRoleId(),
+            'pos_id': this.posid
+        };
+        console.log(data);
+        this.common.getPosProfileList(data).subscribe(
+            (successData) => {
+                this.setPosProfileSuccess(successData);
+
+            },
+            (error) => {
+                this.setPosProfileFailure(error);
+            }
+        );
+    }
+    setPosProfileSuccess(successData) {
+        console.log(successData, 'datadatadatadatadatadatadata');
+        if (successData.IsSuccess) {
+            this.personal = successData.ResponseObject;
+            this.documentStatus = this.personal.doc_verified_status;
+            let date;
+            date = this.personal.pos_dob.split('/');
+            date = date[2] + '-' + date[1] + '-' + date[0];
+            date = this.datepipe.transform(date, 'y-MM-dd');
+            console.log(date, 'dateee');
+            this.form = this.fb.group({
+                personal: this.fb.group({
+                id: null,
+                firstname: this.personal.pos_firstname,
+                lastname: this.personal.pos_lastname,
+                birthday: date,
+                gender: this.personal.pos_gender,
+                referralconduct: this.personal.pos_referral_code,
+                // profile: this.personal.pos_profile_img
+                }),
+                contacts: this.fb.group({
+                    email: this.personal.pos_email,
+                    phone1: this.personal.pos_mobileno,
+                    phone2: this.personal.pos_alternate_mobileno,
+                    address1: this.personal.pos_address1,
+                    address2: this.personal.pos_address2,
+                    pincode: this.personal.pos_postalcode,
+                }),
+                documents: this.fb.group({
+                    aadharnumber: this.personal.doc_aadhar_no,
+                    pannumber: this.personal.doc_pan_no,
+                    // aadharfront: this.personal.doc_aadhar_front_img,
+                    // aadharback: this.personal.doc_aadhar_back_img,
+                    // pancard: this.personal.doc_pan_img
+
+                }),
+                educationlist: this.fb.group({
+                    qualification: this.personal.doc_education,
+                    education: this.personal.doc_edu_certificate_img
+                }),
+                bankdetails: this.fb.group({
+                    bankname: this.personal.bank_name,
+                    bankbranch: this.personal.branch_name,
+                    ifsccode: this.personal.ifsc_code,
+                    accountnumber: this.personal.bank_acc_no,
+                    // chequeleaf: this.personal.check_leaf_upload_img
+                }),
+                // profile: this.personal.pos_profile_img,
+                aadharfront: this.personal.doc_aadhar_front_img,
+                aadharback: this.personal.doc_aadhar_back_img,
+                pancard: this.personal.doc_pan_img,
+                education: this.personal.doc_edu_certificate_img,
+                chequeleaf: this.personal.check_leaf_upload_img,
+        });
+        }
+    }
+
+    setPosProfileFailure(error) {
+        console.log(error);
+    }
+
+    updateAdminPosProfile(){
+        const data =  {
+            "platform": "web",
+            "admin_id": this.auth.getAdminId(),
+            "admin_roleid": this.auth.getAdminRoleId(),
+            "pos_id": this.posid,
+            "pos_firstname": this.form ['personal']['firstname'].value,
+            "pos_lastname": this.form ['personal']['lastname'].value,
+            "pos_dob": this.dob,
+            "pos_gender": this.form ['personal']['gender'].value,
+            "pos_mobileno": this.form ['contacts']['phone1'].value,
+            "pos_email": this.form ['contacts']['email'].value,
+            "pos_alternate_mobileno": this.form ['contacts']['phone2'].value,
+            "pos_address1": this.form ['contacts']['address1'].value,
+            "pos_address2": this.form ['contacts']['address2'].value,
+            "pos_postalcode": this.form ['contacts']['pincode'].value,
+            "pos_profile_img": this.profile == undefined ? '' : this.profile,
+            'bank_name': this.form ['bankdetails']['bankname'].value,
+            'bank_acc_no': this.form ['bankdetails']['accountnumber'].value,
+            'branch_name': this.form ['bankdetails']['bankbranch'].value,
+            'ifsc_code': this.form ['bankdetails']['ifsccode'].value,
+            'check_leaf_upload_img':this.chequeleaf
+        };
+        this.settings.loadingSpinner = true;
+        this.common.updateAdminPosProfile(data).subscribe(
+            (successData) => {
+                this.updateaAminPosProfileSuccess(successData);
+
+            },
+            (error) => {
+                this.updateaAminPosProfileFailure(error);
+            }
+        );
+        console.log(data);
+    }
+    updateaAminPosProfileSuccess(successData) {
+        console.log(successData);
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            // this.settings.userId = this.auth.getPosUserId();
+        }
+    }
+    updateaAminPosProfileFailure(error) {
+        console.log(error);
+        this.settings.loadingSpinner = false;
+    }
 
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         this.selectedIndex = tabChangeEvent.index;
@@ -160,10 +295,9 @@ export class PosEditComponent implements OnInit {
             this.mismatchError = 'Gender is required ';
         }
     }
-
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9 ]/;
+            const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -193,11 +327,6 @@ export class PosEditComponent implements OnInit {
         }
     }
 
-    public eventHandler(event) {
-        console.log(event, event.keyCode, event.keyIdentifier);
-    }
-
-    //dob validation
     ageCalculate(dob) {
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring(8, 10), 10);
@@ -234,8 +363,8 @@ export class PosEditComponent implements OnInit {
                 let birth = this.form.value['personal']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
-                console.log(birth,'dob');
-                if (dob.length == 10) {
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
                     this.img = false;
@@ -245,8 +374,12 @@ export class PosEditComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (this.dob.length == 10) {
+                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                } else {
+                    this.img = false;
 
-                this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                }
 
                 this.dobError = '';
                 let date = event.value._i.date;
@@ -273,6 +406,59 @@ export class PosEditComponent implements OnInit {
             }
         }
     }
+    getPin(pin) {
+        console.log(pin, 'pin');
+        this.pin = pin;
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'postalcode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.common.getPincode(data).subscribe(
+                (successData) => {
+                    this.getPinSuccess(successData);
+                },
+                (error) => {
+                    this.getPinlFailure(error);
+                }
+            );
+        }
 
 
+    }
+    public getPinSuccess(successData) {
+
+        if (successData.IsSuccess) {
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+            // this.form['controls'].contacts['controls'].pincode.patchValue('');
+            // this.toastr.error('Invalid pincode');
+
+        }
+    }
+
+    public getPinlFailure(error) {
+    }
+
+    reset() {
+        this.form = this.fb.group({
+            'name': '',
+            'mobile': '',
+            'email': '',
+            'labname': '',
+            'address1': '',
+            'address2': '',
+            'contactnumber': '',
+            'pincode': '',
+            'city': '',
+            'state': '',
+            'country': '',
+            'allowed': '',
+            'gst': '',
+            'pan': ''
+        });
+    }
 }

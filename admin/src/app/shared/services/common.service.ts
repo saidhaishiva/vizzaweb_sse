@@ -124,6 +124,17 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    updateAdminPosProfile(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/update_pos_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     agreementUpload(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -155,6 +166,18 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'common/webupload' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+//update pos
+    updatePosProfile(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/update_pos_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

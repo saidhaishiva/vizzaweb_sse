@@ -118,14 +118,12 @@ export class HealthInsuranceComponent implements OnInit {
 
         const observable = this.keyUp
             .map(value => event)
-            .debounceTime(800)
+            .debounceTime(600)
             .distinctUntilChanged()
             .flatMap((search) => {
-                return Observable.of(search).delay(500);
+                return Observable.of(search).delay(400);
             })
             .subscribe((data) => {
-                console.log(data.target);
-                console.log(data.target);
                 this.typeAge(data.target);
             });
     }

@@ -169,19 +169,7 @@ export class PosComponent implements OnInit {
         if (successData.IsSuccess) {
             console.log(successData.ResponseObject[0].pos_status, 'poss');
             this.allPosLists = successData.ResponseObject;
-            // if (this.filterStatus) {
-            //     if (successData.ResponseObject[0].pos_status == '0') {
-            //         this.tabValue = 'inactive';
-            //     } else  if (successData.ResponseObject[0].pos_status == '1') {
-            //         this.tabValue = 'active';
-            //     }else  if (successData.ResponseObject[0].pos_status == '2') {
-            //         this.tabValue = 'rejected';
-            //     }else  if (successData.ResponseObject[0].pos_status == '3') {
-            //         this.tabValue = 'onhold';
-            //     }
-            // } else {
-            //     this.tabValue = 'inactive';
-            // }
+
 
             let POS = [];
             if (value == 'inactive') {
@@ -245,8 +233,8 @@ export class PosComponent implements OnInit {
     POSProfile(id, status) {
         this.router.navigate(['/pos-profile/' + id + '/' + status]);
     }
-    POSEdit(){
-        this.router.navigate(['/pos-edit/']);
+    POSEdit(id){
+        this.router.navigate(['/pos-edit/' + id]);
     }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
