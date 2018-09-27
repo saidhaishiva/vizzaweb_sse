@@ -937,6 +937,9 @@ datatable-body-cell button .material-icons, .drug button .material-icons{
   text-align: center;
   color: $theme-color;
 }
+.mat-toolbar-single-row{
+  height:90px !important;
+}
 .mat-menu-content .mat-toolbar-single-row{
   white-space: unset;
 }
@@ -1141,8 +1144,11 @@ a{
     text-align: -webkit-left;
   }
 }
-.app.horizontal-menu .inner-sidenav-content{
-  padding-top: 0;
+.inner-sidenav-content{
+ top: 100px !important;
+}
+.app .horizontal-menu .inner-sidenav-content{
+  padding-top: 10px;
 }
 .doctorlist .datatable-header{
   display: none !important;

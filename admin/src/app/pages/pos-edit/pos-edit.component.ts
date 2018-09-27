@@ -120,7 +120,7 @@ export class PosEditComponent implements OnInit {
               aadharback: ['',Validators.compose( [Validators.required])],
               pancard: ['',Validators.compose( [Validators.required])]
           }),
-          education: this.fb.group({
+          educationlist: this.fb.group({
               qualification: ['', Validators.compose([Validators.required])],
               educationdocument:['', Validators.compose( [Validators.required])]
 
@@ -186,6 +186,7 @@ export class PosEditComponent implements OnInit {
                 birthday: date,
                 gender: this.personal.pos_gender,
                 referralconduct: this.personal.pos_referral_code,
+                // profile: this.personal.pos_profile_img
                 }),
                 contacts: this.fb.group({
                     email: this.personal.pos_email,
@@ -198,18 +199,23 @@ export class PosEditComponent implements OnInit {
                 documents: this.fb.group({
                     aadharnumber: this.personal.doc_aadhar_no,
                     pannumber: this.personal.doc_pan_no,
+                    // aadharfront: this.personal.doc_aadhar_front_img,
+                    // aadharback: this.personal.doc_aadhar_back_img,
+                    // pancard: this.personal.doc_pan_img
 
                 }),
                 educationlist: this.fb.group({
                     qualification: this.personal.doc_education,
+                    education: this.personal.doc_edu_certificate_img
                 }),
                 bankdetails: this.fb.group({
                     bankname: this.personal.bank_name,
                     bankbranch: this.personal.branch_name,
                     ifsccode: this.personal.ifsc_code,
-                    accountnumber: this.personal.bank_acc_no
+                    accountnumber: this.personal.bank_acc_no,
+                    // chequeleaf: this.personal.check_leaf_upload_img
                 }),
-                profile: this.personal.pos_profile_img,
+                // profile: this.personal.pos_profile_img,
                 aadharfront: this.personal.doc_aadhar_front_img,
                 aadharback: this.personal.doc_aadhar_back_img,
                 pancard: this.personal.doc_pan_img,

@@ -1,11 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="center start" class="h-100">
     <div class="col-md-8">
         <div class="addpos_page">
+                <button mat-raised-button type="button" color="primary" class="btn btn-primary float-left" [routerLink]="['/pos']"><mat-icon class="material-icons">keyboard_backspace</mat-icon><span>Back</span></button>
             <form [formGroup]="form" fxFlex="100" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-registration">
                 <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
                     <mat-card-subtitle><h3>Register</h3></mat-card-subtitle>
                     <mat-tab-group class="horizantal-tabs" [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
-
                         <mat-tab label="Personal" formGroupName="personal">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" autocomplete="off" required>
@@ -186,12 +186,12 @@
                             </div>
                         </mat-tab>
 
-                        <mat-tab label="Education" formGroupName="education">
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>-->
-                                <!--&lt;!&ndash;<mat-hint align="end">{{message.value.length}} /300</mat-hint>&ndash;&gt;-->
-                                <!--<mat-error *ngIf="form.controls.education.controls.qualification.hasError('required')">Educational details required</mat-error>-->
-                            <!--</mat-form-field>-->
+                        <mat-tab label="Education" formGroupName="educationlist">
+                            <mat-form-field class="w-100">
+                                <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
+                                <mat-hint align="end">{{message.value.length}} /300</mat-hint>
+                                <mat-error *ngIf="form.controls.educationlist.controls.qualification.hasError('required')">Educational details required</mat-error>
+                            </mat-form-field>
                             <div class="w-100">
                                 <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
                                 </p>
@@ -200,7 +200,7 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
-                                    <div class="error" *ngIf !="form.controls.education.controls.educationdocument.valid">Education Back Image is required</div>
+                                    <div class="error" *ngIf !="form.controls.educationlist.controls.educationdocument.valid">Education Back Image is required</div>
                                 </div>
                             </div>
                             <div class="row w-100">
@@ -212,7 +212,7 @@
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.bankdetails.valid"  type="button">Next</button>
                             </div>
                         </mat-tab>
                         <mat-tab label="Bank Details" formGroupName="bankdetails">

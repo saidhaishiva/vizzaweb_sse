@@ -95,16 +95,16 @@
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 1">Document pending</p>
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 2 && row.training_status == 0">Training pending</p>
                                              <p class="docStatus" *ngIf="row.pos_status == 3 && row.doc_verified_status == 2 && row.exam_status != 2">Examination pending</p>
-
+                                             <div class="float-left">
                                              <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                                                  <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
-                                                     <mat-icon style="text-align: center;color: white;" class="pull-right">more_vert</mat-icon>
+                                                     <mat-icon style="text-align: center;color: white;">more_vert</mat-icon>
                                                  </button>
                                              </div>
                                              <mat-menu #menu="matMenu" xPosition="before">
                                                 <span (mouseleave)="menuTrigger.closeMenu()">
                                                     <button mat-menu-item (click)="POSProfile(row.pos_id, row.pos_status)">
-                                                        View <span *ngIf="posStatus !=1">& Approve</span>
+                                                       <mat-icon class="material-icons">visibility</mat-icon><span *ngIf="posStatus !=1">View & Approve</span>
                                                     </button>
                                                     <button mat-menu-item (click)="POSEdit(row.pos_id)">
                                                         <mat-icon>mode_edit</mat-icon>
@@ -112,7 +112,7 @@
                                                     </button>
                                                 </span>
                                              </mat-menu>
-
+                                             </div>
                                              <!--<button mat-raised-button color="primary" class="text-center" (click)="POSProfile(row.pos_id, row.pos_status)">-->
                                                  <!--View <span *ngIf="posStatus !=1">& Approve</span>-->
                                              <!--</button>-->
