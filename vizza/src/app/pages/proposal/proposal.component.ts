@@ -329,10 +329,12 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = '';
-            this.familyMembers[i].ins_engage_winter_sports = '';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
+            this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
+            this.familyMembers[i].engage_manual_status = '0';
+            this.familyMembers[i].engage_winter_status = '0';
             this.familyMembers[i].ageRestriction = '';
         }
 
@@ -633,28 +635,38 @@ console.log(value,'fgh');
                                 this.toastr.error('You need to select one adult for personal accident cover');
                                 break;
                             }
-                            if (this.familyMembers[i].ins_personal_accident_applicable == '2') {
-                                if (this.familyMembers[i].ins_engage_manual_labour != '' && this.familyMembers[i].ins_engage_winter_sports != '' && this.familyMembers[i].ins_personal_accident_applicable != '') {
-                                    if (i == this.familyMembers.length - 1) {
-                                        this.insureStatus = true;
-                                    }
-                                } else {
-                                    this.errorMessage = true;
-                                    break;
-                                }
-                            } else {
-                                if (i == this.familyMembers.length - 1) {
-                                    this.insureStatus = true;
-                                }
-                            }
+
+
                         } else {
                             if (i == this.familyMembers.length - 1) {
                                 this.insureStatus = true;
                             }
                         }
-                    } else {
-                        if (i == this.familyMembers.length - 1) {
-                            this.insureStatus = true;
+                        if (this.familyMembers[i].engage_manual_status == '2') {
+                            if (this.familyMembers[i].ins_engage_manual_labour != '') {
+                                if (i == this.familyMembers.length - 1) {
+                                    this.insureStatus = true;
+                                }
+                            } else {
+                                this.errorMessage = true;
+                                this.insureStatus = false;
+                                break;
+                            }
+
+                        }  if (this.familyMembers[i].engage_winter_status == '2') {
+                            if (this.familyMembers[i].ins_engage_winter_sports != '') {
+                                if (i == this.familyMembers.length - 1) {
+                                    this.insureStatus = true;
+                                }
+                            } else {
+                                this.errorMessage = true;
+                                this.insureStatus = false;
+                                break;
+                            }
+                        } if (this.familyMembers[i].engage_manual_status == '0' && this.familyMembers[i].engage_winter_status == '0' ) {
+                            if (i == this.familyMembers.length - 1) {
+                                this.insureStatus = true;
+                            }
                         }
                     }
                 }
@@ -795,18 +807,24 @@ console.log(value,'fgh');
             }
         }
 
+    }
+    engageWinter(values: any, index, key) {
+    if(key == 'manual'){
         if (values.value == '2') {
             this.familyMembers[index].ins_engage_manual_labour = '';
-            this.familyMembers[index].ins_engage_winter_sports = '';
-
         } else {
-            this.familyMembers[index].ins_engage_manual_labour = 'Nil';
-            this.familyMembers[index].ins_engage_winter_sports = 'Nil';
+            this.familyMembers[index].ins_engage_manual_labour = 'None';
 
         }
+    }
+        if(key == 'winter'){
+            if (values.value == '2') {
+                this.familyMembers[index].ins_engage_winter_sports = '';
 
-
-
+            } else {
+                this.familyMembers[index].ins_engage_winter_sports = 'None';
+            }
+        }
     }
     sameAddress(values: any) {
         console.log(this.personal.controls['personalCity'].value);
@@ -850,19 +868,7 @@ console.log(value,'fgh');
                 event.preventDefault();
             }
         }
-        // let specialKeys = new Array();
-        // specialKeys.push(8); //Backspace
-        // specialKeys.push(9); //Tab
-        // specialKeys.push(46); //Delete
-        // specialKeys.push(36); //Home
-        // specialKeys.push(35); //End
-        // specialKeys.push(37); //Left
-        // specialKeys.push(39); //Right
-        // let keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
-        // let ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
-        // document.getElementById("error").style.display = ret ? "none" : "inline";
-        // return ret;
-        //
+
     }
 
     public data(event: any) {
@@ -1043,13 +1049,7 @@ console.log(value,'fgh');
 
 
 
-    // changeEventInsurer(event, i) {
-    //     if (event.value.length == 10) {
-    //         this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'dd/MM/y');
-    //         console.log(this.familyMembers[i].ins_dob);
-    //     }
-    //
-    // }
+
     addEvent(event, i) {
         this.setDate = this.datepipe.transform(event.value, 'dd-MM-y');
         if (this.setDate == null) {

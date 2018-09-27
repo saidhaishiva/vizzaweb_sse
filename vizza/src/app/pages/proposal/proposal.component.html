@@ -376,22 +376,38 @@
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
                     </div>
-                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 6">
+                    <div class="col-md-6" *ngIf="buyProductdetails.product_id == 6">
                       <strong>(cash benefit of Rs.1000/- for each and every completed day of hospitalization subject to a maximum of 7 days per hospitalization and 14 days per policy year .Date of admission and Date of discharge not considered.)</strong>
                     </div>
-                    <div class="col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                    <div class="col-md-12 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>personal Accident Applicable</p>
-                      <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)" required [disabled]="item.ins_accident_status" >
+                      <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
+                        <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
+                        <mat-radio-button value="0" checked="true">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                      <hr>
+                    <div class="col-md-6" *ngIf="buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8">
+                      <p>Does your occupation require you to engage in manual labour?</p>
+                      <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
                         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
+                      <div class="col-md-12"><mat-form-field class="w-100" *ngIf="item.engage_manual_status != '0' ">
+                        <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
+                      </mat-form-field></div>
                     </div>
-                    <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
-                      <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
-                    </mat-form-field></div>
-                    <div class="col-md-6"><mat-form-field class="w-100" *ngIf="(this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null) && item.ins_personal_accident_applicable != '0' ">
-                      <input matInput placeholder="Engage Winter Sport" [(ngModel)]="item.ins_engage_winter_sports" required>
-                    </mat-form-field></div>
+                      <div class="col-md-6 " *ngIf="buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8">
+                          <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
+                          <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
+                              <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
+                              <mat-radio-button value="0">No</mat-radio-button>
+                          </mat-radio-group>
+                        <div class="col-md-12"><mat-form-field class="w-100" *ngIf="item.engage_winter_status != '0' ">
+                          <input matInput placeholder="Engage Winter Sport" [(ngModel)]="item.ins_engage_winter_sports" required>
+                        </mat-form-field></div>
+                      </div>
+
                   </div>
                   <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
                     <button mat-button matStepperPrevious>Back</button>
