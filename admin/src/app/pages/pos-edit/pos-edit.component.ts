@@ -331,9 +331,10 @@ export class PosEditComponent implements OnInit {
             'branch_name': this.form['controls'].bankdetails['controls']['bankbranch'].value,
             'ifsc_code': this.form['controls'].bankdetails['controls']['ifsccode'].value,
             "pos_profile_img": this.profile == undefined ? '' : this.profile,
-            'check_leaf_upload_img':this.chequeleaf
+            'check_leaf_upload_img':this.chequeleaf,
         };
         this.settings.loadingSpinner = true;
+        //update pos profile service
         this.common.updateAdminPosProfile(data).subscribe(
             (successData) => {
                 this.updateaAminPosProfileSuccess(successData);
@@ -343,21 +344,82 @@ export class PosEditComponent implements OnInit {
                 this.updateaAminPosProfileFailure(error);
             }
         );
+
         console.log(data);
     }
     updateaAminPosProfileSuccess(successData) {
         console.log(successData);
         this.settings.loadingSpinner = false;
+
         if (successData.IsSuccess) {
+            this.getPosProfileList();
             this.toastr.success(successData.ResponseObject);
             this.router.navigate(['/pos']);
-        }
 
+            if(this.personal.doc_verified_status){
+            const data = {
+                "platform": "web",
+                "admin_id": this.auth.getAdminId(),
+                "admin_roleid": this.auth.getAdminRoleId(),
+                "pos_id": this.posid,
+                "pos_pan_no": this.form['controls'].documents['controls']['pannumber'].value,
+                "pos_education": this.form['controls'].educationlist['controls']['qualification'].value,
+                "pos_aadhar_no": this.form['controls'].documents['controls']['aadharnumber'].value,
+                "pos_aadhar_front_img": this.aadharfront,
+                "pos_aadhar_back_img": this.aadharback,
+                "pos_pan_img": this.pancard,
+                "pos_education_doc_img": this.education
+            };
+        console.log(data);
+        if (this.aadharfront == '') {
+                this.toastr.error('Please upload aadhar front page');
+            } else if (this.aadharback == '') {
+                this.toastr.error('Please upload aadhar back page');
+            } else if (this.pancard == '') {
+                this.toastr.error('Please upload pancard');
+            } else if (this.education == '') {
+                this.toastr.error('Please upload educational documents');
+            }else if (this.chequeleaf == ''){
+                this.toastr.error('please upload chequeleaf')
+            }else {
+            this.updateDocuments(data);
+        }
+        }
+        }else {
+            this.toastr.error(successData.ErrorObject);
+        }
+        // else{
+        //     this.router.navigate(['/pos']);
+        // }
     }
     updateaAminPosProfileFailure(error) {
         console.log(error);
         this.settings.loadingSpinner = false;
     }
+
+    //update docment details service
+    updateDocuments(data) {
+        console.log(data);
+        this.common.updateDocDetails(data).subscribe(
+            (successData) => {
+                this.updateDocumentsSuccess(successData);
+            },
+            (error) => {
+                this.updateDocumentsProfileFailure(error);
+            }
+        );
+    }
+
+    public updateDocumentsSuccess(successData) {
+        if (successData.IsSuccess) {
+            console.log(successData, 'successData2');
+            this.getPosProfileList();
+        }
+    }
+    public updateDocumentsProfileFailure(error) {
+      console.log(error);
+    }
+
 
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         this.selectedIndex = tabChangeEvent.index;
