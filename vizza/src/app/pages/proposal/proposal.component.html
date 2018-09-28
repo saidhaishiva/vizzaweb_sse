@@ -387,7 +387,7 @@
                       </mat-radio-group>
                     </div>
                       <hr>
-                    <div class="col-md-6" *ngIf="buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8">
+                    <div class="col-md-6" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>Does your occupation require you to engage in manual labour?</p>
                       <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
                         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
@@ -397,7 +397,7 @@
                         <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
                       </mat-form-field></div>
                     </div>
-                      <div class="col-md-6 " *ngIf="buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8">
+                      <div class="col-md-6 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                           <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
                           <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
                               <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>

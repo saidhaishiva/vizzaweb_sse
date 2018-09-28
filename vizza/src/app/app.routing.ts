@@ -56,6 +56,7 @@ import {AviationComponent} from './pages/aviation/aviation.component';
 import {ErectionComponent} from './pages/erection/erection.component';
 import {DirectorsComponent} from './pages/directors/directors.component';
 import {HealthComponent} from './health/health.component';
+import {ReligarePaymentSuccessComponent} from './pages/religare-payment-success/religare-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -122,7 +123,8 @@ export const routes: Routes = [
             { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
             { path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
-            { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} }
+            { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
+            { path: 'religare-payment-success/:id', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
 
         ]
     },

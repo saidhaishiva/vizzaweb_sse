@@ -480,10 +480,11 @@ export class PosprofileComponent implements OnInit {
       border-top: 2px solid #1c9a42;
       }
       .c-card footer h5 {
-        color: #1c9a42;
+        color: #000;
+        font-weight: bold;
       }
       .c-card footer p {
-        font-size: 19px;
+        font-size: 15px;
         margin-bottom: 0;
       }
        .c-card table  tr td {
@@ -497,7 +498,8 @@ export class PosprofileComponent implements OnInit {
           margin-bottom: 8px;
       }
        .c-card table  tr td:first-child {
-        color: #1c9a42;
+        color: #000;
+        font-weight: bold;
       }
       .c-card .print-footer, .c-card .print-sign,  .c-card .c-content{
       width: 100%;
@@ -519,6 +521,9 @@ export class PosprofileComponent implements OnInit {
     }
     .c-card .print-address{
          float: left;
+         }
+    .c-card .c-content p{
+    text-align: justify}
     }
         </style>
         </head>
@@ -556,7 +561,7 @@ export class PosprofileComponent implements OnInit {
      .print-head h5{
      font-size: 12px;
      padding-right: 15px;
-     margin-bottom: 5px;
+     margin-bottom: -15px;
      }
     .c2-card h5{
       color: #006738;
@@ -651,6 +656,9 @@ export class PosprofileComponent implements OnInit {
      width: 250px;
      margin-top: 15px;
   }
+  .c2-card .c-content p{
+  text-align: justify;
+  }
   }
   
         </style>
@@ -689,7 +697,7 @@ export class PosprofileComponent implements OnInit {
      .print-head h5{
      font-size: 12px;
      padding-right: 15px;
-     margin-bottom: 5px;
+     margin-bottom: -15px;
      }
     .c2-card h5{
       color: #006738;

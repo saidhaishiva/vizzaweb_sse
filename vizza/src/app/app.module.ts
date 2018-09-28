@@ -120,6 +120,7 @@ import {DirectorsComponent} from './pages/directors/directors.component';
 import {BankersComponent} from './pages/bankers/bankers.component';
 import {ErectionComponent} from './pages/erection/erection.component';
 import { HealthComponent } from './health/health.component';
+import { ReligarePaymentSuccessComponent } from './pages/religare-payment-success/religare-payment-success.component';
 
 @NgModule({
   imports: [
@@ -223,7 +224,8 @@ import { HealthComponent } from './health/health.component';
       DirectorsComponent,
       BankersComponent,
       ErectionComponent,
-      HealthComponent
+      HealthComponent,
+      ReligarePaymentSuccessComponent
   ],
   providers: [
       AppSettings,
