@@ -633,10 +633,12 @@
 
                         <!--Appointment letter-->
                         <div class="certificate-bg" *ngIf="currentTab == 'Appointment Letter'">
-                            <div class="container mb-1 mt-1 w-100 text-right">
+                            <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
                                 <button mat-raised-button class="text-right editBtn" (click)="printAppointment()">Print & Download
                                     <mat-icon>print</mat-icon>
                                 </button>
+                            </div>
                             </div>
                             <div class="container pt-7 pb-3" id="pos-cirtificate">
                                 <div id="appointment">
@@ -669,11 +671,11 @@
                                                 <div class="col-md-6 print-address">
                                                     <table>
                                                         <tr>
-                                                            <td>Date</td>
+                                                            <td>Date:</td>
                                                             <td>{{personal.appointment_date | date:'dd-MMM-yy'}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>POS’P ID</td>
+                                                            <td>POS’P ID:</td>
                                                             <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
@@ -681,7 +683,7 @@
                                                             <td>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Address</td>
+                                                            <td>Address:</td>
                                                             <td>
                                                                 <p class="text-capitalize" >
                                                                     <span>{{personal.pos_address1}}</span>
@@ -710,14 +712,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 mt-5 c-content">
+                                        <div class="col-md-12 mt-5 c-content text-justify">
                                             <p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales
                                                 Person.</p>
                                             <p>This is to confirm that you have successfully completed the prescribed training and have also
                                                 passed the examination specified for Point of Sales examination conducted by
                                                 <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
                                                 Person for Non-life and Health lnsurers. Your personal details are as under:</p>
-                                            <p><strong>Aadhaar No:</strong></p>
+                                            <p><strong>Aadhaar No: {{personal.doc_aadhar_no}}</strong></p>
                                             <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
                                                 intermediary) to market products categorized and identified under the Guidelines only.</p>
                                             <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
@@ -771,9 +773,9 @@
                                         </div>
                                     </section>
                                     <section class="row mt-5">
-                                        <div class="c-content w-100">
-                                            <h5 class="c-title"><span>This is to certificate that</span></h5>
-                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span> <strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                        <div class="c-content w-100 text-justify">
+                                            <h5 class="c-title"><span>This is to certify that</span></h5>
+                                            <p> <strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
                                             <p>The Said Candidate, had registered for the online training program on
@@ -785,15 +787,15 @@
                                         <div class="col-md-12">
                                             <table>
                                                 <tr>
-                                                    <td>Place</td>
+                                                    <td>Place:</td>
                                                     <td>Chennai</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Date</td>
+                                                    <td>Date:</td>
                                                     <td>{{personal.training_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID</td>
+                                                    <td>POS’P ID:</td>
                                                     <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
@@ -843,29 +845,29 @@
                                     </section>
                                     <section class="row mt-5">
                                         <div class="c-content text-center w-100">
-                                            <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span><strong>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
+                                            <h5 class="c-title"><span>This is to certify that</span></h5>
+                                            <p><strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}</strong></p>
                                             <p>passed the Point of Sales Person Examination held on</p>
                                             <p>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</p>
                                             <p>and qualified under the stream of</p>
-                                            <p>Point of Sales Person</p>
+                                            <p><strong>Point of Sales Person</strong></p>
                                             <p>as per regulations 2017 of</p>
-                                            <p>Insurance Regulatory and Development Authority</p>
+                                            <p><strong>Insurance Regulatory and Development Authority</strong></p>
                                         </div>
                                     </section>
                                     <section class="row mt-5">
                                         <div class="col-md-12">
                                             <table>
                                                 <tr>
-                                                    <td>Place</td>
+                                                    <td>Place:</td>
                                                     <td>Chennai</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Date</td>
+                                                    <td>Date:</td>
                                                     <td>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID</td>
+                                                    <td>POS’P ID:</td>
                                                     <td>VIZAA/POS'P/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>

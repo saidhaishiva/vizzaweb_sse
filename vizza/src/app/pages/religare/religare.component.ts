@@ -907,8 +907,6 @@ array: any;
 
     //Create Proposal
     proposal() {
-        console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareDatathis.totalReligareData')
-        console.log(this.religareQuestionsList, 'this.religareQuestionsListthis.religareQuestionsList')
         this.totalData = {
             'platform': 'web',
             'proposal_id': '1',
@@ -928,7 +926,6 @@ array: any;
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
         };
         if (!this.back){
-            console.log("FFDFASFSDFSDFSFSD");
             this.processDiseaseData(this.totalData);
         }
 
@@ -962,7 +959,7 @@ array: any;
             this.lastStepper.next();
 
         } else {
-
+            this.stepback();
             this.toastr.error(successData.ErrorObject);
         }
     }

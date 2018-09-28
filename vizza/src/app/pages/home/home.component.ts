@@ -41,9 +41,9 @@ export class HomeComponent implements OnInit {
       });
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
-      // this.settings.HomeSidenavUserBlock = false;
-       //this.settings.sidenavIsOpened = false;
-        // this.settings.sidenavIsPinned = false;
+      this.settings.HomeSidenavUserBlock = true;
+       this.settings.sidenavIsOpened = true;
+        this.settings.sidenavIsPinned = true;
       console.log(this.settings, 'this.settings');
       this.commentBox = false;
       this.selectDate = '';

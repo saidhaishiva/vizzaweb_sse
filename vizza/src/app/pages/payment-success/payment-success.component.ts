@@ -41,20 +41,7 @@ export class PaymentSuccessComponent implements OnInit {
       if ( this.purchasetoken != undefined) {
           this.setPurchaseStatus();
       }
-      // let oReq = new XMLHttpRequest();
-      // console.log('service listener');
-      // oReq.addEventListener('load', (evt) => this.reqListener(evt));
-      // // let formData = new FormData();
-      // // console.log(formData);
-      // // console.log(formData.get('transactionRefNum'));
-
-
-
-      console.log(this.proposalid, 'this.proposalidthis.proposalid');
   }
-  reqListener (event) {
-        console.log(event, 'evennnnnnttttddddddddd');
-    }
 
     setPurchaseStatus() {
         const data = {
@@ -65,13 +52,6 @@ export class PaymentSuccessComponent implements OnInit {
             'purchase_token' : this.purchasetoken,
             'proposal_id' : this.proposalid
         }
-        // const data = {
-        //     "platform": "web",
-        //     "proposal_id": "14",
-        //     "purchase_token": "eb51645c48c65c63fa9ab0d5304c89d5",
-        //     "user_id": "0",
-        //     "role_id": "4"
-        // }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
                 this. purchaseStatusSuccess(successData);
