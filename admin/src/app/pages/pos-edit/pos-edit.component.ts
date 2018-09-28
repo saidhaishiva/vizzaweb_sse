@@ -49,7 +49,6 @@ export class PosEditComponent implements OnInit {
     image: any;
     webhost: any;
     getUrl1: any;
-    size: number;
     url: string;
     selectedtab: number;
     type: any;
@@ -78,6 +77,9 @@ export class PosEditComponent implements OnInit {
     public documentStatus: any;
     public posid: any;
     public posstatus: any;
+    public posDataAvailable : boolean;
+    imagepath: any;
+    size: any;
 
   constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe,
               public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService,
@@ -94,8 +96,9 @@ export class PosEditComponent implements OnInit {
       this.selectedIndex = 0;
       this.profile = '';
       this.img = false;
+      this.posDataAvailable = false;
       this.form = this.fb.group({
-          personal: this.fb.group({
+          personalEdit: this.fb.group({
               id: null,
               firstname: ['', Validators.compose([Validators.required])],
               lastname: ['', Validators.compose([Validators.required])],
@@ -103,7 +106,6 @@ export class PosEditComponent implements OnInit {
               gender: ['', Validators.compose([Validators.required])],
               referralconduct: ['', Validators.compose( [ Validators.pattern('[6789][0-9]{9}')])],
               profile: ['',Validators.compose( [Validators.required])]
-
           }),
           contacts: this.fb.group({
               email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -172,21 +174,20 @@ export class PosEditComponent implements OnInit {
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
-            this.documentStatus = this.personal.doc_verified_status;
+            this.posDataAvailable = true;
             let date;
             date = this.personal.pos_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
             date = this.datepipe.transform(date, 'y-MM-dd');
             console.log(date, 'dateee');
             this.form = this.fb.group({
-                personal: this.fb.group({
+                personalEdit: this.fb.group({
                 id: null,
                 firstname: this.personal.pos_firstname,
                 lastname: this.personal.pos_lastname,
                 birthday: date,
                 gender: this.personal.pos_gender,
                 referralconduct: this.personal.pos_referral_code,
-                // profile: this.personal.pos_profile_img
                 }),
                 contacts: this.fb.group({
                     email: this.personal.pos_email,
@@ -199,10 +200,6 @@ export class PosEditComponent implements OnInit {
                 documents: this.fb.group({
                     aadharnumber: this.personal.doc_aadhar_no,
                     pannumber: this.personal.doc_pan_no,
-                    // aadharfront: this.personal.doc_aadhar_front_img,
-                    // aadharback: this.personal.doc_aadhar_back_img,
-                    // pancard: this.personal.doc_pan_img
-
                 }),
                 educationlist: this.fb.group({
                     qualification: this.personal.doc_education,
@@ -213,43 +210,127 @@ export class PosEditComponent implements OnInit {
                     bankbranch: this.personal.branch_name,
                     ifsccode: this.personal.ifsc_code,
                     accountnumber: this.personal.bank_acc_no,
-                    // chequeleaf: this.personal.check_leaf_upload_img
                 }),
-                // profile: this.personal.pos_profile_img,
-                aadharfront: this.personal.doc_aadhar_front_img,
-                aadharback: this.personal.doc_aadhar_back_img,
-                pancard: this.personal.doc_pan_img,
-                education: this.personal.doc_edu_certificate_img,
-                chequeleaf: this.personal.check_leaf_upload_img,
         });
+            this.profile = this.personal.pos_profile_img;
+            this.aadharfront = this.personal.doc_aadhar_front_img;
+            this.aadharback = this.personal.doc_aadhar_back_img;
+            this.pancard = this.personal.doc_pan_img;
+            this.education = this.personal.doc_edu_certificate_img;
+            this.chequeleaf = this.personal.check_leaf_upload_img;
         }
     }
 
     setPosProfileFailure(error) {
         console.log(error);
     }
+//Image Upload service
+    onUploadFinished(event) {
+        this.getUrl = event[1];
+        const data = {
+            'platform': 'web',
+            "role_id": this.auth.getAdminRoleId(),
+            'uploadtype': 'single',
+            'images': this.getUrl,
+        };
+        console.log(data, 'dattattatata');
+        this.common.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
 
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'aadhar front') {
+                this.aadharfront = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar back') {
+                this.aadharback = this.fileUploadPath;
+            }
+            if (this.type == 'pancard') {
+                this.pancard = this.fileUploadPath;
+            }
+            if (this.type == 'education') {
+                this.education = this.fileUploadPath;
+            }
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
+            }
+            if (this.type == 'chequeleaf'){
+                this.chequeleaf = this.fileUploadPath;
+            }
+            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+
+
+    }
+    public fileUploadFailure(error) {
+        console.log(error);
+    }
+
+    labSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.imagepath = '';
+            this.fileUploadPath = '';
+            this.size = '';
+            this.getUrl = '';
+            this.url = '';
+            this.reset();
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    readUrl(event: any, type) {
+        this.type = type;
+        this.size = event.srcElement.files[0].size;
+        console.log(this.size);
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = (event: any) => {
+                this.getUrl1 = [];
+                this.url = event.target.result;
+                this.getUrl = this.url.split(',');
+                this.getUrl1.push(this.url.split(','));
+                this.onUploadFinished(this.getUrl);
+
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+    }
+//Update admin pos profile
     updateAdminPosProfile(){
         const data =  {
             "platform": "web",
             "admin_id": this.auth.getAdminId(),
             "admin_roleid": this.auth.getAdminRoleId(),
             "pos_id": this.posid,
-            "pos_firstname": this.form ['personal']['firstname'].value,
-            "pos_lastname": this.form ['personal']['lastname'].value,
-            "pos_dob": this.dob,
-            "pos_gender": this.form ['personal']['gender'].value,
-            "pos_mobileno": this.form ['contacts']['phone1'].value,
-            "pos_email": this.form ['contacts']['email'].value,
-            "pos_alternate_mobileno": this.form ['contacts']['phone2'].value,
-            "pos_address1": this.form ['contacts']['address1'].value,
-            "pos_address2": this.form ['contacts']['address2'].value,
-            "pos_postalcode": this.form ['contacts']['pincode'].value,
+            "pos_firstname": this.form['controls'].personalEdit['controls']['firstname'].value,
+            "pos_lastname": this.form['controls'].personalEdit['controls']['lastname'].value,
+            "pos_dob": this.dob == '' ? this.form['controls'].personalEdit['controls']['birthday'].value : this.dob,
+            "pos_gender": this.form['controls'].personalEdit['controls']['gender'].value,
+            "pos_mobileno": this.form['controls'].contacts['controls']['phone1'].value,
+            "pos_email": this.form['controls'].contacts['controls']['email'].value,
+            "pos_alternate_mobileno": this.form['controls'].contacts['controls']['phone2'].value,
+            "pos_address1": this.form['controls'].contacts['controls']['address1'].value,
+            "pos_address2": this.form['controls'].contacts['controls']['address1'].value,
+            "pos_postalcode": this.form['controls'].contacts['controls']['pincode'].value,
+            'bank_name': this.form['controls'].bankdetails['controls']['bankname'].value,
+            'bank_acc_no': this.form['controls'].bankdetails['controls']['accountnumber'].value,
+            'branch_name': this.form['controls'].bankdetails['controls']['bankbranch'].value,
+            'ifsc_code': this.form['controls'].bankdetails['controls']['ifsccode'].value,
             "pos_profile_img": this.profile == undefined ? '' : this.profile,
-            'bank_name': this.form ['bankdetails']['bankname'].value,
-            'bank_acc_no': this.form ['bankdetails']['accountnumber'].value,
-            'branch_name': this.form ['bankdetails']['bankbranch'].value,
-            'ifsc_code': this.form ['bankdetails']['ifsccode'].value,
             'check_leaf_upload_img':this.chequeleaf
         };
         this.settings.loadingSpinner = true;
@@ -269,8 +350,9 @@ export class PosEditComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
-            // this.settings.userId = this.auth.getPosUserId();
+            this.router.navigate(['/pos']);
         }
+
     }
     updateaAminPosProfileFailure(error) {
         console.log(error);
@@ -289,7 +371,7 @@ export class PosEditComponent implements OnInit {
         this.selectedIndex -= 1;
     }
     checkGender() {
-        if (this.form['controls'].personal['controls']['gender'].value != '' && this.form['controls'].personal['controls']['gender'].value != undefined) {
+        if (this.form['controls'].personalEdit['controls']['gender'].value != '' && this.form['controls'].personalEdit['controls']['gender'].value != undefined) {
             this.mismatchError = '';
         } else {
             this.mismatchError = 'Gender is required ';
@@ -360,7 +442,7 @@ export class PosEditComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 // this.dob = event.value._i;
-                let birth = this.form.value['personal']['birthday'].value;
+                // let birth = this.form['controls'].personalEdit['controls']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
                 console.log(dob,'dob');
