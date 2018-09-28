@@ -249,7 +249,7 @@
                                 <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="15" minlength="8" autocomplete="off">
+                                <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="25" minlength="8" autocomplete="off">
                                 <mat-icon matSuffix>account_balance</mat-icon>
                                 <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
                                 <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
