@@ -388,9 +388,7 @@ export class PosEditComponent implements OnInit {
         }else {
             this.toastr.error(successData.ErrorObject);
         }
-        // else{
-        //     this.router.navigate(['/pos']);
-        // }
+
     }
     updateaAminPosProfileFailure(error) {
         console.log(error);
