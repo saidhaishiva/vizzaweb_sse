@@ -142,15 +142,15 @@ export class RelianceComponent implements OnInit {
             maritalStatus: ['', Validators.required],
             occupation: ['', Validators.required],
             nationality: ['', Validators.compose([ Validators.minLength(8)])],
-            passportNo: ['', Validators.required],
+            // passportNo: ['', Validators.required],
             personalMidname: '',
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
-            personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
+            // personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalFax: ['', Validators.compose([ Validators.minLength(10)])],
-            personalGst: ['', Validators.compose([Validators.minLength(15)])],
+            // personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
             personalAddress3: '',
@@ -162,7 +162,11 @@ export class RelianceComponent implements OnInit {
             personalArea: ['', Validators.required],
             personalNearestLandMark: '',
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalMobile2: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalPhone: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalPhone2: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: ['', Validators.required],
@@ -180,20 +184,22 @@ export class RelianceComponent implements OnInit {
 
         });
         this.nomineeDetails = this.fb.group({
-            'nomineeFirstName': ['', Validators.required],
-            'nomineeMidName': '',
-            'nomineeLastName': ['', Validators.required],
-            'nomineeRelationship': ['', Validators.required],
-            'nomineeAddress': ['', Validators.required],
-            'nomineeAddress2': ['', Validators.required],
-            'nomineeAddress3': '',
-            'nomineePincode': ['', Validators.required],
-            'nomineeCountry': ['', Validators.required],
-            'nomineeState': ['', Validators.required],
-            'nomineeDistrict': ['', Validators.required],
-            'nomineeCity': ['', Validators.required],
-            'nomineeArea': ['', Validators.required],
-            'nearestLandMark': ['', Validators.required]
+            nomineeFirstName: ['', Validators.required],
+            nomineeMidName: '',
+            nomineeLastName: ['', Validators.required],
+            nomineeRelationship: ['', Validators.required],
+            nomineeAddress: ['', Validators.required],
+            nomineeAddress2: ['', Validators.required],
+            nomineeAddress3: '',
+            nomineePincode: ['', Validators.required],
+            nomineeCountry: ['', Validators.required],
+            nomineeState: ['', Validators.required],
+            nomineeDistrict: ['', Validators.required],
+            nomineeCity: ['', Validators.required],
+            nomineeArea: ['', Validators.required],
+            nearestLandMark: ['', Validators.required],
+            nomineeTitle: ['', Validators.required],
+            nomineeDob: ['', Validators.required]
         });
 
 
@@ -313,23 +319,8 @@ export class RelianceComponent implements OnInit {
                 occupation: ['', Validators.required],
                 personalWidth: ['', Validators.required],
                 personalHeight: ['', Validators.required],
-                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
-                personalGst: ['', Validators.compose([Validators.minLength(15)])],
-                personalAddress: ['', Validators.required],
+
                 sameAsProposer: false,
-                personalAddress2: ['', Validators.required],
-                personalPincode: ['', Validators.required],
-                personalCity: ['', Validators.required],
-                personalState: ['', Validators.required],
-                personalEmail: ['', Validators.required],
-                personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-                personalAltnumber: '',
-                residenceAddress: ['', Validators.required],
-                residenceAddress2: [''],
-                residencePincode: ['', Validators.required],
-                residenceCity: ['', Validators.required],
-                residenceState: ['', Validators.required],
                 sameas: false,
                 type: '',
                 cityHide: '',
@@ -561,7 +552,6 @@ export class RelianceComponent implements OnInit {
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                console.log(this.mobileNumber, 'jjjjjjjjjjjjjjjjjjj')
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                 }
@@ -709,15 +699,15 @@ export class RelianceComponent implements OnInit {
                 occupation: this.getStepper1.occupation,
                 nationality: this.getStepper1.nationality,
                 personalFax: this.getStepper1.personalFax,
-                passportNo: this.getStepper1.passportNo,
+                // passportNo: this.getStepper1.passportNo,
                 personalDob: this.getStepper1.personalDob,
                 personalArea: this.getStepper1.personalArea,
-                personalAadhar: this.getStepper1.personalAadhar,
+                // personalAadhar: this.getStepper1.personalAadhar,
                 personalrelationship: this.getStepper1.personalrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 personalGender: this.getStepper1.personalGender,
                 personalPan: this.getStepper1.personalPan,
-                personalGst: this.getStepper1.personalGst,
+                // personalGst: this.getStepper1.personalGst,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalAddress3: this.getStepper1.personalAddress3,
@@ -728,7 +718,11 @@ export class RelianceComponent implements OnInit {
                 personalCountry: this.getStepper1.personalCountry,
                 personalDistrict: this.getStepper1.personalDistrict,
                 personalEmail: this.getStepper1.personalEmail,
+                personalEmail2: this.getStepper1.personalEmail2,
+                personalMobile2: this.getStepper1.personalMobile2,
                 personalMobile: this.getStepper1.personalMobile,
+                personalPhone: this.getStepper1.personalPhone,
+                personalPhone2: this.getStepper1.personalPhone2,
                 personalAltnumber: this.getStepper1.personalAltnumber,
                 residenceAddress: this.getStepper1.residenceAddress,
                 residenceAddress2: this.getStepper1.residenceAddress2,
@@ -757,30 +751,13 @@ export class RelianceComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getStepper2.items[i].personalAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalWidth.patchValue(this.getStepper2.items[i].personalWidth);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
                 this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
 
             }
@@ -804,7 +781,9 @@ export class RelianceComponent implements OnInit {
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
                 nomineeCity: this.getNomineeData.nomineeCity,
                 nomineeArea: this.getNomineeData.nomineeArea,
-                nearestLandMark: this.getNomineeData.nearestLandMark
+                nearestLandMark: this.getNomineeData.nearestLandMark,
+                nomineeTitle: this.getNomineeData.nomineeTitle,
+                nomineeDob: this.getNomineeData.nomineeDob
             });
         }
         setTimeout(() => {
@@ -876,30 +855,12 @@ export class RelianceComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue(this.personal.controls['personalAadhar'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue(this.personal.controls['personalCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue(this.personal.controls['personalPincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue(this.personal.controls['personalState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
-            // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
+
 
 
         } else {
@@ -909,30 +870,12 @@ export class RelianceComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
-            // this.previousInsuranceStatus1[0] = false;
+
 
         }
 
