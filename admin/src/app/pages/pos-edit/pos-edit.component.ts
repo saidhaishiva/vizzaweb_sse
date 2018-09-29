@@ -110,7 +110,7 @@ export class PosEditComponent implements OnInit {
           contacts: this.fb.group({
               email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
               phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-              phone2: '',
+              phone2: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
               address1: ['', Validators.compose([Validators.required])],
               address2: '',
               pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])]

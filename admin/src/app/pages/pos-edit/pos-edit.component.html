@@ -93,6 +93,7 @@
                                     <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
                                            minlength="10" maxlength="10" formControlName="phone2">
                                     <i class="fas fa-phone" matSuffix></i>
+                                    <mat-error *ngIf="form.controls.contacts.controls.phone2.hasError('pattern')">Alternate Enter valid  Mobile Number</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput formControlName="address1" placeholder="Address1" autocomplete="off" required>
