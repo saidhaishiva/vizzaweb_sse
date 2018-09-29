@@ -90,8 +90,7 @@
                                 <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
-                                       minlength="10" maxlength="10" formControlName="phone1" autocomplete="off" required>
+                                <input matInput (keypress)="keyPress($event)" placeholder="Mobile No" minlength="10" maxlength="10" formControlName="phone1" autocomplete="off" required>
                                 <i class="fas fa-phone" matSuffix></i>
                                 <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
                                     Mobile Number is required
@@ -100,9 +99,9 @@
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
-                                       minlength="10" maxlength="10" formControlName="phone2">
+                                <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No" minlength="10" maxlength="10" formControlName="phone2">
                                 <i class="fas fa-phone" matSuffix></i>
+                                <mat-error *ngIf="form.controls.contacts.controls.phone2.hasError('pattern')">Alternate Enter valid  Mobile Number</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <input matInput formControlName="address1" placeholder="Address1" autocomplete="off" required>
