@@ -62,6 +62,8 @@
                                                             </mat-form-field>
                                                             <mat-form-field class="w-100" *ngIf="tabValue == 'active'">
                                                                 <mat-select placeholder="Manager List" [(ngModel)]="posManager" (change)="filtermanagerWise()">
+                                                                    <mat-option  value="all" (change)="allActiveLists()"> All
+                                                                    </mat-option>
                                                                     <mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">
                                                                         {{list.manager_name}}
                                                                     </mat-option>
@@ -82,17 +84,19 @@
                             </div>
 
                             <ngx-datatable
+                                    #table
                                     class="material"
-                                    [rows]="rows"
-                                    [columnMode]="'force'"
                                     [headerHeight]="50"
+                                    [limit]="10"
+                                    [columnMode]="'force'"
                                     [footerHeight]="50"
                                     [rowHeight]="'auto'"
-                                    [externalPaging]="true"
-                                    [count]="totalPOS"
-                                    [offset]="pageOffSet"
-                                    [limit]="recordsperpage"
-                                    (page)='setPage($event)'>
+                                    [rows]="rows"
+                                    [loadingIndicator]="loadingIndicator"
+                                    [selected]="selected"
+                                    [selectionType]="'checkbox'"
+                                    (select)='onSelect($event)' >
+
 
                                 <ngx-datatable-column name="pos_firstname">
                                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row"  >
