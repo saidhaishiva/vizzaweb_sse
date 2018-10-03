@@ -143,14 +143,14 @@
                                              <!--</div>-->
 
                                              <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
-                                                 <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                                                 <div fxFlex="30"  fxLayout="column">
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                      <mat-icon class="muted-text" matTooltip="Mobile Number">phone</mat-icon>
                                                         <span>{{row.pos_mobileno}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                      <mat-icon class="muted-text" matTooltip="Email Id">mail</mat-icon>
-                                                     <span>{{row.pos_email}}</span>
+                                                     <span>{{row.pos_email | limitTo: 12}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                          <mat-icon class="muted-text" matTooltip="Referral Phone Number">phone</mat-icon>

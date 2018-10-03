@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule} from '@angular/material';
 import { PdfViewerModule} from 'ng2-pdf-viewer';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
+import { TruncatePipe} from './shared/limitTo';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -122,6 +123,7 @@ import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
         NotFoundComponent,
         ErrorComponent,
         SidenavComponent,
+        TruncatePipe,
         VerticalMenuComponent,
         HorizontalMenuComponent,
         BreadcrumbComponent,
