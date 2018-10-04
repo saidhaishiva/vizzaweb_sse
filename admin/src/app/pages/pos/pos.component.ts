@@ -90,6 +90,11 @@ export class PosComponent implements OnInit {
         this.filterStatus = true;
         this.getPOSList('active');
     }
+    allActiveLists() {
+        this.posManager = '';
+        this.getPOSList('active');
+
+    }
     filterPending() {
         this.temp = [];
         this.rows = [];
@@ -102,7 +107,7 @@ export class PosComponent implements OnInit {
                     POS.push(this.allPosLists[i]);
                     this.temp = [...POS];
                     this.rows = POS;
-                    this.totalPOS = POS.length;
+                    this.totalPOS = this.allPosLists[i].length;
                 }
             }
         } else if (this.selectedList == 'Documents') {
@@ -112,7 +117,7 @@ export class PosComponent implements OnInit {
                     POS.push(this.allPosLists[i]);
                     this.temp = [...POS];
                     this.rows = POS;
-                    this.totalPOS = this.temp.length;
+                    this.totalPOS = this.allPosLists[i].length;
                     console.log(this.temp, 'this.temp');
                 }
             }
@@ -124,7 +129,7 @@ export class PosComponent implements OnInit {
                     POS.push(this.allPosLists[i]);
                     this.temp = [...POS];
                     this.rows = POS;
-                    this.totalPOS = this.temp.length;
+                    this.totalPOS = this.allPosLists[i].length;
                     console.log(this.temp, 'this.temp');
                 }
             }
@@ -153,7 +158,7 @@ export class PosComponent implements OnInit {
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId(),
             'status': '',
-            'pos_manager_id': this.posManager ? this.posManager : ''
+            'pos_manager_id': this.posManager && this.posManager != 'all' ? this.posManager : ''
         };
         this.common.getPOSList(data).subscribe(
             (successData) => {
@@ -166,13 +171,12 @@ export class PosComponent implements OnInit {
     }
     getPOSListSuccess(successData, value) {
         this.settings.loadingSpinner = false;
+        this.loadingIndicator = false;
         if (successData.IsSuccess) {
-            console.log(successData.ResponseObject[0].pos_status, 'poss');
+            console.log(value, 'value');
             this.allPosLists = successData.ResponseObject;
-
-
-            let POS = [];
             if (value == 'inactive') {
+                let POS = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '0') {
                         this.posStatus = successData.ResponseObject[i].pos_status;
@@ -183,34 +187,38 @@ export class PosComponent implements OnInit {
                     }
                 }
             } else if (value == 'active') {
+                let POS = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '1') {
                         this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
-                        this.totalPOS = successData.ResponseObject.length;
+                        this.totalPOS = POS.length;
+                        // console.log(this.totalPOS, 'totalPOS');
                     }
                 }
             } else if (value == 'rejected') {
+                let POS = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '2') {
                         this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
-                        this.totalPOS = successData.ResponseObject.length;
+                        this.totalPOS = POS.length;
 
                     }
                 }
             } else if (value == 'onhold') {
+                let POS = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].pos_status === '3') {
                         this.posStatus = successData.ResponseObject[i].pos_status;
                         POS.push(successData.ResponseObject[i]);
                         this.temp = [...POS];
                         this.rows = POS;
-                        this.totalPOS = successData.ResponseObject.length;
+                        this.totalPOS = POS.length;
 
                     }
                 }

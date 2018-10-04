@@ -62,6 +62,8 @@
                                                             </mat-form-field>
                                                             <mat-form-field class="w-100" *ngIf="tabValue == 'active'">
                                                                 <mat-select placeholder="Manager List" [(ngModel)]="posManager" (change)="filtermanagerWise()">
+                                                                    <mat-option  value="all" (change)="allActiveLists()"> All
+                                                                    </mat-option>
                                                                     <mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">
                                                                         {{list.manager_name}}
                                                                     </mat-option>
@@ -82,17 +84,19 @@
                             </div>
 
                             <ngx-datatable
+                                    #table
                                     class="material"
-                                    [rows]="rows"
-                                    [columnMode]="'force'"
                                     [headerHeight]="50"
+                                    [limit]="10"
+                                    [columnMode]="'force'"
                                     [footerHeight]="50"
                                     [rowHeight]="'auto'"
-                                    [externalPaging]="true"
-                                    [count]="totalPOS"
-                                    [offset]="pageOffSet"
-                                    [limit]="recordsperpage"
-                                    (page)='setPage($event)'>
+                                    [rows]="rows"
+                                    [loadingIndicator]="loadingIndicator"
+                                    [selected]="selected"
+                                    [selectionType]="'checkbox'"
+                                    (select)='onSelect($event)' >
+
 
                                 <ngx-datatable-column name="pos_firstname">
                                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row"  >
@@ -139,14 +143,14 @@
                                              <!--</div>-->
 
                                              <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
-                                                 <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                                                 <div fxFlex="30"  fxLayout="column">
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                      <mat-icon class="muted-text" matTooltip="Mobile Number">phone</mat-icon>
                                                         <span>{{row.pos_mobileno}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                      <mat-icon class="muted-text" matTooltip="Email Id">mail</mat-icon>
-                                                     <span>{{row.pos_email}}</span>
+                                                     <span>{{row.pos_email | limitTo: 12}}</span>
                                                      </p>
                                                      <p fxLayout="row" fxLayoutAlign="start center">
                                                          <mat-icon class="muted-text" matTooltip="Referral Phone Number">phone</mat-icon>
