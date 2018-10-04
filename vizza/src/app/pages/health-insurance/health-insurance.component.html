@@ -294,3 +294,12 @@
     <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
   </div>
 </div>
+
+<form action="http://localhost:4203/#/paymentSuccess"  method='POST' enctype='text/plain' #form>
+
+  <div>
+    <input type='hidden' name='csrf' value="test"/>
+    <input type='hidden' name='policyNumber' value="india"/>
+  </div>
+  <button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>
+</form>

@@ -23,9 +23,9 @@
     <div class="col-md-6 col-sm-12 col-xs-12">
       <mat-card>
         <mat-card-header><h5>Travel Insurance for..</h5></mat-card-header>
-        <form class="w-100" [formGroup]="travelinsurance">
+        <form class="w-100">
           <mat-form-field class="w-100">
-            <mat-select  placeholder="Select Your Policy" (change)="onItemChange($event.value)" [formControlName]="selectpolicy">
+            <mat-select  placeholder="Select Your Policy" (change)="onItemChange($event.value)" >
               <mat-option value="1">Family/Self</mat-option>
               <mat-option value="2">Group/Friends</mat-option>
               <mat-option value="3">Student</mat-option>
@@ -42,7 +42,7 @@
                 </div>
               </div>
             <div class="mt-3">
-              <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu" (click)="addFamily('Add Family', 3)"><i class="material-icons">add_circle_outline</i> Add Family</button>
+              <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu" (click)="addFamily('Add Family')"><i class="material-icons">add_circle_outline</i> Add Family</button>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="addFamily('Child3')" [hidden]="Child3BTn">Child3</button>
                 <button mat-menu-item (click)="addFamily('Father')" [hidden]="FatherBTn">Father</button>

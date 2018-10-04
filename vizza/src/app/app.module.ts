@@ -55,7 +55,7 @@ import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.co
 import { ApplicationsComponent } from './theme/components/applications/applications.component';
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+
 import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -64,7 +64,7 @@ import { FixappointmentComponent } from './pages/fixappointment/fixappointment.c
 import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
-import { RegisterComponent} from './pages/register/register.component';
+
 import { ProposalComponent } from './pages/proposal/proposal.component';
 import { ProposalmessageComponent } from './pages/proposal/proposalmessage/proposalmessage.component';
 import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
@@ -92,7 +92,7 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
-import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+//import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
@@ -163,7 +163,6 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
     ApplicationsComponent,
     MessagesComponent,
     UserMenuComponent,
-      ForgotPasswordComponent,
       HealthinsurancelistComponent,
       ComparelistComponent,
       HomeComponent,
@@ -172,7 +171,6 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       GrouppopupComponent,
       FixappointmentComponent,
       PosComponent,
-      RegisterComponent,
       ProposalComponent,
       ProposalmessageComponent,
       GroupmembersAlert,
@@ -195,9 +193,9 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       ConfrimAlert,
       ViewresultComponent,
       EntranceexamComponent,
-      PersonalaccidentComponent,
+     PersonalaccidentComponent,
       TravelComponent,
-      PersonalAccidentProposalComponent,
+      //PersonalAccidentProposalComponent,
       PosCertificateComponent,
       TrainingComponent,
       RelianceComponent,

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row proposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-horizontal-stepper  #stepper>
                 <mat-step [stepControl]="personal">
                     <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
                     <mat-accordion class="mt-4 w-100 float-left">
@@ -347,7 +347,7 @@
                     <ng-template matStepLabel >INSURED DETAILS</ng-template>
                     <mat-accordion class="mt-4 w-100 float-left">
                         <form [formGroup]="insureArray">
-                            <div formArrayName="items" *ngFor="let item of insureArray.get('items').controls; let i = index;">
+                            <div formArrayName="items" *ngFor="let item of insureArray.get('items'); let i = index;">
                                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title> {{insureArray['controls'].items['controls'][i]['controls'].type.value}} </mat-panel-title>

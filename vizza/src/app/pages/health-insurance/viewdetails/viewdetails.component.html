@@ -9,7 +9,7 @@
   <div class="">
     <div fxLayout="column">
       <div class="container">
-        <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
+        <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">
           <mat-tab>
             <ng-template mat-tab-label>
               <mat-icon class="example-tab-icon">vpn_key</mat-icon>

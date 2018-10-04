@@ -393,7 +393,7 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    addEvent(event, i) {
+    addEvent(event) {
         if (event.value != null) {
             let selectedDate = '';
             if (typeof event.value._i == 'string') {

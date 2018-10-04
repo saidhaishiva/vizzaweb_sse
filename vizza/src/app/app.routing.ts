@@ -5,7 +5,6 @@ import { BlankComponent } from './pages/blank/blank.component';
 import { SearchComponent } from './pages/search/search.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ErrorComponent } from './pages/errors/error/error.component';
-import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent} from './pages/home/home.component';
@@ -40,7 +39,7 @@ import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
 import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
 import {TravelComponent} from './pages/travel/travel.component';
-import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
+//import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
 import {HouseholdComponent} from './pages/household/household.component';
@@ -65,7 +64,6 @@ export const routes: Routes = [
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
-            { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
@@ -121,7 +119,7 @@ export const routes: Routes = [
             { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
             { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
             { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
-            { path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
+            //{ path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-payment-success/:id', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }

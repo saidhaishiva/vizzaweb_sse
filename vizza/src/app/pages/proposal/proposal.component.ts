@@ -1050,7 +1050,7 @@ console.log(value,'fgh');
 
 
 
-    addEvent(event, i) {
+    addEvent(event) {
         this.setDate = this.datepipe.transform(event.value, 'dd-MM-y');
         if (this.setDate == null) {
             this.dobError = '';
@@ -1066,7 +1066,7 @@ console.log(value,'fgh');
         }
         sessionStorage.setItem('proposerAge' , this.personalAge);
     }
-    addEventSelect(event, i) {
+    addEventSelect(event) {
         this.setDate = this.datepipe.transform(event.value, 'dd-MM-y');
         console.log(this.setDate, 'this.setDate');
         if (this.setDate == null) {
