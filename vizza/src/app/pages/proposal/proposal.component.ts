@@ -232,7 +232,7 @@ export class ProposalComponent implements OnInit {
                     arelationship: '',
                     removeBtn: true,
                     addBtn: false,
-                    ageSetting: true,
+                    ageSetting: false,
                     colorStatus: 'red'
 
                 }]
@@ -351,7 +351,7 @@ export class ProposalComponent implements OnInit {
                 arelationship: '',
                 removeBtn: false,
                 addBtn: true,
-                ageSetting: true,
+                ageSetting: false,
                 colorStatus: 'green'
 
             });

@@ -110,7 +110,8 @@ export class ReligareComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public back: boolean;
-public  relationshipcode : any;
+    public relationshipcode : any;
+    public medicalStatus : any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -466,7 +467,14 @@ array: any;
             this.proposal();
         }
         let statusChecked = [];
+            this.medicalStatus = [];
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
+
+            if(this.religareQuestionsList[i].mStatus == 'No'){
+                this.medicalStatus.push('No');
+            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
+                this.medicalStatus.push('Yes');
+            }
 
          if (this.religareQuestionsList[i].answer_status == true) {
              for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
@@ -924,6 +932,7 @@ array: any;
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
+            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
         };
         if (!this.back){
             this.processDiseaseData(this.totalData);
@@ -967,7 +976,6 @@ array: any;
 
 
     processDiseaseData(diseaseData) {
-        console.log("welcome to uindai");
         let updatedFinalData = [];
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {

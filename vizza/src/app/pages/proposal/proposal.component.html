@@ -455,7 +455,7 @@
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  >
                       </mat-form-field></div>
                     </div>
-                    <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS</h6>
+                    <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS {{nomineeadd.ageSetting}}</h6>
                     <div class="row" *ngIf="nomineeadd.ageSetting">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -585,12 +585,12 @@
                     <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_comm_address1}}</li>
                     <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_comm_address2}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_comm_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{this.summaryCity}}</li>
-                    <li class="list-group-item"><strong>Area:</strong> {{this.sumAreaNameComm}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{summaryCity}}</li>
+                    <li class="list-group-item"><strong>Area:</strong> {{sumAreaNameComm}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_comm_state}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
-                    <li class="list-group-item"><strong>Alternate Number:</strong> {{summaryData.proposer_alternate_mobile}}</li>
+                    <li class="list-group-item"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
                   </ul>
                 </div>
               </div>
@@ -601,8 +601,8 @@
                     <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_res_address1}}</li>
                     <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_res_address2}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_res_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{this.rSummaryCity}}</li>
-                    <li class="list-group-item"><strong>Area:</strong> {{this.sumAreaName}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{rSummaryCity}}</li>
+                    <li class="list-group-item"><strong>Area:</strong> {{sumAreaName}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_res_state}}</li>
                   </ul>
                 </div>
