@@ -134,38 +134,32 @@
     <!--</div>-->
     <div class="container-fluid mt-4">
         <section class="row h-testimonial" fxLayoutAlign="center center">
-
-            <div class="col-md-8">
-                <div id="demo" class="carousel slide" data-ride="carousel">
-                    <ul class="carousel-indicators mt-4">
-                        <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
-                    </ul>
-                    <div class="carousel-inner">
-                        <div class="carousel-item " *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
-                            <div class="row mt-5">
-                                <div class="col-md-4 text-center">
-                                    <img *ngIf = "list.profile_pic == ''" src="https://www.shareicon.net/download/2017/01/06/868320_people_512x512.png" alt="Avatar" class="avatar">
-                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}" alt="Avatar" class="avatar">
-                                </div>
-                                <div class="col-md-8 text-center vl">
-                                    <div class="row" fxLayoutAlign="center center">
-                                        <p>{{list.comments}}</p>
-                                    </div>
-                                    <h4>{{list.customer_name}}</h4>
-                                </div>
+            <div class="col-md-8" *ngFor="let list of testimonialLists; let i = index">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div id="demo" class="carousel slide" data-ride="carousel">
+                            <ul class="carousel-indicators mt-4">
+                                <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
+                            </ul>
+                        <div class="carousel-inner">
+                            <div class="carousel-item float-left" *ngFor="let list of testimonialLists; let i = index" [ngClass]="i == 0 ? 'active' : ''">
+                                <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}" alt="Avatar" class="rounded-circle">
+                                <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}" alt="Avatar" class="rounded-circle">
+                            </div>
+                            <div class="float-right">
+                                <p>{{list.comments}}</p>
+                                <h4>{{list.customer_name}}</h4>
+                                <p>{{list.designation}}</p>
                             </div>
                         </div>
                     </div>
-                    <!--<a class="carousel-control-prev" href="#demo" data-slide="prev">-->
-                        <!--<span class="carousel-control-prev-icon"></span>-->
-                    <!--</a>-->
-                    <!--<a class="carousel-control-next" href="#demo" data-slide="next">-->
-                        <!--<span class="carousel-control-next-icon"></span>-->
-                    <!--</a>-->
+                    </div>
                 </div>
+                <hr>
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-md-12 text-right mb-4">
-                        <button mat-raised-button color="default" (click)="testiComments()" >Write a Testimonial</button>
+                    <div class="col-md-8 text-center mb-4">
+                        <a (click)="testiComments()">Write a Testimonial</a>
+                        <!--<p class="" (click)="testiComments()" >Write a Testimonial</button>-->
                     </div>
                 </div>
             </div>

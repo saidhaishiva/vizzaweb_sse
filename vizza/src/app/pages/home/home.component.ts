@@ -146,21 +146,21 @@ export class HomeComponent implements OnInit {
         }
         this.common.getcompanyList(data).subscribe(
             (successData) => {
-                this.getcompanyListSuccess(successData);
+                this.setcompanyListSuccess(successData);
             },
             (error) => {
-                this.getcompanyListFailure(error);
+                this.setcompanyListFailure(error);
             }
         );
     }
-    public getcompanyListSuccess(successData) {
+    public setcompanyListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.companyList = successData.ResponseObject;
             console.log(this.companyList, 'this.companyList');
 
         }
     }
-    public getcompanyListFailure(error) {
+    public setcompanyListFailure(error) {
         console.log(error);
     }
 
