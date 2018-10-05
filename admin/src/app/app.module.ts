@@ -51,7 +51,7 @@ import { LoginService } from './shared/services/login.service';
 import { UsersService } from './shared/services/users.service';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { CommonService } from './shared/services/common.service';
-import { ConfirmPasswordComponent } from './pages/confirm-password/confirm-password.component';
+import { ConfirmPasswordComponent} from './pages/confirm-password/confirm-password.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';

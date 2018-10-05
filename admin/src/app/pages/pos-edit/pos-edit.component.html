@@ -15,19 +15,19 @@
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="First name" formControlName="firstname"  (keypress)="data($event)" autocomplete="off" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.personalEdit.controls.firstname.errors?.required">First name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit['controls'].firstname.errors?.required">First name is required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Last name" formControlName="lastname" (keypress)="data($event)" autocomplete="off" required>
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="form.controls.personalEdit.controls.lastname.errors?.required">Last name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit['controls'].lastname.errors?.required">Last name is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100" >
                                     <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" minlength="10" required>
                                     <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                                     <mat-datepicker  #birthday ></mat-datepicker>
-                                    <mat-error *ngIf="form.controls.personalEdit.controls.birthday.errors?.required">Dob is required</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit['controls'].birthday.errors?.required">Dob is required</mat-error>
                                 </mat-form-field>
 
                                 <div *ngIf="img" style="color: red">Age should be greater than 18</div>
@@ -42,7 +42,7 @@
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)"  minlength="10" maxlength="10" autocomplete="off">
                                     <i class="fas fa-phone" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.personalEdit.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
+                                    <mat-error *ngIf="form.controls.personalEdit['controls'].referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                                 </mat-form-field>
 
                                 <div>
@@ -76,29 +76,29 @@
                                 <mat-form-field class="w-100">
                                     <input matInput type="email" placeholder="Email Id" formControlName="email" autocomplete="off" required>
                                     <mat-icon matSuffix>email</mat-icon>
-                                    <mat-error *ngIf="form.controls.contacts.controls.email.errors?.required">Email ID is required</mat-error>
-                                    <mat-error *ngIf="form.controls.contacts.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].email.errors?.required">Email ID is required</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput (keypress)="keyPress($event)" placeholder="Mobile No"
                                            minlength="10" maxlength="10" formControlName="phone1" autocomplete="off" required>
                                     <i class="fas fa-phone" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('required')">
+                                    <mat-error *ngIf="form.controls.contacts['controls'].phone1.hasError('required')">
                                         Mobile Number is required
                                     </mat-error>
-                                    <mat-error *ngIf="form.controls.contacts.controls.phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].phone1.hasError('pattern')">Enter valid  Mobile Number</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100">
                                     <input matInput (keypress)="keyPress($event)" placeholder="Alternate phone No"
                                            minlength="10" maxlength="10" formControlName="phone2">
                                     <i class="fas fa-phone" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.contacts.controls.phone2.hasError('pattern')">Alternate Enter valid  Mobile Number</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].phone2.hasError('pattern')">Alternate Enter valid  Mobile Number</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput formControlName="address1" placeholder="Address1" autocomplete="off" required>
                                     <mat-icon matSuffix>home</mat-icon>
-                                    <mat-error *ngIf="form.controls.contacts.controls.address1.errors?.required ">
+                                    <mat-error *ngIf="form.controls.contacts['controls'].address1.errors?.required ">
                                         Enter Address1
                                     </mat-error>
                                 </mat-form-field>
@@ -112,9 +112,9 @@
                                            minlength="6" (keypress)="keyPress($event);getPin($event.target.value)" (keyup)="getPin($event.target.value)" formControlName="pincode"
                                            required autocomplete="off">
                                     <mat-icon matSuffix>home</mat-icon>
-                                    <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('required')">Pincode required</mat-error>
-                                    <mat-error *ngIf="form.controls.contacts.controls.pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].pincode.hasError('required')">Pincode required</mat-error>
+                                    <mat-error *ngIf="form.controls.contacts['controls'].pincode.hasError('pattern')">Enter Valid Pincode</mat-error>
                                 </mat-form-field>
                                 <div *ngIf="pincodeErrors" style="color: red">Invalid Pincode</div>
 
@@ -129,16 +129,16 @@
                                 <mat-form-field class="w-100">
                                     <input matInput required placeholder="Aadhaar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off">
                                     <i class="far fa-id-card" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.documents.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off" style="text-transform: uppercase">
                                     <i class="far fa-id-card" matSuffix></i>
-                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('required')">Pan Number required</mat-error>
-                                    <mat-error *ngIf="form.controls.documents.controls.pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('required')">Pan Number required</mat-error>
+                                    <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
                                 </mat-form-field>
                                 <div class="w-100">
                                     <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
@@ -196,7 +196,7 @@
                                 <mat-form-field class="w-100">
                                     <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
                                     <mat-hint align="end">{{message.value.length}} /300</mat-hint>
-                                    <mat-error *ngIf="form.controls.educationlist.controls.qualification.hasError('required')">Educational details required</mat-error>
+                                    <mat-error *ngIf="form.controls.educationlist['controls'].qualification.hasError('required')">Educational details required</mat-error>
                                 </mat-form-field>
                                 <div class="w-100">
                                     <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
@@ -225,25 +225,25 @@
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off">
                                     <mat-icon matSuffix>account_balance</mat-icon>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.bankname.hasError('required')">Bank Name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].bankname.hasError('required')">Bank Name is required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
                                     <mat-icon matSuffix>account_balance</mat-icon>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.bankbranch.hasError('required')">Branch Name is required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].bankbranch.hasError('required')">Branch Name is required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off">
                                     <mat-icon matSuffix>account_balance</mat-icon>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('required')">IFSC Code details required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].ifsccode.hasError('required')">IFSC Code details required</mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="25" minlength="8" autocomplete="off">
                                     <mat-icon matSuffix>account_balance</mat-icon>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('required')">Account Number details required</mat-error>
-                                    <mat-error *ngIf="form.controls.bankdetails.controls.accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].accountnumber.hasError('required')">Account Number details required</mat-error>
+                                    <mat-error *ngIf="form.controls.bankdetails['controls'].accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>
                                 </mat-form-field>
                                 <div class="w-100">
                                     <div class="custom-file">

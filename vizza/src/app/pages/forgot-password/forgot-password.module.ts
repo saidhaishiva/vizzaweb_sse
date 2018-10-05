@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { ForgotPasswordComponent } from './forgot-password.component';
+// import { ForgotPasswordComponent } from './forgot-password.component';
 
 
 export const routes = [
-    { path: '', component: ForgotPasswordComponent, pathMatch: 'full' }
+    // { path: '', component: ForgotPasswordComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -19,7 +19,7 @@ export const routes = [
         SharedModule
     ],
     declarations: [
-        ForgotPasswordComponent,
+        // ForgotPasswordComponent,
     ]
 })
 export class ForgotPasswordModule { }

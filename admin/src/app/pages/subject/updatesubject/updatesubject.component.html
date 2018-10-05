@@ -4,7 +4,7 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
   <form [formGroup]="form" (ngSubmit)="editSubject()" class="w-100">
     <mat-form-field class="w-100">
-      <mat-select  placeholder="All Category" formControlName ="categoryid" multiple [value]="selected">
+      <mat-select  placeholder="All Category" formControlName ="categoryid" multiple >
         <mat-option *ngFor="let list of categoryList" value="{{list.category_id}}">{{list.category_name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.controls.categoryid.errors?.required">Selected category required</mat-error>

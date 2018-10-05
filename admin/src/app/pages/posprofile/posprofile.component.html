@@ -736,8 +736,7 @@
                                 [rowHeight]="'auto'"
                                 [externalPaging]="true"
                                 [count]="notesListCount"
-                                [offset]="pageOffSet"
-                                (page)='setPage($event)'>
+                                >
 
                             <ngx-datatable-column name="S.No">
                                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
@@ -772,8 +771,7 @@
                                 [rowHeight]="'auto'"
                                 [externalPaging]="true"
                                 [count]="commentsListCount"
-                                [offset]="pageOffSet"
-                                (page)='setPage($event)'>
+                                >
 
                             <ngx-datatable-column name="S.No">
                                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">

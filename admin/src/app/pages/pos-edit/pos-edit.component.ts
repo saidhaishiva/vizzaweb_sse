@@ -310,7 +310,7 @@ export class PosEditComponent implements OnInit {
 
     }
 //Update admin pos profile
-    updateAdminPosProfile(){
+    updateAdminPosProfile(event){
         const data =  {
             "platform": "web",
             "admin_id": this.auth.getAdminId(),
@@ -489,7 +489,7 @@ export class PosEditComponent implements OnInit {
         }
     }
 
-    addEvent(event, i) {
+    addEvent(event) {
         if (event.value != null) {
             let selectedDate = '';
             if (typeof event.value._i == 'string') {

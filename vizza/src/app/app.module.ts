@@ -92,6 +92,8 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
+import { ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
+import { RegisterComponent} from './pages/register/register.component';
 //import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
@@ -169,6 +171,8 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       ContactComponent,
       HomeComponent,
       GrouppopupComponent,
+      ForgotPasswordComponent,
+      RegisterComponent,
       FixappointmentComponent,
       PosComponent,
       ProposalComponent,

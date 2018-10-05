@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-6 text-left">
             <mat-form-field fxLayoutAlign="start  start">
-                <mat-select  placeholder="All Category" [(ngModel)]="selectedCategory" multiple (change)="getSubjects(selectedCategory) [(value)]='selected'">
+                <mat-select  placeholder="All Category" [(ngModel)]="selectedCategory" multiple (change)="getSubjects(selectedCategory)">
                     <mat-option *ngFor="let list of categoryList" value="{{list.category_id}}">{{list.category_name}}</mat-option>
                 </mat-select>
             </mat-form-field>
