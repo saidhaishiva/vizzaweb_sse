@@ -163,6 +163,7 @@ array: any;
             sameas: false,
             rolecd: 'PROPOSER',
             type: '',
+            medical_status: 'No'
 
         });
         this.nomineeDetails = this.fb.group({
@@ -323,7 +324,6 @@ array: any;
             for (let i = 0; i < this.insurerData.items.length; i++) {
                 this.proposerInsureData.push(this.insurerData.items[i]);
             }
-            console.log(this.insurerData, 'this.insurerDatathis.insurerDatathis.insurerData');
 
             for (let i = 0; i < this.proposerInsureData.length; i++) {
                 this.totalReligareData.push({
@@ -360,9 +360,7 @@ array: any;
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
                     'relationship_cd': this.proposerInsureData[i].personalrelationship,
-                    'role_cd': this.proposerInsureData[i].rolecd,
-
-
+                    'role_cd': this.proposerInsureData[i].rolecd
                 });
                 if (this.proposerInsureData[i].personalAltnumber != '') {
                     this.totalReligareData[i].prop_contact_list.push({
@@ -475,6 +473,12 @@ array: any;
             } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
                 this.medicalStatus.push('Yes');
             }
+            
+
+                for (let i = 0; i < this.totalReligareData.length; i++) {
+                    this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+                }
+
 
          if (this.religareQuestionsList[i].answer_status == true) {
              for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
@@ -868,9 +872,7 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue(this.personal.controls['previousinsuranceChecked'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue(this.personal.controls['previousinsurance'].value);
-            // this.previousInsuranceStatus1[0] = this.personal.controls['previousinsuranceChecked'].value;
+
 
 
         } else {
@@ -901,9 +903,6 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsuranceChecked.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].previousinsurance.patchValue('');
-            // this.previousInsuranceStatus1[0] = false;
 
         }
 
@@ -968,7 +967,6 @@ array: any;
             this.lastStepper.next();
 
         } else {
-            this.stepback();
             this.toastr.error(successData.ErrorObject);
         }
     }
