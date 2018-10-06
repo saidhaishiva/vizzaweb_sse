@@ -216,9 +216,12 @@
                                     <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
                                 </div>
                             </div>
-                            <div class="row w-100">
-                                <div class="col-md-12">
-                                    <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                            <div class="row">
+                                <div class="col-md-12"  *ngIf="education.length != 0">
+                                    <div class="col-md-4" *ngFor="let eduImgs of education">
+                                            <span class="imageclose mr-2" >
+                                                <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                            </span>
                                     </div>
                                 </div>
                             </div>

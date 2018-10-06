@@ -64,7 +64,8 @@ export class RegisterComponent implements OnInit {
     today: any;
     nectStatus: any;
     mismatchError: any;
-    DateValidator: any;
+    allImage: any;
+    fileDetails: any;
     roleId: any;
     img: boolean;
     profile: any;
@@ -156,33 +157,100 @@ export class RegisterComponent implements OnInit {
         this.selectedIndex -= 1;
     }
 
+    // readUrl(event: any, type) {
+    //     this.type = type;
+    //     this.size = event.srcElement.files[0].size;
+    //     if (event.target.files && event.target.files[0]) {
+    //         const reader = new FileReader();
+    //
+    //         reader.onload = (event: any) => {
+    //             this.getUrl1 = [];
+    //             this.url = event.target.result;
+    //             this.getUrl = this.url.split(',');
+    //             this.getUrl1.push(this.url.split(','));
+    //             this.onUploadFinished(this.getUrl);
+    //
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
+    //
+    // }
+
     readUrl(event: any, type) {
         this.type = type;
-        this.size = event.srcElement.files[0].size;
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
+        this.getUrl = '';
+        if (type == 'education') {
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+        } else {
+            this.size = event.srcElement.files[0].size;
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.getUrl1 = [];
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.getUrl1.push(this.url.split(','));
+                    this.onUploadFinished(this.getUrl);
 
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
-
     }
-
+    // onUploadFinished(event) {
+    //     this.getUrl = event[1];
+    //     const data = {
+    //         'platform': 'web',
+    //         'uploadtype': 'single',
+    //         'images': this.getUrl,
+    //     };
+    //     console.log(data, 'dfdfdsfdsfdsfds');
+    //     this.common.fileUpload(data).subscribe(
+    //         (successData) => {
+    //             this.fileUploadSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.fileUploadFailure(error);
+    //         }
+    //     );
+    // }
     onUploadFinished(event) {
-        this.getUrl = event[1];
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
-            'uploadtype': 'single',
-            'images': this.getUrl,
+            'uploadtype': '',
+            'images': ''
         };
-        console.log(data, 'dfdfdsfdsfdsfds');
+        if (this.type == 'education') {
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
+            }
+            data.uploadtype = 'multiple';
+            data.images = this.fileDetails;
+        } else {
+            this.getUrl = event[1];
+            data.uploadtype = 'single';
+            data.images = this.getUrl;
+        }
+
+        console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -192,6 +260,7 @@ export class RegisterComponent implements OnInit {
             }
         );
     }
+
 
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {

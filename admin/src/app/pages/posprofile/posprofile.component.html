@@ -112,11 +112,13 @@
                     </i> &nbsp; No Educational Certificated</p>
                 </div>
 
-                <div class="col-md-6" *ngIf="posData.doc_edu_certificate_img != ''" >
+                <div class="col-md-12" *ngIf="posData.doc_edu_certificate_img.length != 0" >
                     <div class="text-left">
                         <mat-checkbox [(ngModel)]="educationalDoc" >Educational Documents</mat-checkbox>
                     </div>
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_edu_certificate_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_edu_certificate_img, 'Educational Certificate')">
+                    <div *ngFor="let edu of posData.doc_edu_certificate_img">
+                        <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ edu}}" class="float-left img-thumbnail" (click)="viewImage(edu, 'Educational Certificate')">
+                    </div>
                 </div>
             </div>
 
@@ -600,7 +602,7 @@
                     <div>
                         <label class="btn-bs-file btn ">
                             <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload Agreement Copy
-                            <input type="file" multiple (change)="readUrl($event)"  accept=".pdf,.doc,.docx"/>
+                            <input type="file" multiple (change)="readUrl($event)"  />
                         </label>
                     </div>
 
