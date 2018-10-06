@@ -68,7 +68,9 @@ export class AddposComponent implements OnInit {
     selectedIndex: any;
     public title: any;
     nectStatus: any;
-    DateValidator: any;
+    fileDetails: any;
+    pdfSrc: any;
+    allImage: any;
     roleId: any;
     img: boolean;
     public passwordHide: boolean = true;
@@ -82,6 +84,7 @@ export class AddposComponent implements OnInit {
         this.today = new Date();
         this.dob = '';
         this.dobError = '';
+        this.allImage = [];
         this.mismatchError = '';
         // this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -158,31 +161,88 @@ export class AddposComponent implements OnInit {
     }
 
 
+    // readUrlEdu(event: any, type) {
+    //     console.log(event.target.files, 'event');
+    //     this.pdfSrc = event.target.files[0].name;
+    //     let getUrlEdu = [];
+    //     this.fileDetails = [];
+    //     for (let i = 0; i < event.target.files.length; i++) {
+    //         this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+    //     }
+    //     for (let i = 0; i < event.target.files.length; i++) {
+    //         const reader = new FileReader();
+    //         reader.onload = (event: any) => {
+    //             this.url = event.target.result;
+    //             getUrlEdu.push(this.url.split(','));
+    //             this.onUploadFinishedEdu(getUrlEdu);
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
+    //
+    // }
+    // onUploadFinishedEdu(event) {
+    //     this.allImage.push(event);
+    //     console.log(this.allImage, 'eventevent');
+    // }
     readUrl(event: any, type) {
         this.type = type;
-        this.size = event.srcElement.files[0].size;
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
+        if (type == 'education') {
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        } else {
+            this.size = event.srcElement.files[0].size;
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.getUrl1 = [];
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.getUrl1.push(this.url.split(','));
+                    this.onUploadFinished(this.getUrl);
 
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
+
 
     }
     onUploadFinished(event) {
-        this.getUrl = event[1];
+        this.fileDetails = [];
         const data = {
             'platform': 'web',
-            'uploadtype': 'single',
-            'images': this.getUrl,
+            'uploadtype': '',
+            'images': ''
         };
+        if (this.type == '') {
+            for (let i = 0; i < this.fileDetails.length; i++) {
+                for (let j = 0; j < this.allImage.length; j++) {
+                    for (let k = 0; k < this.allImage[j].length; k++) {
+                        console.log(this.allImage[j][k], 'pppp');
+                        this.fileDetails[i].image = this.allImage[j][k][1];
+                    }
+                }
+            }
+            data.uploadtype = 'multiple';
+            data.images = this.fileDetails;
+        } else {
+            this.getUrl = event[1];
+            data.uploadtype = 'single';
+            data.images = this.getUrl;
+        }
+
         console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
@@ -239,6 +299,7 @@ export class AddposComponent implements OnInit {
         else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
+
             const data = {
                 'admin_id': this.auth.getAdminId(),
                 'admin_roleid': this.auth.getAdminRoleId(),
@@ -260,7 +321,7 @@ export class AddposComponent implements OnInit {
                 "pos_aadhar_front_img": this.aadharfront,
                 "pos_aadhar_back_img": this.aadharback,
                 "pos_pan_img": this.pancard,
-                "pos_education": this.form.value['education']['qualification'],
+                "pos_education": this.fileDetails ? this.fileDetails : '',
                 "pos_education_doc_img": this.education,
                 "check_leaf_upload_img": this.chequeleaf,
                 "bank_name": this.form.value['bankdetails']['bankname'],
