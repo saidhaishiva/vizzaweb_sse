@@ -374,21 +374,6 @@ export class PosprofileComponent implements OnInit {
     onUploadFinished(event) {
         this.allImage.push(event);
         console.log(this.allImage, 'eventevent');
-        // this.getUrl = event[1];
-        // const data = {
-        //     'platform': 'web',
-        //     'uploadtype': 'single',
-        //     'agreement_file': this.getUrl,
-        // };
-        // console.log(data, 'dattattatata');
-        // this.common.agreementUpload(data).subscribe(
-        //     (successData) => {
-        //         this.fileUploadSuccess(successData);
-        //     },
-        //     (error) => {
-        //         this.fileUploadFailure(error);
-        //     }
-        // );
     }
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
@@ -439,13 +424,6 @@ export class PosprofileComponent implements OnInit {
         console.log(this.fileDetails, 'this.notes');
         console.log(this.allImage, 'this.this.allImage');
         this.field = [];
-        // for (let i=0; i < this.documentslist.length; i++) {
-        //         this.field.push({
-        //             verification_status: (this.documentslist[i].checked == true) ? '1' : '0',
-        //             // verifiedby: 1,
-        //             fieldid: this.documentslist[i].doc_field_id,
-        //         });
-        // }
         this.field= [{
             verification_status: (this.aadharFront == true) ? '1' : '0',
             fieldid: this.aadharfrontDocId
