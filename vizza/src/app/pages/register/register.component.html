@@ -236,15 +236,17 @@
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
-                            <div class="error" *ngIf !="form.controls.education['controls'].educationdocument.valid">Education Back Image is required</div>
                         </div>
                         </div>
-                        <div class="row w-100">
-                        <div class="col-md-12">
-                        <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
-                        </div>
-                        </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12"  *ngIf="education.length != 0">
+                                    <div    *ngFor="let eduImgs of education">
+                                            <span class="imageclose mr-2" >
+                                                <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>

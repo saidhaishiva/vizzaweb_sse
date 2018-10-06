@@ -367,7 +367,7 @@ export class PosprofileComponent implements OnInit {
             this.getUrl1.push(this.url.split(','));
             this.onUploadFinished(this.getUrl1);
         };
-        reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(event.target.files[i]);
         }
 
     }
@@ -451,14 +451,10 @@ export class PosprofileComponent implements OnInit {
 
         ];
 
-        for (let i = 0; i < this.fileDetails.length; i++) {
-            for (let j = 0; j < this.allImage.length; j++) {
-                for (let k = 0; k < this.allImage[j].length; k++) {
-                    console.log(this.allImage[j][k], 'pppp');
-                    this.fileDetails[i].image = this.allImage[j][k][1];
-                }
+            let length = this.allImage.length-1;
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                    this.fileDetails[k].image = this.allImage[length][k][1];
             }
-        }
 
         console.log(this.fileUploadPath, 'this.fileUploadPath');
         console.log(this.fileDetails, 'this.fileDetails');
