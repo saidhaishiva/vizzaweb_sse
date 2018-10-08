@@ -71,6 +71,7 @@ export class AddposComponent implements OnInit {
     fileDetails: any;
     pdfSrc: any;
     allImage: any;
+    testtttttt: any;
     roleId: any;
     img: boolean;
     public passwordHide: boolean = true;
@@ -186,6 +187,7 @@ export class AddposComponent implements OnInit {
     // }
     readUrl(event: any, type) {
         this.type = type;
+        this.getUrl = '';
         if (type == 'education') {
             let getUrlEdu = [];
             this.fileDetails = [];
@@ -199,7 +201,7 @@ export class AddposComponent implements OnInit {
                     getUrlEdu.push(this.url.split(','));
                     this.onUploadFinished(getUrlEdu);
                 };
-                reader.readAsDataURL(event.target.files[0]);
+                reader.readAsDataURL(event.target.files[i]);
             }
         } else {
             this.size = event.srcElement.files[0].size;
@@ -220,20 +222,29 @@ export class AddposComponent implements OnInit {
 
     }
     onUploadFinished(event) {
-        this.fileDetails = [];
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
+
         const data = {
             'platform': 'web',
             'uploadtype': '',
             'images': ''
         };
-        if (this.type == '') {
-            for (let i = 0; i < this.fileDetails.length; i++) {
-                for (let j = 0; j < this.allImage.length; j++) {
-                    for (let k = 0; k < this.allImage[j].length; k++) {
-                        console.log(this.allImage[j][k], 'pppp');
-                        this.fileDetails[i].image = this.allImage[j][k][1];
-                    }
-                }
+        if (this.type == 'education') {
+            // for (let i = 0; i < this.fileDetails.length; i++) {
+            //     for (let j = 0; j < this.allImage.length; j++) {
+            //         for (let k = 0; k < this.allImage[j].length; k++) {
+            //             console.log(this.allImage[j][k], 'pppp');
+            //             this.fileDetails[i].image = this.allImage[j][k][1];
+            //         }
+            //     }
+            // }
+
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
             }
             data.uploadtype = 'multiple';
             data.images = this.fileDetails;
@@ -321,7 +332,7 @@ export class AddposComponent implements OnInit {
                 "pos_aadhar_front_img": this.aadharfront,
                 "pos_aadhar_back_img": this.aadharback,
                 "pos_pan_img": this.pancard,
-                "pos_education": this.fileDetails ? this.fileDetails : '',
+                "pos_education": this.form.value['education']['qualification'],
                 "pos_education_doc_img": this.education,
                 "check_leaf_upload_img": this.chequeleaf,
                 "bank_name": this.form.value['bankdetails']['bankname'],

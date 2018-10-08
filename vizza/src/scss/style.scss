@@ -1526,6 +1526,10 @@ footer{
   position: relative;
   height: 575px;
   z-index: 1;
+
+  li{
+    height: 80px;
+  }
 }
 .dashboard {
   -webkit-perspective: 1000;

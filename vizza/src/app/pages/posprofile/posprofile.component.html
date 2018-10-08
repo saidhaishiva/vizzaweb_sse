@@ -340,13 +340,13 @@
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
-                                <div fxLayout="row" fxLayoutAlign="center center">
+                                <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let edu of personal.doc_edu_certificate_img">
                                     <div fxFlex="50" class="flex-p">
                                         <mat-card class="custom-card">
                                             <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
                                                 <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
-                                            <img mat-card-image class="h-100" src="{{webhost +'/'+ personal.doc_edu_certificate_img}}" alt="" (click)="viewImage(personal.doc_edu_certificate_img, 'Educational Certificate')">
+                                            <img mat-card-image class="h-100" src="{{webhost +'/'+ edu}}" alt="" (click)="viewImage(personal.doc_edu_certificate_img, 'Educational Certificate')">
                                         </mat-card>
                                     </div>
                                 </div>
@@ -373,9 +373,16 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div *ngIf="education != ''">
-                                                <span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/></span>
+                                        <!--<div class="col-md-12">-->
+                                            <!--<div *ngIf="education != ''">-->
+                                                <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail"  style="height:150px;width: 250px;"/></span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="col-md-12"  *ngIf="education.length != 0">
+                                            <div class="col-md-4" *ngFor="let eduImgs of education">
+                                            <span class="imageclose mr-2" >
+                                                <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                            </span>
                                             </div>
                                         </div>
                                     </div>
