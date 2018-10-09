@@ -84,6 +84,8 @@ export class RegisterComponent implements OnInit {
         this.today = new Date();
         this.dob = '';
         this.dobError = '';
+        this.allImage = [];
+
         this.mismatchError = '';
         this.selectedIndex = 0;
         this.profile = '';
