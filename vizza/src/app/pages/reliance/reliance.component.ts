@@ -42,6 +42,7 @@ export class RelianceComponent implements OnInit {
     public summary: FormGroup;
     public insureArray: FormGroup;
     public nomineeDetails: FormGroup;
+    public riskDetails: FormGroup;
     public setDate: any;
     public selectDate: any;
     public stopNext: boolean;
@@ -64,22 +65,14 @@ export class RelianceComponent implements OnInit {
     public response: any;
     public personalCitys: any;
     public areaName: any;
-    public areaNames: any;
     public title: any;
-    public residenceCitys: any;
     public cityTitle: any;
     public rAreaNames: any;
     public rAreaName: any;
-    public rResponse: any;
-    public summaryCity: any;
-    public rSummaryCity: any;
     public sumTitle: any;
-    public sumPin: any;
     public sumAreaName: any;
-    public sumAreaNameComm: any;
     public setDateAge: any;
     public personalAge: any;
-    public occupationCode: any;
     public religareQuestionsList: any;
     public items: any;
     public step: any;
@@ -88,7 +81,7 @@ export class RelianceComponent implements OnInit {
     public mobileNumber: any;
     public  altmobileNumber: any;
     public insurerData: any;
-    public totalReligareData: any;
+    public totalInsureDetails: any;
     public getStepper1: any;
     public insurePersons: any;
     public getStepper2: any;
@@ -98,11 +91,8 @@ export class RelianceComponent implements OnInit {
     public previousInsuranceStatus: any;
     public previousInsuranceStatus1: any;
     public hideQuestion: any;
-    public getFilterData: any;
     public questions_list: any;
     public totalData: any;
-    public iPersonalCitys: any;
-    public iResidenceCitys: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -110,6 +100,12 @@ export class RelianceComponent implements OnInit {
     public defaultTrue: boolean;
     public maritalDetail: any;
     public nationalityList: any;
+    public ServiceTaxId: any;
+    public setPincode: any;
+    public riskData: any;
+    public nomineeData: any;
+    public nomineeRelationshipList: any;
+    public getStepper3: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -133,7 +129,7 @@ export class RelianceComponent implements OnInit {
         this.isDisable = false;
         this.insureCity = false;
         this.proposerInsureData = [];
-        this.totalReligareData = [];
+        this.totalInsureDetails = [];
         this.questions_list = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
@@ -142,15 +138,12 @@ export class RelianceComponent implements OnInit {
             maritalStatus: ['', Validators.required],
             occupation: ['', Validators.required],
             nationality: ['', Validators.compose([ Validators.minLength(8)])],
-            // passportNo: ['', Validators.required],
             personalMidname: '',
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
-            // personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalFax: ['', Validators.compose([ Validators.minLength(10)])],
-            // personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
             personalAddress3: '',
@@ -188,6 +181,7 @@ export class RelianceComponent implements OnInit {
             nomineeMidName: '',
             nomineeLastName: ['', Validators.required],
             nomineeRelationship: ['', Validators.required],
+            nomineeOtherRelationship: '',
             nomineeAddress: ['', Validators.required],
             nomineeAddress2: ['', Validators.required],
             nomineeAddress3: '',
@@ -201,11 +195,19 @@ export class RelianceComponent implements OnInit {
             nomineeTitle: ['', Validators.required],
             nomineeDob: ['', Validators.required]
         });
-
-
-        console.log(this.totalData);
+        this.riskDetails = this.fb.group({
+            serviceTax: ['', Validators.required],
+            ServicesTaxId: ['', Validators.required],
+            relianceAda: ['', Validators.required],
+            companyname: ['', Validators.required],
+            employeeCode: ['', Validators.required],
+            emailId: ['', Validators.required],
+            crossSell: ['', Validators.required],
+            crossSellPolicyNo: ['', Validators.required],
+        });
 
     }
+
     changeGender() {
         if (this.personal.controls['personalTitle'].value == 'MR'){
             this.personal.controls['personalGender'].patchValue('Male');
@@ -225,19 +227,17 @@ export class RelianceComponent implements OnInit {
 
 
     ngOnInit() {
-
-
-
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
-        this.religareQuestions();
         this.setOccupationList();
         this.setRelationship();
+        this.setNomineeRelationship()
         this.maritalStatus();
         this.NationalityList();
+        this.ServiceTax();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -247,52 +247,10 @@ export class RelianceComponent implements OnInit {
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
 
-        this.previousinsurance = [
-            'IFFCO TOKIO General Insurance Co. Ltd.',
-            'Liberty General Insurance Co. Ltd.',
-            'Shriram General Insurance Co. Ltd.',
-            'Reliance General Insurance Co. Ltd',
-            'DHFL General Insurance Co. Ltd.',
-            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
-            'Edelweiss General Insurance Co.Ltd.',
-            'Kotak Mahindra General Insurance Co. Ltd.',
-            'Go Digit General Insurance Co. Ltd.',
-            'Royal Sundaram General Insurance Co. Ltd.',
-            'Exports Credit Guarantee of India Co. Ltd',
-            'The New India Assurance Co. Ltd.',
-            'Tata AIG General Insurance Company Limited',
-            'National Insurance Co. Ltd.',
-            'Universal Sompo General Insurance Co. Ltd.',
-            'Agriculture Insurance Company of India Ltd.',
-            'Acko General Insurance Co. Ltd.',
-            'SBI General Insurance Co. Ltd.',
-            'Bharti AXA General Insurance Co. Ltd.',
-            'ICICI LOMBARD General Insurance Co. Ltd.',
-            'Magma HDI General Insurance Co. Ltd.',
-            'HDFC ERGO General Insurance Co.Ltd.',
-            'United India Insurance Co. Ltd.',
-            'The Oriental Insurance Co. Ltd.',
-            'Future Generali India Insurance Co. Ltd.',
-            'Cholamandalam MS General Insurance Co. Ltd.',
-            'Raheja QBE General Insurance Co. Ltd.',
-            'Star Health & Allied Insurance Co.Ltd.',
-            'Apollo Munich Health Insurance Co. Ltd',
-            'Religare Health Insurance Co. Ltd',
-            'Max Bupa Health Insurance Co. Ltd',
-            'CIGNA TTK Health Insurance Co. Ltd.',
-            'Aditya Birla Health Insurance Co. Ltd.'
-        ];
-
-
-        console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
         this.sessionData();
-
-
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-
     }
-
 
 
     setStep(index: number) {
@@ -319,7 +277,6 @@ export class RelianceComponent implements OnInit {
                 occupation: ['', Validators.required],
                 personalWidth: ['', Validators.required],
                 personalHeight: ['', Validators.required],
-
                 sameAsProposer: false,
                 sameas: false,
                 type: '',
@@ -331,107 +288,36 @@ export class RelianceComponent implements OnInit {
     }
 
     //Insure Details
-    religareInsureDetails(stepper: MatStepper, value, key) {
-        console.log(value);
+    relianceInsureDetails(stepper: MatStepper, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
-        this.insurerData = value;
         if (this.insureArray.valid) {
-            this.totalReligareData = [];
+            this.insurerData = value.items;
+            this.totalInsureDetails = [];
+            console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
-                this.insurerData.items[i].type = this.insurePersons[i].type;
-            }
-            for (let i = 0; i < this.insurerData.items.length; i++) {
-                this.proposerInsureData.push(this.insurerData.items[i]);
-            }
-            console.log(this.insurerData, 'this.insurerDatathis.insurerDatathis.insurerData');
-
-            for (let i = 0; i < this.proposerInsureData.length; i++) {
-                this.totalReligareData.push({
-                    'title': this.proposerInsureData[i].personalTitle,
-                    'proposer_fname': this.proposerInsureData[i].personalFirstname,
-                    'proposer_lname': this.proposerInsureData[i].personalLastname,
-                    'prop_email_list': [{
-                        'email': this.proposerInsureData[i].personalEmail,
-                        'email_type': 'PERSONAL'
-                    }],
-                    'prop_contact_list': [{
-                        'contact_no': this.proposerInsureData[i].personalMobile,
-                        'contact_type': 'MOBILE',
-                        'std_code': '91'
-                    }],
-                    'prop_identity_list': [
-                        {
-                            'identity_number': this.proposerInsureData[i].personalPan,
-                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
-                        }
-                    ],
-                    'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
-                    'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
-                    'proposer_res_area': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_city': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_state': this.proposerInsureData[i].residenceState,
-                    'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
-                    'proposer_comm_address1': this.proposerInsureData[i].personalAddress,
-                    'proposer_comm_address2': this.proposerInsureData[i].personalAddress2,
-                    'proposer_comm_area': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_city': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_state': this.proposerInsureData[i].personalState,
-                    'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
-                    'prop_dob': this.proposerInsureData[i].personalDob,
-                    'prop_gender': this.proposerInsureData[i].personalGender,
-                    'relationship_cd': this.proposerInsureData[i].personalrelationship,
-                    'role_cd': this.proposerInsureData[i].rolecd,
-
-
+                this.totalInsureDetails.push({
+                        'RelationshipWithProposerID': this.insurerData[i].personalrelationship,
+                        'Salutation': this.insurerData[i].personalTitle,
+                        'FirstName': this.insurerData[i].personalFirstname,
+                        'LastName': this.insurerData[i].personalLastname,
+                        'Gender': this.insurerData[i].personalGender,
+                        'Age': this.insurerData[i].personalAge,
+                        'DOB': this.insurerData[i].personalDob,
+                        'MaritalStatusID': this.insurerData[i].maritalStatus,
+                        'OccupationID': this.insurerData[i].occupation,
+                        'PreExistingDisease': {
+                            'IsExistingIllness': this.insurerData[i].personalTitle,
+                            'DiseaseList': this.insurerData[i].personalTitle,
+                            'IsInsuredConsumetobacco': this.insurerData[i].personalTitle,
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].personalTitle,
+                            'DetailsOfPreClaimOnInsured': this.insurerData[i].personalTitle,
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].personalTitle
+                        },
+                        'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
-                if (this.proposerInsureData[i].personalAltnumber != '') {
-                    this.totalReligareData[i].prop_contact_list.push({
-                        'contact_no': this.proposerInsureData[i].personalAltnumber,
-                        'contact_type': 'RESEDENTIAL',
-                        'std_code': '91'
-                    });
-                }
-                if (this.proposerInsureData[i].personalAadhar != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalAadhar,
-                        'identity_type': 'AADHAR'
-                    });
-                }
-                if (this.proposerInsureData[i].personalGst != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalGst,
-                        'identity_type': 'GST'
-                    });
-                }
-                if (this.proposerInsureData[i].personalPan != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalPan,
-                        'identity_type': 'PAN'
-                    });
-                }
-
             }
-            if (key == 'createProposal') {
-                this.proposal();
-            }
-            let aterMobile = [];
-            for(let i=0;i<this.insurerData.items.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '') {
-                    aterMobile.push(0);
-
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value == '') {
-                    aterMobile.push(1);
-
-                }
-            }
-
-            if(aterMobile.includes(0)) {
-                this.toastr.error('Alternative and personal number should be different');
-            } else{
-                stepper.next();
-            }
-
+            stepper.next();
         }
     }
 
@@ -440,10 +326,11 @@ export class RelianceComponent implements OnInit {
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
         this.lastStepper = stepper;
+        sessionStorage.nomineeData = '';
+        sessionStorage.nomineeData = JSON.stringify(value);
         console.log(value);
         if (this.nomineeDetails.valid) {
-            sessionStorage.nomineeData = '';
-            sessionStorage.nomineeData = JSON.stringify(value);
+            this.nomineeData = value;
             this.proposal();
         }
     }
@@ -457,101 +344,24 @@ export class RelianceComponent implements OnInit {
     }
 
 
-    medicalHistoryDetails(stepper: MatStepper, key) {
+    //Risk Details
+    riskDetail(stepper: MatStepper, value) {
         sessionStorage.stepper3Details = '';
-        sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
-        this.questions_list = [];
-        this.getFilterData = [];
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
-                    this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
-                }
-            }
-        }
-
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
-        }
-        for (let i = 0; i < this.totalReligareData.length; i++) {
-            if (i > 0) {
-                this.totalReligareData[i].questions_list = this.getFilterData[i -1];
-            }
-        }
-        if (key == 'createProposal') {
-            this.proposal();
-        }
-        let statusChecked = [];
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-
-            if (this.religareQuestionsList[i].answer_status == true) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
-
-                                statusChecked.push(0);
-                            } else {
-                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
-                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
-                                        statusChecked.push(0);
-                                    } else {
-                                        statusChecked.push(1);
-                                    }
-                                }  else {
-                                    statusChecked.push(1);
-                                }
-
-
-                            }
-                        }
-                    }
-                }
-                if (statusChecked.length == 0){
-                    statusChecked.push(2);
-                }
-
-            } else {
-
-                if (i == this.religareQuestionsList.length - 1) {
-                    statusChecked.push(1);
-                }
-
-            }
-
-        }
-        console.log(statusChecked.includes(0));
-
-        if (statusChecked.includes(0)) {
-            this.toastr.error('Please fill the empty field');
-        } else if (statusChecked.includes(2)) {
-            this.toastr.error('Please check atleast one checkbox!');
-        } else {
+        sessionStorage.stepper3Details = JSON.stringify(value);
+        if (this.riskDetails.valid) {
+            this.riskData = value;
             stepper.next();
         }
-
-        console.log(statusChecked);
-
-
     }
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
         this.personalData = value;
-        this.personalData.rolecd = 'PROPOSER';
-        this.personalData.type = 'SELF';
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.personal.valid) {
-            this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
-                this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                 }
@@ -627,7 +437,6 @@ export class RelianceComponent implements OnInit {
 
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-            //this.getPostalInsurer(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value, index, 'residence');
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
@@ -643,8 +452,6 @@ export class RelianceComponent implements OnInit {
             this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
 
         }
-
-
     }
 
     public keyPress(event: any) {
@@ -688,7 +495,6 @@ export class RelianceComponent implements OnInit {
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
 
-            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
@@ -699,15 +505,12 @@ export class RelianceComponent implements OnInit {
                 occupation: this.getStepper1.occupation,
                 nationality: this.getStepper1.nationality,
                 personalFax: this.getStepper1.personalFax,
-                // passportNo: this.getStepper1.passportNo,
                 personalDob: this.getStepper1.personalDob,
                 personalArea: this.getStepper1.personalArea,
-                // personalAadhar: this.getStepper1.personalAadhar,
                 personalrelationship: this.getStepper1.personalrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 personalGender: this.getStepper1.personalGender,
                 personalPan: this.getStepper1.personalPan,
-                // personalGst: this.getStepper1.personalGst,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalAddress3: this.getStepper1.personalAddress3,
@@ -747,6 +550,7 @@ export class RelianceComponent implements OnInit {
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getStepper2.items[i].personalAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
@@ -762,6 +566,21 @@ export class RelianceComponent implements OnInit {
 
             }
         }
+        if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
+
+            console.log(JSON.parse(sessionStorage.stepper3Details), 'sessionStorage.stepper3Details');
+            this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+            this.riskDetails = this.fb.group({
+                serviceTax: this.getStepper3.serviceTax,
+                ServicesTaxId: this.getStepper3.ServicesTaxId,
+                relianceAda: this.getStepper3.relianceAda,
+                companyname: this.getStepper3.companyname,
+                employeeCode: this.getStepper3.employeeCode,
+                emailId: this.getStepper3.emailId,
+                crossSell: this.getStepper3.crossSell,
+                crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
+            });
+            }
 
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
@@ -772,6 +591,7 @@ export class RelianceComponent implements OnInit {
                 nomineeMidName: this.getNomineeData.nomineeMidName,
                 nomineeLastName: this.getNomineeData.nomineeLastName,
                 nomineeRelationship: this.getNomineeData.nomineeRelationship,
+                nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
                 nomineeAddress: this.getNomineeData.nomineeAddress,
                 nomineeAddress2: this.getNomineeData.nomineeAddress2,
                 nomineeAddress3: this.getNomineeData.nomineeAddress3,
@@ -786,37 +606,7 @@ export class RelianceComponent implements OnInit {
                 nomineeDob: this.getNomineeData.nomineeDob
             });
         }
-        setTimeout(() => {
-            if (this.getStepper1.personalPincode != '') {
-                this.getPostal(this.getStepper1.personalPincode, 'personal');
-                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
 
-                if (this.getStepper1.sameas) {
-                    this.sameField = this.getStepper1.sameas;
-                    this.inputReadonly = true;
-                    this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-                    this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-                    this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-                }
-                setTimeout(() => {
-                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                        this.getPostal(this.getStepper1.residencePincode, 'residence');
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                    } },2000);
-
-
-                if (sessionStorage.mobileNumber != '' ) {
-                    this.mobileNumber = sessionStorage.mobileNumber;
-                } else {
-                    this.mobileNumber = 'true';
-                }
-
-
-            } },4000);
 
         for (let i = 0; i < this.getStepper2.items.length; i++) {
 
@@ -882,35 +672,160 @@ export class RelianceComponent implements OnInit {
     }
 
 
-
-
-
     //Create Proposal
     proposal() {
-        console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareDatathis.totalReligareData')
-        console.log(this.religareQuestionsList, 'this.religareQuestionsListthis.religareQuestionsList')
         this.totalData = {
-            'platform': 'web',
-            'proposal_id': '1',
-            'enquiry_id': this.enquiryId,
-            'group_name': 'Group A',
-            'company_name': 'Religare',
-            'suminsured_amount': this.buyProductdetails.suminsured_amount,
-            'proposer_insurer_details': this.totalReligareData,
-            'product_id': this.buyProductdetails.product_id,
-            'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
-            'scheme_id': this.buyProductdetails.scheme,
-            'terms_condition': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
+            'ClientDetails': {
+                'ClientTypeID': '0',
+                'DOB': this.personalData.personalDob,
+                'Email': this.personalData.personalEmail,
+                'ForeName': this.personalData.personalFirstname,
+                'Gender': this.personalData.personalGender,
+                'LastName': this.personalData.personalLastname,
+                'MaritalStatusID': this.personalData.maritalStatus,
+                'MidName': this.personalData.personalMidname,
+                'MobileNo': this.personalData.personalMobile,
+                'Nationality': this.personalData.nationality,
+                'OccupationID': this.personalData.occupation,
+                'PhoneNo': this.personalData.personalPhone,
+                'Salutation': this.personalData.personalTitle,
+                'ClientAddress': {
+                    'CommunicationAddress': {
+                        'Address1': this.personalData.personalAddress,
+                        'Address2': this.personalData.personalAddress2,
+                        'Address3': this.personalData.personalAddress3,
+                        'CityID': this.personalData.personalCity,
+                        'Country': this.personalData.personalCountry,
+                        'DistrictID': this.personalData.personalDistrict,
+                        'Email': this.personalData.personalEmail2,
+                        'Fax': this.personalData.personalEmail2,
+                        'MobileNo': this.personalData.personalMobile2,
+                        'NearestLandmark': this.personalData.personalNearestLandMark,
+                        'PanNo': this.personalData.personalPan,
+                        'PhoneNo':this.personalData.personalPhone2,
+                        'Pincode': this.personalData.personalPincode,
+                        'AreaID': this.personalData.personalArea,
+                        'StateID': this.personalData.personalState
+                    },
+                    'PermanentAddress': {
+                        'Address': {
+                            'Address1': this.personalData.residenceAddress,
+                            'Address2': this.personalData.residenceAddress2,
+                            'Address3': this.personalData.residenceAddress3,
+                            'CityID': this.personalData.residenceCity,
+                            'Country': this.personalData.residenceCountry,
+                            'DistrictID': this.personalData.residenceDistrict,
+                            'NearestLandmark': this.personalData.residenceNearestLandMark,
+                            'Pincode': this.personalData.residencePincode,
+                            'AreaID': this.personalData.residenceArea,
+                            'StateID': this.personalData.residenceState
+                        }
+                    }
+                }
+            },
+            'InsuredDetailsList': {
+                'InsuredDetail': this.totalInsureDetails
+            },
+            'Policy': {
+                'Tenure': '1',
+                'PolicyStartDate': '04-03-2016',
+                'PolicyEndDate': '03-03-2017',
+                'AgentID': 'Direct',
+                'AgentName': 'Direct',
+                'Branch_Code': '9202',
+                'BusinessType': '1',
+                'ProductCode': '2828',
+                'ExternalSystemID': '1',
+                'BranchName': 'BranchName'
+            },
+            'UploadDetails': {
+                'DocumentType': ''
+            },
+            'RiskDetails': {
+                'PlanID': '1',
+                'DOBofSeniorMost': '01/02/1982',
+                'MemberCount': '2',
+                'MaxAge': '34',
+                'CoverTypeID': '0',
+                'SumInsured': '300000',
+                'IsServiceTaxExemptionApplicable': this.riskData.serviceTax,
+                'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
+                'IsAnyEmployeeOfRelianceADAGroup': this.riskData.relianceAda,
+                'CompanyNameID': this.riskData.companyname,
+                'EmployeeCode': this.riskData.employeeCode,
+                'EmailID': this.riskData.emailId,
+                'Iscrosssell': this.riskData.crossSell,
+                'CrossSellPolicyNo': this.riskData.crossSellPolicyNo,
+                'NoofMembersAbove21': '2',
+                'NoofMembersBelow21': '0',
+                'PreviousCumulativeBonus': '',
+                'PreviousCumulativeBonusrate': '',
+                'CumulativeBonus': '',
+                'CumulativeBonusrate': '',
+                'ChangeinCoverageType': 'false',
+                'AdditionofMemberatRenewal': 'false',
+                'DeletionofMemberatRenewal': 'false'
+            },
+            'NomineeDetails': {
+                'FirstName': this.nomineeData.nomineeFirstName,
+                'Salutation': this.nomineeData.nomineeTitle,
+                'MiddleName': this.nomineeData.nomineeMidName,
+                'LastName': this.nomineeData.nomineeLastName,
+                'DOB': this.nomineeData.nomineeDob,
+                'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
+                'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
+                'NomineeAddress': {
+                    'Address1': this.nomineeData.nomineeAddress,
+                    'Address2': this.nomineeData.nomineeAddress2,
+                    'Address3': this.nomineeData.nomineeAddress3,
+                    'CityID': this.nomineeData.nomineeCity,
+                    'Country': this.nomineeData.nomineeCountry,
+                    'DistrictID': this.nomineeData.nomineeCountry,
+                    'NearestLandmark': this.nomineeData.nearestLandMark,
+                    'Pincode': this.nomineeData.nomineePincode,
+                    'AreaID': this.nomineeData.nomineeArea,
+                    'StateID': this.nomineeData.nomineeState
+                }
+            },
+            'Premium': {
+                'BasicPremium': '',
+                'TotalPremium': '',
+                'EducationalCess': '',
+                'EducationalCessPercentage': '',
+                'FinalPremium': '',
+                'NetPremium': '',
+                'SalesTax': '',
+                'SalesTaxPercentage': '',
+                'SecondaryAndHigherEducationalCess': '',
+                'SecondaryAndHigherEducationalCessPercentage': '',
+                'ServiceTax': '',
+                'ServiceTaxPercentage': '',
+                'Surcharge': '',
+                'SurchargePercentage': ''
+            },
+            'LstDiscount': '',
+            'ErrorMessages': {
+                'ErrMessages': ''
+            },
+            'LstHealthCoverDetails': '',
+            'PreviousInsuranceDetails': {
+                'PrevInsuranceID': '',
+                'PrevYearPolicyNo': '',
+                'PrevYearPolicyStartDate': '',
+                'PrevYearPolicyEndDate': ''
+            },
+            'UserID': '100002tele',
+            'SourceSystemID': '100002tele',
+            'AuthToken': 'Pass@123',
+            'CoverDetails': '',
+            'IsQuickquote': 'false',
+            'CIServicePEDList': '',
+            'CIServicePreviousInsuraceDetailsList': ''
+
         };
-        this.processDiseaseData(this.totalData);
         const data = this.totalData;
         this.settings.loadingSpinner = true;
-        this.proposalservice.getReligareProposal(data).subscribe(
+        this.proposalservice.relianceProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
             },
@@ -928,7 +843,6 @@ export class RelianceComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
-            console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
             this.lastStepper.next();
 
         } else {
@@ -939,65 +853,82 @@ export class RelianceComponent implements OnInit {
 
 
 
-    processDiseaseData(diseaseData) {
-        let updatedFinalData = [];
-        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
-            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
-                let updatedData = [];
-
-
-                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
-                    let newObject = {};
-                    // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
-                    // newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
-                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
-
-                    if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
-                        newObject['response'] = true;
-
-                    } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
-                        newObject['response'] = false;
-
-                    }
-                    updatedData.push(newObject);
-
-                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
-                        newObject = {};
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
-                        updatedData.push(newObject);
-
-                    }
-                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
-                        newObject = {};
-
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
-                        updatedData.push(newObject);
-
-                    }
-
-                }
-                console.log(updatedData);
-
-                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-
-
-            }
-            console.log(this.totalData);
-
+    ServiceTax(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
+        this.proposalservice.getServiceTax(data).subscribe(
+            (successData) => {
+                this.serviceTaxSuccess(successData);
+            },
+            (error) => {
+                this.serviceTaxFailure(error);
+            }
+        );
+}
 
-
-
+    public serviceTaxSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.ServiceTaxId = successData.ResponseObject;
+        }
     }
 
+    public serviceTaxFailure(error) {
+        console.log(error);
+    }
+
+    commonPincode(pin, title){
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.proposalservice.getCheckpincode(data).subscribe(
+                (successData) => {
+                    this.commonPincodeSuccess(successData);
+                },
+                (error) => {
+                    this.commonPincodeFailure(error);
+                }
+            );
+        }
+    }
+
+    public commonPincodeSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.setPincode = successData.ResponseObject;
+            if(this.title == 'proposalP'){
+                this.personal['controls'].personalState.patchValue(this.setPincode.state);
+                this.personal['controls'].personalCountry.patchValue(this.setPincode.country);
+                // this.personal['controls'].personalDistrict.patchValue(this.setPincode.district);
+                // this.personal['controls'].personalArea.patchValue(this.setPincode.area);
+                this.personal['controls'].personalCity.patchValue(this.setPincode.city);
+            }
+            if(this.title == 'proposalR'){
+                this.personal['controls'].residenceState.patchValue(this.setPincode.state);
+                this.personal['controls'].residenceCountry.patchValue(this.setPincode.country);
+                // this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district);
+                // this.personal['controls'].residenceArea.patchValue(this.setPincode.area);
+                this.personal['controls'].residenceCity.patchValue(this.setPincode.city);
+            }
+            if(this.title == 'Nominee'){
+                this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state);
+                this.nomineeDetails['controls'].nomineeCountry.patchValue(this.setPincode.country);
+                // this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district);
+                // this.nomineeDetails['controls'].nomineeArea.patchValue(this.setPincode.area);
+                this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city);
+            }
+        }
+    }
+
+    public commonPincodeFailure(error) {
+        console.log(error);
+    }
 //Summary residence detail
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
@@ -1098,259 +1029,6 @@ export class RelianceComponent implements OnInit {
     }
 
 
-
-
-
-//personal city detail
-    getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        console.log(this.title, 'kjhjkghkhk')
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalSuccess(successData) {
-
-
-        if (this.title == 'personal') {
-            this.personalCitys = [];
-            this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-
-                this.personal.controls['personalState'].setValue(this.response[0].state);
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city});
-                }
-            } else if(successData.IsSuccess != true) {
-
-                this.personal.controls['personalState'].setValue('');
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
-            }
-        }
-        if (this.title == 'residence') {
-            this.residenceCitys = [];
-            this.rResponse = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city});
-                }
-            } else if(successData.IsSuccess != true) {
-                this.personal.controls['residenceState'].setValue('');
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
-            }
-        }
-    }
-
-
-
-
-    public getpostalFailure(error) {
-        console.log(error);
-    }
-
-
-    //insurer city detail
-    getPostalInsurer(pin, index, title) {
-        this.pin = pin;
-        this.title = title;
-        this.index = index;
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalInsurerSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalInsurerFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalInsurerSuccess(successData) {
-
-
-        if (this.title == 'personal') {
-            this.iPersonalCitys = [];
-            this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-            } else if(successData.IsSuccess != true && this.title == 'personal') {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city = ''});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                this.toastr.error('In valid Pincode');
-            }
-        }
-        if (this.title == 'residence') {
-            this.iResidenceCitys = [];
-            this.rResponse = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.iResidenceCitys.push({city: this.rResponse[i].city});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-            }
-            else if (successData.IsSuccess != true && this.title == 'residence') {
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
-                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-                this.toastr.error('In valid Pincode');
-            }
-        }
-
-
-
-    }
-
-    public getpostalInsurerFailure(error) {
-        console.log(error);
-    }
-
-
-
-//summary city detail
-    getPostalSummary(pin, title) {
-        this.sumPin = pin;
-        this.sumTitle = title;
-        console.log(this.sumPin, 'pin');
-        console.log(this.title, 'sumTitle1');
-        const data = {
-            'platform': 'web',
-            'pincode': this.sumPin
-        }
-        if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.PostalSummarySuccess(successData);
-                },
-                (error) => {
-                    this.PostalSummaryFailure(error);
-                }
-            );
-        }
-    }
-
-    public PostalSummarySuccess(successData) {
-        if (successData.IsSuccess == true) {
-            if (this.sumTitle == 'residence') {
-                this.rResponse = successData.ResponseObject;
-                this.residenceCitys = this.rResponse.city;
-                for (let i = 0; i < this.residenceCitys.length; i++) {
-                    if (this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
-                        this.rSummaryCity = this.residenceCitys[i].city_name;
-
-                    }
-                }
-            }
-
-
-        }
-    }
-
-    public PostalSummaryFailure(error) {
-        console.log(error);
-    }
-
-
-    religareQuestions() {
-        const data = {
-            'platform': 'web',
-            'product_id': '1',
-            'family_group': this.insurePersons,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getReligareQuestions(data).subscribe(
-            (successData) => {
-                this.religareQuestionsSuccess(successData);
-            },
-            (error) => {
-                this.religareQuestionsFailure(error);
-            }
-        );
-
-    }
-
-    public religareQuestionsSuccess(successData) {
-        this.religareQuestionsList = successData.ResponseObject;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            this.religareQuestionsList[i].mStatus = 'No';
-            this.religareQuestionsList[i].answer_status = false;
-            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-
-                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-
-                }
-            }
-        }
-    }
-
-    public religareQuestionsFailure(error) {
-        console.log(error);
-    }
-
-
-
-    questionYes(id, value: any) {
-        if (value.checked) {
-            this.religareQuestionsList[id].mStatus = 'Yes';
-            this.religareQuestionsList[id].answer_status = true;
-        } else {
-            this.religareQuestionsList[id].mStatus = 'No';
-            this.religareQuestionsList[id].answer_status = false;
-            for (let i = 0; i < this.religareQuestionsList.length; i++) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-                    }
-                }
-            }
-        }
-    }
-
-
     setOccupationList() {
         const data = {
             'platform': 'web',
@@ -1370,7 +1048,6 @@ export class RelianceComponent implements OnInit {
     }
 
     public occupationListSuccess(successData) {
-        console.log(successData.ResponseObject, 'occcccccccccccccccccc');
         if (successData.IsSuccess == true) {
             this.occupationList = successData.ResponseObject;
         }
@@ -1385,7 +1062,7 @@ export class RelianceComponent implements OnInit {
     setRelationship() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
+            'product_id': '11',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
@@ -1405,6 +1082,32 @@ export class RelianceComponent implements OnInit {
     }
 
     public setRelationshipFailure(error) {
+        console.log(error);
+    }
+
+    setNomineeRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getNomineeRelatioshipList(data).subscribe(
+            (successData) => {
+                this.setNomineeRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setNomineeRelationshipFailure(error);
+            }
+        );
+    }
+
+    public setNomineeRelationshipSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.nomineeRelationshipList = successData.ResponseObject;
+    }
+
+    public setNomineeRelationshipFailure(error) {
         console.log(error);
     }
     add(event){
@@ -1440,17 +1143,7 @@ export class RelianceComponent implements OnInit {
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
-    insuredalternateChange(event ,index) {
-        if (event.target.value.length == 10) {
 
-            if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value == this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value) {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('Alternate number should be different from mobile number');
-            } else {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
-            }
-        }
-        sessionStorage.this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
-    }
 
 }
 

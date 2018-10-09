@@ -331,12 +331,26 @@ a:hover {
   .side-nav ul li:nth-child(6) .icon {
     background: #993D64; }
   .side-nav ul li:nth-child(7) .icon {
-    background: #18CCB4; }
+    background: #F44D00; }
   .side-nav ul li:nth-child(8) .icon {
-    background: #FF4099; }
+    background: #420072; }
   .side-nav ul li:nth-child(9) .icon {
-    background: #9E58B5; }
+    background: #18CCB4; }
   .side-nav ul li:nth-child(10) .icon {
+    background: #F50091; }
+  .side-nav ul li:nth-child(11) .icon {
+    background: #CB964B; }
+  .side-nav ul li:nth-child(12) .icon {
+    background: #EB1943; }
+  .side-nav ul li:nth-child(13) .icon {
+    background: #9F38A3; }
+  .side-nav ul li:nth-child(14) .icon {
+    background: #18C4AE; }
+  .side-nav ul li:nth-child(15) .icon {
+    background: #FF4099; }
+  .side-nav ul li:nth-child(16) .icon {
+    background: #9E58B5; }
+  .side-nav ul li:nth-child(17) .icon {
     background: #FFD840; }
   .side-nav .nav-item {
     height: 100px; }
@@ -1103,8 +1117,10 @@ footer {
 
 .draggable {
   position: relative;
-  height: 575px;
+  height: 675px;
   z-index: 1; }
+  .draggable li {
+    height: 80px; }
 
 .dashboard {
   -webkit-perspective: 1000;

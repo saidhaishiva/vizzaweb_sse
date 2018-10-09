@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
       sessionStorage.setOccupation = '';
       sessionStorage.setAge = '';
       sessionStorage.setAnnualIncome = '';
-
       sessionStorage.setPage = '';
       sessionStorage.sideMenu = false;
       sessionStorage.setFamilyDetails = '';
