@@ -116,16 +116,16 @@ export class HealthInsuranceComponent implements OnInit {
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
 
-        const observable = this.keyUp
-            .map(value => event)
-            .debounceTime(400)
-            .distinctUntilChanged()
-            .flatMap((search) => {
-                return Observable.of(search).delay(400);
-            })
-            .subscribe((data) => {
-                this.typeAge(data.target);
-            });
+        // const observable = this.keyUp
+        //     .map(value => event)
+        //     .debounceTime(400)
+        //     .distinctUntilChanged()
+        //     .flatMap((search) => {
+        //         return Observable.of(search).delay(400);
+        //     })
+        //     .subscribe((data) => {
+        //         this.typeAge(data.target);
+        //     });
     }
 
     ngOnInit() {
