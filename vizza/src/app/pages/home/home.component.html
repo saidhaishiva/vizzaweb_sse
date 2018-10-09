@@ -194,17 +194,17 @@
     <div class="container-fluid mt-4">
         <section class="row h-testimonial" fxLayoutAlign="center center">
             <div class="col-md-8">
-                <div class="row" >
-                    <div class="col-md-8" fxLayoutAlign="center center">
+                <div class="row" fxLayoutAlign="center center">
+                    <div class="col-md-8">
                         <div id="demo" class="carousel slide" data-ride="carousel">
                             <ul class="carousel-indicators mt-4">
                                 <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
                             </ul>
-                        <div class="carousel-inner">
+                        <div class="carousel-inner" >
                             <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
-                                <div>
-                                <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}">
-                                <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle" width="75" height="75">
+                                <div class="float-left">
+                                    <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}">
+                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle" width="75" height="75">
                                 </div>
                                 <div>
                                     <p class="visible">{{list.comments}}</p>
@@ -218,7 +218,7 @@
                 </div>
                 <hr>
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-md-8 text-center mb-4">
+                    <div class="col-md-8 text-center">
                         <a (click)="testiComments()" style="cursor:pointer;">Write a Testimonial</a>
                         <!--<p class="" (click)="testiComments()" >Write a Testimonial</button>-->
                     </div>
