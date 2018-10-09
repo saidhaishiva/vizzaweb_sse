@@ -181,6 +181,11 @@
                                                          <mat-icon class="muted-text" matTooltip="Pincode">code</mat-icon>
                                                          <span>{{row.pos_postalcode}}</span>
                                                      </p>
+                                                     <p fxLayout="row" fxLayoutAlign="start center" *ngIf="row.pos_manager_name != null">
+                                                         <mat-icon class="muted-text" matTooltip="Pincode">person</mat-icon>
+                                                         <span class="theme-color"> RM : </span><span class="ml-1">{{row.pos_manager_name}}</span>
+                                                     </p>
+
                                                  </div>
 
                                              </div>
