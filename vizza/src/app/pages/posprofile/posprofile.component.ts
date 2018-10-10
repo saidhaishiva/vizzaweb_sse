@@ -91,6 +91,8 @@ export class PosprofileComponent implements OnInit {
     hideTab: any;
     tabKey: any;
     tabValue: any;
+    fileDetails: any;
+    allImage: any;
 
 
 
@@ -140,6 +142,8 @@ export class PosprofileComponent implements OnInit {
         this.tabKey = 'edit';
         this.viewTab = true;
         this.hideTab = false;
+        this.allImage = [];
+        this.dob = '';
         this.personaledit = this.fb.group({
             id: null,
             firstname: ['', Validators.compose([Validators.required])],
@@ -867,33 +871,100 @@ export class PosprofileComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+    // readUrl(event: any, type) {
+    //     this.type = type;
+    //     this.size = event.srcElement.files[0].size;
+    //     console.log(this.size);
+    //     if (event.target.files && event.target.files[0]) {
+    //         const reader = new FileReader();
+    //
+    //         reader.onload = (event: any) => {
+    //             this.getUrl1 = [];
+    //             this.url = event.target.result;
+    //             this.getUrl = this.url.split(',');
+    //             this.getUrl1.push(this.url.split(','));
+    //             this.onUploadFinished(this.getUrl);
+    //
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
+    //
+    // }
     readUrl(event: any, type) {
         this.type = type;
-        this.size = event.srcElement.files[0].size;
-        console.log(this.size);
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+        this.getUrl = '';
+        if (type == 'education') {
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+        } else {
+            this.size = event.srcElement.files[0].size;
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.getUrl1 = [];
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.getUrl1.push(this.url.split(','));
+                    this.onUploadFinished(this.getUrl);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
-
     }
+    // onUploadFinished(event) {
+    //     this.getUrl = event[1];
+    //     const data = {
+    //         'platform': 'web',
+    //         "role_id": this.auth.getPosRoleId(),
+    //         'uploadtype': 'single',
+    //         'images': this.getUrl,
+    //     };
+    //     console.log(data, 'dattattatata');
+    //     this.common.fileUpload(data).subscribe(
+    //         (successData) => {
+    //             this.fileUploadSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.fileUploadFailure(error);
+    //         }
+    //     );
+    // }
+
     onUploadFinished(event) {
-        this.getUrl = event[1];
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
-            "role_id": this.auth.getPosRoleId(),
-            'uploadtype': 'single',
-            'images': this.getUrl,
+            'uploadtype': '',
+            'images': ''
         };
+        if (this.type == 'education') {
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
+            }
+            data.uploadtype = 'multiple';
+            data.images = this.fileDetails;
+        } else {
+            this.getUrl = event[1];
+            data.uploadtype = 'single';
+            data.images = this.getUrl;
+        }
+
         console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
@@ -904,6 +975,8 @@ export class PosprofileComponent implements OnInit {
             }
         );
     }
+
+
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.fileUploadPath =  successData.ResponseObject.imagePath;
@@ -1008,7 +1081,7 @@ export class PosprofileComponent implements OnInit {
         });
     }
     updatePosProfile() {
-       // let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
+            let date = this.datepipe.transform(this.personaledit.value['birthday'], 'y-MM-dd');
         const data =  {
             "platform": "web",
             "pos_hidden_id": this.auth.getPosUserId(),
@@ -1016,7 +1089,7 @@ export class PosprofileComponent implements OnInit {
             "pos_referralcode": this.personaledit.value['referralconduct'],
             "pos_firstname": this.personaledit.value['firstname'],
             "pos_lastname": this.personaledit.value['lastname'] ,
-            "pos_dob": this.dob,
+            "pos_dob": this.dob == ''  ? date : this.dob,
             "pos_gender": this.personaledit.value['gender'],
             "pos_mobileno": this.contacts.value['phone1'],
             "pos_email": this.contacts.value['email'],

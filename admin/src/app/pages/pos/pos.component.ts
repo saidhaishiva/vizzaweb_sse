@@ -246,11 +246,17 @@ export class PosComponent implements OnInit {
     }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
+        const val1 = event.target.value.toUpperCase();
         const temp = this.temp.filter(function(d) {
             if (d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val) {
                 return d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val;
             } else if (d.pos_mobileno.toLowerCase().indexOf(val) !== -1 || !val) {
                 return d.pos_mobileno.toLowerCase().indexOf(val) !== -1 || !val;
+            } else if (d.doc_aadhar_no.toLowerCase().indexOf(val) !== -1 || !val) {
+                return d.doc_aadhar_no.toLowerCase().indexOf(val) !== -1 || !val;
+            }
+            else if (d.doc_pan_no.toUpperCase().indexOf(val) !== -1 || d.doc_pan_no.toLowerCase().indexOf(val) !== -1 ! || val ) {
+                return d.doc_pan_no.toUpperCase().indexOf(val) !== -1 || d.doc_pan_no.toLowerCase().indexOf(val) !== -1 || !val;
             }
         });
         this.rows = temp;
