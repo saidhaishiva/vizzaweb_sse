@@ -206,7 +206,6 @@ export class RegisterComponent implements OnInit {
                     this.getUrl = this.url.split(',');
                     this.getUrl1.push(this.url.split(','));
                     this.onUploadFinished(this.getUrl);
-
                 };
                 reader.readAsDataURL(event.target.files[0]);
             }

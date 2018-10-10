@@ -247,7 +247,11 @@ export class PosComponent implements OnInit {
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
         const temp = this.temp.filter(function(d) {
-            return d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val || d.pos_mobileno.toLowerCase().indexOf(val) !== -1 || !val || d.doc_pan_no.toLowerCase().indexOf(val) !== -1 || !val || d.doc_aadhar_no.toLowerCase().indexOf(val) !== -1 || !val;
+            if (d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val) {
+                return d.pos_firstname.toLowerCase().indexOf(val) !== -1 || !val;
+            } else if (d.pos_mobileno.toLowerCase().indexOf(val) !== -1 || !val) {
+                return d.pos_mobileno.toLowerCase().indexOf(val) !== -1 || !val;
+            }
         });
         this.rows = temp;
         this.table.offset = 0;
