@@ -245,7 +245,6 @@ export class ProposalComponent implements OnInit {
             'Liberty General Insurance Co. Ltd.',
             'Shriram General Insurance Co. Ltd.',
             'Reliance General Insurance Co. Ltd',
-            'Reliance General Insurance Co. Ltd.',
             'DHFL General Insurance Co. Ltd.',
             'Bajaj Allianz Allianz General Insurance Co. Ltd.',
             'Edelweiss General Insurance Co.Ltd.',
@@ -386,6 +385,7 @@ export class ProposalComponent implements OnInit {
     }
 
     sessionData() {
+        console.log(this.getStepper1.personalDob);
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
@@ -862,7 +862,7 @@ console.log(value,'fgh');
     }
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
-            const pattern =/[0-9a-zA-Z ]/;
+            const pattern =/[a-zA-Z0-9 ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
