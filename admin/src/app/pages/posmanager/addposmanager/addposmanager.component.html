@@ -7,20 +7,21 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <form [formGroup]="form"  (ngSubmit)="addPosManager()">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name"  (keypress)="onChar($event)">
         <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
 
       </mat-form-field >
 
       <mat-form-field class="w-100">
-        <input matInput placeholder="Mobile Number" formControlName="mobilenumber">
+        <input matInput placeholder="Mobile Number" formControlName="mobilenumber"  (keypress)="keyPress($event)">
         <mat-error *ngIf="form.controls.mobilenumber.errors?.required">Mobile Number is required</mat-error>
 
       </mat-form-field >
 
       <mat-form-field class="w-100">
         <input matInput placeholder="Email" formControlName="email">
-        <mat-error *ngIf="form.controls.email.errors?.required">Mobile Number is required</mat-error>
+        <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('pattern')">Enter valid Email</mat-error>
 
       </mat-form-field >
 
