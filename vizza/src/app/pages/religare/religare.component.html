@@ -458,8 +458,8 @@
                   </mat-accordion>
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-button matStepperPrevious >Back</button>
-                    <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id != 1" (click)="medicalHistoryDetails(stepper, 'createProposal')">Next</button>
-                    <button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id == 1" (click)="medicalHistoryDetails(stepper, 'noCreateProposal')">Next</button>
+                    <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
+                    <!--<button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id == 1" (click)="medicalHistoryDetails(stepper, 'noCreateProposal')">Next</button>-->
                   </div>
 
                 </div>
@@ -470,7 +470,7 @@
 
         </mat-step>
 
-        <mat-step [stepControl]="" *ngIf="buyProductdetails.product_id == 1">
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
@@ -487,12 +487,12 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" required>
+                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" [required]="buyProductdetails.product_id == 1">
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)"  required>
+                          <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)"  [required]="buyProductdetails.product_id == 1">
                          <mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                     </mat-form-field></div>
 

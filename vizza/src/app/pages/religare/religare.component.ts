@@ -167,8 +167,8 @@ array: any;
 
         });
         this.nomineeDetails = this.fb.group({
-            'religareNomineeName': ['', Validators.required],
-            'religareRelationship': ['', Validators.required]
+            'religareNomineeName': '',
+            'religareRelationship': ''
         });
 
 
@@ -197,10 +197,18 @@ array: any;
 
 
     ngOnInit() {
-
-
-
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        if(this.buyProductdetails.product_id == 1) {
+            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
+            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
+        }
+        if(this.buyProductdetails.product_id != 1) {
+            this.nomineeDetails.get('religareNomineeName').setValidators(null);
+            this.nomineeDetails.get('religareRelationship').setValidators(null);
+        }
+        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
+        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
+
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
@@ -261,6 +269,7 @@ array: any;
 
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+
 
     }
 
@@ -435,7 +444,7 @@ array: any;
     }
 
 
-    medicalHistoryDetails(stepper: MatStepper, key) {
+    medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
         this.questions_list = [];
@@ -460,9 +469,6 @@ array: any;
                 if (i > 0) {
                     this.totalReligareData[i].questions_list = this.getFilterData[i -1];
                 }
-        }
-        if (key == 'createProposal') {
-            this.proposal();
         }
         let statusChecked = [];
             this.medicalStatus = [];
@@ -516,7 +522,6 @@ array: any;
          }
 
         }
-        console.log(statusChecked.includes(0));
 
             if (statusChecked.includes(0)) {
                 this.toastr.error('Please fill the empty field');
@@ -524,16 +529,14 @@ array: any;
                 this.toastr.error('Please check atleast one checkbox!');
             } else {
                 stepper.next();
+
             }
-
-        console.log(statusChecked);
-
 
     }
 
+
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-
         console.log(this.personal.value, 'dfgdfg');
         this.personalData = value;
         this.personalData.rolecd = 'PROPOSER';
@@ -622,7 +625,6 @@ array: any;
 
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-            //this.getPostalInsurer(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value, index, 'residence');
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
@@ -638,8 +640,6 @@ array: any;
             this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
 
         }
-
-
     }
 
     public keyPress(event: any) {
@@ -704,7 +704,6 @@ array: any;
 
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.personal = this.fb.group({
@@ -910,8 +909,6 @@ array: any;
 
 
 
-
-
     //Create Proposal
     proposal() {
         this.totalData = {
@@ -980,8 +977,6 @@ array: any;
                 let updatedData = [];
                 for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
                     let newObject = {};
-                    // newObject['type'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['type'];
-                    // newObject['age'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['age'];
                     newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
                     newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
                     newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];

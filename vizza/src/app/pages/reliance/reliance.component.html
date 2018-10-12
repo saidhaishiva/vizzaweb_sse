@@ -200,7 +200,7 @@
                                             </div>
                                             <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                            <input matInput placeholder="Fax"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalEmail2" autocomplete="off">
+                                            <input matInput placeholder="Fax"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalFax" autocomplete="off">
                                             <mat-error *ngIf="personal.controls.personalFax.errors?.required">fax is required</mat-error>
                                             </mat-form-field>
                                             </div>
@@ -435,8 +435,8 @@
                                                 </div>
                                                 <div class="col-md-12  mb-3" *ngIf="riskDetails['controls'].serviceTax.value == 'Yes'">
                                                     <mat-form-field  class="w-100">
-                                                        <mat-select placeholder="Services Tax" formControlName="ServicesTaxId" autocomplete="off" >
-                                                            <mat-option *ngFor="let list of ServiceTaxId" value="list.servicetax_exemp_id">{{list.servicetax_exemp_name}}</mat-option>
+                                                        <mat-select placeholder="Services Tax" formControlName="ServicesTaxId" autocomplete="off" [required]="riskDetails['controls'].serviceTax.value == 'Yes'">
+                                                            <mat-option *ngFor="let list of ServiceTaxId" value={{list.servicetax_exemp_id}}>{{list.servicetax_exemp_name}}</mat-option>
 
                                                         </mat-select>
                                                         <mat-error *ngIf="riskDetails.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>
@@ -451,7 +451,7 @@
                                                     </div>
                                                     <div class="col-md-12 mb-3"  *ngIf="riskDetails['controls'].crossSell.value == 'Yes'">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Cross Sell Policu No"  formControlName="crossSellPolicyNo" autocomplete="off" required>
+                                                            <input matInput placeholder="Cross Sell Policu No"  formControlName="crossSellPolicyNo" autocomplete="off" [required]="riskDetails['controls'].crossSell.value == 'Yes'">
                                                             <mat-error *ngIf="riskDetails.controls.crossSellPolicyNo.errors?.required">Cross Sell Policu No is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
@@ -468,19 +468,19 @@
                                             </div>
                                             <div class="col-md-12" *ngIf="riskDetails['controls'].relianceAda.value == 'Yes'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Company Name"  formControlName="companyname" autocomplete="off" required>
+                                                <input matInput placeholder="Company Name"  formControlName="companyname" autocomplete="off" [required]="riskDetails['controls'].relianceAda.value == 'Yes'">
                                                 <mat-error *ngIf="riskDetails.controls.companyname.errors?.required">Company Name is required</mat-error>
                                             </mat-form-field>
                                             </div>
                                             <div class="col-md-12" *ngIf="riskDetails['controls'].relianceAda.value == 'Yes'">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Employee Code"  formControlName="employeeCode" autocomplete="off" required>
+                                                    <input matInput placeholder="Employee Code"  formControlName="employeeCode" autocomplete="off" [required]="riskDetails['controls'].relianceAda.value == 'Yes'">
                                                     <mat-error *ngIf="riskDetails.controls.employeeCode.errors?.required">Employee Code is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-12" *ngIf="riskDetails['controls'].relianceAda.value == 'Yes'">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Email Id"  formControlName="emailId" autocomplete="off" required>
+                                                    <input matInput placeholder="Email Id"  formControlName="emailId" autocomplete="off" [required]="riskDetails['controls'].relianceAda.value == 'Yes'">
                                                     <mat-error *ngIf="riskDetails.controls.emailId.errors?.required">Email ID is required</mat-error>
                                                 </mat-form-field>
                                             </div>
