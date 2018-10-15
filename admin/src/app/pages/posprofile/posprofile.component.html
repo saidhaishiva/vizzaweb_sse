@@ -106,7 +106,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="row">
-                <div *ngIf="posData.doc_edu_certificate_img == ''" >
+                <div *ngIf="posData.doc_edu_certificate_img.length == 0" >
                     <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
                         cloud_off
                     </i> &nbsp; No Educational Certificated</p>

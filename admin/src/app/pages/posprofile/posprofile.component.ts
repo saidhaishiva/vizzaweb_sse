@@ -202,6 +202,9 @@ export class PosprofileComponent implements OnInit {
 
         if (successData.IsSuccess) {
             this.posData = successData.ResponseObject;
+            if (this.posData.pos_manager_id != null) {
+                this.posManager = this.posData.pos_manager_id;
+            }
         } else {
             this.settings.loadingSpinner = false;
         }
@@ -450,14 +453,17 @@ export class PosprofileComponent implements OnInit {
             }
 
         ];
-
+        if (this.allImage != '') {
             let length = this.allImage.length-1;
             for (let k = 0; k < this.allImage[length].length; k++) {
-                    this.fileDetails[k].image = this.allImage[length][k][1];
+                this.fileDetails[k].image = this.allImage[length][k][1];
             }
-
-        console.log(this.fileUploadPath, 'this.fileUploadPath');
-        console.log(this.fileDetails, 'this.fileDetails');
+        }
+        //
+        //
+        //
+        // console.log(this.fileUploadPath, 'this.fileUploadPath');
+        // console.log(this.fileDetails, 'this.fileDetails');
 
         let appointDate = this.datepipe.transform(this.appointmentdate, 'y-MM-dd');
         const data = {

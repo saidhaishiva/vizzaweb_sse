@@ -116,16 +116,16 @@ export class HealthInsuranceComponent implements OnInit {
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
 
-        const observable = this.keyUp
-            .map(value => event)
-            .debounceTime(600)
-            .distinctUntilChanged()
-            .flatMap((search) => {
-                return Observable.of(search).delay(400);
-            })
-            .subscribe((data) => {
-                this.typeAge(data.target);
-            });
+        // const observable = this.keyUp
+        //     .map(value => event)
+        //     .debounceTime(400)
+        //     .distinctUntilChanged()
+        //     .flatMap((search) => {
+        //         return Observable.of(search).delay(400);
+        //     })
+        //     .subscribe((data) => {
+        //         this.typeAge(data.target);
+        //     });
     }
 
     ngOnInit() {
@@ -369,37 +369,60 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-    // typeAge(checked, name, index, value) {
-    typeAge(value) {
-        console.log(value, 'vklllll');
-        console.log(value.value, 'value');
-        console.log(value.max, 'indx');
-        // if (this.setArray[2].age == '' || this.setArray[2].checked == false) {
-        //     this.count = 0;
-        // }
+
+    typeAge(checked, name, index, value) {
         let checkTrue = true;
         let checkFalse = false;
-        if (value.max == 'Son' || value.max == 'Daughter') {
-        // else if (value.length == 0) {
-            if (value.value != '') {
-                console.log('in');
-                this.ckeckedUser(checkTrue, value.alt, value.max);
-            } else if (value.value == '') {
-                console.log('out');
-
-                this.ckeckedUser(checkFalse, value.alt, value.max);
+        if (name == 'Son' || name == 'Daughter') {
+            if (value != '' && this.setArray[index].checked != true) {
+                this.ckeckedUser(checkTrue, index, name);
+            } else if (value == '' && this.setArray[index].checked == true) {
+                this.ckeckedUser(checkFalse, index, name);
             }
         }
-
-
-        if (value.value != '') {
-            this.setArray[value.alt].checked = true;
+        if (value != '') {
+            this.setArray[index].checked = true;
         } else {
-            this.setArray[value.alt].checked = false;
+            this.setArray[index].checked = false;
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
         console.log(this.hideChild, 'hideChild')
     }
+
+
+    // // typeAge(checked, name, index, value) {
+    // typeAge(value) {
+    //     console.log(value, 'vklllll');
+    //     console.log(value.value, 'value');
+    //     console.log(value.max, 'indx');
+    //     // if (this.setArray[2].age == '' || this.setArray[2].checked == false) {
+    //     //     this.count = 0;
+    //     // }
+    //     let checkTrue = true;
+    //     let checkFalse = false;
+    //     if (value.max == 'Son' || value.max == 'Daughter') {
+    //     // else if (value.length == 0) {
+    //         if (value.value != '') {
+    //             console.log('in');
+    //             this.ckeckedUser(checkTrue, value.alt, value.max);
+    //         } else if (value.value == '') {
+    //             console.log('out');
+    //
+    //             this.ckeckedUser(checkFalse, value.alt, value.max);
+    //         }
+    //     }
+    //
+    //
+    //     if (value.value != '') {
+    //         this.setArray[value.alt].checked = true;
+    //     } else {
+    //         this.setArray[value.alt].checked = false;
+    //     }
+    //     sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
+    //     console.log(this.hideChild, 'hideChild')
+    // }
+
+
 
     addOthers(value) {
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: false, error: ''});

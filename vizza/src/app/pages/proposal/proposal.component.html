@@ -91,7 +91,7 @@
                           </div>
                           <div class="col" *ngIf="previousInsuranceStatus">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus">
+                              <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus" autocomplete="off">
                                 <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>

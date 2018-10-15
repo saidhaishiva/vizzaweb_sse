@@ -72,6 +72,12 @@
                                                         <mat-icon class="muted-text colorBank">supervised_user_circle</mat-icon>&nbsp;<span class="colorBank"> Referral Code : </span>
                                                         <span class="text-capitalize ml-1"> {{personal.pos_myreferral_code}}</span>
                                                     </p>
+                                                    <p fxLayout="row" fxLayoutAlign="left center" *ngIf="personal.pos_manager_name != null">
+                                                        <mat-icon class="muted-text colorBank">personal</mat-icon>&nbsp;<span class="colorBank"> RM : </span>
+                                                        <span class="text-capitalize ml-1"> {{personal.pos_manager_name}}</span>
+                                                    </p>
+
+
                                                 </div>
                                                 <div class="col-md-3"></div>
 
@@ -340,13 +346,13 @@
                                     <p>{{personal.doc_education}}</p>
                                 </div>
                                 <!--<mat-card-title class="m-0 text-center"><h4>Education Documents</h4></mat-card-title>-->
-                                <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let edu of personal.doc_edu_certificate_img">
-                                    <div fxFlex="50" class="flex-p">
+                                <div fxLayout="row" fxLayoutAlign="center center" >
+                                    <div fxFlex="50" class="flex-p" *ngFor="let edu of personal.doc_edu_certificate_img">
                                         <mat-card class="custom-card">
                                             <mat-card-header class="bg-warn1 p-1" fxLayoutAlign="space-between center">
                                                 <mat-card-title class="m-0"><h6 class="text-center">Certificate of Education</h6></mat-card-title>
                                             </mat-card-header>
-                                            <img mat-card-image class="h-100" src="{{webhost +'/'+ edu}}" alt="" (click)="viewImage(personal.doc_edu_certificate_img, 'Educational Certificate')">
+                                            <img mat-card-image class="h-100" src="{{webhost +'/'+ edu}}" alt="" (click)="viewImage(edu, 'Educational Certificate')">
                                         </mat-card>
                                     </div>
                                 </div>
@@ -368,7 +374,7 @@
                                         <div class="col-md-2 uploadBtn" *ngIf="personalshow.doc_verified_status != 2">
                                             <label class="btn-bs-file btn btn-secondary">
                                             Browse
-                                            <input type='file' (change)="readUrl($event, 'education')">
+                                            <input type='file' (change)="readUrl($event, 'education')" multiple>
                                             </label>
                                         </div>
                                     </div>
