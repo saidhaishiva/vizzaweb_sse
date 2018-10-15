@@ -263,6 +263,7 @@ array: any;
         ];
 
 
+
         console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
         this.sessionData();
 
