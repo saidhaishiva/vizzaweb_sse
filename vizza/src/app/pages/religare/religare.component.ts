@@ -477,6 +477,7 @@ array: any;
                 }
         }
         let statusChecked = [];
+
             this.medicalStatus = [];
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
 
