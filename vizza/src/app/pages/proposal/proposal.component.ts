@@ -668,9 +668,12 @@ console.log(value,'fgh');
                                 this.insureStatus = true;
                             }
                         }
+                    } else {
+                        this.insureStatus = true;
                     }
                 }
             } else {
+
             }
         }
         if (this.errorMessage) {
@@ -691,6 +694,7 @@ console.log(value,'fgh');
 
         console.log(this.errorMessage, 'errorMessage');
         console.log(this.insureStatus, 'insureStatus');
+        console.log(this.illnesStatus, 'illnesStatus');
 
     }
     typeAge(value, index, ci) {

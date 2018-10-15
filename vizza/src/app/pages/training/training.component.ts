@@ -15,8 +15,8 @@ import {Settings} from '../../app.settings.model';
 export class TrainingComponent implements OnInit {
     @HostListener('document:mousemove', ['$event'])
     onMouseMove(e) {
-        this.timoutWarning = 3600000; // Display warning in 14 Mins.
-        this.timoutNow = 3600000; // Timeout in 15 mins.
+        this.timoutWarning = 54000000; // Display warning in 14 Mins.
+        this.timoutNow = 54000000; // Timeout in 15 mins.
         this.ResetTimers();
     }
     getRemainingTime: any;
@@ -46,8 +46,8 @@ export class TrainingComponent implements OnInit {
         this.startTime = true;
         this.startOnlineExam = false;
         // Set timeout variables.
-        this.timoutWarning = 3600000; // Display warning in 14 Mins.
-        this.timoutNow = 3600000; // Timeout in 15 mins.
+        this.timoutWarning = 54000000; // Display warning in 14 Mins.
+        this.timoutNow = 54000000; // Timeout in 15 mins.
         this.warningTimer = 0;
         this.timeoutTimer = 0;
         this.StartTimers();

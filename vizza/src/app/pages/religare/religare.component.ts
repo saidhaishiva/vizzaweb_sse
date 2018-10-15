@@ -478,8 +478,8 @@ array: any;
                 }
         }
         let statusChecked = [];
-
             this.medicalStatus = [];
+            console.log(this.religareQuestionsList, 'this.religareQuestionsList');
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
 
             if(this.religareQuestionsList[i].mStatus == 'No'){
@@ -528,6 +528,7 @@ array: any;
              }
 
          }
+         console.log(this.medicalStatus, 'this.medicalStatus');
 
         }
 
