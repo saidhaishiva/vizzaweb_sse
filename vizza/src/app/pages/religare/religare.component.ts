@@ -145,7 +145,7 @@ array: any;
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+            personalPan: '',
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
@@ -269,6 +269,12 @@ array: any;
 
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+        if(this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
+            this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
+        } else{
+            this.personal.get('personalPan').setValidators(null);
+        }
+        this.personal.get('personalPan').updateValueAndValidity();
 
 
     }
