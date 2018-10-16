@@ -122,7 +122,7 @@ export const routes: Routes = [
             //{ path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
-            { path: 'religare-payment-success/:id', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
+            { path: 'religare-payment-success/:id/:proNo', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
 
         ]
     },
