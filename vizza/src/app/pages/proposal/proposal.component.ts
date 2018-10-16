@@ -385,7 +385,6 @@ export class ProposalComponent implements OnInit {
     }
 
     sessionData() {
-        console.log(this.getStepper1.personalDob);
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
