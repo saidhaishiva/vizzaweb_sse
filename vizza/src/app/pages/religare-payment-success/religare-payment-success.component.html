@@ -6,7 +6,7 @@
       <img src="assets/img/success.gif" alt="">
       <h2>Payment Successfully</h2>
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
-      <p>Click here to download PDF <button mat-button color="primary">Download</button></p>
+      <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
       <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>
         <div *ngIf="paymentStatus == 'failure'">
