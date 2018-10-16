@@ -69,6 +69,7 @@ import { ProposalComponent } from './pages/proposal/proposal.component';
 import { ProposalmessageComponent } from './pages/proposal/proposalmessage/proposalmessage.component';
 import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
+import { HealthInsurer} from './pages/health-insurance/health-insurance.component';
 import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
 import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
@@ -227,7 +228,8 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       BankersComponent,
       ErectionComponent,
       HealthComponent,
-      ReligarePaymentSuccessComponent
+      ReligarePaymentSuccessComponent,
+      HealthInsurer
   ],
   providers: [
       AppSettings,
@@ -247,7 +249,7 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, HealthInsurer, DocumentViewComponent, TrainingcompletedAlert
     ]
 })
 export class AppModule { }

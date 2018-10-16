@@ -1113,7 +1113,65 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
     }
+
+    healthInsurer(){
+        const dialogRef = this.dialog.open(HealthInsurer, {
+            width: '800px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
 }
+
+
+@Component({
+    selector: 'healthinsurer',
+    template: `<mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Personal data
+                </mat-panel-title>
+                <mat-panel-description>
+                    Type your name and age
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+                <input matInput placeholder="First name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Age">
+            </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Self aware panel
+                </mat-panel-title>
+                <mat-panel-description>
+                    Currently I am 
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+    </mat-accordion>`,
+})
+export class HealthInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<HealthInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+        onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+
 
 @Component({
     selector: 'groupmembersalert',

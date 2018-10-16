@@ -33,7 +33,7 @@ button:focus{
     background: rgba(243, 240, 240, 0.87) !important;
   }
   mat-card.mat-radius{
-    border-radius: 50px;
+    background: #faf3f3 !important;
   }
   .mat-card-header-text{
     display: none;
@@ -710,9 +710,9 @@ a:hover {
     }
 
   }
-  //.mat-horizontal-stepper-header{
-  //  pointer-events: none !important;
-  //}
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1566,32 +1566,32 @@ footer{
 #a1{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  -webkit-animation: mymoveback 8s infinite;
-  animation: mymoveback 8s infinite;
-}
-#b1 {
-  -webkit-animation: mymove 8s infinite;
-  animation: mymove 8s infinite;
-}
-#a2{
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
   -webkit-animation: mymoveback 10s infinite;
   animation: mymoveback 10s infinite;
 }
-#b2 {
+#b1 {
   -webkit-animation: mymove 10s infinite;
   animation: mymove 10s infinite;
 }
-#a3{
+#a2{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
   -webkit-animation: mymoveback 12s infinite;
   animation: mymoveback 12s infinite;
 }
-#b3 {
+#b2 {
   -webkit-animation: mymove 12s infinite;
   animation: mymove 12s infinite;
+}
+#a3{
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 16s infinite;
+  animation: mymoveback 16s infinite;
+}
+#b3 {
+  -webkit-animation: mymove 16s infinite;
+  animation: mymove 16s infinite;
 }
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
