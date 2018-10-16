@@ -79,6 +79,7 @@ import { ChangepasswordComponent } from './pages/changepassword/changepassword.c
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
+import {DownloadMessageReligare} from './pages/religare-payment-success/religare-payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
 import { ReligareComponent } from './pages/religare/religare.component';
@@ -187,6 +188,7 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
+      DownloadMessageReligare,
       PosstatusAlert,
       TruncatePipe,
       ReligareComponent,
@@ -250,6 +252,7 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
     bootstrap: [AppComponent],
     entryComponents: [
         ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, HealthInsurer, DocumentViewComponent, TrainingcompletedAlert
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert
     ]
 })
 export class AppModule { }
