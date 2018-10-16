@@ -62,7 +62,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
 
 downloadMessage() {
-    const dialogRef = this.dialog.open(DownloadMessage, {
+    const dialogRef = this.dialog.open(DownloadMessageReligare, {
         width: '400px',
         data: this.path
 
@@ -76,7 +76,7 @@ downloadMessage() {
 
 }
 @Component({
-    selector: 'downloadmessage',
+    selector: 'downloadmessagereligare',
     template: `<div mat-dialog-content class="text-center">
         <label> {{data}} </label>
     </div>
@@ -84,10 +84,10 @@ downloadMessage() {
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
     </div>`,
 })
-export class DownloadMessage {
+export class DownloadMessageReligare {
 
     constructor(
-        public dialogRef: MatDialogRef<DownloadMessage>,
+        public dialogRef: MatDialogRef<DownloadMessageReligare>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
