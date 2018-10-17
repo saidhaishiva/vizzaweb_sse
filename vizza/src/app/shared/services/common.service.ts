@@ -196,6 +196,17 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    fileUploadPolicy(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'policyrenewal/policy_renewal_upload_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getReferral(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -331,7 +342,19 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'policyrenewal/get_insurance_company_list' ;
+        const url = this.configurationService.getHost() + 'policyrenewal/get_insurance_company_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Get policy types
+    policyTypes(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'policyrenewal/get_insure_policy_type_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

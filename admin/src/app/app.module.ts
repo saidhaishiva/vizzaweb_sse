@@ -94,6 +94,8 @@ import { PosmanagerComponent } from './pages/posmanager/posmanager.component';
 import { AddposmanagerComponent } from './pages/posmanager/addposmanager/addposmanager.component';
 import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editposmanager.component';
 import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
+import { RenewalComponent } from './pages/renewal/renewal.component';
+import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.component';
 
 @NgModule({
     imports: [
@@ -170,7 +172,9 @@ import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
         PosmanagerComponent,
         AddposmanagerComponent,
         EditposmanagerComponent,
-        PosEditComponent
+        PosEditComponent,
+        RenewalComponent,
+        AddrenewalComponent
 
     ],
     providers: [
@@ -190,6 +194,6 @@ import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent]
 })
 export class AppModule { }
