@@ -112,6 +112,7 @@ export class ReligareComponent implements OnInit {
     public back: boolean;
     public relationshipcode : any;
     public medicalStatus : any;
+    public arr : any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -137,6 +138,7 @@ array: any;
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.questions_list = [];
+        this.arr = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -145,7 +147,7 @@ array: any;
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: '',
+            personalPan: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
@@ -301,7 +303,7 @@ array: any;
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
                 personalAddress: ['', Validators.required],
                 sameAsProposer: false,
@@ -359,7 +361,7 @@ array: any;
                     }],
                     'prop_identity_list': [
                         {
-                            'identity_number': this.proposerInsureData[i].personalPan,
+                            'identity_number': this.proposerInsureData[i].personalPan.toUpperCase(),
                             'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
                         }
                     ],
@@ -399,12 +401,12 @@ array: any;
                         'identity_type': 'GST'
                     });
                 }
-                if (this.proposerInsureData[i].personalPan != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalPan,
-                        'identity_type': 'PAN'
-                    });
-                }
+                // if (this.proposerInsureData[i].personalPan != '') {
+                //     this.totalReligareData[i].prop_identity_list.push({
+                //         'identity_number': this.proposerInsureData[i].personalPan,
+                //         'identity_type': 'PAN'
+                //     });
+                // }
 
             }
             let aterMobile = [];
@@ -554,8 +556,8 @@ array: any;
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(this.personal.value, 'dfgdfg');
         this.personalData = value;
+        console.log(this.personalData, 'dfgdfg');
         this.personalData.rolecd = 'PROPOSER';
         this.personalData.type = 'SELF';
         sessionStorage.stepper1Details = '';
@@ -566,7 +568,6 @@ array: any;
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                console.log(this.mobileNumber, 'jjjjjjjjjjjjjjjjjjj')
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
             }
@@ -700,17 +701,26 @@ array: any;
         console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+
         let age = this.ageCalculate(this.setDateAge);
         this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(age);
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        }
+        let smallest = this.arr[0];
+        for(let i = 1; i<this.arr.length; i++){
+            if(this.arr[i] < smallest){
+                smallest = this.arr[i];
+            }
         }
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Son') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 1');
@@ -753,6 +763,19 @@ array: any;
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+
+        console.log(smallest, 'smallest');
+
         console.log(this.insureArray.value);
     }
 
@@ -772,6 +795,10 @@ array: any;
         this.back = true;
         console.log(this.back);
     }
+    quesback() {
+        this.back = false;
+        console.log(this.back);
+    }
 
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -788,7 +815,7 @@ array: any;
                 personalrelationship: this.getStepper1.personalrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 personalGender: this.getStepper1.personalGender,
-                personalPan: this.getStepper1.personalPan,
+                personalPan: this.getStepper1.personalPan.toUpperCase(),
                 personalGst: this.getStepper1.personalGst,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
@@ -821,7 +848,7 @@ array: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan.toUpperCase());
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
@@ -924,7 +951,7 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue(this.personal.controls['personalAadhar'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value.toUpperCase());
             this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
@@ -1004,6 +1031,7 @@ array: any;
         if (!this.back){
             this.processDiseaseData(this.totalData);
         }
+        this.stepback();
 
         const data = this.totalData;
         this.settings.loadingSpinner = true;

@@ -1113,7 +1113,69 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
     }
+
+    healthInsurer(){
+        const dialogRef = this.dialog.open(HealthInsurer, {
+            width: '1000px',
+            height: '500px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
 }
+
+
+@Component({
+    selector: 'healthinsurer',
+    template: `<mat-accordion class="about-health">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header class="mb-2">
+                <mat-panel-title>
+                    <h6>UTILISING THE HEALTH INSURANCE POLICY</h6>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>After opting the health insurance and payment of premium to the insurer a health insurance policy is issued by the insurer along with the policy terms and conditions and a TPA identity card is also issued by the allocated Third Party Administrator ( TPA ).</p>
+            <p>You must remember that the TPA is only a facilitator and TPA’s are not empowered to reject claims.</p>
+            <p>It is a must that you should read the terms and conditions of the policy and if the terms and conditions are not in line with what was assured at the time of sales or you feel that this policy is not what you required, you can cancel the policy within the free look period and get a full refund of the premium.</p>
+            <p>There are certain exclusions found in common with all health insurance policies and in some policies certain exclusions might have been waived by specific wordings.</p>
+            <strong>The most common exclusions and salient features to be borne in mind are:</strong>
+            <ul><li>Remember a full 24 hour hospitalization is a prime requisite for a hospitalization claim unless the particular procedure has been listed as a day care procedure by the insurer. A discharge with a few minutes short of 24 hours hospitalization could result in repudiation of the claim.</li>
+                <li>first 30 days from the date of commencement of the policy no hospitalization claims are payable except in the unfortunate event of an accident hospitalization. This exclusion is not applicable for renewals if renewed prior to the expiry of the existing policy.</li>
+                <li>Pre-existing illnesses are generally excluded for a specific period. This exclusion is not applicable where the existing policy holder has completed the requisite period with any insurer and the policy is a continuation without any break in period.</li>
+                <li>Although there is a grace time for renewing the policy you must be aware of the fact that generally illnesses contracted during the grace period are excluded from the coverage just like a first year policy holder.</li>
+                <li>Certain diseases / illnesses get covered after completion of a particular period of continuous renewal 2 years / 3 years / 4 years. This is specifically mentioned in the policy.</li>
+                <li>You must be aware of the fact that the Hospital / Nursing home has to be registered with the local authorities and according to the located city there is a minimum number of beds stipulated. Further the hospital should have a fully equipped operation theater, nurses and doctors available round the clock.</li>
+                <li>The unfortunate event of hospitalization could be a planned hospitalization which is after several visits to the doctors a procedure might have to be done under 24/7 monitoring by the medical team or it could be an emergency unplanned hospitalization. Under both the circumstances the eligible policy benefits can be obtained by utilizing the cashless or reimbursement process.</li>
+                <li>In every hospitalization procedure it is a foregone fact that there will be a pre hospitalization expenditure and after discharge certain post hospitalization expenditure. Generally both the pre and post hospitalization expenses do not come under the cashless process and has to be claimed as a reimbursement. You must remember that all expenses must be supported by the relevant prescription and bill along with the original report for diagnostic materials. Normally all insurance policies give a 30 day coverage for pre hospitalization expenses and a 60 day period for post hospitalization expenses. Remember there are variations from insurer to insurer according to the opted policy. All claims are payable up to the sum insured limit only. Please remember there might be sub limits or cash / percentage limitations in procedures which are charged by the hospitals on a package basis. Only relevant ( to the procedure at the hospital) medical expenses are covered in the pre and post hospitalization.</li>
+            </ul>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Self aware panel
+                </mat-panel-title>
+                <mat-panel-description>
+                    Currently I am 
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+    </mat-accordion>`,
+})
+export class HealthInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<HealthInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+        onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+
 
 @Component({
     selector: 'groupmembersalert',

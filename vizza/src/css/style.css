@@ -26,11 +26,11 @@ button:focus {
 .dashboard .mat-card {
   background: rgba(243, 240, 240, 0.87) !important; }
 .dashboard mat-card.mat-radius {
-  border-radius: 50px; }
+  background: #faf3f3 !important; }
 .dashboard .mat-card-header-text {
   display: none; }
 .dashboard .son {
-  background: #fff;
+  background: #f5deff;
   padding: 15px;
   border-radius: 5px; }
   .dashboard .son button {
@@ -521,6 +521,8 @@ a:hover {
     color: #fff !important; }
 .proposal .question-panel .mat-expansion-panel-body {
   border: 1px solid #ce801d !important; }
+.proposal .mat-horizontal-stepper-header {
+  pointer-events: none !important; }
 .proposal mat-expansion-panel-header {
   background: #18CCB4 !important; }
   .proposal mat-expansion-panel-header mat-panel-title, .proposal mat-expansion-panel-header .mat-expansion-indicator::after {
@@ -1154,32 +1156,32 @@ footer {
 #a1 {
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  -webkit-animation: mymoveback 8s infinite;
-  animation: mymoveback 8s infinite; }
-
-#b1 {
-  -webkit-animation: mymove 8s infinite;
-  animation: mymove 8s infinite; }
-
-#a2 {
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
   -webkit-animation: mymoveback 10s infinite;
   animation: mymoveback 10s infinite; }
 
-#b2 {
+#b1 {
   -webkit-animation: mymove 10s infinite;
   animation: mymove 10s infinite; }
 
-#a3 {
+#a2 {
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
   -webkit-animation: mymoveback 12s infinite;
   animation: mymoveback 12s infinite; }
 
-#b3 {
+#b2 {
   -webkit-animation: mymove 12s infinite;
   animation: mymove 12s infinite; }
+
+#a3 {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 16s infinite;
+  animation: mymoveback 16s infinite; }
+
+#b3 {
+  -webkit-animation: mymove 16s infinite;
+  animation: mymove 16s infinite; }
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
@@ -1220,5 +1222,8 @@ footer {
     transform: rotateY(-180deg); } }
 .active-link {
   background-color: #90d050 !important; }
+
+.about-health mat-expansion-panel {
+  background: #f5deff; }
 
 /*# sourceMappingURL=style.css.map */
