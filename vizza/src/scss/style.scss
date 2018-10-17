@@ -39,7 +39,7 @@ button:focus{
     display: none;
   }
   .son{
-    background: #fff;
+    background: #f5deff;
     padding:15px;
     border-radius: 5px;
     button{
@@ -1655,3 +1655,9 @@ footer{
   background-color: #90d050 !important;
 }
 
+.about-health{
+  mat-expansion-panel{
+    background: #f5deff;
+  }
+
+}

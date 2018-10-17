@@ -147,7 +147,7 @@ array: any;
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: '',
+            personalPan: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
@@ -303,7 +303,7 @@ array: any;
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
+                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
                 personalAddress: ['', Validators.required],
                 sameAsProposer: false,
@@ -556,8 +556,8 @@ array: any;
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(this.personal.value, 'dfgdfg');
         this.personalData = value;
+        console.log(this.personalData, 'dfgdfg');
         this.personalData.rolecd = 'PROPOSER';
         this.personalData.type = 'SELF';
         sessionStorage.stepper1Details = '';
@@ -568,7 +568,6 @@ array: any;
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
-                console.log(this.mobileNumber, 'jjjjjjjjjjjjjjjjjjj')
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
             }

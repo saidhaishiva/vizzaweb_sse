@@ -30,7 +30,7 @@ button:focus {
 .dashboard .mat-card-header-text {
   display: none; }
 .dashboard .son {
-  background: #fff;
+  background: #f5deff;
   padding: 15px;
   border-radius: 5px; }
   .dashboard .son button {
@@ -1222,5 +1222,8 @@ footer {
     transform: rotateY(-180deg); } }
 .active-link {
   background-color: #90d050 !important; }
+
+.about-health mat-expansion-panel {
+  background: #f5deff; }
 
 /*# sourceMappingURL=style.css.map */
