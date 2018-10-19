@@ -25,12 +25,22 @@ export class HomeComponent implements OnInit {
     companyList: any;
     comments: any;
     webhost: any;
+    policyTypes: any;
+    paymentFrequency: any;
+    allImage: any;
+    fileDetails: any;
+    getUrl: any;
+    url: any;
+    fileUploadPath: any;
+    today: any;
+    maxDate: any;
+    dateError: any;
 
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
       this.form =  this.fb.group({
-          'insurename': ['', Validators.required],
-          'startdate': ['', Validators.required],
-          'enddate': ['', Validators.required],
+          'insurename': ['', Validators.compose([Validators.required])],
+          'startdate': ['', Validators.compose([Validators.required])],
+          'enddate': ['', Validators.compose([Validators.required])],
           'insureemail': ['', Validators.compose([Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           'insurepolicytype':  ['', Validators.compose([Validators.required])],
           'insuremobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
@@ -47,6 +57,17 @@ export class HomeComponent implements OnInit {
       console.log(this.settings, 'this.settings');
       this.commentBox = false;
       this.selectDate = '';
+      this.fileUploadPath = '';
+      this.allImage = [];
+      this.today = new Date();
+
+
+      this.paymentFrequency = [
+          {'id': 1, 'name': 'Annually'},
+          {'id': 2, 'name': 'Half Yearly'},
+          {'id': 3, 'name': 'Quarterly'},
+          {'id': 4, 'name': 'Monthly'}
+      ];
   }
 
   ngOnInit() {
@@ -87,13 +108,45 @@ export class HomeComponent implements OnInit {
       sessionStorage.mobileNumber = '';
       sessionStorage.ageRestriction = '';
       this.testimonialList();
-      this.getcompanyList();
+      this.getPolicyTypes();
   }
     addEvent(event) {
       console.log(event, 'chek dateeeeee');
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
+    chooseDate(event, type) {
+        console.log(event, 'event');
+        this.maxDate = '';
+        if (event.value != null) {
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dateError = '';
+                } else {
+                    this.dateError = 'Enter Valid Date';
+                }
+                let selectedDate;
+                selectedDate = event.value._i;
+                console.log(selectedDate, 'selectedDate');
+
+                if (selectedDate.length == 10) {
+                    if (type == 'sDate') {
+                        this.maxDate = event.value;
+                    }
+                }
+            } else if (typeof event.value._i == 'object') {
+                this.dateError = '';
+                console.log(event.value, 'event.value');
+                if (type == 'sDate') {
+                    this.maxDate = event.value;
+                }
+            }
+            console.log(this.maxDate, 'maxDate22');
+        }
+    }
+
+
     testiComments() {
       // this.commentBox = true;
         let dialogRef = this.dialog.open(TestimonialComponent, {
@@ -137,11 +190,39 @@ export class HomeComponent implements OnInit {
     public testimonialListFailure(error) {
         console.log(error);
     }
-    getcompanyList() {
+    selectPolicyType(compId) {
+        this.getcompanyList(compId);
+    }
+    getPolicyTypes() {
         const data = {
             'platform': 'web',
-            "user_id": this.auth.getPosUserId(),
-            "role_id": this.auth.getPosRoleId()
+            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4'
+        }
+        this.common.policyTypes(data).subscribe(
+            (successData) => {
+                this.getpolicytypeSuccess(successData);
+            },
+            (error) => {
+                this.getpolicytypeFailure(error);
+            }
+        );
+    }
+    public getpolicytypeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.policyTypes = successData.ResponseObject;
+        }
+    }
+    public getpolicytypeFailure(error) {
+        console.log(error);
+    }
+
+    getcompanyList(cid) {
+        const data = {
+            'platform': 'web',
+            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
+            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
+            "insure_company_type_id": cid
         }
         this.common.getcompanyList(data).subscribe(
             (successData) => {
@@ -163,16 +244,18 @@ export class HomeComponent implements OnInit {
         console.log(error);
     }
 
-    home(values){
+
+    renewal(values){
         if (this.form.valid) {
-            console.log(values,'sasdasd');
+            let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
+            let edate = this.datepipe.transform(this.form.controls['enddate'].value, 'y-MM-dd');
             const data = {
                 'platform': 'web',
-                'user_id': this.auth.getPosUserId(),
-                'role_id': this.auth.getPosRoleId(),
-                'insure_name': 'offline',
-                'insure_start_date': this.setDate,
-                'insure_end_date': this.setDate,
+                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4',
+                'insure_name': this.form.controls['insurename'].value,
+                'insure_start_date': sdate,
+                'insure_end_date': edate,
                 'insure_email': this.form.controls['insureemail'].value,
                 'insure_policy_type': this.form.controls['insurepolicytype'].value,
                 'insure_mobile': this.form.controls['insuremobile'].value,
@@ -181,6 +264,7 @@ export class HomeComponent implements OnInit {
                 'insure_company_name': this.form.controls['insurecompanyname'].value,
                 'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
             };
+            console.log(data,'datadata');
 
             this.common.policyRenewal(data).subscribe(
                 (successData) => {
@@ -194,6 +278,23 @@ export class HomeComponent implements OnInit {
     }
     policyRenewalSuccess(successData) {
         console.log(successData);
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.form =  this.fb.group({
+                'insurename': '',
+                'startdate': '',
+                'enddate': '',
+                'insureemail': '',
+                'insurepolicytype':  '',
+                'insuremobile': '',
+                'insurepolicyno': '',
+                'insurepremiumamount': '',
+                'insurecompanyname': '',
+                'paymentfrequeny': ''
+            });
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
     }
     policyRenewalFailure(error) {
         console.log(error);
@@ -207,6 +308,60 @@ export class HomeComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+
+
+    readUrl(event: any) {
+        this.getUrl = '';
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+    }
+    onUploadFinished(event) {
+        this.allImage.push(event);
+        const data = {
+            'platform': 'web',
+            'image_path': ''
+        };
+        let length = this.allImage.length-1;
+        console.log(length, 'this.lengthlength');
+        for (let k = 0; k < this.allImage[length].length; k++) {
+            this.fileDetails[k].image = this.allImage[length][k][1];
+        }
+        data.image_path = this.fileDetails;
+        console.log(data, 'dattattatata');
+        this.common.fileUploadPolicy(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.fileUploadPath = successData.ResponseObject.imagePath;
+            this.toastr.success( successData.ResponseObject.message);
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public fileUploadFailure(error) {
+        console.log(error);
     }
 
 

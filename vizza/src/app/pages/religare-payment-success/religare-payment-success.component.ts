@@ -5,6 +5,9 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
 import {ProposalService} from '../../shared/services/proposal.service';
+import {ToastrService} from 'ngx-toastr';
+import {Settings} from '../../app.settings.model';
+
 
 @Component({
   selector: 'app-religare-payment-success',
@@ -17,8 +20,12 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public type: any
     public path: any
     public proposalnumber: any
-    constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
-      this.route.params.forEach((params) => {
+    public settings: Settings;
+
+    constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+        this.settings = this.appSettings.settings;
+
+        this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.id;
           this.proposalnumber = params.proNo;
@@ -35,6 +42,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
+        this.settings.loadingSpinner = true;
         this.proposalservice.getDownloadPdfReligare(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
@@ -49,12 +57,25 @@ export class ReligarePaymentSuccessComponent implements OnInit {
         console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;
-        this.currenturl = this.config.getimgUrl();
-        if (this.type == 'pdf') {
-            window.open(this.currenturl + '/' +  this.path,'_blank');
+        this.settings.loadingSpinner = false;
+
+        if (successData.IsSuccess == true) {
+            console.log(this.type, 'ww22');
+
+            this.currenturl = this.config.getimgUrl();
+            if (this.type == 'pdf') {
+                console.log(successData.ResponseObject, 'www333');
+                window.open(this.currenturl + '/' +  this.path,'_blank');
+            } else if (this.type === 'pdf') {
+                console.log(successData.ResponseObject, 'www3444');
+                window.open(this.currenturl + '/' +  this.path,'_blank');
+            } else {
+                this.downloadMessage();
+            }
         } else {
-            this.downloadMessage();
+            this.toast.error(successData.ErrorObject);
         }
+
     }
     public downloadPdfFailure(error) {
         console.log(error);

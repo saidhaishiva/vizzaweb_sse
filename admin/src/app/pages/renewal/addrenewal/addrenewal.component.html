@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="col-sm-12 text-right">
+    <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+  </div>
+  <section class="row">
+      <h4 class="w-100 text-center">Renewal Alert</h4>
+    <form [formGroup]="form">
+      <div class="container">
+        <div class="row" fxLayoutAlign="center center">
+          <div class="col-sm-12 pr-4" >
+            <div class="row" >
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Insured Name" formControlName="insurename">
+                  <mat-error *ngIf="form.controls.insurename.errors?.required">Insure Name is required</mat-error>
+                  <mat-error *ngIf="form.controls.insurename.hasError('minlength')">Insure Name isn't long enough, minimum of 3 characters</mat-error>
+                  <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Mobile No" formControlName="insuremobile" (keypress)="keyPress($event)"  minlength="10"  maxlength="10">
+                  <mat-error *ngIf="form.controls.insuremobile.errors?.required">Mobile number is required</mat-error>
+                  <mat-error *ngIf="form.controls.insuremobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                  <mat-error *ngIf="form.controls.insuremobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Email id" formControlName="insureemail">
+                  <mat-error *ngIf="form.controls.insureemail.errors?.required">Email is required</mat-error>
+                  <mat-error *ngIf="form.controls.insureemail.hasError('pattern')">Please Enter Correct Format</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-select placeholder="Insurance Policy Type" formControlName="insurepolicytype">
+                    <mat-option value="{{type.policy_type_name}}" *ngFor="let type of policyTypes" (click)="selectPolicyType(type.insure_company_type_id)">{{type.policy_type_name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.insurepolicytype.errors?.required">Insurance Policy Type is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Policy No" formControlName="insurepolicyno">
+                  <mat-error *ngIf="form.controls.insurepolicyno.errors?.required">Insurance Policy No is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Premium Amount" formControlName="insurepremiumamount">
+                  <mat-error *ngIf="form.controls.insurepremiumamount.errors?.required">Insurance Policy No is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-select placeholder="Insurance Company Name" formControlName="insurecompanyname">
+                    <mat-option *ngFor="let list of companyList" value="{{list.insure_company_name}}">{{list.insure_company_name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.insurecompanyname.errors?.required">Insurance Company Name is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-select placeholder="Payment Frequency" formControlName="paymentfrequeny">
+                    <mat-option value="frequency.id" *ngFor="let frequency of paymentFrequency">{{frequency.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.paymentfrequeny.errors?.required">Payment Frequency is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker" placeholder="Start date(DD/MM/YYYY)" [min]="today"  formControlName="startdate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')"  >
+                  <mat-error *ngIf="form.controls.startdate.errors?.required">Start Date is required</mat-error>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker1" placeholder="End date(DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" (keyPress)="keyPress($event)">
+                  <mat-error *ngIf="form.controls.enddate.errors?.required">End Date is required</mat-error>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+              </div>
+              <div class="col-md-12 text-center"><br>
+                <button mat-raised-button color="primary" (click)="renewal(form.value)">Submit</button>
+              </div>
+
+            </div>
+          </div>
+          <!--<div class="col-sm-4">-->
+            <!--<h4 class="text-center">Upload your policy here</h4>-->
+            <!--<ul fxLayoutAlign="center center">-->
+              <!--<li class="pull-left"> <label class="btn-bs-file btn mr-3">-->
+                <!--<i class="fa fa-camera" aria-hidden="true"></i> Take Picture-->
+                <!--<input type="file" accept="image/*;capture=camera" />-->
+              <!--</label></li>-->
+              <!--<li class="pull-right"> <label class="btn-bs-file btn ">-->
+                <!--<i class="fa fa-cloud-download" aria-hidden="true"></i> Upload-->
+                <!--<input type="file" multiple (change)="readUrl($event)"/>-->
+              <!--</label>-->
+                <!--<img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="200" alt="Image preview...">-->
+              <!--</li>-->
+            <!--</ul>-->
+            <!--<div class="h-border-bottom"></div>-->
+
+
+            <!--<div class="col-sm-12 whatsapp">-->
+              <!--<p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy @ 86085 00088</span></p>-->
+            <!--</div>-->
+
+
+          <!--</div>-->
+        </div>
+      </div>
+    </form>
+
+  </section>
+</div>

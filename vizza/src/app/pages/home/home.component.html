@@ -291,7 +291,7 @@
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Mobile No" formControlName="insuremobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                                           <input matInput placeholder="Mobile No" formControlName="insuremobile" (keypress)="keyPress($event)"  minlength="10"  maxlength="10">
                                            <mat-error *ngIf="form.controls.insuremobile.errors?.required">Mobile number is required</mat-error>
                                            <mat-error *ngIf="form.controls.insuremobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
                                            <mat-error *ngIf="form.controls.insuremobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
@@ -307,9 +307,7 @@
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
                                            <mat-select placeholder="Insurance Policy Type" formControlName="insurepolicytype">
-                                               <mat-option value="option1">Option 1</mat-option>
-                                               <mat-option value="option2">Option 2</mat-option>
-                                               <mat-option value="option3">Option 3</mat-option>
+                                               <mat-option value="{{type.policy_type_name}}" *ngFor="let type of policyTypes" (click)="selectPolicyType(type.insure_company_type_id)">{{type.policy_type_name}}</mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="form.controls.insurepolicytype.errors?.required">Insurance Policy Type is required</mat-error>
                                        </mat-form-field>
@@ -329,7 +327,7 @@
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
                                            <mat-select placeholder="Insurance Company Name" formControlName="insurecompanyname">
-                                               <mat-option *ngFor="let list of companyList" value="{{list.insure_company_id}}">{{list.insure_company_name}}</mat-option>
+                                               <mat-option *ngFor="let list of companyList" value="{{list.insure_company_name}}">{{list.insure_company_name}}</mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="form.controls.insurecompanyname.errors?.required">Insurance Company Name is required</mat-error>
                                        </mat-form-field>
@@ -337,31 +335,31 @@
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
                                            <mat-select placeholder="Payment Frequency" formControlName="paymentfrequeny">
-                                               <mat-option value="option1">Option 1</mat-option>
-                                               <mat-option value="option2">Option 2</mat-option>
-                                               <mat-option value="option3">Option 3</mat-option>
+                                               <mat-option value="frequency.id" *ngFor="let frequency of paymentFrequency">{{frequency.name}}</mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="form.controls.paymentfrequeny.errors?.required">Payment Frequency is required</mat-error>
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput [matDatepicker]="picker" placeholder="Start date"   formControlName="startdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                                           <input matInput [matDatepicker]="picker" placeholder="Start date(DD/MM/YYYY)" [min]="today"  formControlName="startdate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')" (keypress)="keyPress($event)" >
                                            <mat-error *ngIf="form.controls.startdate.errors?.required">Start Date is required</mat-error>
                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                            <mat-datepicker #picker></mat-datepicker>
                                        </mat-form-field>
+                                       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput [matDatepicker]="picker1" [min]="selectDate" placeholder="End date"   formControlName="enddate" required>
+                                           <input matInput [matDatepicker]="picker1" placeholder="End date(DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" (keyPress)="dobkeyPress($event)">
                                            <mat-error *ngIf="form.controls.enddate.errors?.required">End Date is required</mat-error>
                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                            <mat-datepicker #picker1></mat-datepicker>
                                        </mat-form-field>
+                                       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                                    </div>
                                    <div class="col-md-12 float-right">
-                                   <button mat-raised-button color="primary" (click)="home(form.value)">Submit</button>
+                                   <button mat-raised-button color="primary" (click)="renewal(form.value)">Submit</button>
                                    </div>
 
                                </div>
@@ -375,8 +373,10 @@
                                     </label></li>
                                     <li class="pull-right"> <label class="btn-bs-file btn ">
                                         <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload
-                                        <input type="file" />
-                                    </label></li>
+                                        <input type="file" multiple (change)="readUrl($event)"/>
+                                    </label>
+                                        <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="200" alt="Image preview...">
+                                    </li>
                                 </ul>
                                 <div class="h-border-bottom"></div>
 

@@ -14,6 +14,7 @@ import {ConfirmPasswordComponent} from './pages/confirm-password/confirm-passwor
 import { FaqComponent} from './pages/faq/faq.component';
 import { AboutUsComponent} from './pages/about-us/about-us.component';
 import {ContactUsComponent} from './pages/contact-us/contact-us.component';
+import {RenewalComponent} from './pages/renewal/renewal.component';
 // import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AddposComponent} from './pages/addpos/addpos.component';
 import { PosComponent } from './pages/pos/pos.component';
@@ -64,7 +65,9 @@ export const routes: Routes = [
             { path: 'branch', component: BranchComponent, data: { breadcrumb: ' Branch' } },
             { path: 'posmanager', component: PosmanagerComponent, data: { breadcrumb: 'POS Manager' } },
             { path: 'addposmanager', component: AddposmanagerComponent, data: { breadcrumb: 'Add POS Manager' } },
-            { path: 'pos-edit/:id', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } }
+            { path: 'pos-edit/:id', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } },
+            { path: 'adminlist', component: RenewalComponent, data: { breadcrumb: 'List' } },
+            { path: 'addadmin', component: RenewalComponent, data: { breadcrumb: 'Add Admin' } }
 
 
         ]
