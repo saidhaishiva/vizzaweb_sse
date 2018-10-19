@@ -120,11 +120,12 @@ export class RelianceComponent implements OnInit {
     public nomineeAreaList: any;
     public diseaseList: any;
     public coverTypeList: any;
-
+public minDate: any;
+public maxDate: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let today = new Date();
-        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+         const minDate = new Date();
+         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
         this.hideQuestion = false;
         this.declaration = false;
@@ -185,7 +186,7 @@ export class RelianceComponent implements OnInit {
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: ['', Validators.required],
-            residenceAddress3: '',
+            residenceAddress3: ['', Validators.required],
             residenceNearestLandMark: '',
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
@@ -227,7 +228,7 @@ export class RelianceComponent implements OnInit {
             relianceAda: ['', Validators.required],
             companyname: '',
             employeeCode: '',
-            emailId: '',
+            emailId:['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             crossSell: ['', Validators.required],
             crossSellPolicyNo: '',
         });
@@ -412,7 +413,7 @@ export class RelianceComponent implements OnInit {
         if(value.relianceAda == 'Yes') {
             this.riskDetails.get('companyname').setValidators([Validators.required]);
             this.riskDetails.get('employeeCode').setValidators([Validators.required]);
-            this.riskDetails.get('emailId').setValidators([Validators.required]);
+            this.riskDetails.get('emailId').setValidators( Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')]));
         } else if(value.relianceAda == 'No') {
             this.riskDetails.get('companyname').setValidators(null);
             this.riskDetails.get('employeeCode').setValidators(null);
@@ -495,17 +496,25 @@ export class RelianceComponent implements OnInit {
             console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceAddress3'].setValue(this.personal.controls['personalAddress3'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['personalDistrict'].setValue(this.personal.controls['personalDistrict'].value);
+            this.personal.controls['NearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
+
 
         } else {
             this.inputReadonly = false;
             this.personal.controls['residenceAddress'].setValue('');
             this.personal.controls['residenceAddress2'].setValue('');
+            this.personal.controls['residenceAddress3'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
+            this.personal.controls['personalDistrict'].setValue('');
+            this.personal.controls['NearestLandMark'].setValue('');
+
 
         }
     }
@@ -551,9 +560,11 @@ export class RelianceComponent implements OnInit {
     }
     addEventInsurer(event) {
         this.selectDate = event.value;
-        console.log(this.selectDate);
+        console.log(this.selectDate, 'hfdgfjk');
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        // this.maxDate =  this.insureArray.controls['PolicyStartDate'].values;
+        // this.maxDate= this.setDate;
     }
 
     ageCalculate(dob) {
@@ -1254,7 +1265,7 @@ export class RelianceComponent implements OnInit {
             }
         }
     }
-    public data(event: any) {
+    public onCharacter(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
