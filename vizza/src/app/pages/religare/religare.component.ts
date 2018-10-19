@@ -113,6 +113,7 @@ export class ReligareComponent implements OnInit {
     public relationshipcode : any;
     public medicalStatus : any;
     public arr : any;
+    public insureRelationList : any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -1490,7 +1491,31 @@ array: any;
     public setRelationshipSuccess(successData) {
         console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
-        this.relationshipLists = this.relationshipList.name;
+        //this.relationshipLists = this.relationshipList.name;
+
+        this.insureRelationList = [];
+        console.log(this.insurePersons.length, 'this.insurePersons.length');
+        if(this.insurePersons.length > 1){
+            for (let i = 0; i < this.relationshipList.length; i++) {
+                if(this.relationshipList[i].status == 1) {
+                    this.insureRelationList.push({
+                        'relationship_code' : this.relationshipList[i].relationship_code,
+                        'relationship_name' : this.relationshipList[i].relationship_name,
+                        'status' : this.relationshipList[i].status
+                    });
+                }
+            }
+        } else {
+            for (let i = 0; i < this.relationshipList.length; i++) {
+                this.insureRelationList.push({
+                    'relationship_code': this.relationshipList[i].relationship_code,
+                    'relationship_name': this.relationshipList[i].relationship_name,
+                    'status' : this.relationshipList[i].status
+                });
+            }
+        }
+
+        console.log(this.insureRelationList, 'insureRelationListinsureRelationListinsureRelationList');
 
     }
 

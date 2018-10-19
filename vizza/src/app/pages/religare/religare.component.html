@@ -270,7 +270,7 @@
 
                       <div class="col-md-6"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
-                              <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >
+                              <mat-option *ngFor="let relationship of insureRelationList" value="{{relationship.relationship_code}}" >
                                   {{relationship.relationship_name}}
                               </mat-option>
                           </mat-select>

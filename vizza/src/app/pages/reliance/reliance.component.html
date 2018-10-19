@@ -401,7 +401,7 @@
                                                         <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-                                                <div class="col-md-12" *ngIf="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'">
+                                                <div class="col-md-12">
                                                     <mat-form-field class="w-100">
                                                         <mat-select  placeholder="Disease" formControlName="DiseaseID"   class="w-100" autocomplete="off" [required]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'">
                                                             <mat-option *ngFor="let list of diseaseList" [value]= 'list.pre_existing_disease_id'> {{list.pre_existing_disease_name}} </mat-option>
@@ -524,7 +524,7 @@
                                                 <div class="row">
                                                 <div class="col-md-12 mb-3">
                                                     <p>Is service tax appliable</p>
-                                                    <mat-radio-group formControlName="serviceTax" (change)="boolenHide($event, i, 'serviceTax')">
+                                                    <mat-radio-group formControlName="serviceTax" (change)="boolenHide($event, 'i', 'serviceTax')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                         <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
@@ -540,7 +540,7 @@
                                                 </div>
                                                     <div class="col-md-12 mb-3">
                                                         <p>Is cross Sell</p>
-                                                        <mat-radio-group formControlName="crossSell" (change)="boolenHide($event, i, 'crossSell')">
+                                                        <mat-radio-group formControlName="crossSell" (change)="boolenHide($event, 'i', 'crossSell')">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
@@ -557,7 +557,7 @@
                                                 <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <p>Is any employee of reliance ADAGroup</p>
-                                                <mat-radio-group formControlName="relianceAda" (change)="boolenHide($event, i, 'relianceAda')">
+                                                <mat-radio-group formControlName="relianceAda" (change)="boolenHide($event, 'i', 'relianceAda')">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>

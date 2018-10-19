@@ -347,16 +347,16 @@
                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                            <mat-datepicker #picker></mat-datepicker>
                                        </mat-form-field>
-                                       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                                       <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput [matDatepicker]="picker1" placeholder="End date(DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" (keyPress)="dobkeyPress($event)">
+                                           <input matInput [matDatepicker]="picker1" placeholder="End date(DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
                                            <mat-error *ngIf="form.controls.enddate.errors?.required">End Date is required</mat-error>
                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                            <mat-datepicker #picker1></mat-datepicker>
                                        </mat-form-field>
-                                       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                                       <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
                                    </div>
                                    <div class="col-md-12 float-right">
                                    <button mat-raised-button color="primary" (click)="renewal(form.value)">Submit</button>

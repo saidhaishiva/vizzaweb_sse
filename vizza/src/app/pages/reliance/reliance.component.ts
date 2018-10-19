@@ -854,6 +854,7 @@ export class RelianceComponent implements OnInit {
     proposal() {
         const data  = {
             'ClientDetails': {
+                'ClientTypeID' : '0',
                 'DOB': this.personalData.personalDob,
                 'Email': this.personalData.personalEmail,
                 'ForeName': this.personalData.personalFirstname,
@@ -903,6 +904,9 @@ export class RelianceComponent implements OnInit {
             'InsuredDetailsList': {
                 'InsuredDetail': this.totalInsureDetails
             },
+            'Policy': {
+                'Tenure': '1'
+            },
             'RiskDetails': {
                 'SumInsured': '300000',
                 'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
@@ -943,6 +947,8 @@ export class RelianceComponent implements OnInit {
                 'PrevYearPolicyStartDate': '',
                 'PrevYearPolicyEndDate': ''
             },
+            'enquiry_id': '1',
+            'proposal_id': '0'
         };
 
         this.settings.loadingSpinner = true;
