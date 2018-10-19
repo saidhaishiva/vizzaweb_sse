@@ -89,7 +89,7 @@ export const horizontalMenuItems = [
     new Menu (28, 'Bankers Identity Policy', '/bankers', null, null, null, false, 22),
     new Menu (29, 'Marine Hull policy', '/marinehull', null, null, null, false, 22),
     new Menu (30, 'Aviation Insurance', '/aviation', null, null, null, false, 22),
-    new Menu (31, 'Erection All rick Policy', '/erection', null, null, null, false, 22),
+    new Menu (31, 'Erection All risk Policy', '/erection', null, null, null, false, 22),
     new Menu (32, 'Directors and Officers Liability Policy', '/directors', null, null, null, false, 22),
     new Menu (33, 'Media', '/fix-appointment/media', null, null, null, false, 0),
     new Menu (34, 'POS', '/pos', null, null, null, false, 0),
