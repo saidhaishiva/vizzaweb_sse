@@ -115,6 +115,11 @@ export class RelianceComponent implements OnInit {
     public pStateId: any;
     public pCityId: any;
     public pCountryId: any;
+    public proposalPArea: any;
+    public proposalRArea: any;
+    public nomineeAreaList: any;
+    public diseaseList: any;
+    public coverTypeList: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -159,13 +164,15 @@ export class RelianceComponent implements OnInit {
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
-            personalCountry: ['', Validators.required],
+            personalCountry: 'IND',
             personalCityIdP: '',
             personalStateIdP: '',
             personalCountryIdP: '',
+            personalDistrictIdP: '',
             personalCityIdR: '',
             personalStateIdR: '',
             personalCountryIdR: '',
+            residenceDistrictIdR: '',
             personalDistrict: ['', Validators.required],
             personalArea: ['', Validators.required],
             personalNearestLandMark: '',
@@ -183,7 +190,7 @@ export class RelianceComponent implements OnInit {
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceArea: ['', Validators.required],
-            residenceCountry: ['', Validators.required],
+            residenceCountry: 'IND',
             residenceDistrict: ['', Validators.required],
             residenceState: ['', Validators.required],
             sameas: false,
@@ -201,12 +208,13 @@ export class RelianceComponent implements OnInit {
             nomineeAddress2: ['', Validators.required],
             nomineeAddress3: '',
             nomineePincode: ['', Validators.required],
-            nomineeCountry: ['', Validators.required],
+            nomineeCountry: 'IND',
             nomineeState: ['', Validators.required],
             nomineeCountryId: '',
             nomineeStateId: '',
             nomineeCityId: '',
             nomineeDistrict: ['', Validators.required],
+            nomineeDistrictId: '',
             nomineeCity: ['', Validators.required],
             nomineeArea: ['', Validators.required],
             nearestLandMark: ['', Validators.required],
@@ -256,6 +264,8 @@ export class RelianceComponent implements OnInit {
         this.maritalStatus();
         this.NationalityList();
         this.ServiceTax();
+        this.getDiseaseList();
+        this.getCoverTypeList();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -293,8 +303,23 @@ export class RelianceComponent implements OnInit {
                 maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
-                personalWidth: ['', Validators.required],
+                personalWeight: ['', Validators.required],
                 personalHeight: ['', Validators.required],
+                IsExistingIllness: '',
+                DiseaseID: '',
+                IsInsuredConsumetobacco: '',
+                HasAnyPreClaimOnInsured: '',
+                HasAnyPreHealthInsuranceCancelled: '',
+                DetailsOfPreClaimOnInsured: '',
+                DetailsOfPrevInsuranceCancelled: '',
+                OtherDisease: '',
+                InsuranceCompName: '',
+                PreviousPolNo: '',
+                PolicyStartDate: '',
+                PolicyEndDate: '',
+                CoverTypeID: '',
+                SumInsured: '',
+                AccumulatedCumulativeBonus: '',
                 sameAsProposer: false,
                 sameas: false,
                 type: '',
@@ -306,9 +331,15 @@ export class RelianceComponent implements OnInit {
     }
 
     //Insure Details
-    relianceInsureDetails(stepper: MatStepper, value, key) {
+    relianceInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
+        // if(value.IsExistingIllness == 'Yes') {
+        //     this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value
+        //     this.riskDetails.get('ServicesTaxId').setValidators([Validators.required]);
+        // } else if(value.serviceTax == 'No') {
+        //     this.riskDetails.get('ServicesTaxId').setValidators(null);
+        // }
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
@@ -325,12 +356,12 @@ export class RelianceComponent implements OnInit {
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
-                            'IsExistingIllness': this.insurerData[i].personalTitle,
-                            'DiseaseList': this.insurerData[i].personalTitle,
-                            'IsInsuredConsumetobacco': this.insurerData[i].personalTitle,
-                            'HasAnyPreClaimOnInsured': this.insurerData[i].personalTitle,
-                            'DetailsOfPreClaimOnInsured': this.insurerData[i].personalTitle,
-                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].personalTitle
+                            'IsExistingIllness': this.insurerData[i].IsExistingIllness,
+                            'DiseaseList': this.insurerData[i].DiseaseID,
+                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco,
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured,
+                            'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled
                         },
                         'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
@@ -569,6 +600,8 @@ export class RelianceComponent implements OnInit {
                 personalCityIdR: this.getStepper1.personalCityIdR,
                 personalStateIdR: this.getStepper1.personalStateIdR,
                 personalCountryIdR: this.getStepper1.personalCountryIdR,
+                personalDistrictIdP: this.getStepper1.personalDistrictIdP,
+                residenceDistrictIdR: this.getStepper1.residenceDistrictIdR,
                 personalDistrict: this.getStepper1.personalDistrict,
                 personalEmail: this.getStepper1.personalEmail,
                 personalEmail2: this.getStepper1.personalEmail2,
@@ -608,12 +641,26 @@ export class RelianceComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalWidth.patchValue(this.getStepper2.items[i].personalWidth);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-
+                this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.patchValue(this.getStepper2.items[i].IsExistingIllness);
+                this.insureArray['controls'].items['controls'][i]['controls'].DiseaseID.patchValue(this.getStepper2.items[i].DiseaseID);
+                this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.patchValue(this.getStepper2.items[i].IsInsuredConsumetobacco);
+                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.patchValue(this.getStepper2.items[i].HasAnyPreClaimOnInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.patchValue(this.getStepper2.items[i].HasAnyPreHealthInsuranceCancelled);
+                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPreClaimOnInsured.patchValue(this.getStepper2.items[i].DetailsOfPreClaimOnInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPrevInsuranceCancelled.patchValue(this.getStepper2.items[i].DetailsOfPrevInsuranceCancelled);
+                this.insureArray['controls'].items['controls'][i]['controls'].OtherDisease.patchValue(this.getStepper2.items[i].OtherDisease);
+                this.insureArray['controls'].items['controls'][i]['controls'].InsuranceCompName.patchValue(this.getStepper2.items[i].InsuranceCompName);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolNo.patchValue(this.getStepper2.items[i].PreviousPolNo);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].CoverTypeID.patchValue(this.getStepper2.items[i].CoverTypeID);
+                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].AccumulatedCumulativeBonus.patchValue(this.getStepper2.items[i].AccumulatedCumulativeBonus);
             }
         }
         if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -650,6 +697,7 @@ export class RelianceComponent implements OnInit {
                 nomineeCity: this.getNomineeData.nomineeCity,
                 nomineeState: this.getNomineeData.nomineeState,
                 nomineeCountryId: this.getNomineeData.nomineeCountryId,
+                nomineeDistrictId: this.getNomineeData.nomineeDistrictId,
                 nomineeCityId: this.getNomineeData.nomineeCityId,
                 nomineeStateId: this.getNomineeData.nomineeStateId,
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
@@ -723,12 +771,32 @@ export class RelianceComponent implements OnInit {
         }
 
     }
+
+    boolenHide(change: any, id, key){
+        if(key == 'IsExistingIllness' && change.value == 'Yes') {
+            this.insureArray['controls'].items['controls'][id]['controls'].DiseaseID.patchValue('');
+        }
+
+        if (key == 'serviceTax' && change.value == 'Yes') {
+            this.riskDetails['controls'].ServicesTaxId.patchValue('');
+        }
+
+        if (key == 'crossSell' && change.value == 'Yes') {
+            this.riskDetails['controls'].crossSellPolicyNo.patchValue('');
+        }
+
+        if (key == 'relianceAda' && change.value == 'Yes') {
+            this.riskDetails['controls'].companyname.patchValue('');
+            this.riskDetails['controls'].employeeCode.patchValue('');
+            this.riskDetails['controls'].emailId.patchValue('');
+        }
+    }
     commonPincode(pin, title){
         this.pin = pin;
         this.title = title;
         const data = {
             'platform': 'web',
-            'postalcode': this.pin
+            'pincode': this.pin
         }
         if (this.pin.length == 6) {
             this.proposalservice.getCheckpincode(data).subscribe(
@@ -746,34 +814,34 @@ export class RelianceComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.setPincode = successData.ResponseObject;
             if(this.title == 'proposalP'){
-                this.personal['controls'].personalState.patchValue(this.setPincode.state);
-                this.personal['controls'].personalCountry.patchValue(this.setPincode.country);
-                // this.personal['controls'].personalDistrict.patchValue(this.setPincode.district);
-                // this.personal['controls'].personalArea.patchValue(this.setPincode.area);
-                this.personal['controls'].personalCity.patchValue(this.setPincode.city);
-                this.personal['controls'].personalCityIdP.patchValue(this.setPincode.cityid);
-                this.personal['controls'].personalCountryIdP.patchValue(this.setPincode.countryid);
-                this.personal['controls'].personalStateIdP.patchValue(this.setPincode.stateid);
+                this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
+                this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
+                this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
+                this.proposalPArea = this.setPincode.area_details;
+
+                this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
+                this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
+                this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
             }
             if(this.title == 'proposalR'){
-                this.personal['controls'].residenceState.patchValue(this.setPincode.state);
-                this.personal['controls'].residenceCountry.patchValue(this.setPincode.country);
-                // this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district);
-                // this.personal['controls'].residenceArea.patchValue(this.setPincode.area);
-                this.personal['controls'].residenceCity.patchValue(this.setPincode.city);
-                this.personal['controls'].personalCityIdR.patchValue(this.setPincode.cityid);
-                this.personal['controls'].personalCountryIdR.patchValue(this.setPincode.countryid);
-                this.personal['controls'].personalStateIdR.patchValue(this.setPincode.stateid);
+                this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
+                this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
+                this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
+                this.proposalRArea = this.setPincode.area_details;
+
+                this.personal['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
+                this.personal['controls'].personalCityIdR.patchValue(this.setPincode.city_village_id);
+                this.personal['controls'].personalStateIdR.patchValue(this.setPincode.state_id);
             }
             if(this.title == 'Nominee'){
-                this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state);
-                this.nomineeDetails['controls'].nomineeCountry.patchValue(this.setPincode.country);
-                // this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district);
-                // this.nomineeDetails['controls'].nomineeArea.patchValue(this.setPincode.area);
-                this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city);
-                this.nomineeDetails['controls'].nomineeCityId.patchValue(this.setPincode.cityid);
-                this.nomineeDetails['controls'].nomineeStateId.patchValue(this.setPincode.stateid);
-                this.nomineeDetails['controls'].nomineeCountryId.patchValue(this.setPincode.countryid);
+                this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state_name);
+                this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district_name);
+                this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city_village_name);
+                this.nomineeAreaList = this.setPincode.area_details;
+
+                this.nomineeDetails['controls'].nomineeDistrictId.patchValue(this.setPincode.district_id);
+                this.nomineeDetails['controls'].nomineeCityId.patchValue(this.setPincode.city_village_id);
+                this.nomineeDetails['controls'].nomineeStateId.patchValue(this.setPincode.state_id);
             }
         }
     }
@@ -786,7 +854,6 @@ export class RelianceComponent implements OnInit {
     proposal() {
         const data  = {
             'ClientDetails': {
-                'ClientTypeID': '0',
                 'DOB': this.personalData.personalDob,
                 'Email': this.personalData.personalEmail,
                 'ForeName': this.personalData.personalFirstname,
@@ -805,8 +872,8 @@ export class RelianceComponent implements OnInit {
                         'Address2': this.personalData.personalAddress2,
                         'Address3': this.personalData.personalAddress3,
                         'CityID': this.personalData.personalCityIdP,
-                        'Country': this.personalData.personalCountryIdP,
-                        'DistrictID': this.personalData.personalDistrict,
+                        'Country': this.personalData.personalCountry,
+                        'DistrictID': this.personalData.personalDistrictIdP,
                         'Email': this.personalData.personalEmail2,
                         'Fax': this.personalData.personalEmail2,
                         'MobileNo': this.personalData.personalMobile2,
@@ -823,8 +890,8 @@ export class RelianceComponent implements OnInit {
                             'Address2': this.personalData.residenceAddress2,
                             'Address3': this.personalData.residenceAddress3,
                             'CityID': this.personalData.personalCityIdR,
-                            'Country': this.personalData.personalCountryIdR,
-                            'DistrictID': this.personalData.residenceDistrict,
+                            'Country': this.personalData.personalCountry,
+                            'DistrictID': this.personalData.residenceDistrictIdR,
                             'NearestLandmark': this.personalData.residenceNearestLandMark,
                             'Pincode': this.personalData.residencePincode,
                             'AreaID': this.personalData.residenceArea,
@@ -836,27 +903,7 @@ export class RelianceComponent implements OnInit {
             'InsuredDetailsList': {
                 'InsuredDetail': this.totalInsureDetails
             },
-            'Policy': {
-                'Tenure': '1',
-                'PolicyStartDate': '04-03-2016',
-                'PolicyEndDate': '03-03-2017',
-                'AgentID': 'Direct',
-                'AgentName': 'Direct',
-                'Branch_Code': '9202',
-                'BusinessType': '1',
-                'ProductCode': '2828',
-                'ExternalSystemID': '1',
-                'BranchName': 'BranchName'
-            },
-            'UploadDetails': {
-                'DocumentType': ''
-            },
             'RiskDetails': {
-                'PlanID': '1',
-                'DOBofSeniorMost': '01/02/1982',
-                'MemberCount': '2',
-                'MaxAge': '34',
-                'CoverTypeID': '0',
                 'SumInsured': '300000',
                 'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
                 'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
@@ -866,15 +913,6 @@ export class RelianceComponent implements OnInit {
                 'EmailID': this.riskData.emailId,
                 'Iscrosssell': this.riskData.crossSell == 'Yes' ? 'true' : 'false',
                 'CrossSellPolicyNo': this.riskData.crossSellPolicyNo,
-                'NoofMembersAbove21': '2',
-                'NoofMembersBelow21': '0',
-                'PreviousCumulativeBonus': '',
-                'PreviousCumulativeBonusrate': '',
-                'CumulativeBonus': '',
-                'CumulativeBonusrate': '',
-                'ChangeinCoverageType': 'false',
-                'AdditionofMemberatRenewal': 'false',
-                'DeletionofMemberatRenewal': 'false'
             },
             'NomineeDetails': {
                 'FirstName': this.nomineeData.nomineeFirstName,
@@ -889,34 +927,15 @@ export class RelianceComponent implements OnInit {
                     'Address2': this.nomineeData.nomineeAddress2,
                     'Address3': this.nomineeData.nomineeAddress3,
                     'CityID': this.nomineeData.nomineeCityId,
-                    'Country': this.nomineeData.nomineeCountryId,
-                    'DistrictID': this.nomineeData.nomineeCountry,
+                    'Country': this.nomineeData.nomineeCountry,
+                    'DistrictID': this.nomineeData.nomineeDistrictId,
                     'NearestLandmark': this.nomineeData.nearestLandMark,
                     'Pincode': this.nomineeData.nomineePincode,
                     'AreaID': this.nomineeData.nomineeArea,
                     'StateID': this.nomineeData.nomineeStateId
                 }
             },
-            'Premium': {
-                'BasicPremium': '',
-                'TotalPremium': '',
-                'EducationalCess': '',
-                'EducationalCessPercentage': '',
-                'FinalPremium': '',
-                'NetPremium': '',
-                'SalesTax': '',
-                'SalesTaxPercentage': '',
-                'SecondaryAndHigherEducationalCess': '',
-                'SecondaryAndHigherEducationalCessPercentage': '',
-                'ServiceTax': '',
-                'ServiceTaxPercentage': '',
-                'Surcharge': '',
-                'SurchargePercentage': ''
-            },
-            'LstDiscount': '',
-            'ErrorMessages': {
-                'ErrMessages': ''
-            },
+
             'LstHealthCoverDetails': '',
             'PreviousInsuranceDetails': {
                 'PrevInsuranceID': '',
@@ -924,14 +943,6 @@ export class RelianceComponent implements OnInit {
                 'PrevYearPolicyStartDate': '',
                 'PrevYearPolicyEndDate': ''
             },
-            'UserID': '100002tele',
-            'SourceSystemID': '100002tele',
-            'AuthToken': 'Pass@123',
-            'CoverDetails': '',
-            'IsQuickquote': 'false',
-            'CIServicePEDList': '',
-            'CIServicePreviousInsuraceDetailsList': ''
-
         };
 
         this.settings.loadingSpinner = true;
@@ -949,7 +960,8 @@ export class RelianceComponent implements OnInit {
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
+            //this.toastr.success('Proposal created successfully!!');
+            this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
             this.summaryData = successData.ResponseObject;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
@@ -1057,6 +1069,65 @@ export class RelianceComponent implements OnInit {
     }
 
     public getMaritalStatusFailure(error) {
+        console.log(error);
+    }
+
+
+
+    //Disease List
+    getDiseaseList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getDiseaseList(data).subscribe(
+            (successData) => {
+                this.getDiseaseListSuccess(successData);
+            },
+            (error) => {
+                this.getDiseaseListFailure(error);
+            }
+        );
+    }
+
+    public getDiseaseListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.diseaseList = successData.ResponseObject;
+        }
+    }
+
+    public getDiseaseListFailure(error) {
+        console.log(error);
+    }
+
+
+    //Cover type List
+    getCoverTypeList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getCoverType(data).subscribe(
+            (successData) => {
+                this.getCoverTypeSuccess(successData);
+            },
+            (error) => {
+                this.getCoverTypeFailure(error);
+            }
+        );
+    }
+
+    public getCoverTypeSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.coverTypeList = successData.ResponseObject;
+        }
+    }
+
+    public getCoverTypeFailure(error) {
         console.log(error);
     }
 
