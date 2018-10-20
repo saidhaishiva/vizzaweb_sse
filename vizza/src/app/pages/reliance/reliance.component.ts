@@ -500,7 +500,7 @@ public maxDate: any;
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['personalDistrict'].setValue(this.personal.controls['personalDistrict'].value);
+            this.personal.controls['residenceDistrict'].setValue(this.personal.controls['personalDistrict'].value);
             this.personal.controls['NearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
 
 
@@ -512,7 +512,7 @@ public maxDate: any;
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
-            this.personal.controls['personalDistrict'].setValue('');
+            this.personal.controls['residenceDistrict'].setValue('');
             this.personal.controls['NearestLandMark'].setValue('');
 
 
