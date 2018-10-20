@@ -564,7 +564,7 @@ public maxDate: any;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         // this.maxDate =  this.insureArray.controls['PolicyStartDate'].values;
-        // this.maxDate= this.setDate;
+        this.maxDate= this.setDate;
     }
 
     ageCalculate(dob) {
@@ -758,6 +758,8 @@ public maxDate: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
@@ -772,6 +774,8 @@ public maxDate: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
@@ -805,6 +809,8 @@ public maxDate: any;
     commonPincode(pin, title){
         this.pin = pin;
         this.title = title;
+        console.log(this.title ,'this.title ');
+        console.log(this.pin , 'yui');
         const data = {
             'platform': 'web',
             'pincode': this.pin
@@ -824,38 +830,66 @@ public maxDate: any;
     public commonPincodeSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.setPincode = successData.ResponseObject;
-            if(this.title == 'proposalP'){
-                this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
-                this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
+            console.log(this.setPincode, 'this.setPincode ');
+            if (this.title == 'proposalP') {
+                 this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
+                 this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
                 this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
-                this.proposalPArea = this.setPincode.area_details;
-
-                this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
-                this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
-                this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
+                  this.proposalPArea = this.setPincode.area_details;
+                 this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
+                  this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
+                  this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
             }
-            if(this.title == 'proposalR'){
-                this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
-                this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
-                this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
-                this.proposalRArea = this.setPincode.area_details;
+                if(this.title == 'proposalR'){
+                    this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
+                    this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
+                    this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
+                    this.proposalRArea = this.setPincode.area_details;
 
-                this.personal['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
-                this.personal['controls'].personalCityIdR.patchValue(this.setPincode.city_village_id);
-                this.personal['controls'].personalStateIdR.patchValue(this.setPincode.state_id);
-            }
-            if(this.title == 'Nominee'){
-                this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state_name);
-                this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district_name);
-                this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city_village_name);
-                this.nomineeAreaList = this.setPincode.area_details;
+                    this.personal['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
+                    this.personal['controls'].personalCityIdR.patchValue(this.setPincode.city_village_id);
+                    this.personal['controls'].personalStateIdR.patchValue(this.setPincode.state_id);
+                }
+                if(this.title == 'Nominee'){
+                    this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state_name);
+                    this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district_name);
+                    this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city_village_name);
+                    this.nomineeAreaList = this.setPincode.area_details;
 
-                this.nomineeDetails['controls'].nomineeDistrictId.patchValue(this.setPincode.district_id);
-                this.nomineeDetails['controls'].nomineeCityId.patchValue(this.setPincode.city_village_id);
-                this.nomineeDetails['controls'].nomineeStateId.patchValue(this.setPincode.state_id);
+                    this.nomineeDetails['controls'].nomineeDistrictId.patchValue(this.setPincode.district_id);
+                    this.nomineeDetails['controls'].nomineeCityId.patchValue(this.setPincode.city_village_id);
+                    this.nomineeDetails['controls'].nomineeStateId.patchValue(this.setPincode.state_id);
+                }
             }
         }
-    }
+    // public commonPincodeSuccess(successData) {
+    //
+    //
+    //     if (this.title == 'proposalP') {
+    //         this.personalCitys = '';
+    //         this.setPincode = successData.ResponseObject;
+    //         console.log( this.setPincode ,' this.setPincode');
+    //         if (successData.IsSuccess) {
+    //                            this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
+    //                             this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
+    //                             this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
+    //                             this.proposalPArea = this.setPincode.area_details;
+    //                             this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
+    //                             this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
+    //                             this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
+    //         } else if (successData.IsSuccess != true) {
+    //
+    //                 this.personal.controls['state_name'].setValue('');
+    //                 this.personal.controls['district_name'].setValue('');
+    //                 this.personal.controls['city_village_name'].setValue('');
+    //                 this.personal.controls['district_id'].setValue('');
+    //                 this.personal.controls['city_village_id'].setValue('');
+    //                 this.personal.controls['state_id'].setValue('');
+    //
+    //             this.toastr.error('In valid Pincode');
+    //         }
+    //     }
+    // }
 
     public commonPincodeFailure(error) {
         console.log(error);
