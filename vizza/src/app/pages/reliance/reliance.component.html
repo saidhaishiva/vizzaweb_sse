@@ -658,7 +658,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Relationship Otherr" formControlName="nomineeOtherRelationship" autocomplete="off" >
+                                                    <input matInput placeholder="Relationship Other" formControlName="nomineeOtherRelationship" autocomplete="off" >
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeOtherRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -703,7 +703,7 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field  class="w-100">
-                                                    <input matInput placeholder="District" formControlName="nomineeDistrict" autocomplete="off" required>
+                                                    <input matInput placeholder="District" formControlName="nomineeDistrict" autocomplete="off" required readonly>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                                                 </mat-form-field>
                                             </div>
