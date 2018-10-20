@@ -272,7 +272,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100">
-                                                        <mat-option *ngFor="let list of proposalPArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                                        <mat-option *ngFor="let list of proposalRArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
                                                 </mat-form-field>
