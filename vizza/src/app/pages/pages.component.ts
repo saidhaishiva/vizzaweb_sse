@@ -48,6 +48,13 @@ export class PagesComponent implements OnInit {
     this.defaultMenu = this.settings.menu;
   }
 
+    logout(){
+        sessionStorage.clear();
+        this.settings.userId = 0;
+        this.settings.username = '';
+        this.router.navigate(['/home']);
+    }
+
   ngAfterViewInit(){
     setTimeout(() => { this.settings.loadingSpinner = false }, 300)  
     this.router.events.subscribe(event => {

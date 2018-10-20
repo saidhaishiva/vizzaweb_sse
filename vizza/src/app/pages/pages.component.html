@@ -23,7 +23,6 @@
                 </mat-toolbar>
 
 
-                <p class="login-name" *ngIf="settings.username != 'null null' && settings.username != ''">Hi, {{settings.username}}</p>
                 <!--<nav class="navbar navbar-expand-sm home-nav">-->
 
                     <!--&lt;!&ndash; Links &ndash;&gt;-->
@@ -63,16 +62,19 @@
                         <!--</form>-->
                     <!--</div>-->
                     <!--<app-flags-menu fxShow="false" fxShow.gt-sm></app-flags-menu>-->
+                    <p class="login-name" *ngIf="settings.username != 'null null' && settings.username != ''">Hi, {{settings.username}}</p>
 
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-tumblr"></i></a>
-                        <a href="https://www.linkedin.com/in/vizza-insurance-broking-services-317656167/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCL6dApb7hpTyINrLLoHZY2w?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
+                    <!--<div class="social-icons">-->
+                        <!--<a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook-f"></i></a>-->
+                        <!--<a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-tumblr"></i></a>-->
+                        <!--<a href="https://www.linkedin.com/in/vizza-insurance-broking-services-317656167/" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
+                        <!--<a href="https://www.youtube.com/channel/UCL6dApb7hpTyINrLLoHZY2w?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a>-->
+                        <!--<a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>-->
+                    <!--</div>-->
                     <app-fullscreen></app-fullscreen>
                     <span [hidden]="settings.userId==0"><app-user-menu></app-user-menu></span>
+                    <mat-icon routerLink="/pos" style="cursor: pointer" matTooltip="Login" *ngIf="settings.username == ''">exit_to_app</mat-icon>
+                    <mat-icon (click)="logout();" style="cursor: pointer" matTooltip="Logout" *ngIf="settings.username != ''">power_settings_new</mat-icon>
 
                     <!--<app-applications fxShow="false" fxShow.gt-sm></app-applications>-->
                     <!--<app-messages fxShow="false" fxShow.gt-xs></app-messages>-->

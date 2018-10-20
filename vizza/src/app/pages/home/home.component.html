@@ -1,6 +1,24 @@
 <section class="vizza-home">
     <header class="w-100">
-        <img src="assets/img/home/home-slider.png" class="w-100" alt="">
+
+        <div id="demo1" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators" style="bottom: 0 !important;">
+                <li data-target="#demo1" data-slide-to="0" class="active"></li>
+                <li data-target="#demo1" data-slide-to="1"></li>
+            </ul>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="assets/img/home/home-slider.png" class="w-100" alt="">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/img/home/home-slider-2.png" class="w-100" alt="">
+                </div>
+            </div>
+        </div>
     </header>
     <div class="container-fluid">
         <section class="row h-product">
@@ -18,7 +36,8 @@
             </div>
             <div class="col-md-4">
                 <figure>
-                    <img src="assets/img/home/Insure-icon.png" alt="">
+                    <img src="assets/img/home/Pay-Icon.png" alt="">
+
                     <figcaption>
                         <h3>Buy</h3>
                         <p>We make it easy for you to decide and buy
@@ -29,7 +48,7 @@
             </div>
             <div class="col-md-4">
                 <figure>
-                    <img src="assets/img/home/Pay-Icon.png" alt="">
+                    <img src="assets/img/home/Insure-icon.png" alt="">
                     <figcaption>
                         <h3>Insured</h3>
                         <p>Use Vizza Benefits to access your full benefits
@@ -134,25 +153,40 @@
             </div>
         </div>
     </section>
-    <section class="container-fluid mb-4 mt-4">
-        <div class="row" fxLayoutAlign="stretch">
-            <div class="col-md-4 pr-0"> <img src="assets/img/v-banner.jpg" class="w-100" alt=""></div>
-            <div class="col-md-8 p-4" style="background: linear-gradient(to bottom, #66ffff 0%, #00ffcc 100%);">
-                <h5><i class="fas fa-quote-left"></i> Vizza has extensive capabilities and competence to handle claim of any nature
-                    and magnitude. Vizza can advise and assist you in,</h5>
-                <mat-list role="list">
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp; Handling the initial crisis situation and coordinating with the Surveyor and Insurer to ensure
-                        evidence of loss is preserved and recorded. Also, steps are recommended to prevent further loss.</mat-list-item>
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in investigation of cause of loss and damage.</mat-list-item>
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in handling the Insurer queries.</mat-list-item>
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in the event of any dispute with the Insurer.</mat-list-item>
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp; Advising and Assisting you to take necessary steps should the Insurer decline the Liability.</mat-list-item>
-                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in case of settlement is not to your satisfaction.</mat-list-item>
-                </mat-list>
-            </div>
-        </div>
+    <div class="container-fluid">
+        <section class="row h-claim">
+            <h3 class="text-center w-100 mt-5 mb-5">Claim Assistance</h3>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <h4><span>1</span>CONTACT VIZZA</h4>
+                    <p>When it comes to your Insurance Policy, the first thing to do when a loss occurs is to contact Vizza Insurance Broker.Vizza will guide you in obtaining proper resolution of your claim. </p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h4><span>2</span>CLAIM INVESTIGATION</h4>
+                    <p>After the claim has been reported, it will need to be investigated by an adjuster to determine the amount of loss or damages covered by your insurance policy. The adjuster will also identify any liable parties, and you can help the process by providing any witness information or other parties’ contact information.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h4><span>3</span>LOSS ASSESSMENT</h4>
+                    <p>Loss Assessment process requires establishment of cause of loss to determine whether insurer is liable to indemnify the loss. The process also involves extensive investigation and documentation to establish the amount of loss and the amount that the insurer is liable to indemnify.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h4><span>4</span>DISPUTE</h4>
+                    <p>In the event of insurer declining liability, cause of action arises to proceed legally against the insurer. In case, the insurer settles the amount which is not to the satisfaction of the insured, then the insured has the right to approach proper forum for redressal.</p>
+                </div>
+                <!--<div class="col">-->
+                    <!--<h4><span>5</span>Payment</h4>-->
+                    <!--<p>Order to accurately evaluate the extent of the damage, your insurance adjuster may hire appraisers, engineers, or contractors to lend their expert advice. Once the evaluation is complete, your adjuster will provide you with a list of preferred vendors to help with repairs. You’re not obligated to hire these vendors, but it can save you a good deal of time-->
+                <!--</div>-->
 
-    </section>
+            </div>
+            <!--<p class="bottomQoute">Every claim is different, and although the claims process can vary slightly according to the situation, your adjuster will devote the time and attention it takes to-->
+                <!--resolve your particular case. Vizza Insurance is committed to ensuring every claim is handled as fairly, professionally and as carefully as possible. If you run-->
+                <!--into questions or concerns during the claims process, you can always contact us on our website.-->
+            <!--</p>-->
+
+        </section>
+    </div>
+
     <!--<div class="container">-->
     <!--<section class="row h-faq">-->
     <!--<h1 class="text-center w-100 mt-5">FAQ</h1>-->
@@ -229,40 +263,26 @@
             </div>
         </section>
     </div>
-    <div class="container-fluid">
-        <section class="row h-claim">
-            <h3 class="text-center w-100 mt-5 mb-5">Claim Assistance</h3>
-            <div class="row">
-                <div class="col">
-                    <h4><span>1</span>Connect with Vizza</h4>
-                    <p>Your broker is your primary contact when it comes to your insurance policy – they should understand your situation and how to proceed. Once you give your broker a detailed list of all the items that were damaged or lost, and any photos or videos that help to explain the circumstances, an adjuster will follow up with you to</p>
-                </div>
-                <div class="col">
-                    <h4><span>2</span>Claim investigation</h4>
-                    <p>After the claim has been reported, it will need to be investigated by an adjuster to determine the amount of loss or damages covered by your insurance policy. The adjuster will also identify any liable parties, and you can help the process by providing any witness information or other parties’ contact information.</p>
-                </div>
-                <div class="col">
-                    <h4><span>3</span>Policy Review</h4>
-                    <p>Once the investigation is complete, the adjuster will go through your policy carefully to determine what is and isn’t covered under your policy, and inform you of any applicable deductibles that may apply to your case.</p>
-                </div>
-                <div class="col">
-                    <h4><span>4</span>Damage evaluation</h4>
-                    <p>Order to accurately evaluate the extent of the damage, your insurance adjuster may hire appraisers, engineers, or contractors to lend their expert advice. Once the evaluation is complete, your adjuster will provide you with a list of preferred vendors to help with repairs. You’re not obligated to hire these vendors, but it can save you a good deal of time
-                        and research.</p>
-                </div>
-                <div class="col">
-                    <h4><span>5</span>Payment</h4>
-                    <p>Order to accurately evaluate the extent of the damage, your insurance adjuster may hire appraisers, engineers, or contractors to lend their expert advice. Once the evaluation is complete, your adjuster will provide you with a list of preferred vendors to help with repairs. You’re not obligated to hire these vendors, but it can save you a good deal of time
-                </div>
-
+    <section class="container-fluid mb-4 mt-4">
+        <div class="row" fxLayoutAlign="stretch">
+            <div class="col pr-0 pl-0"> <img src="assets/img/v-banner.jpg" class="w-100" alt=""></div>
+            <div class="col p-4" style="background: linear-gradient(to bottom, #66ffff 0%, #00ffcc 100%);">
+                <h5><i class="fas fa-quote-left"></i> Vizza has extensive capabilities and competence to handle claim of any nature
+                    and magnitude. Vizza can advise and assist you in,</h5>
+                <mat-list role="list">
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp; Handling the initial crisis situation and coordinating with the Surveyor and Insurer to ensure
+                        evidence of loss is preserved and recorded. Also, steps are recommended to prevent further loss.</mat-list-item>
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in investigation of cause of loss and damage.</mat-list-item>
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in handling the Insurer queries.</mat-list-item>
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in the event of any dispute with the Insurer.</mat-list-item>
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp; Advising and Assisting you to take necessary steps should the Insurer decline the Liability.</mat-list-item>
+                    <mat-list-item role="listitem"><i class="fas fa-plus"></i> &nbsp;&nbsp;Advising and Assisting you in case of settlement is not to your satisfaction.</mat-list-item>
+                </mat-list>
             </div>
-            <p class="bottomQoute">Every claim is different, and although the claims process can vary slightly according to the situation, your adjuster will devote the time and attention it takes to
-                resolve your particular case. Vizza Insurance is committed to ensuring every claim is handled as fairly, professionally and as carefully as possible. If you run
-                into questions or concerns during the claims process, you can always contact us on our website.
-            </p>
+        </div>
 
-        </section>
-    </div>
+    </section>
+
 
     <div class="container">
         <section class="row">

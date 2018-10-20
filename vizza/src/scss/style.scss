@@ -404,14 +404,15 @@ a:hover {
   }
 }
 .side-nav{
-  padding-left:0;
+  padding-left:0 !important;
+  padding-top: 0 !important;
   .nav-item{
     display: flex;
     cursor: pointer;
   }
   p.icon{
     background: #d81b60;
-    padding: 39px 3px 5px;
+    padding: 28px 3px 5px;
     margin-right: 10px;
     border-bottom: 1px solid #fff;
     img{
@@ -431,29 +432,38 @@ a:hover {
   }
 
   ul {
+    //li:nth-child(1) .icon {
+    //  background: #3EA1F7;
+    //}
     li:nth-child(1) .icon {
-      background: #3EA1F7;
-    }
-    li:nth-child(2) .icon {
       background: #0CE884;
     }
-    li:nth-child(3) .icon {
-      background: #0CC3E8;
-    }
-    li:nth-child(4) .icon {
-      background: #F75A9C;
-    }
-    li:nth-child(5) .icon {
+    li:nth-child(2) .icon {
       background: #DE6925;
     }
+    li:nth-child(3) .icon {
+      background: #F50091;
+    }
+    li:nth-child(4) .icon {
+      background: #EB1943;
+    }
+    li:nth-child(5) .icon {
+      background: #0CC3E8;
+    }
     li:nth-child(6) .icon {
+      background: #9E58B5;
+    }
+    li:nth-child(12) .icon {
+      background: #F75A9C;
+    }
+    li:nth-child(16) .icon {
       background: #993D64;
     }
     li:nth-child(7) .icon {
       background: #F44D00;
     }
     li:nth-child(8) .icon {
-      background: #420072;
+      background: #000;
     }
     li:nth-child(9) .icon {
       background: #18CCB4;
@@ -461,7 +471,7 @@ a:hover {
     li:nth-child(10) .icon {
       background: #F50091;
     }
-    li:nth-child(11) .icon {
+    li:nth-child(17) .icon {
       background: #CB964B;
     }
     li:nth-child(12) .icon {
@@ -471,20 +481,18 @@ a:hover {
       background: #9F38A3;
     }
     li:nth-child(14) .icon {
-      background: #18C4AE;
+      background: #EB1943;
     }
     li:nth-child(15) .icon {
       background: #FF4099;
     }
-    li:nth-child(16) .icon {
-      background: #9E58B5;
-    }
-    li:nth-child(17) .icon {
+
+    li:nth-child(11) .icon {
       background: #FFD840;
     }
   }
   .nav-item{
-    height: 100px;
+    height: 80px;
   }
 }
 
@@ -743,7 +751,7 @@ a:hover {
 .mat-placeholder-required{
   color: red;
 }
-.carousel-indicators{
+ .carousel-indicators{
   bottom: -12px;
   li{
     background-color: rgba(0, 105, 92, 0.47);
@@ -932,7 +940,6 @@ a:hover {
   .h-testimonial{
     background: url('./assets/img/testimonial-Strip.png');
     background-repeat: repeat;
-    width: 100%;
     height: 100%;
     padding: 10px;
   }
@@ -1242,9 +1249,8 @@ a:hover {
   }
   i:nth-child(1):hover{
     background:#55acee;
-
   }
-  i:nth-child(2):hover{
+  i:nth-child(1):hover{
     background:#3b5998;
   }
   i:nth-child(3):hover{
@@ -1378,12 +1384,10 @@ footer{
   }
 }
 .login-name{
-  position: absolute;
-  top: 0;
-  right: 20px;
   font-size: 15px;
   font-weight: bold;
   color: #289e44;
+  margin-bottom: 0;
 }
 
 .selected {
@@ -1406,13 +1410,13 @@ footer{
     font-weight: bold;
     font-style: italic;
   }
-  .col{
+  .col-md-3{
     h4 {
       padding: 13px;
       border-radius: 50px;
       text-align: right;
       color: #fff;
-      font-size: 18px;
+      font-size: 16px;
       position: relative;
       span {
         background: #fff;
@@ -1435,11 +1439,11 @@ footer{
       border-radius: 15px;
       margin-top: -32px;
       padding-top: 45px;
-      min-height: 240px;
+      min-height: 195px;
       font-size: 12px;
     }
   }
-  .col:nth-child(5){
+  .col-md-3:nth-child(5){
     h4 {
       background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%);
     }
@@ -1451,7 +1455,7 @@ footer{
     }
 
   }
-  .col:nth-child(4){
+  .col-md-3:nth-child(4){
     h4 {
       background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%);
     }
@@ -1463,7 +1467,7 @@ footer{
     }
 
   }
-  .col:nth-child(3){
+  .col-md-3:nth-child(3){
     h4 {
       background: linear-gradient(to bottom, #66ff99 0%, #006600 100%);
     }
@@ -1475,7 +1479,7 @@ footer{
     }
 
   }
-  .col:nth-child(2){
+  .col-md-3:nth-child(2){
     h4 {
       background: linear-gradient(to bottom, #ff9999 0%, #ff9900 100%);
     }
@@ -1488,7 +1492,7 @@ footer{
 
   }
 
-  .col:nth-child(1){
+  .col-md-3:nth-child(1){
     h4 {
       background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%);
     }
