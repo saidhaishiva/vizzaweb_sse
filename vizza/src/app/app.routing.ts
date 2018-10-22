@@ -56,6 +56,7 @@ import {ErectionComponent} from './pages/erection/erection.component';
 import {DirectorsComponent} from './pages/directors/directors.component';
 import {HealthComponent} from './health/health.component';
 import {ReligarePaymentSuccessComponent} from './pages/religare-payment-success/religare-payment-success.component';
+import {ReligareDownloadPolicyComponent} from './pages/religare-download-policy/religare-download-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -112,6 +113,7 @@ export const routes: Routes = [
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
@@ -122,7 +124,7 @@ export const routes: Routes = [
             //{ path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
-            { path: 'religare-payment-success/:id/:proNo', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
+            { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
 
         ]
     },

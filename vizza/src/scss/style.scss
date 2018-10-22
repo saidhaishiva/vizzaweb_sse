@@ -1243,37 +1243,50 @@ a:hover {
   li{
     cursor: pointer;
     display: block;
+    text-align: center;
+
+    &:nth-child(1):hover i{
+      background:#55acee;
+    }
+    &:nth-child(2):hover i{
+      background:#3b5998;
+    }
+    &:nth-child(3):hover i{
+      background:#007bb6;
+    }
+    &:nth-child(4):hover i{
+      background:#0063dc;
+    }
+    &:nth-child(5):hover i{
+      background:#cd201f;
+    }
+    &:nth-child(6):hover i{
+      background:#d93175;
+    }
+    &:nth-child(7):hover i{
+      background:#35465c;
+    }
+    &:nth-child(8):hover i{
+      background:#cb2027;
+    }
+    &:nth-child(9):hover i{
+      background:#dc4e40;
+    }
+    span{
+      float: left;
+      width: 100%;
+      color: #666;
+      visibility: hidden;
+      font-weight: bold;
+    }
+    &:hover span{
+      visibility: visible;
+    }
   }
   li a, li a:hover{
     color:#fff;
   }
-  i:nth-child(1):hover{
-    background:#55acee;
-  }
-  i:nth-child(1):hover{
-    background:#3b5998;
-  }
-  i:nth-child(3):hover{
-    background:#007bb6;
-  }
-  i:nth-child(4):hover{
-    background:#0063dc;
-  }
-  i:nth-child(5):hover{
-    background:#cd201f;
-  }
-  i:nth-child(6):hover{
-    background:#d93175;
-  }
-  i:nth-child(7):hover{
-    background:#35465c;
-  }
-  i:nth-child(8):hover{
-    background:#cb2027;
-  }
-  i:nth-child(9):hover{
-    background:#dc4e40;
-  }
+
 }
 footer{
   width: 100%;
@@ -1534,7 +1547,7 @@ footer{
   z-index: 1;
 
   li{
-    height: 80px;
+    min-height: 80px;
   }
 }
 .dashboard {
@@ -1666,4 +1679,12 @@ footer{
     background: #f5deff;
   }
 
+}
+.h-testimonial {
+  .carousel-control-prev {
+    left: -140px !important;
+  }
+  .carousel-control-next {
+    right: -120px !important;
+  }
 }

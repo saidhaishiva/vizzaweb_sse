@@ -7,36 +7,39 @@ import { AppSettings } from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 
 @Component({
-  selector: 'app-download-policy',
-  templateUrl: './download-policy.component.html',
-  styleUrls: ['./download-policy.component.scss']
+  selector: 'app-religare-download-policy',
+  templateUrl: './religare-download-policy.component.html',
+  styleUrls: ['./religare-download-policy.component.scss']
 })
-export class DownloadPolicyComponent implements OnInit {
+export class ReligareDownloadPolicyComponent implements OnInit {
     public settings: Settings;
     public proposalId: any;
+    public paymentStatus: any;
     type: any;
     currenturl: any;
     path: any;
-  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
-      this.route.params.forEach((params) => {
-          console.log(params.id);
-          this.proposalId = params.id;
-      });
+    constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+        this.route.params.forEach((params) => {
+            console.log(params.id);
+            this.paymentStatus = params.status;
+            this.proposalId = params.proId;
+        });
 
-  }
+    }
+
   ngOnInit() {
-    this.DownloadPdf();
+      this.DownloadPdf();
   }
+
     DownloadPdf() {
         const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'mail_status': '0',
             'proposal_id' : this.proposalId,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
-        this.proposalservice.getDownloadPdf(data).subscribe(
+        this.proposalservice.getDownloadPdfReligare(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
             },

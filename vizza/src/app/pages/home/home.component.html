@@ -248,16 +248,16 @@
         <section class="row h-testimonial" fxLayoutAlign="center center">
             <div class="col-md-8">
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div id="demo" class="carousel slide" data-ride="carousel">
-                            <ul class="carousel-indicators mt-4">
-                                <li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>
-                            </ul>
+                            <!--<ul class="carousel-indicators mt-4">-->
+                                <!--<li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>-->
+                            <!--</ul>-->
                         <div class="carousel-inner" >
                             <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
                                 <div class="float-left">
                                     <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}">
-                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle" width="75" height="75">
+                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle" width="200" height="200">
                                 </div>
                                 <div>
                                     <p class="visible">{{list.comments}}</p>
@@ -266,14 +266,20 @@
                                 </div>
                             </div>
                         </div>
+                            <!-- Left and right controls -->
+                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#demo" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a>
                     </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-md-8 text-center mt-3">
-                        <a (click)="testiComments()" style="cursor:pointer;">Write a Testimonial</a>
-                        <!--<p class="" (click)="testiComments()" >Write a Testimonial</button>-->
+                    <div class="col-md-12 text-right mt-3">
+                        <button mat-raised-button color="primary" (click)="testiComments()"><mat-icon>create</mat-icon> Write a Testimonial</button>
                     </div>
                 </div>
             </div>
@@ -419,17 +425,15 @@
         <section class="row">
             <div class="f-social-icons w-100"  fxLayoutAlign="center center">
                 <ul>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-flickr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-tumblr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-pinterest" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
-
-
+                    <li><a href="#"><i class="fab fa-twitter"></i><span>Twitter</span></a></li>
+                    <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i><span>Linkedin</span></a></li>
+                    <li><a href="#"><i class="fab fa-flickr" aria-hidden="true"></i><span>Flickr</span></a></li>
+                    <li><a href="#"><i class="fab fa-youtube" aria-hidden="true"></i><span>Youtube</span></a></li>
+                    <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a></li>
+                    <li><a href="#"><i class="fab fa-tumblr" aria-hidden="true"></i><span>Tumblr</span></a></li>
+                    <li><a href="#"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a></li>
+                    <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i><span>Google plus</span></a></li>
                 </ul>
 
             </div>

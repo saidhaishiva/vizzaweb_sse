@@ -19,7 +19,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public currenturl: any
     public type: any
     public path: any
-    public proposalnumber: any
+    public proposalId: any
     public settings: Settings;
 
     constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -27,8 +27,8 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
         this.route.params.forEach((params) => {
           console.log(params.id);
-          this.paymentStatus = params.id;
-          this.proposalnumber = params.proNo;
+          this.paymentStatus = params.status;
+          this.proposalId = params.proId;
       });
   }
   ngOnInit() {
@@ -36,8 +36,8 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     DownloadPdf() {
         const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_number' : this.proposalnumber == undefined ? '' : this.proposalnumber,
+            'mail_status': '1',
+            'proposal_id' : this.proposalId,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',

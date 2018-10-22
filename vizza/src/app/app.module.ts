@@ -125,6 +125,7 @@ import {BankersComponent} from './pages/bankers/bankers.component';
 import {ErectionComponent} from './pages/erection/erection.component';
 import { HealthComponent } from './health/health.component';
 import { ReligarePaymentSuccessComponent } from './pages/religare-payment-success/religare-payment-success.component';
+import { ReligareDownloadPolicyComponent } from './pages/religare-download-policy/religare-download-policy.component';
 
 @NgModule({
   imports: [
@@ -231,7 +232,8 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       ErectionComponent,
       HealthComponent,
       ReligarePaymentSuccessComponent,
-      HealthInsurer
+      HealthInsurer,
+      ReligareDownloadPolicyComponent
   ],
   providers: [
       AppSettings,
