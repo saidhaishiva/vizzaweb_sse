@@ -59,6 +59,7 @@ import {ReligarePaymentSuccessComponent} from './pages/religare-payment-success/
 import {DmRegisterComponent} from './pages/dm-register/dm-register.component';
 import {DmLoginComponent} from './pages/dm-login/dm-login.component';
 import {DmProfileComponent} from './pages/dm-profile/dm-profile.component';
+import {ReligareDownloadPolicyComponent} from './pages/religare-download-policy/religare-download-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -82,14 +83,11 @@ export const routes: Routes = [
             { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
             { path: 'pos-profile', component: PosprofileComponent, data: { breadcrumb: 'Pos Profile' } },
-            { path: 'dm-profile', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } },
             { path: 'pos-edit', component: EditposComponent, data: { breadcrumb: 'Pos Profile Edit' } },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
             { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
             { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
-            { path: 'dm-register', component: DmRegisterComponent, data: { breadcrumb: 'DM' } },
-            { path: 'dm-login', component: DmLoginComponent, data: { breadcrumb: 'DM' } },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'shopkeeperpolicy', component: ShopkeeperpolicyComponent, data: { breadcrumb: 'Shopkeeper Policy'} },
             { path: 'marinecargo', component: MarinecargoComponent, data: {breadcrumb: 'Marine Cargo Policy'}},
@@ -118,6 +116,7 @@ export const routes: Routes = [
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
@@ -128,7 +127,7 @@ export const routes: Routes = [
             //{ path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
-            { path: 'religare-payment-success/:id/:proNo', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
+            { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} }
 
         ]
     },

@@ -915,27 +915,36 @@ a:hover {
 
 .f-social-icons li {
   cursor: pointer;
-  display: block; }
+  display: block;
+  text-align: center; }
+  .f-social-icons li:nth-child(1):hover i {
+    background: #55acee; }
+  .f-social-icons li:nth-child(2):hover i {
+    background: #3b5998; }
+  .f-social-icons li:nth-child(3):hover i {
+    background: #007bb6; }
+  .f-social-icons li:nth-child(4):hover i {
+    background: #0063dc; }
+  .f-social-icons li:nth-child(5):hover i {
+    background: #cd201f; }
+  .f-social-icons li:nth-child(6):hover i {
+    background: #d93175; }
+  .f-social-icons li:nth-child(7):hover i {
+    background: #35465c; }
+  .f-social-icons li:nth-child(8):hover i {
+    background: #cb2027; }
+  .f-social-icons li:nth-child(9):hover i {
+    background: #dc4e40; }
+  .f-social-icons li span {
+    float: left;
+    width: 100%;
+    color: #666;
+    visibility: hidden;
+    font-weight: bold; }
+  .f-social-icons li:hover span {
+    visibility: visible; }
 .f-social-icons li a, .f-social-icons li a:hover {
   color: #fff; }
-.f-social-icons i:nth-child(1):hover {
-  background: #55acee; }
-.f-social-icons i:nth-child(1):hover {
-  background: #3b5998; }
-.f-social-icons i:nth-child(3):hover {
-  background: #007bb6; }
-.f-social-icons i:nth-child(4):hover {
-  background: #0063dc; }
-.f-social-icons i:nth-child(5):hover {
-  background: #cd201f; }
-.f-social-icons i:nth-child(6):hover {
-  background: #d93175; }
-.f-social-icons i:nth-child(7):hover {
-  background: #35465c; }
-.f-social-icons i:nth-child(8):hover {
-  background: #cb2027; }
-.f-social-icons i:nth-child(9):hover {
-  background: #dc4e40; }
 
 footer {
   width: 100%;
@@ -1122,7 +1131,7 @@ footer {
   height: 675px;
   z-index: 1; }
   .draggable li {
-    height: 80px; }
+    min-height: 80px; }
 
 .dashboard {
   -webkit-perspective: 1000;
@@ -1225,5 +1234,10 @@ footer {
 
 .about-health mat-expansion-panel {
   background: #f5deff; }
+
+.h-testimonial .carousel-control-prev {
+  left: -140px !important; }
+.h-testimonial .carousel-control-next {
+  right: -120px !important; }
 
 /*# sourceMappingURL=style.css.map */

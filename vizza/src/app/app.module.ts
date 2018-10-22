@@ -131,6 +131,7 @@ import { DmProfileComponent } from './pages/dm-profile/dm-profile.component';
 import { DmdocumentViewComponent } from './pages/dm-profile/dmdocument-view/dmdocument-view.component';
 import { DmTrainingComponent } from './pages/dm-training/dm-training.component';
 import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
+import { ReligareDownloadPolicyComponent } from './pages/religare-download-policy/religare-download-policy.component';
 
 @NgModule({
   imports: [
@@ -243,7 +244,8 @@ import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
       DmProfileComponent,
       DmdocumentViewComponent,
       DmTrainingComponent,
-      DmExamComponent
+      DmExamComponent,
+      ReligareDownloadPolicyComponent
   ],
   providers: [
       AppSettings,

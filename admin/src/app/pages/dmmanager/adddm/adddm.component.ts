@@ -4,41 +4,41 @@ import {Settings} from '../../../app.settings.model';
 import {AppSettings} from '../../../app.settings';
 import {AuthService} from '../../../shared/services/auth.service';
 import {BranchService} from '../../../shared/services/branch.service';
-import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef} from '@angular/material';
 
 @Component({
-  selector: 'app-addposmanager',
-  templateUrl: './addposmanager.component.html',
-  styleUrls: ['./addposmanager.component.scss']
+  selector: 'app-adddm',
+  templateUrl: './adddm.component.html',
+  styleUrls: ['./adddm.component.scss']
 })
-export class AddposmanagerComponent implements OnInit {
+export class AdddmComponent implements OnInit {
     public form: FormGroup;
     public response: any;
     public status: any;
     public settings: Settings;
     public responsedata: any;
     loadingIndicator: boolean = true;
-
   constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchservice: BranchService,
-              public toastr: ToastrService ,public dialogRef: MatDialogRef<AddposmanagerComponent>) {
+              public toastr: ToastrService ,public dialogRef: MatDialogRef<AdddmComponent>) {
       this.dialogRef.disableClose = true;
+
 
       this.form = this.forms.group ({
           'name': ['', Validators.compose([Validators.required])],
           'mobilenumber': ['', Validators.compose([Validators.required])],
           'email': ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
-      });
-  }
 
-  ngOnInit() {
+      });
   }
     close(): void {
         this.dialogRef.close();
     }
 
-    public addPosManager(): void {
+
+    ngOnInit() {
+  }
+    public adddmManager(): void {
         if (this.form.valid) {
             const data = {
                 'role_id': this.auth.getAdminRoleId(),
@@ -50,17 +50,17 @@ export class AddposmanagerComponent implements OnInit {
             };
 
             this.loadingIndicator = true;
-            this.branchservice.addPosManager(data).subscribe(
+            this.branchservice.addDmManager(data).subscribe(
                 (successData) => {
-                    this.addPosSuccess(successData);
+                    this.addSuccess(successData);
                 },
                 (error) => {
-                    this.addPosFailure(error);
+                    this.addFailure(error);
                 }
             );
         }
     }
-    public addPosSuccess(success) {
+    public addSuccess(success) {
         console.log(success);
         this.loadingIndicator = false;
         if (success.IsSuccess) {
@@ -68,12 +68,12 @@ export class AddposmanagerComponent implements OnInit {
             this.dialogRef.close(success.IsSuccess);
 
         } else {
-          this.toastr.error(success.ErrorObject);
+            this.toastr.error(success.ErrorObject);
 
         }
     }
 
-    public addPosFailure(error) {
+    public addFailure(error) {
 
     }
     public keyPress(event: any) {
