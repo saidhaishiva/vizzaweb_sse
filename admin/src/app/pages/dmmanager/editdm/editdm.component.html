@@ -21,6 +21,7 @@
       <mat-form-field class="w-100">
         <input matInput placeholder="Email" formControlName="email">
         <mat-error *ngIf="form.controls.email.errors?.required">Mobile Number is required</mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('pattern')">Enter valid Email</mat-error>
 
       </mat-form-field >
 
@@ -32,6 +33,3 @@
     </form>
   </div>
 </div>
-
-
-

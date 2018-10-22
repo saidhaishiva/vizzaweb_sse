@@ -36,6 +36,7 @@ import {BranchComponent} from './pages/branch/branch.component';
 import {PosmanagerComponent} from './pages/posmanager/posmanager.component';
 import {AddposmanagerComponent} from './pages/posmanager/addposmanager/addposmanager.component';
 import {PosEditComponent} from './pages/pos-edit/pos-edit.component';
+import {DmmanagerComponent} from './pages/dmmanager/dmmanager.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -67,7 +68,8 @@ export const routes: Routes = [
             { path: 'addposmanager', component: AddposmanagerComponent, data: { breadcrumb: 'Add POS Manager' } },
             { path: 'pos-edit/:id', component: PosEditComponent, data: { breadcrumb: 'POS Edit' } },
             { path: 'adminlist', component: RenewalComponent, data: { breadcrumb: 'List' } },
-            { path: 'addadmin', component: RenewalComponent, data: { breadcrumb: 'Add Admin' } }
+            { path: 'addadmin', component: RenewalComponent, data: { breadcrumb: 'Add Admin' } },
+            { path: 'dmmanager', component: DmmanagerComponent, data: { breadcrumb: 'DM Manager' } }
 
 
         ]
