@@ -61,6 +61,42 @@ export class AuthService {
     setSessionData(variable, value) {
         return sessionStorage.setItem(variable, value);
     }
+    // dm
+    setTokenDm( email, firstname, userid, lastname, mobileno, roleid, accesstoken, dmStatus ) {
+        sessionStorage.setItem('vizza-dm-email', email);
+        sessionStorage.setItem('vizza-dm-firstname', firstname);
+        sessionStorage.setItem('vizza-dm-userid', userid);
+        sessionStorage.setItem('vizza-dm-lastname', lastname);
+        sessionStorage.setItem('vizza-dm-mobileno', mobileno);
+        sessionStorage.setItem('vizza-dm-roleid', roleid);
+        sessionStorage.setItem('vizza-dm-accesstoken', accesstoken);
+        sessionStorage.setItem('vizza-dm-status', dmStatus);
+    }
+    getDmEmail() {
+        return sessionStorage.getItem('vizza-dm-email');
+    }
+    getDmFirstName() {
+        return sessionStorage.getItem('vizza-dm-firstname');
+    }
+    getDmUserId() {
+        return sessionStorage.getItem('vizza-dm-userid');
+    }
+    getDmLastName() {
+        return sessionStorage.getItem('vizza-dm-lastname');
+    }
+    getDmMobileno() {
+        return sessionStorage.getItem('vizza-dm-mobileno');
+    }
+    getDmRoleId() {
+        return (sessionStorage.getItem('vizza-dm-roleid')!= null) ? sessionStorage.getItem('vizza-dm-roleid') : 0;
+    }
+    getDmStatus() {
+        return sessionStorage.getItem('vizza-dm-status');
+    }
+    getDmAccessToken() {
+        return sessionStorage.getItem('vizza-dm-accesstoken');
+    }
+
 
 
 

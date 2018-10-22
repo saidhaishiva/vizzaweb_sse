@@ -24,7 +24,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'pos/login';
+        const url = this.configurationService.getHost() + 'distancemanager/login';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -35,7 +35,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'pos/register';
+        const url = this.configurationService.getHost() + 'distancemanager/register';
         return this.http.post(url , json, httpOptions)
         // .map(this.extractData )
         // .catch(this.handleError);

@@ -125,6 +125,12 @@ import {BankersComponent} from './pages/bankers/bankers.component';
 import {ErectionComponent} from './pages/erection/erection.component';
 import { HealthComponent } from './health/health.component';
 import { ReligarePaymentSuccessComponent } from './pages/religare-payment-success/religare-payment-success.component';
+import { DmRegisterComponent } from './pages/dm-register/dm-register.component';
+import { DmLoginComponent } from './pages/dm-login/dm-login.component';
+import { DmProfileComponent } from './pages/dm-profile/dm-profile.component';
+import { DmdocumentViewComponent } from './pages/dm-profile/dmdocument-view/dmdocument-view.component';
+import { DmTrainingComponent } from './pages/dm-training/dm-training.component';
+import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
 
 @NgModule({
   imports: [
@@ -231,7 +237,13 @@ import { ReligarePaymentSuccessComponent } from './pages/religare-payment-succes
       ErectionComponent,
       HealthComponent,
       ReligarePaymentSuccessComponent,
-      HealthInsurer
+      HealthInsurer,
+      DmRegisterComponent,
+      DmLoginComponent,
+      DmProfileComponent,
+      DmdocumentViewComponent,
+      DmTrainingComponent,
+      DmExamComponent
   ],
   providers: [
       AppSettings,

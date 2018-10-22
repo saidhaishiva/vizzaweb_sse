@@ -229,6 +229,17 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getDmProfile(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/viewprofile' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     // get the training details
     getTrainingDetails(data) {
@@ -254,6 +265,30 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // get the dm training details
+    getDmTrainingDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'pos/get_pos_training_attended_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // get the dm exam details
+    getDmExamDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'posquestion/get_pos_exam_attended_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     updatePosProfile(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -261,6 +296,17 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'pos/register' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    updateDmProfile(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/register' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
