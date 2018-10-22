@@ -96,6 +96,9 @@ import { EditposmanagerComponent} from './pages/posmanager/editposmanager/editpo
 import { PosEditComponent } from './pages/pos-edit/pos-edit.component';
 import { RenewalComponent } from './pages/renewal/renewal.component';
 import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.component';
+import { DmmanagerComponent } from './pages/dmmanager/dmmanager.component';
+import { AdddmComponent } from './pages/dmmanager/adddm/adddm.component';
+import { EditdmComponent } from './pages/dmmanager/editdm/editdm.component';
 
 @NgModule({
     imports: [
@@ -174,7 +177,10 @@ import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.compo
         EditposmanagerComponent,
         PosEditComponent,
         RenewalComponent,
-        AddrenewalComponent
+        AddrenewalComponent,
+        DmmanagerComponent,
+        AdddmComponent,
+        EditdmComponent,
 
     ],
     providers: [
@@ -194,6 +200,6 @@ import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.compo
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent]
 })
 export class AppModule { }
