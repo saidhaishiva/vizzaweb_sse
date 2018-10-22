@@ -97,9 +97,9 @@ export const horizontalMenuItems = [
     new Menu (34, 'POS', '/', null, null, null, true, 0),
     new Menu (36, 'About POS', '/about-pos', null, null, null, false, 34),
     new Menu (37, 'POS Login', '/pos', null, null, null, false, 34),
-    new Menu (35, 'Contact us', '/contact', null, null, null, false, 0),
-    new Menu (38, 'Careers', '/', null, null, null, false, 0),
-    new Menu (39, 'About us', '/', null, null, null, false, 0)
+    new Menu (35, 'Contact us', '/contact', null, null, null, false, 39),
+    new Menu (38, 'Careers', '/', null, null, null, false, 39),
+    new Menu (39, 'About us', '/', null, null, null, true, 0)
 
 
     // new Menu (3, 'UI Features', null, null, 'computer', null, false, 0),
