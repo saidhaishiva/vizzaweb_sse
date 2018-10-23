@@ -28,6 +28,18 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getDmList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/getall_dmlist';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getPosProfileList(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -40,7 +52,19 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    // get the training details
+    getDmProfileList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/viewprofile';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // get the pos training details
     getTrainingDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -52,7 +76,19 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // get the exam details
+    // get the dm training details
+    getDmTrainingDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/get_dm_training_attended_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // get the pos exam details
     getExamDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -60,6 +96,18 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'admin/get_pos_exam_attended_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // get the dm exam details
+    getDmExamDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/get_dm_exam_attended_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -72,6 +120,18 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'admin/get_documentfields';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getDmFields(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/get_documentfields';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
