@@ -53,11 +53,18 @@
                   <!--<mat-icon>add_a_photo</mat-icon>-->
                 <!--</mat-placeholder>-->
                 <!--<div class="custom-file">-->
-                  <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">
+                  <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"  >
                   <label class="custom-file-label"><span class="error">*</span>
                     Profile Picture</label>
                 <!--</div>-->
               <!--</mat-form-field>-->
+            </div>
+            <div class="row w-100">
+              <div class="col-md-12">
+                <div *ngIf="profile != ''">
+                  <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-sm-12 mt-3 text-center">

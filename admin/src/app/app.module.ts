@@ -99,6 +99,8 @@ import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.compo
 import { DmmanagerComponent } from './pages/dmmanager/dmmanager.component';
 import { AdddmComponent } from './pages/dmmanager/adddm/adddm.component';
 import { EditdmComponent } from './pages/dmmanager/editdm/editdm.component';
+import { DmComponent } from './pages/dm/dm.component';
+import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
 
 @NgModule({
     imports: [
@@ -181,6 +183,8 @@ import { EditdmComponent } from './pages/dmmanager/editdm/editdm.component';
         DmmanagerComponent,
         AdddmComponent,
         EditdmComponent,
+        DmComponent,
+        DmaddComponent,
 
     ],
     providers: [

@@ -29,7 +29,7 @@ export class TestimonialComponent implements OnInit {
             'name': ['', Validators.compose([Validators.required])],
             'designation': ['', Validators.compose([Validators.required])],
             'company': ['', Validators.compose([Validators.required])],
-            //'profile': ['', Validators.compose([Validators.required])],
+            // 'profile': ['', Validators.compose([Validators.required])],
             'comments': ['', Validators.compose([Validators.required])],
         });
     }
@@ -76,6 +76,8 @@ export class TestimonialComponent implements OnInit {
         this.type = type;
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+
             const reader = new FileReader();
 
             reader.onload = (event: any) => {
@@ -86,7 +88,7 @@ export class TestimonialComponent implements OnInit {
                 this.onUploadFinished(this.getUrl);
 
             };
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(file);
         }
     }
     onUploadFinished(event) {
@@ -111,6 +113,7 @@ export class TestimonialComponent implements OnInit {
             this.fileUploadPath = successData.ResponseObject.imagePath;
             if (this.type == 'profile') {
                 this.profile = this.fileUploadPath;
+
             }
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
