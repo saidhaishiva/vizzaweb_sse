@@ -241,7 +241,8 @@ export class HomeComponent implements OnInit {
             "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
             "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
             "insure_company_type_id": cid
-        }
+        };
+        console.log(data, 'data');
         this.common.getcompanyList(data).subscribe(
             (successData) => {
                 this.setcompanyListSuccess(successData);
@@ -319,7 +320,7 @@ export class HomeComponent implements OnInit {
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -380,6 +381,15 @@ export class HomeComponent implements OnInit {
 
     public fileUploadFailure(error) {
         console.log(error);
+    }
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
     }
 
 

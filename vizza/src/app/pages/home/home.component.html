@@ -310,7 +310,7 @@
                                <div class="row" style="border-right: 2px solid #ababab;">
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Insured Name" formControlName="insurename">
+                                           <input matInput placeholder="Insured Name" formControlName="insurename" (keypress)="data($event)">
                                            <mat-error *ngIf="form.controls.insurename.errors?.required">Insure Name is required</mat-error>
                                            <mat-error *ngIf="form.controls.insurename.hasError('minlength')">Insure Name isn't long enough, minimum of 3 characters</mat-error>
                                            <mat-icon matSuffix>person</mat-icon>
@@ -341,13 +341,13 @@
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Policy No" formControlName="insurepolicyno">
+                                           <input matInput placeholder="Policy No" formControlName="insurepolicyno" (keypress)="keyPress($event)">
                                            <mat-error *ngIf="form.controls.insurepolicyno.errors?.required">Insurance Policy No is required</mat-error>
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Premium Amount" formControlName="insurepremiumamount">
+                                           <input matInput placeholder="Premium Amount" formControlName="insurepremiumamount" (keypress)="keyPress($event)">
                                            <mat-error *ngIf="form.controls.insurepremiumamount.errors?.required">Insurance Policy No is required</mat-error>
                                        </mat-form-field>
                                    </div>
