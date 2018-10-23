@@ -72,9 +72,9 @@ export class DmLoginComponent implements OnInit {
             this.data = successData.ResponseObject.dm_details;
             this.authService.setTokenDm(this.data.dm_email, this.data.dm_firstname, this.data.dm_id, this.data.dm_lastname, this.data.dm_mobileno, this.data.dm_roleid, successData.ResponseObject.Accesstoken, this.data.dm_status);
             this.authService.setSessionData('dmStatus', this.data.dm_status);
-            this.authService.setSessionData('trainingStatus', this.data.training_status);
-            this.authService.setSessionData('examStatus', this.data.exam_status);
-            this.authService.setSessionData('documentStatus', this.data.doc_verified_status);
+            this.authService.setSessionData('dmTrainingStatus', this.data.training_status);
+            this.authService.setSessionData('dmExamStatus', this.data.exam_status);
+            this.authService.setSessionData('dmDocumentStatus', this.data.doc_verified_status);
             // training_status
             this.settings.userId = this.authService.getDmUserId();
             this.settings.username = this.authService.getDmFirstName() +' '+ this.authService.getDmLastName();

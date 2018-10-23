@@ -24,6 +24,9 @@ import { DeactivateGuard} from './shared/deactivate-guard';
 import { DeactivatetimeGuard} from './shared/deactivatetime-guard';
 import { ExamactivateGuard} from './shared/activate-guard';
 import { ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
+import { DmexamactivateGuard} from './shared/dmactivate-guard';
+import { DmdeactivatetimeGuard} from './shared/dmdeactivatetime-guard';
+import { DmexamdeactivatetimeGuard} from './shared/dmexamdeactivatetime-guard';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -259,6 +262,9 @@ import { ReligareDownloadPolicyComponent } from './pages/religare-download-polic
       DeactivatetimeGuard,
       ExamactivateGuard,
       ExamdeactivatetimeGuard,
+      DmexamactivateGuard,
+      DmdeactivatetimeGuard,
+      DmexamdeactivatetimeGuard,
       DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

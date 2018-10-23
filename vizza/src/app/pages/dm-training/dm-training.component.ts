@@ -40,7 +40,7 @@ export class DmTrainingComponent implements OnInit {
         setTimeout((time) => {
             this.settings.loadingSpinner = false;
         },700);
-        this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        this.trainingStatus = this.auth.getSessionData('dmTrainingStatus');
         console.log(this.trainingStatus, 'this.trainingStatus');
         this.getRemainingTime = '';
         this.getMinutes = '';
@@ -109,7 +109,7 @@ export class DmTrainingComponent implements OnInit {
             let newtime = timedif.toTimeString().split(" ")[0];
             document.getElementById('timer').innerHTML=newtime;
             test.getRemainingTime = newtime;
-            sessionStorage.checkoutTime = newtime;
+            sessionStorage.dmCheckoutTime = newtime;
             if (newtime == '00:00:00') {
 
                 this.trainingCompleted = true;
@@ -121,7 +121,7 @@ export class DmTrainingComponent implements OnInit {
                 let seconds = pieces[2];
                 hours = hours == '00' ? 0 : hours;
                 minutes = minutes == '00' ? 0 : minutes;
-                let timeLeft = sessionStorage.timeLeft;
+                let timeLeft = sessionStorage.dmTimeLeft;
                 if (hours != 0) {
                     h = hours * 60;
                 } else {
@@ -143,7 +143,7 @@ export class DmTrainingComponent implements OnInit {
                     sendMinutes = timeLeft - remainingTime;;
                 } else {
                     sendMinutes = timeLeft;
-                    sessionStorage.timeLeft = '';
+                    sessionStorage.dmTimeLeft = '';
                 }
                 setTimeout(() => {
                     let dialogRef = test.dialog.open(TrainingcompletedAlert, {
@@ -173,8 +173,8 @@ export class DmTrainingComponent implements OnInit {
     public trainingTiming(): void {
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : 0
+            'role_id': this.auth.getDmRoleId() ? this.auth.getDmRoleId() : 4,
+            'dm_id': this.auth.getDmUserId() ? this.auth.getDmUserId() : 0
         };
         this.learning.trainingTiming(data).subscribe(
             (successData) => {
@@ -189,21 +189,21 @@ export class DmTrainingComponent implements OnInit {
         if (successData.IsSuccess) {
             console.log(successData.ResponseObject.pending_time_left);
             let time = successData.ResponseObject.pending_time_left;
-            sessionStorage.timeLeft = time;
+            sessionStorage.dmTimeLeft = time;
             let seconds = 0;
             let h = Math.floor(time / 60);
             let m = time % 60;
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
             console.log(m, 'minutes');
-            if (sessionStorage.checkoutTime != '' && sessionStorage.checkoutTime != undefined) {
-                // let fullTime = sessionStorage.checkoutTime.split(":");
+            if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
+                // let fullTime = sessionStorage.dmCheckoutTime.split(":");
                 // let hr = parseInt(fullTime[0]);
                 // console.log(hr, 'hr');
                 // let mins = parseInt(fullTime[1]);
                 // let sec = parseInt(fullTime[2]);
-                // console.log(hr +':'+ mins +':'+ sec, 'sessionStorage.checkoutTime');
-                document.getElementById('timer').innerHTML= sessionStorage.checkoutTime;
+                // console.log(hr +':'+ mins +':'+ sec, 'sessionStorage.dmCheckoutTime');
+                document.getElementById('timer').innerHTML= sessionStorage.dmCheckoutTime;
                 this.countdown(840);
             } else {
                 document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
@@ -220,8 +220,8 @@ export class DmTrainingComponent implements OnInit {
     public sendRemainingTime(time): void {
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : 0,
+            'role_id': this.auth.getDmRoleId() ? this.auth.getDmRoleId() : 19,
+            'dm_id': this.auth.getDmUserId() ? this.auth.getDmUserId() : 0,
             'time' : time
         };
         this.learning.sendRemainingTime(data).subscribe(

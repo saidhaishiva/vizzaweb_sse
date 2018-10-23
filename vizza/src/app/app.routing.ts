@@ -59,7 +59,12 @@ import {ReligarePaymentSuccessComponent} from './pages/religare-payment-success/
 import {DmRegisterComponent} from './pages/dm-register/dm-register.component';
 import {DmLoginComponent} from './pages/dm-login/dm-login.component';
 import {DmProfileComponent} from './pages/dm-profile/dm-profile.component';
+import {DmTrainingComponent} from './pages/dm-training/dm-training.component';
+import {DmExamComponent} from './pages/dm-exam/dm-exam.component';
+import {DmexamactivateGuard} from './shared/dmactivate-guard';
 import {ReligareDownloadPolicyComponent} from './pages/religare-download-policy/religare-download-policy.component';
+import {DmdeactivatetimeGuard} from './shared/dmdeactivatetime-guard';
+import {DmexamdeactivatetimeGuard} from './shared/dmexamdeactivatetime-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -88,6 +93,11 @@ export const routes: Routes = [
             { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
             { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
+            { path: 'dm-login', component: DmLoginComponent, data: { breadcrumb: 'Dm Login' } },
+            { path: 'dm-register', component: DmRegisterComponent, data: { breadcrumb: 'Dm Login' } },
+            { path: 'dm-profile', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } },
+            { path: 'dm-training', component: DmTrainingComponent, data: { breadcrumb: 'DM Training' }, canDeactivate: [DmdeactivatetimeGuard] },
+            { path: 'dm-exam', component: DmExamComponent, data: { breadcrumb: 'DM Exam' }, canActivate: [DmexamactivateGuard], canDeactivate: [DmexamdeactivatetimeGuard]  },
             { path: 'fix-appointment/:id', component: FixappointmentComponent, data: { breadcrumb: 'Fix Appointment' } },
             { path: 'shopkeeperpolicy', component: ShopkeeperpolicyComponent, data: { breadcrumb: 'Shopkeeper Policy'} },
             { path: 'marinecargo', component: MarinecargoComponent, data: {breadcrumb: 'Marine Cargo Policy'}},

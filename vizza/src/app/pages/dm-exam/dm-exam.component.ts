@@ -83,7 +83,7 @@ export class DmExamComponent implements OnInit {
     public getQuestions(): void {
         const data = {
             'platform': 'web',
-            'pos_id': this.auth.getPosUserId()
+            'dm_id': this.auth.getDmUserId()
         };
         this.learning.getQuestionLists(data).subscribe(
             (successData) => {
@@ -139,7 +139,7 @@ export class DmExamComponent implements OnInit {
                 console.log(this.selectedData, 'pop');
                 const data = {
                     'platform': 'web',
-                    'pos_id': this.auth.getPosUserId(),
+                    'dm_id': this.auth.getDmUserId(),
                     'question_details': this.selectedData
                 };
                 this.settings.loadingSpinner = true;
@@ -165,8 +165,7 @@ export class DmExamComponent implements OnInit {
             sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
             sessionStorage.examPercentage = successData.ResponseObject.percentage;
             sessionStorage.examStatus = successData.ResponseObject.exam_status;
-            this.auth.setSessionData('examStatus', successData.ResponseObject.exam_status);
-
+            this.auth.setSessionData('dmExamStatus', successData.ResponseObject.exam_status);
             this.router.navigate(['/viewresult']);
         }
 
