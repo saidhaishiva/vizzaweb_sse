@@ -38,8 +38,8 @@
             </div>
             <div class="col-sm-12">
               <mat-form-field class="w-100">
-                <input matInput placeholder="Company" formControlName="company" required >
-                <mat-error *ngIf="form.controls.company.errors?.required">Company is required</mat-error>
+                <input matInput placeholder="Company Name" formControlName="company" required >
+                <mat-error *ngIf="form.controls.company.errors?.required">Company name is required</mat-error>
                 <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
                 <!--</mat-error>-->
                 <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
@@ -53,18 +53,11 @@
                   <!--<mat-icon>add_a_photo</mat-icon>-->
                 <!--</mat-placeholder>-->
                 <!--<div class="custom-file">-->
-                  <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"  >
+                  <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">
                   <label class="custom-file-label"><span class="error">*</span>
                     Profile Picture</label>
                 <!--</div>-->
               <!--</mat-form-field>-->
-            </div>
-            <div class="row w-100">
-              <div class="col-md-12">
-                <div *ngIf="profile != ''">
-                  <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="col-sm-12 mt-3 text-center">
