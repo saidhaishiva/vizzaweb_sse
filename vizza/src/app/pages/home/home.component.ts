@@ -349,6 +349,8 @@ export class HomeComponent implements OnInit {
     }
     onUploadFinished(event) {
         this.allImage.push(event);
+    }
+    onUpload() {
         const data = {
             'platform': 'web',
             'image_path': ''

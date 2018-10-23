@@ -20,13 +20,37 @@ export class LearningcenterService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // submit the exam
+    // get the dm question lists
+    getDmQuestionLists(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/questionlist';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // submit the pos exam
     submitExam(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'posquestion/answerrequest';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // submit the dm exam
+    submitDmExam(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/answerrequest';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -44,15 +68,38 @@ export class LearningcenterService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get the total training time
+    dmTrainingTiming(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/get_dm_training_time_left' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     // this function will send the remaining training time
     sendRemainingTime(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'pos/add_training_timezone' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    sendDmRemainingTime(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/add_training_timezone' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

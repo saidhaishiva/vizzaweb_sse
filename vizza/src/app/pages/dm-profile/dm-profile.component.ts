@@ -118,12 +118,12 @@ export class DmProfileComponent implements OnInit {
         this.disabledList = false;
         this.img = false;
         this.selectedTab = 0;
-        this.examStatus = this.auth.getSessionData('examStatus');
-        this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        this.examStatus = this.auth.getSessionData('dmExamStatus');
+        this.trainingStatus = this.auth.getSessionData('dmTrainingStatus');
         console.log(this.examStatus, 'this.examStatus');
         console.log(this.trainingStatus, 'this.trainingStatus');
-        this.documentStatus = this.auth.getSessionData('documentStatus');
-        this.posStatus = this.auth.getSessionData('posStatus');
+        this.documentStatus = this.auth.getSessionData('dmDocumentStatus');
+        this.posStatus = this.auth.getSessionData('dmStatus');
         this.sideNav = [];
         console.log(this.documentStatus, 'this.documentStatus');
         this.dmDataAvailable = false;
@@ -182,8 +182,8 @@ export class DmProfileComponent implements OnInit {
 
     ngOnInit() {
 
-       // this.getDmTrainingDetails();
-       // this.getDmExamDetails();
+       this.getDmTrainingDetails();
+       this.getDmExamDetails();
         this.settings.loadingSpinner = false;
         this.currentTab = 'Personal';
         if (this.documentStatus != 2 || this.documentStatus == 2) {
@@ -208,7 +208,17 @@ export class DmProfileComponent implements OnInit {
                     'name': 'Bank Details',
                     'value': 'active',
                     'selected': false
-                }];
+                },{
+                    'name': 'Training',
+                    'value': 'active',
+                    'selected': false
+                },
+                {
+                    'name': 'Examination',
+                    'value': 'active',
+                    'selected': false
+                }
+                ];
         }
         if (this.documentStatus == 2 ) {
             this.sideNav.push({
@@ -260,8 +270,8 @@ export class DmProfileComponent implements OnInit {
             this.editAccess = false;
         }
         console.log(this.currentTab);
-        let trainingStatus = this.auth.getSessionData('trainingStatus');
-        let examStatus = this.auth.getSessionData('examStatus');
+        let trainingStatus = this.auth.getSessionData('dmTrainingStatus');
+        let examStatus = this.auth.getSessionData('dmExamStatus');
         sessionStorage.currentTab = this.currentTab;
         if (value == 'Contact') {
             this.contactEdit = false;
@@ -270,20 +280,23 @@ export class DmProfileComponent implements OnInit {
         if (value == 'Training') {
             if (trainingStatus == '0') {
                 this.settings.loadingSpinner = true;
-                this.router.navigate(['/training']);
+                this.router.navigate(['/dm-training']);
             }
         } else if (value == 'Examination') {
 
             if (trainingStatus == '0') {
                 this.examSchedule = 'Please complete training before applying the exam';
             } else if (examStatus == '0') {
-                this.router.navigate(['/startexam']);
+                // this.router.navigate(['/startexam']);
             }
         }
         setTimeout(() => {
             this.settings.loadingSpinner = false;
 
         },500);
+    }
+    startExam() {
+        this.router.navigate(['/dm-exam']);
     }
 
     //posprofile services
@@ -311,10 +324,10 @@ export class DmProfileComponent implements OnInit {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
             this.dmDataAvailable = true;
-            this.auth.setSessionData('examStatus', this.personal.exam_status);
-            this.auth.setSessionData('trainingStatus', this.personal.training_status);
-            this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);
-            this.auth.setSessionData('posStatus', this.personal.dm_status);
+            this.auth.setSessionData('dmExamStatus', this.personal.exam_status);
+            this.auth.setSessionData('dmTrainingStatus', this.personal.training_status);
+            this.auth.setSessionData('dmDocumentStatus', this.personal.doc_verified_status);
+            this.auth.setSessionData('dmStatus', this.personal.dm_status);
             // edit
             this.personalshow = successData.ResponseObject;
             console.log(this.personalshow);
@@ -328,7 +341,7 @@ export class DmProfileComponent implements OnInit {
                 firstname: this.personalshow.dm_firstname,
                 lastname: this.personalshow.dm_lastname,
                 birthday: date,
-                gender: this.personalshow.dm_gender,
+                gender: this.personalshow.dm_gender.toLowerCase(),
                 referralconduct: this.personalshow.dm_referral_code,
             });
             this.contacts = this.fb.group({
@@ -374,7 +387,7 @@ export class DmProfileComponent implements OnInit {
     public getDmTrainingDetails() {
         const data = {
             'platform': 'web',
-            'roleid': this.auth.getDmRoleId(),
+            'role_id': this.auth.getDmRoleId(),
             'userid': this.auth.getDmUserId(),
             'dm_id': this.auth.getDmUserId()
         };
@@ -938,6 +951,7 @@ export class DmProfileComponent implements OnInit {
         console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
+            'flag': 'dm',
             'uploadtype': '',
             'images': ''
         };
@@ -1124,7 +1138,7 @@ export class DmProfileComponent implements OnInit {
             this.auth.setSessionData('vizza-pos-firstname', this.personaledit.value['firstname']);
             this.auth.setSessionData('vizza-pos-lastname', this.personaledit.value['lastname']);
             this.settings.username = this.auth.getDmFirstName() +' '+ this.auth.getDmLastName();
-            if (this.personal.doc_verified_status < 2) {
+            // if (this.personal.doc_verified_status < 2) {
                 const data = {
                     "platform": "web",
                     "dm_id": this.auth.getDmUserId(),
@@ -1153,10 +1167,10 @@ export class DmProfileComponent implements OnInit {
                     this.updateDocuments(data);
                 }
 
-            } else {
-                this.toastr.error(successData.ErrorObject);
-
-            }
+            // } else {
+            //     this.toastr.error(successData.ErrorObject);
+            //
+            // }
         }
     }
     updateDmProfileFailure(error) {
@@ -1165,7 +1179,7 @@ export class DmProfileComponent implements OnInit {
     }
     updateDocuments(data) {
         console.log(data);
-        this.common.updateDocDetails(data).subscribe(
+        this.common.updateDmDocDetails(data).subscribe(
             (successData) => {
                 this.updateDocumentsSuccess(successData);
             },

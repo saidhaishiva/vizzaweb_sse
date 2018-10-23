@@ -1,12 +1,8 @@
 import { CanDeactivate } from '@angular/router';
-import { TrainingComponent} from '../pages/training/training.component';
-import {AuthService} from './services/auth.service';
-import {CommonService} from './services/common.service';
-import {Observable} from 'rxjs/Observable';
-import {OnInit} from '@angular/core';
+import { DmTrainingComponent} from '../pages/dm-training/dm-training.component';
 
-export  class DmdeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
-    canDeactivate(training: TrainingComponent) {
+export  class DmdeactivatetimeGuard implements CanDeactivate<DmTrainingComponent> {
+    canDeactivate(training: DmTrainingComponent) {
         sessionStorage.dmCheckoutTime = '';
         console.log(training, 'candeactivate');
         let h ;

@@ -83,9 +83,11 @@ export class DmExamComponent implements OnInit {
     public getQuestions(): void {
         const data = {
             'platform': 'web',
-            'dm_id': this.auth.getDmUserId()
+            'dm_id': this.auth.getDmUserId(),
+            'roleid': this.auth.getDmRoleId(),
+            'userid': this.auth.getDmUserId()
         };
-        this.learning.getQuestionLists(data).subscribe(
+        this.learning.getDmQuestionLists(data).subscribe(
             (successData) => {
                 this.getQuestionListsSuccess(successData);
             },
@@ -130,7 +132,7 @@ export class DmExamComponent implements OnInit {
         console.log(total.length, 'lp');
         sessionStorage.unAnsweredQuestions = total.length;
 
-        let dialogRef = this.dialog.open(ConfrimAlert, {
+        let dialogRef = this.dialog.open(DmConfrimAlert, {
             width: '500px', data:{total: total.length, expired: this.expired}});
         dialogRef.disableClose = true;
 
@@ -143,7 +145,7 @@ export class DmExamComponent implements OnInit {
                     'question_details': this.selectedData
                 };
                 this.settings.loadingSpinner = true;
-                this.learning.submitExam(data).subscribe(
+                this.learning.submitDmExam(data).subscribe(
                     (successData) => {
                         this.submitExamSuccess(successData);
                     },
@@ -160,13 +162,13 @@ export class DmExamComponent implements OnInit {
         this.settings.loadingSpinner = false;
         console.log(successData, 'successData');
         if (successData.IsSuccess) {
-            sessionStorage.examBack = 1;
-            sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
-            sessionStorage.correctAns = successData.ResponseObject.correct_answer_count;
-            sessionStorage.examPercentage = successData.ResponseObject.percentage;
-            sessionStorage.examStatus = successData.ResponseObject.exam_status;
+            sessionStorage.dmExamBack = 1;
+            sessionStorage.dmAllQuestions = successData.ResponseObject.all_question_count;
+            sessionStorage.dmCorrectAns = successData.ResponseObject.correct_answer_count;
+            sessionStorage.dmExamPercentage = successData.ResponseObject.percentage;
+            sessionStorage.dmExamStatus = successData.ResponseObject.exam_status;
             this.auth.setSessionData('dmExamStatus', successData.ResponseObject.exam_status);
-            this.router.navigate(['/viewresult']);
+           this.router.navigate(['/dm-viewresult']);
         }
 
     }
@@ -177,7 +179,7 @@ export class DmExamComponent implements OnInit {
 
 }
 @Component({
-    selector: 'confrimalert',
+    selector: 'dmconfrimalert',
     template: `
         <div mat-dialog-content class="text-center" *ngIf="!expiredStatus">
             <label>Total Number of unanswered questions = <span style="color: red">{{total}}</span></label><br>
@@ -194,11 +196,11 @@ export class DmExamComponent implements OnInit {
     `
 
 })
-export class ConfrimAlert {
+export class DmConfrimAlert {
     total: any;
     expiredStatus: boolean;
     constructor(
-        public dialogRef: MatDialogRef<ConfrimAlert>,
+        public dialogRef: MatDialogRef<DmConfrimAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         console.log(data, 'data');
         this.total = data.total;

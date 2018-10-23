@@ -193,6 +193,7 @@ export class DmRegisterComponent implements OnInit {
         console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
+            'flag': 'dm',
             'uploadtype': '',
             'images': ''
         };

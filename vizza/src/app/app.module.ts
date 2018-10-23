@@ -105,6 +105,7 @@ import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
 import { DocumentViewComponent } from './pages/posprofile/document-view/document-view.component';
 import { TrainingcompletedAlert} from './pages/training/training.component';
+import { DmTrainingcompletedAlert} from './pages/dm-training/dm-training.component';
 import {ShopkeeperpolicyComponent} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
 import {MarinecargoComponent} from './pages/marinecargo/marinecargo.component';
 import {MarinehullComponent} from './pages/marinehull/marinehull.component';
@@ -135,6 +136,8 @@ import { DmdocumentViewComponent } from './pages/dm-profile/dmdocument-view/dmdo
 import { DmTrainingComponent } from './pages/dm-training/dm-training.component';
 import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
 import { ReligareDownloadPolicyComponent } from './pages/religare-download-policy/religare-download-policy.component';
+import { DmConfrimAlert} from './pages/dm-exam/dm-exam.component';
+import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 
 @NgModule({
   imports: [
@@ -218,6 +221,7 @@ import { ReligareDownloadPolicyComponent } from './pages/religare-download-polic
       RelianceComponent,
       DocumentViewComponent,
       TrainingcompletedAlert,
+      DmTrainingcompletedAlert,
       ShopkeeperpolicyComponent,
       MarinecargoComponent,
       MarinehullComponent,
@@ -248,7 +252,9 @@ import { ReligareDownloadPolicyComponent } from './pages/religare-download-polic
       DmdocumentViewComponent,
       DmTrainingComponent,
       DmExamComponent,
-      ReligareDownloadPolicyComponent
+      ReligareDownloadPolicyComponent,
+      DmConfrimAlert,
+      DmViewresultComponent
   ],
   providers: [
       AppSettings,
@@ -271,7 +277,7 @@ import { ReligareDownloadPolicyComponent } from './pages/religare-download-polic
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert, HealthInsurer
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, HealthInsurer
     ]
 })
 export class AppModule { }

@@ -272,7 +272,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'pos/get_pos_training_attended_details' ;
+        const url = this.configurationService.getHost() + 'distancemanager/get_dm_training_attended_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -284,7 +284,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'posquestion/get_pos_exam_attended_details' ;
+        const url = this.configurationService.getHost() + 'distancemanager/get_dm_exam_attended_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -302,11 +302,11 @@ export class CommonService {
     }
     updateDmProfile(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
+        const token = this.authService.getDmAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'dm/register' ;
+        const url = this.configurationService.getHost() + 'distancemanager/register' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -318,6 +318,17 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'pos/update_pos_doccuments' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    updateDmDocDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getDmAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/update_dm_doccuments' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

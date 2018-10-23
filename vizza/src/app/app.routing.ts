@@ -39,6 +39,7 @@ import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
 import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
 import {TravelComponent} from './pages/travel/travel.component';
+import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -128,7 +129,8 @@ export const routes: Routes = [
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
-            { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'view' } },
+            { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' } },
+            { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
             { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
             { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },

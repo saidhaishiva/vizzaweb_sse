@@ -64,11 +64,7 @@ export class DmTrainingComponent implements OnInit {
     }
     ngOnInit() {
         this.trainingTiming();
-        // window.addEventListener('beforeunload', function (e) {
-        //     let confirmationMessage = '\o/';
-        //     e.returnValue = confirmationMessage;
-        //     return confirmationMessage;
-        // });
+
     }
     // Start timers.
     StartTimers() {
@@ -146,7 +142,7 @@ export class DmTrainingComponent implements OnInit {
                     sessionStorage.dmTimeLeft = '';
                 }
                 setTimeout(() => {
-                    let dialogRef = test.dialog.open(TrainingcompletedAlert, {
+                    let dialogRef = test.dialog.open(DmTrainingcompletedAlert, {
                         width: '700px',
                     });
 
@@ -173,10 +169,10 @@ export class DmTrainingComponent implements OnInit {
     public trainingTiming(): void {
         const data = {
             'platform': 'web',
-            'role_id': this.auth.getDmRoleId() ? this.auth.getDmRoleId() : 4,
+            'role_id': this.auth.getDmRoleId() ? this.auth.getDmRoleId() : 19,
             'dm_id': this.auth.getDmUserId() ? this.auth.getDmUserId() : 0
         };
-        this.learning.trainingTiming(data).subscribe(
+        this.learning.dmTrainingTiming(data).subscribe(
             (successData) => {
                 this.getTrainingTimingSuccess(successData);
             },
@@ -195,6 +191,7 @@ export class DmTrainingComponent implements OnInit {
             let m = time % 60;
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
+            console.log(h, 'h');
             console.log(m, 'minutes');
             if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
                 // let fullTime = sessionStorage.dmCheckoutTime.split(":");
@@ -224,7 +221,7 @@ export class DmTrainingComponent implements OnInit {
             'dm_id': this.auth.getDmUserId() ? this.auth.getDmUserId() : 0,
             'time' : time
         };
-        this.learning.sendRemainingTime(data).subscribe(
+        this.learning.sendDmRemainingTime(data).subscribe(
             (successData) => {
                 this.sendTimeSuccess(successData);
             },
@@ -253,7 +250,7 @@ export class DmTrainingComponent implements OnInit {
 
 }
 @Component({
-    selector: 'trainingcompletedalert',
+    selector: 'dmtrainingcompletedalert',
     template: `
         <div mat-dialog-content class="text-center">
             <label>You have completed your training successfully. Get ready for your Examination. Do you want to continue?</label>
@@ -265,10 +262,10 @@ export class DmTrainingComponent implements OnInit {
     `
 
 })
-export class TrainingcompletedAlert {
+export class DmTrainingcompletedAlert {
 
     constructor(
-        public dialogRef: MatDialogRef<TrainingcompletedAlert>,
+        public dialogRef: MatDialogRef<DmTrainingcompletedAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     onNoClick(): void {

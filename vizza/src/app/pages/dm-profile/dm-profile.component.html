@@ -61,7 +61,7 @@
                         <div class="col-md-5">
                           <p fxLayout="row" fxLayoutAlign="left center">
                             <mat-icon class="muted-text  colorBank">person</mat-icon>&nbsp;<span class="colorBank"> Gender : </span>
-                            <span class="text-capitalize ml-1" > {{personal.dms_gender}}</span>
+                            <span class="text-capitalize ml-1" > {{personal.dm_gender}}</span>
                           </p>
                           <p fxLayout="row" fxLayoutAlign="left center">
                             <mat-icon class="muted-text colorBank ">date_range</mat-icon>&nbsp;<span class="colorBank"> DOB : </span>
@@ -526,7 +526,7 @@
             <div *ngIf="currentTab == 'Training'">
               <div *ngIf="trainingStatus == 1">
                 <div class="text-right mt-6">
-                  <button mat-raised-button [routerLink]="['/training']">Training Documentaion
+                  <button mat-raised-button [routerLink]="['/dm-training']">Training Documentaion
                     <mat-icon >note</mat-icon>
                   </button>
                 </div>
@@ -577,6 +577,73 @@
                   </div>
                 </div>
               </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="h-100"  *ngIf="trainingStatus != 0 && (examStatus == 0 || examStatus == 1)">
+                <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
+                  <div class="question-view">
+                    <div >
+                      <mat-card>
+                        <mat-card-header fxLayoutAlign="center center">
+                          <mat-card-subtitle>
+                            <img style="width: 150px" src="assets/img/fail-logo.png" >
+                            <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
+                          </mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <!--<div class="w-100"  fxLayoutAlign="center center">-->
+                            <!--<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">-->
+                          <!--</div>-->
+                        </mat-card-content>
+
+                        <mat-card-header>
+                          <div fxFlex="100" class="flex-p text-center">
+                            <mat-card-title> Distance Marketing Examination (<span class="content-color">Random Questions</span>) </mat-card-title>
+                          </div>
+                          <!--<div fxFlex="50" class="flex-p">-->
+                            <!--<mat-card-subtitle style="color: black">Number of questions : <span class="content-color">30</span> </mat-card-subtitle>-->
+                          <!--</div>-->
+                          <!--<div fxFlex="50" class="flex-p">-->
+                            <!--<mat-card-subtitle style="color: black">Time : <span class="content-color">45</span> </mat-card-subtitle>-->
+                          <!--</div>-->
+                        </mat-card-header>
+                        <mat-card-content  fxLayoutAlign="space-between center" >
+                          <mat-list class="ml-5">
+                            <h5 matLine class="content-color"> Instructions </h5>
+                            <mat-list-item >
+                              <p matLine>
+                                <mat-card-subtitle> 1. <span>Total number of questions : </span><strong >30.</strong> </mat-card-subtitle>
+                              </p>
+                              <p matLine>
+                                <mat-card-subtitle> 2. <span>Time alloted :</span> <strong>45</strong > minutes.</mat-card-subtitle>
+                              </p>
+                              <p matLine>
+                                <mat-card-subtitle> 3. <span>Each question carry 1 mark, no negative marks.</span> </mat-card-subtitle>
+                              </p>
+                              <p matLine>
+                                <mat-card-subtitle> 3. <span>Pass mark : <strong >40%</strong></span> </mat-card-subtitle>
+                              </p>
+
+                              <p matLine>
+                                <mat-card-subtitle> 4. <span> DO NOT refresh the page.</span> </mat-card-subtitle>
+                              </p>
+                              <p matLine>
+                                <mat-card-subtitle> 5. <span>All the best :-).</span> </mat-card-subtitle>
+                              </p>
+                            </mat-list-item>
+                          </mat-list>
+
+                        </mat-card-content>
+                        <div fxLayoutAlign="center center" class="text-center" *ngIf="examStatus == 0">
+                          <button mat-raised-button color="primary" (click)="startExam()">Start Test</button>
+                        </div>
+                        <div class="w-100 mt-2"  fxLayoutAlign="center center" *ngIf="examStatus == 1">
+                          <button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/dm-exam']">Re-Exam
+                          </button>
+                        </div>
+                      </mat-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center" *ngIf="examStatus == 2">
                 <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
@@ -597,27 +664,27 @@
 
               </div>
 
-              <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center"  *ngIf="examStatus == 1">
-                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
-                  <mat-card class="list">
-                    <mat-card-header fxLayoutAlign="center center">
-                      <mat-card-subtitle>
-                        <img style="width: 150px" src="assets/img/fail-logo.png" >
-                        <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>
-                      </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <div class="w-100"  fxLayoutAlign="center center">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">
-                      </div>
-                      <div class="w-100 mt-2"  fxLayoutAlign="center center">
-                        <button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/startexam']">Re-Exam
-                        </button>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-              </div>
+              <!--<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center"  *ngIf="examStatus == 1">-->
+                <!--<div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">-->
+                  <!--<mat-card class="list">-->
+                    <!--<mat-card-header fxLayoutAlign="center center">-->
+                      <!--<mat-card-subtitle>-->
+                        <!--<img style="width: 150px" src="assets/img/fail-logo.png" >-->
+                        <!--<h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{recentMark}}%</h1>-->
+                      <!--</mat-card-subtitle>-->
+                    <!--</mat-card-header>-->
+                    <!--<mat-card-content>-->
+                      <!--<div class="w-100"  fxLayoutAlign="center center">-->
+                        <!--<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">-->
+                      <!--</div>-->
+                      <!--<div class="w-100 mt-2"  fxLayoutAlign="center center">-->
+                        <!--<button mat-raised-button color="primary" class="text-right editBtn" [routerLink]="['/startexam']">Re-Exam-->
+                        <!--</button>-->
+                      <!--</div>-->
+                    <!--</mat-card-content>-->
+                  <!--</mat-card>-->
+                <!--</div>-->
+              <!--</div>-->
               <div *ngIf="examStatus == 2 || examStatus == 1">
                 <table class="table table-striped">
                   <thead>

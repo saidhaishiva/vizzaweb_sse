@@ -1,4 +1,4 @@
-<div class="container dashboard h-100" fxLayoutAlign="center center">
+<div class="container dashboard h-100" fxLayoutAlign="start start">
   <div class="row" fxLayoutAlign="center start">
     <div class="col-md-6 col-sm-12 col-xs-12">
       <mat-card class="mat-radius">
@@ -20,118 +20,212 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <mat-card>
-        <mat-card-header><h5>Travel Insurance for..</h5></mat-card-header>
-        <form class="w-100">
-          <mat-form-field class="w-100">
-            <mat-select  placeholder="Select Your Policy" (change)="onItemChange($event.value)" >
-              <mat-option value="1">Family/Self</mat-option>
-              <mat-option value="2">Group/Friends</mat-option>
-              <mat-option value="3">Student</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="w-100 mb-2 son" [hidden]="!showFamily">
-              <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray">
-                <div class="col-md-2"><mat-checkbox></mat-checkbox></div>
-                <div class="col-md-3">{{item.name}}</div>
-                <div class="col-md-5">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="Age" name="age" maxlength="3" (keypress)="numberOnly($event)">
-                  </mat-form-field>
+
+
+    <div id="start-travel" class="col-md-6 col-sm-12 col-xs-12">
+
+            <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">person</mat-icon>
+                  Self
+                </ng-template>
+                <!--<div mat-dialog-content >-->
+                <div class="son">
+                  <div class="w-100 mb-2">
+                    <div class="mt-3 text-right">
+                      <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Add Family</button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>
+                        <button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>
+                        <button mat-menu-item (click)="addFamily('Mother')" *ngIf="MotherBTn">Mother</button>
+                      </mat-menu>
+                    </div>
+
+
+                    <div class="row" id="" fxLayoutAlign="start center" *ngFor="let item of selfArray; let i = index">
+                      <div class="col-md-1">
+                        <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
+                        </mat-checkbox>
+                      </div>
+                      <div class="col-md-3">{{item.name}}</div>
+                      <div class="col-md-5">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Age" [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)">
+                        </mat-form-field>
+                        <div *ngIf="item.error != ''" class="ngError">Required</div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="showSelf">
+                    <mat-form-field class="w-100">
+                      <mat-select placeholder="Destinations">
+                        <mat-option></mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="w-100">
+                      <mat-label>Trip Start Date</mat-label>
+                      <input matInput [matDatepicker]="picker1">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="w-100">
+                      <mat-label>Trip End Date</mat-label>
+                      <input matInput [matDatepicker]="picker2">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                    </mat-form-field>
+                    <mat-radio-group class="w-100">
+                      <mat-label>Travelling multiple times in a year?</mat-label>
+                      <mat-radio-button value="1">Yes</mat-radio-button>
+                      <mat-radio-button value="2">No</mat-radio-button>
+                    </mat-radio-group><br>
+                    <mat-radio-group class="w-100">
+                      <mat-label>Any medical conditions</mat-label>
+                      <mat-radio-button value="1">Yes</mat-radio-button>
+                      <mat-radio-button value="2">No</mat-radio-button>
+                    </mat-radio-group>
+                    <div fxLayoutAlign="center center" class="mt-3">
+                      <button mat-raised-button color="accent" type="button">Proceed <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
-            <div class="mt-3">
-              <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu" (click)="addFamily('Add Family')"><i class="material-icons">add_circle_outline</i> Add Family</button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="addFamily('Child3')" [hidden]="Child3BTn">Child3</button>
-                <button mat-menu-item (click)="addFamily('Father')" [hidden]="FatherBTn">Father</button>
-                <button mat-menu-item (click)="addFamily('Mother')" [hidden]="MotherBTn">Mother</button>
-              </mat-menu>
-            </div>
-          </div>
-          <div class="w-100 mb-2 son" [hidden]="!showGroup">
-            <div class="row" fxLayoutAlign="center center" *ngFor="let item1 of setArray1">
-              <div class="col-md-2"><mat-checkbox></mat-checkbox></div>
-              <div class="col-md-3">{{item1.name}}</div>
-              <div class="col-md-5">
-                <mat-form-field class="w-100">
-                  <input matInput placeholder="Age" name="age" maxlength="3" (keypress)="numberOnly($event)">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="mt-3">
-              <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu1"><i class="material-icons">add_circle_outline</i> Add Member</button>
-              <mat-menu #menu1="matMenu">
-                <button mat-menu-item (click)="addMembers('Member5')" [hidden]="Member5BTn">Member5</button>
-                <button mat-menu-item (click)="addMembers('Member6')" [hidden]="Member6BTn">Member6</button>
-                <button mat-menu-item (click)="addMembers('Member7')" [hidden]="Member7BTn">Member7</button>
-                <button mat-menu-item (click)="addMembers('Member8')" [hidden]="Member8BTn">Member8</button>
-              </mat-menu>
-            </div>
-          </div>
-          <div class="w-100 mb-2 son" [hidden]="!showstudent">
-            <div class="row" fxLayoutAlign="center center" *ngFor="let item2 of setArray2">
-              <div class="col-md-2"><mat-checkbox></mat-checkbox></div>
-              <div class="col-md-3">{{item2.name}}</div>
-              <div class="col-md-5">
-                <mat-form-field class="w-100">
-                  <input matInput placeholder="Age" name="age" maxlength="3" (keypress)="numberOnly($event)">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="mt-3">
-              <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu2"><i class="material-icons">add_circle_outline</i> Add Student</button>
-              <mat-menu #menu2="matMenu">
-                <button mat-menu-item (click)="addStudents('Student5')" [hidden]="Student5BTn">Student5</button>
-                <button mat-menu-item (click)="addStudents('Student6')" [hidden]="Student6BTn">Student6</button>
-                <button mat-menu-item (click)="addStudents('Student7')" [hidden]="Student7BTn">Student7</button>
-                <button mat-menu-item (click)="addStudents('Student8')" [hidden]="Student8BTn">Student8</button>
-              </mat-menu>
-            </div>
-            </div>
-              <mat-form-field class="w-100">
-                <mat-select placeholder="Destinations">
-                  <mat-option></mat-option>
-                </mat-select>
-              </mat-form-field>
-            <div>
-            <div>
-              <mat-form-field color="accent" class="w-100">
-                <mat-label>Trip Start Date</mat-label>
-                  <input matInput [matDatepicker]="picker1">
-                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                  <mat-datepicker #picker1></mat-datepicker>
-              </mat-form-field>
-            </div>
-              <div>
-              <mat-form-field color="accent" class="w-100">
-                <mat-label>Trip End Date</mat-label>
-                  <input matInput [matDatepicker]="picker2">
-                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                  <mat-datepicker #picker2 color="primary"></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-          <div>
-          <mat-radio-group class="w-100">
-            <mat-label>Travelling multiple times in a year?</mat-label>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="2">No</mat-radio-button>
-          </mat-radio-group>
-          </div>
-          <div>
-          <mat-radio-group class="w-100" [hidden]="!showFamily">
-            <mat-label>Any medical conditions</mat-label>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="2">No</mat-radio-button>
-          </mat-radio-group>
-          </div>
-          <div fxLayoutAlign="center center" class="mt-3">
-            <button mat-raised-button color="accent" type="button">Proceed <i class="fa fa-arrow-right"></i></button>
-          </div>
-        </form>
-      </mat-card>
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">group_add</mat-icon>
+                  With Family
+                </ng-template>
+                <div class="son">
+                  <div class="mt-3 text-right">
+                    <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu1" [disabled]="!Member5BTn && !Member6BTn && !Member7BTn && !Member8BTn" ><i class="material-icons">add_circle_outline</i> Add Member</button>
+                    <mat-menu #menu1="matMenu">
+                      <button mat-menu-item (click)="addFamilyMembers('Member5')" *ngIf="Member5BTn">Member5</button>
+                      <button mat-menu-item (click)="addFamilyMembers('Member6')" *ngIf="Member6BTn">Member6</button>
+                      <button mat-menu-item (click)="addFamilyMembers('Member7')" *ngIf="Member7BTn">Member7</button>
+                      <button mat-menu-item (click)="addFamilyMembers('Member8')" *ngIf="Member8BTn">Member8</button>
+                    </mat-menu>
+                  </div>
+                  <div class="w-100 mb-2" >
+                    <div class="row" fxLayoutAlign="start center" *ngFor="let item of familyArray">
+                      <div class="col-md-1"><mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)"></mat-checkbox></div>
+                      <div class="col-md-3">{{item.name}}</div>
+                      <div class="col-md-5">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Age" [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="showGroup">
+                    <mat-form-field class="w-100">
+                      <mat-select placeholder="Destinations">
+                        <mat-option></mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                        <mat-form-field color="accent" class="w-100">
+                          <mat-label>Trip Start Date</mat-label>
+                          <input matInput [matDatepicker]="picker1">
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field color="accent" class="w-100">
+                          <mat-label>Trip End Date</mat-label>
+                          <input matInput [matDatepicker]="picker2">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                        </mat-form-field>
+                      <mat-radio-group class="w-100">
+                        <mat-label>Travelling multiple times in a year?</mat-label>
+                        <mat-radio-button value="1">Yes</mat-radio-button>
+                        <mat-radio-button value="2">No</mat-radio-button>
+                      </mat-radio-group>
+                      <mat-radio-group class="w-100" *ngIf="showSelf">
+                        <mat-label>Any medical conditions</mat-label>
+                        <mat-radio-button value="1">Yes</mat-radio-button>
+                        <mat-radio-button value="2">No</mat-radio-button>
+                      </mat-radio-group>
+                    <div fxLayoutAlign="center center" class="mt-3">
+                      <button mat-raised-button color="accent" type="button">Proceed <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">school</mat-icon>
+                 Students
+                </ng-template>
+                <div class="son">
+                  <div class="mt-3 text-right">
+                    <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu2" [disabled]="!Student5BTn && !Student6BTn && !Student7BTn && !Student8BTn"><i class="material-icons">add_circle_outline</i> Add Student</button>
+                    <mat-menu #menu2="matMenu">
+                      <button mat-menu-item (click)="addStudents('Student5')" *ngIf="Student5BTn">Student5</button>
+                      <button mat-menu-item (click)="addStudents('Student6')" *ngIf="Student6BTn">Student6</button>
+                      <button mat-menu-item (click)="addStudents('Student7')" *ngIf="Student7BTn">Student7</button>
+                      <button mat-menu-item (click)="addStudents('Student8')" *ngIf="Student8BTn">Student8</button>
+                    </mat-menu>
+                  </div>
+                  <div class="w-100 mb-2 son">
+                    <div class="row" fxLayoutAlign="start center" *ngFor="let item of studentArray">
+                      <div class="col-md-1"><mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)"></mat-checkbox></div>
+                      <div class="col-md-3">{{item.name}}</div>
+                      <div class="col-md-5">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Age" [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="showstudent">
+                    <mat-form-field class="w-100">
+                      <mat-select placeholder="Destinations">
+                        <mat-option></mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                      <mat-form-field color="accent" class="w-100">
+                        <mat-label>Trip Start Date</mat-label>
+                        <input matInput [matDatepicker]="picker1">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      <mat-form-field color="accent" class="w-100">
+                        <mat-label>Trip End Date</mat-label>
+                        <input matInput [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                      </mat-form-field>
+                    <mat-radio-group class="w-100">
+                      <mat-label>Travelling multiple times in a year?</mat-label>
+                      <mat-radio-button value="1">Yes</mat-radio-button>
+                      <mat-radio-button value="2">No</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-radio-group class="w-100" *ngIf="showSelf">
+                      <mat-label>Any medical conditions</mat-label>
+                      <mat-radio-button value="1">Yes</mat-radio-button>
+                      <mat-radio-button value="2">No</mat-radio-button>
+                    </mat-radio-group>
+                    <div fxLayoutAlign="center center" class="mt-3">
+                      <button mat-raised-button color="accent" type="button">Proceed <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
+
+
+
+
+
   </div>
 </div>

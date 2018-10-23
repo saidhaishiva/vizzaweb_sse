@@ -947,6 +947,7 @@ export class PosprofileComponent implements OnInit {
         console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
+            'flag': 'pos',
             'uploadtype': '',
             'images': ''
         };

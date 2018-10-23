@@ -1,11 +1,11 @@
 import { CanDeactivate } from '@angular/router';
-import { ExamComponent} from '../pages/exam/exam.component';
+import { DmExamComponent} from '../pages/dm-exam/dm-exam.component';
 
-export  class DmexamdeactivatetimeGuard implements CanDeactivate<ExamComponent> {
+export  class DmexamdeactivatetimeGuard implements CanDeactivate<DmExamComponent> {
     // constructor(private authService: AuthService) { }
-    canDeactivate(training: ExamComponent) {
+    canDeactivate(training: DmExamComponent) {
         console.log(training, 'candeactivate');
-        const status = sessionStorage.examBack;
+        const status = sessionStorage.dmExamBack;
         if (status == 1) {
             return true;
         } else {
