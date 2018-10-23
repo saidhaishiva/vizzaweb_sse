@@ -101,6 +101,8 @@ import { AdddmComponent } from './pages/dmmanager/adddm/adddm.component';
 import { EditdmComponent } from './pages/dmmanager/editdm/editdm.component';
 import { DmComponent } from './pages/dm/dm.component';
 import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
+import { MediacenterComponent} from './pages/mediacenter/mediacenter.component';
+import { AddcenterComponent } from './pages/mediacenter/addcenter/addcenter.component';
 
 @NgModule({
     imports: [
@@ -142,7 +144,7 @@ import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
         ForgotPasswordComponent,
         ConfirmPasswordComponent,
         AboutUsComponent,
-        FaqComponent,
+         FaqComponent,
         ContactUsComponent,
         ClinicimageviewComponent,
         RejectPOS,
@@ -185,7 +187,8 @@ import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
         EditdmComponent,
         DmComponent,
         DmaddComponent,
-
+        MediacenterComponent,
+        AddcenterComponent
     ],
     providers: [
         AppSettings,
@@ -204,6 +207,6 @@ import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent, AddcenterComponent]
 })
 export class AppModule { }
