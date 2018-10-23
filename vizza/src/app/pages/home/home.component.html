@@ -27,7 +27,7 @@
                     <img src="assets/img/home/compare-icon.png" alt="">
                     <figcaption>
                         <h3>Compare</h3>
-                        <p>Compare over a 100 policies in real time.
+                        <p class="text-justify">Compare over a 100 policies in real time.
                             Filter through policies to find the ones that
                             fit your criteria or select based on their network
                             map.</p>
@@ -40,7 +40,7 @@
 
                     <figcaption>
                         <h3>Buy</h3>
-                        <p>We make it easy for you to decide and buy
+                        <p class="text-justify">We make it easy for you to decide and buy
                             your policy, helping you through each step
                             of the process.</p>
                     </figcaption>
@@ -51,7 +51,7 @@
                     <img src="assets/img/home/Insure-icon.png" alt="">
                     <figcaption>
                         <h3>Insured</h3>
-                        <p>Use Vizza Benefits to access your full benefits
+                        <p class="text-justify">Use Vizza Benefits to access your full benefits
                             and network map. Search for symptoms
                             and specialists covered by your policy.</p>
                     </figcaption>
@@ -225,6 +225,8 @@
     <!--</div>-->
     <!--</section>-->
     <!--</div>-->
+
+
     <section class="container-fluid mb-4 mt-4">
         <div class="row" fxLayoutAlign="stretch">
             <div class="col pr-0 pl-0"> <img src="assets/img/v-banner.jpg" class="w-100" alt=""></div>
@@ -244,7 +246,8 @@
         </div>
 
     </section>
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-4 h-claim">
+        <h3 class="text-center w-100 mt-5 mb-5">Testimonial</h3>
         <section class="row h-testimonial" fxLayoutAlign="center center">
             <div class="col-md-8">
                 <div class="row" fxLayoutAlign="center center">
@@ -255,14 +258,13 @@
                             <!--</ul>-->
                         <div class="carousel-inner" >
                             <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
-                                <div class="float-left">
-                                    <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}">
-                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle" width="200" height="200">
+                                <div class="float-left border-right border-secondary pr-2 mr-3">
+                                    <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">
+                                    <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="200" height="200">
                                 </div>
                                 <div>
-                                    <p class="visible">{{list.comments}}</p>
-                                    <p class="text-center"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span></p>
-                                    <p class="text-center"></p>
+                                    <p class="visible text-justify">{{list.comments}}</p>
+                                    <p class="text-right"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +274,7 @@
                             </a>
                             <a class="carousel-control-next" href="#demo" data-slide="next">
                                 <span class="carousel-control-next-icon"></span>
+
                             </a>
                     </div>
                     </div>
@@ -288,13 +291,22 @@
             </div>
         </section>
     </div>
-
-
-
-    <div class="container">
+    <div class="container mt-5 mb-4">
         <section class="row">
-            <div class="col-md-12">
-            <img src="assets/img/Partner-strip.png" class="w-100" alt="">
+            <div class="col-md-12 parther-slide">
+                <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+                    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                        <img src="{{ slide.img }}" alt="" width="100%">
+                    </div>
+                </ngx-slick>
+                <ngx-slick class="carousel mt-4" #slickModal="slick-modal" [config]="slideConfig2" dir="rtl">
+                    <div ngxSlickItem *ngFor="let slide of slides2" class="slide">
+                        <img src="{{ slide.img }}" alt="" width="100%">
+                    </div>
+                </ngx-slick>
+
+                <img src="assets/img/partner/Partner-strip.png" class="w-100">
+
             </div>
         </section>
     </div>

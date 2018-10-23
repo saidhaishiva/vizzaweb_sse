@@ -179,7 +179,7 @@ training_page .no {
   border: 1px solid #a7a7a7; }
 
 .custom-file-label::after {
-  content: "Attach File" !important;
+  content: "Attach Name" !important;
   background-color: #00695c;
   color: white;
   border: none;
@@ -359,7 +359,7 @@ a:hover {
     height: 80px; }
 
 .app.teal-light .horizontal-menu {
-  background: #f5f5f5 !important; }
+  background: #fff !important; }
 
 .top-nav {
   height: auto !important;
@@ -944,7 +944,9 @@ a:hover {
   .f-social-icons li:hover span {
     visibility: visible; }
 .f-social-icons li a, .f-social-icons li a:hover {
-  color: #fff; }
+  color: #fff;
+  display: flex;
+  flex-flow: column; }
 
 footer {
   width: 100%;
@@ -1239,5 +1241,11 @@ footer {
   left: -140px !important; }
 .h-testimonial .carousel-control-next {
   right: -120px !important; }
+
+.mat-drawer-container, .mat-toolbar, .navbar.bg-light {
+  background-color: #fff !important; }
+
+.parther-slide .draggable {
+  height: auto !important; }
 
 /*# sourceMappingURL=style.css.map */
