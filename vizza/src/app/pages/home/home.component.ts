@@ -128,6 +128,42 @@ export class HomeComponent implements OnInit {
       this.testimonialList();
       this.getPolicyTypes();
   }
+
+
+
+    slides = [
+        {img: "./assets/img/partner/apollo-munich.png"},
+        {img: "./assets/img/partner/bajaj-allianz.png"},
+        {img: "./assets/img/partner/bharti-axa.png"},
+        {img: "./assets/img/partner/cholamandalam-ms.png"},
+        {img: "./assets/img/partner/cigna-ttk.png"},
+        {img: "./assets/img/partner/edelweiss.png"},
+        {img: "./assets/img/partner/future-generali.png"},
+        {img: "./assets/img/partner/hdfc-ergo.png"},
+        {img: "./assets/img/partner/icici-lombard.png"},
+        {img: "./assets/img/partner/iifco-tokio.png"},
+        {img: "./assets/img/partner/kotak.png"},
+        {img: "./assets/img/partner/liberty-videocon.png"},
+        {img: "./assets/img/partner/magma-hdi.png"}
+    ];
+    slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0};
+    slides2 = [
+        {img: "./assets/img/partner/max-bupa.png"},
+        {img: "./assets/img/partner/national-insurance.png"},
+        {img: "./assets/img/partner/new-india-insurance.png"},
+        {img: "./assets/img/partner/oriental.png"},
+        {img: "./assets/img/partner/reliance-general.png"},
+        {img: "./assets/img/partner/religare.png"},
+        {img: "./assets/img/partner/royal-sundaram.png"},
+        {img: "./assets/img/partner/sbi-general.png"},
+        {img: "./assets/img/partner/shriram.png"},
+        {img: "./assets/img/partner/star-health.png"},
+        {img: "./assets/img/partner/tata-aig.png"},
+        {img: "./assets/img/partner/United-INdia-insurance.png"},
+        {img: "./assets/img/partner/universal-sampo.png"}
+    ];
+    slideConfig2 = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0, "rtl": true};
+
     addEvent(event) {
       console.log(event, 'chek dateeeeee');
         this.selectDate = event.value;

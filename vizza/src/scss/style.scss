@@ -250,7 +250,7 @@ training_page{
   border: 1px solid #a7a7a7;
 }
 .custom-file-label::after {
-  content: "Attach File" !important;
+  content: "Attach Name" !important;
   background-color: #00695c;
   color: white;
   border: none;
@@ -363,6 +363,7 @@ a:hover {
     text-align: center;
     color: #fff;
   }
+
 
   a:first-child i{
     background: #3B5998;
@@ -497,7 +498,7 @@ a:hover {
 }
 
 .app.teal-light .horizontal-menu{
-  background: #f5f5f5 !important;
+  background: #fff !important;
 }
 .top-nav{
   height: auto !important;
@@ -1285,6 +1286,8 @@ a:hover {
   }
   li a, li a:hover{
     color:#fff;
+    display: flex;
+    flex-flow: column;
   }
 
 }
@@ -1686,5 +1689,13 @@ footer{
   }
   .carousel-control-next {
     right: -120px !important;
+  }
+}
+.mat-drawer-container, .mat-toolbar, .navbar.bg-light{
+  background-color: #fff !important;
+}
+.parther-slide {
+  .draggable{
+    height: auto !important;
   }
 }

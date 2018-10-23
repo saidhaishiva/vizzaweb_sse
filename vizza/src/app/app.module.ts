@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
+import { SlickModule } from 'ngx-slick';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -138,7 +139,7 @@ import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
 import { ReligareDownloadPolicyComponent } from './pages/religare-download-policy/religare-download-policy.component';
 import { DmConfrimAlert} from './pages/dm-exam/dm-exam.component';
 import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
-
+import {CareerComponent} from './pages/career/career.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -152,6 +153,7 @@ import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresu
       NgxChartsModule,
       PdfViewerModule,
       ScrollToModule.forRoot(),
+      SlickModule.forRoot(),
       // ImageUploadModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
@@ -254,7 +256,8 @@ import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresu
       DmExamComponent,
       ReligareDownloadPolicyComponent,
       DmConfrimAlert,
-      DmViewresultComponent
+      DmViewresultComponent,
+      CareerComponent
   ],
   providers: [
       AppSettings,
