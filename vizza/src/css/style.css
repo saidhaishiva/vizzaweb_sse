@@ -179,7 +179,7 @@ training_page .no {
   border: 1px solid #a7a7a7; }
 
 .custom-file-label::after {
-  content: "Attach Name" !important;
+  content: "Attach File" !important;
   background-color: #00695c;
   color: white;
   border: none;

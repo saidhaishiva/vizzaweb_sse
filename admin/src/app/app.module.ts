@@ -103,6 +103,9 @@ import { DmComponent } from './pages/dm/dm.component';
 import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
 import { MediacenterComponent} from './pages/mediacenter/mediacenter.component';
 import { AddcenterComponent } from './pages/mediacenter/addcenter/addcenter.component';
+import { DistanceMarketingComponent } from './pages/distance-marketing/distance-marketing.component';
+import { DmProfileComponent } from './pages/dm-profile/dm-profile.component';
+import { ViewDocumentsComponent } from './pages/dm-profile/view-documents/view-documents.component';
 
 @NgModule({
     imports: [
@@ -188,7 +191,10 @@ import { AddcenterComponent } from './pages/mediacenter/addcenter/addcenter.comp
         DmComponent,
         DmaddComponent,
         MediacenterComponent,
-        AddcenterComponent
+        AddcenterComponent,
+        DistanceMarketingComponent,
+        DmProfileComponent,
+        ViewDocumentsComponent
     ],
     providers: [
         AppSettings,
