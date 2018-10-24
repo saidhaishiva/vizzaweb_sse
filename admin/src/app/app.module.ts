@@ -64,6 +64,7 @@ import { PosComponent } from './pages/pos/pos.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
 import { PosnotesComponent} from './pages/posprofile/posnotes/posnotes.component';
 import { RejectPOS } from './pages/posprofile/posprofile.component';
+import { RejectDm} from './pages/dm-profile/dm-profile.component';
 import { LearningcenterComponent } from './pages/learningcenter/learningcenter.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { SubjectComponent } from './pages/subject/subject.component';
@@ -156,6 +157,7 @@ import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
         ContactUsComponent,
         ClinicimageviewComponent,
         RejectPOS,
+        RejectDm,
         AddposComponent,
         PosComponent,
         PosprofileComponent,
@@ -220,6 +222,6 @@ import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent, AddcenterComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, RejectDm, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent, AddcenterComponent]
 })
 export class AppModule { }

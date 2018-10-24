@@ -208,15 +208,6 @@ export class DmProfileComponent implements OnInit {
                     'name': 'Bank Details',
                     'value': 'active',
                     'selected': false
-                },{
-                    'name': 'Training',
-                    'value': 'active',
-                    'selected': false
-                },
-                {
-                    'name': 'Examination',
-                    'value': 'active',
-                    'selected': false
                 }
                 ];
         }

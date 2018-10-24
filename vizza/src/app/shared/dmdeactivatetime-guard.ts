@@ -41,7 +41,7 @@ export  class DmdeactivatetimeGuard implements CanDeactivate<DmTrainingComponent
         }
         // end
         if (getFulltime != '00:00:00') {
-           training.sendRemainingTime(sendMinutes);
+           training.sendRemainingTime(sendMinutes, 'leftTime');
         }
 
         return true;

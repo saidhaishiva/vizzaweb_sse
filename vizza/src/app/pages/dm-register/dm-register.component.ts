@@ -332,7 +332,7 @@ export class DmRegisterComponent implements OnInit {
             };
             console.log(data, 'dattatta');
             this.settings.loadingSpinner = true;
-            this.login.signUp(data).subscribe(
+            this.login.dmSignUp(data).subscribe(
                 (successData) => {
                     this.signUpSuccess(successData);
                 },
