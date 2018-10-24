@@ -42,7 +42,6 @@ export class CommonService {
     }
     getPosProfileList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
