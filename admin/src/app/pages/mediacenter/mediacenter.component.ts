@@ -75,7 +75,7 @@ export class MediacenterComponent implements OnInit {
     }
     speical(){
         const dialogRef = this.dialog.open(AddcenterComponent, {
-            width: '400px'
+            width: '800px'
         });
         dialogRef.afterClosed().subscribe(res => {
             if (res) {

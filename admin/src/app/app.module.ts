@@ -16,6 +16,7 @@ import { MatDialogModule} from '@angular/material';
 import { PdfViewerModule} from 'ng2-pdf-viewer';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { TruncatePipe} from './shared/limitTo';
+import { QuillModule } from 'ngx-quill'
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -127,6 +128,8 @@ import { ViewDocumentsComponent } from './pages/dm-profile/view-documents/view-d
         PipesModule,
         NgxPaginationModule,
         PdfViewerModule,
+        QuillModule,
+
         routing
     ],
     declarations: [

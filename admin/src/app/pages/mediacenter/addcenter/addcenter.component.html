@@ -1,15 +1,26 @@
+<div >
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
 
-  <div class="w-100 mt-2">
-      <input type="file"  (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
-      <label class="custom-file-label"><span class="error">*</span>
-        Attach Your Photo</label>
-    </div>
+<form  [formGroup]="form">
+  <div class="custom-file" >
+    <input type="file" class="custom-file-input" (change)="readUrl($event, 'mediacenter')" formControlName="profile" aria-describedby="inputGroupFileAddon01">
+    <label class="custom-file-label"></label>
+    <!--<div class="error" *ngIf !="form.controls.documents['controls'].pancard.valid">PAN Card Image is required</div>-->
+  </div>
   <div class="row w-100">
     <div class="col-md-12">
-      <div *ngIf="profile != ''">
-        <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+      <div *ngIf="mediaimage != ''">
+        <span class="imageclose mr-2"><img src="{{webhost + '/' + mediaimage}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
       </div>
     </div>
   </div>
+  <br>
+    <quill-editor  formControlName="name"></quill-editor>
 
-
+  <br>
+  <div style="text-align: center">
+  <button mat-raised-button color="primary" (click)="add()">Submit</button>
+  </div>
+</form>
+  </div>
+</div>

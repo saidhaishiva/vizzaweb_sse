@@ -230,6 +230,17 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    addCenter(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'admin/add_media' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     policyTypes(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
