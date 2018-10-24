@@ -66,7 +66,7 @@ import {DmexamactivateGuard} from './shared/dmactivate-guard';
 import {ReligareDownloadPolicyComponent} from './pages/religare-download-policy/religare-download-policy.component';
 import {DmdeactivatetimeGuard} from './shared/dmdeactivatetime-guard';
 import {DmexamdeactivatetimeGuard} from './shared/dmexamdeactivatetime-guard';
-// import {CareerComponent} from './pages/career/career.component';
+import {CareerComponent} from './pages/career/career.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -141,7 +141,7 @@ export const routes: Routes = [
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
-            // { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
+            { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
 
         ]
     },

@@ -110,6 +110,7 @@ import { DmProfileComponent } from './pages/dm-profile/dm-profile.component';
 import { ViewDocumentsComponent } from './pages/dm-profile/view-documents/view-documents.component';
 import { AddDmComponent } from './pages/add-dm/add-dm.component';
 import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
+import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.component';
 
 @NgModule({
     imports: [
@@ -203,7 +204,8 @@ import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
         DmProfileComponent,
         ViewDocumentsComponent,
         AddDmComponent,
-        EditDmComponent
+        EditDmComponent,
+        EditmediaComponent
     ],
     providers: [
         AppSettings,
@@ -222,6 +224,6 @@ import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, RejectDm, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent, AddcenterComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, RejectDm, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent, AddcenterComponent, EditmediaComponent]
 })
 export class AppModule { }

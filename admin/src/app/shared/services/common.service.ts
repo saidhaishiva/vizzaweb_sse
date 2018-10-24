@@ -282,13 +282,14 @@ export class CommonService {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'admin/add_media' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     policyTypes(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();

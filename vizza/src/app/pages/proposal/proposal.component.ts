@@ -1328,7 +1328,6 @@ console.log(value,'fgh');
             if (this.title == 'personal') {
                 this.response = successData.ResponseObject;
                 if (this.response.length == 0) {
-                    console.log('jj');
                     this.personal.controls['personalState'].setValue('');
                      this.personal.controls['personalCity'].setValue('');
                     this.personal.controls['personalArea'].setValue('');

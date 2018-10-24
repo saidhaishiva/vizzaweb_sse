@@ -1,4 +1,9 @@
-<div >
+<div class="col-md-12 text-right" >
+  <i class="material-icons" (click)="close()" style="cursor: pointer">
+    clear
+  </i>
+</div>
+<div>
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
 
 <form  [formGroup]="form">
@@ -14,10 +19,10 @@
       </div>
     </div>
   </div>
-  <br>
+    <div>
     <quill-editor  formControlName="name"></quill-editor>
+    </div>
 
-  <br>
   <div style="text-align: center">
   <button mat-raised-button color="primary" (click)="add()">Submit</button>
   </div>

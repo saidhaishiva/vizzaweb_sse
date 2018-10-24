@@ -138,7 +138,7 @@ import { DmExamComponent } from './pages/dm-exam/dm-exam.component';
 import { ReligareDownloadPolicyComponent } from './pages/religare-download-policy/religare-download-policy.component';
 import { DmConfrimAlert} from './pages/dm-exam/dm-exam.component';
 import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
-// import {CareerComponent} from './pages/career/career.component';
+import {CareerComponent} from './pages/career/career.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -256,7 +256,7 @@ import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresu
       ReligareDownloadPolicyComponent,
       DmConfrimAlert,
       DmViewresultComponent,
-      //CareerComponent
+      CareerComponent
   ],
   providers: [
       AppSettings,

@@ -69,6 +69,41 @@ export class BranchService {
             .catch(this.handleError);
 
     }
+    mediaCenterList(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/ListMedia' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
+    editCenter(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/UpdateMedia' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    deleteMedia(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/DeleteMedia' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
     addDmManager(data) {
         const json = JSON.stringify(data);
         const token = this.auth.getAccessToken();
