@@ -35,12 +35,13 @@
                   [count]="total"
                   [selected]="selected"
                   [selectionType]="'checkbox'">
-              <ngx-datatable-column name="Id">
-                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                      {{row.id}}
-                  </ng-template>
-              </ngx-datatable-column>
 
+
+            <ngx-datatable-column name="S.No">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <div>{{rowIndex+1}}</div>
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Image Path">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.image_path}}
@@ -48,11 +49,14 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Center">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.center}}
+              {{row.content}}
               </ng-template>
             </ngx-datatable-column>
-
-            <ngx-datatable-column name="Action">
+            <ngx-datatable-column name="Status">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.status}}
+              </ng-template>
+            </ngx-datatable-column>            <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
                   edit
@@ -75,4 +79,6 @@
   </div>
 
 </section>
-
+<p>welcome</p>
+<p>{{aaaaa}}</p>
+<p>{{val}}</p>

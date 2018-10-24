@@ -29,7 +29,12 @@ export class MediacenterComponent implements OnInit {
     public status: any;
     public total: any;
     public settings: Settings;
-  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
+    aaaaa: any;
+    val: any;
+  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+
+
+  }
 
   ngOnInit() {
       this.mediacenterList();
@@ -57,9 +62,18 @@ export class MediacenterComponent implements OnInit {
         this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.data = success.ResponseObject;
+            for(let i=0; i<this.data.length; i++) {
+                let html = this.data[i].center;
+                let div = document.createElement("div");
+                div.innerHTML = html;
+                let text = div.textContent || div.innerText || "";
+              this.data[i].content = text;
+
+            }
             this.total = success.ResponseObject.length;
             this.rows = this.data;
             this.temp = this.data;
+            console.log(this.data, 'hjkl');
         } else {
         }
     }
@@ -137,4 +151,5 @@ export class MediacenterComponent implements OnInit {
             this.status = error.status;
         }
     }
+
 }
