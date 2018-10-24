@@ -5,6 +5,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {CommonService} from '../../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef} from '@angular/material';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-addcenter',
@@ -24,15 +25,19 @@ webhost: any;
     fileDetails: any;
     mediaimage: any;
     fileUploadPath: any;
-  constructor(public config: ConfigurationService, public fb: FormBuilder,public common: CommonService,private toastr: ToastrService, public dialogRef: MatDialogRef<AddcenterComponent>) {
+  constructor(public config: ConfigurationService, public auth: AuthService, public fb: FormBuilder,public common: CommonService,private toastr: ToastrService, public dialogRef: MatDialogRef<AddcenterComponent>) {
       this.webhost = this.config.getimgUrl();
       this.mediaimage = '';
+      this.dialogRef.disableClose = true;
 
       this.form = this.fb.group({
           'name': ['', Validators.compose([Validators.required])],
           'profile': ['',Validators.compose( [Validators.required])]
       });
   }
+    close(): void {
+        this.dialogRef.close();
+    }
 
   ngOnInit() {
   }
@@ -93,6 +98,8 @@ webhost: any;
 add() {
 const data ={
     'platform': 'web',
+    'role_id': this.auth.getAdminRoleId(),
+    'adminid': this.auth.getAdminId(),
     'center': this.form.controls['name'].value,
     'image_path': this.mediaimage
 }

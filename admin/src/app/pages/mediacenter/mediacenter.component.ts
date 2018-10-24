@@ -8,6 +8,8 @@ import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
 import {AdddmComponent} from '../dmmanager/adddm/adddm.component';
 import {AddcenterComponent} from './addcenter/addcenter.component';
+import {EditdmComponent} from '../dmmanager/editdm/editdm.component';
+import {EditmediaComponent} from './editmedia/editmedia.component';
 
 @Component({
   selector: 'app-mediacenter',
@@ -22,7 +24,7 @@ export class MediacenterComponent implements OnInit {
     rows = [];
     temp = [];
     selected = [];
-    // loadingIndicator: boolean = true;
+    loadingIndicator: boolean = true;
     public response: any;
     public status: any;
     public total: any;
@@ -30,6 +32,7 @@ export class MediacenterComponent implements OnInit {
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
 
   ngOnInit() {
+      this.mediacenterList();
   }
     public mediacenterList() {
         const data = {
@@ -37,9 +40,9 @@ export class MediacenterComponent implements OnInit {
             'role_id': this.auth.getAdminRoleId(),
             'adminid': this.auth.getAdminId(),
         };
-        // this.loadingIndicator = true;
+        this.loadingIndicator = true;
 
-        this.branchservice.dmManagerList(data).subscribe(
+        this.branchservice.mediaCenterList(data).subscribe(
             (successData) => {
                 this.dmSuccess(successData);
             },
@@ -51,7 +54,7 @@ export class MediacenterComponent implements OnInit {
 
     public dmSuccess(success) {
         console.log(success);
-        // this.loadingIndicator = false;
+        this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.data = success.ResponseObject;
             this.total = success.ResponseObject.length;
@@ -64,7 +67,7 @@ export class MediacenterComponent implements OnInit {
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
         const temp = this.temp.filter(function (d) {
-            return d.manager_name.toLowerCase().indexOf(val) !== -1 || !val;
+            return d.center.toLowerCase().indexOf(val) !== -1 || !val;
         });
         this.rows = temp;
         this.table.offset = 0;
@@ -79,9 +82,59 @@ export class MediacenterComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(res => {
             if (res) {
+                this.mediacenterList();
             }
 
         });
     }
+    edit(row) {
+        const dialogRef = this.dialog.open(EditmediaComponent, {
+            width: '800px',
+            data: row,
 
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (res) {
+                this.mediacenterList();
+            }
+
+        });
+    }
+    delete(row) {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            'id': row.id
+
+        };
+
+
+        console.log(data);
+        this.branchservice.deleteMedia(data).subscribe(
+            (successData) => {
+                this.deleteSuccess(successData);
+            },
+            (error) => {
+                this.deleteFailure(error);
+            }
+        );
+    }
+
+
+    public deleteSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+
+            this.mediacenterList();
+        } else {
+            this.toastr.error(successData.ResponseObject);
+
+        }
+    }
+    public deleteFailure(error) {
+        if (error.status === 401) {
+            this.status = error.status;
+        }
+    }
 }

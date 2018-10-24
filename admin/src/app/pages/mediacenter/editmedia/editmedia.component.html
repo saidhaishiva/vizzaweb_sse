@@ -1,0 +1,31 @@
+<div class="col-md-12 text-right" >
+  <i class="material-icons" (click)="close()" style="cursor: pointer">
+    clear
+  </i>
+</div>
+<div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
+
+    <form  [formGroup]="form">
+      <div class="custom-file" >
+        <input type="file" class="custom-file-input" (change)="readUrl($event)" formControlName="profile" aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label"></label>
+      </div>
+      <div class="row w-100">
+        <div class="col-md-12">
+          <div *ngIf="fileUploadPath != ''">
+            <span class="imageclose mr-2"><img src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div>
+        <quill-editor  formControlName="name"></quill-editor>
+      </div>
+      <br>
+      <div style="text-align: center">
+        <button mat-raised-button color="primary" (click)="edit()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
