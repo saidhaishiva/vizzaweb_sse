@@ -87,7 +87,7 @@ export class TrainingComponent implements OnInit {
     // Logout the user.
     IdleTimeout() {
         console.log('logout');
-        this.router.navigate(['/home']);
+        ///this.router.navigate(['/home']);
     }
 
     countdown(minutes) {
