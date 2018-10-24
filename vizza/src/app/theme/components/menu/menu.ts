@@ -82,6 +82,8 @@ export const horizontalMenuItems = [
     new Menu (13, 'Money Insurance', '/money', null, null, null, false, 9),
     new Menu (20, 'Public Liability Policy', '/public', null, null, null, false, 9),
     new Menu (18, 'Contractors All Risk Policy', '/contractors', null, null, null, false, 9),
+    new Menu (44, 'Life Insurance', '/', null, null, null, false, 9),
+
 
     new Menu (22, 'Corporate Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
     new Menu (24, 'Group Medical Insurance', '/groupmedical', null, null, null, false, 22),
@@ -93,13 +95,19 @@ export const horizontalMenuItems = [
     // new Menu (30, 'Aviation Insurance', '/aviation', null, null, null, false, 22),
     // new Menu (31, 'Erection All risk Policy', '/erection', null, null, null, false, 22),
     // new Menu (32, 'Directors and Officers Liability Policy', '/directors', null, null, null, false, 22),
-    new Menu (33, 'Media', '/fix-appointment/media', null, null, null, false, 0),
+    new Menu (33, 'Media', '/fix-appointment/media', null, null, null, true, 0),
+    new Menu (49, 'Media Library', '/', null, null, null, false, 33),
+    new Menu (50, 'Learning Center', '/', null, null, null, false, 33),
     new Menu (34, 'POS', '/', null, null, null, true, 0),
     new Menu (36, 'About POS', '/about-pos', null, null, null, false, 34),
     new Menu (37, 'POS Login', '/pos', null, null, null, false, 34),
     new Menu (35, 'Contact us', '/contact', null, null, null, false, 39),
-    new Menu (38, 'Careers', '/careers', null, null, null, false, 39),
-    new Menu (39, 'About us', '/', null, null, null, true, 0)
+    new Menu (38, 'Careers', '/', null, null, null, false, 39),
+    new Menu (39, 'About us', '/', null, null, null, true, 0),
+    new Menu (45, 'Login', '/', null, null, null, true, 0),
+    new Menu (46, 'POS Login', '/pos', null, null, null, false, 45),
+    new Menu (47, 'Distance Marketing Login', '/', null, null, null, false, 45),
+    new Menu (48, 'Employee Login', null, 'https://vizzainsurance.com/admin', 'input', '_blank', false, 45)
 
 
     // new Menu (3, 'UI Features', null, null, 'computer', null, false, 0),

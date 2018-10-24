@@ -71,7 +71,7 @@
                         <!--<a href="https://www.youtube.com/channel/UCL6dApb7hpTyINrLLoHZY2w?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a>-->
                         <!--<a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>-->
                     <!--</div>-->
-                    <!--<app-fullscreen></app-fullscreen>-->
+                    <app-fullscreen></app-fullscreen>
                     <span [hidden]="settings.userId==0"><app-user-menu></app-user-menu></span>
                     <button mat-button color="primary" [matMenuTriggerFor]="menu" [hidden]="settings.userId != 0"><mat-icon> input</mat-icon> Login</button >
                     <mat-menu #menu="matMenu">
