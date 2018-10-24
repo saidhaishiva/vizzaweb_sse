@@ -42,7 +42,7 @@
 
 .sidenav-menu-outer{
     height: calc(100% - #{$toolbar-height}); 
-    //&.user-block-show{
-    //    height: calc(100% - #{$toolbar-height + $sidenav-user-block-height});
-    //}
+    &.user-block-show{
+        height: calc(100% - #{$toolbar-height + $sidenav-user-block-height});
+    }
 }
