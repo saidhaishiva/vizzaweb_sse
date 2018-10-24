@@ -269,9 +269,6 @@ export class DmProfileComponent implements OnInit {
     getExamDetailFailure(error) {
         console.log(error);
     }
-
-
-
     getFields() {
         const data = {
             'platform': 'web',

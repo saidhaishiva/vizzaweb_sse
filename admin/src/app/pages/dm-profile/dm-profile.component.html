@@ -1,7 +1,7 @@
 <div class="container-fluid doctorprofile">
   <div class="row">
     <div class="col-md-12  mb-3">
-      <button mat-raised-button type="button" color="primary" class="btn btn-primary float-right" [routerLink]="['/pos']"><mat-icon class="material-icons">keyboard_backspace</mat-icon><span>Back</span></button>
+      <button mat-raised-button type="button" color="primary" class="btn btn-primary float-right" [routerLink]="['/distance-marketing']"><mat-icon class="material-icons">keyboard_backspace</mat-icon><span>Back</span></button>
     </div>
   </div>
   <mat-card class="doctordetail mb-3">
@@ -285,8 +285,8 @@
               <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
               <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
               <td>{{lists.percentage_in_exam}}</td>
-              <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
-              <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
+              <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Success</span></td>
+              <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Try Again</span></td>
             </tr>
 
 

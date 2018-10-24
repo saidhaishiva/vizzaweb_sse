@@ -1,18 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatTabChangeEvent} from '@angular/material';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { CommonService } from '../../shared/services/common.service';
-import { AuthService } from '../../shared/services/auth.service';
-import { ConfigurationService} from '../../shared/services/configuration.service';
-import { ToastrService } from 'ngx-toastr';
-import { LoginService } from '../../shared/services/login.service';
-import { Router } from '@angular/router';
-import { Settings} from '../../app.settings.model';
-import { AppSettings} from '../../app.settings';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatTabChangeEvent} from '@angular/material';
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {ToastrService} from 'ngx-toastr';
+import {LoginService} from '../../shared/services/login.service';
+import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
-import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {Router} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -28,14 +27,16 @@ export const MY_FORMATS = {
 };
 
 @Component({
-    selector: 'app-addpos',
-    templateUrl: './addpos.component.html',
+  selector: 'app-add-dm',
+  templateUrl: './add-dm.component.html',
+  styleUrls: ['./add-dm.component.scss'],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ]
 })
-export class AddposComponent implements OnInit {
+export class AddDmComponent implements OnInit {
+
     public form: FormGroup;
     response: any;
     pin: any;
@@ -63,7 +64,6 @@ export class AddposComponent implements OnInit {
     mismatchError: any;
     profile: any;
     chequeleaf: any;
-
     pincodeErrors : any;
     selectedIndex: any;
     public title: any;
@@ -71,11 +71,8 @@ export class AddposComponent implements OnInit {
     fileDetails: any;
     pdfSrc: any;
     allImage: any;
-    testtttttt: any;
-    roleId: any;
     img: boolean;
     public passwordHide: boolean = true;
-    personalCitys: any;
     constructor(public config: ConfigurationService,
                 public fb: FormBuilder,public router: Router, public appSettings: AppSettings,public login: LoginService,
                 public common: CommonService, public auth: AuthService, private toastr: ToastrService, public datepipe: DatePipe) {
@@ -161,30 +158,6 @@ export class AddposComponent implements OnInit {
         this.selectedIndex -= 1;
     }
 
-
-    // readUrlEdu(event: any, type) {
-    //     console.log(event.target.files, 'event');
-    //     this.pdfSrc = event.target.files[0].name;
-    //     let getUrlEdu = [];
-    //     this.fileDetails = [];
-    //     for (let i = 0; i < event.target.files.length; i++) {
-    //         this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
-    //     }
-    //     for (let i = 0; i < event.target.files.length; i++) {
-    //         const reader = new FileReader();
-    //         reader.onload = (event: any) => {
-    //             this.url = event.target.result;
-    //             getUrlEdu.push(this.url.split(','));
-    //             this.onUploadFinishedEdu(getUrlEdu);
-    //         };
-    //         reader.readAsDataURL(event.target.files[0]);
-    //     }
-    //
-    // }
-    // onUploadFinishedEdu(event) {
-    //     this.allImage.push(event);
-    //     console.log(this.allImage, 'eventevent');
-    // }
     readUrl(event: any, type) {
         this.type = type;
         this.getUrl = '';
@@ -227,23 +200,13 @@ export class AddposComponent implements OnInit {
 
         const data = {
             'platform': 'web',
-            'flag':'pos',
+            'flag':'dm',
             'uploadtype': '',
             'images': ''
         };
         if (this.type == 'education') {
-            // for (let i = 0; i < this.fileDetails.length; i++) {
-            //     for (let j = 0; j < this.allImage.length; j++) {
-            //         for (let k = 0; k < this.allImage[j].length; k++) {
-            //             console.log(this.allImage[j][k], 'pppp');
-            //             this.fileDetails[i].image = this.allImage[j][k][1];
-            //         }
-            //     }
-            // }
-
             let length = this.allImage.length-1;
             console.log(length, 'this.lengthlength');
-
             for (let k = 0; k < this.allImage[length].length; k++) {
                 this.fileDetails[k].image = this.allImage[length][k][1];
             }
@@ -266,34 +229,34 @@ export class AddposComponent implements OnInit {
         );
     }
     public fileUploadSuccess(successData) {
-            if (successData.IsSuccess == true) {
-                this.fileUploadPath =  successData.ResponseObject.imagePath;
-                if (this.type == 'profile'){
-                    this.profile = this.fileUploadPath;
-                }
-                if (this.type == 'aadhar front') {
-                    this.aadharfront = this.fileUploadPath;
-                }
-                if (this.type == 'aadhar back') {
-                    this.aadharback = this.fileUploadPath;
-                }
-                if (this.type == 'pancard') {
-                    this.pancard = this.fileUploadPath;
-                }
-                if (this.type == 'education') {
-                    this.education = this.fileUploadPath;
-                }
-                if (this.type == 'chequeleaf') {
-                    this.chequeleaf = this.fileUploadPath;
-                }
-            } else {
-                this.toastr.error(successData.ErrorObject, 'Failed');
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
             }
-
-
+            if (this.type == 'aadhar front') {
+                this.aadharfront = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar back') {
+                this.aadharback = this.fileUploadPath;
+            }
+            if (this.type == 'pancard') {
+                this.pancard = this.fileUploadPath;
+            }
+            if (this.type == 'education') {
+                this.education = this.fileUploadPath;
+            }
+            if (this.type == 'chequeleaf') {
+                this.chequeleaf = this.fileUploadPath;
+            }
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
         }
+
+
+    }
     public fileUploadFailure(error) {
-            console.log(error);
+        console.log(error);
     }
     submit(value) {
         console.log(this.dob, 'dateeee');
@@ -316,25 +279,25 @@ export class AddposComponent implements OnInit {
                 'admin_id': this.auth.getAdminId(),
                 'admin_roleid': this.auth.getAdminRoleId(),
                 "platform": "web",
-                "pos_referralcode": this.form.value['personal']['referralconduct'],
-                "pos_firstname": this.form.value['personal']['firstname'],
-                "pos_lastname": this.form.value['personal']['lastname'],
-                "pos_gender": this.form.value['personal']['gender'],
-                "pos_dob": this.dob,
-                "pos_mobileno": this.form.value['contacts']['phone1'],
-                'pos_alternate_mobileno': this.form.value['contacts']['phone2'],
-                "pos_email": this.form.value['contacts']['email'],
-                "pos_address1": this.form.value['contacts']['address1'],
-                "pos_address2": this.form.value['contacts']['address2'],
-                "pos_postalcode": this.form.value['contacts']['pincode'],
-                "pos_aadhar_no": this.form.value['documents']['aadharnumber'],
-                "pos_pan_no": this.form.value['documents']['pannumber'],
-                "pos_profile_img": this.profile == undefined ? '' : this.profile,
-                "pos_aadhar_front_img": this.aadharfront,
-                "pos_aadhar_back_img": this.aadharback,
-                "pos_pan_img": this.pancard,
-                "pos_education": this.form.value['education']['qualification'],
-                "pos_education_doc_img": this.education,
+                "dm_referralcode": this.form.value['personal']['referralconduct'],
+                "dm_firstname": this.form.value['personal']['firstname'],
+                "dm_lastname": this.form.value['personal']['lastname'],
+                "dm_gender": this.form.value['personal']['gender'],
+                "dm_dob": this.dob,
+                "dm_mobileno": this.form.value['contacts']['phone1'],
+                'dm_alternate_mobileno': this.form.value['contacts']['phone2'],
+                "dm_email": this.form.value['contacts']['email'],
+                "dm_address1": this.form.value['contacts']['address1'],
+                "dm_address2": this.form.value['contacts']['address2'],
+                "dm_postalcode": this.form.value['contacts']['pincode'],
+                "dm_aadhar_no": this.form.value['documents']['aadharnumber'],
+                "dm_pan_no": this.form.value['documents']['pannumber'],
+                "dm_profile_img": this.profile == undefined ? '' : this.profile,
+                "dm_aadhar_front_img": this.aadharfront,
+                "dm_aadhar_back_img": this.aadharback,
+                "dm_pan_img": this.pancard,
+                "dm_education": this.form.value['education']['qualification'],
+                "dm_education_doc_img": this.education,
                 "check_leaf_upload_img": this.chequeleaf,
                 "bank_name": this.form.value['bankdetails']['bankname'],
                 "bank_acc_no": this.form.value['bankdetails']['accountnumber'],
@@ -357,8 +320,8 @@ export class AddposComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false
         if (successData.IsSuccess) {
-            this.router.navigate(['/pos']);
-            this.toastr.success('Pos added successfully');
+            this.router.navigate(['/distance-marketing']);
+            this.toastr.success('DM added successfully');
         }else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -508,14 +471,10 @@ export class AddposComponent implements OnInit {
 
     }
     public getPinSuccess(successData) {
-
         if (successData.IsSuccess) {
             this.pincodeErrors = false;
         } else {
             this.pincodeErrors = true;
-            // this.form['controls'].contacts['controls'].pincode.patchValue('');
-            // this.toastr.error('Invalid pincode');
-
         }
     }
 

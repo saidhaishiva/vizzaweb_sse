@@ -38,7 +38,7 @@ export class DmmanagerComponent implements OnInit {
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
-            'adminid': this.auth.getAdminId(),
+            'admin_id': this.auth.getAdminId(),
         };
         // this.loadingIndicator = true;
 

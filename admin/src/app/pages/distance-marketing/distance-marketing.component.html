@@ -21,7 +21,7 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-          <button mat-raised-button color="primary"  [routerLink]="['/addpos']">
+          <button mat-raised-button color="primary"  [routerLink]="['/dm-ad']">
             <i class="material-icons">
               add
             </i>
@@ -115,9 +115,9 @@
                       <mat-menu #menu="matMenu" xPosition="before">
                                                 <span (mouseleave)="menuTrigger.closeMenu()">
                                                     <button mat-menu-item (click)="DmProfile(row.dm_id, row.dm_status)">
-                                                       <mat-icon class="material-icons">visibility</mat-icon><span *ngIf="posStatus !=1">View & Approve</span>
+                                                       <mat-icon class="material-icons">visibility</mat-icon><span *ngIf="dmStatus !=1">View & Approve</span>
                                                     </button>
-                                                    <button mat-menu-item (click)="POSEdit(row.dm_id)">
+                                                    <button mat-menu-item (click)="DmEdit(row.dm_id)">
                                                         <mat-icon>mode_edit</mat-icon>
                                                         <span>Edit</span>
                                                     </button>
@@ -136,11 +136,6 @@
                         <img *ngIf="row.dm_profile_img != ''" src="{{webhost + '/' + row.dm_profile_img}}" class="transition-2 rounded-circle">
                       </div>
                     </div>
-                    <!--<div class="user-img" (click)="DmProfile(row.dm_id)" style="cursor: pointer">-->
-                    <!--&lt;!&ndash;<img  *ngIf="row.dm_status == 0" src="assets/img/users/default-user.jpg" class="transition-2">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img  *ngIf="row.dm_status == 2" src="assets/img/users/default-user.jpg" class="transition-2">&ndash;&gt;-->
-                    <!--<img style="width: 70px;height: 70px;" src="data:image/png;base64,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">-->
-                    <!--</div>-->
 
                     <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
                       <div fxFlex="30"  fxLayout="column">
