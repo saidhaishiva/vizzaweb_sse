@@ -2,6 +2,10 @@
 * {
   outline: none; }
 
+a:hover {
+  color: unset;
+  text-decoration: none; }
+
 button:focus {
   outline: none; }
 
@@ -345,14 +349,14 @@ a:hover {
     background: #F50091; }
   .side-nav ul li:nth-child(17) .icon {
     background: #CB964B; }
-  .side-nav ul li:nth-child(12) .icon {
-    background: #EB1943; }
   .side-nav ul li:nth-child(13) .icon {
-    background: #9F38A3; }
-  .side-nav ul li:nth-child(14) .icon {
     background: #EB1943; }
+  .side-nav ul li:nth-child(14) .icon {
+    background: #9F38A3; }
   .side-nav ul li:nth-child(15) .icon {
-    background: #FF4099; }
+    background: #EB1943; }
+  .side-nav ul li:nth-child(12) .icon {
+    background: #731c77; }
   .side-nav ul li:nth-child(11) .icon {
     background: #FFD840; }
   .side-nav .nav-item {
@@ -679,7 +683,7 @@ a:hover {
       padding: 20px;
       min-height: 260px; }
       .vizza-home .h-product figure img {
-        width: 60px;
+        height: 50px;
         margin-bottom: 12px; }
   .vizza-home .h-plans {
     margin-top: 20px;
@@ -952,6 +956,8 @@ footer {
   width: 100%;
   float: left;
   padding: 10px; }
+  footer img {
+    width: 55px; }
 
 .c2-card {
   border-left: 20px solid #219c44;
@@ -1247,5 +1253,24 @@ footer {
 
 .parther-slide .draggable {
   height: auto !important; }
+
+.carousel-indicators li {
+  height: 16px;
+  border-radius: 50px;
+  width: 16px; }
+
+app-horizontal-menu .horizontal-menu-item:last-child {
+  background: #ccc !important;
+  color: #fff;
+  font-weight: bold; }
+
+.horizontal-sub-menu app-horizontal-menu .horizontal-menu-item:last-child {
+  background: #0b9444 !important; }
+
+fieldset {
+  border-top: 1px solid #a9a4a4; }
+  fieldset legend {
+    width: auto;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

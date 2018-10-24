@@ -27,7 +27,7 @@ export class DmProfileComponent implements OnInit {
     public signature: any;
     public webhost: any;
     public dmid: any;
-    public posstatus: any;
+    public dmStatus: any;
     public zoom: any;
     public physical: any;
     public verification: any;
@@ -127,7 +127,7 @@ export class DmProfileComponent implements OnInit {
         this.route.params.forEach((params: Params) => {
             console.log(params, 'params');
             this.dmid = params.id;
-            this.posstatus = params.status;
+            this.dmStatus = params.status;
         });
 
     }
@@ -463,7 +463,7 @@ export class DmProfileComponent implements OnInit {
             'already_aget': this.isAlreadyAgent ? 1 : 0
         };
         this.settings.loadingSpinner = true;
-        this.common.updateVerification(data).subscribe(
+        this.common.updateDmVerification(data).subscribe(
             (successData) => {
                 this.verificationSuccess(successData);
             },
@@ -574,7 +574,7 @@ export class DmProfileComponent implements OnInit {
             'message_type': 'comments'
 
         }
-        this.common.getComments(data).subscribe(
+        this.common.getDmNotes(data).subscribe(
             (successData) => {
                 this.getCommentSuccess(successData);
             },
@@ -600,7 +600,7 @@ export class DmProfileComponent implements OnInit {
 
 
 
-    rejectPOS() {
+    rejectDm() {
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
@@ -610,36 +610,36 @@ export class DmProfileComponent implements OnInit {
             'dm_id': this.dmid
         };
         this.settings.loadingSpinner = true;
-        this.common.rejectPOS(data).subscribe(
+        this.common.rejectDm(data).subscribe(
             (successData) => {
-                this.rejectPOSSuccess(successData);
+                this.rejectDmSuccess(successData);
             },
             (error) => {
-                this.rejectPOSFailure(error);
+                this.rejectDmFailure(error);
             }
         );
     }
-    rejectPOSSuccess(successData) {
+    rejectDmSuccess(successData) {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Rejected successfully');
-            this.router.navigate(['/pos']);
+            this.router.navigate(['/distance-marketing']);
         }
 
     }
-    rejectPOSFailure(error) {
+    rejectDmFailure(error) {
         console.log(error);
         this.settings.loadingSpinner = false;
     }
     rejectConfirm() {
-        const dialogRef = this.dialog.open(RejectPOS, {
+        const dialogRef = this.dialog.open(RejectDm, {
             width: '350px',
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result == 'Yes') {
-                this.rejectPOS();
+                this.rejectDm();
 
             }
         });
@@ -647,7 +647,6 @@ export class DmProfileComponent implements OnInit {
 
     // print the Appointment letter
     printAppointment () {
-        alert()
         let printContents, popupWin;
         printContents = document.getElementById('appointment').innerHTML;
         popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
@@ -1004,7 +1003,7 @@ export class DmProfileComponent implements OnInit {
 }
 
 @Component({
-    selector: 'rejectpos',
+    selector: 'rejectdm',
     template: `
         <!--<h1 mat-dialog-title>Reject POS</h1>-->
         <div mat-dialog-content>
@@ -1016,10 +1015,10 @@ export class DmProfileComponent implements OnInit {
         </div>
     `
 })
-export class RejectPOS {
+export class RejectDm {
 
     constructor(
-        public dialogRef: MatDialogRef<RejectPOS>,
+        public dialogRef: MatDialogRef<RejectDm>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 

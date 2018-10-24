@@ -37,7 +37,6 @@ export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
         // let stayTime = timeLeft - remainingTime;
         if (sendMinutes) {
             let remainingTime = parseInt(h) + parseInt(m);
-            console.log(remainingTime, 'remainingTime');
             sendMinutes = timeLeft - remainingTime;;
         } else {
             sendMinutes = timeLeft;
@@ -45,7 +44,7 @@ export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
         }
         // end
         if (getFulltime != '00:00:00') {
-           training.sendRemainingTime(sendMinutes);
+           training.sendRemainingTime(sendMinutes, 'leftTime');
         }
 
         return true;

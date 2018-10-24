@@ -46,7 +46,7 @@ export class DmLoginComponent implements OnInit {
                 'password': this.form.controls['password'].value,
                 'platform': 'web',
             };
-            this.loginService.doLogin(data).subscribe(
+            this.loginService.dmLogin(data).subscribe(
                 (successData) => {
                     this.loginSuccess(successData);
                 },
