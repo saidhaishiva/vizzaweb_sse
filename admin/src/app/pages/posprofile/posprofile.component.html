@@ -285,8 +285,8 @@
                             <td>{{lists.test_attended_date | date: 'dd-MMM-yy'}}</td>
                             <td>{{lists.test_attended_date | date: 'hh:mm a'}}</td>
                             <td>{{lists.percentage_in_exam}}</td>
-                            <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Pass</span></td>
-                            <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Fail</span></td>
+                            <td *ngIf="lists.percentage_in_exam >= 40"> <span class="text-title-color">Success</span></td>
+                            <td *ngIf="lists.percentage_in_exam < 40"> <span style="color: rgba(228, 24, 71, 0.98) !important;">Try Again</span></td>
                         </tr>
 
 

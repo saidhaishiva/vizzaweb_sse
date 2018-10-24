@@ -42,7 +42,7 @@ export class AdddmComponent implements OnInit {
         if (this.form.valid) {
             const data = {
                 'role_id': this.auth.getAdminRoleId(),
-                'adminid': this.auth.getAdminId(),
+                'admin_id': this.auth.getAdminId(),
                 'platform': 'web',
                 'manager_name': this.form.controls['name'].value,
                 'manager_mobile': this.form.controls['mobilenumber'].value,

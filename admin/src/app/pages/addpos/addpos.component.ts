@@ -227,6 +227,7 @@ export class AddposComponent implements OnInit {
 
         const data = {
             'platform': 'web',
+            'flag':'pos',
             'uploadtype': '',
             'images': ''
         };

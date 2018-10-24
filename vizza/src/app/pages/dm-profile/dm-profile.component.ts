@@ -208,15 +208,6 @@ export class DmProfileComponent implements OnInit {
                     'name': 'Bank Details',
                     'value': 'active',
                     'selected': false
-                },{
-                    'name': 'Training',
-                    'value': 'active',
-                    'selected': false
-                },
-                {
-                    'name': 'Examination',
-                    'value': 'active',
-                    'selected': false
                 }
                 ];
         }
@@ -319,11 +310,11 @@ export class DmProfileComponent implements OnInit {
         );
     }
     getDmProfileSuccess(successData) {
+        this.dmDataAvailable = true;
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
-            this.dmDataAvailable = true;
             this.auth.setSessionData('dmExamStatus', this.personal.exam_status);
             this.auth.setSessionData('dmTrainingStatus', this.personal.training_status);
             this.auth.setSessionData('dmDocumentStatus', this.personal.doc_verified_status);

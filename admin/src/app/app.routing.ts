@@ -43,6 +43,8 @@ import {MediacenterComponent} from './pages/mediacenter/mediacenter.component';
 import {AddcenterComponent} from './pages/mediacenter/addcenter/addcenter.component';
 import {DistanceMarketingComponent} from './pages/distance-marketing/distance-marketing.component';
 import {DmProfileComponent} from './pages/dm-profile/dm-profile.component';
+import {AddDmComponent} from './pages/add-dm/add-dm.component';
+import {EditDmComponent} from './pages/edit-dm/edit-dm.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -81,6 +83,8 @@ export const routes: Routes = [
             { path: 'mediacenter', component: MediacenterComponent, data: { breadcrumb: 'Media Center' } },
             { path: 'addcenter', component: AddcenterComponent, data: { breadcrumb: 'Add Center' } },
             { path: 'distance-marketing', component: DistanceMarketingComponent, data: { breadcrumb: 'Add Center' } },
+            { path: 'dm-add', component: AddDmComponent, data: { breadcrumb: 'Add DM' } },
+            { path: 'dm-edit', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
             { path: 'dm-profile/:id/:status', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } }
 
 

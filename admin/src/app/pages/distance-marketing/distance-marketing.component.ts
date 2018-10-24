@@ -35,13 +35,12 @@ export class DistanceMarketingComponent implements OnInit {
     selected = [];
     loadingIndicator: boolean = true;
     tabValue: string;
-    totalPOS: any;
+    totalDM: any;
     pendingPOSCount: number;
     approvedPOSCount: number;
     holdPOSCount: number;
     rejectedPOSCount: number;
-    POSStatus: any;
-    posStatus: any;
+    dmStatus: any;
     pageOffSet: any;
     allManagerLists: any;
     posManager: any;
@@ -66,14 +65,13 @@ export class DistanceMarketingComponent implements OnInit {
         this.approvedPOSList = [];
         this.holdPOSList = [];
         this.rejectedPOSList = [];
-        this.totalPOS = 0;
+        this.totalDM = 0;
         this.searchTag = '';
         this.posManager = '';
         this.pendingPOSCount = 0;
         this.approvedPOSCount = 0;
         this.holdPOSCount = 0;
         this.rejectedPOSCount = 0;
-        this.POSStatus = '0';
         this.filterStatus = false;
         this.allLists = [
             {name: 'All'},
@@ -83,41 +81,41 @@ export class DistanceMarketingComponent implements OnInit {
         ];
     }
     ngOnInit() {
-        this.getPOSList('inactive');
+        this.getDmList('inactive');
         this.managerList();
     }
     filtermanagerWise() {
         this.filterStatus = true;
-        this.getPOSList('active');
+        this.getDmList('active');
     }
     allActiveLists() {
         this.posManager = '';
-        this.getPOSList('active');
+        this.getDmList('active');
 
     }
     filterPending() {
         this.temp = [];
         this.rows = [];
-        this.totalPOS = 0;
-        let POS = [];
+        this.totalDM = 0;
+        let DM = [];
         if (this.selectedList == 'All') {
             for (let i =0; i < this.allPosLists.length; i++) {
                 if (this.allPosLists[i].dm_status =='3') {
-                    this.posStatus = this.allPosLists[i].dm_status;
-                    POS.push(this.allPosLists[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = this.allPosLists[i].length;
+                    this.dmStatus = this.allPosLists[i].dm_status;
+                    DM.push(this.allPosLists[i]);
+                    this.temp = [...DM];
+                    this.rows = DM;
+                    this.totalDM = this.allPosLists[i].length;
                 }
             }
         } else if (this.selectedList == 'Documents') {
             for (let i = 0; i < this.allPosLists.length; i++) {
                 if (this.allPosLists[i].dm_status == '3' && this.allPosLists[i].doc_verified_status == '1') {
-                    this.posStatus = this.allPosLists[i].dm_status;
-                    POS.push(this.allPosLists[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = this.allPosLists[i].length;
+                    this.dmStatus = this.allPosLists[i].dm_status;
+                    DM.push(this.allPosLists[i]);
+                    this.temp = [...DM];
+                    this.rows = DM;
+                    this.totalDM = this.allPosLists[i].length;
                     console.log(this.temp, 'this.temp');
                 }
             }
@@ -125,22 +123,22 @@ export class DistanceMarketingComponent implements OnInit {
         } else if (this.selectedList == 'Training') {
             for (let i = 0; i < this.allPosLists.length; i++) {
                 if (this.allPosLists[i].dm_status == '3' && this.allPosLists[i].doc_verified_status == '2' && this.allPosLists[i].training_status == '0') {
-                    this.posStatus = this.allPosLists[i].dm_status;
-                    POS.push(this.allPosLists[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = this.allPosLists[i].length;
+                    this.dmStatus = this.allPosLists[i].dm_status;
+                    DM.push(this.allPosLists[i]);
+                    this.temp = [...DM];
+                    this.rows = DM;
+                    this.totalDM = this.allPosLists[i].length;
                     console.log(this.temp, 'this.temp');
                 }
             }
         } else if (this.selectedList == 'Examination') {
             for (let i =0; i < this.allPosLists.length; i++) {
                 if (this.allPosLists[i].dm_status == '3' && this.allPosLists[i].doc_verified_status == '2' && (this.allPosLists[i].exam_status == '1' || this.allPosLists[i].exam_status == '0')) {
-                    this.posStatus = this.allPosLists[i].dm_status;
-                    POS.push(this.allPosLists[i]);
-                    this.temp = [...POS];
-                    this.rows = POS;
-                    this.totalPOS = POS.length;
+                    this.dmStatus = this.allPosLists[i].dm_status;
+                    DM.push(this.allPosLists[i]);
+                    this.temp = [...DM];
+                    this.rows = DM;
+                    this.totalDM = DM.length;
                     console.log(this.rows, 'this.allPosLists[i].dm_status');
                 }
             }
@@ -148,10 +146,10 @@ export class DistanceMarketingComponent implements OnInit {
         }
     }
 
-    getPOSList(value) {
+    getDmList(value) {
         this.temp = [];
         this.rows = [];
-        this.totalPOS = 0;
+        this.totalDM = 0;
         this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
@@ -176,51 +174,50 @@ export class DistanceMarketingComponent implements OnInit {
             console.log(value, 'value');
             this.allPosLists = successData.ResponseObject;
             if (value == 'inactive') {
-                let POS = [];
+                let DM = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].dm_status === '0') {
-                        this.posStatus = successData.ResponseObject[i].dm_status;
-                        POS.push(successData.ResponseObject[i]);
-                        this.temp = POS;
-                        this.rows = POS;
-                        this.totalPOS = POS.length;
+                        this.dmStatus = successData.ResponseObject[i].dm_status;
+                        DM.push(successData.ResponseObject[i]);
+                        this.temp = DM;
+                        this.rows = DM;
+                        this.totalDM = DM.length;
                     }
                 }
             } else if (value == 'active') {
-                let POS = [];
+                let DM = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].dm_status === '1') {
-                        this.posStatus = successData.ResponseObject[i].dm_status;
-                        POS.push(successData.ResponseObject[i]);
-                        this.temp = [...POS];
-                        this.rows = POS;
-                        this.totalPOS = POS.length;
-                        // console.log(this.totalPOS, 'totalPOS');
+                        this.dmStatus = successData.ResponseObject[i].dm_status;
+                        DM.push(successData.ResponseObject[i]);
+                        this.temp = [...DM];
+                        this.rows = DM;
+                        this.totalDM = DM.length;
                     }
                 }
             } else if (value == 'rejected') {
-                let POS = [];
+                let DM = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].dm_status === '2') {
-                        this.posStatus = successData.ResponseObject[i].dm_status;
-                        POS.push(successData.ResponseObject[i]);
-                        this.temp = [...POS];
-                        this.rows = POS;
-                        this.totalPOS = POS.length;
+                        this.dmStatus = successData.ResponseObject[i].dm_status;
+                        DM.push(successData.ResponseObject[i]);
+                        this.temp = [...DM];
+                        this.rows = DM;
+                        this.totalDM = DM.length;
 
                     }
                 }
             } else if (value == 'onhold') {
-                let POS = [];
+                let DM = [];
                 this.rows = [];
                 this.temp = [];
                 for (let i =0; i < successData.ResponseObject.length; i++) {
                     if (successData.ResponseObject[i].dm_status === '3') {
-                        this.posStatus = successData.ResponseObject[i].dm_status;
-                        POS.push(successData.ResponseObject[i]);
-                        this.temp = [...POS];
-                        this.rows = POS;
-                        this.totalPOS = POS.length;
+                        this.dmStatus = successData.ResponseObject[i].dm_status;
+                        DM.push(successData.ResponseObject[i]);
+                        this.temp = [...DM];
+                        this.rows = DM;
+                        this.totalDM = DM.length;
 
                     }
                 }
@@ -237,14 +234,14 @@ export class DistanceMarketingComponent implements OnInit {
         this.tabValue = value;
         this.temp = [];
         this.rows = [];
-        this.getPOSList(value);
+        this.getDmList(value);
 
     }
     DmProfile(id, status) {
         this.router.navigate(['/dm-profile/' + id + '/' + status]);
     }
-    POSEdit(id){
-        this.router.navigate(['/pos-edit/' + id]);
+    DmEdit(id){
+        this.router.navigate(['/dm-edit/' + id]);
     }
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
@@ -273,9 +270,9 @@ export class DistanceMarketingComponent implements OnInit {
         const data = {
             'platform': 'web',
             'role_id': this.auth.getAdminRoleId(),
-            'adminid': this.auth.getAdminId()
+            'admin_id': this.auth.getAdminId()
         };
-        this.common.branchList(data).subscribe(
+        this.common.dmManagerList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatTabChangeEvent} from '@angular/material';
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {ToastrService} from 'ngx-toastr';
+import {LoginService} from '../../shared/services/login.service';
+import {CommonService} from '../../shared/services/common.service';
+import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CommonService} from '../../shared/services/common.service';
-import {LoginService} from '../../shared/services/login.service';
-import {DatePipe} from '@angular/common';
-import {AuthService} from '../../shared/services/auth.service';
-import {ConfigurationService} from '../../shared/services/configuration.service';
-import {AppSettings} from '../../app.settings';
-import {ToastrService} from 'ngx-toastr';
-import {Settings} from '../../app.settings.model';
 import {Router} from '@angular/router';
-import {MatTabChangeEvent} from '@angular/material';
 
 export const MY_FORMATS = {
     parse: {
@@ -25,16 +25,17 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+
 @Component({
-  selector: 'app-dm-register',
-  templateUrl: './dm-register.component.html',
-  styleUrls: ['./dm-register.component.scss'],
+  selector: 'app-add-dm',
+  templateUrl: './add-dm.component.html',
+  styleUrls: ['./add-dm.component.scss'],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ]
 })
-export class DmRegisterComponent implements OnInit {
+export class AddDmComponent implements OnInit {
 
     public form: FormGroup;
     response: any;
@@ -53,39 +54,42 @@ export class DmRegisterComponent implements OnInit {
     url: string;
     selectedtab: number;
     type: any;
-    public title: any;
     aadharfront: any;
     aadharback: any;
-    chequeleaf: any;
     pancard: any;
     education: any;
     dob: any;
     dobError: any;
     today: any;
-    nectStatus: any;
     mismatchError: any;
-    allImage: any;
-    fileDetails: any;
-    roleId: any;
-    img: boolean;
     profile: any;
-    selectedIndex: any;
-    public passwordHide: boolean = true;
-    personalCitys: any;
+    chequeleaf: any;
     pincodeErrors : any;
-    constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+    selectedIndex: any;
+    public title: any;
+    nectStatus: any;
+    fileDetails: any;
+    pdfSrc: any;
+    allImage: any;
+    img: boolean;
+    public passwordHide: boolean = true;
+    constructor(public config: ConfigurationService,
+                public fb: FormBuilder,public router: Router, public appSettings: AppSettings,public login: LoginService,
+                public common: CommonService, public auth: AuthService, private toastr: ToastrService, public datepipe: DatePipe) {
         this.settings = this.appSettings.settings;
-        this.settings.HomeSidenavUserBlock = false;
-        this.settings.sidenavIsOpened = false;
-        this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectedtab = 0;
-        this.nectStatus = true;
         this.today = new Date();
         this.dob = '';
         this.dobError = '';
         this.allImage = [];
         this.mismatchError = '';
+        // this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
+        this.webhost = this.config.getimgUrl();
+        this.selectedtab = 0;
+        this.nectStatus = true;
         this.selectedIndex = 0;
         this.profile = '';
         this.img = false;
@@ -103,7 +107,7 @@ export class DmRegisterComponent implements OnInit {
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 phone1: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-                phone2: '',
+                phone2: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
                 address1: ['', Validators.compose([Validators.required])],
                 address2: '',
                 pincode: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
@@ -128,33 +132,32 @@ export class DmRegisterComponent implements OnInit {
                 chequeleaf:['', Validators.compose( [Validators.required])]
             })
         });
+        this.profile = '';
         this.aadharfront = '';
         this.aadharback = '';
-        this.chequeleaf = '';
-        // this.profile = '';
         this.pancard = '';
         this.education = '';
-        this.roleId = this.auth.getDmRoleId();
-        console.log(this.roleId, 'assss');
-        if (this.roleId > 0) {
-           // this.router.navigate(['/pos-profile']);
-        }
+        this.chequeleaf= '';
     }
 
 
     ngOnInit() {
         this.settings.loadingSpinner = false;
         this.pincodeErrors = false;
-  }
+    }
+
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         this.selectedIndex = tabChangeEvent.index;
     }
+
     public nextStep() {
         this.selectedIndex += 1;
     }
+
     public previousStep() {
         this.selectedIndex -= 1;
     }
+
     readUrl(event: any, type) {
         this.type = type;
         this.getUrl = '';
@@ -183,24 +186,27 @@ export class DmRegisterComponent implements OnInit {
                     this.getUrl = this.url.split(',');
                     this.getUrl1.push(this.url.split(','));
                     this.onUploadFinished(this.getUrl);
+
                 };
                 reader.readAsDataURL(event.target.files[0]);
             }
         }
+
+
     }
     onUploadFinished(event) {
         this.allImage.push(event);
         console.log(this.allImage, 'this.fileDetails');
+
         const data = {
             'platform': 'web',
-            'flag': 'dm',
+            'flag':'dm',
             'uploadtype': '',
             'images': ''
         };
         if (this.type == 'education') {
             let length = this.allImage.length-1;
             console.log(length, 'this.lengthlength');
-
             for (let k = 0; k < this.allImage[length].length; k++) {
                 this.fileDetails[k].image = this.allImage[length][k][1];
             }
@@ -222,11 +228,12 @@ export class DmRegisterComponent implements OnInit {
             }
         );
     }
-
-
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
+            }
             if (this.type == 'aadhar front') {
                 this.aadharfront = this.fileUploadPath;
             }
@@ -242,52 +249,16 @@ export class DmRegisterComponent implements OnInit {
             if (this.type == 'chequeleaf') {
                 this.chequeleaf = this.fileUploadPath;
             }
-            if (this.type == 'profile') {
-                this.profile = this.fileUploadPath;
-            }
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
-    }
 
+
+    }
     public fileUploadFailure(error) {
         console.log(error);
     }
-    getReferral(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            'dm_id': 'single',
-            'dm_referral_code': event.target.value,
-            'roleid': this.auth.getDmUserId()
-        };
-        console.log(data, 'dfdfdsfdsfdsfds');
-        this.common.getReferral(data).subscribe(
-            (successData) => {
-                this.referralSuccess(successData);
-            },
-            (error) => {
-                this.referralFailure(error);
-            }
-        );
-    }
-
-    public referralSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            console.log(successData, 'successData');
-            this.fileUploadPath = successData.ResponseObject.imagePath;
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public referralFailure(error) {
-        console.log(error);
-    }
-
-
     submit(value) {
-        console.log(value, 'vall');
         console.log(this.dob, 'dateeee');
         if (this.aadharfront == '') {
             this.toastr.error('Please upload aadhar front page');
@@ -297,68 +268,68 @@ export class DmRegisterComponent implements OnInit {
             this.toastr.error('Please upload pancard');
         } else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
-        } else if (this.chequeleaf == '') {
+        }else if (this.profile == '') {
+            this.toastr.error('Please upload profile');
+        }
+        else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
-            console.log(this.form.value['personal']['firstname'].value, 'ppp');
 
             const data = {
-                'platform': 'web',
-                'dm_hidden_id': '',
-                'dm_referralcode': this.form.value['personal']['referralconduct'],
-                'dm_firstname': this.form.value['personal']['firstname'],
-                'dm_lastname': this.form.value['personal']['lastname'],
-                'dms_gender': this.form.value['personal']['gender'],
-                'dm_dob': this.dob,
-                'dm_mobileno': this.form.value['contacts']['phone1'],
+                'admin_id': this.auth.getAdminId(),
+                'admin_roleid': this.auth.getAdminRoleId(),
+                "platform": "web",
+                "dm_referralcode": this.form.value['personal']['referralconduct'],
+                "dm_firstname": this.form.value['personal']['firstname'],
+                "dm_lastname": this.form.value['personal']['lastname'],
+                "dm_gender": this.form.value['personal']['gender'],
+                "dm_dob": this.dob,
+                "dm_mobileno": this.form.value['contacts']['phone1'],
                 'dm_alternate_mobileno': this.form.value['contacts']['phone2'],
-                'dm_email': this.form.value['contacts']['email'],
-                'dm_address1': this.form.value['contacts']['address1'],
-                'dm_address2': this.form.value['contacts']['address2'],
-                'dm_postalcode': this.form.value['contacts']['pincode'],
-                'dm_aadhar_no': this.form.value['documents']['aadharnumber'],
-                'dm_pan_no': this.form.value['documents']['pannumber'],
-                'dm_profile_img': this.profile == undefined ? '' : this.profile,
-                'dm_aadhar_front_img': this.aadharfront,
-                'dm_aadhar_back_img': this.aadharback,
-                'dm_pan_img': this.pancard,
-                'check_leaf_upload_img': this.chequeleaf,
-                'dm_education': this.form.value['education']['qualification'],
-                'dm_education_doc_img': this.education,
-                'bank_name': this.form.value['bankdetails']['bankname'],
-                'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
-                'branch_name': this.form.value['bankdetails']['bankbranch'],
-                'ifsc_code': this.form.value['bankdetails']['ifsccode']
+                "dm_email": this.form.value['contacts']['email'],
+                "dm_address1": this.form.value['contacts']['address1'],
+                "dm_address2": this.form.value['contacts']['address2'],
+                "dm_postalcode": this.form.value['contacts']['pincode'],
+                "dm_aadhar_no": this.form.value['documents']['aadharnumber'],
+                "dm_pan_no": this.form.value['documents']['pannumber'],
+                "dm_profile_img": this.profile == undefined ? '' : this.profile,
+                "dm_aadhar_front_img": this.aadharfront,
+                "dm_aadhar_back_img": this.aadharback,
+                "dm_pan_img": this.pancard,
+                "dm_education": this.form.value['education']['qualification'],
+                "dm_education_doc_img": this.education,
+                "check_leaf_upload_img": this.chequeleaf,
+                "bank_name": this.form.value['bankdetails']['bankname'],
+                "bank_acc_no": this.form.value['bankdetails']['accountnumber'],
+                "branch_name": this.form.value['bankdetails']['bankbranch'],
+                "ifsc_code": this.form.value['bankdetails']['ifsccode']
             };
-            console.log(data, 'dattatta');
+            console.log(data, 'sdsdsdsds');
             this.settings.loadingSpinner = true;
-            this.login.dmSignUp(data).subscribe(
+            this.login.RegisterPos(data).subscribe(
                 (successData) => {
-                    this.signUpSuccess(successData);
+                    this.RegisterPosSuccess(successData);
                 },
                 (error) => {
-                    this.signUpFailure(error);
+                    this.RegisterPosFailure(error);
                 }
             );
         }
     }
-
-    signUpSuccess(successData) {
-        this.settings.loadingSpinner = false;
+    RegisterPosSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false
         if (successData.IsSuccess) {
-            this.router.navigate(['/dm-login']);
-            this.toastr.success('Registration Completed', 'Success!!!');
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
+            this.router.navigate(['/distance-marketing']);
+            this.toastr.success('DM added successfully');
+        }else {
+            this.toastr.error(successData.ErrorObject);
         }
     }
-
-    signUpFailure(error) {
-        this.settings.loadingSpinner = false;
+    RegisterPosFailure(error) {
+        this.settings.loadingSpinner = false
         console.log(error);
     }
-
     checkGender() {
         if (this.form['controls'].personal['controls']['gender'].value != '' && this.form['controls'].personal['controls']['gender'].value != undefined) {
             this.mismatchError = '';
@@ -366,10 +337,9 @@ export class DmRegisterComponent implements OnInit {
             this.mismatchError = 'Gender is required ';
         }
     }
-
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9 ]/;
+            const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -397,11 +367,6 @@ export class DmRegisterComponent implements OnInit {
                 event.preventDefault();
             }
         }
-    }
-
-
-    public eventHandler(event) {
-        console.log(event, event.keyCode, event.keyIdentifier);
     }
 
     ageCalculate(dob) {
@@ -510,10 +475,9 @@ export class DmRegisterComponent implements OnInit {
             this.pincodeErrors = false;
         } else {
             this.pincodeErrors = true;
-            // this.form['controls'].contacts['controls'].pincode.patchValue('');
-            // this.toastr.error('Invalid pincode');
         }
     }
+
     public getPinlFailure(error) {
     }
 

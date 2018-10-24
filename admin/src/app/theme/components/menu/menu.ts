@@ -13,7 +13,7 @@ export const verticalMenuItems = [
     // new Menu (8, 'Pharmacy Order', '/pharmacy-order', null, 'add_shopping_cart', null, false, 0),
     new Menu (18, 'POS Manager', '/posmanager', null, 'supervisor_account', null, false, 0),
     new Menu (19, 'DM Manager', '/dmmanager', null, 'supervisor_account', null, false, 0),
-    new Menu (20, 'DM', '/dm', null, 'supervisor_account', null, false, 0),
+    new Menu (20, 'DM', '/distance-marketing', null, 'supervisor_account', null, false, 0),
     new Menu (21, 'Media Center', '/mediacenter', null, 'supervisor_account', null, false, 0),
 
     // new Menu (17, 'Branch Manager', '/branchmanager', null, 'supervisor_account', null, false, 0),

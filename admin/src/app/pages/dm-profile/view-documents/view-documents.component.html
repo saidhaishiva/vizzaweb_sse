@@ -1,3 +1,17 @@
-<p>
-  view-documents works!
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <p>{{data.title}}</p>
+  </div>
+  <div class="col-md-6 ">
+    <div class="float-right">
+      <button *ngIf="data.title != 'Agreement Letter'" mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)">Download</button>
+      <mat-icon class="text-right h-100" (click)="onNoClick()" style="cursor: pointer;margin-bottom:27px">close</mat-icon>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content *ngIf="data.title != 'Agreement Letter'">
+  <img src="{{webhost +'/' + data.img}}" alt="" class="w-100">
+</div>
+<div mat-dialog-content *ngIf="data.title == 'Agreement Letter'">
+  <iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="{{webhost +'/' + data.img}}" frameborder="1" scrolling="auto" height="1100" width="850" ></iframe>
+</div>

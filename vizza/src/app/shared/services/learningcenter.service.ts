@@ -57,7 +57,6 @@ export class LearningcenterService {
     }
     // this function will get the total training time
     trainingTiming(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -70,7 +69,6 @@ export class LearningcenterService {
     }
     // this function will get the total training time
     dmTrainingTiming(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getDmAccessToken();
         const httpOptions = {

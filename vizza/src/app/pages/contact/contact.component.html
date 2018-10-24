@@ -58,13 +58,19 @@
           </mat-form-field>
         </div>
       </div>
-          <!--<div class="row">-->
-            <!--<div class="col-md-12">-->
-          <!--<input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">-->
-          <!--<label class="custom-file-label"><span class="error">*</span>-->
-            <!--Attachment</label>-->
-              <!--</div>-->
-          <!--</div>-->
+          <div class="row">
+            <div class="custom-file" >
+              <input type="file" class="custom-file-input" (change)="readUrl($event)" formControlName="profile" aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label"></label>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-12">
+                <div *ngIf="fileUploadPath != ''">
+                  <span class="imageclose mr-2"><img src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                </div>
+              </div>
+            </div>
+          </div>
       <div class="row">
         <div class="col-md-12 text-center">
           <button mat-raised-button color="primary">Submit</button>

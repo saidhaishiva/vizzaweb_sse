@@ -35,32 +35,23 @@
                   [count]="total"
                   [selected]="selected"
                   [selectionType]="'checkbox'">
+              <ngx-datatable-column name="Id">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                      {{row.id}}
+                  </ng-template>
+              </ngx-datatable-column>
 
-            <ngx-datatable-column name="Id">
+            <ngx-datatable-column name="Image Path">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.manager_id}}
+                {{row.image_path}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Name">
+            <ngx-datatable-column name="Center">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.manager_name}}
+                {{row.center}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Mobile">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.manager_mobile}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Email">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.manager_email}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="status">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.manager_status}}
-              </ng-template>
-            </ngx-datatable-column>
+
             <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >

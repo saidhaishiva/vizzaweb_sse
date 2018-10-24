@@ -1,9 +1,6 @@
 <section class="vizza-home">
     <header class="w-100">
-<!--<div>-->
-    <!--<button routerLink="/careers">s</button>-->
-<!--</div>-->
-        <div id="demo1" class="carousel slide" data-ride="carousel">
+     <div id="demo1" class="carousel slide" data-ride="carousel">
 
             <!-- Indicators -->
             <ul class="carousel-indicators" style="bottom: 0 !important;">
@@ -419,16 +416,15 @@
                                 <h4 class="text-center">Upload your policy here</h4>
                                 <ul fxLayoutAlign="center center">
                                     <li class="pull-left"> <label class="btn-bs-file btn mr-3">
-                                        <i class="fa fa-camera" aria-hidden="true"></i> Take Picture
+                                        <i class="fa fa-camera" aria-hidden="true"></i> Browse
                                         <input type="file" multiple (change)="readUrl($event)"/>
                                     </label>
                                         <div *ngFor="let names of fileDetails" class="mb-2">
                                             <a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHWSURBVFhH7ZbBS8JwFMf93yzxEAleBAvBU0fpIIjg0avmoS6K4qGzJ710DRSHFmFaaVorkPAiNkVd26v32NYgA2FvGrEPPNi+v7ff74O/n2MuB7uout3AVTWv91Kblg+cmAOcpxkIqOySnILLRoNfklMQ7u/5JbkF2SXtEGSVtEuQTdJOQRZJuwWxLElyCq5T2rLrgw9tCkfQKo6gVVgFX8/PoX9yAoPTUxhdXACoKuVioQD9dBrEXA7e223KkLdKBR5TKaMWo5E28g2rYH1/H+p7e3AdDtPEL8Ui5Xgt+P3QDAahurMDw1KJ8m4ySWPNgwNoHh7CTBQpN8Mu2IpEQFUUuAqFSAjB/k48Dsp8TiKCzweqLBuCH5JEfauwRRC5OTqiXwbRBZF+JkP30sPDdgRRCs8T9jydnVGO17ogbjvejwXhxxZ/TKfUYwbHtWXXBx9aBQrWPB46g2I+D8piQblZEKXxftJqGYKYPWezRr8ZdkF9i82YBdvRKP1R5Mlku2fQDPbfHh/DW7kMtd1duEskKP9Tgnp1YjFYjseUb1xQ6vVWvstmgwFI3S7ImpjOfDgE6evbD19Lv8EqaAeOoFUcQas4glZxBK3yfwU3WdqyDsy4XJ9IgqXpXHIZ/QAAAABJRU5ErkJggg==">{{names.name}}</a>
                                         </div>
                                     </li>
-                                    <li class="pull-right"> <label class="btn-bs-file btn ">
+                                    <li class="pull-right"> <label class="btn-bs-file btn " (click)="onUpload()">
                                         <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload
-                                        <input type="file" (click)="onUpload();"/>
                                     </label>
                                         <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="200" alt="Image preview...">
                                     </li>

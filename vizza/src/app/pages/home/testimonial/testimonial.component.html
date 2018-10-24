@@ -61,11 +61,19 @@
             </div>
 
           </div>
+            <div class="row w-100">
+                <div class="col-md-12">
+                    <div *ngIf="profile != ''">
+                        <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                    </div>
+                </div>
+            </div>
           <div class="col-sm-12 mt-3 text-center">
             <button mat-raised-button color="primary" (click)="submit(form)">Submit</button>
           </div>
 
         </form>
+
   </div>
 </div>
 <style>
