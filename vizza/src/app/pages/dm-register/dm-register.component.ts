@@ -308,7 +308,7 @@ export class DmRegisterComponent implements OnInit {
                 'dm_referralcode': this.form.value['personal']['referralconduct'],
                 'dm_firstname': this.form.value['personal']['firstname'],
                 'dm_lastname': this.form.value['personal']['lastname'],
-                'dms_gender': this.form.value['personal']['gender'],
+                'dm_gender': this.form.value['personal']['gender'],
                 'dm_dob': this.dob,
                 'dm_mobileno': this.form.value['contacts']['phone1'],
                 'dm_alternate_mobileno': this.form.value['contacts']['phone2'],

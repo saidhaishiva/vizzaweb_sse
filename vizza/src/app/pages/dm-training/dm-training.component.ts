@@ -41,7 +41,6 @@ export class DmTrainingComponent implements OnInit {
             this.settings.loadingSpinner = false;
         },700);
         this.trainingStatus = this.auth.getSessionData('dmTrainingStatus');
-        console.log(this.trainingStatus, 'this.trainingStatus');
         this.getRemainingTime = '';
         this.getMinutes = '';
         this.startTime = true;
@@ -58,7 +57,6 @@ export class DmTrainingComponent implements OnInit {
             this.trainingCompleted = false;
 
         }
-        console.log(this.trainingCompleted, 'this.trainingCompleted');
 
 
     }
@@ -84,7 +82,7 @@ export class DmTrainingComponent implements OnInit {
     // Logout the user.
     IdleTimeout() {
         console.log('logout');
-        this.router.navigate(['/home']);
+       // this.router.navigate(['/home']);
     }
 
     countdown(minutes) {
@@ -186,18 +184,15 @@ export class DmTrainingComponent implements OnInit {
                     }
                     if (sendMinutes) {
                         let remainingTime = parseInt(h) + parseInt(m);
-                        console.log(remainingTime, 'remainingTime');
                         sendMinutes = timeLeft - remainingTime;
                     } else {
                         sendMinutes = timeLeft;
                         sessionStorage.timeLeft = '';
                     }
                     if (getFulltime != '00:00:00') {
-                        console.log(sendMinutes, 'sendMinutes0');
                         if (sendMinutes >= 3) {
                             test.sendRemainingTime(sendMinutes, 'everyTime');
                             sessionStorage.checkoutTime = '';
-                            // test.trainingTiming();
                         }
                     }
                 }
@@ -226,7 +221,6 @@ export class DmTrainingComponent implements OnInit {
     }
     public getTrainingTimingSuccess(successData) {
         if (successData.IsSuccess) {
-            console.log(successData.ResponseObject.pending_time_left);
             let time = successData.ResponseObject.pending_time_left;
             sessionStorage.dmTimeLeft = time;
             let seconds = 0;
@@ -234,21 +228,15 @@ export class DmTrainingComponent implements OnInit {
             let m = time % 60;
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
-            console.log(h, 'h');
-            console.log(m, 'minutes');
-            if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
-                // let fullTime = sessionStorage.dmCheckoutTime.split(":");
-                // let hr = parseInt(fullTime[0]);
-                // console.log(hr, 'hr');
-                // let mins = parseInt(fullTime[1]);
-                // let sec = parseInt(fullTime[2]);
-                // console.log(hr +':'+ mins +':'+ sec, 'sessionStorage.dmCheckoutTime');
-                document.getElementById('timer').innerHTML= sessionStorage.dmCheckoutTime;
-                this.countdown(840);
-            } else {
-                document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
-                this.countdown(840);
+            if (this.trainingStatus !=1) {
+                if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
+                    document.getElementById('timer').innerHTML = sessionStorage.dmCheckoutTime;
+                    this.countdown(840);
+                } else {
+                    document.getElementById('timer').innerHTML = h + ':' + m + ':' + seconds;
+                    this.countdown(840);
 
+                }
             }
 
         }
@@ -277,7 +265,6 @@ export class DmTrainingComponent implements OnInit {
     public sendTimeSuccess(successData, status) {
         if (successData.IsSuccess) {
             this.trainingCompleted = true;
-            console.log(successData.ResponseObject.training_status, 'successData.ResponseObject.training_status');
             this.auth.setSessionData('trainingStatus', successData.ResponseObject.training_status);
             this.trainingStatus = successData.ResponseObject.training_status;
             if (successData.ResponseObject.training_status == 1) {
@@ -289,7 +276,6 @@ export class DmTrainingComponent implements OnInit {
 
             }
         }
-        console.log(successData, 'remainingg');
     }
     public sendTimeTimingError(error) {
         console.log(error);

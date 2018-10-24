@@ -230,14 +230,16 @@ export class TrainingComponent implements OnInit {
             let m = time % 60;
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
-            if (sessionStorage.checkoutTime != '' && sessionStorage.checkoutTime != undefined) {
-                document.getElementById('timer').innerHTML= sessionStorage.checkoutTime;
-                this.countdown(840);
-            } else {
-                document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
-                this.countdown(840);
-
+            if (this.trainingStatus !=1) {
+                if (sessionStorage.checkoutTime != '' && sessionStorage.checkoutTime != undefined) {
+                    document.getElementById('timer').innerHTML= sessionStorage.checkoutTime;
+                    this.countdown(840);
+                } else {
+                    document.getElementById('timer').innerHTML= h +':'+ m +':'+ seconds ;
+                    this.countdown(840);
+                }
             }
+
 
         }
     }
