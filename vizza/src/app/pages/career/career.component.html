@@ -24,7 +24,7 @@
     </div>
   <br>
   <div class="row">
-    <input type="file"  (change)="readUrl($event, 'profile')"  >
+    <input type="file"  (change)="readUrl($event)" >
     <label class="custom-file-label"><span class="error">*</span>
        upoload </label>
   </div>
@@ -89,10 +89,10 @@
     </div>
   </div>
 <div class="row">
-  <mat-radio-group  formControlName="gender">
-    <mat-radio-button value="1">Male</mat-radio-button>
-    <mat-radio-button value="2">Female</mat-radio-button>
-    <mat-radio-button value="2">other</mat-radio-button>
+  <mat-radio-group  >
+    <input type="radio" formControlName="gender" value="1">Male</input>
+    <input type="radio" formControlName="gender" value="2">Female</input>
+    <input type="radio"  formControlName="gender" value="3">other</input>
 
   </mat-radio-group>
 </div>
