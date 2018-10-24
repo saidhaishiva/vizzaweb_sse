@@ -315,11 +315,11 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getPosProfileSuccess(successData) {
+        this.posDataAvailable = true;
         console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
-            this.posDataAvailable = true;
             this.auth.setSessionData('examStatus', this.personal.exam_status);
             this.auth.setSessionData('trainingStatus', this.personal.training_status);
             this.auth.setSessionData('documentStatus', this.personal.doc_verified_status);

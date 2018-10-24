@@ -10,8 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
-import { SlickModule } from 'ngx-slick';
-
+import { SlickModule} from 'ngx-slick';
 // import { ImageUploadModule } from "angular2-image-upload";
 
 // services

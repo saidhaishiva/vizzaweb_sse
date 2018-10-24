@@ -484,7 +484,7 @@ export class DmProfileComponent implements OnInit {
             this.getComments();
             this.comments = '';
             this.notes = '';
-            this.router.navigate(['/pos']);
+            this.router.navigate(['/distance-marketing']);
         }
     }
     verificationFailure(error) {
@@ -514,7 +514,7 @@ export class DmProfileComponent implements OnInit {
             'message_type': 'notes'
 
         }
-        this.common.getNotes(data).subscribe(
+        this.common.getDmNotes(data).subscribe(
             (successData) => {
                 this.getNotifySuccess(successData);
             },
@@ -543,7 +543,7 @@ export class DmProfileComponent implements OnInit {
             'role_id': this.auth.getAdminRoleId(),
             'admin_id': this.auth.getAdminId()
         };
-        this.common.branchList(data).subscribe(
+        this.common.dmManagerList(data).subscribe(
             (successData) => {
                 this.branchListSuccess(successData);
             },
