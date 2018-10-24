@@ -24,7 +24,7 @@
     </div>
   <br>
   <div class="row">
-    <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')"  >
+    <input type="file"  (change)="readUrl($event, 'profile')"  >
     <label class="custom-file-label"><span class="error">*</span>
        upoload </label>
   </div>
@@ -69,7 +69,7 @@
   <div class="row">
     <div class="col-md-6">
       <mat-form-field class="w-50">
-      <textarea matInput col="50" row="5"  placeholder="Address"></textarea>
+      <textarea matInput col="50" row="5"  placeholder="Address" formControlName="address" ></textarea>
         <!--<input matInput placeholder="area">-->
       </mat-form-field>
     </div>
@@ -84,12 +84,12 @@
     </div>
     <div class="col-md-3">
       <mat-form-field>
-        <input matInput placeholder="age">
+        <input matInput placeholder="age" formControlName="age">
       </mat-form-field>
     </div>
   </div>
 <div class="row">
-  <mat-radio-group>
+  <mat-radio-group  formControlName="gender">
     <mat-radio-button value="1">Male</mat-radio-button>
     <mat-radio-button value="2">Female</mat-radio-button>
     <mat-radio-button value="2">other</mat-radio-button>
@@ -100,36 +100,36 @@
   <h3>Educational Qualification</h3>
   <div>
     <mat-form-field class="w-100">
-    <input matInput   placeholder="HSC ( Name of the Institution ,year of passing, Percentage )*">
+    <input matInput formControlName="educationhsc" placeholder="HSC ( Name of the Institution ,year of passing, Percentage )*">
     </mat-form-field><br>
-    <mat-form-field class="w-100">
-    <input matInput  placeholder="UG ( Name of the Institution ,year of passing, Percentage )*">
+    <mat-form-field class="w-100" >
+    <input matInput formControlName="educationug" placeholder="UG ( Name of the Institution ,year of passing, Percentage )*">
     </mat-form-field><br>
-    <mat-form-field class="w-100">
-    <input  matInput  placeholder="PG ( Name of the Institution ,year of passing, Percentage )*">
+    <mat-form-field class="w-100" >
+    <input  matInput  formControlName="educationpg" placeholder="PG ( Name of the Institution ,year of passing, Percentage )*">
     </mat-form-field>
   </div>
   <h3>Experience</h3>
   <div>
     <mat-form-field class="w-100">
-    <input  matInput   placeholder="1 ( Name of the Organisation , Designation , years of expierience )*">
+    <input  matInput  formControlName="experience1" placeholder="1 ( Name of the Organisation , Designation , years of expierience )*">
     </mat-form-field><br>
     <mat-form-field class="w-100">
-    <input matInput  placeholder="2 ( Name of the Organisation , Designation , years of expierience )*">
+    <input matInput  formControlName="experience2" placeholder="2 ( Name of the Organisation , Designation , years of expierience )*">
     </mat-form-field><br>
     <mat-form-field class="w-100">
-    <input matInput placeholder="3 ( Name of the Organisation , Designation , years of expierience )*"><br>
+    <input matInput formControlName="experience3" placeholder="3 ( Name of the Organisation , Designation , years of expierience )*"><br>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field class="w-100">
     <!--<div class="col-md-12">-->
-    <textarea matInput col="30" rows="5" placeholder="Your Skills"></textarea>
+    <textarea matInput col="30" rows="5"formControlName="applicantskills" placeholder="Your Skills"></textarea>
     <!--</div>-->
     </mat-form-field>
   </div>
   <div style="text-align: center">
-    <button mat-raised-button color="primary" (click)="update()"> Sumbit</button>
+    <button mat-raised-button color="primary" (click)="onsubmit()"> Sumbit</button>
   </div>
 </mat-card>
 </form>
