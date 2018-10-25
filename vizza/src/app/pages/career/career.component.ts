@@ -160,7 +160,6 @@ update() {
         this.settings.loadingSpinner = false;
         console.log(successData);
         if (successData.IsSuccess) {
-            alert();
         } else {
             // this.toastr.error(successData.ErrorObject, 'Failed');
         }
