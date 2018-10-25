@@ -74,6 +74,18 @@ export class LoginService {
             .catch(this.handleError);
 
     }
+    changeDmPassword(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/forgotpassword' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
     getResendRequest(data){
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -116,6 +128,21 @@ export class LoginService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
         const url = this.configurationService.getHost() + 'pos/generateOtp';
+        return this.http.post(url , json, httpOptions)
+
+            .map(this.extractData )
+            .catch(this.handleError);
+
+    }
+    dmForgot(data) {
+        console.log(data);
+        const json = JSON.stringify(data);
+        console.log(json);
+        // const token = this.authService.getaccesstoken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+        };
+        const url = this.configurationService.getHost() + 'distancemanager/generateOtp';
         return this.http.post(url , json, httpOptions)
 
             .map(this.extractData )
