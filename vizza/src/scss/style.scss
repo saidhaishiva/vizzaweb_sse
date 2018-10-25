@@ -6,9 +6,13 @@ $light-green:#2FE827;
 *{
   outline: none;
 }
+body{
+  font-family: Roboto,sans-serif !important;
+  font-size: 14px !important;
+}
 a:hover {
-  color: unset;
-  text-decoration: none;
+  color: unset !important;
+  text-decoration: none !important;
 }
 button:focus{
   outline: none;
@@ -1426,6 +1430,7 @@ footer{
 .h-claim {
   h3{
     color: #a9a4a4;
+    padding: 0 10px;
   }
   .bottomQoute{
     font-size: 16px;
@@ -1701,9 +1706,14 @@ footer{
 .mat-drawer-container, .mat-toolbar, .navbar.bg-light{
   background-color: #fff !important;
 }
-.parther-slide {
+.partner-slide {
   .draggable{
     height: auto !important;
+  }
+  .slick-slide{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-right: 5px;
   }
 }
 .carousel-indicators li {
@@ -1711,23 +1721,23 @@ footer{
   border-radius: 50px;
   width: 16px;
 }
-app-horizontal-menu{
-  .horizontal-menu-item:last-child{
-    background: #ccc !important;
-    color: #fff;
-    font-weight: bold;
-  }
-}
-.horizontal-sub-menu{
-  app-horizontal-menu{
-    .horizontal-menu-item:last-child{
-      background: #0b9444 !important;
-    }
-  }
-}
+//app-horizontal-menu{
+//  .horizontal-menu-item:last-child{
+//    background: #ccc !important;
+//    color: #fff;
+//    font-weight: bold;
+//  }
+//}
+//.horizontal-sub-menu{
+//  app-horizontal-menu{
+//    .horizontal-menu-item:last-child{
+//      background: #0b9444 !important;
+//    }
+//  }
+//}
 
 fieldset {
-  border-top: 1px solid #a9a4a4;
+  border-top: 1px solid #a9a4a4 !important;
   legend{
     width: auto;
     text-align: center;
@@ -1756,4 +1766,64 @@ fieldset {
     margin-right: 15px;
   }
 }
+.about-pos {
+  mat-expansion-panel {
+    background: #56b3b3 !important;
+  }
+  mat-panel-title{
+    h6{
+      color: #fff;
+    }
+  }
+}
+.h-login {
+  padding: 5px;
+  .dropdown-item.active, .dropdown-item:active {
+    color: unset !important;
+    background: #fff !important;
+  }
+  .dropdown-menu {
+  padding: 0 !important;
+  }
+  a.dropdown-item{
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+  }
+}
 
+#mySidenav a {
+  position: fixed;
+  right: -75px;
+  transition: 0.3s;
+  transition: 0.3s;
+  padding: 10px;
+  width: 117px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  border-radius: 50px 0 0 50px;
+  top: 200px;
+  z-index: 999;
+}
+
+#mySidenav a:hover {
+  right: 0;
+  color: #fff !important;
+}
+
+#about {
+  top: 20px;
+  background-color: #e05b5a;
+}
+#loading {
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(359deg);
+  }
+}
