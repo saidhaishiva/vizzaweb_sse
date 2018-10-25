@@ -68,6 +68,8 @@ import {DmdeactivatetimeGuard} from './shared/dmdeactivatetime-guard';
 import {DmexamdeactivatetimeGuard} from './shared/dmexamdeactivatetime-guard';
 import {CareerComponent} from './pages/career/career.component';
 import {AboutPosComponent} from './pages/about-pos/about-pos.component';
+import {DmForgotpasswordComponent} from './pages/dm-forgotpassword/dm-forgotpassword.component';
+import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmpassword.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -93,8 +95,10 @@ export const routes: Routes = [
             { path: 'pos-profile', component: PosprofileComponent, data: { breadcrumb: 'Pos Profile' } },
             { path: 'pos-edit', component: EditposComponent, data: { breadcrumb: 'Pos Profile Edit' } },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
-            { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'forgot password' } },
+            { path: 'forgotpassword', component: ForgotPasswordComponent, data: { breadcrumb: 'Forgot password' } },
+            { path: 'dm-forgotpassword', component: DmForgotpasswordComponent, data: { breadcrumb: 'Dm Forgot password' } },
             { path: 'confirmpassword', component: ConfirmpasswordComponent, data: { breadcrumb: 'Confirm Password' } },
+            { path: 'dm-confirmpassword', component: DmConfirmpasswordComponent, data: { breadcrumb: 'Dm Confirm Password' } },
             { path: 'pos', component: PosComponent, data: { breadcrumb: 'POS' } },
             { path: 'dm-login', component: DmLoginComponent, data: { breadcrumb: 'Dm Login' } },
             { path: 'dm-register', component: DmRegisterComponent, data: { breadcrumb: 'Dm Login' } },

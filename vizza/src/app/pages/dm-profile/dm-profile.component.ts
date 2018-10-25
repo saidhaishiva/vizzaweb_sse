@@ -1129,7 +1129,7 @@ export class DmProfileComponent implements OnInit {
             this.auth.setSessionData('vizza-pos-firstname', this.personaledit.value['firstname']);
             this.auth.setSessionData('vizza-pos-lastname', this.personaledit.value['lastname']);
             this.settings.username = this.auth.getDmFirstName() +' '+ this.auth.getDmLastName();
-            // if (this.personal.doc_verified_status < 2) {
+            if (this.personal.doc_verified_status < 2) {
                 const data = {
                     "platform": "web",
                     "dm_id": this.auth.getDmUserId(),
@@ -1158,10 +1158,10 @@ export class DmProfileComponent implements OnInit {
                     this.updateDocuments(data);
                 }
 
-            // } else {
-            //     this.toastr.error(successData.ErrorObject);
-            //
-            // }
+            } else {
+                this.toastr.error(successData.ErrorObject);
+
+            }
         }
     }
     updateDmProfileFailure(error) {

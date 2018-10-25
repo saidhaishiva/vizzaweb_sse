@@ -306,17 +306,17 @@ export class AddDmComponent implements OnInit {
             };
             console.log(data, 'sdsdsdsds');
             this.settings.loadingSpinner = true;
-            this.login.RegisterPos(data).subscribe(
+            this.login.RegisterDm(data).subscribe(
                 (successData) => {
-                    this.RegisterPosSuccess(successData);
+                    this.RegisterDmSuccess(successData);
                 },
                 (error) => {
-                    this.RegisterPosFailure(error);
+                    this.RegisterDmFailure(error);
                 }
             );
         }
     }
-    RegisterPosSuccess(successData) {
+    RegisterDmSuccess(successData) {
         console.log(successData);
         this.settings.loadingSpinner = false
         if (successData.IsSuccess) {
@@ -326,7 +326,7 @@ export class AddDmComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
-    RegisterPosFailure(error) {
+    RegisterDmFailure(error) {
         this.settings.loadingSpinner = false
         console.log(error);
     }

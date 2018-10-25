@@ -27,9 +27,9 @@ webhost: any;
         'email':  ['', Validators.required],
         'fathername': ['', Validators.required],
         'dob': ['', Validators.compose([Validators.required])],
-        'age': ['', Validators.required],
+        'age': '',
         'address': ['', Validators.required],
-        'gender': ['', Validators.required],
+        'gender': '',
         'educationhsc':['', Validators.required],
         'educationug':['', Validators.required],
         'educationpg':['', Validators.required],
@@ -133,10 +133,10 @@ update() {
             'applicant_resume': "uploads/careers/raj.txt",
             'father_name': this.form.controls['fathername'].value,
             'mobile_no': this.form.controls['mobileno'].value,
-            'address': "12/5, Thirunagar, Vadapalani, Chennai-600026",
+            'address': this.form.controls['address'].value,
             'dob': this.form.controls['dob'].value,
-            'age':  this.form.controls['dob'].value,
-            'gender':  this.form.controls['dob'].value,
+            'age':  this.form.controls['age'].value,
+            'gender':  this.form.controls['gender'].value,
             'education_hsc_details':  this.form.controls['educationhsc'].value,
             'education_ug_details':  this.form.controls['educationug'].value,
             'education_pg_details':  this.form.controls['educationpg'].value,
@@ -160,7 +160,6 @@ update() {
         this.settings.loadingSpinner = false;
         console.log(successData);
         if (successData.IsSuccess) {
-            alert();
         } else {
             // this.toastr.error(successData.ErrorObject, 'Failed');
         }

@@ -44,6 +44,7 @@ export  class DeactivatetimeGuard implements CanDeactivate<TrainingComponent> {
         }
         // end
         if (getFulltime != '00:00:00') {
+            sendMinutes = 1;
            training.sendRemainingTime(sendMinutes, 'leftTime');
         }
 

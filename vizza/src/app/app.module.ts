@@ -139,6 +139,8 @@ import { ReligareDownloadPolicyComponent } from './pages/religare-download-polic
 import { DmConfrimAlert} from './pages/dm-exam/dm-exam.component';
 import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {CareerComponent} from './pages/career/career.component';
+import { DmForgotpasswordComponent } from './pages/dm-forgotpassword/dm-forgotpassword.component';
+import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 @NgModule({
   imports: [
@@ -259,6 +261,9 @@ import { AboutPosComponent } from './pages/about-pos/about-pos.component';
       DmViewresultComponent,
       CareerComponent,
       AboutPosComponent
+      CareerComponent,
+      DmForgotpasswordComponent,
+      DmConfirmpasswordComponent
   ],
   providers: [
       AppSettings,

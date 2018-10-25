@@ -474,6 +474,7 @@ export class PosprofileComponent implements OnInit {
             'online_verification_notes': this.notes,
             'online_verification_message': this.comments,
             'pos_id': this.posid,
+            'flag': 'pos',
             'pos_manager_id': this.posManager,
             'appointment_date': appointDate == undefined ? '' : appointDate,
             'agreement_filepath': this.fileDetails ? this.fileDetails : '',

@@ -4,7 +4,7 @@
         <mat-card class="p-0 mailbox">
             <mat-sidenav-container>
                 <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="mailbox-sidenav mat-elevation-z1">
-                    <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="center center" style="min-height:30px !important;">
+                    <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="center center" style="min-height:30px !important;background:#004d40 !important;">
                         <p fxLayoutAlign="center center">Title</p>
                     </mat-toolbar>
 
@@ -21,7 +21,7 @@
                     </mat-nav-list>
                 </mat-sidenav>
                 <div>
-                    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" style="min-height:40px !important;">
+                    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" style="min-height:40px !important;background:#004d40 !important;">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <button mat-icon-button (click)="sidenav.toggle()">
                                 <mat-icon>list</mat-icon>
