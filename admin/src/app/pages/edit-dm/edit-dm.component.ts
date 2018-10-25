@@ -65,22 +65,18 @@ export class EditDmComponent implements OnInit {
     today: any;
     nectStatus: any;
     mismatchError: any;
-    DateValidator: any;
-    roleId: any;
     img: boolean;
     profile: any;
     selectedIndex: any;
     public passwordHide: boolean = true;
-    personalCitys: any;
     pincodeErrors : any;
     public personal: any;
-    public currentTab: any;
-    public documentStatus: any;
     public dmid: any;
-    public posstatus: any;
     public posDataAvailable : boolean;
     imagepath: any;
     size: any;
+    fileDetails: any;
+    allImage: any;
 
     constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe,
                 public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService,
@@ -97,6 +93,7 @@ export class EditDmComponent implements OnInit {
         this.selectedIndex = 0;
         this.profile = '';
         this.img = false;
+        this.allImage = [];
         this.posDataAvailable = false;
         this.form = this.fb.group({
             personalEdit: this.fb.group({
@@ -145,7 +142,7 @@ export class EditDmComponent implements OnInit {
         this.route.params.forEach((params: Params) => {
             this.dmid = params.id;
         });
-        this.getPosProfileList();
+        this.getDmProfileList();
     }
 
     ngOnInit() {
@@ -153,15 +150,15 @@ export class EditDmComponent implements OnInit {
         this.pincodeErrors = false;
     }
 //get Admin pos ProfileList
-    getPosProfileList(){
+    getDmProfileList(){
         const data = {
             'platform': 'web',
-            'adminid': this.auth.getAdminId(),
-            'roleid': this.auth.getAdminRoleId(),
-            'pos_id': this.dmid
+            'admin_id': this.auth.getAdminId(),
+            'role_id': this.auth.getAdminRoleId(),
+            'dm_id': this.dmid
         };
         console.log(data);
-        this.common.getPosProfileList(data).subscribe(
+        this.common.getDmProfileList(data).subscribe(
             (successData) => {
                 this.setPosProfileSuccess(successData);
 
@@ -177,26 +174,26 @@ export class EditDmComponent implements OnInit {
             this.personal = successData.ResponseObject;
             this.posDataAvailable = true;
             let date;
-            date = this.personal.pos_dob.split('/');
+            date = this.personal.dm_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
             date = this.datepipe.transform(date, 'y-MM-dd');
             console.log(date, 'dateee');
             this.form = this.fb.group({
                 personalEdit: this.fb.group({
                     id: null,
-                    firstname: this.personal.pos_firstname,
-                    lastname: this.personal.pos_lastname,
+                    firstname: this.personal.dm_firstname,
+                    lastname: this.personal.dm_lastname,
                     birthday: date,
-                    gender: this.personal.pos_gender,
-                    referralconduct: this.personal.pos_referral_code,
+                    gender: this.personal.dm_gender,
+                    referralconduct: this.personal.dm_referral_code,
                 }),
                 contacts: this.fb.group({
-                    email: this.personal.pos_email,
-                    phone1: this.personal.pos_mobileno,
-                    phone2: this.personal.pos_alternate_mobileno,
-                    address1: this.personal.pos_address1,
-                    address2: this.personal.pos_address2,
-                    pincode: this.personal.pos_postalcode,
+                    email: this.personal.dm_email,
+                    phone1: this.personal.dm_mobileno,
+                    phone2: this.personal.dm_alternate_mobileno,
+                    address1: this.personal.dm_address1,
+                    address2: this.personal.dm_address2,
+                    pincode: this.personal.dm_postalcode,
                 }),
                 documents: this.fb.group({
                     aadharnumber: this.personal.doc_aadhar_no,
@@ -213,7 +210,7 @@ export class EditDmComponent implements OnInit {
                     accountnumber: this.personal.bank_acc_no,
                 }),
             });
-            this.profile = this.personal.pos_profile_img;
+            this.profile = this.personal.dm_profile_img;
             this.aadharfront = this.personal.doc_aadhar_front_img;
             this.aadharback = this.personal.doc_aadhar_back_img;
             this.pancard = this.personal.doc_pan_img;
@@ -226,56 +223,57 @@ export class EditDmComponent implements OnInit {
         console.log(error);
     }
 //Image Upload service
-    onUploadFinished(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            "role_id": this.auth.getAdminRoleId(),
-            'uploadtype': 'single',
-            'images': this.getUrl,
-        };
-        console.log(data, 'dattattatata');
-        this.common.fileUpload(data).subscribe(
-            (successData) => {
-                this.fileUploadSuccess(successData);
-            },
-            (error) => {
-                this.fileUploadFailure(error);
-            }
-        );
-    }
-
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath =  successData.ResponseObject.imagePath;
-            if (this.type == 'aadhar front') {
-                this.aadharfront = this.fileUploadPath;
-            }
-            if (this.type == 'aadhar back') {
-                this.aadharback = this.fileUploadPath;
-            }
-            if (this.type == 'pancard') {
-                this.pancard = this.fileUploadPath;
-            }
-            if (this.type == 'education') {
-                this.education = this.fileUploadPath;
-            }
-            if (this.type == 'profile'){
-                this.profile = this.fileUploadPath;
-            }
-            if (this.type == 'chequeleaf'){
-                this.chequeleaf = this.fileUploadPath;
-            }
-            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-
-
-    }
-    public fileUploadFailure(error) {
-        console.log(error);
-    }
+//     onUploadFinished(event) {
+//         this.getUrl = event[1];
+//         const data = {
+//             'platform': 'web',
+//             "role_id": this.auth.getAdminRoleId(),
+//             'flag':'dm',
+//             'uploadtype': 'single',
+//             'images': this.getUrl,
+//         };
+//         console.log(data, 'dattattatata');
+//         this.common.fileUpload(data).subscribe(
+//             (successData) => {
+//                 this.fileUploadSuccess(successData);
+//             },
+//             (error) => {
+//                 this.fileUploadFailure(error);
+//             }
+//         );
+//     }
+//
+//     public fileUploadSuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             this.fileUploadPath =  successData.ResponseObject.imagePath;
+//             if (this.type == 'aadhar front') {
+//                 this.aadharfront = this.fileUploadPath;
+//             }
+//             if (this.type == 'aadhar back') {
+//                 this.aadharback = this.fileUploadPath;
+//             }
+//             if (this.type == 'pancard') {
+//                 this.pancard = this.fileUploadPath;
+//             }
+//             if (this.type == 'education') {
+//                 this.education = this.fileUploadPath;
+//             }
+//             if (this.type == 'profile'){
+//                 this.profile = this.fileUploadPath;
+//             }
+//             if (this.type == 'chequeleaf'){
+//                 this.chequeleaf = this.fileUploadPath;
+//             }
+//             console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
+//         } else {
+//             this.toastr.error(successData.ErrorObject, 'Failed');
+//         }
+//
+//
+//     }
+//     public fileUploadFailure(error) {
+//         console.log(error);
+//     }
 
     labSuccess(successData) {
         this.settings.loadingSpinner = false;
@@ -291,27 +289,127 @@ export class EditDmComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+    // readUrl(event: any, type) {
+    //     this.type = type;
+    //     this.size = event.srcElement.files[0].size;
+    //     console.log(this.size);
+    //     if (event.target.files && event.target.files[0]) {
+    //         const reader = new FileReader();
+    //
+    //         reader.onload = (event: any) => {
+    //             this.getUrl1 = [];
+    //             this.url = event.target.result;
+    //             this.getUrl = this.url.split(',');
+    //             this.getUrl1.push(this.url.split(','));
+    //             this.onUploadFinished(this.getUrl);
+    //
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
+    //
+    // }
     readUrl(event: any, type) {
         this.type = type;
-        this.size = event.srcElement.files[0].size;
-        console.log(this.size);
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
+        this.getUrl = '';
+        if (type == 'education') {
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+        } else {
+            this.size = event.srcElement.files[0].size;
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.getUrl1 = [];
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.getUrl1.push(this.url.split(','));
+                    this.onUploadFinished(this.getUrl);
 
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
 
+
+    }
+    onUploadFinished(event) {
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
+
+        const data = {
+            'platform': 'web',
+            'flag':'dm',
+            'uploadtype': '',
+            'images': ''
+        };
+        if (this.type == 'education') {
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
+            }
+            data.uploadtype = 'multiple';
+            data.images = this.fileDetails;
+        } else {
+            this.getUrl = event[1];
+            data.uploadtype = 'single';
+            data.images = this.getUrl;
+        }
+
+        console.log(data, 'dattattatata');
+        this.common.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar front') {
+                this.aadharfront = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar back') {
+                this.aadharback = this.fileUploadPath;
+            }
+            if (this.type == 'pancard') {
+                this.pancard = this.fileUploadPath;
+            }
+            if (this.type == 'education') {
+                this.education = this.fileUploadPath;
+            }
+            if (this.type == 'chequeleaf') {
+                this.chequeleaf = this.fileUploadPath;
+            }
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+
+
+    }
+    public fileUploadFailure(error) {
+        console.log(error);
     }
 //Update admin pos profile
-    updateAdminPosProfile(event){
+    updateAdminDmProfile(event){
         const data =  {
             "platform": "web",
             "admin_id": this.auth.getAdminId(),
@@ -336,7 +434,7 @@ export class EditDmComponent implements OnInit {
         };
         this.settings.loadingSpinner = true;
         //update pos profile service
-        this.common.updateAdminPosProfile(data).subscribe(
+        this.common.updateAdminDmProfile(data).subscribe(
             (successData) => {
                 this.updateaAminPosProfileSuccess(successData);
 
@@ -353,9 +451,9 @@ export class EditDmComponent implements OnInit {
         this.settings.loadingSpinner = false;
 
         if (successData.IsSuccess) {
-            this.getPosProfileList();
+            this.getDmProfileList();
             this.toastr.success(successData.ResponseObject);
-            this.router.navigate(['/pos']);
+            this.router.navigate(['/distance-marketing']);
 
             if(this.personal.doc_verified_status){
                 const data = {
@@ -399,7 +497,7 @@ export class EditDmComponent implements OnInit {
     //update docment details service
     updateDocuments(data) {
         console.log(data);
-        this.common.updateDocDetails(data).subscribe(
+        this.common.updateDmDocDetails(data).subscribe(
             (successData) => {
                 this.updateDocumentsSuccess(successData);
             },
@@ -412,7 +510,7 @@ export class EditDmComponent implements OnInit {
     public updateDocumentsSuccess(successData) {
         if (successData.IsSuccess) {
             console.log(successData, 'successData2');
-            this.getPosProfileList();
+            this.getDmProfileList();
         }
     }
     public updateDocumentsProfileFailure(error) {

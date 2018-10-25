@@ -40,6 +40,18 @@ export class LoginService {
         .map(this.extractData )
         .catch(this.handleError);
     }
+    RegisterDm(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'dm/create_dm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getVerifyAssistant(data){
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();

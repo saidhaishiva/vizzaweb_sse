@@ -382,6 +382,8 @@ export class HomeComponent implements OnInit {
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
+        console.log(this.fileDetails, 'this.lengthlength');
+
     }
     onUploadFinished(event) {
         this.allImage.push(event);
@@ -392,7 +394,6 @@ export class HomeComponent implements OnInit {
             'image_path': ''
         };
         let length = this.allImage.length-1;
-        console.log(length, 'this.lengthlength');
         for (let k = 0; k < this.allImage[length].length; k++) {
             this.fileDetails[k].image = this.allImage[length][k][1];
         }

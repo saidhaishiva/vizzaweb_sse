@@ -69,7 +69,7 @@ export class DmConfirmpasswordComponent implements OnInit {
             this.messagelink = false;
             this.formhide = true;
             this.toastr.success(successData.ResponseObject.msg, 'Success');
-            this.router.navigate(['/pos'])
+            this.router.navigate(['/dm-login'])
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
             this.settings.loadingSpinner = false;

@@ -80,6 +80,8 @@ export class PosEditComponent implements OnInit {
     public posDataAvailable : boolean;
     imagepath: any;
     size: any;
+    fileDetails: any;
+    allImage: any;
 
   constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe,
               public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService,
@@ -90,6 +92,7 @@ export class PosEditComponent implements OnInit {
       this.selectedtab = 0;
       this.nectStatus = true;
       this.today = new Date();
+      this.allImage = [];
       this.dob = '';
       this.dobError = '';
       this.mismatchError = '';
@@ -225,56 +228,57 @@ export class PosEditComponent implements OnInit {
         console.log(error);
     }
 //Image Upload service
-    onUploadFinished(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            "role_id": this.auth.getAdminRoleId(),
-            'uploadtype': 'single',
-            'images': this.getUrl,
-        };
-        console.log(data, 'dattattatata');
-        this.common.fileUpload(data).subscribe(
-            (successData) => {
-                this.fileUploadSuccess(successData);
-            },
-            (error) => {
-                this.fileUploadFailure(error);
-            }
-        );
-    }
-
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath =  successData.ResponseObject.imagePath;
-            if (this.type == 'aadhar front') {
-                this.aadharfront = this.fileUploadPath;
-            }
-            if (this.type == 'aadhar back') {
-                this.aadharback = this.fileUploadPath;
-            }
-            if (this.type == 'pancard') {
-                this.pancard = this.fileUploadPath;
-            }
-            if (this.type == 'education') {
-                this.education = this.fileUploadPath;
-            }
-            if (this.type == 'profile'){
-                this.profile = this.fileUploadPath;
-            }
-            if (this.type == 'chequeleaf'){
-                this.chequeleaf = this.fileUploadPath;
-            }
-            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-
-
-    }
-    public fileUploadFailure(error) {
-        console.log(error);
-    }
+//     onUploadFinished(event) {
+//         this.getUrl = event[1];
+//         const data = {
+//             'platform': 'web',
+//             "role_id": this.auth.getAdminRoleId(),
+//             'flag':'pos',
+//             'uploadtype': 'single',
+//             'images': this.getUrl,
+//         };
+//         console.log(data, 'dattattatata');
+//         this.common.fileUpload(data).subscribe(
+//             (successData) => {
+//                 this.fileUploadSuccess(successData);
+//             },
+//             (error) => {
+//                 this.fileUploadFailure(error);
+//             }
+//         );
+//     }
+//
+//     public fileUploadSuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             this.fileUploadPath =  successData.ResponseObject.imagePath;
+//             if (this.type == 'aadhar front') {
+//                 this.aadharfront = this.fileUploadPath;
+//             }
+//             if (this.type == 'aadhar back') {
+//                 this.aadharback = this.fileUploadPath;
+//             }
+//             if (this.type == 'pancard') {
+//                 this.pancard = this.fileUploadPath;
+//             }
+//             if (this.type == 'education') {
+//                 this.education = this.fileUploadPath;
+//             }
+//             if (this.type == 'profile'){
+//                 this.profile = this.fileUploadPath;
+//             }
+//             if (this.type == 'chequeleaf'){
+//                 this.chequeleaf = this.fileUploadPath;
+//             }
+//             console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
+//         } else {
+//             this.toastr.error(successData.ErrorObject, 'Failed');
+//         }
+//
+//
+//     }
+//     public fileUploadFailure(error) {
+//         console.log(error);
+//     }
 
     labSuccess(successData) {
         this.settings.loadingSpinner = false;
@@ -290,24 +294,124 @@ export class PosEditComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+    // readUrl(event: any, type) {
+    //     this.type = type;
+    //     this.size = event.srcElement.files[0].size;
+    //     console.log(this.size);
+    //     if (event.target.files && event.target.files[0]) {
+    //         const reader = new FileReader();
+    //
+    //         reader.onload = (event: any) => {
+    //             this.getUrl1 = [];
+    //             this.url = event.target.result;
+    //             this.getUrl = this.url.split(',');
+    //             this.getUrl1.push(this.url.split(','));
+    //             this.onUploadFinished(this.getUrl);
+    //
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
+    //
+    // }
     readUrl(event: any, type) {
         this.type = type;
-        this.size = event.srcElement.files[0].size;
-        console.log(this.size);
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
+        this.getUrl = '';
+        if (type == 'education') {
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+        } else {
+            this.size = event.srcElement.files[0].size;
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.getUrl1 = [];
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.getUrl1.push(this.url.split(','));
+                    this.onUploadFinished(this.getUrl);
 
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
 
+
+    }
+    onUploadFinished(event) {
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
+
+        const data = {
+            'platform': 'web',
+            'flag':'pos',
+            'uploadtype': '',
+            'images': ''
+        };
+        if (this.type == 'education') {
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
+            }
+            data.uploadtype = 'multiple';
+            data.images = this.fileDetails;
+        } else {
+            this.getUrl = event[1];
+            data.uploadtype = 'single';
+            data.images = this.getUrl;
+        }
+
+        console.log(data, 'dattattatata');
+        this.common.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath =  successData.ResponseObject.imagePath;
+            if (this.type == 'profile'){
+                this.profile = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar front') {
+                this.aadharfront = this.fileUploadPath;
+            }
+            if (this.type == 'aadhar back') {
+                this.aadharback = this.fileUploadPath;
+            }
+            if (this.type == 'pancard') {
+                this.pancard = this.fileUploadPath;
+            }
+            if (this.type == 'education') {
+                this.education = this.fileUploadPath;
+            }
+            if (this.type == 'chequeleaf') {
+                this.chequeleaf = this.fileUploadPath;
+            }
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+
+
+    }
+    public fileUploadFailure(error) {
+        console.log(error);
     }
 //Update admin pos profile
     updateAdminPosProfile(event){

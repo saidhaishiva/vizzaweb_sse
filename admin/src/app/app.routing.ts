@@ -84,7 +84,7 @@ export const routes: Routes = [
             { path: 'addcenter', component: AddcenterComponent, data: { breadcrumb: 'Add Center' } },
             { path: 'distance-marketing', component: DistanceMarketingComponent, data: { breadcrumb: 'Add Center' } },
             { path: 'dm-add', component: AddDmComponent, data: { breadcrumb: 'Add DM' } },
-            { path: 'dm-edit', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
+            { path: 'dm-edit/:id', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
             { path: 'dm-profile/:id/:status', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } }
 
 
