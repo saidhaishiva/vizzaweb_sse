@@ -36,9 +36,10 @@
                   [selected]="selected"
                   [selectionType]="'checkbox'">
 
-            <ngx-datatable-column name="Id">
+
+            <ngx-datatable-column name="S.No">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-               {{row.manager_id}}
+                <div>{{rowIndex+1}}</div>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Name">
