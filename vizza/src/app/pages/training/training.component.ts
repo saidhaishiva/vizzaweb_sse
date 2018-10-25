@@ -148,6 +148,8 @@ export class TrainingComponent implements OnInit {
                     dialogRef.disableClose = true;
                     dialogRef.afterClosed().subscribe(result => {
                         if (result) {
+                            sessionStorage.checkoutTime ='';
+                            sendMinutes = 1;
                             test.sendRemainingTime(sendMinutes, 'leftTime');
 
                         } else {
@@ -192,13 +194,16 @@ export class TrainingComponent implements OnInit {
                         sessionStorage.timeLeft = '';
                     }
                     if (getFulltime != '00:00:00') {
-                        if (sendMinutes >= 3) {
+                        if (seconds == '00') {
+                            sendMinutes = 1;
                             test.sendRemainingTime(sendMinutes, 'everyTime');
-                           sessionStorage.checkoutTime = '';
                         }
                     }
                 }
-                timeoutHandle=setTimeout(count, 1000);
+                timeoutHandle = setTimeout(()=>{
+                    count
+                },1000);
+                // setTimeout(count, 1000);
             }
 
         }
@@ -266,10 +271,10 @@ export class TrainingComponent implements OnInit {
     }
     public sendTimeSuccess(successData, status) {
         if (successData.IsSuccess) {
-            this.trainingCompleted = true;
             this.auth.setSessionData('trainingStatus', successData.ResponseObject.training_status);
             this.trainingStatus = successData.ResponseObject.training_status;
             if (successData.ResponseObject.training_status == 1) {
+                this.trainingCompleted = true;
                 // this.router.navigate(['/home']);
             }
             if (status == 'everyTime') {

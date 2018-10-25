@@ -34,13 +34,14 @@ export  class DmdeactivatetimeGuard implements CanDeactivate<DmTrainingComponent
         if (sendMinutes) {
             let remainingTime = parseInt(h) + parseInt(m);
             console.log(remainingTime, 'remainingTime');
-            sendMinutes = timeLeft - remainingTime;;
+            sendMinutes = timeLeft - remainingTime;
         } else {
             sendMinutes = timeLeft;
             sessionStorage.dmTimeLeft = '';
         }
         // end
         if (getFulltime != '00:00:00') {
+            sendMinutes = 1;
            training.sendRemainingTime(sendMinutes, 'leftTime');
         }
 
