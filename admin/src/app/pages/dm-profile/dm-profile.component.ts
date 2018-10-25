@@ -457,6 +457,7 @@ export class DmProfileComponent implements OnInit {
             'online_verification_notes': this.notes,
             'online_verification_message': this.comments,
             'dm_id': this.dmid,
+            'flag': 'dm',
             'dm_manager_id': this.posManager,
             'appointment_date': appointDate == undefined ? '' : appointDate,
             'agreement_filepath': this.fileDetails ? this.fileDetails : '',
