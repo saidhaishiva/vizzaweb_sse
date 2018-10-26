@@ -1338,5 +1338,12 @@ fieldset {
     -webkit-transform: rotateY(0deg); }
   to {
     -webkit-transform: rotateY(359deg); } }
+.about-vizza .card-header {
+  background: #28a745;
+  padding: 5px 20px; }
+  .about-vizza .card-header a {
+    color: #fff; }
+.about-vizza .card {
+  border: 1px solid #28a745; }
 
 /*# sourceMappingURL=style.css.map */

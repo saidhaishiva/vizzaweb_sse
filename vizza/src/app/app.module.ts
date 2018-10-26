@@ -142,6 +142,7 @@ import {CareerComponent} from './pages/career/career.component';
 import { DmForgotpasswordComponent } from './pages/dm-forgotpassword/dm-forgotpassword.component';
 import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import { AboutPosComponent } from './pages/about-pos/about-pos.component';
+import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -261,9 +262,9 @@ import { AboutPosComponent } from './pages/about-pos/about-pos.component';
       DmViewresultComponent,
       CareerComponent,
       AboutPosComponent,
-      CareerComponent,
       DmForgotpasswordComponent,
-      DmConfirmpasswordComponent
+      DmConfirmpasswordComponent,
+      AboutVizzaComponent
   ],
   providers: [
       AppSettings,
