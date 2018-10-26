@@ -104,10 +104,10 @@ export const horizontalMenuItems = [
     new Menu (35, 'Contact us', '/contact', null, null, null, false, 39),
     new Menu (38, 'Careers', '/careers', null, null, null, false, 39),
     new Menu (39, 'About us', '/', null, null, null, true, 0),
-    new Menu (45, 'Login', '/', null, null, null, true, 0),
-    new Menu (46, 'POS Login', '/pos', null, null, null, false, 45),
-    new Menu (47, 'Distance Marketing Login', '/dm-login', null, null, null, false, 45),
-    new Menu (48, 'Employee Login', null, 'https://vizzainsurance.com/admin', 'input', '_blank', false, 45)
+    // new Menu (45, 'Login', '/', null, null, null, true, 0),
+    // new Menu (46, 'POS Login', '/pos', null, null, null, false, 45),
+    // new Menu (47, 'Distance Marketing Login', '/dm-login', null, null, null, false, 45),
+    // new Menu (48, 'Employee Login', null, 'https://vizzainsurance.com/admin', 'input', '_blank', false, 45)
 
 
     // new Menu (3, 'UI Features', null, null, 'computer', null, false, 0),

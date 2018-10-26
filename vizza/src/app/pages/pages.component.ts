@@ -50,9 +50,11 @@ export class PagesComponent implements OnInit {
 
     logout(){
         this.router.navigate(['/home']);
-        sessionStorage.clear();
         this.settings.userId = 0;
         this.settings.username = '';
+         setTimeout(() => {
+             sessionStorage.clear();
+         },600);
     }
 
   ngAfterViewInit(){

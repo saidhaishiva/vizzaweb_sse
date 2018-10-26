@@ -200,10 +200,8 @@ export class TrainingComponent implements OnInit {
                         }
                     }
                 }
-                timeoutHandle = setTimeout(()=>{
-                    count
-                },1000);
-                // setTimeout(count, 1000);
+
+                setTimeout(count, 1000);
             }
 
         }
@@ -275,13 +273,14 @@ export class TrainingComponent implements OnInit {
             this.trainingStatus = successData.ResponseObject.training_status;
             if (successData.ResponseObject.training_status == 1) {
                 this.trainingCompleted = true;
+
                 // this.router.navigate(['/home']);
             }
-            if (status == 'everyTime') {
-                this.trainingTiming();
-            } else {
-
-            }
+            // if (status == 'everyTime') {
+            //     this.trainingTiming();
+            // } else {
+            //
+            // }
         }
     }
     public sendTimeTimingError(error) {
