@@ -1344,6 +1344,7 @@ fieldset {
   .about-vizza .card-header a {
     color: #fff; }
 .about-vizza .card {
-  border: 1px solid #28a745; }
+  border: 1px solid #28a745;
+  margin-bottom: 15px; }
 
 /*# sourceMappingURL=style.css.map */
