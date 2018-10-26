@@ -302,7 +302,7 @@
     </div>
     <div class="container mt-3 mb-4">
         <section class="row">
-            <div class="col-md-12 parther-slide">
+            <div class="col-md-12 partner-slide">
                 <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
                     <div ngxSlickItem *ngFor="let slide of slides" class="slide">
                         <img src="{{ slide.img }}" alt="" width="100%">
@@ -453,7 +453,7 @@
 
         <section class="row">
             <div class="f-social-icons w-100"  fxLayoutAlign="center center">
-                <ul>
+                <ul class="mb-0">
                     <li><a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-twitter"></i><span>Twitter</span></a></li>
                     <li><a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span></a></li>
                     <li><a href="https://www.linkedin.com/in/vizza-insurance-broking-services-317656167/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i><span>Linkedin</span></a></li>
@@ -466,11 +466,13 @@
             </div>
         </section>
     </div>
-    
+    <div id="mySidenav" class="sidenav">
+        <a routerLink="/contact" id="about" fxLayoutAlign="center center"><mat-icon class="mr-2" id="loading">mail_outline</mat-icon> Contact</a>
+    </div>
     <footer class="text-center">
         <ul class="irda" fxLayoutAlign="center center">
-            <li><p>Licensed by</p><span><img src="assets/img/partner/irda.png" alt=""></span></li>
-            <li><p>Member of</p><span><img src="assets/img/partner/irda1.png" alt="" style="padding-top: 11px"></span></li>
+            <li><p class="mt-0">Licensed by</p><span><img src="assets/img/partner/irda.png" alt=""></span></li>
+            <li><p class="mt-0">Member of</p><span><img src="assets/img/partner/irda1.png" alt="" style="padding-top: 11px"></span></li>
         </ul>
         <h5 class="font-weight-bold mb-0">VIZZA INSURANCE BROKING SERVICES PVT.LTD</h5>
         <h6 class="mb-0">IRDA LICENCE NO : IRDA / DB 543 / 13</h6>

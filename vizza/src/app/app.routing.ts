@@ -67,6 +67,7 @@ import {ReligareDownloadPolicyComponent} from './pages/religare-download-policy/
 import {DmdeactivatetimeGuard} from './shared/dmdeactivatetime-guard';
 import {DmexamdeactivatetimeGuard} from './shared/dmexamdeactivatetime-guard';
 import {CareerComponent} from './pages/career/career.component';
+import {AboutPosComponent} from './pages/about-pos/about-pos.component';
 import {DmForgotpasswordComponent} from './pages/dm-forgotpassword/dm-forgotpassword.component';
 import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmpassword.component';
 
@@ -146,6 +147,7 @@ export const routes: Routes = [
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
+            { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
 
         ]
     },

@@ -141,6 +141,7 @@ import { DmViewresultComponent } from './pages/dm-exam/dm-viewresult/dm-viewresu
 import {CareerComponent} from './pages/career/career.component';
 import { DmForgotpasswordComponent } from './pages/dm-forgotpassword/dm-forgotpassword.component';
 import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confirmpassword.component';
+import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -258,6 +259,8 @@ import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confir
       ReligareDownloadPolicyComponent,
       DmConfrimAlert,
       DmViewresultComponent,
+      CareerComponent,
+      AboutPosComponent
       CareerComponent,
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent

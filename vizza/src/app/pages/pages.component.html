@@ -15,6 +15,8 @@
                     <a *ngIf="settings.menu == 'vertical'" mat-raised-button color="accent" routerLink="/" (click)="closeSubMenus()" class="small-logo">V</a>
                     <a *ngIf="!settings.sidenavIsOpened" class="logo" routerLink="/" (click)="closeSubMenus()"><img alt=""  src="assets/img/vizza-logoNew.png" style="width: 250px;" ></a>
                 </div>
+
+
                 <mat-toolbar  *ngIf="settings.menu == 'horizontal'"
                              class="horizontal-menu flex-p-x">
                     <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
@@ -71,6 +73,17 @@
                         <!--<a href="https://www.youtube.com/channel/UCL6dApb7hpTyINrLLoHZY2w?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a>-->
                         <!--<a href="https://www.instagram.com/vizzainsurancebroking/" target="_blank"><i class="fab fa-instagram"></i></a>-->
                     <!--</div>-->
+
+                    <div class="dropdown h-login" [hidden]="settings.userId != 0">
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                            Login
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" routerLink="/pos"><i class="fas fa-sign-in-alt"></i> &nbsp; POS Login</a>
+                            <a class="dropdown-item" routerLink="/"><i class="fas fa-sign-in-alt"></i>&nbsp; Distance Marketing Login</a>
+                            <a class="dropdown-item" routerLink="https://vizzainsurance.com/admin/" target="_blank"><i class="fas fa-sign-in-alt"></i>&nbsp; Employee Login</a>
+                        </div>
+                    </div>
                     <!--<button mat-button color="primary" [matMenuTriggerFor]="menu" [hidden]="settings.userId != 0"><mat-icon> input</mat-icon> Login</button >-->
                     <!--<mat-menu #menu="matMenu">-->
                         <!--<button mat-menu-item routerLink="/pos"><mat-icon>arrow_right_alt</mat-icon> POS Login</button>-->
