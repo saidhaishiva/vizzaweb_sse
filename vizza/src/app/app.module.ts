@@ -260,7 +260,7 @@ import { AboutPosComponent } from './pages/about-pos/about-pos.component';
       DmConfrimAlert,
       DmViewresultComponent,
       CareerComponent,
-      AboutPosComponent
+      AboutPosComponent,
       CareerComponent,
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent
