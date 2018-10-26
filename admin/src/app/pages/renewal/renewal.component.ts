@@ -48,6 +48,9 @@ export class RenewalComponent implements OnInit {
         dialogRef.disableClose = true;
 
         dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.renewalDetails();
+            }
             console.log('The dialog was closed');
         });
     }

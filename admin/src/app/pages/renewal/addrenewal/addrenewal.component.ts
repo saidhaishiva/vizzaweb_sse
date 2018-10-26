@@ -198,7 +198,7 @@ export class AddrenewalComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
-            this.dialogRef.close();
+            this.dialogRef.close(true);
         } else {
             this.toastr.error(successData.ErrorObject);
         }
