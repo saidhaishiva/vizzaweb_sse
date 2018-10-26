@@ -37,8 +37,6 @@ import {PosmanagerComponent} from './pages/posmanager/posmanager.component';
 import {AddposmanagerComponent} from './pages/posmanager/addposmanager/addposmanager.component';
 import {PosEditComponent} from './pages/pos-edit/pos-edit.component';
 import {DmmanagerComponent} from './pages/dmmanager/dmmanager.component';
-import {DmComponent} from './pages/dm/dm.component';
-import {DmaddComponent} from './pages/dm/dmadd/dmadd.component';
 import {MediacenterComponent} from './pages/mediacenter/mediacenter.component';
 import {AddcenterComponent} from './pages/mediacenter/addcenter/addcenter.component';
 import {DistanceMarketingComponent} from './pages/distance-marketing/distance-marketing.component';
@@ -78,8 +76,6 @@ export const routes: Routes = [
             { path: 'adminlist', component: RenewalComponent, data: { breadcrumb: 'List' } },
             { path: 'addadmin', component: RenewalComponent, data: { breadcrumb: 'Add Admin' } },
             { path: 'dmmanager', component: DmmanagerComponent, data: { breadcrumb: 'DM Manager' } },
-            { path: 'dm', component: DmComponent, data: { breadcrumb: 'Dm List' } },
-            { path: 'dmadd', component: DmaddComponent, data: { breadcrumb: 'Add DM' } },
             { path: 'mediacenter', component: MediacenterComponent, data: { breadcrumb: 'Media Center' } },
             { path: 'addcenter', component: AddcenterComponent, data: { breadcrumb: 'Add Center' } },
             { path: 'distance-marketing', component: DistanceMarketingComponent, data: { breadcrumb: 'Add Center' } },

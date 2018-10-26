@@ -42,7 +42,7 @@
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <input matInput placeholder="Policy No" formControlName="insurepolicyno"  (keypress)="keyPress($event)">
+                  <input matInput placeholder="Policy No" formControlName="insurepolicyno"  >
                   <mat-error *ngIf="form.controls.insurepolicyno.errors?.required">Insurance Policy No is required</mat-error>
                 </mat-form-field>
               </div>
@@ -75,7 +75,7 @@
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
@@ -84,7 +84,7 @@
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
-                <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
               </div>
               <div class="col-md-12 text-center"><br>
                 <button mat-raised-button color="primary" (click)="renewal(form.value)">Submit</button>

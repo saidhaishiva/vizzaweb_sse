@@ -89,7 +89,7 @@ export class RenewalComponent implements OnInit {
     updateFilter(event) {
         const val = event.target.value.toLowerCase();
         const temp = this.temp.filter(function(d) {
-            return d.insure_name.toLowerCase().indexOf(val) !== -1 || !val;
+            return d.insure_name.toLowerCase().indexOf(val) !== -1 || d.insure_mobile.toLowerCase().indexOf(val) !== -1 || !val;
         });
         this.rows = temp;
         this.table.offset = 0;
@@ -115,7 +115,8 @@ export class RenewalComponent implements OnInit {
 
     public approveSuccess(success) {
         if (success.IsSuccess) {
-          this.toastr.success(success.ResponseObject);
+            this.renewalDetails();
+            this.toastr.success(success.ResponseObject);
         }
     }
     public approveFailure(error) {

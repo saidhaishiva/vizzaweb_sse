@@ -101,8 +101,6 @@ import { AddrenewalComponent } from './pages/renewal/addrenewal/addrenewal.compo
 import { DmmanagerComponent } from './pages/dmmanager/dmmanager.component';
 import { AdddmComponent } from './pages/dmmanager/adddm/adddm.component';
 import { EditdmComponent } from './pages/dmmanager/editdm/editdm.component';
-import { DmComponent } from './pages/dm/dm.component';
-import { DmaddComponent } from './pages/dm/dmadd/dmadd.component';
 import { MediacenterComponent} from './pages/mediacenter/mediacenter.component';
 import { AddcenterComponent } from './pages/mediacenter/addcenter/addcenter.component';
 import { DistanceMarketingComponent } from './pages/distance-marketing/distance-marketing.component';
@@ -196,8 +194,6 @@ import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.comp
         DmmanagerComponent,
         AdddmComponent,
         EditdmComponent,
-        DmComponent,
-        DmaddComponent,
         MediacenterComponent,
         AddcenterComponent,
         DistanceMarketingComponent,
