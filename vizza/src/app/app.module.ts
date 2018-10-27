@@ -143,6 +143,7 @@ import { DmForgotpasswordComponent } from './pages/dm-forgotpassword/dm-forgotpa
 import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
+import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -264,7 +265,8 @@ import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
       AboutPosComponent,
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent,
-      AboutVizzaComponent
+      AboutVizzaComponent,
+      DmChangepasswordComponent
   ],
   providers: [
       AppSettings,
@@ -287,7 +289,7 @@ import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, HealthInsurer
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
     ]
 })
 export class AppModule { }

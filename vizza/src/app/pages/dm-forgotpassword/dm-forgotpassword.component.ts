@@ -67,7 +67,7 @@ export class DmForgotpasswordComponent implements OnInit {
         this.response = successData;
         if(successData.IsSuccess) {
             this.toastr.success('OTP sent successfully');
-            this.router.navigate(['/confirmpassword']);
+            this.router.navigate(['/dm-confirmpassword']);
         }else{
             this.toastr.warning(successData.ErrorObject, 'Failed');
         }

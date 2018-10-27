@@ -172,26 +172,39 @@
                           <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                           <span class="ml-1"> {{personal.dm_email}}</span>
                         </p>
-                        <div>
-                          <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
-                            <span class="ml-1"> {{personal.dm_address1}}</span>
-                            <span *ngIf="personal.dm_address2 != ''">,</span>
-                            <span *ngIf="personal.dm_address2 != ''">{{personal.dm_address2}}</span>
-                            <span *ngIf="personal.dm_cityid != ''">,</span>
-                          </p>
+                          <!--<div class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>-->
 
-                          <p *ngIf="personal.dm_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.dm_cityid}}
+                                <!--<span class="ml-1"> {{personal.dm_address1}}</span><span *ngIf="personal.dm_address2 != ''">,</span><br>-->
+                                <!--<span class="ml-1" *ngIf="personal.dm_address2 != ''">{{personal.dm_address2}}</span>-->
+                                <!--<span *ngIf="personal.dm_cityid != ''">,</span>-->
+                                <!--<span *ngIf="personal.dm_cityid != null">-</span>-->
+                                <!--<span>{{personal.dm_postalcode}}</span>-->
+                                <!--<span *ngIf="personal.dm_stateid != ''">,</span>-->
+                                <!--<span>{{personal.dm_stateid}}</span>-->
+                                <!--<span *ngIf="personal.dm_countryid != ''">,</span>-->
+                                <!--<span>{{personal.dm_countryid}}</span>-->
+                          <!--</div>-->
+                        <p fxLayout="row" fxLayoutAlign="start center" >
+                          <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center" class="ml-class">
+                          {{personal.dm_address1}}
+                          <span *ngIf="personal.dm_address2 != ''">,</span>
+                        </p>
+                        <p *ngIf="personal.dm_address2 != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.dm_address2}}
+                          <span *ngIf="personal.dm_cityid != ''">,</span>
+                        </p>
+                          <p *ngIf="personal.dm_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.dm_cityid}}
                             <span *ngIf="personal.dm_cityid != null">-</span>
                             {{personal.dm_postalcode}}
                             <span *ngIf="personal.dm_stateid != ''">,</span>
                           </p>
-                          <p *ngIf="personal.dm_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.dm_stateid}}
+                          <p *ngIf="personal.dm_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.dm_stateid}}
                             <span *ngIf="personal.dm_countryid != ''">,</span>
                           </p>
-                          <p *ngIf="personal.dm_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.dm_countryid}}</p>
+                          <p *ngIf="personal.dm_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.dm_countryid}}</p>
                         </div>
-                      </div>
                     </mat-list>
                   </mat-card-content>
                 </mat-card>
@@ -1002,6 +1015,9 @@
 <style>
   .customCard {
     height: 250px !important;
+  }
+  .ml-class{
+    margin-left: 27px;
   }
 </style>
 

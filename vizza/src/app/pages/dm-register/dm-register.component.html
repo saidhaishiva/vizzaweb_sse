@@ -255,17 +255,17 @@
           </mat-tab>
           <mat-tab label="Bank Details" formGroupName="bankdetails">
             <mat-form-field class="w-100">
-              <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off">
+              <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off" required>
               <mat-icon matSuffix>account_balance</mat-icon>
               <mat-error *ngIf="form.controls.bankdetails['controls'].bankname.hasError('required')">Bank Name is required</mat-error>
             </mat-form-field>
             <mat-form-field class="w-100">
-              <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off">
+              <input matInput placeholder="Branch Name" (keypress)="data($event)" formControlName="bankbranch" autocomplete="off" required>
               <mat-icon matSuffix>account_balance</mat-icon>
               <mat-error *ngIf="form.controls.bankdetails['controls'].bankbranch.hasError('required')">Branch Name is required</mat-error>
             </mat-form-field>
             <mat-form-field class="w-100">
-              <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off">
+              <input matInput placeholder="IFSC Code" formControlName="ifsccode" minlength="11" maxlength="11" (keypress)="character($event)" autocomplete="off" required>
               <mat-icon matSuffix>account_balance</mat-icon>
               <mat-error *ngIf="form.controls.bankdetails['controls'].ifsccode.hasError('minlength')">IFSC Code Number should be Minimum 11 digits</mat-error>
               <mat-error *ngIf="form.controls.bankdetails['controls'].ifsccode.hasError('maxlength')">IFSC Code Number should be Maximum 11 digits</mat-error>
@@ -273,7 +273,7 @@
               <!--<mat-error *ngIf="form.controls.bankdetails.controls.ifsccode.hasError('pattern')">Enter Valid IFSC Code</mat-error>-->
             </mat-form-field>
             <mat-form-field class="w-100">
-              <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="25" minlength="8" autocomplete="off">
+              <input matInput placeholder="Account Number" formControlName="accountnumber" (keypress)="keyPress($event)" maxlength="25" minlength="8" autocomplete="off" required>
               <mat-icon matSuffix>account_balance</mat-icon>
               <mat-error *ngIf="form.controls.bankdetails['controls'].accountnumber.hasError('required')">Account Number details required</mat-error>
               <mat-error *ngIf="form.controls.bankdetails['controls'].accountnumber.hasError('minlength')">Account Number should be Minimum 8 digits</mat-error>

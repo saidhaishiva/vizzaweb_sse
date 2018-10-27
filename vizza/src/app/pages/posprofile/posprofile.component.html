@@ -173,25 +173,38 @@
                                                     <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                                                     <span class="ml-1"> {{personal.pos_email}}</span>
                                                 </p>
-                                                <div>
-                                                    <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
-                                                        <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
-                                                        <span class="ml-1"> {{personal.pos_address1}}</span>
-                                                        <span *ngIf="personal.pos_address2 != ''">,</span>
-                                                        <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
-                                                        <span *ngIf="personal.pos_cityid != ''">,</span>
-                                                    </p>
+                                                <!--<div>-->
+                                                    <!--<p class="text-capitalize" fxLayout="row" fxLayoutAlign="start start">-->
+                                                        <!--<mat-icon class="muted-text  colorBank">location_on</mat-icon><span class="colorBank" style="width: 65px;"> Address : </span>-->
+                                                        <!--<span>-->
+                                                        <!--<span class="ml-1"> {{personal.pos_address1}}</span>-->
+                                                        <!--<span *ngIf="personal.pos_address2 != ''">,</span>-->
+                                                        <!--<span class="ml-1" *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>-->
+                                                        <!--<span *ngIf="personal.pos_cityid != ''">,</span>-->
+                                                        <!--</span>-->
 
-                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.pos_cityid}}
+                                                    <!--</p>-->
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>
+                                                </p>
+                                                <p fxLayout="row" fxLayoutAlign="start center" class="ml-class">
+                                                    {{personal.pos_address1}}
+                                                    <span *ngIf="personal.pos_address2 != ''">,</span>
+                                                </p>
+                                                <p *ngIf="personal.pos_address2 != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.pos_address2}}
+                                                    <span *ngIf="personal.pos_cityid != ''">,</span>
+                                                </p>
+
+                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.pos_cityid}}
                                                         <span *ngIf="personal.pos_cityid != null">-</span>
                                                         {{personal.pos_postalcode}}
                                                         <span *ngIf="personal.pos_stateid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_stateid}}
+                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.pos_stateid}}
                                                         <span *ngIf="personal.pos_countryid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_countryid}}</p>
-                                                </div>
+                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.pos_countryid}}</p>
+                                                <!--</div>-->
                                             </div>
                                         </mat-list>
                                     </mat-card-content>
@@ -936,6 +949,9 @@
 <style>
     .customCard {
         height: 250px !important;
+    }
+    .ml-class{
+        margin-left: 27px;
     }
 </style>
 

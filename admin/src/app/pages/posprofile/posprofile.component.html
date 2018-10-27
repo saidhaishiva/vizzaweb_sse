@@ -28,11 +28,11 @@
                                     <i class="material-icons user-name">mail</i>  <strong class="user-name">Email : </strong>
                                     <span > {{posData.pos_email}}</span>
                                 </p>
-                                <p fxLayout="row" fxLayoutAlign="start center">
-                                    <i class="material-icons user-name">location_on</i>  <strong class="user-name">Address : </strong>
-                                    <span class="text-capitalize" >{{posData.pos_address1 | titlecase}}<span
-                                            [hidden]="posData.pos_address2 == ''">, </span>{{posData.pos_address2 | titlecase}}<span
-                                            [hidden]="posData.pos_postalcode == ''"> - </span><span >{{posData.pos_postalcode}}</span>
+                                <p fxLayout="row" fxLayoutAlign="start start">
+                                    <i class="material-icons user-name">location_on</i>  <strong class="user-name" style="width: 100px;">Address : </strong>
+                                    <span class="text-capitalize text-left" >{{posData.pos_address1 | titlecase}}<span
+                                            *ngIf="posData.pos_address2 != ''">, </span>{{posData.pos_address2 | titlecase}}<span
+                                            *ngIf="posData.pos_postalcode != ''"> - </span><span >{{posData.pos_postalcode}}</span>
                                     </span>
                                 </p>
                             </div>
