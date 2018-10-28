@@ -36,7 +36,8 @@
                           <div class="row" *ngIf="id === i">
                             <div class="col-md-12">
                               <div fxLayoutAlign="left start">
-                                <p class="text-justify">{{keys.kf_details}}</p>
+                                <!--<p class="text-justify">{{keys.kf_details}}</p>-->
+                                <div [innerHtml]="keys.kf_details"> </div>
                               </div>
                             </div>
                           </div>
@@ -67,7 +68,9 @@
                     <div class="row" *ngIf="keys.type == 2">
                       <div class="col-md-12">
                         <div fxLayoutAlign="left start">
-                          <p class="text-justify">{{keys.kf_details}}</p>
+                          <!--<p class="text-justify">{{keys.kf_details}}</p>-->
+                          <div [innerHtml]="keys.kf_details"> </div>
+
                         </div>
                       </div>
                     </div>

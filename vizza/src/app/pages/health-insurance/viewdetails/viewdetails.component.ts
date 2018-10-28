@@ -20,6 +20,7 @@ export class ViewdetailsComponent implements OnInit {
     productId : any;
     getKeyList : any;
     bgColor : any;
+    value : any;
     public settings: Settings;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
@@ -28,6 +29,7 @@ export class ViewdetailsComponent implements OnInit {
         this.productId = data;
         this.webhost = this.config.getimgUrl();
        // this.id = 0;
+        this.value = '<p>List</p><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li><li>Test 4</li></ul>';
   }
 
   ngOnInit() {
