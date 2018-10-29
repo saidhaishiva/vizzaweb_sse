@@ -6,10 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
-import {AdddmComponent} from '../dmmanager/adddm/adddm.component';
-import {AddcenterComponent} from './addcenter/addcenter.component';
-import {EditdmComponent} from '../dmmanager/editdm/editdm.component';
-import {EditmediaComponent} from './editmedia/editmedia.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-mediacenter',
@@ -31,7 +28,7 @@ export class MediacenterComponent implements OnInit {
     public settings: Settings;
     aaaaa: any;
     val: any;
-  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
 
 
   }
@@ -62,14 +59,14 @@ export class MediacenterComponent implements OnInit {
         this.loadingIndicator = false;
         if (success.IsSuccess) {
             this.data = success.ResponseObject;
-            for(let i=0; i<this.data.length; i++) {
-                let html = this.data[i].center;
-                let div = document.createElement("div");
-                div.innerHTML = html;
-                let text = div.textContent || div.innerText || "";
-              this.data[i].content = text;
-
-            }
+            // for(let i=0; i<this.data.length; i++) {
+            //     let html = this.data[i].center;
+            //     let div = document.createElement("div");
+            //     div.innerHTML = html;
+            //     let text = div.textContent || div.innerText || "";
+            //   this.data[i].content = text;
+            //
+            // }
             this.total = success.ResponseObject.length;
             this.rows = this.data;
             this.temp = this.data;
@@ -90,29 +87,31 @@ export class MediacenterComponent implements OnInit {
     public dmFailure(error) {
 
     }
-    speical(){
-        const dialogRef = this.dialog.open(AddcenterComponent, {
-            width: '800px'
-        });
-        dialogRef.afterClosed().subscribe(res => {
-            if (res) {
-                this.mediacenterList();
-            }
-
-        });
+    addMedia(){
+      this.router.navigate(['/add-mediacenter']);
+        // const dialogRef = this.dialog.open(AddcenterComponent, {
+        //     width: '1000px'
+        // });
+        // dialogRef.afterClosed().subscribe(res => {
+        //     if (res) {
+        //         this.mediacenterList();
+        //     }
+        //
+        // });
     }
     edit(row) {
-        const dialogRef = this.dialog.open(EditmediaComponent, {
-            width: '800px',
-            data: row,
 
-        });
-        dialogRef.afterClosed().subscribe(res => {
-            if (res) {
-                this.mediacenterList();
-            }
-
-        });
+        // const dialogRef = this.dialog.open(EditmediaComponent, {
+        //     width: '800px',
+        //     data: row,
+        //
+        // });
+        // dialogRef.afterClosed().subscribe(res => {
+        //     if (res) {
+        //         this.mediacenterList();
+        //     }
+        //
+        // });
     }
     delete(row) {
         const data = {
@@ -122,8 +121,6 @@ export class MediacenterComponent implements OnInit {
             'id': row.id
 
         };
-
-
         console.log(data);
         this.branchservice.deleteMedia(data).subscribe(
             (successData) => {
@@ -139,7 +136,6 @@ export class MediacenterComponent implements OnInit {
     public deleteSuccess(successData) {
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
-
             this.mediacenterList();
         } else {
             this.toastr.error(successData.ResponseObject);

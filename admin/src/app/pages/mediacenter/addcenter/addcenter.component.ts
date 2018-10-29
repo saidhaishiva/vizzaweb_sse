@@ -6,6 +6,8 @@ import {CommonService} from '../../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef} from '@angular/material';
 import {AuthService} from '../../../shared/services/auth.service';
+import {DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-addcenter',
@@ -14,7 +16,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 })
 export class AddcenterComponent implements OnInit {
     public form : FormGroup;
-webhost: any;
+    webhost: any;
     getUrl: any;
     image: any;
     getUrl1: any;
@@ -24,20 +26,24 @@ webhost: any;
     type: any;
     fileDetails: any;
     mediaimage: any;
+    refDateError: any;
+    postDateError: any;
     fileUploadPath: any;
-  constructor(public config: ConfigurationService, public auth: AuthService, public fb: FormBuilder,public common: CommonService,private toastr: ToastrService, public dialogRef: MatDialogRef<AddcenterComponent>) {
+    today: any;
+  constructor(public config: ConfigurationService, public auth: AuthService, public fb: FormBuilder,public common: CommonService,private toastr: ToastrService, public datepipe: DatePipe, public router: Router) {
       this.webhost = this.config.getimgUrl();
       this.mediaimage = '';
-      this.dialogRef.disableClose = true;
+      this.today = new Date();
 
-      this.form = this.fb.group({
-          'name': ['', Validators.compose([Validators.required])],
-          'profile': ['',Validators.compose( [Validators.required])]
+      this.form =  this.fb.group({
+          'referenceby': ['', Validators.required],
+          'referencedate': ['', Validators.required],
+          'postdays': ['', Validators.required],
+          'postdate':  ['', Validators.compose([Validators.required])],
+          'content':  ['', Validators.compose([Validators.required])]
       });
   }
-    close(): void {
-        this.dialogRef.close();
-    }
+
 
   ngOnInit() {
   }
@@ -95,33 +101,74 @@ webhost: any;
     public fileUploadFailure(error) {
         console.log(error);
     }
-add() {
-const data ={
-    'platform': 'web',
-    'role_id': this.auth.getAdminRoleId(),
-    'adminid': this.auth.getAdminId(),
-    'center': this.form.controls['name'].value,
-    'image_path': this.mediaimage
-}
-    console.log(data);
-    this.common.addCenter(data).subscribe(
-        (successData) => {
-            this.addCenterSuccess(successData);
-        },
-        (error) => {
-            this.addCenterFailure(error);
+    add() {
+        let rdate = this.datepipe.transform(this.form.controls['referencedate'].value, 'y-MM-dd');
+        let pdate = this.datepipe.transform(this.form.controls['postdate'].value, 'y-MM-dd');
+
+        const data ={
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            'content': this.form.controls['content'].value,
+            'refrence_date':rdate,
+            'refrence_by': this.form.controls['referenceby'].value,
+            'publish_date': pdate,
+            'post_days': this.form.controls['postdays'].value
         }
-    );
-}
-public addCenterSuccess(successData) {
-    if (successData.IsSuccess) {
-        this.toastr.success(successData.ResponseObject);
-        this.dialogRef.close(true);
+        console.log(data);
+        this.common.addCenter(data).subscribe(
+            (successData) => {
+                this.addCenterSuccess(successData);
+            },
+            (error) => {
+                this.addCenterFailure(error);
+            }
+        );
     }
-}
-public addCenterFailure(error) {
-    console.log(error);
-}
+    public addCenterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.router.navigate(['/mediacenter']);
+        }
+    }
+    public addCenterFailure(error) {
+        console.log(error);
+    }
+    chooseDate(event, type) {
+        console.log(event, 'event');
+        // this.maxDate = '';
+        if (event.value != null) {
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (type == 'refDate') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.refDateError = '';
+                    } else {
+                        this.refDateError = 'Enter Valid Date';
+                    }
+                    let selectedDate;
+                    selectedDate = event.value._i;
+                } else {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.postDateError = '';
+                    } else {
+                        this.postDateError = 'Enter Valid Date';
+                    }
+                    let selectedDate;
+                    selectedDate = event.value._i;
+                }
+
+            } else if (typeof event.value._i == 'object') {
+                if (type == 'postDate') {
+                    this.refDateError = '';
+                } else {
+                    this.postDateError = '';
+
+                }
+            }
+        }
+    }
+
 
 
 }

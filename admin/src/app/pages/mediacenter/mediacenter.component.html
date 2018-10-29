@@ -1,5 +1,5 @@
 <div class="flex-p text-right">
-  <button mat-raised-button color="primary" type="button" class="button-right" (click)="speical()"><i class="material-icons">
+  <button mat-raised-button color="primary" type="button" class="button-right" (click)="addMedia()"><i class="material-icons">
     add
   </i> Add</button>
 
@@ -42,21 +42,33 @@
                 <div>{{rowIndex+1}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Image Path">
+            <ngx-datatable-column name="Content">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.image_path}}
+                <div [innerHtml]="row.content">
+                </div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Center">
+            <ngx-datatable-column name="Reference By">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-              {{row.content}}
+              {{row.refrence_by}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Status">
+            <ngx-datatable-column name="Reference Date">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.status}}
+                {{row.refrence_date | date:'dd-MMM-yy'}}
               </ng-template>
-            </ngx-datatable-column>            <ngx-datatable-column name="Action">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Publish Date">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+              {{row.publish_date | date:'dd-MMM-yy'}}
+            </ng-template>
+          </ngx-datatable-column>
+            <ngx-datatable-column name="Publish Days">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.post_days}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
                   edit

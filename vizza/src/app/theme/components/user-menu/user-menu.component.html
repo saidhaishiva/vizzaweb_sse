@@ -12,23 +12,21 @@
                    <!--<p>{{settings.username | uppercase}}  </p>-->
                <!--</div>-->
            <!--</mat-toolbar>-->
-            <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
+            <a mat-menu-item routerLink="settings">
                 <mat-icon class="matIclass">person</mat-icon>
-                <!--<i class="material-icons">remove_red_eye</i>-->
                 <span class="color-blue" >{{settings.username | uppercase}}</span>
             </a>
         <div *ngIf="loginStatus == 'pos'">
            <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
                <mat-icon class="matIclass">remove_red_eye</mat-icon>
                <!--<i class="material-icons">remove_red_eye</i>-->
-               <span class="color-blue" >View Profile</span>
+               <span class="color-blue" >My Profile</span>
            </a>
         </div>
         <div  *ngIf="loginStatus == 'dm'">
             <a mat-menu-item routerLink="settings" [routerLink]="['/dm-profile']">
                 <mat-icon class="matIclass">remove_red_eye</mat-icon>
-                <!--<i class="material-icons">remove_red_eye</i>-->
-                <span class="color-blue" >View Profile</span>
+                <span class="color-blue" >My Profile</span>
             </a>
         </div>
         <a mat-menu-item (click)="passwordChange()">
