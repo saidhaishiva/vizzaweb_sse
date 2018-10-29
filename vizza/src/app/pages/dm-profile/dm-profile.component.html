@@ -861,17 +861,17 @@
                       </div>
                       <div class="col-md-9 off-pos">
                         <h1 class="c-font">Certification</h1>
-                        <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
+                        <h5 class="w-100 text-right"><span>OF ONLINE DISTANCE MARKETING TRAINING</span></h5>
                       </div>
                     </section>
                     <section class="row mt-5">
                       <div class="c-content w-100 text-justify">
                         <h5 class="c-title"><span>This is to certify that</span></h5>
-                        <p> <strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}} </strong> has attended 15 hours of Online
-                          Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
+                        <p> <strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}} </strong> has attended 25 hours of Online
+                          Training Programme for the Distance Marketing Person, as per the Regulation, 2017 of
                           Insurance Regulatory and Development Authority.</p>
-                        <p>The Said Candidate, had registered for the online training program on
-                          {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 15 hours of POS’P Online Training on
+                        <p><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}}, had registered for the online training program on
+                          {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 25 hours of Distance Marketing Online Training on
                           {{personal.training_completed_date | date:'dd-MMM-yy'}}</p>
                       </div>
                     </section>
@@ -887,8 +887,8 @@
                             <td>{{personal.training_completed_date | date:'dd-MMM-yy' }}</td>
                           </tr>
                           <tr>
-                            <td>POS’P ID:</td>
-                            <td>VIZAA/POS'P/{{personal.dm_id}}</td>
+                            <td>DM ID:</td>
+                            <td>VIZAA/DM/{{personal.dm_id}}</td>
                           </tr>
                         </table>
                       </div>
@@ -932,17 +932,17 @@
                       </div>
                       <div class="col-md-9">
                         <h1 class="c-font">Certificate</h1>
-                        <h5 class="w-100 text-right"><span>Of Qualification for POS’P Examination</span></h5>
+                        <h5 class="w-100 text-right"><span>Of Qualification for Distance Marketing Examination</span></h5>
                       </div>
                     </section>
                     <section class="row mt-5">
                       <div class="c-content text-center w-100">
                         <h5 class="c-title"><span>This is to certify that</span></h5>
                         <p><strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}}</strong></p>
-                        <p>passed the Point of Sales Person Examination held on</p>
+                        <p>passed the Distance Marketing Person Examination held on</p>
                         <p>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</p>
                         <p>and qualified under the stream of</p>
-                        <p><strong>Point of Sales Person</strong></p>
+                        <p><strong>Distance Marketing Person</strong></p>
                         <p>as per regulations 2017 of</p>
                         <p><strong>Insurance Regulatory and Development Authority</strong></p>
                       </div>
@@ -959,8 +959,8 @@
                             <td>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</td>
                           </tr>
                           <tr>
-                            <td>POS’P ID:</td>
-                            <td>VIZAA/POS'P/{{personal.dm_id}}</td>
+                            <td>DM ID:</td>
+                            <td>VIZAA/DM/{{personal.dm_id}}</td>
                           </tr>
                         </table>
                       </div>

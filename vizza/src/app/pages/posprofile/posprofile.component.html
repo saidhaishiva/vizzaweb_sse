@@ -701,8 +701,8 @@
                                                             <td>{{personal.appointment_date | date:'dd-MMM-yy'}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>POS’P ID:</td>
-                                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                            <td>POSP ID:</td>
+                                                            <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
@@ -801,10 +801,10 @@
                                     <section class="row mt-5">
                                         <div class="c-content w-100 text-justify">
                                             <h5 class="c-title"><span>This is to certify that</span></h5>
-                                            <p> <strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                            <p><strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
-                                            <p>The Said Candidate, had registered for the online training program on
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}, had registered for the online training program on
                                                 {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 15 hours of POS’P Online Training on
                                                 {{personal.training_completed_date | date:'dd-MMM-yy'}}</p>
                                         </div>
@@ -821,15 +821,15 @@
                                                     <td>{{personal.training_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID:</td>
-                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                    <td>POSP ID:</td>
+                                                    <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </section>
                                     <footer class="row mt-5 print-sign">
                                         <div class="col-md-12 text-center">
-                                            <p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>
+                                            <p><img src="assets/img/vignesh-sign.png" width="100px" alt=""></p>
                                             <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
                                             <p class="mb-0">Head - Corporate</p>
                                             <p class="mb-0">(Authorised Signatory)</p>
@@ -893,8 +893,8 @@
                                                     <td>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID:</td>
-                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                    <td>POSP ID:</td>
+                                                    <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
