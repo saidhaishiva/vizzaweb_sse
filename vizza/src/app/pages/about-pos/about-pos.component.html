@@ -1,12 +1,11 @@
 <div class="container about-pos">
   <div class="row">
-    <div class="col-md-6"><h4 class="w-100 text-left">About POS</h4></div>
-    <div class="col-md-6 text-right"><button mat-raised-button class="mb-4" color="primary" routerLink="/pos">POS Login</button></div>
+    <h4 class="w-100 text-center">About POS</h4>
+    <!--<div class="col-md-6 text-right"><button mat-raised-button class="mb-4" color="primary" routerLink="/pos">POS Login</button></div>-->
   </div>
 
   <div class="row">
-    <mat-accordion>
-
+      <mat-accordion class="example-headers-align">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -26,7 +25,8 @@
         </mat-expansion-panel-header>
         <ol><li>The minimum age required to become a POS Person is 18 years.</li>
           <li>The minimum educational qualification required to become a POS Person isClass X (10th Standard). </li>
-          <li>The POSP Applicant should not have any existing Insurance Agency/Broking License/POS Person of any other Insurance/ Intermediary Organization.</li></ol>
+          <li>The POSP Applicant should not have any existing Insurance Agency/Broking License/POS Person of any other Insurance/ Intermediary Organization.</li>
+        </ol>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
@@ -55,7 +55,7 @@
             <h6>The DO’s and DON’T s of POS Person</h6>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <strong>DO’s</strong>
+        <strong class="text-center">DO’s</strong>
         <ol><li>Every POS Person should identify himself and the Broking Company he is representing.</li>
           <li>Show the POS certificate to the prospect on demand.</li>
           <li>Disseminate the required information in respect of insurance products offered for sale by various insurance companies and consider the needs of the prospect while recommending a specific product.</li>
@@ -125,3 +125,8 @@
     </mat-accordion>
   </div>
 </div>
+<style>
+  ol, ul {
+    margin-left: 17px !important;;
+  }
+</style>

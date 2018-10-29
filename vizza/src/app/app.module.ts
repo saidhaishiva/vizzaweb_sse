@@ -144,6 +144,7 @@ import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confir
 import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
 import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
+import { MediaCenterComponent } from './pages/media-center/media-center.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -266,7 +267,8 @@ import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepa
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent,
       AboutVizzaComponent,
-      DmChangepasswordComponent
+      DmChangepasswordComponent,
+      MediaCenterComponent
   ],
   providers: [
       AppSettings,
