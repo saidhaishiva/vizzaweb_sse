@@ -26,7 +26,6 @@ export class MediacenterComponent implements OnInit {
     public status: any;
     public total: any;
     public settings: Settings;
-    aaaaa: any;
     val: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
 
@@ -100,6 +99,10 @@ export class MediacenterComponent implements OnInit {
         // });
     }
     edit(row) {
+        // this.router.navigate(['/edit-mediacenter'+'/'+row.id]);
+        console.log(row.id);
+        this.router.navigate(['/edit-mediacenter/' + row.id]);
+
 
         // const dialogRef = this.dialog.open(EditmediaComponent, {
         //     width: '800px',
