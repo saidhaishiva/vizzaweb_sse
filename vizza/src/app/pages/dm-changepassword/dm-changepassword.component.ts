@@ -25,7 +25,6 @@ export class DmChangepasswordComponent implements OnInit {
     constructor(public auth: AuthService, public toast: ToastrService, public common: CommonService, public dialogRef: MatDialogRef<ChangepasswordComponent>, public fb: FormBuilder, public appSettings:AppSettings, public router:Router) {
         this.settings = this.appSettings.settings;
         this.dialogRef.disableClose = true;
-        console.log(this.settings);
         this.form = this.fb.group({
             currentpassword: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             password: ['', Validators.compose([Validators.required])],
@@ -59,7 +58,6 @@ export class DmChangepasswordComponent implements OnInit {
         );
     }
     updatePasswordSuccess(successData) {
-        console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toast.success(successData.ResponseObject, 'Success');

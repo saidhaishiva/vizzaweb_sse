@@ -98,7 +98,6 @@ export class DmExamComponent implements OnInit {
     }
     public getQuestionListsSuccess(successData) {
         if (successData.IsSuccess) {
-            console.log(successData);
             let options = [];
             this.questionLists = successData.ResponseObject;
             for (let i = 0; i < this.questionLists.length; i++) {
@@ -109,7 +108,6 @@ export class DmExamComponent implements OnInit {
                     this.questionLists[i].optionlist = options;
                 }
             }
-            console.log(this.questionLists, 'this.allQuestionLists');
         }
     }
     public getQuestionListsError(error) {
@@ -129,7 +127,6 @@ export class DmExamComponent implements OnInit {
             }
         }
         let total = this.selectedData.filter(data => data.answer == '');
-        console.log(total.length, 'lp');
         sessionStorage.unAnsweredQuestions = total.length;
 
         let dialogRef = this.dialog.open(DmConfrimAlert, {
@@ -138,7 +135,6 @@ export class DmExamComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                console.log(this.selectedData, 'pop');
                 const data = {
                     'platform': 'web',
                     'dm_id': this.auth.getDmUserId(),
@@ -160,7 +156,6 @@ export class DmExamComponent implements OnInit {
     }
     public submitExamSuccess(successData) {
         this.settings.loadingSpinner = false;
-        console.log(successData, 'successData');
         if (successData.IsSuccess) {
             sessionStorage.dmExamBack = 1;
             sessionStorage.dmAllQuestions = successData.ResponseObject.all_question_count;
@@ -202,7 +197,6 @@ export class DmConfrimAlert {
     constructor(
         public dialogRef: MatDialogRef<DmConfrimAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        console.log(data, 'data');
         this.total = data.total;
         this.expiredStatus = data.expired;
         if (this.expiredStatus) {

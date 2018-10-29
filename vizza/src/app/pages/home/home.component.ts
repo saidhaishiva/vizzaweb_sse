@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = true;
        this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
-      console.log(this.settings, 'this.settings');
       this.commentBox = false;
       this.selectDate = '';
       this.fileUploadPath = '';
@@ -185,12 +184,10 @@ export class HomeComponent implements OnInit {
     slideConfig2 = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0, "rtl": true};
 
     addEvent(event) {
-      console.log(event, 'chek dateeeeee');
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
     chooseDate(event, type) {
-        console.log(event, 'event');
         this.maxDate = '';
         if (event.value != null) {
             if (typeof event.value._i == 'string') {
@@ -202,7 +199,6 @@ export class HomeComponent implements OnInit {
                 }
                 let selectedDate;
                 selectedDate = event.value._i;
-                console.log(selectedDate, 'selectedDate');
 
                 if (selectedDate.length == 10) {
                     if (type == 'sDate') {
@@ -211,12 +207,10 @@ export class HomeComponent implements OnInit {
                 }
             } else if (typeof event.value._i == 'object') {
                 this.dateError = '';
-                console.log(event.value, 'event.value');
                 if (type == 'sDate') {
                     this.maxDate = event.value;
                 }
             }
-            console.log(this.maxDate, 'maxDate22');
         }
     }
 
@@ -257,7 +251,6 @@ export class HomeComponent implements OnInit {
     public testimonialListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.testimonialLists = successData.ResponseObject;
-            console.log(this.testimonialLists);
 
         }
     }
@@ -298,7 +291,6 @@ export class HomeComponent implements OnInit {
             "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
             "insure_company_type_id": cid
         };
-        console.log(data, 'data');
         this.common.getcompanyList(data).subscribe(
             (successData) => {
                 this.setcompanyListSuccess(successData);
@@ -339,7 +331,6 @@ export class HomeComponent implements OnInit {
                 'insure_company_name': this.form.controls['insurecompanyname'].value,
                 'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
             };
-            console.log(data,'datadata');
 
             this.common.policyRenewal(data).subscribe(
                 (successData) => {
@@ -352,7 +343,6 @@ export class HomeComponent implements OnInit {
         }
     }
     policyRenewalSuccess(successData) {
-        console.log(successData);
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             this.form =  this.fb.group({
@@ -402,7 +392,6 @@ export class HomeComponent implements OnInit {
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
-        console.log(this.fileDetails, 'this.lengthlength');
 
     }
     onUploadFinished(event) {
@@ -418,7 +407,6 @@ export class HomeComponent implements OnInit {
             this.fileDetails[k].image = this.allImage[length][k][1];
         }
         data.image_path = this.fileDetails;
-        console.log(data, 'dattattatata');
         this.common.fileUploadPolicy(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
