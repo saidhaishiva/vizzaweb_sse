@@ -81,6 +81,7 @@ export class PosComponent implements OnInit {
             this.authService.setSessionData('examStatus', this.data.exam_status);
             this.authService.setSessionData('documentStatus', this.data.doc_verified_status);
             this.authService.setSessionData('loginStatus', 'pos');
+            this.settings.myprofile = 'pos';
 
             // training_status
             this.settings.userId = this.authService.getPosUserId();

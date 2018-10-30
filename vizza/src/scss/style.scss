@@ -1163,8 +1163,12 @@ a:hover {
     font-size: 22px;
   }
   form{
-    padding: 20px 0;
-    background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%);
+    padding: 30px 0;
+    //background-color: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%);
+    background: #ffcccc;
+    background-image: url("assets/img/home/alarm-renewal-dark.png");
+    background-position: 50% 50%;
+    background-repeat:no-repeat;
   }
   .input-group-addon{
     color: #fff;
