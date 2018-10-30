@@ -16,20 +16,20 @@
                 <mat-icon class="matIclass">person</mat-icon>
                 <span class="color-blue" >{{settings.username | uppercase}}</span>
             </a>
-        <div *ngIf="loginStatus == 'pos'">
+        <div *ngIf="settings.myprofile == 'pos'">
            <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
                <mat-icon class="matIclass">remove_red_eye</mat-icon>
                <!--<i class="material-icons">remove_red_eye</i>-->
                <span class="color-blue" >My Profile</span>
            </a>
         </div>
-        <div  *ngIf="loginStatus == 'dm'">
+        <div  *ngIf="settings.myprofile == 'dm'">
             <a mat-menu-item routerLink="settings" [routerLink]="['/dm-profile']">
                 <mat-icon class="matIclass">remove_red_eye</mat-icon>
                 <span class="color-blue" >My Profile</span>
             </a>
         </div>
-        <a mat-menu-item (click)="passwordChange()">
+        <a mat-menu-item (click)="passwordChange(settings.myprofile)">
             <mat-icon class="matIclass">lock</mat-icon>
             <span class="color-blue">Change Password</span>
         </a>

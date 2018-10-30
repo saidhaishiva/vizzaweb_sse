@@ -26,10 +26,12 @@ export class UserMenuComponent implements OnInit {
           this.firstname = this.auth.getPosFirstName();
           this.lastname = this.auth.getPosLastName();
           this.settings.username =  this.firstname +' '+ this.lastname;
+          this.settings.myprofile = this.loginStatus;
       } else if(this.loginStatus == 'dm') {
           this.firstname = this.auth.getDmFirstName();
           this.lastname = this.auth.getDmLastName();
           this.settings.username =  this.firstname +' '+ this.lastname;
+          this.settings.myprofile = this.loginStatus;
       }
 
   }
@@ -48,14 +50,15 @@ export class UserMenuComponent implements OnInit {
       },700);
 
     }
-    passwordChange() {
-        if(this.loginStatus == 'pos') {
+    passwordChange(status) {
+      console.log(status, 'oo');
+        if(status == 'pos') {
             let dialogRef = this.dialog.open(ChangepasswordComponent, {
                 width: '600px'
             });
             dialogRef.afterClosed().subscribe( user => {});
 
-        } else if(this.loginStatus == 'dm') {
+        } else if(status == 'dm') {
             let dialogRef = this.dialog.open(DmChangepasswordComponent, {
                 width: '600px'
             });
