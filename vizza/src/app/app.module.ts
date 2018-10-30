@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // import { ImageUploadModule } from "angular2-image-upload";
 
 // services
@@ -145,6 +147,7 @@ import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
 import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
 import { MediaCenterComponent } from './pages/media-center/media-center.component';
+import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -156,6 +159,7 @@ import { MediaCenterComponent } from './pages/media-center/media-center.componen
       HttpModule,
       NgxDatatableModule,
       NgxChartsModule,
+      NgxPaginationModule,
       PdfViewerModule,
       ScrollToModule.forRoot(),
       SlickModule.forRoot(),
@@ -268,7 +272,8 @@ import { MediaCenterComponent } from './pages/media-center/media-center.componen
       DmConfirmpasswordComponent,
       AboutVizzaComponent,
       DmChangepasswordComponent,
-      MediaCenterComponent
+      MediaCenterComponent,
+      ViewmediaComponent
   ],
   providers: [
       AppSettings,
