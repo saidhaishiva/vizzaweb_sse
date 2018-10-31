@@ -28,10 +28,10 @@
 
 
 <div fxLayout="row wrap">
-    <div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 5, currentPage: page }" fxFlex="100" class="flex-p">
+    <div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 2, currentPage: page }" fxFlex="100" class="flex-p">
         <mat-card class="p-0">
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h3 class="user-name">Media Center</h3>
+                <h5 class="user-name">Media Center</h5>
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -58,35 +58,31 @@
                 <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            <span> {{user.content}}</span>
+                            Status: {{user.status}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            <span> Post Days:{{user.post_days}}</span>
+                             Post Days:{{user.post_days}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon class="muted-text">attach_money</mat-icon>
-                            <span>{{items.created_date}}</span>
+                            Created Date:{{user.created_date}}
                         </p>
                     </div>
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon class="muted-text">mail_outline</mat-icon>
-                            <span>{{items.status}}</span>
+                         Reference Date: {{user.refrence_date}}
                         </p>
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<mat-icon class="muted-text">call</mat-icon>-->
-                            <!--<span>user.contacts.phone</span>-->
-                        <!--</p>-->
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<mat-icon class="muted-text">location_on</mat-icon>-->
-                            <!--<span>user.contacts.address</span>-->
-                        <!--</p>-->
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                        <span (click)="redirect()"> Content:{{user.content}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            Reference By:{{user.refrence_by}}
+                        </p>
                     </div>
 
                 </div>
             </div>
         </mat-card>
-    </div>
+    </div>s
 </div>
 
 <div *ngIf="response" fxLayout="row wrap">

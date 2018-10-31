@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -167,7 +168,8 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
     }),
     PerfectScrollbarModule,
     CalendarModule.forRoot(),
-    SharedModule,
+      NgxPaginationModule,
+      SharedModule,
     PipesModule,
       NgxMaterialTimepickerModule.forRoot(),
       AmazingTimePickerModule,

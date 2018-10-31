@@ -18,7 +18,7 @@ export class MediaCenterComponent implements OnInit {
     public page:any;
     public response:any;
     public settings: Settings;
-    constructor(public appSettings:AppSettings, public common: CommonService){
+    constructor(public appSettings:AppSettings, public common: CommonService, public router: Router){
         this.settings = this.appSettings.settings;
     }
 
@@ -52,10 +52,10 @@ export class MediaCenterComponent implements OnInit {
     updateFailure(error) {
         console.log(error);
     }
-    // redirect(){
-    //     this.router.navigate(['/viewmedia']);
-    //
-    // }
+    redirect(){
+        this.router.navigate(['/viewmedia']);
+
+    }
     public onPageChanged(event){
         this.page = event;
         if(this.settings.fixedHeader){
