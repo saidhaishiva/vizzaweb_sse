@@ -122,6 +122,7 @@ export class RelianceComponent implements OnInit {
     public coverTypeList: any;
 public minDate: any;
 public maxDate: any;
+public RediretUrlLink: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
          const minDate = new Date();
@@ -357,12 +358,19 @@ public maxDate: any;
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
-                            'IsExistingIllness': this.insurerData[i].IsExistingIllness,
-                            'DiseaseList': this.insurerData[i].DiseaseID,
-                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco,
-                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured,
+                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'Yes' ? 'true' : 'false',
+                            'DiseaseList': {
+                                'DiseaseDetail': {
+                                    'DiseaseID': this.insurerData[i].DiseaseID,
+                                    'SufferingSince': '',
+                                    'OtherDisease': ''
+                                }
+                            },
+
+                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco == 'Yes' ? 'true' : 'false',
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured == 'Yes' ? 'true' : 'false',
                             'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
-                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled == 'Yes' ? 'true' : 'false'
                         },
                         'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
@@ -831,7 +839,6 @@ public maxDate: any;
         this.setPincode = successData.ResponseObject;
         if (this.title == 'proposalP') {
             if (successData.IsSuccess) {
-                alert('true');
                 this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
                 this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
                 this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
@@ -840,7 +847,6 @@ public maxDate: any;
                 this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
                 this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
             } else {
-                alert('false');
                 this.toastr.error('In valid Pincode');
                 this.personal['controls'].personalState.patchValue('');
                 this.personal['controls'].personalDistrict.patchValue('');
@@ -1014,9 +1020,13 @@ public maxDate: any;
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            //this.toastr.success('Proposal created successfully!!');
-            this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
+            if(successData.ResponseObject.ErrorMessages.ErrMessages == ''){
+                this.toastr.success('Proposal created successfully!!');
+            } else{
+                this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
+            }
             this.summaryData = successData.ResponseObject;
+            this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();

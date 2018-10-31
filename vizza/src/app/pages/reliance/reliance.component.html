@@ -845,11 +845,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <form action={{summaryData.action}}  method='post' #form>
-                                    <div>
-                                        <input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>
-                                        <input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>
-                                    </div>
+                                <form action={{RediretUrlLink}} method='post' #form>
                                     <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>
                             </div>
