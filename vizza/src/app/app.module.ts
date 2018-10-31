@@ -159,7 +159,6 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       HttpModule,
       NgxDatatableModule,
       NgxPaginationModule,
-
       NgxChartsModule,
       PdfViewerModule,
       ScrollToModule.forRoot(),
