@@ -79,6 +79,7 @@ import { BranchmanagerComponent} from './pages/branchmanager/branchmanager.compo
 import { BranchService} from './shared/services/branch.service';
 import { AddbranchmanagerComponent } from './pages/branchmanager/addbranchmanager/addbranchmanager.component';
 import {DatePipe} from '@angular/common';
+import {SafePipe} from '../../../vizza/src/safepipe';
 import { SalesmanagerComponent } from './pages/salesmanager/salesmanager.component';
 import { AddsalesmanagerComponent } from './pages/salesmanager/addsalesmanager/addsalesmanager.component';
 import { RelationalComponent } from './pages/relational/relational.component';
@@ -201,7 +202,8 @@ import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.comp
         ViewDocumentsComponent,
         AddDmComponent,
         EditDmComponent,
-        EditmediaComponent
+        EditmediaComponent,
+        SafePipe
     ],
     providers: [
         AppSettings,

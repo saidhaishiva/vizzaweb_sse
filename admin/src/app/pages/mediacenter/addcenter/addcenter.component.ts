@@ -101,7 +101,7 @@ export class AddcenterComponent implements OnInit {
     public fileUploadFailure(error) {
         console.log(error);
     }
-    add() {
+    add(val) {
         let rdate = this.datepipe.transform(this.form.controls['referencedate'].value, 'y-MM-dd');
         let pdate = this.datepipe.transform(this.form.controls['postdate'].value, 'y-MM-dd');
 
