@@ -72,11 +72,8 @@
                     <div class="row" *ngIf="id1 == i">
                       <div class="col-md-12">
                         <div fxLayoutAlign="center center">
-                          <iframe src="assets/img/sample-file.pdf" width="476" height="288" ></iframe>
+                          <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="476" height="288" ></iframe>
                         </div>
-
-                        <iframe src="{{webhost + testPath}}" width="476" height="288" ></iframe>
-
                       </div>
                     </div>
                   </div>

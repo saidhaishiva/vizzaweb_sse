@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { SafePipe} from '../safepipe';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
@@ -168,8 +169,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
     }),
     PerfectScrollbarModule,
     CalendarModule.forRoot(),
-      NgxPaginationModule,
-      SharedModule,
+    SharedModule,
     PipesModule,
       NgxMaterialTimepickerModule.forRoot(),
       AmazingTimePickerModule,
@@ -273,6 +273,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       AboutVizzaComponent,
       DmChangepasswordComponent,
       MediaCenterComponent,
+      SafePipe,
       ViewmediaComponent
   ],
   providers: [
