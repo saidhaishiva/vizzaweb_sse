@@ -14,7 +14,7 @@
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <input matInput [matDatepicker]="picker" placeholder="Reference date(DD/MM/YYYY)" [min]="today"  formControlName="referencedate" (dateInput)="chooseDate($event, 'refDate')"  (dateChange)="chooseDate($event, 'refDate')"  >
+                  <input matInput [matDatepicker]="picker" placeholder="Reference date(DD/MM/YYYY)" [min]="today"  formControlName="referencedate" (dateInput)="chooseDate($event, 'refDate')"  (dateChange)="chooseDate($event, 'refDate')"  (keypress)="keyPress($event)" maxlength="10" minlength="10">
                   <mat-error *ngIf="form.controls.referencedate.errors?.required">Reference Date is required</mat-error>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -24,13 +24,13 @@
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <input matInput type="number" placeholder="Post Days" formControlName="postdays">
+                  <input matInput type="number" placeholder="Post Days" formControlName="postdays" (keypress)="keyPress($event)">
                   <mat-error *ngIf="form.controls.postdays.errors?.required">Post Days is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <input matInput [matDatepicker]="picker1" placeholder="Post Date(DD/MM/YYYY)" [min]="today"  formControlName="postdate" (dateInput)="chooseDate($event, 'postDate')"  (dateChange)="chooseDate($event, 'postDate')" >
+                  <input matInput [matDatepicker]="picker1" placeholder="Post Date(DD/MM/YYYY)" [min]="today"  formControlName="postdate" (dateInput)="chooseDate($event, 'postDate')"  (dateChange)="chooseDate($event, 'postDate')" (keypress)="keyPress($event)" maxlength="10" minlength="10">
                   <mat-error *ngIf="form.controls.postdate.errors?.required">Post Date is required</mat-error>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
@@ -46,7 +46,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-center" style="margin-top: 118px;">
-            <button mat-raised-button color="primary" (click)="add(form.value)">Submit</button>
+            <button mat-raised-button color="primary" (click)="add(form.value)" [disabled]="!form.valid">Submit</button>
           </div>
         </div>
 

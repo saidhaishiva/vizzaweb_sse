@@ -227,4 +227,14 @@ export class EditmediaComponent implements OnInit {
     public updateFailure(error) {
         console.log(error);
     }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
 }

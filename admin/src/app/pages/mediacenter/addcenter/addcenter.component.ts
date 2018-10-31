@@ -8,11 +8,30 @@ import {MatDialogRef} from '@angular/material';
 import {AuthService} from '../../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-addcenter',
   templateUrl: './addcenter.component.html',
-  styleUrls: ['./addcenter.component.scss']
+  styleUrls: ['./addcenter.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+
+    ]
 })
 export class AddcenterComponent implements OnInit {
     public form : FormGroup;
@@ -168,7 +187,15 @@ export class AddcenterComponent implements OnInit {
             }
         }
     }
-
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
 
 
 }
