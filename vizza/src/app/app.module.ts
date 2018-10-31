@@ -146,6 +146,7 @@ import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
 import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
 import { MediaCenterComponent } from './pages/media-center/media-center.component';
+import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -270,7 +271,8 @@ import { MediaCenterComponent } from './pages/media-center/media-center.componen
       AboutVizzaComponent,
       DmChangepasswordComponent,
       MediaCenterComponent,
-      SafePipe
+      SafePipe,
+      ViewmediaComponent
   ],
   providers: [
       AppSettings,
