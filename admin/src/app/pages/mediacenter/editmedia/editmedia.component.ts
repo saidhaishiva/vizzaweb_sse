@@ -49,6 +49,8 @@ export class EditmediaComponent implements OnInit {
     postDateError: any;
     editList: any;
     editcenter: any;
+    today: any;
+    postMin: any;
   constructor(public config: ConfigurationService, public common:CommonService, public auth: AuthService, public fb: FormBuilder, public branchservice: BranchService,public datepipe: DatePipe, private toastr: ToastrService,public router: Router,public route: ActivatedRoute,
   ) {
     //   this.fileUploadPath = this.getDetails.image_path;
@@ -217,6 +219,8 @@ export class EditmediaComponent implements OnInit {
                 this.form.controls['postdays'].setValue(this.editcenter.post_days);
                  this.form.controls['postdate'].setValue(this.editcenter.publish_date);
                   this.form.controls['content'].setValue(this.editcenter.content);
+                  this.today = this.editcenter.refrence_date;
+                  this.postMin = this.editcenter.publish_date;
         }
         console.log( this.editcenter, ' this.editcenter');
     }
