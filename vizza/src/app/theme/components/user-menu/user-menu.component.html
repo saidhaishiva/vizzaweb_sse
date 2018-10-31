@@ -4,38 +4,28 @@
 
 <mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu ">
     <!--<span (mouseleave)="userMenuTrigger.closeMenu()">-->
-           <!--<mat-toolbar color="primary">-->
-               <!--<div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">-->
-                   <!--&lt;!&ndash;<img [src]="userImage" alt="user-image" width="80" class="rounded mat-elevation-z6">&ndash;&gt;-->
-                   <!--&lt;!&ndash;<p>Emilio Verdines <br> <small>Web developer</small></p>&ndash;&gt;-->
-                   <!--<mat-icon style="height: 40px!important;">person</mat-icon>-->
-                   <!--<p>{{settings.username | uppercase}}  </p>-->
-               <!--</div>-->
-           <!--</mat-toolbar>-->
-            <a mat-menu-item routerLink="settings">
-                <mat-icon class="matIclass">person</mat-icon>
-                <span class="color-blue" >{{settings.username | uppercase}}</span>
-            </a>
-        <div *ngIf="settings.myprofile == 'pos'">
-           <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
-               <mat-icon class="matIclass">remove_red_eye</mat-icon>
-               <!--<i class="material-icons">remove_red_eye</i>-->
-               <span class="color-blue" >My Profile</span>
-           </a>
-        </div>
-        <div  *ngIf="settings.myprofile == 'dm'">
-            <a mat-menu-item routerLink="settings" [routerLink]="['/dm-profile']">
-                <mat-icon class="matIclass">remove_red_eye</mat-icon>
-                <span class="color-blue" >My Profile</span>
-            </a>
-        </div>
-        <a mat-menu-item (click)="passwordChange(settings.myprofile)">
+        <mat-toolbar color="primary">
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+                <!--<img [src]="userImage" alt="user-image" width="80" class="rounded mat-elevation-z6">-->
+                <!--<p>Emilio Verdines <br> <small>Web developer</small></p>-->
+                <mat-icon style="height: 40px!important;">person</mat-icon>
+                <p>{{settings.username | uppercase}}  </p>
+            </div>
+        </mat-toolbar>
+        <!--<a mat-menu-item routerLink="profile">-->
+            <!--<mat-icon>person</mat-icon>-->
+            <!--<span>{{fristName | uppercase}}</span>-->
+        <!--</a>-->
+        <a mat-menu-item routerLink="settings" [routerLink]="['/pos-profile']">
+            <mat-icon class="matIclass">remove_red_eye</mat-icon>
+            <!--<i class="material-icons">remove_red_eye</i>-->
+            <span class="color-blue" >View Profile</span>
+        </a>
+        <a mat-menu-item (click)="passwordChange()">
             <mat-icon class="matIclass">lock</mat-icon>
             <span class="color-blue">Change Password</span>
         </a>
-
-
-    <!--<a mat-menu-item [routerLink]="['/training']">-->
+        <!--<a mat-menu-item [routerLink]="['/training']">-->
             <!--<mat-icon class="matIclass">local_library-->
             <!--</mat-icon>-->
             <!--<span class="color-blue" >Training</span>-->

@@ -8,12 +8,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
-import { SafePipe} from '../safepipe';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
-import { NgxPaginationModule } from 'ngx-pagination';
-
 // import { ImageUploadModule } from "angular2-image-upload";
 
 // services
@@ -146,9 +143,6 @@ import { DmForgotpasswordComponent } from './pages/dm-forgotpassword/dm-forgotpa
 import { DmConfirmpasswordComponent } from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import { AboutPosComponent } from './pages/about-pos/about-pos.component';
 import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
-import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
-import { MediaCenterComponent } from './pages/media-center/media-center.component';
-import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -159,7 +153,6 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       HttpClientModule,
       HttpModule,
       NgxDatatableModule,
-      NgxPaginationModule,
       NgxChartsModule,
       PdfViewerModule,
       ScrollToModule.forRoot(),
@@ -271,11 +264,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       AboutPosComponent,
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent,
-      AboutVizzaComponent,
-      DmChangepasswordComponent,
-      MediaCenterComponent,
-      ViewmediaComponent,
-      SafePipe
+      AboutVizzaComponent
   ],
   providers: [
       AppSettings,
@@ -298,7 +287,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
+        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, HealthInsurer
     ]
 })
 export class AppModule { }

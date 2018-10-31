@@ -1,5 +1,5 @@
 
-<div fxLayoutWrap fxLayout="row" >
+<div fxLayoutWrap fxLayout="row" *ngIf="dmDataAvailable">
   <div fxFlex="100" class="flex-p">
     <mat-card class="p-0 mailbox">
       <mat-sidenav-container>
@@ -172,39 +172,26 @@
                           <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                           <span class="ml-1"> {{personal.dm_email}}</span>
                         </p>
-                          <!--<div class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>-->
+                        <div>
+                          <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
+                            <span class="ml-1"> {{personal.dm_address1}}</span>
+                            <span *ngIf="personal.dm_address2 != ''">,</span>
+                            <span *ngIf="personal.dm_address2 != ''">{{personal.dm_address2}}</span>
+                            <span *ngIf="personal.dm_cityid != ''">,</span>
+                          </p>
 
-                                <!--<span class="ml-1"> {{personal.dm_address1}}</span><span *ngIf="personal.dm_address2 != ''">,</span><br>-->
-                                <!--<span class="ml-1" *ngIf="personal.dm_address2 != ''">{{personal.dm_address2}}</span>-->
-                                <!--<span *ngIf="personal.dm_cityid != ''">,</span>-->
-                                <!--<span *ngIf="personal.dm_cityid != null">-</span>-->
-                                <!--<span>{{personal.dm_postalcode}}</span>-->
-                                <!--<span *ngIf="personal.dm_stateid != ''">,</span>-->
-                                <!--<span>{{personal.dm_stateid}}</span>-->
-                                <!--<span *ngIf="personal.dm_countryid != ''">,</span>-->
-                                <!--<span>{{personal.dm_countryid}}</span>-->
-                          <!--</div>-->
-                        <p fxLayout="row" fxLayoutAlign="start center" >
-                          <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>
-                        </p>
-                        <p fxLayout="row" fxLayoutAlign="start center" class="ml-class">
-                          {{personal.dm_address1}}
-                          <span *ngIf="personal.dm_address2 != ''">,</span>
-                        </p>
-                        <p *ngIf="personal.dm_address2 != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.dm_address2}}
-                          <span *ngIf="personal.dm_cityid != ''">,</span>
-                        </p>
-                          <p *ngIf="personal.dm_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.dm_cityid}}
+                          <p *ngIf="personal.dm_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.dm_cityid}}
                             <span *ngIf="personal.dm_cityid != null">-</span>
                             {{personal.dm_postalcode}}
                             <span *ngIf="personal.dm_stateid != ''">,</span>
                           </p>
-                          <p *ngIf="personal.dm_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.dm_stateid}}
+                          <p *ngIf="personal.dm_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.dm_stateid}}
                             <span *ngIf="personal.dm_countryid != ''">,</span>
                           </p>
-                          <p *ngIf="personal.dm_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.dm_countryid}}</p>
+                          <p *ngIf="personal.dm_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.dm_countryid}}</p>
                         </div>
+                      </div>
                     </mat-list>
                   </mat-card-content>
                 </mat-card>
@@ -755,7 +742,7 @@
                     </header>
                     <section class="row">
                       <div class="col-md-12">
-                        <h5 class="text-center font-weight-bold mt-2 print-title">Appointment of Registered Distance Marketing Person</h5>
+                        <h5 class="text-center font-weight-bold mt-2 print-title">Appointment of Registered POS’P</h5>
                         <h4 class="text-center font-weight-normal print-title">for VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h4>
                       </div>
                       <div class="col-md-12 mt-3">
@@ -805,16 +792,17 @@
                       </div>
 
                       <div class="col-md-12 mt-5 c-content text-justify">
-                        <p>This is in reference to the application made by you, for enrolling yourself to act as Distance Marketing
+                        <p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales
                           Person.</p>
                         <p>This is to confirm that you have successfully completed the prescribed training and have also
-                          passed the examination specified for Distance Marketing examination conducted by
-                          <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Distance Marketing
-                          Person. Your personal details are as under:</p>
+                          passed the examination specified for Point of Sales examination conducted by
+                          <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
+                          Person for Non-life and Health lnsurers. Your personal details are as under:</p>
                         <p><strong>Aadhaar No: {{personal.doc_aadhar_no}}</strong></p>
-                        <p>This letter authorizes you to act as Point of Distance Marketing for (Vizza Insurance Broking Services Pvt Ltd) to market products categorized and identified under the Guidelines only.</p>
+                        <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
+                          intermediary) to market products categorized and identified under the Guidelines only.</p>
                         <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
-                          new insurer/ insurance intermediary in order to act as Distance Marketing Person for that entity.</p>
+                          new insurer/ insurance intermediary in order to act as Point of Sales Person for that entity.</p>
                       </div>
 
                       <div class="col-md-12 text-left print-sign">
@@ -860,17 +848,17 @@
                       </div>
                       <div class="col-md-9 off-pos">
                         <h1 class="c-font">Certification</h1>
-                        <h5 class="w-100 text-right"><span>OF ONLINE DISTANCE MARKETING TRAINING</span></h5>
+                        <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
                       </div>
                     </section>
                     <section class="row mt-5">
                       <div class="c-content w-100 text-justify">
                         <h5 class="c-title"><span>This is to certify that</span></h5>
-                        <p> <strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}} </strong> has attended 25 hours of Online
-                          Training Programme for the Distance Marketing Person, as per the Regulation, 2017 of
+                        <p> <strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}} </strong> has attended 15 hours of Online
+                          Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                           Insurance Regulatory and Development Authority.</p>
-                        <p><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}}, had registered for the online training program on
-                          {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 25 hours of Distance Marketing Online Training on
+                        <p>The Said Candidate, had registered for the online training program on
+                          {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 15 hours of POS’P Online Training on
                           {{personal.training_completed_date | date:'dd-MMM-yy'}}</p>
                       </div>
                     </section>
@@ -886,8 +874,8 @@
                             <td>{{personal.training_completed_date | date:'dd-MMM-yy' }}</td>
                           </tr>
                           <tr>
-                            <td>DM ID:</td>
-                            <td>VIZAA/DM/{{personal.dm_id}}</td>
+                            <td>POS’P ID:</td>
+                            <td>VIZAA/POS'P/{{personal.dm_id}}</td>
                           </tr>
                         </table>
                       </div>
@@ -931,17 +919,17 @@
                       </div>
                       <div class="col-md-9">
                         <h1 class="c-font">Certificate</h1>
-                        <h5 class="w-100 text-right"><span>Of Qualification for Distance Marketing Examination</span></h5>
+                        <h5 class="w-100 text-right"><span>Of Qualification for POS’P Examination</span></h5>
                       </div>
                     </section>
                     <section class="row mt-5">
                       <div class="c-content text-center w-100">
                         <h5 class="c-title"><span>This is to certify that</span></h5>
                         <p><strong><span *ngIf="personal.dm_gender == 'male'">Mr.</span><span *ngIf="personal.dm_gender == 'female'">Ms.</span>{{personal.dm_firstname | titlecase}} {{personal.dm_lastname | titlecase}}</strong></p>
-                        <p>passed the Distance Marketing Person Examination held on</p>
+                        <p>passed the Point of Sales Person Examination held on</p>
                         <p>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</p>
                         <p>and qualified under the stream of</p>
-                        <p><strong>Distance Marketing Person</strong></p>
+                        <p><strong>Point of Sales Person</strong></p>
                         <p>as per regulations 2017 of</p>
                         <p><strong>Insurance Regulatory and Development Authority</strong></p>
                       </div>
@@ -958,8 +946,8 @@
                             <td>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</td>
                           </tr>
                           <tr>
-                            <td>DM ID:</td>
-                            <td>VIZAA/DM/{{personal.dm_id}}</td>
+                            <td>POS’P ID:</td>
+                            <td>VIZAA/POS'P/{{personal.dm_id}}</td>
                           </tr>
                         </table>
                       </div>
@@ -1014,9 +1002,6 @@
 <style>
   .customCard {
     height: 250px !important;
-  }
-  .ml-class{
-    margin-left: 27px;
   }
 </style>
 

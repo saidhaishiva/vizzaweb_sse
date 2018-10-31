@@ -11,6 +11,5 @@ export class Settings {
                 public theme: string,
                 public rtl: boolean,
                 public userId:any,
-                public username:any,
-                public myprofile:any) { }
+                public username:any) { }
 }

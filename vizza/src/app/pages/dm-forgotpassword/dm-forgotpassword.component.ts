@@ -51,6 +51,8 @@ export class DmForgotpasswordComponent implements OnInit {
             this.loginService.dmForgot(data).subscribe(
                 (successData) => {
                     this.forgotSuccess(successData);
+
+                    console.log(successData,'successData');
                 },
                 (error) => {
                     this.forgotFailure(error);
@@ -59,11 +61,13 @@ export class DmForgotpasswordComponent implements OnInit {
         }
     }
     public forgotSuccess(successData) {
+
+        console.log(successData);
         this.settings.loadingSpinner = false;
         this.response = successData;
         if(successData.IsSuccess) {
             this.toastr.success('OTP sent successfully');
-            this.router.navigate(['/dm-confirmpassword']);
+            this.router.navigate(['/confirmpassword']);
         }else{
             this.toastr.warning(successData.ErrorObject, 'Failed');
         }
@@ -72,6 +76,7 @@ export class DmForgotpasswordComponent implements OnInit {
 
     public forgotFailure(error) {
         this.settings.loadingSpinner = false;
+        console.log(error.status);
         if (error.status === 401) {
             this.status = error.status;
             this.authService.clearToken();

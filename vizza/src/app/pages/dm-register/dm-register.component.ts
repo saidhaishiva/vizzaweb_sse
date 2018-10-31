@@ -135,6 +135,7 @@ export class DmRegisterComponent implements OnInit {
         this.pancard = '';
         this.education = '';
         this.roleId = this.auth.getDmRoleId();
+        console.log(this.roleId, 'assss');
         if (this.roleId > 0) {
            // this.router.navigate(['/pos-profile']);
         }
@@ -189,6 +190,7 @@ export class DmRegisterComponent implements OnInit {
     }
     onUploadFinished(event) {
         this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
             'flag': 'dm',
@@ -197,6 +199,8 @@ export class DmRegisterComponent implements OnInit {
         };
         if (this.type == 'education') {
             let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
             for (let k = 0; k < this.allImage[length].length; k++) {
                 this.fileDetails[k].image = this.allImage[length][k][1];
             }
@@ -207,6 +211,8 @@ export class DmRegisterComponent implements OnInit {
             data.uploadtype = 'single';
             data.images = this.getUrl;
         }
+
+        console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -255,6 +261,7 @@ export class DmRegisterComponent implements OnInit {
             'dm_referral_code': event.target.value,
             'roleid': this.auth.getDmUserId()
         };
+        console.log(data, 'dfdfdsfdsfdsfds');
         this.common.getReferral(data).subscribe(
             (successData) => {
                 this.referralSuccess(successData);
@@ -267,6 +274,7 @@ export class DmRegisterComponent implements OnInit {
 
     public referralSuccess(successData) {
         if (successData.IsSuccess == true) {
+            console.log(successData, 'successData');
             this.fileUploadPath = successData.ResponseObject.imagePath;
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
@@ -279,6 +287,8 @@ export class DmRegisterComponent implements OnInit {
 
 
     submit(value) {
+        console.log(value, 'vall');
+        console.log(this.dob, 'dateeee');
         if (this.aadharfront == '') {
             this.toastr.error('Please upload aadhar front page');
         } else if (this.aadharback == '') {
@@ -290,6 +300,7 @@ export class DmRegisterComponent implements OnInit {
         } else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
+            console.log(this.form.value['personal']['firstname'].value, 'ppp');
 
             const data = {
                 'platform': 'web',
@@ -319,6 +330,7 @@ export class DmRegisterComponent implements OnInit {
                 'branch_name': this.form.value['bankdetails']['bankbranch'],
                 'ifsc_code': this.form.value['bankdetails']['ifsccode']
             };
+            console.log(data, 'dattatta');
             this.settings.loadingSpinner = true;
             this.login.dmSignUp(data).subscribe(
                 (successData) => {
@@ -333,6 +345,7 @@ export class DmRegisterComponent implements OnInit {
 
     signUpSuccess(successData) {
         this.settings.loadingSpinner = false;
+        console.log(successData);
         if (successData.IsSuccess) {
             this.router.navigate(['/dm-login']);
             this.toastr.success('Registration Completed', 'Success!!!');
@@ -401,6 +414,7 @@ export class DmRegisterComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         let res = year_age;
+        console.log(res,'fghjk');
         if (res >= 18) {
             this.img = false;
             this.nectStatus = true;
@@ -426,6 +440,7 @@ export class DmRegisterComponent implements OnInit {
                 let birth = this.form.value['personal']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
+                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -469,6 +484,7 @@ export class DmRegisterComponent implements OnInit {
         }
     }
     getPin(pin) {
+        console.log(pin, 'pin');
         this.pin = pin;
         const data = {
             'platform': 'web',
