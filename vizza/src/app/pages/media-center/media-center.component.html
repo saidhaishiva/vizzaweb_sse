@@ -61,7 +61,7 @@
                             Status: {{user.status}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                             Post Days:{{user.post_days}}
+                           <span (click)="redirect(user.post_days)">  Post Days:{{user.post_days}}</span>
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                             Created Date:{{user.created_date}}
@@ -72,7 +72,7 @@
                          Reference Date: {{user.refrence_date}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                        <span (click)="redirect()"> Content:{{user.content}}</span>
+                        <span (click)="redirect(user)"> Content:{{user.content}}</span>
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                             Reference By:{{user.refrence_by}}
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </mat-card>
-    </div>s
+    </div>
 </div>
 
 <div *ngIf="response" fxLayout="row wrap">

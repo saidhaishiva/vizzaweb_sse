@@ -9,29 +9,20 @@ import {Settings} from '../../../app.settings.model';
   styleUrls: ['./viewmedia.component.scss']
 })
 export class ViewmediaComponent implements OnInit {
-    public searchText: string;
-public page: any;
-    public settings: Settings;
-
-  constructor( private router: Router, public appSettings: AppSettings,
-  ) {
-      this.settings = this.appSettings.settings;
-
-  }
+    response: any;
+    user: any;
+  constructor(public router: Router)
+   {
+     this.user  = JSON.parse(sessionStorage.newsDetails);
+       console.log(this.user, 'this.user');
+       console.log(sessionStorage.news, 'valll');
+       console.log(sessionStorage.name, 'lll');
+   }
 
   ngOnInit() {
   }
-  media(){
-      this.router.navigate(['/mediacenter']);
+media() {
+    this.router.navigate(['/mediacenter']);
 
-  }
-    public onPageChanged(event){
-        this.page = event;
-        if(this.settings.fixedHeader){
-            document.getElementById('main-content').scrollTop = 0;
-        }
-        else{
-            document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0;
-        }
-    }
+}
 }
