@@ -54,6 +54,8 @@ export class ConfirmpasswordComponent implements OnInit {
             this.loginService.changePassword(data).subscribe(
                 (successData) => {
                     this.changePasswordSuccess(successData);
+
+                    console.log(successData, 'successData');
                 },
                 (error) => {
                     this.changePasswordFailure(error);
@@ -102,6 +104,8 @@ export class ConfirmpasswordComponent implements OnInit {
             this.loginService.doForgot(data).subscribe(
                 (successData) => {
                     this.resendRequestSuccess(successData);
+
+                    console.log(successData,'successData');
                 },
                 (error) => {
                     this.resendRequestFailure(error);
@@ -109,6 +113,8 @@ export class ConfirmpasswordComponent implements OnInit {
             );
     }
     public resendRequestSuccess(successData) {
+
+        console.log(successData);
         this.settings.loadingSpinner = false;
         if(successData.IsSuccess) {
             this.toastr.success('OTP sent successfully');

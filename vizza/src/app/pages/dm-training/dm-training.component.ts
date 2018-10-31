@@ -14,12 +14,12 @@ import {Router} from '@angular/router';
 })
 export class DmTrainingComponent implements OnInit {
 
-    // @HostListener('document:mousemove', ['$event'])
-    // onMouseMove(e) {
-    //     this.timoutWarning = 54000000; // Display warning in 14 Mins.
-    //     this.timoutNow = 54000000; // Timeout in 15 mins.
-    //     this.ResetTimers();
-    // }
+    @HostListener('document:mousemove', ['$event'])
+    onMouseMove(e) {
+        this.timoutWarning = 54000000; // Display warning in 14 Mins.
+        this.timoutNow = 54000000; // Timeout in 15 mins.
+        this.ResetTimers();
+    }
     getRemainingTime: any;
     getMinutes: any;
     allQuestionLists: any;
@@ -51,7 +51,7 @@ export class DmTrainingComponent implements OnInit {
         this.timoutNow = 54000000; // Timeout in 15 mins.
         this.warningTimer = 0;
         this.timeoutTimer = 0;
-        // this.StartTimers();
+        this.StartTimers();
         if (this.trainingStatus == 1) {
             this.trainingCompleted = true;
         } else {
@@ -72,26 +72,26 @@ export class DmTrainingComponent implements OnInit {
         this.trainingTiming();
 
     }
-    // // Start timers.
-    // StartTimers() {
-    //     this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
-    //     this.timeoutTimer = setTimeout((res) => { this.IdleTimeout() }, this.timoutNow);
-    // }
-    // // Reset timers.
-    // ResetTimers() {
-    //     clearTimeout(this.warningTimer);
-    //     clearTimeout(this.timeoutTimer);
-    //     this.StartTimers();
-    // }
-    // // Show idle timeout warning dialog.
-    // IdleWarning() {
-    //     // alert('wring');
-    // }
-    // // Logout the user.
-    // IdleTimeout() {
-    //     console.log('logout');
-    //    // this.router.navigate(['/home']);
-    // }
+    // Start timers.
+    StartTimers() {
+        this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
+        this.timeoutTimer = setTimeout((res) => { this.IdleTimeout() }, this.timoutNow);
+    }
+    // Reset timers.
+    ResetTimers() {
+        clearTimeout(this.warningTimer);
+        clearTimeout(this.timeoutTimer);
+        this.StartTimers();
+    }
+    // Show idle timeout warning dialog.
+    IdleWarning() {
+        // alert('wring');
+    }
+    // Logout the user.
+    IdleTimeout() {
+        console.log('logout');
+       // this.router.navigate(['/home']);
+    }
 
     countdown(minutes) {
         const test = this;

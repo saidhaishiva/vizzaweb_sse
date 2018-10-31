@@ -129,9 +129,12 @@ export class PosprofileComponent implements OnInit {
         this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('examStatus');
         this.trainingStatus = this.auth.getSessionData('trainingStatus');
+        console.log(this.examStatus, 'this.examStatus');
+        console.log(this.trainingStatus, 'this.trainingStatus');
         this.documentStatus = this.auth.getSessionData('documentStatus');
         this.posStatus = this.auth.getSessionData('posStatus');
         this.sideNav = [];
+        console.log(this.documentStatus, 'this.documentStatus');
         this.posDataAvailable = false;
         this.pincodeErrors = false;
         this.editAccess = true;
@@ -265,6 +268,7 @@ export class PosprofileComponent implements OnInit {
         } else {
             this.editAccess = false;
         }
+        console.log(this.currentTab);
         let trainingStatus = this.auth.getSessionData('trainingStatus');
         let examStatus = this.auth.getSessionData('examStatus');
         sessionStorage.currentTab = this.currentTab;
@@ -312,6 +316,7 @@ export class PosprofileComponent implements OnInit {
     }
     getPosProfileSuccess(successData) {
         this.posDataAvailable = true;
+        console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
@@ -321,10 +326,12 @@ export class PosprofileComponent implements OnInit {
             this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
             this.personalshow = successData.ResponseObject;
+            console.log(this.personalshow);
             let date;
             date = this.personalshow.pos_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
             date = this.datepipe.transform(date, 'y-MM-dd');
+            console.log(date, 'dateee');
             this.personaledit = this.fb.group({
                 id: null,
                 firstname: this.personalshow.pos_firstname,
@@ -391,6 +398,7 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getTrainingDetailSuccess(successData) {
+        console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
             if (typeof (this.trainingDetails) != 'string') {
@@ -431,6 +439,7 @@ export class PosprofileComponent implements OnInit {
         );
     }
     getExamDetailSuccess(successData) {
+        console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
             let len = successData.ResponseObject.length -1;
@@ -839,6 +848,7 @@ export class PosprofileComponent implements OnInit {
     public getpostalSuccess(successData) {
         if (successData.IsSuccess) {
             this.response = successData.ResponseObject;
+            console.log(this.response);
             this.contacts.controls['city'].setValue(this.response.city);
             this.contacts.controls['state'].setValue(this.response.state);
             this.contacts.controls['country'].setValue(this.response.country);
@@ -934,6 +944,7 @@ export class PosprofileComponent implements OnInit {
 
     onUploadFinished(event) {
         this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
             'flag': 'pos',
@@ -942,6 +953,8 @@ export class PosprofileComponent implements OnInit {
         };
         if (this.type == 'education') {
             let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
             for (let k = 0; k < this.allImage[length].length; k++) {
                 this.fileDetails[k].image = this.allImage[length][k][1];
             }
@@ -952,6 +965,8 @@ export class PosprofileComponent implements OnInit {
             data.uploadtype = 'single';
             data.images = this.getUrl;
         }
+
+        console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -984,6 +999,7 @@ export class PosprofileComponent implements OnInit {
             if (this.type == 'chequeleaf'){
                 this.chequeleaf = this.fileUploadPath;
             }
+            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -995,6 +1011,7 @@ export class PosprofileComponent implements OnInit {
     }
 
     getPin(pin) {
+        console.log(pin, 'pin');
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1100,6 +1117,7 @@ export class PosprofileComponent implements OnInit {
         );
     }
     updatePosProfileSuccess(successData) {
+        console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.personalEdit = false;
@@ -1156,6 +1174,7 @@ export class PosprofileComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
     updateDocuments(data) {
+        console.log(data);
         this.common.updateDocDetails(data).subscribe(
             (successData) => {
                 this.updateDocumentsSuccess(successData);
@@ -1167,6 +1186,7 @@ export class PosprofileComponent implements OnInit {
     }
     public updateDocumentsSuccess(successData) {
         if (successData.IsSuccess) {
+            console.log(successData, 'successData2');
             this.getPosProfile();
         }
     }
@@ -1191,6 +1211,7 @@ export class PosprofileComponent implements OnInit {
                 // let birth = this.personaledit['controls']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
+                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -1201,6 +1222,7 @@ export class PosprofileComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(event.value._i, 'selectedDate.dob');
                 if (this.dob.length == 10) {
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
                 } else {
@@ -1234,6 +1256,7 @@ export class PosprofileComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         let res = year_age;
+        console.log(res,'fghjk');
         if (res >= 18) {
             this.img = false;
             // this.nectStatus = true;
@@ -1331,6 +1354,7 @@ export class PosprofileComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
         });
     }
 

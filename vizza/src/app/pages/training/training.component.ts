@@ -13,12 +13,12 @@ import {Settings} from '../../app.settings.model';
   styleUrls: ['./training.component.scss']
 })
 export class TrainingComponent implements OnInit {
-    // @HostListener('document:mousemove', ['$event'])
-    // onMouseMove(e) {
-    //     this.timoutWarning = 54000000; // Display warning in 14 Mins.
-    //     this.timoutNow = 54000000; // Timeout in 15 mins.
-    //     this.ResetTimers();
-    // }
+    @HostListener('document:mousemove', ['$event'])
+    onMouseMove(e) {
+        this.timoutWarning = 54000000; // Display warning in 14 Mins.
+        this.timoutNow = 54000000; // Timeout in 15 mins.
+        this.ResetTimers();
+    }
     getRemainingTime: any;
     getMinutes: any;
     allQuestionLists: any;
@@ -49,7 +49,7 @@ export class TrainingComponent implements OnInit {
         this.timoutNow = 54000000; // Timeout in 15 mins.
         this.warningTimer = 0;
         this.timeoutTimer = 0;
-        // this.StartTimers();
+        this.StartTimers();
         if (this.trainingStatus == 1) {
             this.trainingCompleted = true;
         } else {
@@ -67,25 +67,25 @@ export class TrainingComponent implements OnInit {
         // });
     }
     // Start timers.
-    // StartTimers() {
-    //     this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
-    //     this.timeoutTimer = setTimeout((res) => { this.IdleTimeout() }, this.timoutNow);
-    // }
-    // // Reset timers.
-    // ResetTimers() {
-    //     clearTimeout(this.warningTimer);
-    //     clearTimeout(this.timeoutTimer);
-    //     this.StartTimers();
-    // }
-    // // Show idle timeout warning dialog.
-    // IdleWarning() {
-    //    // alert('wring');
-    // }
-    // // Logout the user.
-    // IdleTimeout() {
-    //     console.log('logout');
-    //     ///this.router.navigate(['/home']);
-    // }
+    StartTimers() {
+        this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
+        this.timeoutTimer = setTimeout((res) => { this.IdleTimeout() }, this.timoutNow);
+    }
+    // Reset timers.
+    ResetTimers() {
+        clearTimeout(this.warningTimer);
+        clearTimeout(this.timeoutTimer);
+        this.StartTimers();
+    }
+    // Show idle timeout warning dialog.
+    IdleWarning() {
+       // alert('wring');
+    }
+    // Logout the user.
+    IdleTimeout() {
+        console.log('logout');
+        ///this.router.navigate(['/home']);
+    }
 
     countdown(minutes) {
         const test = this;
@@ -200,8 +200,10 @@ export class TrainingComponent implements OnInit {
                         }
                     }
                 }
-
-                setTimeout(count, 1000);
+                timeoutHandle = setTimeout(()=>{
+                    count
+                },1000);
+                // setTimeout(count, 1000);
             }
 
         }
@@ -273,14 +275,13 @@ export class TrainingComponent implements OnInit {
             this.trainingStatus = successData.ResponseObject.training_status;
             if (successData.ResponseObject.training_status == 1) {
                 this.trainingCompleted = true;
-
                 // this.router.navigate(['/home']);
             }
-            // if (status == 'everyTime') {
-            //     this.trainingTiming();
-            // } else {
-            //
-            // }
+            if (status == 'everyTime') {
+                this.trainingTiming();
+            } else {
+
+            }
         }
     }
     public sendTimeTimingError(error) {

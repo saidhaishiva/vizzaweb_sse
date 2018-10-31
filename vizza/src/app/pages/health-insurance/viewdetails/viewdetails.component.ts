@@ -19,11 +19,7 @@ export class ViewdetailsComponent implements OnInit {
     id : any;
     productId : any;
     getKeyList : any;
-    productDocLists : any;
     bgColor : any;
-    value : any;
-    id1 : any;
-    testPath : any;
     public settings: Settings;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
@@ -31,9 +27,7 @@ export class ViewdetailsComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.productId = data;
         this.webhost = this.config.getimgUrl();
-        this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
        // this.id = 0;
-       // this.value = '<p>List</p><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li><li>Test 4</li></ul>';
   }
 
   ngOnInit() {
@@ -54,27 +48,15 @@ export class ViewdetailsComponent implements OnInit {
 
         }
     }
-    selectedproducs(id: any, type) {
-        this.id = id;
-        if (type == 1){
-            this.bgColor = 'true';
-        } else {
-            console.log('inn');
-            this.bgColor = 'false';
-
-        }
-    }
     onSelectedIndexChange(index) {
-        console.log(index, 'ind');
         if (index == 1) {
             // for (let i = 0; i < this.getKeyList.length; i++) {
             //     if(this.getKeyList[i].kf_type == 2) {
             //         this.id = this.getKeyList[i];
             //     }
             // }
-            // const getIndex = this.getKeyList.findIndex( list => list.type == 2);
-            // this.id = getIndex;
-            this.id1 = 0;
+            const getIndex = this.getKeyList.findIndex( list => list.type == 2);
+            this.id = getIndex;
         }
 
     }
@@ -100,11 +82,9 @@ export class ViewdetailsComponent implements OnInit {
     public viewKeySuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.getKeyList = successData.ResponseObject.key_features;
-            this.productDocLists = successData.ResponseObject.product_docs;
+            this.getKeyList = successData.ResponseObject;
             const getIndex = this.getKeyList.findIndex( list => list.type == 1);
             this.id = getIndex;
-
             this.bgColor = 'true';
             // for (let i = 0; i < this.getKeyList.length; i++) {
             //     if(this.getKeyList[i].kf_type == 2) {

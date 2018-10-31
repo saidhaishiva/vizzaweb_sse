@@ -106,6 +106,7 @@ export class DmProfileComponent implements OnInit {
                 public dialog: MatDialog, public router: Router, public fb: FormBuilder, public datepipe: DatePipe, public toastr: ToastrService) {
         this.webhost = this.config.getimgUrl();
         this.roleId = this.auth.getDmRoleId();
+        console.log(this.roleId, 'assss');
         // if (this.roleId == 0) {
         //     this.router.navigate(['/dm-login']);
         // }
@@ -119,9 +120,12 @@ export class DmProfileComponent implements OnInit {
         this.selectedTab = 0;
         this.examStatus = this.auth.getSessionData('dmExamStatus');
         this.trainingStatus = this.auth.getSessionData('dmTrainingStatus');
+        console.log(this.examStatus, 'this.examStatus');
+        console.log(this.trainingStatus, 'this.trainingStatus');
         this.documentStatus = this.auth.getSessionData('dmDocumentStatus');
         this.posStatus = this.auth.getSessionData('dmStatus');
         this.sideNav = [];
+        console.log(this.documentStatus, 'this.documentStatus');
         this.dmDataAvailable = false;
         this.pincodeErrors = false;
         this.editAccess = true;
@@ -233,13 +237,12 @@ export class DmProfileComponent implements OnInit {
                     'name': 'Appointment Letter',
                     'value': 'active',
                     'selected': false
-                }
-                // {
-                //     'name': 'Agreement Letter',
-                //     'value': 'active',
-                //     'selected': false
-                // },
-                );
+                },
+                {
+                    'name': 'Agreement Letter',
+                    'value': 'active',
+                    'selected': false
+                },);
         }
         this.sideNav[0].selected = true;
     }
@@ -257,6 +260,7 @@ export class DmProfileComponent implements OnInit {
         } else {
             this.editAccess = false;
         }
+        console.log(this.currentTab);
         let trainingStatus = this.auth.getSessionData('dmTrainingStatus');
         let examStatus = this.auth.getSessionData('dmExamStatus');
         sessionStorage.currentTab = this.currentTab;
@@ -307,6 +311,7 @@ export class DmProfileComponent implements OnInit {
     }
     getDmProfileSuccess(successData) {
         this.dmDataAvailable = true;
+        console.log(successData, 'datadatadatadatadatadatadata');
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
             this.documentStatus = this.personal.doc_verified_status;
@@ -316,10 +321,12 @@ export class DmProfileComponent implements OnInit {
             this.auth.setSessionData('dmStatus', this.personal.dm_status);
             // edit
             this.personalshow = successData.ResponseObject;
+            console.log(this.personalshow);
             let date;
             date = this.personalshow.dm_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
             date = this.datepipe.transform(date, 'y-MM-dd');
+            console.log(date, 'dateee');
             this.personaledit = this.fb.group({
                 id: null,
                 firstname: this.personalshow.dm_firstname,
@@ -386,6 +393,7 @@ export class DmProfileComponent implements OnInit {
         );
     }
     getTrainingDetailSuccess(successData) {
+        console.log(successData);
         if (successData.IsSuccess) {
             this.trainingDetails = successData.ResponseObject;
             if (typeof (this.trainingDetails) != 'string') {
@@ -426,6 +434,7 @@ export class DmProfileComponent implements OnInit {
         );
     }
     getExamDetailSuccess(successData) {
+        console.log(successData);
         if (successData.IsSuccess) {
             this.examDetails = successData.ResponseObject;
             let len = successData.ResponseObject.length -1;
@@ -834,6 +843,7 @@ export class DmProfileComponent implements OnInit {
     public getpostalSuccess(successData) {
         if (successData.IsSuccess) {
             this.response = successData.ResponseObject;
+            console.log(this.response);
             this.contacts.controls['city'].setValue(this.response.city);
             this.contacts.controls['state'].setValue(this.response.state);
             this.contacts.controls['country'].setValue(this.response.country);
@@ -929,6 +939,7 @@ export class DmProfileComponent implements OnInit {
 
     onUploadFinished(event) {
         this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
         const data = {
             'platform': 'web',
             'flag': 'dm',
@@ -937,6 +948,8 @@ export class DmProfileComponent implements OnInit {
         };
         if (this.type == 'education') {
             let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
             for (let k = 0; k < this.allImage[length].length; k++) {
                 this.fileDetails[k].image = this.allImage[length][k][1];
             }
@@ -947,6 +960,8 @@ export class DmProfileComponent implements OnInit {
             data.uploadtype = 'single';
             data.images = this.getUrl;
         }
+
+        console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -979,6 +994,7 @@ export class DmProfileComponent implements OnInit {
             if (this.type == 'chequeleaf'){
                 this.chequeleaf = this.fileUploadPath;
             }
+            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -990,6 +1006,7 @@ export class DmProfileComponent implements OnInit {
     }
 
     getPin(pin) {
+        console.log(pin, 'pin');
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1095,6 +1112,7 @@ export class DmProfileComponent implements OnInit {
         );
     }
     updateDmProfileSuccess(successData) {
+        console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.personalEdit = false;
@@ -1151,6 +1169,7 @@ export class DmProfileComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
     updateDocuments(data) {
+        console.log(data);
         this.common.updateDmDocDetails(data).subscribe(
             (successData) => {
                 this.updateDocumentsSuccess(successData);
@@ -1162,6 +1181,7 @@ export class DmProfileComponent implements OnInit {
     }
     public updateDocumentsSuccess(successData) {
         if (successData.IsSuccess) {
+            console.log(successData, 'successData2');
             this.getDmProfile();
         }
     }
@@ -1186,6 +1206,7 @@ export class DmProfileComponent implements OnInit {
                 // let birth = this.personaledit['controls']['birthday'].value;
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
+                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -1196,6 +1217,7 @@ export class DmProfileComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(event.value._i, 'selectedDate.dob');
                 if (this.dob.length == 10) {
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
                 } else {
@@ -1229,6 +1251,7 @@ export class DmProfileComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         let res = year_age;
+        console.log(res,'fghjk');
         if (res >= 18) {
             this.img = false;
             // this.nectStatus = true;
@@ -1326,6 +1349,7 @@ export class DmProfileComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
         });
     }
 

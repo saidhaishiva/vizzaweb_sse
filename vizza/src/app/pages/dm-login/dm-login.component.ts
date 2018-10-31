@@ -67,6 +67,7 @@ export class DmLoginComponent implements OnInit {
         }
     }
     public loginSuccess(successData) {
+        console.log(successData);
         if (successData.IsSuccess) {
             this.data = successData.ResponseObject.dm_details;
             this.authService.setTokenDm(this.data.dm_email, this.data.dm_firstname, this.data.dm_id, this.data.dm_lastname, this.data.dm_mobileno, this.data.dm_roleid, successData.ResponseObject.Accesstoken, this.data.dm_status);
@@ -74,11 +75,7 @@ export class DmLoginComponent implements OnInit {
             this.authService.setSessionData('dmTrainingStatus', this.data.training_status);
             this.authService.setSessionData('dmExamStatus', this.data.exam_status);
             this.authService.setSessionData('dmDocumentStatus', this.data.doc_verified_status);
-            this.authService.setSessionData('loginStatus', 'dm');
-            this.settings.myprofile = 'dm';
             // training_status
-            console.log(this.settings.myprofile, 'f');
-
             this.settings.userId = this.authService.getDmUserId();
             this.settings.username = this.authService.getDmFirstName() +' '+ this.authService.getDmLastName();
             this.router.navigate(['/dm-profile']);

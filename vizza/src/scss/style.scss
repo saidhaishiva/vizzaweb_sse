@@ -1163,12 +1163,8 @@ a:hover {
     font-size: 22px;
   }
   form{
-    padding: 30px 0;
-    //background-color: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%);
-    background: #ffcccc;
-    background-image: url("assets/img/home/alarm-renewal-dark.png");
-    background-position: 50% 50%;
-    background-repeat:no-repeat;
+    padding: 20px 0;
+    background: linear-gradient(to top, #ffcc99 0%, #ffcccc 100%);
   }
   .input-group-addon{
     color: #fff;
@@ -1307,9 +1303,9 @@ footer{
   width: 100%;
   float: left;
   padding: 10px;
-  //img{
-  //  width: 55px;
-  //}
+  img{
+    width: 55px;
+  }
   //p{
   //  background: #676767;
   //  padding: 10px;
@@ -1346,7 +1342,7 @@ footer{
       background:  #443034;
       color: #fff;
       padding: 10px 30px;
-      font-size: 25px;
+      font-size: 30px;
     }
   }
   .c-content{
@@ -1562,7 +1558,7 @@ footer{
 }
 .draggable {
   position: relative;
-  height: 575px;
+  height: 675px;
   z-index: 1;
 
   li{
@@ -1772,12 +1768,12 @@ fieldset {
 }
 .about-pos {
   mat-expansion-panel {
-    background: #f5f4f438 !important;
+    background: #56b3b3 !important;
   }
   mat-panel-title{
-    //h6{
-    //  color: #;
-    //}
+    h6{
+      color: #fff;
+    }
   }
 }
 .h-login {

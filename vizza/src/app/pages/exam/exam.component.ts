@@ -95,6 +95,7 @@ export class ExamComponent implements OnInit {
     }
     public getQuestionListsSuccess(successData) {
         if (successData.IsSuccess) {
+            console.log(successData);
             let options = [];
             this.questionLists = successData.ResponseObject;
             for (let i = 0; i < this.questionLists.length; i++) {
@@ -105,6 +106,7 @@ export class ExamComponent implements OnInit {
                     this.questionLists[i].optionlist = options;
                 }
             }
+            console.log(this.questionLists, 'this.allQuestionLists');
         }
     }
     public getQuestionListsError(error) {
@@ -124,6 +126,7 @@ export class ExamComponent implements OnInit {
             }
         }
         let total = this.selectedData.filter(data => data.answer == '');
+        console.log(total.length, 'lp');
         sessionStorage.unAnsweredQuestions = total.length;
 
         let dialogRef = this.dialog.open(ConfrimAlert, {
@@ -132,6 +135,7 @@ export class ExamComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
+                console.log(this.selectedData, 'pop');
                 const data = {
                     'platform': 'web',
                     'pos_id': this.auth.getPosUserId(),
@@ -153,6 +157,7 @@ export class ExamComponent implements OnInit {
     }
     public submitExamSuccess(successData) {
         this.settings.loadingSpinner = false;
+        console.log(successData, 'successData');
         if (successData.IsSuccess) {
             sessionStorage.examBack = 1;
             sessionStorage.allQuestions = successData.ResponseObject.all_question_count;
@@ -195,6 +200,7 @@ export class ConfrimAlert {
     constructor(
         public dialogRef: MatDialogRef<ConfrimAlert>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
+        console.log(data, 'data');
         this.total = data.total;
         this.expiredStatus = data.expired;
         if (this.expiredStatus) {

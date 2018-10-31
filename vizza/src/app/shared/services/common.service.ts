@@ -344,17 +344,6 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    updateDmPassword(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getDmAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'distancemanager/change_password' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
 // Get city list
     getPostal(data) {
         const json = JSON.stringify(data);
@@ -461,19 +450,6 @@ export class CommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'careers/job_apply' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    //policy
-    mediaCenter(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'policyrenewal/ListMedia' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
