@@ -204,6 +204,7 @@ import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.comp
         EditDmComponent,
         EditmediaComponent,
         SafePipe
+
     ],
     providers: [
         AppSettings,
