@@ -25,9 +25,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
@@ -54,118 +54,138 @@ export class HomeComponent implements OnInit {
     maxDate: any;
     dateError: any;
 
-  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
-      this.form =  this.fb.group({
-          'insurename': ['', Validators.compose([Validators.required])],
-          'startdate': ['', Validators.compose([Validators.required])],
-          'enddate': ['', Validators.compose([Validators.required])],
-          'insureemail': ['', Validators.compose([Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-          'insurepolicytype':  ['', Validators.compose([Validators.required])],
-          'insuremobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-          'insurepolicyno': ['', Validators.compose([Validators.required])],
-          'insurepremiumamount': ['', Validators.compose([Validators.required])],
-          'insurecompanyname': ['',Validators.compose([Validators.required])],
-          'paymentfrequeny': ['',Validators.compose([Validators.required])]
-      });
-      this.settings = this.appSettings.settings;
-      this.webhost = this.config.getimgUrl();
-      this.settings.HomeSidenavUserBlock = true;
-       this.settings.sidenavIsOpened = true;
+    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
+        this.form =  this.fb.group({
+            'insurename': ['', Validators.compose([Validators.required])],
+            'startdate': ['', Validators.compose([Validators.required])],
+            'enddate': ['', Validators.compose([Validators.required])],
+            'insureemail': ['', Validators.compose([Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            'insurepolicytype':  ['', Validators.compose([Validators.required])],
+            'insuremobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+            'insurepolicyno': ['', Validators.compose([Validators.required])],
+            'insurepremiumamount': ['', Validators.compose([Validators.required])],
+            'insurecompanyname': ['',Validators.compose([Validators.required])],
+            'paymentfrequeny': ['',Validators.compose([Validators.required])]
+        });
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        this.settings.HomeSidenavUserBlock = true;
+        this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
-      console.log(this.settings, 'this.settings');
-      this.commentBox = false;
-      this.selectDate = '';
-      this.fileUploadPath = '';
-      this.allImage = [];
-      this.today = new Date();
+        console.log(this.settings, 'this.settings');
+        this.commentBox = false;
+        this.selectDate = '';
+        this.fileUploadPath = '';
+        this.allImage = [];
+        this.today = new Date();
 
 
-      this.paymentFrequency = [
-          {'id': 1, 'name': 'Annually'},
-          {'id': 2, 'name': 'Half Yearly'},
-          {'id': 3, 'name': 'Quarterly'},
-          {'id': 4, 'name': 'Monthly'}
-      ];
-  }
+        this.paymentFrequency = [
+            {'id': 1, 'name': 'Annually'},
+            {'id': 2, 'name': 'Half Yearly'},
+            {'id': 3, 'name': 'Quarterly'},
+            {'id': 4, 'name': 'Monthly'}
+        ];
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-      this.setDate = Date.now();
-      this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-      sessionStorage.nomineeDate = '';
-      sessionStorage.familyMembers = '';
-      sessionStorage.stepper1Details = '';
-      sessionStorage.stepper2Details = '';
-      sessionStorage.stepper3Details = '';
-      sessionStorage.nomineeData = '';
+        this.setDate = Date.now();
+        this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        sessionStorage.nomineeDate = '';
+        sessionStorage.familyMembers = '';
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper3Details = '';
+        sessionStorage.nomineeData = '';
 
-      //personalaccident components
-      sessionStorage.setOccupation = '';
-      sessionStorage.setAge = '';
-      sessionStorage.setAnnualIncome = '';
-      sessionStorage.setPage = '';
-      sessionStorage.sideMenu = false;
-      sessionStorage.setFamilyDetails = '';
-      sessionStorage.setInsuredAmount = '';
-      sessionStorage.setPincode = '';
-      sessionStorage.setPage = '';
-      sessionStorage.policyLists = '';
-      sessionStorage.sideMenu = '';
-      sessionStorage.sonBTn = '';
-      sessionStorage.daughterBTn = '';
-      sessionStorage.fatherBTn = '';
-      sessionStorage.motherBtn = '';
-      sessionStorage.fatherInLawBTn = '';
-      sessionStorage.motherInLawBtn = '';
-      sessionStorage.changedTabDetails = '';
-      sessionStorage.changeSuninsuredAmount = '';
-      sessionStorage.changedTabIndex = '';
-      sessionStorage.shorListTab = '';
-      sessionStorage.enquiryId = '';
-      sessionStorage.proposalId = '';
-      sessionStorage.mobileNumber = '';
-      sessionStorage.ageRestriction = '';
-      this.testimonialList();
-      this.getPolicyTypes();
-  }
+        //personalaccident components
+        sessionStorage.setOccupation = '';
+        sessionStorage.setAge = '';
+        sessionStorage.setAnnualIncome = '';
+        sessionStorage.setPage = '';
+        sessionStorage.sideMenu = false;
+        sessionStorage.setFamilyDetails = '';
+        sessionStorage.setInsuredAmount = '';
+        sessionStorage.setPincode = '';
+        sessionStorage.setPage = '';
+        sessionStorage.policyLists = '';
+        sessionStorage.sideMenu = '';
+        sessionStorage.sonBTn = '';
+        sessionStorage.daughterBTn = '';
+        sessionStorage.fatherBTn = '';
+        sessionStorage.motherBtn = '';
+        sessionStorage.fatherInLawBTn = '';
+        sessionStorage.motherInLawBtn = '';
+        sessionStorage.changedTabDetails = '';
+        sessionStorage.changeSuninsuredAmount = '';
+        sessionStorage.changedTabIndex = '';
+        sessionStorage.shorListTab = '';
+        sessionStorage.enquiryId = '';
+        sessionStorage.proposalId = '';
+        sessionStorage.mobileNumber = '';
+        sessionStorage.ageRestriction = '';
+        this.testimonialList();
+        this.getPolicyTypes();
+    }
 
 
 
     slides = [
-        {img: "./assets/img/partner/apollo-munich.png"},
-        {img: "./assets/img/partner/bajaj-allianz.png"},
-        {img: "./assets/img/partner/bharti-axa.png"},
-        {img: "./assets/img/partner/cholamandalam-ms.png"},
-        {img: "./assets/img/partner/cigna-ttk.png"},
-        {img: "./assets/img/partner/edelweiss.png"},
-        {img: "./assets/img/partner/future-generali.png"},
-        {img: "./assets/img/partner/hdfc-ergo.png"},
-        {img: "./assets/img/partner/icici-lombard.png"},
-        {img: "./assets/img/partner/iifco-tokio.png"},
-        {img: "./assets/img/partner/kotak.png"},
-        {img: "./assets/img/partner/liberty-videocon.png"},
-        {img: "./assets/img/partner/magma-hdi.png"}
+        {img: "./assets/img/partner/General Insurance/apollo munich.png"},
+        {img: "./assets/img/partner/General Insurance/bajaj-allianz.png"},
+        {img: "./assets/img/partner/General Insurance/bharti-axa.png"},
+        {img: "./assets/img/partner/General Insurance/cholamandalam-ms.png"},
+        {img: "./assets/img/partner/General Insurance/cigna-ttk.png"},
+        {img: "./assets/img/partner/General Insurance/edelweiss.png"},
+        {img: "./assets/img/partner/General Insurance/future-generali.png"},
+        {img: "./assets/img/partner/General Insurance/hdfc-ergo.png"},
+        {img: "./assets/img/partner/General Insurance/icici-lombard.png"},
+        {img: "./assets/img/partner/General Insurance/iifco-tokio.png"},
+        {img: "./assets/img/partner/General Insurance/kotak.png"},
+        {img: "./assets/img/partner/General Insurance/liberty-videocon.png"},
+        {img: "./assets/img/partner/General Insurance/magma-hdi.png"},
+        {img: "./assets/img/partner/General Insurance/max-bupa.png"},
+        {img: "./assets/img/partner/General Insurance/national-insurance.png"},
+        {img: "./assets/img/partner/General Insurance/new-india-insurance.png"},
+        {img: "./assets/img/partner/General Insurance/oriental.png"},
+        {img: "./assets/img/partner/General Insurance/reliance-general.png"},
+        {img: "./assets/img/partner/General Insurance/religare.png"},
+        {img: "./assets/img/partner/General Insurance/royal-sundaram.png"},
+        {img: "./assets/img/partner/General Insurance/sbi-general.png"},
+        {img: "./assets/img/partner/General Insurance/shriram.png"},
+        {img: "./assets/img/partner/General Insurance/star-health.png"},
+        {img: "./assets/img/partner/General Insurance/tata-aig.png"},
+        {img: "./assets/img/partner/General Insurance/United-INdia-insurance.png"},
+        {img: "./assets/img/partner/General Insurance/universal-sampo.png"}
     ];
     slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0};
     slides2 = [
-        {img: "./assets/img/partner/max-bupa.png"},
-        {img: "./assets/img/partner/national-insurance.png"},
-        {img: "./assets/img/partner/new-india-insurance.png"},
-        {img: "./assets/img/partner/oriental.png"},
-        {img: "./assets/img/partner/reliance-general.png"},
-        {img: "./assets/img/partner/religare.png"},
-        {img: "./assets/img/partner/royal-sundaram.png"},
-        {img: "./assets/img/partner/sbi-general.png"},
-        {img: "./assets/img/partner/shriram.png"},
-        {img: "./assets/img/partner/star-health.png"},
-        {img: "./assets/img/partner/tata-aig.png"},
-        {img: "./assets/img/partner/United-INdia-insurance.png"},
-        {img: "./assets/img/partner/universal-sampo.png"}
+        {img: "./assets/img/partner/life insurance/Aditya-birla.png"},
+        {img: "./assets/img/partner/life insurance/aegon.png"},
+        {img: "./assets/img/partner/life insurance/aviva-life.png"},
+        {img: "./assets/img/partner/life insurance/bajaj-allianz.png"},
+        {img: "./assets/img/partner/life insurance/Bharti-Axa.png"},
+        {img: "./assets/img/partner/life insurance/edelweiss-tokio.png"},
+        {img: "./assets/img/partner/life insurance/exide-life.png"},
+        {img: "./assets/img/partner/life insurance/future-generali.png"},
+        {img: "./assets/img/partner/life insurance/hdfc-life.png"},
+        {img: "./assets/img/partner/life insurance/icici-prudential.png"},
+        {img: "./assets/img/partner/life insurance/idbi-federal.png"},
+        {img: "./assets/img/partner/life insurance/india-first.png"},
+        {img: "./assets/img/partner/life insurance/kotak-life.png"},
+        {img: "./assets/img/partner/life insurance/lic.png"},
+        {img: "./assets/img/partner/life insurance/max-life.png"},
+        {img: "./assets/img/partner/life insurance/pnb-metlife.png"},
+        {img: "./assets/img/partner/life insurance/reliance-nippon.png"},
+        {img: "./assets/img/partner/life insurance/sbi-life.png"},
+        {img: "./assets/img/partner/life insurance/shriram.png"},
+        {img: "./assets/img/partner/life insurance/tata-aia.png"}
     ];
     slideConfig2 = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0, "rtl": true};
 
     addEvent(event) {
-      console.log(event, 'chek dateeeeee');
+        console.log(event, 'chek dateeeeee');
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
@@ -202,7 +222,7 @@ export class HomeComponent implements OnInit {
 
 
     testiComments() {
-      // this.commentBox = true;
+        // this.commentBox = true;
         let dialogRef = this.dialog.open(TestimonialComponent, {
             width: '800px' });
         dialogRef.disableClose = true;
@@ -368,20 +388,20 @@ export class HomeComponent implements OnInit {
 
     readUrl(event: any) {
         this.getUrl = '';
-            let getUrlEdu = [];
-            this.fileDetails = [];
-            for (let i = 0; i < event.target.files.length; i++) {
-                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
-            }
-            for (let i = 0; i < event.target.files.length; i++) {
-                const reader = new FileReader();
-                reader.onload = (event: any) => {
-                    this.url = event.target.result;
-                    getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(getUrlEdu);
-                };
-                reader.readAsDataURL(event.target.files[i]);
-            }
+        let getUrlEdu = [];
+        this.fileDetails = [];
+        for (let i = 0; i < event.target.files.length; i++) {
+            this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+        }
+        for (let i = 0; i < event.target.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (event: any) => {
+                this.url = event.target.result;
+                getUrlEdu.push(this.url.split(','));
+                this.onUploadFinished(getUrlEdu);
+            };
+            reader.readAsDataURL(event.target.files[i]);
+        }
         console.log(this.fileDetails, 'this.lengthlength');
 
     }

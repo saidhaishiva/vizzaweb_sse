@@ -35,10 +35,13 @@ export class PagesComponent implements OnInit {
   }
   
   ngOnInit() {
+    if (this.auth.getSessionData('loginStatus') == 'pos') {
+        this.settings.userId = this.auth.getPosUserId() !=null?this.auth.getPosUserId() : this.userId;
+    } else if (this.auth.getSessionData('loginStatus') == 'dm') {
+        this.settings.userId = this.auth.getDmUserId() !=null?this.auth.getDmUserId() : this.userId;
+    }
 
-
-      this.settings.userId = this.auth.getPosUserId() !=null?this.auth.getPosUserId() : this.userId;
-    if(window.innerWidth <= 768){
+      if(window.innerWidth <= 768){
       this.settings.menu = 'vertical';
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
@@ -50,9 +53,11 @@ export class PagesComponent implements OnInit {
 
     logout(){
         this.router.navigate(['/home']);
-        sessionStorage.clear();
         this.settings.userId = 0;
         this.settings.username = '';
+         setTimeout(() => {
+             sessionStorage.clear();
+         },600);
     }
 
   ngAfterViewInit(){

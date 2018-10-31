@@ -173,25 +173,38 @@
                                                     <mat-icon class="muted-text  colorBank">mail</mat-icon>&nbsp;<span class="colorBank">Email Id : </span>
                                                     <span class="ml-1"> {{personal.pos_email}}</span>
                                                 </p>
-                                                <div>
-                                                    <p class="text-capitalize" fxLayout="row" fxLayoutAlign="start center">
-                                                        <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address  : </span>
-                                                        <span class="ml-1"> {{personal.pos_address1}}</span>
-                                                        <span *ngIf="personal.pos_address2 != ''">,</span>
-                                                        <span *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>
-                                                        <span *ngIf="personal.pos_cityid != ''">,</span>
-                                                    </p>
+                                                <!--<div>-->
+                                                    <!--<p class="text-capitalize" fxLayout="row" fxLayoutAlign="start start">-->
+                                                        <!--<mat-icon class="muted-text  colorBank">location_on</mat-icon><span class="colorBank" style="width: 65px;"> Address : </span>-->
+                                                        <!--<span>-->
+                                                        <!--<span class="ml-1"> {{personal.pos_address1}}</span>-->
+                                                        <!--<span *ngIf="personal.pos_address2 != ''">,</span>-->
+                                                        <!--<span class="ml-1" *ngIf="personal.pos_address2 != ''">{{personal.pos_address2}}</span>-->
+                                                        <!--<span *ngIf="personal.pos_cityid != ''">,</span>-->
+                                                        <!--</span>-->
 
-                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 " >{{personal.pos_cityid}}
+                                                    <!--</p>-->
+                                                <p fxLayout="row" fxLayoutAlign="start center" >
+                                                    <mat-icon class="muted-text  colorBank">location_on</mat-icon>&nbsp;<span class="colorBank"> Address : </span>
+                                                </p>
+                                                <p fxLayout="row" fxLayoutAlign="start center" class="ml-class">
+                                                    {{personal.pos_address1}}
+                                                    <span *ngIf="personal.pos_address2 != ''">,</span>
+                                                </p>
+                                                <p *ngIf="personal.pos_address2 != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.pos_address2}}
+                                                    <span *ngIf="personal.pos_cityid != ''">,</span>
+                                                </p>
+
+                                                    <p *ngIf="personal.pos_cityid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class" >{{personal.pos_cityid}}
                                                         <span *ngIf="personal.pos_cityid != null">-</span>
                                                         {{personal.pos_postalcode}}
                                                         <span *ngIf="personal.pos_stateid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_stateid}}
+                                                    <p *ngIf="personal.pos_stateid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.pos_stateid}}
                                                         <span *ngIf="personal.pos_countryid != ''">,</span>
                                                     </p>
-                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-4 ">{{personal.pos_countryid}}</p>
-                                                </div>
+                                                    <p *ngIf="personal.pos_countryid != ''" fxLayout="row" fxLayoutAlign="start center" class="ml-class">{{personal.pos_countryid}}</p>
+                                                <!--</div>-->
                                             </div>
                                         </mat-list>
                                     </mat-card-content>
@@ -688,8 +701,8 @@
                                                             <td>{{personal.appointment_date | date:'dd-MMM-yy'}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>POS’P ID:</td>
-                                                            <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                            <td>POSP ID:</td>
+                                                            <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span></td>
@@ -733,8 +746,7 @@
                                                 <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
                                                 Person for Non-life and Health lnsurers. Your personal details are as under:</p>
                                             <p><strong>Aadhaar No: {{personal.doc_aadhar_no}}</strong></p>
-                                            <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
-                                                intermediary) to market products categorized and identified under the Guidelines only.</p>
+                                            <p>This letter authorizes you to act as Point of Sales Person for (Vizza Insurance Broking Services Pvt Ltd) to market products categorized and identified under the Guidelines only.</p>
                                             <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
                                                 new insurer/ insurance intermediary in order to act as Point of Sales Person for that entity.</p>
                                         </div>
@@ -788,10 +800,10 @@
                                     <section class="row mt-5">
                                         <div class="c-content w-100 text-justify">
                                             <h5 class="c-title"><span>This is to certify that</span></h5>
-                                            <p> <strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
+                                            <p><strong><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}} </strong> has attended 15 hours of Online
                                                 Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
                                                 Insurance Regulatory and Development Authority.</p>
-                                            <p>The Said Candidate, had registered for the online training program on
+                                            <p><span *ngIf="personal.pos_gender == 'male'">Mr.</span><span *ngIf="personal.pos_gender == 'female'">Ms.</span>{{personal.pos_firstname | titlecase}} {{personal.pos_lastname | titlecase}}, had registered for the online training program on
                                                 {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 15 hours of POS’P Online Training on
                                                 {{personal.training_completed_date | date:'dd-MMM-yy'}}</p>
                                         </div>
@@ -808,15 +820,15 @@
                                                     <td>{{personal.training_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID:</td>
-                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                    <td>POSP ID:</td>
+                                                    <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </section>
                                     <footer class="row mt-5 print-sign">
                                         <div class="col-md-12 text-center">
-                                            <p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>
+                                            <p><img src="assets/img/vignesh-sign.png" width="100px" alt=""></p>
                                             <p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>
                                             <p class="mb-0">Head - Corporate</p>
                                             <p class="mb-0">(Authorised Signatory)</p>
@@ -880,8 +892,8 @@
                                                     <td>{{personal.exam_completed_date | date:'dd-MMM-yy' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>POS’P ID:</td>
-                                                    <td>VIZAA/POS'P/{{personal.pos_id}}</td>
+                                                    <td>POSP ID:</td>
+                                                    <td>VIZAA/POSP/{{personal.pos_id}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -936,6 +948,9 @@
 <style>
     .customCard {
         height: 250px !important;
+    }
+    .ml-class{
+        margin-left: 27px;
     }
 </style>
 

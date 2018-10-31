@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
     public form: FormGroup;
     response: any;
     pin: any;
+    ref: any;
     fixed: boolean;
     range: boolean;
     header: boolean;
@@ -53,6 +54,9 @@ export class RegisterComponent implements OnInit {
     selectedtab: number;
     type: any;
     public title: any;
+    ReferralCodeErrors: any;
+    referralsuccess: any;
+    referralName: any;
 
     aadharfront: any;
     aadharback: any;
@@ -211,23 +215,6 @@ export class RegisterComponent implements OnInit {
             }
         }
     }
-    // onUploadFinished(event) {
-    //     this.getUrl = event[1];
-    //     const data = {
-    //         'platform': 'web',
-    //         'uploadtype': 'single',
-    //         'images': this.getUrl,
-    //     };
-    //     console.log(data, 'dfdfdsfdsfdsfds');
-    //     this.common.fileUpload(data).subscribe(
-    //         (successData) => {
-    //             this.fileUploadSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.fileUploadFailure(error);
-    //         }
-    //     );
-    // }
     onUploadFinished(event) {
         this.allImage.push(event);
         console.log(this.allImage, 'this.fileDetails');
@@ -301,7 +288,6 @@ export class RegisterComponent implements OnInit {
                 'pos_referral_code': event.target.value,
                 'roleid': this.auth.getPosUserId()
             };
-            console.log(data, 'dfdfdsfdsfdsfds');
             this.common.getReferral(data).subscribe(
                 (successData) => {
                     this.referralSuccess(successData);
@@ -314,7 +300,6 @@ export class RegisterComponent implements OnInit {
 
     public referralSuccess(successData) {
             if (successData.IsSuccess == true) {
-                console.log(successData, 'successData');
                 this.fileUploadPath = successData.ResponseObject.imagePath;
             } else {
                 this.toastr.error(successData.ErrorObject, 'Failed');
@@ -327,8 +312,6 @@ export class RegisterComponent implements OnInit {
 
 
     submit(value) {
-        console.log(value, 'vall');
-        console.log(this.dob, 'dateeee');
         if (this.aadharfront == '') {
             this.toastr.error('Please upload aadhar front page');
         } else if (this.aadharback == '') {
@@ -340,7 +323,6 @@ export class RegisterComponent implements OnInit {
         } else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
-            console.log(this.form.value['personal']['firstname'].value, 'ppp');
 
             const data = {
                 'platform': 'web',

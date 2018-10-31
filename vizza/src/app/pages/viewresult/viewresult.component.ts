@@ -35,7 +35,6 @@ export class ViewresultComponent implements OnInit {
         this.correctAns = sessionStorage.correctAns;
         this.examPercentage = sessionStorage.examPercentage;
         this.examStatus = sessionStorage.examStatus;
-        console.log(this.examStatus, 'examStatus');
         let perQuestionMark = 2;
         // let marks = (this.correctAns * perQuestionMark);
         // console.log(marks, 'status');
@@ -66,11 +65,9 @@ export class ViewresultComponent implements OnInit {
     }
 
     public onSelect(event) {
-        console.log(event);
     }
 
     ngOnInit() {
-      console.log("hi");
     }
 }
 

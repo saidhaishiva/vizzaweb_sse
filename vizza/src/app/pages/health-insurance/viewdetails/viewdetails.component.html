@@ -36,7 +36,8 @@
                           <div class="row" *ngIf="id === i">
                             <div class="col-md-12">
                               <div fxLayoutAlign="left start">
-                                <p class="text-justify">{{keys.kf_details}}</p>
+                                <!--<p class="text-justify">{{keys.kf_details}}</p>-->
+                                <div class="text-justify" [innerHtml]="keys.kf_details"> </div>
                               </div>
                             </div>
                           </div>
@@ -51,6 +52,35 @@
               <mat-icon class="example-tab-icon">assignment</mat-icon>
               PRODUCT DOCUMENTS
             </ng-template>
+            <div class="row">
+              <div class="col-md-3 pl-0 pr-1">
+                <div mat-dialog-content >
+                  <mat-nav-list *ngFor="let keys of productDocLists;let i = index">
+                    <mat-list-item *ngIf="keys.status == 1 || keys.status == 0" class="nav-item" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#8e8e8e' : '#d81b60'">
+                      <i class="material-icons">keyboard_arrow_right</i>
+                      <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                    </mat-list-item>
+                  </mat-nav-list>
+                </div>
+              </div>
+              <div class="col-md-9" style="background-color:#18ccb4 !important;"><br>
+                <div>
+                  <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
+                    <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
+                      <h4>{{keys.product_name}}</h4>
+                    </div>
+                    <div class="row" *ngIf="id1 == i">
+                      <div class="col-md-12">
+                        <div fxLayoutAlign="center center">
+                          <iframe [src]="webhost +'/'+ keys.kf_path" width="476" height="288" ></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </mat-tab>
           <mat-tab>
             <ng-template mat-tab-label>
@@ -67,7 +97,9 @@
                     <div class="row" *ngIf="keys.type == 2">
                       <div class="col-md-12">
                         <div fxLayoutAlign="left start">
-                          <p class="text-justify">{{keys.kf_details}}</p>
+                          <!--<p class="text-justify">{{keys.kf_details}}</p>-->
+                          <div class="text-justify" [innerHtml]="keys.kf_details"> </div>
+
                         </div>
                       </div>
                     </div>
