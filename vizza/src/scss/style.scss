@@ -564,6 +564,8 @@ a:hover {
     }
     th {
       text-align: center;
+      border-collapse: collapse;
+      border: 1px solid #ccc !important;
     }
     td{
       vertical-align: middle;
