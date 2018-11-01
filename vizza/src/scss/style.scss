@@ -1852,3 +1852,21 @@ fieldset {
     margin-left:30px;
   }
 }
+.mt-viwe-profile1 {
+  .user-name {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  .user-content .user-details .mat-icon {
+    //padding: 0 !important;
+    margin-right: 10px;
+  }
+  .bg-primary{
+    background-color: #0288d1 !important;
+   // height: 40px;
+    color:#313131 !important;
+  }
+  //p, label{
+  //  margin: 0;
+  //}
+}

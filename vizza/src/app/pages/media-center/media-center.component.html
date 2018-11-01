@@ -11,9 +11,11 @@
 <section id="appointment" class="doctorlist">
 <div fxLayout="row wrap">
     <div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 2, currentPage: page }" fxFlex="100" class="flex-p">
-        <mat-card class="p-0">
+        <mat-card class="p-0 mt-viwe-profile1">
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h5 class="user-name">Media Center</h5>
+                <h5 class="user-name">
+                    <p>Title</p>
+                </h5>
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -45,9 +47,6 @@
                         <p fxLayout="row" fxLayoutAlign="start center">
                             Publish Days : {{user.post_days}}
                         </p>
-                        <p fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)">
-                            Content : <a>Read more.....</a>
-                        </p>
 
                         <!--<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>-->
 
@@ -58,6 +57,11 @@
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                             Publish Date : {{user.publish_date | date:'dd-MMM-yy'}}
+                        </p>
+                    </div>
+                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)">
+                            Content : <a>Read more.....</a>
                         </p>
                     </div>
 
