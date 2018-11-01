@@ -77,6 +77,7 @@ export class ReligareComponent implements OnInit {
     public summaryRelationship : any;
     public sumTitle: any;
     public sumPin: any;
+    public code: any;
     public sumAreaName: any;
     public sumAreaNameComm: any;
     public setDateAge: any;
@@ -1053,10 +1054,20 @@ array: any;
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
+            console.log(this.relationshipList, 'this.relationshipList');
             this.summaryData = successData.ResponseObject;
+            let getdata=[];
+            for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
+                  for (let j = 0; j <  this.relationshipList.length; j++) {
+                     if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
+                          this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
+                      }
+                  }
+            }
+            console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
-            console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
+            //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
             this.relationshipcode = [];
             console.log(this.relationshipList,'lll');
             for (let i = 0; i < this.relationshipList.length; i++) {

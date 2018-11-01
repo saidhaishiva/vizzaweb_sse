@@ -564,6 +564,8 @@ a:hover {
     }
     th {
       text-align: center;
+      border-collapse: collapse;
+      border: 1px solid #ccc !important;
     }
     td{
       vertical-align: middle;
@@ -1728,8 +1730,8 @@ footer{
 }
 app-horizontal-menu{
   .horizontal-menu-item:last-child{
-    background: #ccc !important;
-    color: #fff;
+    background: #ffffff !important;
+    color: #000000;
     font-weight: bold;
   }
 }
