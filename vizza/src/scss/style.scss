@@ -670,6 +670,11 @@ a:hover {
   color: #fff;
   width: auto !important;
 }
+
+//.horizontal-sub-menu < div {
+//  min-height: 20px;
+//                       }
+
 .horizontal-menu-item .horizontal-sub-menu a.mat-button{
   color: #fff !important;
 }
@@ -1843,4 +1848,8 @@ fieldset {
     border: 1px solid rgb(40, 167, 69);
     margin-bottom: 15px;
   }
+}
+
+.spaceContent{
+  margin-left:10px;
 }
