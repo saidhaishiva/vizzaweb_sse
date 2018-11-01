@@ -137,7 +137,7 @@ array: any;
         this.isDisable = false;
         this.insureCity = false;
         this.proposerInsureData = [];
-        this.totalReligareData = [];
+        //this.totalReligareData = [];
         this.questions_list = [];
         this.arr = [];
         this.personal = this.fb.group({
@@ -312,8 +312,8 @@ array: any;
                 personalPincode: ['', Validators.required],
                 personalCity: ['', Validators.required],
                 personalState: ['', Validators.required],
-                personalEmail: ['', Validators.required],
-                personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                personalEmail: '',
+                personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
                 personalAltnumber: '',
                 residenceAddress: ['', Validators.required],
                 residenceAddress2: [''],
@@ -337,8 +337,10 @@ array: any;
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
+        this.proposerInsureData = [];
+        this.totalReligareData = [];
+        this.proposerInsureData.push(this.personalData);
         if (this.insureArray.valid) {
-            this.totalReligareData = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.insurerData.items[i].type = this.insurePersons[i].type;
             }
@@ -362,7 +364,7 @@ array: any;
                     }],
                     'prop_identity_list': [
                         {
-                            'identity_number': this.proposerInsureData[i].personalPan.toUpperCase(),
+                            'identity_number': this.proposerInsureData[i].personalPan,
                             'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
                         }
                     ],
@@ -408,6 +410,7 @@ array: any;
                 //         'identity_type': 'PAN'
                 //     });
                 // }
+                console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareData');
 
             }
             let aterMobile = [];
@@ -1006,10 +1009,9 @@ array: any;
 
     }
 
-
-
     //Create Proposal
     proposal() {
+
         this.totalData = {
             'platform': 'web',
             'proposal_id': '1',
@@ -1071,11 +1073,14 @@ array: any;
 
 
     processDiseaseData(diseaseData) {
+
         let updatedFinalData = [];
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
+                console.log(diseaseData, 'diseaseDatadiseaseDatadiseaseData');
                 let updatedData = [];
                 for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
+                    console.log(diseaseData.proposer_insurer_details[i]['questions_list'], 'diseaseData.proposer_insurer_details[i][\'questions_list\']')
                     let newObject = {};
                     newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
                     newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
