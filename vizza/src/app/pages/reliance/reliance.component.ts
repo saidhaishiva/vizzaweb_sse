@@ -72,6 +72,7 @@ export class RelianceComponent implements OnInit {
     public sumTitle: any;
     public sumAreaName: any;
     public setDateAge: any;
+    public dobError: any;
     public personalAge: any;
     public religareQuestionsList: any;
     public items: any;
@@ -120,6 +121,7 @@ export class RelianceComponent implements OnInit {
     public nomineeAreaList: any;
     public diseaseList: any;
     public coverTypeList: any;
+    public dob: any;
 public minDate: any;
 public maxDate: any;
 public RediretUrlLink: any;
@@ -559,32 +561,83 @@ public RediretUrlLink: any;
 
 
     addEvent(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
-        sessionStorage.setItem('proposerAge', this.personalAge);
+        let dd = event.value;
+        console.log(dd, 'lll');
+        // this.selectDate = event.value;
+        // console.log(this.selectDate);
+        // this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+        // this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        // this.personalAge = this.ageCalculate(this.setDateAge);
+        // sessionStorage.setItem('proposerAge', this.personalAge);
+        if (event.value != null) {
+            let selectedDate = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                // this.dob = event.value._i;
+
+                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.dob = dob;
+                console.log(dob, 'dob');
+                if (selectedDate.length == 10) {
+                    this.ageCalculate(dob);
+                } else {
+                }
+
+            } else if (typeof event.value._i == 'object') {
+
+                this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (this.dob.length == 10) {
+                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
+                } else {
+
+                }
+
+                this.dobError = '';
+                let date = event.value._i.date;
+                if (date.toString().length == 1) {
+                    date = '0' + date;
+                }
+                let month = (parseInt(event.value._i.month) + 1).toString();
+
+                if (month.length == 1) {
+                    month = '0' + month;
+                }
+                let year = event.value._i.year;
+                this.dob = date + '-' + month + '-' + year;
+            }
+            console.log( this.dob, 'ghjkl');
+        }
+
     }
-    addEventInsurer(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate, 'hfdgfjk');
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        // this.maxDate =  this.insureArray.controls['PolicyStartDate'].values;
-        this.maxDate= this.setDate;
-    }
+    // addEventInsurer(event) {
+    //     this.selectDate = event.value;
+    //     console.log(this.selectDate, 'hfdgfjk');
+    //     this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+    //     this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    //     // this.maxDate =  this.insureArray.controls['PolicyStartDate'].values;
+    //     this.maxDate= this.setDate;
+    // }
 
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        const mdate = dob.toString();
+        const yearThen = parseInt(mdate.substring(8, 10), 10);
+        const monthThen = parseInt(mdate.substring(5, 7), 10);
+        const dayThen = parseInt(mdate.substring(0, 4), 10);
+        const todays = new Date();
+        const birthday = new Date(dayThen, monthThen - 1, yearThen);
+        const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        console.log(yearAge, 'console.log(yearAge)');
+
+        // this.insureArray.controls['personalAge'].patchValue(yearAge);
+
     }
 
     sessionData() {
