@@ -1131,7 +1131,14 @@ export class HealthInsuranceComponent implements OnInit {
     selector: 'healthinsurer',
     template: `<mat-accordion>
 
-        <mat-expansion-panel>
+        <div class="col-sm-12 text-right">
+            <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+        </div>
+            
+        <div class="text-center">
+            <h3>About Health Insurance</h3>
+        </div>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     HEALTH INSURANCE- WHAT YOU SHOULD KNOW
@@ -1141,7 +1148,7 @@ export class HealthInsuranceComponent implements OnInit {
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     UTILISING THE HEALTH INSURANCE POLICY
@@ -1162,7 +1169,7 @@ export class HealthInsuranceComponent implements OnInit {
                 <li>In every hospitalization procedure it is a foregone fact that there will be a pre hospitalization expenditure and after discharge certain post hospitalization expenditure. Generally both the pre and post hospitalization expenses  do not come under the cashless process and has to be claimed as a reimbursement. You must remember that all expenses must be supported by the relevant prescription and bill along with the original report for diagnostic materials. Normally all insurance policies give a 30 day coverage for pre hospitalization expenses and a 60 day period for post hospitalization expenses. Remember there are variations from insurer to insurer according to the opted policy. All claims are payable up to the sum insured limit only. Please remember there might be sub limits or cash / percentage limitations in procedures which are charged by the hospitals on a package basis. Only relevant ( to the procedure at the hospital) medical expenses are covered in the pre and post hospitalization.</li></ol>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     CASHLESS HOSPITALIZATION PROCESS
@@ -1171,7 +1178,7 @@ export class HealthInsuranceComponent implements OnInit {
             For you to claim your Insurance by the Cashless Hospitalization manner, you must use any of the hospitals that fall under the network of hospitals registered with that insurer or the Third Party Administrator ( TPA).  All you have to do is to present a physical proof of the health insurance policy you availed or the identity card provided by the insurer / TPA of the insurance along with an approved photo identity of the policy holder as well as the insured person undergoing the treatment and you will be able to avail the benefits of Cashless treatment and hospitalization. Original identity cards have to be shown for verification and immediate return.
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     REIMBURSEMENT CLAIM PROCESS
@@ -1190,7 +1197,7 @@ export class HealthInsuranceComponent implements OnInit {
             <p>Opening up of the insurance market has facilitated a wide range of products which are lifelong renewable. It is vital for you to go for a policy that offers protection for a very long time, especially during old age. This is the reason why most of the health insurance plans come out with the facility of lifelong renewability. Just to keep your policy active, you have to renew the same at end of every policy year.</p>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     DAY CARE PROCEDURES<
@@ -1199,7 +1206,7 @@ export class HealthInsuranceComponent implements OnInit {
             As mentioned earlier coverage for  procedures which can be completed  in less than 24 hours and discharge of the patient can be on the same day are called Day Care Proceedures. These procedures might be done under local or general anesthesia and there is no need for the patient to remain admitted in the hospital. It is essential that for the claim to be approved it should be listed in the approved list of day care proceedures.
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     SPECIAL PLANS AND SPECIAL POLICIES FOR ALL CITIZENS
@@ -1209,7 +1216,7 @@ export class HealthInsuranceComponent implements OnInit {
             <p>Policies are now available in the market for Cancer Care, Diabetes, Cardiac Care, Critical illness and Senior Citizens also. The terms and conditions of the respective insurer applies but the variety and choice of products in health care insurance is abundant.  Some of the critical illness care policies even have the facility of lump sum reimbursement.</p>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     FREE MEDICAL CHECKUPS
@@ -1219,7 +1226,7 @@ export class HealthInsuranceComponent implements OnInit {
             <p>Reimbursement of Ambulance charges is an additional benefit offered by most of the health insurance policies. Some policies in the market offer the facility of Air Ambulance too.</p>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     RESTORATION OF SUM INSURED
@@ -1230,7 +1237,7 @@ export class HealthInsuranceComponent implements OnInit {
             <p>Normally the health insurance policies come with a room rent cap or at times with a co – pay option. The market has policies which has no cap on room rent and co-pay. The advantage of not having a room rent cap is that it facilitates the insured to utilize the available room and it gives the advantage of no proportionate deductions. It means, if there is a room rent cap in a policy and the insured opts for a room for which the insured pays a rent higher than the eligible room rent the claim amount is also reduced proportionately.</p>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     VIZZA BENEFITS
