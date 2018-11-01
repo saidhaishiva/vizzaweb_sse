@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
-// import { SafePipe} from '../safepipe';
+import { SafePipe} from '../safe-pipe';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
@@ -275,7 +275,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       DmChangepasswordComponent,
       MediaCenterComponent,
       ViewmediaComponent,
-      // SafePipe
+      SafePipe
   ],
   providers: [
       AppSettings,

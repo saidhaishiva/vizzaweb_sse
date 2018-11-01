@@ -17,7 +17,7 @@
             </ng-template>
             <!--<div mat-dialog-content >-->
               <div class="row">
-                  <div class="col-md-3 pl-0 pr-1">
+                  <div class="col-md-3 pl-0 pr-1 bg-color">
                     <div mat-dialog-content >
                       <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
                         <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#8e8e8e' : '#d81b60'">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                   <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#18ccb4' : '#d81b60'" ><br>
-                    <div>
+                    <div mat-dialog-content>
                       <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
                           <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
                             <h4>{{keys.kf_name}}</h4>
@@ -53,7 +53,7 @@
               PRODUCT DOCUMENTS
             </ng-template>
             <div class="row">
-              <div class="col-md-3 pl-0 pr-1">
+              <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
                   <mat-nav-list *ngFor="let keys of productDocLists;let i = index">
                     <mat-list-item *ngIf="keys.status == 1 || keys.status == 0" class="nav-item" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#8e8e8e' : '#d81b60'">
@@ -70,11 +70,11 @@
                       <h4>{{keys.product_name}}</h4>
                     </div>
                     <div class="row" *ngIf="id1 == i">
-                      <div class="col-md-12">
-                        <div fxLayoutAlign="center center">
-                          <iframe [src]="webhost +'/'+ keys.kf_path" width="476" height="288" ></iframe>
+                      <!--<div class="col-md-12">-->
+                        <div class="text-center w-100">
+                          <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="250" height="100" ></iframe>
                         </div>
-                      </div>
+                      <!--</div>-->
                     </div>
                   </div>
                 </div>
