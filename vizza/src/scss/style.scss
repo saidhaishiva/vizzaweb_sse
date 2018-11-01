@@ -445,34 +445,28 @@ a:hover {
     //  background: #3EA1F7;
     //}
     li:nth-child(1) .icon {
-      background: #0CE884;
+      background: #07F488;
     }
     li:nth-child(2) .icon {
-      background: #DE6925;
+      background: #DF6601;
     }
     li:nth-child(3) .icon {
-      background: #F50091;
+      background: #FD0089;
     }
     li:nth-child(4) .icon {
-      background: #EB1943;
+      background: #F00034;
     }
     li:nth-child(5) .icon {
-      background: #0CC3E8;
+      background: #0FBEEA;
     }
     li:nth-child(6) .icon {
-      background: #9E58B5;
-    }
-    li:nth-child(12) .icon {
-      background: #F75A9C;
-    }
-    li:nth-child(16) .icon {
-      background: #993D64;
+      background: #A521B3;
     }
     li:nth-child(7) .icon {
-      background: #F44D00;
+      background: #F73D00;
     }
     li:nth-child(8) .icon {
-      background: #000;
+      background: #000000;
     }
     li:nth-child(9) .icon {
       background: #18CCB4;
@@ -480,25 +474,27 @@ a:hover {
     li:nth-child(10) .icon {
       background: #F50091;
     }
-    li:nth-child(17) .icon {
-      background: #CB964B;
-    }
-    li:nth-child(13) .icon {
-      background: #EB1943;
-    }
-    li:nth-child(14) .icon {
-      background: #9F38A3;
-    }
-    li:nth-child(15) .icon {
-      background: #EB1943;
+    li:nth-child(11) .icon {
+      background: #FAE639;
     }
     li:nth-child(12) .icon {
-      background: #731c77;
+      background: #790075;
     }
-
-    li:nth-child(11) .icon {
-      background: #FFD840;
+    li:nth-child(13) .icon {
+      background: #F00034;
     }
+    li:nth-child(14) .icon {
+      background: #A811A3;
+    }
+    li:nth-child(15) .icon {
+      background: #F00034;
+    }
+    //li:nth-child(16) .icon {
+    //  background: #993D64;
+    //}
+    //li:nth-child(17) .icon {
+    //  background: #CB964B;
+    //}
   }
   .nav-item{
     height: 80px;
@@ -670,6 +666,11 @@ a:hover {
   color: #fff;
   width: auto !important;
 }
+
+//.horizontal-sub-menu < div {
+//  min-height: 20px;
+//                       }
+
 .horizontal-menu-item .horizontal-sub-menu a.mat-button{
   color: #fff !important;
 }
@@ -727,9 +728,9 @@ a:hover {
     }
 
   }
-  //.mat-horizontal-stepper-header{
-  //  pointer-events: none !important;
-  //}
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
   mat-expansion-panel-header{
     background: $green-color !important;
     mat-panel-title, .mat-expansion-indicator::after{
@@ -1268,23 +1269,23 @@ a:hover {
       background:#007bb6;
     }
     &:nth-child(4):hover i{
-      background:#0063dc;
-    }
-    &:nth-child(5):hover i{
       background:#cd201f;
     }
-    &:nth-child(6):hover i{
+    &:nth-child(5):hover i{
       background:#d93175;
     }
-    &:nth-child(7):hover i{
-      background:#35465c;
+    &:nth-child(6):hover i{
+      background:#DF3F36;
     }
-    &:nth-child(8):hover i{
-      background:#cb2027;
-    }
-    &:nth-child(9):hover i{
-      background:#dc4e40;
-    }
+    //&:nth-child(7):hover i{
+    //  background:#35465c;
+    //}
+    //&:nth-child(8):hover i{
+    //  background:#cb2027;
+    //}
+    //&:nth-child(9):hover i{
+    //  background:#dc4e40;
+    //}
     span{
       float: left;
       width: 100%;
@@ -1727,8 +1728,8 @@ footer{
 }
 app-horizontal-menu{
   .horizontal-menu-item:last-child{
-    background: #ccc !important;
-    color: #fff;
+    background: #ffffff !important;
+    color: #000000;
     font-weight: bold;
   }
 }
@@ -1842,5 +1843,12 @@ fieldset {
   .card{
     border: 1px solid rgb(40, 167, 69);
     margin-bottom: 15px;
+  }
+}
+
+.spaceContent{
+  margin-left:10px;
+  ul{
+    margin-left:30px;
   }
 }

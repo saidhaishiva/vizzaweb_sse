@@ -3,6 +3,21 @@
    Back</button>
 
 </div>
-<div>
-  view html
+
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <div fxFlex="100" class="flex-p" fxLayoutAlign="center center">
+                <mat-card-title>
+                    <span style="color:#3dccb1d6 !important">News Letter Content</span>
+                </mat-card-title>
+            </div>
+
+        </mat-card-header>
+        <mat-card-content  fxLayoutAlign="space-between center" >
+            <div [innerHtml]="content">
+            </div>
+        </mat-card-content>
+
+    </mat-card>
 </div>

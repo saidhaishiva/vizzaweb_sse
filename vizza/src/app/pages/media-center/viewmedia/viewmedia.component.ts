@@ -10,13 +10,13 @@ import {Settings} from '../../../app.settings.model';
 })
 export class ViewmediaComponent implements OnInit {
     public searchText: string;
-public page: any;
+    public page: any;
     public settings: Settings;
+    content: any;
 
-  constructor( private router: Router, public appSettings: AppSettings,
-  ) {
+  constructor( private router: Router, public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
-
+      this.content = sessionStorage.newsLetterContent;
   }
 
   ngOnInit() {

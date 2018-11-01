@@ -150,7 +150,9 @@ export class EditmediaComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             // this.dialogRef.close(true);
-            this.editList = successData.ResponseObject;
+           // this.editList = successData.ResponseObject;
+            this.router.navigate(['/mediacenter']);
+
         }
         // console.log(this.editList, 'this.editList');
     }
