@@ -52,7 +52,8 @@ export class MediaCenterComponent implements OnInit {
     updateFailure(error) {
         console.log(error);
     }
-    redirect(){
+    redirect(val){
+        sessionStorage.newsLetterContent = val;
         this.router.navigate(['/viewmedia']);
 
     }

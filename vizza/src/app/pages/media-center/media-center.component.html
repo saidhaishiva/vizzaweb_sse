@@ -1,32 +1,14 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="flex-p">
-    <div fxLayout="row">
-        <mat-button-toggle-group #controls="matButtonToggleGroup">
-            <mat-button-toggle value="add" (click)="openUserDialog(null)">
-                <mat-icon>person_add</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle value="search">
-                <mat-icon>search</mat-icon>s
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
     <form class="user-search" >
+    </form>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field class="user-search-input">
             <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">
         </mat-form-field>
-    </form>
-    <!--<div fxLayout="row" fxLayoutAlign="space-between center">-->
-        <!--<mat-button-toggle-group #viewType="matButtonToggleGroup">-->
-            <!--<mat-button-toggle value="grid" checked="true">-->
-                <!--<mat-icon>view_module</mat-icon>-->
-            <!--</mat-button-toggle>-->
-            <!--<mat-button-toggle value="list">-->
-                <!--<mat-icon>view_list</mat-icon>-->
-            <!--</mat-button-toggle>-->
-        <!--</mat-button-toggle-group>-->
-    <!--</div>-->
+    </div>
 </div>
 
-
+<section id="appointment" class="doctorlist">
 <div fxLayout="row wrap">
     <div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 2, currentPage: page }" fxFlex="100" class="flex-p">
         <mat-card class="p-0">
@@ -58,32 +40,33 @@
                 <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            Status: {{user.status}}
+                            Reference By : {{user.refrence_by}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                             Post Days:{{user.post_days}}
+                            Publish Days : {{user.post_days}}
                         </p>
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            Created Date:{{user.created_date}}
+                        <p fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)">
+                            Content : <a>Read more.....</a>
                         </p>
+
+                        <!--<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>-->
+
                     </div>
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                         Reference Date: {{user.refrence_date}}
+                            Reference Date : {{user.refrence_date | date:'dd-MMM-yy'}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                        <span (click)="redirect()"> Content:{{user.content}}</span>
-                        </p>
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            Reference By:{{user.refrence_by}}
+                            Publish Date : {{user.publish_date | date:'dd-MMM-yy'}}
                         </p>
                     </div>
 
                 </div>
             </div>
         </mat-card>
-    </div>s
+    </div>
 </div>
+</section>
 
 <div *ngIf="response" fxLayout="row wrap">
     <div fxFlex="100" class="flex-p">

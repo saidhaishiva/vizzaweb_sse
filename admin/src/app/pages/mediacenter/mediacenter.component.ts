@@ -27,6 +27,7 @@ export class MediacenterComponent implements OnInit {
     public total: any;
     public settings: Settings;
     val: any;
+    testeditor: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
 
 
@@ -69,7 +70,8 @@ export class MediacenterComponent implements OnInit {
             this.total = success.ResponseObject.length;
             this.rows = this.data;
             this.temp = this.data;
-            console.log(this.data, 'hjkl');
+          //  this.testeditor ='<p><strong>testing</strong></p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASDSURBVGhD7dp5yGVzHMfxx75vWZIta/xjKdIUIcQfCiEGMyIkIUvCSLJEsicSofwhIlnKkjVEUpYIfyBmkD37vr7f89xv/frO755zn/vMPc+dzKde9cy553fu7957fuuZiaX5n2V5nIm38Ae+wwPYGUtMVsTj+LfidxyBJSKXovYhwk/YFGOd5fANah+gdAnGOluiVvHsYYx1Nket4pkNf6yzDD5FrfKlczH2OR21ygfb0LroNKtgnRYroIy/yh2ofQjHk73QWex9bsFfqFWo5NhwJVZCmYPxCD7Am7gBm6HTnI1apZu8hu0wNtkKP6NW2">';
+           // console.log(this.data, 'hjkl');
         } else {
         }
     }
