@@ -9,16 +9,28 @@
 </div>
 
 <section id="appointment" class="doctorlist">
-<div fxLayout="row wrap">
+<div >
     <div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 2, currentPage: page }" fxFlex="100" class="flex-p">
         <mat-card class="p-0 mt-viwe-profile1">
-            <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h5 class="user-name">
-                    <!--<p>Title</p>-->
-                </h5>
-                <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
+            <div fxLayout="row" fxLayoutAlign="center center" class="head-card">
+                <div class="col-md-1 text-right w-100">
+                    <mat-icon style="color: white;cursor: pointer">visibility</mat-icon>
+                </div>
+                <div class="col-md-7 text-left">
+                    <div class="f-size" (click)="redirect(user)" innerHtml="{{user.content | limitTo:200}}...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p class="f-size w-100 text-right" fxLayout="row" fxLayoutAlign="center center" style="color: white">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>
+                </div>
+
+
+                <!--<h5 class="user-name text-right w-100">-->
+                    <!--<p style="color: white">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>-->
+                <!--</h5>-->
+                <!--<button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">-->
+                    <!--<mat-icon>more_vert</mat-icon>-->
+                <!--</button>-->
             </div>
             <mat-menu #menu="matMenu" xPosition="before">
                 <span (mouseleave)="menuTrigger.closeMenu()">
@@ -32,42 +44,42 @@
                     </button>
                 </span>
             </mat-menu>
-            <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
-                <!--<div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">-->
-                    <!--<div class="user-img">-->
-                        <!--&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2" >&ndash;&gt;-->
+            <!--<div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">-->
+                <!--&lt;!&ndash;<div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="user-img">&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2" >&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                   <!--&lt;!&ndash;&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2 ml-2" >-->
+                    <!--<div fxFlex="30" fxFlex.xs="100" fxLayout="column">-->
+                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<span class="text-color mr-2">Reference By :</span> {{user.refrence_by}}-->
+                        <!--</p>-->
+                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<span class="text-color mr-2">Publish Days :</span> {{user.post_days}}-->
+                        <!--</p>-->
+
+                        <!--&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>&ndash;&gt;-->
+
                     <!--</div>-->
-                   <!---->
+                    <!--<div fxFlex="30" fxFlex.xs="100" fxLayout="column">-->
+                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<span class="text-color mr-2">Reference Date :</span> {{user.refrence_date | date:'dd-MMM-yy'}}-->
+                        <!--</p>-->
+                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<span class="text-color mr-2">Publish Date :</span> {{user.publish_date | date:'dd-MMM-yy'}}-->
+                        <!--</p>-->
+                    <!--</div>-->
+                    <!--<div fxFlex="40" fxFlex.xs="100" fxLayout="column">-->
+                        <!--<div fxLayout="row" fxLayoutAlign="start end" class="mt-2">-->
+                            <!--<span class="text-color mb-1">Content :</span>-->
+                            <!--<div fxLayout="row" fxLayoutAlign="start end" class="f-size ml-2" style="cursor: pointer;" (click)="redirect(user)" innerHtml="{{user.content | limitTo:50}}..."> </div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
                 <!--</div>-->
-                <div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2 ml-2" >
-                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            <span class="text-color mr-2">Reference By :</span> {{user.refrence_by}}
-                        </p>
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            <span class="text-color mr-2">Publish Days :</span> {{user.post_days}}
-                        </p>
-
-                        <!--<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>-->
-
-                    </div>
-                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            <span class="text-color mr-2">Reference Date :</span> {{user.refrence_date | date:'dd-MMM-yy'}}
-                        </p>
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            <span class="text-color mr-2">Publish Date :</span> {{user.publish_date | date:'dd-MMM-yy'}}
-                        </p>
-                    </div>
-                    <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
-                        <div fxLayout="row" fxLayoutAlign="start end" class="mt-2">
-                            <span class="text-color mb-1">Content :</span>
-                            <div fxLayout="row" fxLayoutAlign="start end" class="f-size ml-2" (click)="redirect(user)" innerHtml="{{user.content | limitTo:50}}..."> </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <!--</div>-->
         </mat-card>
     </div>
 </div>

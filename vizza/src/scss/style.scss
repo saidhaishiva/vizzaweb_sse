@@ -1855,19 +1855,23 @@ fieldset {
   }
 }
 .mt-viwe-profile1 {
-  .user-name {
-    font-size: 15px;
-    margin-bottom: 0;
+  background: #5d965d !important;
+  .head-card {
+    margin-top: 13px !important;
   }
-  .user-content .user-details .mat-icon {
-    //padding: 0 !important;
-    margin-right: 10px;
-  }
-  .bg-primary{
-    background-color: #0288d1 !important;
-   // height: 40px;
-    color:#313131 !important;
-  }
+  //.user-name {
+  //  font-size: 15px;
+  //  margin-bottom: 0;
+  //}
+  //.user-content .user-details .mat-icon {
+  //  //padding: 0 !important;
+  //  margin-right: 10px;
+  //}
+  //.bg-primary{
+  //  background-color: #0288d1 !important;
+  // // height: 40px;
+  //  color:#313131 !important;
+  //}
   //p, label{
   //  margin: 0;
   //}
@@ -1876,7 +1880,12 @@ fieldset {
   color: #428bca !important;
 }
 .f-size{
+  cursor: pointer;
+  color: white;
   h3 {
-    font-size: 14px !important;
+    font-size: 16px !important;
+  }
+  p {
+    display: none;
   }
 }
