@@ -266,8 +266,6 @@ export class HealthInsuranceComponent implements OnInit {
                 this.count++;
             }
 
-            console.log(this.count, 'this.count');
-
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
@@ -291,7 +289,6 @@ export class HealthInsuranceComponent implements OnInit {
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
             }
-            console.log(this.count, 'this.count--');
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
@@ -333,7 +330,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
     // add new user
     addUser(value, index) {
-        console.log(this.count, 'add');
         if (value == 'Son' || value == 'Daughter') {
             this.count++;
             this.addSonItems = this.count;
@@ -386,7 +382,6 @@ export class HealthInsuranceComponent implements OnInit {
             this.setArray[index].checked = false;
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
-        console.log(this.hideChild, 'hideChild')
     }
 
 
@@ -500,7 +495,6 @@ export class HealthInsuranceComponent implements OnInit {
                     this.common.getPolicyQuotation(data).subscribe(
                         (successData) => {
                             this.PolicyQuotationSuccess(successData, 0);
-                            console.log( successData,'hjj');
 
                         },
                         (error) => {
@@ -564,8 +558,6 @@ export class HealthInsuranceComponent implements OnInit {
                     if (this.setArray[i].name == this.getArray[j].type) {
                         this.setArray[i].auto = true;
                     }
-                    console.log( this.setArray[i],'uuuu');
-                    console.log(this.getArray[j],'fffff');
                 }
             }
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
@@ -602,10 +594,36 @@ export class HealthInsuranceComponent implements OnInit {
         this.goupName = name;
         this.insuranceLists[pi].product_lists[index].compare = true;
         this.compareArray.push(data);
+        if (this.compareArray.length >= 3) {
+            for (let i = 0; i < this.insuranceLists[pi].product_lists.length; i++) {
+                this.insuranceLists[pi].product_lists[i].compare = true;
+            }
+        }
+
     }
     removeCompare(index , pindex, tabIndex) {
-        this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
+       // this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
         this.compareArray.splice(index, 1);
+        let getCount;
+        for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
+            getCount = false;
+            for (let j = 0; j < this.compareArray.length; j++) {
+                if (this.compareArray[j].premium_id == this.insuranceLists[tabIndex].product_lists[i].premium_id) {
+                    getCount = true;
+                    this.insuranceLists[tabIndex].product_lists[i].compare = true;
+                }
+            }
+            if (!getCount) {
+                this.insuranceLists[tabIndex].product_lists[i].compare = false;
+            }
+        }
+
+    }
+    removeAllCompare(index, tabIndex) {
+        for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
+            this.insuranceLists[tabIndex].product_lists[i].compare = false;
+        }
+        this.compareArray = [];
     }
     addShortlist(value, pi, index, enqId, name) {
         this.nonEditable = true;
@@ -1024,7 +1042,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
     // view key features details
     viewKeyList(value) {
-        console.log(value, 'value');
         let dialogRef = this.dialog.open(ViewdetailsComponent, {
             width: '1500px', data: value.product_id
         });
@@ -1081,7 +1098,6 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
-        console.log(value, 'value');
         if (this.auth.getPosStatus() == '0') {
             let dialogRef = this.dialog.open(PosstatusAlert, {
                 width: '700px',

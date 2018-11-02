@@ -53,9 +53,8 @@ export class MediaCenterComponent implements OnInit {
         console.log(error);
     }
     redirect(val){
-        sessionStorage.newsLetterContent = val;
+        sessionStorage.newsLetterContent = JSON.stringify(val);
         this.router.navigate(['/viewmedia']);
-
     }
     public onPageChanged(event){
         this.page = event;

@@ -14,7 +14,7 @@
         <mat-card class="p-0 mt-viwe-profile1">
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                 <h5 class="user-name">
-                    <p>Title</p>
+                    <!--<p>Title</p>-->
                 </h5>
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
@@ -39,13 +39,13 @@
                     <!--</div>-->
                    <!---->
                 <!--</div>-->
-                <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
+                <div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2 ml-2" >
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            Reference By : {{user.refrence_by}}
+                            <span class="text-color mr-2">Reference By :</span> {{user.refrence_by}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            Publish Days : {{user.post_days}}
+                            <span class="text-color mr-2">Publish Days :</span> {{user.post_days}}
                         </p>
 
                         <!--<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>-->
@@ -53,18 +53,17 @@
                     </div>
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            Reference Date : {{user.refrence_date | date:'dd-MMM-yy'}}
+                            <span class="text-color mr-2">Reference Date :</span> {{user.refrence_date | date:'dd-MMM-yy'}}
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            Publish Date : {{user.publish_date | date:'dd-MMM-yy'}}
+                            <span class="text-color mr-2">Publish Date :</span> {{user.publish_date | date:'dd-MMM-yy'}}
                         </p>
                     </div>
-                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
-                        <!--<p fxLayout="row" fxLayoutAlign="start center" >-->
-                            <!--Content :-->
-                            <div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" innerHtml="{{user.content | limitTo:10}}"> </div>
-
-                        <!--</p>-->
+                    <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
+                        <div fxLayout="row" fxLayoutAlign="start end" class="mt-2">
+                            <span class="text-color mb-1">Content :</span>
+                            <div fxLayout="row" fxLayoutAlign="start end" class="f-size ml-2" (click)="redirect(user)" innerHtml="{{user.content | limitTo:50}}..."> </div>
+                        </div>
                     </div>
 
                 </div>
@@ -85,4 +84,5 @@
 <div *ngIf="!response" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
     <mat-spinner color="primary"></mat-spinner>
 </div>
+
 

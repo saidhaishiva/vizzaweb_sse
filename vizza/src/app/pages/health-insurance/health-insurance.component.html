@@ -271,6 +271,9 @@
   </div>
 </div>
 <div class="row compar-fix" *ngIf="compareArray != ''">
+  <div class="text-right closeBtnClass">
+    <mat-icon (click)="removeAllCompare(i, tabIndex)">close</mat-icon>
+  </div>
   <div style="width: 200px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
