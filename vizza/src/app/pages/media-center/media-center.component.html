@@ -60,9 +60,11 @@
                         </p>
                     </div>
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
-                        <p fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)">
-                            Content : <a>Read more.....</a>
-                        </p>
+                        <!--<p fxLayout="row" fxLayoutAlign="start center" >-->
+                            <!--Content :-->
+                            <div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" innerHtml="{{user.content | limitTo:10}}"> </div>
+
+                        <!--</p>-->
                     </div>
 
                 </div>
