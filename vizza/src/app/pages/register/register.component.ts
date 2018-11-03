@@ -541,5 +541,8 @@ export class RegisterComponent implements OnInit {
 
     public getPinlFailure(error) {
     }
+    getReferralCode(event) {
+
+    }
 
     }

@@ -1,7 +1,7 @@
 <div fxLayoutWrap fxLayout="row" *ngIf="router.url != '/'">
     <div fxFlex="100" class="flex-p">
         <mat-card fxLayout="row" class="breadcrumb">
-            <a *ngIf="router.url != '/'" routerLink="/" class="breadcrumb-item" fxLayout="row" fxLayoutAlign="start center" (click)="closeSubMenus()">
+            <a *ngIf="router.url != '/'"  class="breadcrumb-item" fxLayout="row" fxLayoutAlign="start center" (click)="closeSubMenus()">
                 <mat-icon>home</mat-icon>
                 <span class="breadcrumb-title">Home</span>
             </a>

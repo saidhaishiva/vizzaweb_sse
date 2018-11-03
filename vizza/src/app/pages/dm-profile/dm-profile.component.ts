@@ -109,6 +109,7 @@ export class DmProfileComponent implements OnInit {
         // if (this.roleId == 0) {
         //     this.router.navigate(['/dm-login']);
         // }
+        this.getDmProfile();
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -173,13 +174,11 @@ export class DmProfileComponent implements OnInit {
         this.profile='';
         this.type = '';
         this.chequeleaf ='';
-       this.getDmProfile();
     }
 
     ngOnInit() {
-
-       this.getDmTrainingDetails();
-       this.getDmExamDetails();
+        this.getDmTrainingDetails();
+        this.getDmExamDetails();
         this.settings.loadingSpinner = false;
         this.currentTab = 'Personal';
         if (this.documentStatus != 2 || this.documentStatus == 2) {
@@ -220,7 +219,6 @@ export class DmProfileComponent implements OnInit {
                 });
 
         }
-
         if (this.documentStatus == 2 && this.trainingStatus == 1) {
             this.sideNav.push({'name': 'Certificate of Training', 'value': 'active', 'selected': false});
         }
@@ -294,6 +292,7 @@ export class DmProfileComponent implements OnInit {
             'userid': this.auth.getDmUserId(),
             'dm_id': this.auth.getDmUserId()
         };
+        this.settings.loadingSpinner = true;
         this.common.getDmProfile(data).subscribe(
 
             (successData) => {
@@ -306,6 +305,7 @@ export class DmProfileComponent implements OnInit {
         );
     }
     getDmProfileSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.dmDataAvailable = true;
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
@@ -367,6 +367,8 @@ export class DmProfileComponent implements OnInit {
 
     getDmProfileFailure(error) {
         console.log(error);
+        this.settings.loadingSpinner = false;
+
     }
     public getDmTrainingDetails() {
         const data = {
