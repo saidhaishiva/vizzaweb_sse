@@ -189,7 +189,7 @@ public RediretUrlLink: any;
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: ['', Validators.required],
-            residenceAddress3: ['', Validators.required],
+            residenceAddress3: '',
             residenceNearestLandMark: '',
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
@@ -221,7 +221,7 @@ public RediretUrlLink: any;
             nomineeDistrictId: '',
             nomineeCity: ['', Validators.required],
             nomineeArea: ['', Validators.required],
-            nearestLandMark: ['', Validators.required],
+            nearestLandMark: '',
             nomineeTitle: ['', Validators.required],
             nomineeDob: ['', Validators.required]
         });
@@ -307,8 +307,8 @@ public RediretUrlLink: any;
                 maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
-                personalWeight: ['', Validators.required],
-                personalHeight: ['', Validators.required],
+                // personalWeight: ['', Validators.required],
+                // personalHeight: ['', Validators.required],
                 IsExistingIllness: '',
                 DiseaseID: '',
                 IsInsuredConsumetobacco: '',
@@ -338,12 +338,6 @@ public RediretUrlLink: any;
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
-        // if(value.IsExistingIllness == 'Yes') {
-        //     this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value
-        //     this.riskDetails.get('ServicesTaxId').setValidators([Validators.required]);
-        // } else if(value.serviceTax == 'No') {
-        //     this.riskDetails.get('ServicesTaxId').setValidators(null);
-        // }
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
@@ -377,7 +371,12 @@ public RediretUrlLink: any;
                         'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
             }
-            stepper.next();
+            if (sessionStorage.insurerAge  >= 18) {
+                    stepper.next();
+
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
         }
     }
 
@@ -502,8 +501,8 @@ public RediretUrlLink: any;
     sameAddress(values: any) {
         this.sameField = values.checked;
         if (values.checked) {
+            this.commonPincode(this.personal.controls['personalPincode'].value, 'proposalR');
             this.inputReadonly = true;
-            console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['residenceAddress3'].setValue(this.personal.controls['personalAddress3'].value);
@@ -560,15 +559,19 @@ public RediretUrlLink: any;
     }
 
 
-    addEvent(event) {
+    addEvent(event, title, index) {
         let dd = event.value;
-        console.log(dd, 'lll');
-        // this.selectDate = event.value;
-        // console.log(this.selectDate);
-        // this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        // this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        // this.personalAge = this.ageCalculate(this.setDateAge);
-        // sessionStorage.setItem('proposerAge', this.personalAge);
+        this.selectDate = event.value;
+        console.log(this.selectDate);
+        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        this.personalAge = this.ageCalculate(this.setDateAge);
+        if(title == 'proposer'){
+            sessionStorage.setItem('proposerAge', this.personalAge);
+        } else if(title == 'insurer') {
+            sessionStorage.setItem('insurerAge', this.personalAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
+        }
         if (event.value != null) {
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
@@ -616,14 +619,6 @@ public RediretUrlLink: any;
         }
 
     }
-    // addEventInsurer(event) {
-    //     this.selectDate = event.value;
-    //     console.log(this.selectDate, 'hfdgfjk');
-    //     this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-    //     this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    //     // this.maxDate =  this.insureArray.controls['PolicyStartDate'].values;
-    //     this.maxDate= this.setDate;
-    // }
 
     ageCalculate(dob) {
         const mdate = dob.toString();
@@ -635,9 +630,7 @@ public RediretUrlLink: any;
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
         console.log(yearAge, 'console.log(yearAge)');
-
-        // this.insureArray.controls['personalAge'].patchValue(yearAge);
-
+        return yearAge;
     }
 
     sessionData() {
@@ -676,11 +669,11 @@ public RediretUrlLink: any;
                 residenceDistrictIdR: this.getStepper1.residenceDistrictIdR,
                 personalDistrict: this.getStepper1.personalDistrict,
                 personalEmail: this.getStepper1.personalEmail,
-                personalEmail2: this.getStepper1.personalEmail2,
-                personalMobile2: this.getStepper1.personalMobile2,
+                personalEmail2: this.getStepper1.personalEmail,
+                personalMobile2: this.getStepper1.personalMobile,
                 personalMobile: this.getStepper1.personalMobile,
                 personalPhone: this.getStepper1.personalPhone,
-                personalPhone2: this.getStepper1.personalPhone2,
+                personalPhone2: this.getStepper1.personalPhone,
                 personalAltnumber: this.getStepper1.personalAltnumber,
                 residenceAddress: this.getStepper1.residenceAddress,
                 residenceAddress2: this.getStepper1.residenceAddress2,
@@ -706,14 +699,13 @@ public RediretUrlLink: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getStepper2.items[i].personalAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
+                //this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
+                //this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
@@ -819,13 +811,10 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
 
 
 
@@ -839,11 +828,8 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
 
 
         }
@@ -983,7 +969,7 @@ public RediretUrlLink: any;
                         'Country': this.personalData.personalCountry,
                         'DistrictID': this.personalData.personalDistrictIdP,
                         'Email': this.personalData.personalEmail2,
-                        'Fax': this.personalData.personalEmail2,
+                        'Fax': this.personalData.personalFax,
                         'MobileNo': this.personalData.personalMobile2,
                         'NearestLandmark': this.personalData.personalNearestLandMark,
                         'PanNo': this.personalData.personalPan,
