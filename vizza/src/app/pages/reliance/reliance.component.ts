@@ -510,7 +510,8 @@ public RediretUrlLink: any;
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
             this.personal.controls['residenceDistrict'].setValue(this.personal.controls['personalDistrict'].value);
-            this.personal.controls['NearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
+            this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
 
 
         } else {
@@ -522,7 +523,8 @@ public RediretUrlLink: any;
             this.personal.controls['residencePincode'].setValue('');
             this.personal.controls['residenceState'].setValue('');
             this.personal.controls['residenceDistrict'].setValue('');
-            this.personal.controls['NearestLandMark'].setValue('');
+            this.personal.controls['residenceNearestLandMark'].setValue('');
+            this.personal.controls['residenceArea'].setValue('');
 
 
         }
@@ -837,19 +839,19 @@ public RediretUrlLink: any;
     }
 
     boolenHide(change: any, id, key){
-        if(key == 'IsExistingIllness' && change.value == 'Yes') {
+        if(key == 'IsExistingIllness' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].DiseaseID.patchValue('');
         }
 
-        if (key == 'serviceTax' && change.value == 'Yes') {
+        if (key == 'serviceTax' && change.value == 'No') {
             this.riskDetails['controls'].ServicesTaxId.patchValue('');
         }
 
-        if (key == 'crossSell' && change.value == 'Yes') {
+        if (key == 'crossSell' && change.value == 'No') {
             this.riskDetails['controls'].crossSellPolicyNo.patchValue('');
         }
 
-        if (key == 'relianceAda' && change.value == 'Yes') {
+        if (key == 'relianceAda' && change.value == 'No') {
             this.riskDetails['controls'].companyname.patchValue('');
             this.riskDetails['controls'].employeeCode.patchValue('');
             this.riskDetails['controls'].emailId.patchValue('');

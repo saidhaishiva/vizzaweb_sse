@@ -58,7 +58,7 @@
 
 
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)" (keyup)="getReferralCode($event.target.value)" minlength="10" maxlength="10" autocomplete="off">
+                        <input matInput placeholder="Referral Contact Number" formControlName="referralconduct" (keypress)="keyPress($event)"  minlength="10" maxlength="10" autocomplete="off">
                             <i class="fas fa-phone" matSuffix></i>
                             <mat-error *ngIf="form.controls.personal['controls'].referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>
                         </mat-form-field>
