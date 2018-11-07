@@ -613,7 +613,6 @@
                                                     <mat-select placeholder="Title" formControlName="nomineeTitle">
                                                         <mat-option value="MR">Mr</mat-option>
                                                         <mat-option value="MS">Ms</mat-option>
-                                                        <mat-option value="MRS">Mrs</mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
                                                 </mat-form-field>
@@ -638,7 +637,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="nomineeDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  (keypress)="add($event)"
+                                                    <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="nomineeDob" (dateInput)="addEvent( $event, 'i', 'nominee')" (dateChange)="addEvent( $event, 'i', 'nominee')"  (keypress)="add($event)"
                                                            autocomplete="off"   required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker1></mat-datepicker>
@@ -734,7 +733,7 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4>{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                                <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">

@@ -181,11 +181,11 @@ public RediretUrlLink: any;
             personalArea: ['', Validators.required],
             personalNearestLandMark: '',
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            personalEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalEmail2: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            personalMobile2: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            personalPhone: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            personalPhone2: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalMobile2: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+            personalPhone: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+            personalPhone2: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: ['', Validators.required],
@@ -691,6 +691,17 @@ public RediretUrlLink: any;
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
             });
+            if (this.getStepper1.personalPincode != '') {
+                this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
+                setTimeout(() =>{
+                if(this.getStepper1.sameas == true) {
+                    this.inputReadonly = true;
+                    this.commonPincode(this.getStepper1.personalPincode, 'proposalR');
+                } else if(this.getStepper1.sameas == false) {
+                    this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
+                }
+                },2000);
+            };
 
         }
 
