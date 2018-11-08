@@ -1135,10 +1135,10 @@ export class HealthInsuranceComponent implements OnInit {
             width: '1000px',
             height: '500px'
         });
-
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
+        dialogRef.disableClose = true;
+        // dialogRef.afterClosed().subscribe(result => {
+        //     console.log('The dialog was closed');
+        // });
     }
     headinghealthinsurance(){
         this.firstPage = true;
