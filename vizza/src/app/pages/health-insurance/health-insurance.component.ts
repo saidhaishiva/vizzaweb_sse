@@ -1140,6 +1140,10 @@ export class HealthInsuranceComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
+    headinghealthinsurance(){
+        this.firstPage = true;
+        this.secondPage = false;
+    }
 }
 
 
