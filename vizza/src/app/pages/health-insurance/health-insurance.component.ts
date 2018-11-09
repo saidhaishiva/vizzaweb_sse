@@ -1135,10 +1135,14 @@ export class HealthInsuranceComponent implements OnInit {
             width: '1000px',
             height: '500px'
         });
-
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
+        dialogRef.disableClose = true;
+        // dialogRef.afterClosed().subscribe(result => {
+        //     console.log('The dialog was closed');
+        // });
+    }
+    headinghealthinsurance(){
+        this.firstPage = true;
+        this.secondPage = false;
     }
 }
 
@@ -1216,7 +1220,7 @@ export class HealthInsuranceComponent implements OnInit {
         <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    DAY CARE PROCEDURES<
+                    DAY CARE PROCEDURES
                 </mat-panel-title>
             </mat-expansion-panel-header>
             As mentioned earlier coverage for  procedures which can be completed  in less than 24 hours and discharge of the patient can be on the same day are called Day Care Proceedures. These procedures might be done under local or general anesthesia and there is no need for the patient to remain admitted in the hospital. It is essential that for the claim to be approved it should be listed in the approved list of day care proceedures.

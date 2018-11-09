@@ -23,10 +23,15 @@
     }
 }
 .horizontal-menu-item:hover > .horizontal-sub-menu{
-    max-height: 241px;
-    overflow-y: scroll;
+    max-height: 500px;
+    overflow: visible;
 }
 .horizontal-sub-menu .horizontal-sub-menu{
     left: 100%;
     top: 0;
+}
+
+.horizontal-menu-item:hover > #horizontal-sub-menu-9{
+    max-height: 241px;
+    overflow-y: scroll;
 }
