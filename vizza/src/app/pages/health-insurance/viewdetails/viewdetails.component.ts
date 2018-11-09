@@ -23,7 +23,6 @@ export class ViewdetailsComponent implements OnInit {
     bgColor : any;
     value : any;
     id1 : any;
-    id2 : any;
     testPath : any;
     public settings: Settings;
 
@@ -67,7 +66,10 @@ export class ViewdetailsComponent implements OnInit {
     }
     onSelectedIndexChange(index) {
         console.log(index, 'ind');
-        if (index == 1) {
+        if (index == 0) {
+            const getIndex = this.getKeyList.findIndex( list => list.type == 1);
+            this.id = getIndex;
+        } else if (index == 1) {
             // for (let i = 0; i < this.getKeyList.length; i++) {
             //     if(this.getKeyList[i].kf_type == 2) {
             //         this.id = this.getKeyList[i];
@@ -77,7 +79,8 @@ export class ViewdetailsComponent implements OnInit {
             // this.id = getIndex;
             this.id1 = 0;
         } else if (index == 2) {
-            this.id2 = 0;
+            const getIndex = this.getKeyList.findIndex( list => list.type == 2);
+            this.id = getIndex;
         }
 
     }
