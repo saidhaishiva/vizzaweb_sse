@@ -102,10 +102,10 @@
                 <div mat-dialog-content>
                   <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
                     <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
-                      <h4>{{keys.kf_name}}</h4>
+                      <h4 *ngIf="keys.type == 2">{{keys.kf_name}}</h4>
                     </div>
                     <div class="row" *ngIf="keys.type == 2">
-                      <div class="col-md-12">
+                      <div class="col-md-12" *ngIf="id === i">
                         <div fxLayoutAlign="left start">
                           <!--<p class="text-justify">{{keys.kf_details}}</p>-->
                           <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>

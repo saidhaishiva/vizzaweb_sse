@@ -75,6 +75,8 @@ export class ViewdetailsComponent implements OnInit {
             // const getIndex = this.getKeyList.findIndex( list => list.type == 2);
             // this.id = getIndex;
             this.id1 = 0;
+        } else if (index == 2) {
+            this.id = 0;
         }
 
     }
