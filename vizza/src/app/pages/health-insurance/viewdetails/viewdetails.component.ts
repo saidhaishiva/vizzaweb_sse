@@ -23,6 +23,7 @@ export class ViewdetailsComponent implements OnInit {
     bgColor : any;
     value : any;
     id1 : any;
+    id2 : any;
     testPath : any;
     public settings: Settings;
 
@@ -76,7 +77,7 @@ export class ViewdetailsComponent implements OnInit {
             // this.id = getIndex;
             this.id1 = 0;
         } else if (index == 2) {
-            this.id = 0;
+            this.id2 = 0;
         }
 
     }
