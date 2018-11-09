@@ -109,7 +109,6 @@ export class DmProfileComponent implements OnInit {
         // if (this.roleId == 0) {
         //     this.router.navigate(['/dm-login']);
         // }
-        this.getDmProfile();
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -174,6 +173,8 @@ export class DmProfileComponent implements OnInit {
         this.profile='';
         this.type = '';
         this.chequeleaf ='';
+        this.getDmProfile();
+
     }
 
     ngOnInit() {
