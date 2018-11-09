@@ -87,25 +87,55 @@
               <mat-icon class="example-tab-icon">assignment</mat-icon>
               CLAIM DETAILS
             </ng-template>
-              <div class="row">
-
-                <div class="col-md-12" style="background-color:#428bb5;" ><br>
-                  <div class="container" *ngFor="let keys of getKeyList;let i = index">
-                    <div *ngIf="keys.type == 2" fxLayoutAlign="center center" class="well">
+            <div class="row">
+              <div class="col-md-3 pl-0 pr-1 bg-color">
+                <div mat-dialog-content >
+                  <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
+                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 2 ? '#8e8e8e' : '#d81b60'">
+                      <i class="material-icons">keyboard_arrow_right</i>
+                      <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                    </mat-list-item>
+                  </mat-nav-list>
+                </div>
+              </div>
+              <div class="col-md-9" style="background-color:#428bb5;"><br>
+                <div mat-dialog-content>
+                  <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                    <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
                       <h4>{{keys.kf_name}}</h4>
                     </div>
                     <div class="row" *ngIf="keys.type == 2">
                       <div class="col-md-12">
                         <div fxLayoutAlign="left start">
                           <!--<p class="text-justify">{{keys.kf_details}}</p>-->
-                          <div class="text-justify" [innerHtml]="keys.kf_details"> </div>
-
+                          <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!--<div class="row">-->
+
+                <!--<div class="col-md-12" style="background-color:#428bb5;" ><br>-->
+                  <!--<div class="container" *ngFor="let keys of getKeyList;let i = index">-->
+                    <!--<div *ngIf="keys.type == 2" fxLayoutAlign="center center" class="well">-->
+                      <!--<h4>{{keys.kf_name}}</h4>-->
+                    <!--</div>-->
+                    <!--<div class="row" *ngIf="keys.type == 2">-->
+                      <!--<div class="col-md-12">-->
+                        <!--<div fxLayoutAlign="left start">-->
+                          <!--&lt;!&ndash;<p class="text-justify">{{keys.kf_details}}</p>&ndash;&gt;-->
+                          <!--<div class="text-justify" [innerHtml]="keys.kf_details"> </div>-->
+
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
           </mat-tab>
         </mat-tab-group>
       </div>
