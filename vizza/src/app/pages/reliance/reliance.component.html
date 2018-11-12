@@ -638,7 +638,7 @@
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="nomineeDob" (dateInput)="addEvent( $event, 'i', 'nominee')" (dateChange)="addEvent( $event, 'i', 'nominee')"  (keypress)="add($event)"
-                                                           autocomplete="off"   required>
+                                                           autocomplete="off"  maxlength="10" required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker1></mat-datepicker>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeDob.errors?.required">DOB is required</mat-error>
@@ -810,7 +810,7 @@
                         </section>
 
                         <section *ngFor="let item of summaryData.InsuredDetailsList">
-                            <h5 class="mt-3 sub-title">{{item.RelationshipWithProposerID}} DETAILS </h5>
+                            <h5 class="mt-3 sub-title">{{item.relationship_proposer_name}} DETAILS </h5>
                             <div class="row box-card">
                                 <div class="col-md-12">
                                 </div>
@@ -852,6 +852,10 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
+                                                <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address1}}</li>
+                                                <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address2}}</li>
+                                                <li class="list-group-item"><strong>Address 3:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address3}}</li>
+                                                <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.NomineeDetails.NomineeAddress.Pincode}}</li>
 
                                             </ul>
                                         </div>
@@ -864,6 +868,9 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.relationship_proposer_name}}</li>
+                                                <li class="list-group-item"><strong>Area:</strong> {{summaryData.NomineeDetails.NomineeAddress.area_name}}</li>
+                                                <li class="list-group-item"><strong>City:</strong> {{summaryData.NomineeDetails.NomineeAddress.city_village_name}}</li>
+                                                <li class="list-group-item"><strong>State:</strong> {{summaryData.NomineeDetails.NomineeAddress.state_name}}</li>
                                             </ul>
                                         </div>
                                     </div>
