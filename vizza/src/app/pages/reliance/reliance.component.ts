@@ -1139,25 +1139,8 @@ public RediretUrlLink: any;
             }
             if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.setPincode.state_id) {
                 this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.setPincode.state_name;
+            }
 
-            }
-            //nominee
-            if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
-               this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
-            }
-            console.log(this. summaryData.NomineeDetails.NomineeAddress, 'sedrtfgyhuj');
-            if(this.summaryData.NomineeDetails.NomineeAddress.StateID == this.setPincode.state_id) {
-                this.summaryData.NomineeDetails.NomineeAddress.state_name =  this.setPincode.state_name;
-            }
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                console.log(this.setPincode.area_details[0], 'seeee');
-                if (this.summaryData.NomineeDetails.NomineeAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    console.log(this.summaryData.NomineeDetails.NomineeAddress.AreaID, 'nomiee');
-                   this. summaryData.NomineeDetails.NomineeAddress.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-            // communication area
             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
                 console.log(this.setPincode.area_details[0], 'jhfsajhdg');
                 if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.setPincode.area_details[i].area_id) {
@@ -1165,10 +1148,25 @@ public RediretUrlLink: any;
 
                 }
             }
-            // PermanentAddress  area
             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
                 if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.setPincode.area_details[i].area_id) {
                     this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.setPincode.area_details[i].area_name;
+
+                }
+            }
+            // nominee
+              if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
+                this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
+              }
+              console.log(this. summaryData.NomineeDetails.NomineeAddress, 'sedrtfgyhuj');
+              if(this.summaryData.NomineeDetails.NomineeAddress.StateID == this.setPincode.state_id) {
+                this.summaryData.NomineeDetails.NomineeAddress.state_name =  this.setPincode.state_name;
+              }
+             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
+                console.log(this.setPincode.area_details[0], 'seeee');
+                if (this.summaryData.NomineeDetails.NomineeAddress.AreaID == this.setPincode.area_details[i].area_id) {
+                    console.log(this.summaryData.NomineeDetails.NomineeAddress.AreaID, 'nomiee');
+                    this. summaryData.NomineeDetails.NomineeAddress.area_name = this.setPincode.area_details[i].area_name;
 
                 }
             }
