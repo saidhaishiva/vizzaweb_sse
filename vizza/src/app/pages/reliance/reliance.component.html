@@ -764,9 +764,9 @@
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Gender:</strong> {{summaryData.ClientDetails.Gender}}</li>
-                                            <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ClientDetails.MaritalStatusID}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.ClientDetails.OccupationID}}</li>
-                                            <li class="list-group-item"><strong>Nationality:</strong> {{summaryData.ClientDetails.Nationality}}</li>
+                                            <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ClientDetails.marital_status}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.ClientDetails.occupation_name}}</li>
+                                            <li class="list-group-item"><strong>Nationality:</strong> {{summaryData.ClientDetails.nationality}}</li>
                                             <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PanNo}}</li>
                                         </ul>
                                     </div>
@@ -779,9 +779,9 @@
                                             <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address2}}</li>
                                             <li class="list-group-item"><strong>Address 3:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address3}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode}}</li>
-                                            <li class="list-group-item"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID}}</li>
+                                            <li class="list-group-item"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name}}</li>
                                             <li class="list-group-item"><strong>Country:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Country}}</li>
                                             <li class="list-group-item"><strong>Mobile No:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.MobileNo}}</li>
                                             <li class="list-group-item"><strong>Phone No:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo}}</li>
@@ -798,9 +798,9 @@
                                             <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address2}}</li>
                                             <li class="list-group-item"><strong>Address 3:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address3}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Pincode}}</li>
-                                            <li class="list-group-item"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID}}</li>
+                                            <li class="list-group-item"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name}}</li>
                                             <li class="list-group-item"><strong>Country:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Country}}</li>
                                             <li class="list-group-item"><strong>Nearest Landmark:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.NearestLandmark}}</li>
                                         </ul>
@@ -819,11 +819,11 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}} {{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
-                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatus}}</li>
+                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>
-                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposer}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.occupation_name}}</li>
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_proposer_name}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -851,7 +851,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name}}</li>
+                                                <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -862,7 +863,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship}}</li>
+                                                <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.relationship_proposer_name}}</li>
                                             </ul>
                                         </div>
                                     </div>

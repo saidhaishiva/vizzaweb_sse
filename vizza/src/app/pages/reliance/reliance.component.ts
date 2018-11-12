@@ -56,6 +56,7 @@ export class RelianceComponent implements OnInit {
     public today: any;
     public declaration: boolean;
     public summaryData: any;
+    public InsuredDetailsList: any;
     public lastStepper: any;
     public questionerData: any;
     public webhost: any;
@@ -1078,6 +1079,83 @@ public RediretUrlLink: any;
                 this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
             }
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'summaryDatasummaryData');
+            let getdata=[];
+
+            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
+                for( let j=0; j < this.relationshipList.length; j++){
+                    if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_proposer_id ) {
+                        this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+                    }
+                }
+            }
+                for( let j=0; j < this.relationshipList.length; j++){
+                    if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_proposer_id ) {
+                        this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+                    }
+                }
+
+
+            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
+                for (let j = 0; j < this.maritalDetail.length; j++) {
+                    if (this.summaryData.InsuredDetailsList[i].MaritalStatusID == this.maritalDetail[j].marital_status_id) {
+                        this.summaryData.InsuredDetailsList[i].marital_status = this.maritalDetail[j].marital_status;
+                    }
+                }
+            }
+            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
+                for (let j = 0; j < this.occupationList.length; j++) {
+                    if (this.summaryData.InsuredDetailsList[i].OccupationID == this.occupationList[j].occupation_id) {
+                        this.summaryData.InsuredDetailsList[i].occupation_name = this.occupationList[j].occupation_name;
+                    }
+                }
+            }
+
+                for (let j = 0; j < this.occupationList.length; j++) {
+                    if (this.summaryData.ClientDetails.OccupationID == this.occupationList[j].occupation_id) {
+                        this.summaryData.ClientDetails.occupation_name = this.occupationList[j].occupation_name;
+                    } else {
+                    }
+                }
+                for (let j = 0; j < this.maritalDetail.length; j++) {
+                    if (this.summaryData.ClientDetails.MaritalStatusID == this.maritalDetail[j].marital_status_id) {
+                        this.summaryData.ClientDetails.marital_status = this.maritalDetail[j].marital_status;
+                    }
+                }
+            for (let j = 0; j <  this.nationalityList.length; j++) {
+                if (this.summaryData.ClientDetails.Nationality == this.nationalityList[j].nationality_id) {
+                    this.summaryData.ClientDetails.nationality = this.nationalityList[j].nationality;
+                }
+            }
+            console.log(this.setPincode, 'pinn');
+             if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
+                 this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
+             }
+             if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID == this.setPincode.state_id) {
+                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name =  this.setPincode.state_name;
+            }
+            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID == this.setPincode.city_village_id) {
+                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name =  this.setPincode.city_village_name;
+            }
+            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.setPincode.state_id) {
+                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.setPincode.state_name;
+            }
+
+            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
+                console.log(this.setPincode.area_details[0], 'jhfsajhdg');
+                if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.setPincode.area_details[i].area_id) {
+                    this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.setPincode.area_details[i].area_name;
+
+                }
+            }
+            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
+                if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.setPincode.area_details[i].area_id) {
+                    this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.setPincode.area_details[i].area_name;
+
+                }
+            }
+            // CityID
+            this.proposalId = this.summaryData.proposal_id;
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
@@ -1140,7 +1218,6 @@ public RediretUrlLink: any;
             }
         );
     }
-
     public getCityResistSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.rAreaNames = successData.ResponseObject;
@@ -1181,6 +1258,8 @@ public RediretUrlLink: any;
     public getMaritalStatusSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.maritalDetail = successData.ResponseObject;
+            console.log( this.maritalDetail , 'maritalDetailmaritalDetail');
+
         }
     }
 
@@ -1271,6 +1350,7 @@ public RediretUrlLink: any;
         if (successData.IsSuccess == true) {
             this.nationalityList = successData.ResponseObject;
         }
+        console.log(this.nationalityList,'this.nationalityListthis.nationalityList');
     }
 
     public getNationalityStatusFailure(error) {
@@ -1328,8 +1408,9 @@ public RediretUrlLink: any;
     public setRelationshipSuccess(successData) {
         console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
-    }
+        console.log( this.relationshipList, 'sdfghsdfghszdfgh');
 
+    }
     public setRelationshipFailure(error) {
         console.log(error);
     }
@@ -1354,6 +1435,7 @@ public RediretUrlLink: any;
     public setNomineeRelationshipSuccess(successData) {
         console.log(successData.ResponseObject);
         this.nomineeRelationshipList = successData.ResponseObject;
+        console.log(this.nomineeRelationshipList, 'this.nomineeRelationshipList');
     }
 
     public setNomineeRelationshipFailure(error) {
