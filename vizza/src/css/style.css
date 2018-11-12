@@ -955,7 +955,7 @@ footer {
   float: left;
   padding: 10px; }
   footer img {
-    width: 66px; }
+    width: 120px; }
   footer p {
     background: #676767;
     padding: 10px;
@@ -1282,14 +1282,6 @@ fieldset {
     width: auto;
     text-align: center; }
 
-.irda span {
-  border: 8px solid #ababab;
-  display: inline-block;
-  border-radius: 50px;
-  width: 95px;
-  height: 95px;
-  vertical-align: middle; }
-
 .irda p {
   background: #fff !important;
   color: #000 !important;
@@ -1357,13 +1349,20 @@ fieldset {
   .spaceContent ul {
     margin-left: 30px; }
 
-.mt-viwe-profile1 .user-name {
-  font-size: 15px;
-  margin-bottom: 0; }
-.mt-viwe-profile1 .user-content .user-details .mat-icon {
-  margin-right: 10px; }
-.mt-viwe-profile1 .bg-primary {
-  background-color: #0288d1 !important;
-  color: #313131 !important; }
+.mt-viwe-profile1 {
+  background: #5d965d !important; }
+  .mt-viwe-profile1 .head-card {
+    margin-top: 13px !important; }
+
+.text-color {
+  color: #428bca !important; }
+
+.f-size {
+  cursor: pointer;
+  color: white; }
+  .f-size h3 {
+    font-size: 16px !important; }
+  .f-size p {
+    display: none; }
 
 /*# sourceMappingURL=style.css.map */
