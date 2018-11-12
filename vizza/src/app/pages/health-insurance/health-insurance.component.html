@@ -74,9 +74,9 @@
       <div class="flex-p">
         <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
           <mat-card-header fxLayoutAlign="left left">
+            <h4 class="color-pink" style="cursor: pointer" (click)="headinghealthinsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
           </mat-card-header>
           <mat-card-content>
-            <h4 class="color-pink" style="cursor: pointer" (click)="headinghealthinsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
             <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
               <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index"  (click)="changeTab()">
                 <ng-template matTabLabel>
@@ -112,11 +112,11 @@
 
                       <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
                         <div class="col-md-6 ">
-                          <li>{{keys.key_features_name}}</li>
+                          <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}} :</li>
                         </div>
                         <div class="col-md-6 ">
                           <!--<a style="color: #777272f0" *ngIf="keys.key_features_value == ''">-</a>-->
-                          <a style="color: #777272f0">{{keys.key_features_value}}</a>
+                          <a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>
                         </div>
                       </div>
 
