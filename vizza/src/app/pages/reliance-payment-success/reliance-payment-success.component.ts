@@ -64,10 +64,10 @@ export class ReliancePaymentSuccessComponent implements OnInit {
         this.path = successData.ResponseObject.path;
         this.settings.loadingSpinner = false;
         console.log(this.path, 'this.paththis.paththis.path');
+
         if (successData.IsSuccess == true) {
-            console.log(this.path, 'this.paththis.paththis.path');
             if (this.type == 'pdf') {
-                window.open(this.path,'_blank');
+                window.open(this.path, '_self' );
             }
         } else {
             this.toast.error(successData.ErrorObject);
