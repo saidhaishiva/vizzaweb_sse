@@ -24,6 +24,7 @@ export class ViewdetailsComponent implements OnInit {
     value : any;
     id1 : any;
     testPath : any;
+    selectedClaimDetails : any;
     public settings: Settings;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
@@ -110,7 +111,6 @@ export class ViewdetailsComponent implements OnInit {
             this.productDocLists = successData.ResponseObject.product_docs;
             const getIndex = this.getKeyList.findIndex( list => list.type == 1);
             this.id = getIndex;
-
             this.bgColor = 'true';
             // for (let i = 0; i < this.getKeyList.length; i++) {
             //     if(this.getKeyList[i].kf_type == 2) {
@@ -122,5 +122,8 @@ export class ViewdetailsComponent implements OnInit {
     }
     public viewKeyFailure(error) {
         this.settings.loadingSpinner = false;
+    }
+    selectClaim(value) {
+        this.selectedClaimDetails = value;
     }
 }
