@@ -20,6 +20,7 @@ button:focus{
 }
 .color-green{
   color: $green-color !important;
+  font-size: 12px;
 }
 .color-pink{
   color:$pink-color;
@@ -563,6 +564,33 @@ a:hover {
 
     }
   }
+  .table-fixed{
+    width: 100%;
+    background-color: #f3f3f3;
+    tbody{
+      height:200px;
+      overflow-y:auto;
+      width: 100%;
+    }
+    thead,tbody,tr,td,th{
+      display:block;
+    }
+    tbody{
+      td{
+        float:left;
+      }
+    }
+    thead {
+      tr{
+        th{
+          float:left;
+          background-color: #f39c12;
+          border-color:#e67e22;
+        }
+      }
+    }
+  }
+
   .health-table {
     td:nth-child(3){
       text-align: left !important;
@@ -653,9 +681,9 @@ a:hover {
 }
 
 .compare-icon{
-  height: 140px;
+  height: 100px;
   img{
-    width:150px;
+    width:90px;
 
   }
 }
@@ -1893,4 +1921,11 @@ fieldset {
   p {
     display: none;
   }
+}
+
+#product-list .mat-tab-label-container {
+  margin-bottom: 5px;
+  border: 1px solid #F19F00;
+  background: #dee2e6;
+  border-radius: 15px 15px 0px 0px;
 }
