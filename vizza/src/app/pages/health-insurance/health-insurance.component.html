@@ -124,7 +124,7 @@
                       </div>
 
                       <div class="text-right mt-4">
-                        <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists)">Policy Details / Product Documents</p>
+                        <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists)"><strong>Policy Details / Product Documents</strong></p>
                       </div>
 
                     </td>
@@ -138,7 +138,7 @@
                       <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     </td>
                     <td>
-                      <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
+                      <p class="text-center"><strong>{{plists.premium_amount | currency: 'INR'}} / Yr</strong></p>
                       <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                       <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
 
@@ -279,7 +279,7 @@
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare(i, tabIndex)">close</mat-icon>
   </div>
-  <div style="width: 200px" *ngFor="let clists of compareArray; let i = index">
+  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">

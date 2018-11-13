@@ -7,7 +7,7 @@
   <div class="col-sm-12 text-center">
     <h5 class="text-capitalize" >
         <!--<div style="background-color: #d5f5f7; border-radius: 30px 30px 30px 30px;">-->
-        <p class="text-center text-capitalize color-green">{{compareDetails.group_name}} ({{compareDetails.scheme}})</p>
+        <h3 class="text-center text-capitalize" style="color:#18CCB4;">{{compareDetails.group_name}} ({{compareDetails.scheme}})</h3>
         <!--<p class="text-center">{{compareDetails.scheme}}</p>-->
         <!--</div>-->
     </h5>
@@ -15,36 +15,36 @@
   </div>
 
 </div>
-    <div class="row scrollmenu">
-        <div class="col-md-3">
-            <h5 class="content-color">Key Features</h5>
-            <div class="">
-                <!--<p>-->
-                    <!--<mat-radio-button class="example-radio-button"> All</mat-radio-button>-->
-                <!--</p>-->
-                <!--<p>-->
-                    <!--<mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>-->
-                <!--</p>-->
-                <!--<p>-->
-                    <!--<mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>-->
-                <!--</p>-->
-            </div>
-        </div>
-        <!--<div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">-->
+    <!--<div class="row scrollmenu">-->
+        <!--<div class="col-md-3">-->
+            <!--<h5 class="content-color">Key Features</h5>-->
             <!--<div class="">-->
-                <!--<p class="content-color text-center">{{clists.product_name}}</p>-->
-                <!--<img src="{{webhost + '/' + clists.product_logo}}" style="width: 100px;">-->
+                <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-radio-button class="example-radio-button"> All</mat-radio-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-radio-button class="example-radio-button"> Smiliarity</mat-radio-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-radio-button class="example-radio-button"> Diffrence</mat-radio-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</p>&ndash;&gt;-->
             <!--</div>-->
         <!--</div>-->
-    </div>
-<div mat-dialog-content class="compare" >
+        <!--&lt;!&ndash;<div class="col-md-3" fxLayoutAlign="center start" *ngFor="let clists of compareDetails.productdetails">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p class="content-color text-center">{{clists.product_name}}</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="{{webhost + '/' + clists.product_logo}}" style="width: 100px;">&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+<div mat-dialog-content>
   <div class="row  scrollmenu">
-      <div class="col-md-4">
+      <div class="col">
           <table class="table compare">
               <tbody>
-              <tr >
-                  <td class="align-middle">
-                      <p style="height: 52px;">PRODUCT NAME</p>
+              <tr class="table-warning1">
+                  <td>
+                      <p class="text-center mt-4">Key Features</p>
                   </td>
               </tr>
               <tr class="table-warning1" >
@@ -60,10 +60,10 @@
           </table>
       </div>
 
-      <div class="col-md-2" *ngFor="let clists of compareDetails.productdetails">
+      <div class="col" *ngFor="let clists of compareDetails.productdetails">
           <table class="table compare">
               <tbody>
-              <tr >
+              <tr class="table-warning1">
                   <td class="text-center">
                       <p class="content-color text-center">{{clists.product_name}}</p>
                       <img src="{{webhost + '/' + clists.product_logo}}" style="width: 65px;height: 30px">
