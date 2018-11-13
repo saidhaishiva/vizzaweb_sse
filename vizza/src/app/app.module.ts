@@ -149,6 +149,7 @@ import { AboutVizzaComponent } from './pages/about-vizza/about-vizza.component';
 import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepassword.component';
 import { MediaCenterComponent } from './pages/media-center/media-center.component';
 import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
+import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -275,7 +276,8 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
       DmChangepasswordComponent,
       MediaCenterComponent,
       ViewmediaComponent,
-      SafePipe
+      SafePipe,
+      ReliancePaymentSuccessComponent
   ],
   providers: [
       AppSettings,

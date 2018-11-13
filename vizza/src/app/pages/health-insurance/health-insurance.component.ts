@@ -1174,7 +1174,7 @@ export class HealthInsuranceComponent implements OnInit {
         </div>
             
         <div class="text-center">
-            <h3>About Health Insurance</h3>
+            <h3 class="w-100 text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
         </div>
         <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>

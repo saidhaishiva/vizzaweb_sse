@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 $theme-color:#02810E;
 $green-color:#18CCB4;
-$pink-color:#d81b60;
+$pink-color:#F50091;
 $light-green:#2FE827;
 *{
   outline: none;
@@ -22,6 +22,10 @@ button:focus{
 }
 .color-pink{
   color:$pink-color;
+}
+.logo-size{
+  width: 30px;
+  height: 30px;
 }
 .bg-pink{
   color:$pink-color;
@@ -943,8 +947,8 @@ a:hover {
     }
   }
   footer p{
-    background: #656464;
-    color: #fff;
+    //background: #fff;
+    color: #656464;
     text-align: center;
     padding: 10px;
     margin-top: 15px;

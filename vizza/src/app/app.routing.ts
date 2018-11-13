@@ -73,6 +73,7 @@ import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmp
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
+import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -149,6 +150,7 @@ export const routes: Routes = [
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'reliance-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
