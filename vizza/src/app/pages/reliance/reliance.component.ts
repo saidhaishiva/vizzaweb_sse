@@ -1089,12 +1089,20 @@ public RediretUrlLink: any;
                     }
                 }
             }
-                for( let j=0; j < this.relationshipList.length; j++){
-                    if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_proposer_id ) {
-                        this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+            for( let j=0; j < this.relationshipList.length; j++){
+                if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_proposer_id ) {
+                    this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+                }
+            }
+            // disease name
+
+                for( let j=0; j < this.diseaseList.length; j++){
+                    if( this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID == this.diseaseList[j].pre_existing_disease_id ) {
+                        this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].pre_existing_disease_name = this.diseaseList[j].pre_existing_disease_name;
                     }
                 }
 
+            console.log(this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID, 'fdghjkwesdrfghjtr');
 
             for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
                 for (let j = 0; j < this.maritalDetail.length; j++) {
