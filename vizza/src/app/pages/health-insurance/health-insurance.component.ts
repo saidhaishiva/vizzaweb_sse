@@ -265,18 +265,34 @@ export class HealthInsuranceComponent implements OnInit {
             if (name == 'Son' || name == 'Daughter') {
                 this.count++;
             }
-
+        console.log(this.count, 'this.count');
             if (this.count >= 2) {
                 this.sonBTn = true;
                 this.daughterBTn = true;
                 sessionStorage.sonBTn = true;
                 sessionStorage.daughterBTn = true;
+                let size= '';
+                // for (let i = 0; i < this.setArray.length; i++) {
+                //         if (this.setArray[length].name == 'Son') {
+                //             this.setArray[3].disabled = true;
+                //         } else if (this.setArray[length].name == 'Daughter') {
+                //             this.setArray[2].disabled = true;
+                //         }
+                // }
+                if (this.setArray.length > 4) {
+                    if (this.setArray[index].name == 'Son' && (this.setArray[4].checked && this.setArray[4].name == 'Son')) {
+                        this.setArray[3].disabled = true;
+                    } else if (this.setArray[index].name == 'Daughter' && (this.setArray[4].checked && this.setArray[4].name == 'Son')) {
+                        this.setArray[2].disabled = true;
+                    }
+                }
             } else {
                 this.sonBTn = false;
                 this.daughterBTn = false;
                 sessionStorage.sonBTn = false;
                 sessionStorage.daughterBTn = false;
             }
+
 
         } else {
             this.setArray[index].age = '';
@@ -286,6 +302,8 @@ export class HealthInsuranceComponent implements OnInit {
             } else if (this.setArray[index].name == 'Daughter') {
                 this.setArray[2].disabled = false;
             }
+
+
             if (name == 'Son' || name == 'Daughter') {
                 this.count--;
             }
