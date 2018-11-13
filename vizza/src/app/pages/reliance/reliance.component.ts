@@ -224,7 +224,7 @@ public RediretUrlLink: any;
             nomineeArea: ['', Validators.required],
             nearestLandMark: '',
             nomineeTitle: ['', Validators.required],
-            nomineeDob: ['', Validators.required]
+            nomineeDob: ['', Validators.compose([Validators.required])]
         });
         this.riskDetails = this.fb.group({
             serviceTax: ['', Validators.required],
@@ -1170,7 +1170,6 @@ public RediretUrlLink: any;
 
                 }
             }
-            // CityID
             this.proposalId = this.summaryData.proposal_id;
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
@@ -1179,7 +1178,10 @@ public RediretUrlLink: any;
 
         } else {
 
-            this.toastr.error(successData.ErrorObject);
+            // this.toastr.error(successData.ErrorObject);
+            this.toastr.error('Nominee age should be 18 or above');
+
+
         }
     }
 
