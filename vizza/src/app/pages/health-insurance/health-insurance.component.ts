@@ -1150,8 +1150,8 @@ export class HealthInsuranceComponent implements OnInit {
 
     healthInsurer(){
         const dialogRef = this.dialog.open(HealthInsurer, {
-            width: '1000px',
-            height: '500px'
+            width: '1200px',
+            // height: '500px'
         });
         dialogRef.disableClose = true;
         // dialogRef.afterClosed().subscribe(result => {
@@ -1167,16 +1167,21 @@ export class HealthInsuranceComponent implements OnInit {
 
 @Component({
     selector: 'healthinsurer',
-    template: `<mat-accordion>
+    template: `        
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+        </div>
+        <div mat-dialog-content>
+            <mat-accordion>
 
-        <div class="col-sm-12 text-right">
-            <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-        </div>
-            
-        <div class="text-center">
-            <h3 class="w-100 text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
-        </div>
-        <mat-expansion-panel class="mb-3">
+            <mat-expansion-panel class="mb-3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     HEALTH INSURANCE- WHAT YOU SHOULD KNOW
@@ -1298,7 +1303,8 @@ export class HealthInsuranceComponent implements OnInit {
         </mat-expansion-panel>
 
 
-    </mat-accordion>`,
+    </mat-accordion>
+    </div>`,
 })
 export class HealthInsurer {
 
