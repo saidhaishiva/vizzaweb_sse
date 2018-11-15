@@ -91,32 +91,140 @@
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
-                  <!--<mat-nav-list *ngFor="let keys of getKeyList;let i = index">-->
-                  <!--<mat-list-item *ngIf="keys.type == 2" class="nav-item" [ngClass]="{'active': id === i }" [style.background-color]="keys.type == 2 ? '#8e8e8e' : '#d81b60'">-->
-                  <!--<i class="material-icons">keyboard_arrow_right</i>-->
-                  <!--<a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>-->
-                  <!--</mat-list-item>-->
-                  <!--</mat-nav-list>-->
-                  <div *ngFor="let keys of getKeyList;let i = index">
-                    <div *ngIf="keys.type == 2" class="nav-item" [ngClass]="{'active': id === i }" [style.background-color]="keys.type == 2 ? '#8e8e8e' : '#d81b60'">
-                      <div class="p-3">
-                        <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}} <span class="float-right"><i class="material-icons">keyboard_arrow_right</i></span></a>
+
+                  <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
+                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#18ccb4' : '#8e8e8e'">
+                      <i class="material-icons">keyboard_arrow_right</i>
+                      <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                    </mat-list-item>
+                  </mat-nav-list>
+                  <mat-nav-list>
+                    <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#18ccb4' : '#8e8e8e'">
+                      <i class="material-icons">keyboard_arrow_right</i>
+                      <a matLine  style="font-weight: bold !important;" >Vizza Accident Form</a>
+                    </mat-list-item>
+                  </mat-nav-list>
+
+
+
+
+                      <!--<div *ngFor="let keys of getKeyList;let i = index">-->
+                        <!--<div *ngIf="keys.type == 2" class="nav-item" [ngClass]="{'active': id === i }" [style.background-color]="keys.type == 2 ? '#8e8e8e' : '#d81b60'">-->
+                          <!--<div class="p-3" >-->
+                            <!--<a matLine (click)="selectClaim('form1')" style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}} <span class="float-right"><i class="material-icons">keyboard_arrow_right</i></span></a>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+
+                      <!--<div>-->
+                        <!--<div class="nav-item">-->
+                          <!--<div class="p-3" >-->
+                            <!--<a matLine (click)="selectClaim('form2')" style="font-weight: bold !important;" matTooltip="Vizza Accident Form">Vizza Accident Form<span class="float-right"><i class="material-icons">keyboard_arrow_right</i></span></a>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                </div>
+                </div>
+
+              <div class="col-md-9" style="background-color:#18ccb4; height:510px;"><br>
+                <div mat-dialog-content>
+                  <div *ngIf="selectedClaimDetails == 'form1'">
+                    <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                      <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
+                        <h4 *ngIf="keys.type == 2">{{keys.kf_name}}</h4>
+                      </div>
+                      <div class="row" *ngIf="keys.type == 2">
+                        <div class="col-md-12" *ngIf="id === i">
+                          <div fxLayoutAlign="left start">
+                            <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-9" style="background-color:#18ccb4; height:507px;"><br>
-                <div mat-dialog-content>
-                  <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
-                    <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
-                      <h4 *ngIf="keys.type == 2">{{keys.kf_name}}</h4>
-                    </div>
-                    <div class="row" *ngIf="keys.type == 2">
-                      <div class="col-md-12" *ngIf="id === i">
-                        <div fxLayoutAlign="left start">
-                          <!--<p class="text-justify">{{keys.kf_details}}</p>-->
-                          <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                  <div *ngIf="selectedClaimDetails == 'form2'">
+                    <div class="h-100">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h5 class="custom-head text-uppercase">CONTACT DETAILS</h5>
+                          <p>
+                            To get more information, contact us following below address and phone number. We are always willing to support you whenever you need.
+                          </p>
+                          <div class="footer-widget footer-contact">
+                            <p fxLayoutAlign="start start"><span class="pe-7s-call" ><i class="material-icons">stay_primary_portrait</i>&nbsp; </span>+91 9047078809</p>
+                            <p fxLayoutAlign="start start"><span class="pe-7s-call" ><i class="material-icons">phone</i>&nbsp; </span>(044) 42691341</p>
+                            <p fxLayoutAlign="start start"><span class="pe-7s-mail-open-file"><i class="material-icons">email</i>&nbsp;</span><a  href="mailto:info@vizzafin.com">info@vizzafin.com</a></p>
+                            <p fxLayoutAlign="start start"><span class="pe-7s-map-2"><i class="material-icons">location_on</i>&nbsp; </span>Vizza Insurance Broking Services Pvt. Ltd <p>
+
+
+
+                            <h4>Head Office:</h4>
+                            Ground Floor, Flat No.G-A,<br> Sridev Complex, NO 65, <br>CIT Nagar First main road, <br>Chennai -35
+                            <!--   <p><b><a href="https://www.google.co.in/maps/place/Sathankulam,+Tamil+Nadu+628704/@8.4426272,77.9078325,17.75z/data=!4m2!3m1!1s0x3b047865cdb41d31:0xb20923183ee569b1" target="_blank"> Branch Office: <a></b> </br>
+                               8A/4, Daniel Complex, Nagerkoil Road, </br>
+                               Sathankulam- 626 704, Tuticorin District.</br>
+                               </p> -->
+
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <h5 class="custom-head text-uppercase">SEND US A MESSAGE</h5>
+                          <p>We will get back to you at the earliest.</p>
+                          <div class="space-top-35"></div>
+                          <mat-card>
+                            <form [formGroup]="form"  (ngSubmit)="contactDetails()">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="w-100">
+                                    <input matInput placeholder="Name" formControlName="name">
+                                    <mat-error *ngIf="form.controls.name.errors?.required">name is required</mat-error>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="w-100">
+                                    <input matInput placeholder="Email" formControlName="email">
+                                    <mat-error *ngIf="form.controls.email.errors?.required">email is required</mat-error>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <mat-form-field  class="w-100">
+                                    <input matInput placeholder="Subject" formControlName="subject">
+                                    <mat-error *ngIf="form.controls.subject.errors?.required">subject is required</mat-error>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12" >
+                                  <mat-form-field class="w-100">
+                                    <textarea cols="20" rows="5" matInput placeholder="Your Message *" formControlName="message"></textarea>
+                                    <mat-error *ngIf="form.controls.message.errors?.required">message is required</mat-error>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="custom-file" >
+                                  <input type="file" class="custom-file-input" (change)="readUrl($event)" formControlName="profile" aria-describedby="inputGroupFileAddon01">
+                                  <label class="custom-file-label"></label>
+                                </div>
+                                <div class="row w-100">
+                                  <div class="col-md-12">
+                                    <div *ngIf="fileUploadPath != ''">
+                                      <span class="imageclose mr-2"><img src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mt-4">
+                                <div class="col-md-12 text-center">
+                                  <button mat-raised-button color="primary">Submit</button>
+                                </div>
+                              </div>
+                              <div id="js-contact-result" data-success-msg="Thank you. We will be in touch soon." data-error-msg="Oops. Something went wrong."></div>
+                            </form>
+                          </mat-card>
+
                         </div>
                       </div>
                     </div>
@@ -145,63 +253,6 @@
             <!--</div>-->
             <!--</div>-->
           </mat-tab>
-
-          <!--<mat-tab>-->
-            <!--<ng-template mat-tab-label>-->
-              <!--<mat-icon class="example-tab-icon">assignment</mat-icon>-->
-              <!--CLAIM DETAILS 2-->
-            <!--</ng-template>-->
-            <!--<div class="row">-->
-              <!--<div class="col-md-3 pl-0 pr-1 bg-color">-->
-                <!--<div mat-dialog-content >-->
-                  <!--<mat-nav-list>-->
-                    <!--<mat-list-item class="nav-item" (click)="selectClaim('form1')">-->
-                      <!--<i class="material-icons">keyboard_arrow_right</i>-->
-                      <!--<a matLine  style="font-weight: bold !important;"> Claim Details</a>-->
-                    <!--</mat-list-item>-->
-                    <!--<mat-list-item class="nav-item" (click)="selectClaim('form2')">-->
-                      <!--<i class="material-icons">keyboard_arrow_right</i>-->
-                      <!--<a matLine  style="font-weight: bold !important;"> Test2</a>-->
-                    <!--</mat-list-item>-->
-                  <!--</mat-nav-list>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="col-md-9" style="background-color:#18ccb4;"><br>-->
-                <!--<div mat-dialog-content *ngIf="selectedClaimDetails == 'form1'">-->
-                  <!--<div class="h-100">-->
-                    <!--<div fxLayoutAlign="center center" class="well">-->
-                      <!--<h4>Claim Details</h4>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-12">-->
-                        <!--<div fxLayoutAlign="left start">-->
-                          <!--<p class="text-justify">We believe in the old adage, “The proof of the pudding is in the eating.” So we back up our promise with an enduringly simple claims procedure, which involves just you and us.</p>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-
-                <!--<div mat-dialog-content *ngIf="selectedClaimDetails == 'form2'">-->
-                  <!--<div class="h-100">-->
-                    <!--<div fxLayoutAlign="center center" class="well">-->
-                      <!--<h4>Test 2</h4>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-12">-->
-                        <!--<div fxLayoutAlign="left start">-->
-                          <!--<p class="text-justify">Details 2</p>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-
-              <!--</div>-->
-            <!--</div>-->
-
-          <!--</mat-tab>-->
-
 
 
         </mat-tab-group>

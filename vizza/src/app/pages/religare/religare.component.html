@@ -88,11 +88,8 @@
                         <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="onAlternative($event)" autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-
-
                       </mat-form-field>
                         <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
-
                       </div>
                     </div>
                   </div>
@@ -100,16 +97,19 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" autocomplete="off" required></textarea>
+                          <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="personalAddress"  autocomplete="off" required></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
-
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off"></textarea>
+                          <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off"></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
 
                         </mat-form-field>
@@ -140,18 +140,20 @@
                     <h6 class="color-green">PROPOSER RESIDENCE ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required autocomplete="off" [readonly]="inputReadonly"></textarea>
+                          <textarea #message2 maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" required autocomplete="off" [readonly]="inputReadonly"></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message2.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="personal.controls.residenceAddress.errors?.required">Address is required</mat-error>
-
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" [readonly]="inputReadonly"></textarea>
+                          <textarea #message3 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" [readonly]="inputReadonly"></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message3.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="personal.controls.residenceAddress2.errors?.required">Address2 is required</mat-error>
-
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -308,23 +310,38 @@
                 </mat-form-field>
                   <div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value !='' ">{{insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value}}</div>
                 </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Height" maxlength="3" formControlName="personalHeight" (keypress)="keyPress($event)" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                        <mat-error *ngIf="personal.controls.personalHeight.errors?.required">Enter Your Height</mat-error>
+                      </mat-form-field>
+
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Weight" maxlength="3" formControlName="personalWeight" (keypress)="keyPress($event)" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                        <mat-error *ngIf="personal.controls.personalHeight.errors?.required">Enter Your Body Weight</mat-error>
+                      </mat-form-field>
+                    </div>
               </div>
               </div>
                 <div class="col-md-12 box-card pt-3">
                   <h6 class="color-green"> INSURED COMMUNICATION ADDRESS</h6>
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="personalAddress" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value"></textarea>
+                        <textarea #message4 maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="personalAddress" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value"></textarea>
+                        <mat-hint align="start"></mat-hint>
+                        <mat-hint align="end">{{message4.value.length}} / 80</mat-hint>
                         <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
-
                       </mat-form-field>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value"></textarea>
+                        <textarea #message5 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value"></textarea>
+                        <mat-hint align="start"></mat-hint>
+                        <mat-hint align="end">{{message5.value.length}} / 80</mat-hint>
                         <mat-error *ngIf="insureArray.invalid">Address 2 is required</mat-error>
-
                       </mat-form-field>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -362,15 +379,19 @@
                   <h6 class="color-green">INSURED RESIDENCE ADDRESS</h6>
                   <div class="row">
                     <div class="col-md-12"><mat-checkbox formControlName="sameas" (change)="sameAddressInsurer($event, i)"><strong>Same as Communication Address</strong></mat-checkbox></div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value"></textarea>
+                        <textarea #message6 maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value"></textarea>
+                        <mat-hint align="start"></mat-hint>
+                        <mat-hint align="end">{{message6.value.length}} / 80</mat-hint>
                         <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                       </mat-form-field>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value"></textarea>
+                        <textarea #message7 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value"></textarea>
+                        <mat-hint align="start"></mat-hint>
+                        <mat-hint align="end">{{message7.value.length}} / 80</mat-hint>
                         <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
                       </mat-form-field>
                     </div>
