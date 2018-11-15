@@ -1,43 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
+import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Settings} from '../../app.settings.model';
 import {ProposalService} from '../../shared/services/proposal.service';
-import { MatStepper } from '@angular/material';
+import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { DatePipe } from '@angular/common';
+import {AppSettings} from '../../app.settings';
+import {MatDialog, MatStepper} from '@angular/material';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
-import {ConfigurationService} from '../../shared/services/configuration.service';
-import {Settings} from '../../app.settings.model';
-import { AppSettings } from '../../app.settings';
-import {CommonService} from '../../shared/services/common.service';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
-export const MY_FORMATS = {
-    parse: {
-        dateInput: 'DD/MM/YYYY',
-    },
-    display: {
-        dateInput: 'DD/MM/YYYY',
-        monthYearLabel: 'MM YYYY',
-        dateA11yLabel: 'DD/MM/YYYY',
 
-        monthYearA11yLabel: 'MM YYYY',
-    },
-};
 @Component({
-  selector: 'app-religare',
-  templateUrl: './religare.component.html',
-  styleUrls: ['./religare.component.scss'],
-    providers: [
-
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
-        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-    ],
+  selector: 'app-preligare',
+  templateUrl: './preligare.component.html',
+  styleUrls: ['./preligare.component.scss']
 })
-export class ReligareComponent implements OnInit {
+
+export class PreligareComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public insureArray: FormGroup;
@@ -115,7 +95,7 @@ export class ReligareComponent implements OnInit {
     public medicalStatus : any;
     public arr : any;
     public insureRelationList : any;
-array: any;
+    array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -159,8 +139,6 @@ array: any;
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
-            personalHeight: ['',Validators.required],
-            personalWeight: ['',Validators.required],
             residenceAddress: ['', Validators.required],
             residenceAddress2: [''],
             residencePincode: ['', Validators.required],
@@ -189,14 +167,14 @@ array: any;
         }
     }
     insureChangeGender(index) {
-      if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
-          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
-      } else {
-          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
-      }
-      // this. array = [
-      //
-      // ]
+        if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
+            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
+        } else {
+            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
+        }
+        // this. array = [
+        //
+        // ]
     }
 
 
@@ -323,8 +301,6 @@ array: any;
                 residencePincode: ['', Validators.required],
                 residenceCity: ['', Validators.required],
                 residenceState: ['', Validators.required],
-                personalWeight: ['', Validators.required],
-                personalHeight: ['', Validators.required],
                 sameas: false,
                 type: '',
                 cityHide: '',
@@ -388,9 +364,7 @@ array: any;
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
                     'relationship_cd': this.proposerInsureData[i].personalrelationship,
-                    'role_cd': this.proposerInsureData[i].rolecd,
-                    'height': this.proposerInsureData[i].personalHeight,
-                    'weight': this.proposerInsureData[i].personalWeight,
+                    'role_cd': this.proposerInsureData[i].rolecd
                 });
                 if (this.proposerInsureData[i].personalAltnumber != '') {
                     this.totalReligareData[i].prop_contact_list.push({
@@ -477,30 +451,30 @@ array: any;
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
         this.questions_list = [];
         this.getFilterData = [];
-            for (let i = 0; i < this.religareQuestionsList.length; i++) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
-                        this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
-                    }
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
+                    this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
                 }
+            }
         }
 
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
         }
         for (let i = 0; i < this.totalReligareData.length; i++) {
-                if (i > 0) {
-                    this.totalReligareData[i].questions_list = this.getFilterData[i -1];
-                }
+            if (i > 0) {
+                this.totalReligareData[i].questions_list = this.getFilterData[i -1];
+            }
         }
         let statusChecked = [];
-            this.medicalStatus = [];
-            console.log(this.religareQuestionsList, 'this.religareQuestionsList');
+        this.medicalStatus = [];
+        console.log(this.religareQuestionsList, 'this.religareQuestionsList');
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
 
             if(this.religareQuestionsList[i].mStatus == 'No'){
@@ -508,59 +482,59 @@ array: any;
             } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
                 this.medicalStatus.push('Yes');
             }
-            
 
-                for (let i = 0; i < this.totalReligareData.length; i++) {
-                    this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+
+            for (let i = 0; i < this.totalReligareData.length; i++) {
+                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            }
+
+
+            if (this.religareQuestionsList[i].answer_status == true) {
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
+
+                                statusChecked.push(0);
+                            } else {
+                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
+                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+                                        statusChecked.push(0);
+                                    } else {
+                                        statusChecked.push(1);
+                                    }
+                                }  else {
+                                    statusChecked.push(1);
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+                if (statusChecked.length == 0){
+                    statusChecked.push(2);
                 }
 
+            } else {
 
-         if (this.religareQuestionsList[i].answer_status == true) {
-             for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-               for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                   if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                       if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
+                if (i == this.religareQuestionsList.length - 1) {
+                    statusChecked.push(1);
+                }
 
-                           statusChecked.push(0);
-                       } else {
-                           if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
-                               if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
-                                   statusChecked.push(0);
-                               } else {
-                                   statusChecked.push(1);
-                               }
-                           }  else {
-                               statusChecked.push(1);
-                           }
-
-
-                       }
-                   }
-               }
-             }
-             if (statusChecked.length == 0){
-                 statusChecked.push(2);
-             }
-
-         } else {
-
-             if (i == this.religareQuestionsList.length - 1) {
-                 statusChecked.push(1);
-             }
-
-         }
-         console.log(this.medicalStatus, 'this.medicalStatus');
+            }
+            console.log(this.medicalStatus, 'this.medicalStatus');
 
         }
 
-            if (statusChecked.includes(0)) {
-                this.toastr.error('Please fill the empty field');
-            } else if (statusChecked.includes(2)) {
-                this.toastr.error('Please check atleast one checkbox!');
-            } else {
-                stepper.next();
+        if (statusChecked.includes(0)) {
+            this.toastr.error('Please fill the empty field');
+        } else if (statusChecked.includes(2)) {
+            this.toastr.error('Please check atleast one checkbox!');
+        } else {
+            stepper.next();
 
-            }
+        }
 
     }
 
@@ -581,7 +555,7 @@ array: any;
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
-            }
+                }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -836,8 +810,6 @@ array: any;
                 personalEmail: this.getStepper1.personalEmail,
                 personalMobile: this.getStepper1.personalMobile,
                 personalAltnumber: this.getStepper1.personalAltnumber,
-                personalWeight: this.getStepper1.personalWeight,
-                personalHeight: this.getStepper1.personalHeight,
                 residenceAddress: this.getStepper1.residenceAddress,
                 residenceAddress2: this.getStepper1.residenceAddress2,
                 residencePincode: this.getStepper1.residencePincode,
@@ -845,7 +817,7 @@ array: any;
                 residenceState: this.getStepper1.residenceState,
                 rolecd: this.getStepper1.rolecd,
                 relationshipcd: this.getStepper1.relationshipcd,
-                sameas: this.getStepper1.sameas
+                sameas: this.getStepper1.sameas,
             });
 
         }
@@ -871,8 +843,6 @@ array: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
                 this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
@@ -881,6 +851,7 @@ array: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
+
             }
         }
 
@@ -894,11 +865,11 @@ array: any;
             });
         }
         setTimeout(() => {
-        if (this.getStepper1.personalPincode != '') {
-            this.getPostal(this.getStepper1.personalPincode, 'personal');
-            this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-            this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-            this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
+            if (this.getStepper1.personalPincode != '') {
+                this.getPostal(this.getStepper1.personalPincode, 'personal');
+                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
+                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
+                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
 
                 if (this.getStepper1.sameas) {
                     this.sameField = this.getStepper1.sameas;
@@ -907,50 +878,50 @@ array: any;
                     this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
                     this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
                 }
-            setTimeout(() => {
-                if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                    this.getPostal(this.getStepper1.residencePincode, 'residence');
-                    this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                    this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                    this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                } },2000);
+                setTimeout(() => {
+                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
+                        this.getPostal(this.getStepper1.residencePincode, 'residence');
+                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
+                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
+                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
+                    } },2000);
 
 
-            if (sessionStorage.mobileNumber != '' ) {
-                this.mobileNumber = sessionStorage.mobileNumber;
-            } else {
-                this.mobileNumber = 'true';
-            }
+                if (sessionStorage.mobileNumber != '' ) {
+                    this.mobileNumber = sessionStorage.mobileNumber;
+                } else {
+                    this.mobileNumber = 'true';
+                }
 
 
-        } },4000);
+            } },4000);
 
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
+        for (let i = 0; i < this.getStepper2.items.length; i++) {
 
-                if (this.getStepper2.items[i].personalPincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+            if (this.getStepper2.items[i].personalPincode != '') {
+                this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
 
-                    if (this.getStepper2.items[0].sameAsProposer) {
-                        this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                        this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-                    }
-                        if (this.getStepper2.items[i].sameas) {
-                            this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
-                        }
-                        if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                            this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                            this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                        }
+                if (this.getStepper2.items[0].sameAsProposer) {
+                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
+                }
+                if (this.getStepper2.items[i].sameas) {
+                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
+                }
+                if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
+                    this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
+                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
                 }
             }
+        }
     }
 
 
@@ -976,8 +947,6 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
@@ -985,6 +954,8 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
@@ -1008,8 +979,6 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
@@ -1069,11 +1038,11 @@ array: any;
             this.summaryData = successData.ResponseObject;
             let getdata=[];
             for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
-                  for (let j = 0; j <  this.relationshipList.length; j++) {
-                     if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
-                          this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
-                      }
-                  }
+                for (let j = 0; j <  this.relationshipList.length; j++) {
+                    if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
+                    }
+                }
             }
             console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
             this.proposalId = this.summaryData.proposal_id;
@@ -1220,41 +1189,41 @@ array: any;
     public getpostalSuccess(successData) {
 
 
-            if (this.title == 'personal') {
-                this.personalCitys = [];
-                this.response = successData.ResponseObject;
-                if (successData.IsSuccess) {
+        if (this.title == 'personal') {
+            this.personalCitys = [];
+            this.response = successData.ResponseObject;
+            if (successData.IsSuccess) {
 
-                    this.personal.controls['personalState'].setValue(this.response[0].state);
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.personalCitys.push({city: this.response[i].city});
-                    }
-                } else if(successData.IsSuccess != true) {
+                this.personal.controls['personalState'].setValue(this.response[0].state);
+                for (let i = 0; i < this.response.length; i++) {
+                    this.personalCitys.push({city: this.response[i].city});
+                }
+            } else if(successData.IsSuccess != true) {
 
-                    this.personal.controls['personalState'].setValue('');
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.personalCitys.push({city: this.response[i].city = ''});
-                    }
-                    this.toastr.error('In valid Pincode');
+                this.personal.controls['personalState'].setValue('');
+                for (let i = 0; i < this.response.length; i++) {
+                    this.personalCitys.push({city: this.response[i].city = ''});
                 }
+                this.toastr.error('In valid Pincode');
             }
-            if (this.title == 'residence') {
-                this.residenceCitys = [];
-                this.rResponse = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.residenceCitys.push({city: this.rResponse[i].city});
-                    }
-                } else if(successData.IsSuccess != true) {
-                    this.personal.controls['residenceState'].setValue('');
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.residenceCitys.push({city: this.rResponse[i].city = ''});
-                    }
-                    this.toastr.error('In valid Pincode');
+        }
+        if (this.title == 'residence') {
+            this.residenceCitys = [];
+            this.rResponse = successData.ResponseObject;
+            if (successData.IsSuccess) {
+                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
+                for (let i = 0; i < this.rResponse.length; i++) {
+                    this.residenceCitys.push({city: this.rResponse[i].city});
                 }
+            } else if(successData.IsSuccess != true) {
+                this.personal.controls['residenceState'].setValue('');
+                for (let i = 0; i < this.rResponse.length; i++) {
+                    this.residenceCitys.push({city: this.rResponse[i].city = ''});
+                }
+                this.toastr.error('In valid Pincode');
             }
-            }
+        }
+    }
 
 
 
@@ -1290,43 +1259,43 @@ array: any;
     public getpostalInsurerSuccess(successData) {
 
 
-            if (this.title == 'personal') {
-                this.iPersonalCitys = [];
-                this.response = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.iPersonalCitys.push({city: this.response[i].city});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                } else if(successData.IsSuccess != true && this.title == 'personal') {
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.iPersonalCitys.push({city: this.response[i].city = ''});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                    this.toastr.error('In valid Pincode');
+        if (this.title == 'personal') {
+            this.iPersonalCitys = [];
+            this.response = successData.ResponseObject;
+            if (successData.IsSuccess) {
+                for (let i = 0; i < this.response.length; i++) {
+                    this.iPersonalCitys.push({city: this.response[i].city});
                 }
+                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
+                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+            } else if(successData.IsSuccess != true && this.title == 'personal') {
+                for (let i = 0; i < this.response.length; i++) {
+                    this.iPersonalCitys.push({city: this.response[i].city = ''});
+                }
+                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
+                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+                this.toastr.error('In valid Pincode');
             }
-            if (this.title == 'residence') {
-                this.iResidenceCitys = [];
-                this.rResponse = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.iResidenceCitys.push({city: this.rResponse[i].city});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
+        }
+        if (this.title == 'residence') {
+            this.iResidenceCitys = [];
+            this.rResponse = successData.ResponseObject;
+            if (successData.IsSuccess) {
+                for (let i = 0; i < this.rResponse.length; i++) {
+                    this.iResidenceCitys.push({city: this.rResponse[i].city});
                 }
-                else if (successData.IsSuccess != true && this.title == 'residence') {
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-                    this.toastr.error('In valid Pincode');
-                }
+                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
+                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
             }
+            else if (successData.IsSuccess != true && this.title == 'residence') {
+                for (let i = 0; i < this.rResponse.length; i++) {
+                    this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
+                }
+                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
+                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
+                this.toastr.error('In valid Pincode');
+            }
+        }
 
 
 
@@ -1550,14 +1519,14 @@ array: any;
         console.log(error);
     }
     add(event: any){
-            if (event.charCode !== 0) {
-                const pattern = /[0-9/\\ ]/;
-                const inputChar = String.fromCharCode(event.charCode);
-                if (!pattern.test(inputChar)) {
-                    event.preventDefault();
-                }
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
             }
         }
+    }
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9a-zA-Z ]/;
@@ -1568,7 +1537,7 @@ array: any;
         }
     }
 
-        public typeValidate(event: any) {
+    public typeValidate(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -1600,6 +1569,6 @@ array: any;
             }
         }
         sessionStorage.this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
-        }
+    }
 
 }

@@ -74,6 +74,8 @@ import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
+import {PersonalaccidentformComponent} from './pages/personalaccidentform/personalaccidentform.component';
+import {PreligareComponent} from './pages/preligare/preligare.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -156,6 +158,8 @@ export const routes: Routes = [
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
+            { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
+            { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
 
         ]
     },

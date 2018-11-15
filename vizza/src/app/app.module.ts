@@ -150,6 +150,8 @@ import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepa
 import { MediaCenterComponent } from './pages/media-center/media-center.component';
 import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
+import { PersonalaccidentformComponent } from './pages/personalaccidentform/personalaccidentform.component';
+import { PreligareComponent } from './pages/preligare/preligare.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -277,7 +279,10 @@ import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-succes
       MediaCenterComponent,
       ViewmediaComponent,
       SafePipe,
-      ReliancePaymentSuccessComponent
+      ReliancePaymentSuccessComponent,
+      PersonalaccidentformComponent,
+      PreligareComponent,
+
   ],
   providers: [
       AppSettings,

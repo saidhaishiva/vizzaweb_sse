@@ -1182,8 +1182,16 @@ public RediretUrlLink: any;
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
+            if (this.nomineeDetails.valid) {
+                if (sessionStorage.proposerAge >= 18) {
+                    if (this.mobileNumber == '' || this.mobileNumber == 'true'){
             this.lastStepper.next();
+                    }
 
+                } else {
+                    this.toastr.error('Proposer age should be 18 or above');
+                }
+            }
         } else {
 
             // this.toastr.error(successData.ErrorObject);
