@@ -266,12 +266,15 @@ export class HealthInsuranceComponent implements OnInit {
                 this.count++;
             }
         console.log(this.count, 'this.count');
+
             if (this.count >= 2) {
+                console.log(this.setArray, 'arr');
                 this.sonBTn = true;
                 this.daughterBTn = true;
                 sessionStorage.sonBTn = true;
                 sessionStorage.daughterBTn = true;
                 let size= '';
+                console.log(this.setArray[index].name +'/' + this.setArray[4].name);
                 // for (let i = 0; i < this.setArray.length; i++) {
                 //         if (this.setArray[length].name == 'Son') {
                 //             this.setArray[3].disabled = true;
@@ -284,6 +287,10 @@ export class HealthInsuranceComponent implements OnInit {
                         this.setArray[3].disabled = true;
                     } else if (this.setArray[index].name == 'Daughter' && (this.setArray[4].checked && this.setArray[4].name == 'Son')) {
                         this.setArray[2].disabled = true;
+                    } else if (this.setArray[index].name == 'Daughter' && (this.setArray[4].checked && this.setArray[4].name == 'Daughter')) {
+                        this.setArray[2].disabled = true;
+                    } else if (this.setArray[index].name == 'Son' && (this.setArray[4].checked && this.setArray[4].name == 'Daughter')) {
+                        this.setArray[3].disabled = true;
                     }
                 }
             } else {
@@ -371,16 +378,16 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.sonBTn = false;
             sessionStorage.daughterBTn = false;
         }
-        for (let i = 0; i < this.setArray.length; i++) {
-            let length = this.setArray.length -1;
-            if (this.setArray.length > 4) {
-                if (this.setArray[length].name == 'Son') {
-                    this.setArray[3].disabled = true;
-                } else if (this.setArray[length].name == 'Daughter') {
-                    this.setArray[2].disabled = true;
-                }
-            }
-        }
+        // for (let i = 0; i < this.setArray.length; i++) {
+        //     let length = this.setArray.length -1;
+        //     if (this.setArray.length > 4) {
+        //         if (this.setArray[length].name == 'Son') {
+        //             this.setArray[3].disabled = true;
+        //         } else if (this.setArray[length].name == 'Daughter') {
+        //             this.setArray[2].disabled = true;
+        //         }
+        //     }
+        // }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
 
