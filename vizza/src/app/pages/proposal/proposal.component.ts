@@ -325,7 +325,7 @@ export class ProposalComponent implements OnInit {
             this.familyMembers[i].ins_weight = '';
             this.familyMembers[i].ins_height = '';
             this.familyMembers[i].ins_occupation_id = '';
-            this.familyMembers[i].insurincome = '';
+            // this.familyMembers[i].insurincome = '';
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_hospital_cash = '1';
             this.familyMembers[i].ins_engage_manual_labour = 'None';
