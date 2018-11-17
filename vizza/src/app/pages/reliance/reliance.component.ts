@@ -1196,9 +1196,8 @@ public RediretUrlLink: any;
                 }
             }
         } else {
-
-            // this.toastr.error(successData.ErrorObject);
-            this.toastr.error('Nominee age should be 18 or above');
+            this.toastr.error(successData.ErrorObject);
+           // this.toastr.error('Nominee age should be 18 or above');
 
 
         }
