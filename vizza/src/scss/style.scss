@@ -1929,3 +1929,44 @@ fieldset {
   background: #dee2e6;
   border-radius: 15px 15px 0px 0px;
 }
+
+#travel-starthealth {
+  .mat-radio-label {
+    margin-top: 6px !important;
+  }
+  .mat-tab-group {
+    background: #6bc3e4 !important;
+  }
+  .mat-tab-label-active {
+    background-color: #ffffff !important;
+    color: #201f1f !important;
+  }
+  .travel-box {
+    border: 1px solid gray !important;
+  }
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #3f51b5;
+  }
+    .mat-card{
+      background: rgba(243, 240, 240, 0.87) !important;
+    }
+    mat-card.mat-radius{
+      background: #faf3f3 !important;
+    }
+    .mat-card-header-text{
+      display: none;
+    }
+    .travel{
+      background: #6bc3e4;
+      padding:15px;
+      border-radius: 5px;
+      button{
+        line-height: 28px;
+        font-size: 10px;
+        padding: 0 10px;
+        i{
+          font-size: 18px;
+        }
+      }
+    }
+}
