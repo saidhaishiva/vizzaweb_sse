@@ -359,9 +359,9 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="15" [(ngModel)]="item.insurincome">
-                    </mat-form-field></div>
+                    <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Annual Income" (keypress)="keyPress($event)"   maxlength="15" [(ngModel)]="item.insurincome">-->
+                    <!--</mat-form-field></div>-->
                     <div class="col-md-6"><mat-form-field class="w-100">
                       <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required>
                         <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" >

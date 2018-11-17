@@ -35,22 +35,23 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
+
 export class PersonalaccidentformComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public insureArray: FormGroup;
     public nomineeDetails: FormGroup;
+    public items: FormArray;
     public setDate: any;
     public selectDate: any;
     public stopNext: boolean;
-    public buyProductdetails: any;
+    public buyPersonaldetails: any;
     public groupName: any;
     public getFamilyDetails: any;
     public enquiryId: any;
     public personalData: any;
     public occupationList: any;
     public relationshipList: any;
-    public relationshipLists: any;
     public today: any;
     public declaration: boolean;
     public summaryData: any;
@@ -63,26 +64,21 @@ export class PersonalaccidentformComponent implements OnInit {
     public response: any;
     public personalCitys: any;
     public areaName: any;
-    public areaNames: any;
     public title: any;
     public residenceCitys: any;
     public cityTitle: any;
     public rAreaNames: any;
     public rAreaName: any;
     public rResponse: any;
-    public summaryCity: any;
     public rSummaryCity: any;
-    public summaryRelationship : any;
     public sumTitle: any;
     public sumPin: any;
     public code: any;
     public sumAreaName: any;
-    public sumAreaNameComm: any;
     public setDateAge: any;
     public personalAge: any;
     public occupationCode: any;
     public religareQuestionsList: any;
-    public items: any;
     public step: any;
     public questionEmpty: any;
     public proposerInsureData: any;
@@ -114,8 +110,8 @@ export class PersonalaccidentformComponent implements OnInit {
     public arr : any;
     public insureRelationList : any;
     array: any;
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+    constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+                public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -190,30 +186,702 @@ export class PersonalaccidentformComponent implements OnInit {
         } else {
             this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
         }
-        // this. array = [
-        //
-        // ]
+
     }
 
 
 
 
     ngOnInit() {
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        if(this.buyProductdetails.product_id == 1) {
+        // change to dynamic
+       // this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        this.buyPersonaldetails = [{
+            "product_id": "1",
+            "product_name": "Care V2",
+            "premium_id": "1",
+            "premium_amount": "2746.00",
+            "scheme": "1A",
+            "suminsured_amount": "300000.00",
+            "tenure": "1",
+            "suminsured_id": null,
+            "prod_shortform": null,
+            "company_logo": "api/assets/images/religare_logo.png",
+            "company_name": "Religare",
+            "type_name": "Health",
+            "indiv_shortlist_status": false,
+            "shortlist_status": false,
+            "key_features": [{
+                "key_features_name": "Copay",
+                "key_features_value": "20%",
+                "kf_info": "",
+                "key_feature_status": "0"
+            }, {
+                "key_features_name": "Pre Hospitalization",
+                "key_features_value": "Upto 30 days",
+                "kf_info": "",
+                "key_feature_status": "1"
+            }, {
+                "key_features_name": "Room Rent",
+                "key_features_value": "Acc. To SI**",
+                "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
+                "key_feature_status": "1"
+            }, {
+                "key_features_name": "Post Hospitalization",
+                "key_features_value": "Upto 60 days",
+                "kf_info": "",
+                "key_feature_status": "1"
+            }, {
+                "key_features_name": "Pre Existing Disease",
+                "key_features_value": "2 Years waiting period",
+                "kf_info": "",
+                "key_feature_status": "1"
+            }],
+            "compare": false,
+            "shortlist": false
+        }];
+
+
+
+        if(this.buyPersonaldetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
             this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
         }
-        if(this.buyProductdetails.product_id != 1) {
+        if(this.buyPersonaldetails.product_id != 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators(null);
             this.nomineeDetails.get('religareRelationship').setValidators(null);
         }
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
 
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        // this.enquiryId = sessionStorage.enquiryId;
+        // this.groupName = sessionStorage.groupName;
+        this.enquiryId = 68;
+        this.groupName = 'Name';
+       // this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        this.getFamilyDetails = [{
+            "name": "Group A",
+            "postal_code": "608001",
+            "insurance_type": "1",
+            "purchase_status": "0",
+            "product_lists": [{
+                "product_id": "1",
+                "product_name": "Care V2",
+                "premium_id": "2",
+                "premium_amount": "3739.00",
+                "scheme": "1A",
+                "suminsured_amount": "300000.00",
+                "tenure": "1",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "20%",
+                    "kf_info": "",
+                    "key_feature_status": "0"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Acc. To SI**",
+                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "2 Years waiting period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "1",
+                "product_name": "Care V2",
+                "premium_id": "13",
+                "premium_amount": "4187.00",
+                "scheme": "1A",
+                "suminsured_amount": "400000.00",
+                "tenure": "1",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "20%",
+                    "kf_info": "",
+                    "key_feature_status": "0"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Acc. To SI**",
+                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "2 Years waiting period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "1",
+                "product_name": "Care V2",
+                "premium_id": "24",
+                "premium_amount": "5140.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000.00",
+                "tenure": "1",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "20%",
+                    "kf_info": "",
+                    "key_feature_status": "0"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Acc. To SI**",
+                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "2 Years waiting period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "6",
+                "product_name": "Mediclassic Individual",
+                "premium_id": "1975",
+                "premium_amount": "4000.00",
+                "scheme": "1A",
+                "suminsured_amount": "300000.00",
+                "tenure": "1",
+                "suminsured_id": "3",
+                "prod_shortform": "MCINEW",
+                "company_logo": "api/assets/images/starhealth_logo.png",
+                "company_name": "Star Health",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No-Cap*",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Rs.5,000/day",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Covered after 48 months",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "6",
+                "product_name": "Mediclassic Individual",
+                "premium_id": "1985",
+                "premium_amount": "4515.00",
+                "scheme": "1A",
+                "suminsured_amount": "400000.00",
+                "tenure": "1",
+                "suminsured_id": "4",
+                "prod_shortform": "MCINEW",
+                "company_logo": "api/assets/images/starhealth_logo.png",
+                "company_name": "Star Health",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No-Cap*",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Rs.5,000/day",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Covered after 48 months",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "6",
+                "product_name": "Mediclassic Individual",
+                "premium_id": "1995",
+                "premium_amount": "5080.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000.00",
+                "tenure": "1",
+                "suminsured_id": "5",
+                "prod_shortform": "MCINEW",
+                "company_logo": "api/assets/images/starhealth_logo.png",
+                "company_name": "Star Health",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No-Cap*",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Rs.5,000/day",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Covered after 48 months",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "9",
+                "product_name": "Star Comprehensive Individual",
+                "premium_id": "3210",
+                "premium_amount": "7015.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000.00",
+                "tenure": "1",
+                "suminsured_id": "1",
+                "prod_shortform": "COMPREHENSIVEIND",
+                "company_logo": "api/assets/images/starhealth_logo.png",
+                "company_name": "Star Health",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No-Cap*",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Unlimited",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Covered after 48 months",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "11",
+                "product_name": "Health Gain",
+                "premium_id": "3254",
+                "premium_amount": "4700.00",
+                "scheme": "1A",
+                "suminsured_amount": "300000.00",
+                "tenure": "1",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/reliance_logo.png",
+                "company_name": "Reliance",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "Nil*",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "36 months waiting period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "4",
+                "product_name": "Joy Today",
+                "premium_id": "3640",
+                "premium_amount": "60080.51",
+                "scheme": "1A",
+                "suminsured_amount": "500000.00",
+                "tenure": "3",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "Nil*",
+                    "kf_info": "* 20% after 61 years",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Private AC room",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "4 years waitng period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "4",
+                "product_name": "Joy Today",
+                "premium_id": "3643",
+                "premium_amount": "43824.58",
+                "scheme": "1A",
+                "suminsured_amount": "300000.00",
+                "tenure": "3",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "Nil*",
+                    "kf_info": "* 20% after 61 years",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Private AC room",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "4 years waitng period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "5",
+                "product_name": "Joy Tomorrow",
+                "premium_id": "3646",
+                "premium_amount": "20775.42",
+                "scheme": "1A",
+                "suminsured_amount": "500000.00",
+                "tenure": "1",
+                "suminsured_id": null,
+                "prod_shortform": null,
+                "company_logo": "api/assets/images/religare_logo.png",
+                "company_name": "Religare",
+                "type_name": "Health",
+                "indiv_shortlist_status": false,
+                "shortlist_status": false,
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "Nil*",
+                    "kf_info": "* 20% after 61 years",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Upto 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Room Rent",
+                    "key_features_value": "Private AC room",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Upto 60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "4 years waitng period",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "12",
+                "product_code": "11119",
+                "product_name": "Optima Restore Individual One Year ",
+                "premium_id": "",
+                "premium_amount": "6755.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000",
+                "tenure": 1,
+                "suminsured_id": "",
+                "prod_shortform": "Optima Restore Individual One Year ",
+                "company_logo": "api/assets/images/apollo_munich_logo.png",
+                "company_name": "Apollo Munich",
+                "type_name": "Helth",
+                "indiv_shortlist_status": "",
+                "shortlist_status": "",
+                "SACCode": 1,
+                "DiscountAmount": "0.00",
+                "GrossPremiumAmount": "7970.90",
+                "TaxAmount": "1215.90",
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Up to 3 years",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "60 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "180 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "13",
+                "product_code": "11300",
+                "product_name": "Health Wallet Individual",
+                "premium_id": "",
+                "premium_amount": "11275.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000",
+                "tenure": 1,
+                "suminsured_id": "",
+                "prod_shortform": "Health Wallet Individual",
+                "company_logo": "api/assets/images/apollo_munich_logo.png",
+                "company_name": "Apollo Munich",
+                "type_name": "Helth",
+                "indiv_shortlist_status": "",
+                "shortlist_status": "",
+                "SACCode": 1,
+                "DiscountAmount": "0.00",
+                "GrossPremiumAmount": "13304.50",
+                "TaxAmount": "2029.50",
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Up to 3 years",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 90 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "13",
+                "product_code": "11410",
+                "product_name": "Health Wallet Individual 2 Lacs Deductible",
+                "premium_id": "",
+                "premium_amount": "8334.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000",
+                "tenure": 1,
+                "suminsured_id": "",
+                "prod_shortform": "Health Wallet Individual 2 Lacs Deductible",
+                "company_logo": "api/assets/images/apollo_munich_logo.png",
+                "company_name": "Apollo Munich",
+                "type_name": "Helth",
+                "indiv_shortlist_status": "",
+                "shortlist_status": "",
+                "SACCode": 1,
+                "DiscountAmount": "0.00",
+                "GrossPremiumAmount": "9834.12",
+                "TaxAmount": "1500.12",
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Up to 3 years",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 90 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }, {
+                "product_id": "13",
+                "product_code": "11411",
+                "product_name": "Health Wallet Individual 3 Lacs Deductible",
+                "premium_id": "",
+                "premium_amount": "7721.00",
+                "scheme": "1A",
+                "suminsured_amount": "500000",
+                "tenure": 1,
+                "suminsured_id": "",
+                "prod_shortform": "Health Wallet Individual 3 Lacs Deductible",
+                "company_logo": "api/assets/images/apollo_munich_logo.png",
+                "company_name": "Apollo Munich",
+                "type_name": "Helth",
+                "indiv_shortlist_status": "",
+                "shortlist_status": "",
+                "SACCode": 1,
+                "DiscountAmount": "0.00",
+                "GrossPremiumAmount": "9110.78",
+                "TaxAmount": "1389.78",
+                "key_features": [{
+                    "key_features_name": "Copay",
+                    "key_features_value": "No",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Existing Disease",
+                    "key_features_value": "Up to 3 years",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Pre Hospitalization",
+                    "key_features_value": "Up to 30 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }, {
+                    "key_features_name": "Post Hospitalization",
+                    "key_features_value": "Up to 90 days",
+                    "kf_info": "",
+                    "key_feature_status": "1"
+                }]
+            }],
+            "selected_tab_index": 0,
+            "family_members": [{
+                "type": "Self",
+                "age": "26"
+            }],
+            "enquiry_id": 82,
+            "group_suminsured_id": "4-6"
+        }]
         this.insurePersons = this.getFamilyDetails.family_members;
         this.setOccupationListCode();
         this.religareQuestions();
@@ -222,14 +890,56 @@ export class PersonalaccidentformComponent implements OnInit {
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
+        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+            this.items = this.insureArray.get('items') as FormArray;
+            this.items.push(this.initItemRows());
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+        }
+
+        this.previousinsurance = [
+            'IFFCO TOKIO General Insurance Co. Ltd.',
+            'Liberty General Insurance Co. Ltd.',
+            'Shriram General Insurance Co. Ltd.',
+            'Reliance General Insurance Co. Ltd',
+            'DHFL General Insurance Co. Ltd.',
+            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
+            'Edelweiss General Insurance Co.Ltd.',
+            'Kotak Mahindra General Insurance Co. Ltd.',
+            'Go Digit General Insurance Co. Ltd.',
+            'Royal Sundaram General Insurance Co. Ltd.',
+            'Exports Credit Guarantee of India Co. Ltd',
+            'The New India Assurance Co. Ltd.',
+            'Tata AIG General Insurance Company Limited',
+            'National Insurance Co. Ltd.',
+            'Universal Sompo General Insurance Co. Ltd.',
+            'Agriculture Insurance Company of India Ltd.',
+            'Acko General Insurance Co. Ltd.',
+            'SBI General Insurance Co. Ltd.',
+            'Bharti AXA General Insurance Co. Ltd.',
+            'ICICI LOMBARD General Insurance Co. Ltd.',
+            'Magma HDI General Insurance Co. Ltd.',
+            'HDFC ERGO General Insurance Co.Ltd.',
+            'United India Insurance Co. Ltd.',
+            'The Oriental Insurance Co. Ltd.',
+            'Future Generali India Insurance Co. Ltd.',
+            'Cholamandalam MS General Insurance Co. Ltd.',
+            'Raheja QBE General Insurance Co. Ltd.',
+            'Star Health & Allied Insurance Co.Ltd.',
+            'Apollo Munich Health Insurance Co. Ltd',
+            'Religare Health Insurance Co. Ltd',
+            'Max Bupa Health Insurance Co. Ltd',
+            'CIGNA TTK Health Insurance Co. Ltd.',
+            'Aditya Birla Health Insurance Co. Ltd.'
+        ];
 
 
-        this.sessionData();
+
+        console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
 
 
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        if(this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
+        if(this.buyPersonaldetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
             this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
         } else{
             this.personal.get('personalPan').setValidators(null);
@@ -276,6 +986,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 residencePincode: ['', Validators.required],
                 residenceCity: ['', Validators.required],
                 residenceState: ['', Validators.required],
+                personalWeight: ['', Validators.required],
+                personalHeight: ['', Validators.required],
                 sameas: false,
                 type: '',
                 cityHide: '',
@@ -288,28 +1000,132 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     //Insure Details
+    // religareInsureDetail(stepper: MatStepper) {
+    //     stepper.next();
+    // }
     religareInsureDetails(stepper: MatStepper, value, key) {
         console.log(value);
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper2Details = JSON.stringify(value);
+        // sessionStorage.stepper2Details = '';
+        // sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personalData);
+        if (this.insureArray.valid) {
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.insurerData.items[i].type = this.insurePersons[i].type;
+            }
+            for (let i = 0; i < this.insurerData.items.length; i++) {
+                this.proposerInsureData.push(this.insurerData.items[i]);
+            }
+
+            for (let i = 0; i < this.proposerInsureData.length; i++) {
+                this.totalReligareData.push({
+                    'title': this.proposerInsureData[i].personalTitle,
+                    'proposer_fname': this.proposerInsureData[i].personalFirstname,
+                    'proposer_lname': this.proposerInsureData[i].personalLastname,
+                    'prop_email_list': [{
+                        'email': this.proposerInsureData[i].personalEmail,
+                        'email_type': 'PERSONAL'
+                    }],
+                    'prop_contact_list': [{
+                        'contact_no': this.proposerInsureData[i].personalMobile,
+                        'contact_type': 'MOBILE',
+                        'std_code': '91'
+                    }],
+                    'prop_identity_list': [
+                        {
+                            'identity_number': this.proposerInsureData[i].personalPan,
+                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
+                        }
+                    ],
+                    'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
+                    'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
+                    'proposer_res_area': this.proposerInsureData[i].residenceCity,
+                    'proposer_res_city': this.proposerInsureData[i].residenceCity,
+                    'proposer_res_state': this.proposerInsureData[i].residenceState,
+                    'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
+                    'proposer_comm_address1': this.proposerInsureData[i].personalAddress,
+                    'proposer_comm_address2': this.proposerInsureData[i].personalAddress2,
+                    'proposer_comm_area': this.proposerInsureData[i].personalCity,
+                    'proposer_comm_city': this.proposerInsureData[i].personalCity,
+                    'proposer_comm_state': this.proposerInsureData[i].personalState,
+                    'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
+                    'prop_dob': this.proposerInsureData[i].personalDob,
+                    'prop_gender': this.proposerInsureData[i].personalGender,
+                    'relationship_cd': this.proposerInsureData[i].personalrelationship,
+                    'role_cd': this.proposerInsureData[i].rolecd,
+                    'height': this.proposerInsureData[i].personalHeight,
+                    'weight': this.proposerInsureData[i].personalWeight,
+                });
+                if (this.proposerInsureData[i].personalAltnumber != '') {
+                    this.totalReligareData[i].prop_contact_list.push({
+                        'contact_no': this.proposerInsureData[i].personalAltnumber,
+                        'contact_type': 'RESEDENTIAL',
+                        'std_code': '91'
+                    });
+                }
+                if (this.proposerInsureData[i].personalAadhar != '') {
+                    this.totalReligareData[i].prop_identity_list.push({
+                        'identity_number': this.proposerInsureData[i].personalAadhar,
+                        'identity_type': 'AADHAR'
+                    });
+                }
+                if (this.proposerInsureData[i].personalGst != '') {
+                    this.totalReligareData[i].prop_identity_list.push({
+                        'identity_number': this.proposerInsureData[i].personalGst,
+                        'identity_type': 'GST'
+                    });
+                }
+                // if (this.proposerInsureData[i].personalPan != '') {
+                //     this.totalReligareData[i].prop_identity_list.push({
+                //         'identity_number': this.proposerInsureData[i].personalPan,
+                //         'identity_type': 'PAN'
+                //     });
+                // }
+                console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareData');
+
+            }
+            let aterMobile = [];
+            for(let i=0;i<this.insurerData.items.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '' ) {
+                    aterMobile.push(0);
+
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value == '' ) {
+                    aterMobile.push(1);
+
+                }
+                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+                    aterMobile.push(2);
+
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
+                    aterMobile.push(3);
+
+                }
+
+            }
+
+            if (aterMobile.includes(0)) {
+                this.toastr.error('Alternative and personal number should be different');
+            } else if(aterMobile.includes(2)){} else {
+                stepper.next();
+            }
+
+        }
     }
 
 
 
-    //Nominee Details
-    religareNomineeDetails(stepper: MatStepper, value) {
-        this.lastStepper = stepper;
-        console.log(value);
 
-        if (this.nomineeDetails.valid) {
-            sessionStorage.nomineeData = '';
-            sessionStorage.nomineeData = JSON.stringify(value);
-            this.proposal();
-        }
+    //Nominee Details
+    religareNomineeDetails(stepper: MatStepper) {
+        this.lastStepper = stepper;
+
+        // if (this.nomineeDetails.valid) {
+        //     sessionStorage.nomineeData = '';
+        //     sessionStorage.nomineeData = JSON.stringify(value);
+        //     this.proposal();
+        // }
     }
 
     subStatus(value: any, i, k, j) {
@@ -323,8 +1139,9 @@ export class PersonalaccidentformComponent implements OnInit {
 
     medicalHistoryDetails(stepper: MatStepper) {
 
-        sessionStorage.stepper3Details = '';
-        sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
+
+        // sessionStorage.stepper3Details = '';
+        // sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
         this.questions_list = [];
         this.getFilterData = [];
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
@@ -343,11 +1160,11 @@ export class PersonalaccidentformComponent implements OnInit {
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
         }
-        for (let i = 0; i < this.totalReligareData.length; i++) {
-            if (i > 0) {
-                this.totalReligareData[i].questions_list = this.getFilterData[i -1];
-            }
-        }
+        // for (let i = 0; i < this.totalReligareData.length; i++) {
+        //     if (i > 0) {
+        //         this.totalReligareData[i].questions_list = this.getFilterData[i -1];
+        //     }
+        // }
         let statusChecked = [];
         this.medicalStatus = [];
         console.log(this.religareQuestionsList, 'this.religareQuestionsList');
@@ -360,9 +1177,9 @@ export class PersonalaccidentformComponent implements OnInit {
             }
 
 
-            for (let i = 0; i < this.totalReligareData.length; i++) {
-                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-            }
+            // for (let i = 0; i < this.totalReligareData.length; i++) {
+            //     this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            // }
 
 
             if (this.religareQuestionsList[i].answer_status == true) {
@@ -413,30 +1230,34 @@ export class PersonalaccidentformComponent implements OnInit {
         }
 
     }
+    personalreligare(stepper: MatStepper){
+        stepper.next();
 
+    }
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        this.personalData = value;
-        console.log(this.personalData, 'dfgdfg');
-        this.personalData.rolecd = 'PROPOSER';
-        this.personalData.type = 'SELF';
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        console.log(value.personalDob, 'value');
-        if (this.personal.valid) {
-
-            this.proposerInsureData = [];
-            if (sessionStorage.proposerAge >= 18) {
-                this.proposerInsureData.push(this.personalData);
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                }
-
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
-        }
+        stepper.next();
+        // this.personalData = value;
+        // console.log(this.personalData, 'dfgdfg');
+        // this.personalData.rolecd = 'PROPOSER';
+        // this.personalData.type = 'SELF';
+        // sessionStorage.stepper1Details = '';
+        // sessionStorage.stepper1Details = JSON.stringify(value);
+        // console.log(value.personalDob, 'value');
+        // if (this.personal.valid) {
+        //
+        //     this.proposerInsureData = [];
+        //     if (sessionStorage.proposerAge >= 18) {
+        //         this.proposerInsureData.push(this.personalData);
+        //         if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+        //             stepper.next();
+        //         }
+        //
+        //     } else {
+        //         this.toastr.error('Proposer age should be 18 or above');
+        //     }
+        // }
     }
 
     religareQuestion(stepper: MatStepper) {
@@ -500,26 +1321,26 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
 
-    sameAddressInsurer(values: any, index) {
-
-        if (values.checked) {
-            this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
-
-        } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
-            this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
-            this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
-
-        }
-    }
+    // sameAddressInsurer(values: any, index) {
+    //
+    //     if (values.checked) {
+    //         this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
+    //
+    //     } else {
+    //         this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue('');
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
+    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
+    //
+    //     }
+    // }
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -563,83 +1384,83 @@ export class PersonalaccidentformComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
 
-        let age = this.ageCalculate(this.setDateAge);
-        this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(age);
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-        }
-        let smallest = this.arr[0];
-        for(let i = 1; i<this.arr.length; i++){
-            if(this.arr[i] < smallest){
-                smallest = this.arr[i];
-            }
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Son') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Son')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Daughter') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Daughter age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Daughter')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-
-        console.log(smallest, 'smallest');
-
-        console.log(this.insureArray.value);
+        //     let age = this.ageCalculate(this.setDateAge);
+        //     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(age);
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //         this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //         this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        //     }
+        //     let smallest = this.arr[0];
+        //     for(let i = 1; i<this.arr.length; i++){
+        //         if(this.arr[i] < smallest){
+        //             smallest = this.arr[i];
+        //         }
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Son') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 1');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Son')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Daughter') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Daughter age should be above 1');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Daughter')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
+        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        //     }
+        //
+        //     console.log(smallest, 'smallest');
+        //
+        //     console.log(this.insureArray.value);
+        // }
     }
-
     ageCalculate(dob) {
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring(8, 10), 10);
@@ -661,144 +1482,145 @@ export class PersonalaccidentformComponent implements OnInit {
         console.log(this.back);
     }
 
-    sessionData() {
-        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
-            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-            this.personal = this.fb.group({
-                personalTitle: this.getStepper1.personalTitle,
-                personalFirstname: this.getStepper1.personalFirstname,
-                personalLastname: this.getStepper1.personalLastname,
-                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
-                personalArea: this.getStepper1.personalArea,
-                residenceArea: this.getStepper1.residenceArea,
-                personalAadhar: this.getStepper1.personalAadhar,
-                personalrelationship: this.getStepper1.personalrelationship,
-                sameAsProposer: this.getStepper1.sameAsProposer,
-                personalGender: this.getStepper1.personalGender,
-                personalPan: this.getStepper1.personalPan.toUpperCase(),
-                personalGst: this.getStepper1.personalGst,
-                personalAddress: this.getStepper1.personalAddress,
-                personalAddress2: this.getStepper1.personalAddress2,
-                personalPincode: this.getStepper1.personalPincode,
-                personalCity: this.getStepper1.personalCity,
-                personalState: this.getStepper1.personalState,
-                personalEmail: this.getStepper1.personalEmail,
-                personalMobile: this.getStepper1.personalMobile,
-                personalAltnumber: this.getStepper1.personalAltnumber,
-                residenceAddress: this.getStepper1.residenceAddress,
-                residenceAddress2: this.getStepper1.residenceAddress2,
-                residencePincode: this.getStepper1.residencePincode,
-                residenceCity: this.getStepper1.residenceCity,
-                residenceState: this.getStepper1.residenceState,
-                rolecd: this.getStepper1.rolecd,
-                relationshipcd: this.getStepper1.relationshipcd,
-                sameas: this.getStepper1.sameas,
-            });
-
-        }
-
-        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
-            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
-                this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan.toUpperCase());
-                this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-
-            }
-        }
-
-
-        if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
-            this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
-            this.nomineeDetails = this.fb.group({
-                religareNomineeName: this.getNomineeData.religareNomineeName,
-                religareRelationship: this.getNomineeData.religareRelationship
-            });
-        }
-        setTimeout(() => {
-            if (this.getStepper1.personalPincode != '') {
-                this.getPostal(this.getStepper1.personalPincode, 'personal');
-                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
-
-                if (this.getStepper1.sameas) {
-                    this.sameField = this.getStepper1.sameas;
-                    this.inputReadonly = true;
-                    this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-                    this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-                    this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-                }
-                setTimeout(() => {
-                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                        this.getPostal(this.getStepper1.residencePincode, 'residence');
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                    } },2000);
-
-
-                if (sessionStorage.mobileNumber != '' ) {
-                    this.mobileNumber = sessionStorage.mobileNumber;
-                } else {
-                    this.mobileNumber = 'true';
-                }
-
-
-            } },4000);
-
-        for (let i = 0; i < this.getStepper2.items.length; i++) {
-
-            if (this.getStepper2.items[i].personalPincode != '') {
-                this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-
-                if (this.getStepper2.items[0].sameAsProposer) {
-                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-                }
-                if (this.getStepper2.items[i].sameas) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
-                }
-                if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                }
-            }
-        }
-    }
+    // sessionData() {
+    //     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+    //         console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
+    //         this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+    //         this.personal = this.fb.group({
+    //             personalTitle: this.getStepper1.personalTitle,
+    //             personalFirstname: this.getStepper1.personalFirstname,
+    //             personalLastname: this.getStepper1.personalLastname,
+    //             personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
+    //             personalArea: this.getStepper1.personalArea,
+    //             residenceArea: this.getStepper1.residenceArea,
+    //             personalAadhar: this.getStepper1.personalAadhar,
+    //             personalrelationship: this.getStepper1.personalrelationship,
+    //             sameAsProposer: this.getStepper1.sameAsProposer,
+    //             personalGender: this.getStepper1.personalGender,
+    //             personalPan: this.getStepper1.personalPan.toUpperCase(),
+    //             personalGst: this.getStepper1.personalGst,
+    //             personalAddress: this.getStepper1.personalAddress,
+    //             personalAddress2: this.getStepper1.personalAddress2,
+    //             personalPincode: this.getStepper1.personalPincode,
+    //             personalCity: this.getStepper1.personalCity,
+    //             personalState: this.getStepper1.personalState,
+    //             personalEmail: this.getStepper1.personalEmail,
+    //             personalMobile: this.getStepper1.personalMobile,
+    //             personalAltnumber: this.getStepper1.personalAltnumber,
+    //             residenceAddress: this.getStepper1.residenceAddress,
+    //             residenceAddress2: this.getStepper1.residenceAddress2,
+    //             residencePincode: this.getStepper1.residencePincode,
+    //             residenceCity: this.getStepper1.residenceCity,
+    //             residenceState: this.getStepper1.residenceState,
+    //             rolecd: this.getStepper1.rolecd,
+    //             relationshipcd: this.getStepper1.relationshipcd,
+    //             sameas: this.getStepper1.sameas,
+    //         });
+    //
+    //     }
+    //
+    //     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+    //         console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
+    //         this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+    //         console.log(this.getStepper2, 'this.getStepper2');
+    //         for (let i = 0; i < this.getStepper2.items.length; i++) {
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan.toUpperCase());
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
+    //
+    //         }
+    //     }
+    //
+    //
+    //     if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
+    //         console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
+    //         this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
+    //         this.nomineeDetails = this.fb.group({
+    //             religareNomineeName: this.getNomineeData.religareNomineeName,
+    //             religareRelationship: this.getNomineeData.religareRelationship
+    //         });
+    //     }
+    //     setTimeout(() => {
+    //         if (this.getStepper1.personalPincode != '') {
+    //             this.getPostal(this.getStepper1.personalPincode, 'personal');
+    //             this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
+    //             this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
+    //             this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
+    //
+    //             if (this.getStepper1.sameas) {
+    //                 this.sameField = this.getStepper1.sameas;
+    //                 this.inputReadonly = true;
+    //                 this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
+    //                 this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
+    //                 this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
+    //             }
+    //             setTimeout(() => {
+    //                 if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
+    //                     this.getPostal(this.getStepper1.residencePincode, 'residence');
+    //                     this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
+    //                     this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
+    //                     this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
+    //                 } },2000);
+    //
+    //
+    //             if (sessionStorage.mobileNumber != '' ) {
+    //                 this.mobileNumber = sessionStorage.mobileNumber;
+    //             } else {
+    //                 this.mobileNumber = 'true';
+    //             }
+    //
+    //
+    //         } },4000);
+    //
+    //     for (let i = 0; i < this.getStepper2.items.length; i++) {
+    //
+    //         if (this.getStepper2.items[i].personalPincode != '') {
+    //             this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+    //             this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+    //
+    //             if (this.getStepper2.items[0].sameAsProposer) {
+    //                 this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+    //                 this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
+    //             }
+    //             if (this.getStepper2.items[i].sameas) {
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
+    //             }
+    //             if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
+    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
+    //             }
+    //         }
+    //     }
+    // }
 
 
     sameProposer(value: any) {
@@ -875,11 +1697,11 @@ export class PersonalaccidentformComponent implements OnInit {
             'enquiry_id': this.enquiryId,
             'group_name': 'Group A',
             'company_name': 'Religare',
-            'suminsured_amount': this.buyProductdetails.suminsured_amount,
+            'suminsured_amount': this.buyPersonaldetails.suminsured_amount,
             'proposer_insurer_details': this.totalReligareData,
-            'product_id': this.buyProductdetails.product_id,
-            'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
-            'scheme_id': this.buyProductdetails.scheme,
+            'product_id': this.buyPersonaldetails.product_id,
+            'policy_term': this.buyPersonaldetails.product_id == 4 ? '3' : '1',
+            'scheme_id': this.buyPersonaldetails.scheme,
             'terms_condition': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -1366,7 +2188,6 @@ export class PersonalaccidentformComponent implements OnInit {
         //this.relationshipLists = this.relationshipList.name;
 
         this.insureRelationList = [];
-        console.log(this.insurePersons.length, 'this.insurePersons.length');
         if(this.insurePersons.length > 1){
             for (let i = 0; i < this.relationshipList.length; i++) {
                 if(this.relationshipList[i].status == 1) {
@@ -1448,4 +2269,3 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
 }
-

@@ -1054,8 +1054,11 @@ public RediretUrlLink: any;
                 'PrevYearPolicyStartDate': '',
                 'PrevYearPolicyEndDate': ''
             },
-            'enquiry_id': '1',
-            'proposal_id': '0'
+            'enquiry_id': this.enquiryId,
+            'proposal_id': this.proposalId,
+            'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
         };
 
         this.settings.loadingSpinner = true;
@@ -1193,9 +1196,8 @@ public RediretUrlLink: any;
                 }
             }
         } else {
-
-            // this.toastr.error(successData.ErrorObject);
-            this.toastr.error('Nominee age should be 18 or above');
+            this.toastr.error(successData.ErrorObject);
+           // this.toastr.error('Nominee age should be 18 or above');
 
 
         }
