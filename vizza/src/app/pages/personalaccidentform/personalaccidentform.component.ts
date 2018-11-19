@@ -39,7 +39,6 @@ export const MY_FORMATS = {
 export class PersonalaccidentformComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
-    public insureArray: FormGroup;
     public nomineeDetails: FormGroup;
     public items: FormArray;
     public setDate: any;
@@ -83,7 +82,7 @@ export class PersonalaccidentformComponent implements OnInit {
     public questionEmpty: any;
     public proposerInsureData: any;
     public mobileNumber: any;
-    public  altmobileNumber: any;
+    public altmobileNumber: any;
     public insurerData: any;
     public totalReligareData: any;
     public getStepper1: any;
@@ -105,11 +104,14 @@ export class PersonalaccidentformComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public back: boolean;
-    public relationshipcode : any;
-    public medicalStatus : any;
-    public arr : any;
-    public insureRelationList : any;
+    public relationshipcode: any;
+    public medicalStatus: any;
+    public arr: any;
+    public insureRelationList: any;
     array: any;
+    public familyMembers: any;
+    buyProductdetails: any;
+
     constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -132,7 +134,6 @@ export class PersonalaccidentformComponent implements OnInit {
         this.isDisable = false;
         this.insureCity = false;
         this.proposerInsureData = [];
-        //this.totalReligareData = [];
         this.questions_list = [];
         this.arr = [];
         this.personal = this.fb.group({
@@ -143,7 +144,7 @@ export class PersonalaccidentformComponent implements OnInit {
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
@@ -173,92 +174,65 @@ export class PersonalaccidentformComponent implements OnInit {
         console.log(this.totalData);
 
     }
+
     changeGender() {
-        if (this.personal.controls['personalTitle'].value == 'MR'){
+        if (this.personal.controls['personalTitle'].value == 'MR') {
             this.personal.controls['personalGender'].patchValue('Male');
         } else {
             this.personal.controls['personalGender'].patchValue('Female');
         }
     }
-    insureChangeGender(index) {
-        if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
-            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
-        } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
-        }
-
-    }
-
-
 
 
     ngOnInit() {
-        // change to dynamic
-       // this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.buyPersonaldetails = [{
-            "product_id": "1",
-            "product_name": "Care V2",
-            "premium_id": "1",
-            "premium_amount": "2746.00",
+        this.buyProductdetails = {
+            "product_id": "6",
+            "product_name": "Mediclassic Individual",
+            "premium_id": "1995",
+            "premium_amount": "5080.00",
             "scheme": "1A",
-            "suminsured_amount": "300000.00",
+            "suminsured_amount": "500000.00",
             "tenure": "1",
-            "suminsured_id": null,
-            "prod_shortform": null,
-            "company_logo": "api/assets/images/religare_logo.png",
-            "company_name": "Religare",
+            "suminsured_id": "5",
+            "prod_shortform": "MCINEW",
+            "company_logo": "api/assets/images/starhealth_logo.png",
+            "company_name": "Star Health",
             "type_name": "Health",
             "indiv_shortlist_status": false,
             "shortlist_status": false,
             "key_features": [{
                 "key_features_name": "Copay",
-                "key_features_value": "20%",
-                "kf_info": "",
-                "key_feature_status": "0"
-            }, {
-                "key_features_name": "Pre Hospitalization",
-                "key_features_value": "Upto 30 days",
+                "key_features_value": "No-Cap*",
                 "kf_info": "",
                 "key_feature_status": "1"
             }, {
                 "key_features_name": "Room Rent",
-                "key_features_value": "Acc. To SI**",
-                "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
-                "key_feature_status": "1"
-            }, {
-                "key_features_name": "Post Hospitalization",
-                "key_features_value": "Upto 60 days",
+                "key_features_value": "Rs.5,000/day",
                 "kf_info": "",
                 "key_feature_status": "1"
             }, {
                 "key_features_name": "Pre Existing Disease",
-                "key_features_value": "2 Years waiting period",
+                "key_features_value": "Covered after 48 months",
+                "kf_info": "",
+                "key_feature_status": "1"
+            }, {
+                "key_features_name": "Pre Hospitalization",
+                "key_features_value": "Up to 30 days",
+                "kf_info": "",
+                "key_feature_status": "1"
+            }, {
+                "key_features_name": "Post Hospitalization",
+                "key_features_value": "Up to 60 days",
                 "kf_info": "",
                 "key_feature_status": "1"
             }],
             "compare": false,
             "shortlist": false
-        }];
-
-
-
-        if(this.buyPersonaldetails.product_id == 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
-            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
         }
-        if(this.buyPersonaldetails.product_id != 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators(null);
-            this.nomineeDetails.get('religareRelationship').setValidators(null);
-        }
-        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
-        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-
-        // this.enquiryId = sessionStorage.enquiryId;
-        // this.groupName = sessionStorage.groupName;
-        this.enquiryId = 68;
-        this.groupName = 'Name';
-       // this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.getFamilyDetails = [{
+        this.setOccupationListCode();
+        this.setOccupationList();
+        this.setRelationship();
+        this.getFamilyDetails = {
             "name": "Group A",
             "postal_code": "608001",
             "insurance_type": "1",
@@ -755,7 +729,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 "product_code": "11300",
                 "product_name": "Health Wallet Individual",
                 "premium_id": "",
-                "premium_amount": "11275.00",
+                "premium_amount": "10906.00",
                 "scheme": "1A",
                 "suminsured_amount": "500000",
                 "tenure": 1,
@@ -768,8 +742,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 "shortlist_status": "",
                 "SACCode": 1,
                 "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "13304.50",
-                "TaxAmount": "2029.50",
+                "GrossPremiumAmount": "12869.08",
+                "TaxAmount": "1963.08",
                 "key_features": [{
                     "key_features_name": "Copay",
                     "key_features_value": "No",
@@ -796,7 +770,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 "product_code": "11410",
                 "product_name": "Health Wallet Individual 2 Lacs Deductible",
                 "premium_id": "",
-                "premium_amount": "8334.00",
+                "premium_amount": "8168.00",
                 "scheme": "1A",
                 "suminsured_amount": "500000",
                 "tenure": 1,
@@ -809,8 +783,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 "shortlist_status": "",
                 "SACCode": 1,
                 "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "9834.12",
-                "TaxAmount": "1500.12",
+                "GrossPremiumAmount": "9638.24",
+                "TaxAmount": "1470.24",
                 "key_features": [{
                     "key_features_name": "Copay",
                     "key_features_value": "No",
@@ -837,7 +811,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 "product_code": "11411",
                 "product_name": "Health Wallet Individual 3 Lacs Deductible",
                 "premium_id": "",
-                "premium_amount": "7721.00",
+                "premium_amount": "7548.00",
                 "scheme": "1A",
                 "suminsured_amount": "500000",
                 "tenure": 1,
@@ -850,8 +824,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 "shortlist_status": "",
                 "SACCode": 1,
                 "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "9110.78",
-                "TaxAmount": "1389.78",
+                "GrossPremiumAmount": "8906.64",
+                "TaxAmount": "1358.64",
                 "key_features": [{
                     "key_features_name": "Copay",
                     "key_features_value": "No",
@@ -877,78 +851,67 @@ export class PersonalaccidentformComponent implements OnInit {
             "selected_tab_index": 0,
             "family_members": [{
                 "type": "Self",
-                "age": "26"
+                "age": "25"
             }],
-            "enquiry_id": 82,
+            "enquiry_id": 90,
             "group_suminsured_id": "4-6"
-        }]
-        this.insurePersons = this.getFamilyDetails.family_members;
-        this.setOccupationListCode();
-        this.religareQuestions();
-        this.setOccupationList();
-        this.setRelationship();
-        this.insureArray = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.items = this.insureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
-
-        this.previousinsurance = [
-            'IFFCO TOKIO General Insurance Co. Ltd.',
-            'Liberty General Insurance Co. Ltd.',
-            'Shriram General Insurance Co. Ltd.',
-            'Reliance General Insurance Co. Ltd',
-            'DHFL General Insurance Co. Ltd.',
-            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
-            'Edelweiss General Insurance Co.Ltd.',
-            'Kotak Mahindra General Insurance Co. Ltd.',
-            'Go Digit General Insurance Co. Ltd.',
-            'Royal Sundaram General Insurance Co. Ltd.',
-            'Exports Credit Guarantee of India Co. Ltd',
-            'The New India Assurance Co. Ltd.',
-            'Tata AIG General Insurance Company Limited',
-            'National Insurance Co. Ltd.',
-            'Universal Sompo General Insurance Co. Ltd.',
-            'Agriculture Insurance Company of India Ltd.',
-            'Acko General Insurance Co. Ltd.',
-            'SBI General Insurance Co. Ltd.',
-            'Bharti AXA General Insurance Co. Ltd.',
-            'ICICI LOMBARD General Insurance Co. Ltd.',
-            'Magma HDI General Insurance Co. Ltd.',
-            'HDFC ERGO General Insurance Co.Ltd.',
-            'United India Insurance Co. Ltd.',
-            'The Oriental Insurance Co. Ltd.',
-            'Future Generali India Insurance Co. Ltd.',
-            'Cholamandalam MS General Insurance Co. Ltd.',
-            'Raheja QBE General Insurance Co. Ltd.',
-            'Star Health & Allied Insurance Co.Ltd.',
-            'Apollo Munich Health Insurance Co. Ltd',
-            'Religare Health Insurance Co. Ltd',
-            'Max Bupa Health Insurance Co. Ltd',
-            'CIGNA TTK Health Insurance Co. Ltd.',
-            'Aditya Birla Health Insurance Co. Ltd.'
-        ];
-
-
-
-        console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
-
-
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        if(this.buyPersonaldetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
-            this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
-        } else{
-            this.personal.get('personalPan').setValidators(null);
+        if (this.familyMembers == '' || this.familyMembers == undefined) {
+            this.groupList();
+        } else {
+            this.familyMembers = [{
+                "type": "Self",
+                "age": "25",
+                "ins_name": "asdd",
+                "ins_dob": "1995-09-20",
+                "ins_gender": "Male",
+                "ins_illness": "No",
+                "ins_weight": "78",
+                "ins_height": "167",
+                "ins_occupation_id": "2",
+                "ins_relationship": "1",
+                "ins_hospital_cash": "1",
+                "ins_engage_manual_labour": "None",
+                "ins_engage_winter_sports": "None",
+                "ins_personal_accident_applicable": "0",
+                "ins_suminsured_indiv": "5",
+                "engage_manual_status": "0",
+                "engage_winter_status": "0",
+                "ageRestriction": "",
+                "ins_age": 23,
+                "illness": "false"
+            }]
         }
-        this.personal.get('personalPan').updateValueAndValidity();
-
-
+        for (let i = 0; i < this.familyMembers.length; i++) {
+            if (this.familyMembers[i].type == 'Spouse') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Son') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Daughter') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Father In Law') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Mother In Law') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+            else if (this.familyMembers[i].type == 'Brother') {
+                this.familyMembers[i].ins_gender = 'Male';
+            }
+            else if (this.familyMembers[i].type == 'Sister') {
+                this.familyMembers[i].ins_gender = 'Female';
+            }
+        }
     }
-
 
 
     setStep(index: number) {
@@ -959,281 +922,32 @@ export class PersonalaccidentformComponent implements OnInit {
         this.step--;
     }
 
-    initItemRows() {
-        return this.fb.group(
-            {
-                rolecd: 'PRIMARY',
-                personalTitle: ['', Validators.required],
-                personalFirstname: new FormControl(''),
-                personalLastname: ['', Validators.required],
-                personalDob: ['', Validators.required],
-                personalGender: ['', Validators.compose([Validators.required])],
-                personalrelationship: ['', Validators.required],
-                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-                personalGst: ['', Validators.compose([Validators.minLength(15)])],
-                personalAddress: ['', Validators.required],
-                sameAsProposer: false,
-                personalAddress2: ['', Validators.required],
-                personalPincode: ['', Validators.required],
-                personalCity: ['', Validators.required],
-                personalState: ['', Validators.required],
-                personalEmail: '',
-                personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
-                personalAltnumber: '',
-                residenceAddress: ['', Validators.required],
-                residenceAddress2: [''],
-                residencePincode: ['', Validators.required],
-                residenceCity: ['', Validators.required],
-                residenceState: ['', Validators.required],
-                personalWeight: ['', Validators.required],
-                personalHeight: ['', Validators.required],
-                sameas: false,
-                type: '',
-                cityHide: '',
-                pCityHide: '',
-                altmobileNumber:'',
-                ins_age: '',
-                insurerDobError: ''
-            }
-        );
-    }
 
-    //Insure Details
-    // religareInsureDetail(stepper: MatStepper) {
-    //     stepper.next();
-    // }
-    religareInsureDetails(stepper: MatStepper, value, key) {
-        console.log(value);
-        // sessionStorage.stepper2Details = '';
-        // sessionStorage.stepper2Details = JSON.stringify(value);
-        this.insurerData = value;
-        this.proposerInsureData = [];
-        this.totalReligareData = [];
-        this.proposerInsureData.push(this.personalData);
-        if (this.insureArray.valid) {
-            for (let i = 0; i < this.insurePersons.length; i++) {
-                this.insurerData.items[i].type = this.insurePersons[i].type;
-            }
-            for (let i = 0; i < this.insurerData.items.length; i++) {
-                this.proposerInsureData.push(this.insurerData.items[i]);
-            }
-
-            for (let i = 0; i < this.proposerInsureData.length; i++) {
-                this.totalReligareData.push({
-                    'title': this.proposerInsureData[i].personalTitle,
-                    'proposer_fname': this.proposerInsureData[i].personalFirstname,
-                    'proposer_lname': this.proposerInsureData[i].personalLastname,
-                    'prop_email_list': [{
-                        'email': this.proposerInsureData[i].personalEmail,
-                        'email_type': 'PERSONAL'
-                    }],
-                    'prop_contact_list': [{
-                        'contact_no': this.proposerInsureData[i].personalMobile,
-                        'contact_type': 'MOBILE',
-                        'std_code': '91'
-                    }],
-                    'prop_identity_list': [
-                        {
-                            'identity_number': this.proposerInsureData[i].personalPan,
-                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
-                        }
-                    ],
-                    'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
-                    'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
-                    'proposer_res_area': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_city': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_state': this.proposerInsureData[i].residenceState,
-                    'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
-                    'proposer_comm_address1': this.proposerInsureData[i].personalAddress,
-                    'proposer_comm_address2': this.proposerInsureData[i].personalAddress2,
-                    'proposer_comm_area': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_city': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_state': this.proposerInsureData[i].personalState,
-                    'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
-                    'prop_dob': this.proposerInsureData[i].personalDob,
-                    'prop_gender': this.proposerInsureData[i].personalGender,
-                    'relationship_cd': this.proposerInsureData[i].personalrelationship,
-                    'role_cd': this.proposerInsureData[i].rolecd,
-                    'height': this.proposerInsureData[i].personalHeight,
-                    'weight': this.proposerInsureData[i].personalWeight,
-                });
-                if (this.proposerInsureData[i].personalAltnumber != '') {
-                    this.totalReligareData[i].prop_contact_list.push({
-                        'contact_no': this.proposerInsureData[i].personalAltnumber,
-                        'contact_type': 'RESEDENTIAL',
-                        'std_code': '91'
-                    });
-                }
-                if (this.proposerInsureData[i].personalAadhar != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalAadhar,
-                        'identity_type': 'AADHAR'
-                    });
-                }
-                if (this.proposerInsureData[i].personalGst != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalGst,
-                        'identity_type': 'GST'
-                    });
-                }
-                // if (this.proposerInsureData[i].personalPan != '') {
-                //     this.totalReligareData[i].prop_identity_list.push({
-                //         'identity_number': this.proposerInsureData[i].personalPan,
-                //         'identity_type': 'PAN'
-                //     });
-                // }
-                console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareData');
-
-            }
-            let aterMobile = [];
-            for(let i=0;i<this.insurerData.items.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '' ) {
-                    aterMobile.push(0);
-
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value == '' ) {
-                    aterMobile.push(1);
-
-                }
-                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
-                    aterMobile.push(2);
-
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
-                    aterMobile.push(3);
-
-                }
-
-            }
-
-            if (aterMobile.includes(0)) {
-                this.toastr.error('Alternative and personal number should be different');
-            } else if(aterMobile.includes(2)){} else {
-                stepper.next();
-            }
-
-        }
-    }
-
-
-
-
-    //Nominee Details
-    religareNomineeDetails(stepper: MatStepper) {
-        this.lastStepper = stepper;
-
-        // if (this.nomineeDetails.valid) {
-        //     sessionStorage.nomineeData = '';
-        //     sessionStorage.nomineeData = JSON.stringify(value);
-        //     this.proposal();
-        // }
-    }
-
-    subStatus(value: any, i, k, j) {
-        if (value.checked) {
-        } else {
-            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+    groupList() {
+        this.familyMembers = this.getFamilyDetails.family_members;
+        console.log(this.familyMembers);
+        for (let i = 0; i < this.familyMembers.length; i++) {
+            this.familyMembers[i].ins_name = '';
+            this.familyMembers[i].ins_dob = '';
+            this.familyMembers[i].ins_gender = '';
+            this.familyMembers[i].ins_illness = 'No';
+            this.familyMembers[i].ins_weight = '';
+            this.familyMembers[i].ins_height = '';
+            this.familyMembers[i].ins_occupation_id = '';
+            // this.familyMembers[i].insurincome = '';
+            this.familyMembers[i].ins_relationship = '';
+            this.familyMembers[i].ins_hospital_cash = '1';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
+            this.familyMembers[i].ins_engage_winter_sports = 'None';
+            this.familyMembers[i].ins_personal_accident_applicable = '0';
+            this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
+            this.familyMembers[i].engage_manual_status = '0';
+            this.familyMembers[i].engage_winter_status = '0';
+            this.familyMembers[i].ageRestriction = '';
         }
 
     }
 
-
-    medicalHistoryDetails(stepper: MatStepper) {
-
-
-        // sessionStorage.stepper3Details = '';
-        // sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
-        this.questions_list = [];
-        this.getFilterData = [];
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
-                    this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
-                }
-            }
-        }
-
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
-        }
-        // for (let i = 0; i < this.totalReligareData.length; i++) {
-        //     if (i > 0) {
-        //         this.totalReligareData[i].questions_list = this.getFilterData[i -1];
-        //     }
-        // }
-        let statusChecked = [];
-        this.medicalStatus = [];
-        console.log(this.religareQuestionsList, 'this.religareQuestionsList');
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-
-            if(this.religareQuestionsList[i].mStatus == 'No'){
-                this.medicalStatus.push('No');
-            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
-                this.medicalStatus.push('Yes');
-            }
-
-
-            // for (let i = 0; i < this.totalReligareData.length; i++) {
-            //     this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-            // }
-
-
-            if (this.religareQuestionsList[i].answer_status == true) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
-
-                                statusChecked.push(0);
-                            } else {
-                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
-                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
-                                        statusChecked.push(0);
-                                    } else {
-                                        statusChecked.push(1);
-                                    }
-                                }  else {
-                                    statusChecked.push(1);
-                                }
-
-
-                            }
-                        }
-                    }
-                }
-                if (statusChecked.length == 0){
-                    statusChecked.push(2);
-                }
-
-            } else {
-
-                if (i == this.religareQuestionsList.length - 1) {
-                    statusChecked.push(1);
-                }
-
-            }
-            console.log(this.medicalStatus, 'this.medicalStatus');
-
-        }
-
-        if (statusChecked.includes(0)) {
-            this.toastr.error('Please fill the empty field');
-        } else if (statusChecked.includes(2)) {
-            this.toastr.error('Please check atleast one checkbox!');
-        } else {
-            stepper.next();
-
-        }
-
-    }
-    personalreligare(stepper: MatStepper){
-        stepper.next();
-
-    }
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
@@ -1260,44 +974,6 @@ export class PersonalaccidentformComponent implements OnInit {
         // }
     }
 
-    religareQuestion(stepper: MatStepper) {
-        this.questionEmpty = false;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if (this.religareQuestionsList[i].answer == '') {
-                this.questionEmpty = false;
-                break;
-            } else {
-                this.questionEmpty = true;
-            }
-        }
-        if (this.questionEmpty ) {
-            stepper.next();
-
-        } else {
-            this.toastr.error('Please fill the all Answers');
-
-        }
-    }
-
-    PreviousInsure(value) {
-        if (value.value == 'true') {
-            this.personal.controls['previousinsurance'].setValue('');
-            this.previousInsuranceStatus = true;
-        } else {
-            this.previousInsuranceStatus = false;
-            this.personal.controls['previousinsurance'].setValue('No');
-        }
-    }
-
-    PreviousInsuredDetail(value, i) {
-        if (value.value == 'true') {
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-        } else {
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
-        }
-    }
 
     sameAddress(values: any) {
         this.sameField = values.checked;
@@ -1321,26 +997,6 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
 
-    // sameAddressInsurer(values: any, index) {
-    //
-    //     if (values.checked) {
-    //         this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalCity.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalPincode.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalState.value);
-    //
-    //     } else {
-    //         this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue('');
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue('');
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceCity.patchValue('');
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residencePincode.patchValue('');
-    //         this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
-    //
-    //     }
-    // }
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -1361,15 +1017,17 @@ export class PersonalaccidentformComponent implements OnInit {
             }
         }
     }
+
     public onAlternative(event: any) {
         if (event.charCode !== 0) {
-            const pattern =/[0-9-]/;
+            const pattern = /[0-9-]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
             }
         }
     }
+
     addEvent(event) {
         this.selectDate = event.value;
         console.log(this.selectDate);
@@ -1378,89 +1036,8 @@ export class PersonalaccidentformComponent implements OnInit {
         this.personalAge = this.ageCalculate(this.setDateAge);
         sessionStorage.setItem('proposerAge', this.personalAge);
     }
-    addEventInsurer(event,  i, type) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
 
-        //     let age = this.ageCalculate(this.setDateAge);
-        //     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(age);
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //         this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //         this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-        //     }
-        //     let smallest = this.arr[0];
-        //     for(let i = 1; i<this.arr.length; i++){
-        //         if(this.arr[i] < smallest){
-        //             smallest = this.arr[i];
-        //         }
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Son') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 1');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Son')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Daughter') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Daughter age should be above 1');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Daughter')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //
-        //     console.log(smallest, 'smallest');
-        //
-        //     console.log(this.insureArray.value);
-        // }
-    }
+
     ageCalculate(dob) {
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring(8, 10), 10);
@@ -1477,353 +1054,91 @@ export class PersonalaccidentformComponent implements OnInit {
         this.back = true;
         console.log(this.back);
     }
+
     quesback() {
         this.back = false;
         console.log(this.back);
     }
 
-    // sessionData() {
-    //     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-    //         console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
-    //         this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-    //         this.personal = this.fb.group({
-    //             personalTitle: this.getStepper1.personalTitle,
-    //             personalFirstname: this.getStepper1.personalFirstname,
-    //             personalLastname: this.getStepper1.personalLastname,
-    //             personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
-    //             personalArea: this.getStepper1.personalArea,
-    //             residenceArea: this.getStepper1.residenceArea,
-    //             personalAadhar: this.getStepper1.personalAadhar,
-    //             personalrelationship: this.getStepper1.personalrelationship,
-    //             sameAsProposer: this.getStepper1.sameAsProposer,
-    //             personalGender: this.getStepper1.personalGender,
-    //             personalPan: this.getStepper1.personalPan.toUpperCase(),
-    //             personalGst: this.getStepper1.personalGst,
-    //             personalAddress: this.getStepper1.personalAddress,
-    //             personalAddress2: this.getStepper1.personalAddress2,
-    //             personalPincode: this.getStepper1.personalPincode,
-    //             personalCity: this.getStepper1.personalCity,
-    //             personalState: this.getStepper1.personalState,
-    //             personalEmail: this.getStepper1.personalEmail,
-    //             personalMobile: this.getStepper1.personalMobile,
-    //             personalAltnumber: this.getStepper1.personalAltnumber,
-    //             residenceAddress: this.getStepper1.residenceAddress,
-    //             residenceAddress2: this.getStepper1.residenceAddress2,
-    //             residencePincode: this.getStepper1.residencePincode,
-    //             residenceCity: this.getStepper1.residenceCity,
-    //             residenceState: this.getStepper1.residenceState,
-    //             rolecd: this.getStepper1.rolecd,
-    //             relationshipcd: this.getStepper1.relationshipcd,
-    //             sameas: this.getStepper1.sameas,
-    //         });
+
+    //Create Proposal
+    // proposal() {
     //
+    //     this.totalData = {
+    //         'platform': 'web',
+    //         'proposal_id': '1',
+    //         'enquiry_id': this.enquiryId,
+    //         'group_name': 'Group A',
+    //         'company_name': 'Religare',
+    //         'suminsured_amount': this.buyPersonaldetails.suminsured_amount,
+    //         'proposer_insurer_details': this.totalReligareData,
+    //         'product_id': this.buyPersonaldetails.product_id,
+    //         'policy_term': this.buyPersonaldetails.product_id == 4 ? '3' : '1',
+    //         'scheme_id': this.buyPersonaldetails.scheme,
+    //         'terms_condition': '1',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+    //         'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
+    //         'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
+    //         'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+    //     };
+    //     if (!this.back){
     //     }
+    //     this.stepback();
     //
-    //     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-    //         console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
-    //         this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-    //         console.log(this.getStepper2, 'this.getStepper2');
-    //         for (let i = 0; i < this.getStepper2.items.length; i++) {
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan.toUpperCase());
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-    //
+    //     const data = this.totalData;
+    //     this.settings.loadingSpinner = true;
+    //     this.proposalservice.getReligareProposal(data).subscribe(
+    //         (successData) => {
+    //             this.proposalSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.proposalFailure(error);
     //         }
-    //     }
+    //     );
     //
+    // }
     //
-    //     if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-    //         console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
-    //         this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
-    //         this.nomineeDetails = this.fb.group({
-    //             religareNomineeName: this.getNomineeData.religareNomineeName,
-    //             religareRelationship: this.getNomineeData.religareRelationship
-    //         });
-    //     }
-    //     setTimeout(() => {
-    //         if (this.getStepper1.personalPincode != '') {
-    //             this.getPostal(this.getStepper1.personalPincode, 'personal');
-    //             this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-    //             this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-    //             this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
-    //
-    //             if (this.getStepper1.sameas) {
-    //                 this.sameField = this.getStepper1.sameas;
-    //                 this.inputReadonly = true;
-    //                 this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-    //                 this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-    //                 this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-    //             }
-    //             setTimeout(() => {
-    //                 if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-    //                     this.getPostal(this.getStepper1.residencePincode, 'residence');
-    //                     this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-    //                     this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-    //                     this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-    //                 } },2000);
-    //
-    //
-    //             if (sessionStorage.mobileNumber != '' ) {
-    //                 this.mobileNumber = sessionStorage.mobileNumber;
-    //             } else {
-    //                 this.mobileNumber = 'true';
-    //             }
-    //
-    //
-    //         } },4000);
-    //
-    //     for (let i = 0; i < this.getStepper2.items.length; i++) {
-    //
-    //         if (this.getStepper2.items[i].personalPincode != '') {
-    //             this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-    //             this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-    //
-    //             if (this.getStepper2.items[0].sameAsProposer) {
-    //                 this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-    //                 this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-    //             }
-    //             if (this.getStepper2.items[i].sameas) {
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
-    //             }
-    //             if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
+    // public proposalSuccess(successData) {
+    //     this.settings.loadingSpinner = false;
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success('Proposal created successfully!!');
+    //         console.log(this.relationshipList, 'this.relationshipList');
+    //         this.summaryData = successData.ResponseObject;
+    //         let getdata=[];
+    //         for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
+    //             for (let j = 0; j <  this.relationshipList.length; j++) {
+    //                 if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
+    //                     this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
+    //                 }
     //             }
     //         }
+    //         console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
+    //         this.proposalId = this.summaryData.proposal_id;
+    //         sessionStorage.proposalID = this.proposalId;
+    //         //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
+    //         this.relationshipcode = [];
+    //         console.log(this.relationshipList,'lll');
+    //         for (let i = 0; i < this.relationshipList.length; i++) {
+    //             this.relationshipcode.push(this.relationshipList[i].relationship_name);
+    //         }
+    //         console.log(this.relationshipcode ,'ooooo');
+    //         this.lastStepper.next();
+    //
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject);
     //     }
+    // }
+    //
+    // public proposalFailure(error) {
+    //     this.settings.loadingSpinner = false;
+    //     console.log(error);
     // }
 
 
-    sameProposer(value: any) {
-        if (value.checked) {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue(this.personal.controls['personalAadhar'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value.toUpperCase());
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue(this.personal.controls['personalCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue(this.personal.controls['personalPincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue(this.personal.controls['personalState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
-
-
-        } else {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
-        }
-
-    }
-
-    //Create Proposal
-    proposal() {
-
-        this.totalData = {
-            'platform': 'web',
-            'proposal_id': '1',
-            'enquiry_id': this.enquiryId,
-            'group_name': 'Group A',
-            'company_name': 'Religare',
-            'suminsured_amount': this.buyPersonaldetails.suminsured_amount,
-            'proposer_insurer_details': this.totalReligareData,
-            'product_id': this.buyPersonaldetails.product_id,
-            'policy_term': this.buyPersonaldetails.product_id == 4 ? '3' : '1',
-            'scheme_id': this.buyPersonaldetails.scheme,
-            'terms_condition': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
-            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-        };
-        if (!this.back){
-            this.processDiseaseData(this.totalData);
-        }
-        this.stepback();
-
-        const data = this.totalData;
-        this.settings.loadingSpinner = true;
-        this.proposalservice.getReligareProposal(data).subscribe(
-            (successData) => {
-                this.proposalSuccess(successData);
-            },
-            (error) => {
-                this.proposalFailure(error);
-            }
-        );
-
-    }
-
-    public proposalSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
-            console.log(this.relationshipList, 'this.relationshipList');
-            this.summaryData = successData.ResponseObject;
-            let getdata=[];
-            for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
-                for (let j = 0; j <  this.relationshipList.length; j++) {
-                    if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
-                    }
-                }
-            }
-            console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
-            this.proposalId = this.summaryData.proposal_id;
-            sessionStorage.proposalID = this.proposalId;
-            //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
-            this.relationshipcode = [];
-            console.log(this.relationshipList,'lll');
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                this.relationshipcode.push(this.relationshipList[i].relationship_name);
-            }
-            console.log(this.relationshipcode ,'ooooo');
-            this.lastStepper.next();
-
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-
-
-
-    processDiseaseData(diseaseData) {
-
-        let updatedFinalData = [];
-        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
-            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
-                console.log(diseaseData, 'diseaseDatadiseaseDatadiseaseData');
-                let updatedData = [];
-                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
-                    console.log(diseaseData.proposer_insurer_details[i]['questions_list'], 'diseaseData.proposer_insurer_details[i][\'questions_list\']')
-                    let newObject = {};
-                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
-
-                    if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
-                        newObject['response'] = true;
-
-                    } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
-                        newObject['response'] = false;
-
-                    }
-                    updatedData.push(newObject);
-
-                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
-                        newObject = {};
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
-                        updatedData.push(newObject);
-
-                    }
-                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
-                        newObject = {};
-
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
-                        updatedData.push(newObject);
-
-                    }
-
-                }
-                console.log(updatedData);
-
-                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-
-
-            }
-            console.log(this.totalData);
-
-        }
-
-
-
-    }
-
 //Summary residence detail
-    public proposalFailure(error) {
-        this.settings.loadingSpinner = false;
-        console.log(error);
-    }
+
 
     getCityIdF2(title, cid, pincode) {
         const data = {
@@ -1896,7 +1211,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 for (let i = 0; i < this.response.length; i++) {
                     this.personalCitys.push({city: this.response[i].city});
                 }
-            } else if(successData.IsSuccess != true) {
+            } else if (successData.IsSuccess != true) {
 
                 this.personal.controls['personalState'].setValue('');
                 for (let i = 0; i < this.response.length; i++) {
@@ -1913,7 +1228,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 for (let i = 0; i < this.rResponse.length; i++) {
                     this.residenceCitys.push({city: this.rResponse[i].city});
                 }
-            } else if(successData.IsSuccess != true) {
+            } else if (successData.IsSuccess != true) {
                 this.personal.controls['residenceState'].setValue('');
                 for (let i = 0; i < this.rResponse.length; i++) {
                     this.residenceCitys.push({city: this.rResponse[i].city = ''});
@@ -1924,85 +1239,9 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
 
-
-
     public getpostalFailure(error) {
         console.log(error);
     }
-
-
-    //insurer city detail
-    getPostalInsurer(pin, index, title) {
-        this.pin = pin;
-        this.title = title;
-        this.index = index;
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalInsurerSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalInsurerFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalInsurerSuccess(successData) {
-
-
-        if (this.title == 'personal') {
-            this.iPersonalCitys = [];
-            this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-            } else if(successData.IsSuccess != true && this.title == 'personal') {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city = ''});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                this.toastr.error('In valid Pincode');
-            }
-        }
-        if (this.title == 'residence') {
-            this.iResidenceCitys = [];
-            this.rResponse = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.iResidenceCitys.push({city: this.rResponse[i].city});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-            }
-            else if (successData.IsSuccess != true && this.title == 'residence') {
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
-                this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-                this.toastr.error('In valid Pincode');
-            }
-        }
-
-
-
-    }
-
-    public getpostalInsurerFailure(error) {
-        console.log(error);
-    }
-
 
 
 //summary city detail
@@ -2047,69 +1286,6 @@ export class PersonalaccidentformComponent implements OnInit {
     public PostalSummaryFailure(error) {
         console.log(error);
     }
-
-
-    religareQuestions() {
-        const data = {
-            'platform': 'web',
-            'product_id': '1',
-            'family_group': this.insurePersons,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getReligareQuestions(data).subscribe(
-            (successData) => {
-                this.religareQuestionsSuccess(successData);
-            },
-            (error) => {
-                this.religareQuestionsFailure(error);
-            }
-        );
-
-    }
-
-    public religareQuestionsSuccess(successData) {
-        this.religareQuestionsList = successData.ResponseObject;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            this.religareQuestionsList[i].mStatus = 'No';
-            this.religareQuestionsList[i].answer_status = false;
-            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-
-                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-
-                }
-            }
-        }
-    }
-
-    public religareQuestionsFailure(error) {
-        console.log(error);
-    }
-
-
-
-    questionYes(id, value: any) {
-        if (value.checked) {
-            this.religareQuestionsList[id].mStatus = 'Yes';
-            this.religareQuestionsList[id].answer_status = true;
-        } else {
-            this.religareQuestionsList[id].mStatus = 'No';
-            this.religareQuestionsList[id].answer_status = false;
-            for (let i = 0; i < this.religareQuestionsList.length; i++) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-                    }
-                }
-            }
-        }
-    }
-
 
     setOccupationList() {
         const data = {
@@ -2188,13 +1364,13 @@ export class PersonalaccidentformComponent implements OnInit {
         //this.relationshipLists = this.relationshipList.name;
 
         this.insureRelationList = [];
-        if(this.insurePersons.length > 1){
+        if (this.insurePersons.length > 1) {
             for (let i = 0; i < this.relationshipList.length; i++) {
-                if(this.relationshipList[i].status == 1) {
+                if (this.relationshipList[i].status == 1) {
                     this.insureRelationList.push({
-                        'relationship_code' : this.relationshipList[i].relationship_code,
-                        'relationship_name' : this.relationshipList[i].relationship_name,
-                        'status' : this.relationshipList[i].status
+                        'relationship_code': this.relationshipList[i].relationship_code,
+                        'relationship_name': this.relationshipList[i].relationship_name,
+                        'status': this.relationshipList[i].status
                     });
                 }
             }
@@ -2203,7 +1379,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.insureRelationList.push({
                     'relationship_code': this.relationshipList[i].relationship_code,
                     'relationship_name': this.relationshipList[i].relationship_name,
-                    'status' : this.relationshipList[i].status
+                    'status': this.relationshipList[i].status
                 });
             }
         }
@@ -2215,7 +1391,8 @@ export class PersonalaccidentformComponent implements OnInit {
     public setRelationshipFailure(error) {
         console.log(error);
     }
-    add(event: any){
+
+    add(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -2224,6 +1401,7 @@ export class PersonalaccidentformComponent implements OnInit {
             }
         }
     }
+
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9a-zA-Z ]/;
@@ -2243,10 +1421,11 @@ export class PersonalaccidentformComponent implements OnInit {
             }
         }
     }
+
     alternateChange(event) {
-        console.log(event,'ghj');
+        console.log(event, 'ghj');
         if (event.target.value.length == 10) {
-            if(event.target.value == this.personal.get('personalMobile').value) {
+            if (event.target.value == this.personal.get('personalMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
             } else {
                 this.mobileNumber = '';
@@ -2254,18 +1433,638 @@ export class PersonalaccidentformComponent implements OnInit {
         } else {
             // this.mobileNumber = 'false';
         }
-        sessionStorage.mobileNumber = this.mobileNumber;
-    }
-    insuredalternateChange(event ,index) {
-        if (event.target.value.length == 10) {
 
-            if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value == this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value) {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('Alternate number should be different from mobile number');
-            } else {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
-            }
+    }
+
+// insured details
+    InsureDetails(stepper: MatStepper, index, key) {
+        stepper.next();
+
+    }
+
+    //     sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
+    //     // if (this.ageRestriction == '') {
+    //     this.illnesStatus = false;
+    //     this.insureStatus = false;
+    //     console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
+    //
+    //
+    //     if (key == 'Insured Details') {
+    //         for (let i = 0; i < this.familyMembers.length; i++) {
+    //             if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
+    //                 this.errorMessage = false;
+    //                 if (this.familyMembers[i].ins_illness != 'No') {
+    //                     if (this.familyMembers[i].ins_illness == '') {
+    //                         this.illnesStatus = true;
+    //                         break;
+    //                     }
+    //
+    //                 } else {
+    //                     this.illnesStatus = false;
+    //                 }
+    //             } else {
+    //                 this.errorMessage = true;
+    //                 break;
+    //             }
+    //         }
+    //         if (this.errorMessage) {
+    //             this.toastr.error('Please fill the empty fields', key);
+    //         } else if (this.illnesStatus) {
+    //             this.toastr.error('Please fill the empty fields', key);
+    //         } else if (this.illnesStatus == false) {
+    //             for (let i = 0; i < this.familyMembers.length; i++) {
+    //                 if (this.buyProductdetails.product_id == 6) {
+    //                     this.insureStatus = false;
+    //                     if (this.familyMembers[i].ins_hospital_cash != '') {
+    //                         if (i == this.familyMembers.length - 1) {
+    //                             this.insureStatus = true;
+    //                         }
+    //                     } else {
+    //                         this.errorMessage = true;
+    //                         break;
+    //                     }
+    //
+    //                 } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
+    //                     this.errorMessage = false;
+    //                     this.insureStatus = false;
+    //                     this.previousInsurence = [];
+    //                     for (let i = 0; i < this.familyMembers.length; i++) {
+    //                         this.previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
+    //                     }
+    //
+    //
+    //                     if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
+    //                         if (!this.previousInsurence.includes('2')) {
+    //                             this.insureStatus = false;
+    //                             this.toastr.error('You need to select one adult for personal accident cover');
+    //                             break;
+    //                         }
+    //
+    //
+    //                     } else {
+    //                         if (i == this.familyMembers.length - 1) {
+    //                             this.insureStatus = true;
+    //                         }
+    //                     }
+    //                     if (this.familyMembers[i].engage_manual_status == '2') {
+    //                         if (this.familyMembers[i].ins_engage_manual_labour != '') {
+    //                             if (i == this.familyMembers.length - 1) {
+    //                                 this.insureStatus = true;
+    //                             }
+    //                         } else {
+    //                             this.errorMessage = true;
+    //                             this.insureStatus = false;
+    //                             break;
+    //                         }
+    //
+    //                     }  if (this.familyMembers[i].engage_winter_status == '2') {
+    //                         if (this.familyMembers[i].ins_engage_winter_sports != '') {
+    //                             if (i == this.familyMembers.length - 1) {
+    //                                 this.insureStatus = true;
+    //                             }
+    //                         } else {
+    //                             this.errorMessage = true;
+    //                             this.insureStatus = false;
+    //                             break;
+    //                         }
+    //                     } if (this.familyMembers[i].engage_manual_status == '0' && this.familyMembers[i].engage_winter_status == '0' ) {
+    //                         if (i == this.familyMembers.length - 1) {
+    //                             this.insureStatus = true;
+    //                         }
+    //                     }
+    //                 } else {
+    //                     this.insureStatus = true;
+    //                 }
+    //             }
+    //         } else {
+    //
+    //         }
+    //     }
+    //     if (this.errorMessage) {
+    //         this.toastr.error('Please fill the empty fields', key);
+    //     }
+    //     console.log(this.ageRestriction, 'ageRestriction');
+    //
+    //     if (this.insureStatus) {
+    //         if (this.ageRestriction == '') {
+    //             stepper.next();
+    //         }
+    //         if (this.ageRestriction == 'true') {
+    //             stepper.next();
+    //         }
+    //
+    //
+    //     }
+    //
+    //     console.log(this.errorMessage, 'errorMessage');
+    //     console.log(this.insureStatus, 'insureStatus');
+    //     console.log(this.illnesStatus, 'illnesStatus');
+    //
+    // }
+
+// Medical
+    medicalHistoryDetails(stepper: MatStepper) {
+
+        // sessionStorage.stepper3Details = '';
+        // sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
+        this.religareQuestionsList = [{
+            "main_question": "Does any person(s) to be insured has any Pre-existing diseases?",
+            "display_question": "1",
+            "sub_questions_list": [{
+                "question_set_code": "PEDdiabetesDetails",
+                "question_details": {
+                    "question_id": "1",
+                    "question_code": "205",
+                    "question_description": "Diabetes?",
+                    "checkbox": "1",
+                    "existing_question_code": "diabetesExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDcancerDetails",
+                "question_details": {
+                    "question_id": "2",
+                    "question_code": "114",
+                    "question_description": "Cancer?",
+                    "checkbox": "1",
+                    "existing_question_code": "cancerExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDhyperTensionDetails",
+                "question_details": {
+                    "question_id": "3",
+                    "question_code": "207",
+                    "question_description": "Hypertension / High Blood Pressure",
+                    "checkbox": "1",
+                    "existing_question_code": "hyperTensionExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDliverDetails",
+                "question_details": {
+                    "question_id": "4",
+                    "question_code": "232",
+                    "question_description": "Liver Disease?",
+                    "checkbox": "1",
+                    "existing_question_code": "liverExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDcardiacDetails",
+                "question_details": {
+                    "question_id": "5",
+                    "question_code": "143",
+                    "question_description": "Cardiac Disease?",
+                    "checkbox": "1",
+                    "existing_question_code": "cardiacExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDjointpainDetails",
+                "question_details": {
+                    "question_id": "6",
+                    "question_code": "105",
+                    "question_description": "Joint Pain?",
+                    "checkbox": "1",
+                    "existing_question_code": "jointpainExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDkidneyDetails",
+                "question_details": {
+                    "question_id": "7",
+                    "question_code": "129",
+                    "question_description": "Kidney Disease?",
+                    "checkbox": "1",
+                    "existing_question_code": "kidneyExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDparalysisDetails",
+                "question_details": {
+                    "question_id": "8",
+                    "question_code": "164",
+                    "question_description": "Paralysis?",
+                    "checkbox": "1",
+                    "existing_question_code": "paralysisExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDcongenitalDetails",
+                "question_details": {
+                    "question_id": "9",
+                    "question_code": "122",
+                    "question_description": "Congenital Disorder?",
+                    "checkbox": "1",
+                    "existing_question_code": "congenitalExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDHivaidsDetails",
+                "question_details": {
+                    "question_id": "10",
+                    "question_code": "147",
+                    "question_description": "HIV/AIDS?",
+                    "checkbox": "1",
+                    "existing_question_code": "hivaidsExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDotherDetails",
+                "question_details": {
+                    "question_id": "11",
+                    "question_code": "210",
+                    "question_description": "Any other diseases or ailments not mentioned above ?",
+                    "checkbox": "1",
+                    "existing_question_code": "otherExistingSince",
+                    "description_textarea": "1",
+                    "other_description_code": "otherDiseasesDescription",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDRespiratoryDetails",
+                "question_details": {
+                    "question_id": "12",
+                    "question_code": "250",
+                    "question_description": "Respiratory disorders inclusion?",
+                    "checkbox": "1",
+                    "existing_question_code": "respiratoryExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDEndoDetails",
+                "question_details": {
+                    "question_id": "13",
+                    "question_code": "222",
+                    "question_description": "Any disorders of the endocrine system (including but not limited to Pituitary / Parathyroid / adrenal gland disorders)",
+                    "checkbox": "1",
+                    "existing_question_code": "EndocriExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDillnessDetails",
+                "question_details": {
+                    "question_id": "14",
+                    "question_code": "502",
+                    "question_description": "Has any of the Proposed to be Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? *",
+                    "checkbox": "1",
+                    "existing_question_code": "illnessExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDSurgeryDetails",
+                "question_details": {
+                    "question_id": "15",
+                    "question_code": "503",
+                    "question_description": "Has any of the Proposed to be Insured been hospitalized or has been under any prolonged treatment for any illness/injury or has undergone surgery other than for childbirth/minor injuries? *",
+                    "checkbox": "1",
+                    "existing_question_code": "SurgeryExistingSince",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }, {
+                "question_set_code": "PEDSmokeDetails",
+                "question_details": {
+                    "question_id": "16",
+                    "question_code": "504",
+                    "question_description": "Do You smoke, consume alcohol, or chew tobacco, ghutka or paan or use any recreational drugs? If ‘Yes’ then please provide the frequency & amount consumed. *",
+                    "checkbox": "1",
+                    "existing_question_code": "SmokeExistingSince",
+                    "description_textarea": "1",
+                    "other_description_code": "OtherSmokeDetails",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }],
+            "mStatus": "No",
+            "answer_status": false
+        }, {
+            "main_question": "Have any of the above mentioned person(s) to be insured been diagnosed / hospitalized for any illness / injury during the last 48 months?",
+            "display_question": "0",
+            "sub_questions_list": [{
+                "question_set_code": "HEDHealthHospitalized",
+                "question_details": {
+                    "question_id": "17",
+                    "question_code": "H001",
+                    "question_description": "",
+                    "checkbox": "1",
+                    "existing_question_code": "",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }],
+            "mStatus": "No",
+            "answer_status": false
+        }, {
+            "main_question": "Have any of the person(s) to be insured ever filed a claim with their current / previous insurer? ",
+            "display_question": "0",
+            "sub_questions_list": [{
+                "question_set_code": "HEDHealthClaim",
+                "question_details": {
+                    "question_id": "18",
+                    "question_code": "H002",
+                    "question_description": "",
+                    "checkbox": "1",
+                    "existing_question_code": "",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }],
+            "mStatus": "No",
+            "answer_status": false
+        }, {
+            "main_question": "Has any proposal for Health insurance been declined, cancelled or charged a higher premium? ",
+            "display_question": "0",
+            "sub_questions_list": [{
+                "question_set_code": "HEDHealthDeclined",
+                "question_details": {
+                    "question_id": "19",
+                    "question_code": "H003",
+                    "question_description": "",
+                    "checkbox": "1",
+                    "existing_question_code": "",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }],
+            "mStatus": "No",
+            "answer_status": false
+        }, {
+            "main_question": "Is any of the person(s) to be insured, already covered under any other health insurance policy of Religare Health Insurance?",
+            "display_question": "0",
+            "sub_questions_list": [{
+                "question_set_code": "HEDHealthCovered",
+                "question_details": {
+                    "question_id": "20",
+                    "question_code": "H004",
+                    "question_description": "",
+                    "checkbox": "1",
+                    "existing_question_code": "",
+                    "description_textarea": "0",
+                    "other_description_code": "",
+                    "family_group": [{
+                        "type": "Self",
+                        "age": "23",
+                        "existingSince": "",
+                        "diseasesDescription": "",
+                        "status": false
+                    }]
+                }
+            }],
+            "mStatus": "No",
+            "answer_status": false
+        }]
+        // this.questions_list = [];
+        // this.getFilterData = [];
+        // for (let i = 0; i < this.religareQuestionsList.length; i++) {
+        //     for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+        //         for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+        //             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
+        //             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
+        //             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
+        //             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
+        //             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
+        //             this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
+        //         }
+        //     }
+        // }
+        //
+        // for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+        //     this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type));
+        // }
+        // for (let i = 0; i < this.totalReligareData.length; i++) {
+        //     if (i > 0) {
+        //         this.totalReligareData[i].questions_list = this.getFilterData[i - 1];
+        //     }
+        // }
+        // let statusChecked = [];
+        // this.medicalStatus = [];
+        // console.log(this.religareQuestionsList, 'this.religareQuestionsList');
+        // for (let i = 0; i < this.religareQuestionsList.length; i++) {
+        //
+        //     if (this.religareQuestionsList[i].mStatus == 'No') {
+        //         this.medicalStatus.push('No');
+        //     } else if (this.religareQuestionsList[i].mStatus == 'Yes') {
+        //         this.medicalStatus.push('Yes');
+        //     }
+        //
+        //
+        //     for (let i = 0; i < this.totalReligareData.length; i++) {
+        //         this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+        //     }
+        //
+        //
+        //     if (this.religareQuestionsList[i].answer_status == true) {
+        //         for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+        //             for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+        //                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+        //                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
+        //
+        //                         statusChecked.push(0);
+        //                     } else {
+        //                         if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
+        //                             if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+        //                                 statusChecked.push(0);
+        //                             } else {
+        //                                 statusChecked.push(1);
+        //                             }
+        //                         } else {
+        //                             statusChecked.push(1);
+        //                         }
+        //
+        //
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         if (statusChecked.length == 0) {
+        //             statusChecked.push(2);
+        //         }
+        //
+        //     } else {
+        //
+        //         if (i == this.religareQuestionsList.length - 1) {
+        //             statusChecked.push(1);
+        //         }
+        //
+        //     }
+        //     console.log(this.medicalStatus, 'this.medicalStatus');
+        //
+        // }
+        //
+        // if (statusChecked.includes(0)) {
+        //     this.toastr.error('Please fill the empty field');
+        // } else if (statusChecked.includes(2)) {
+        //     this.toastr.error('Please check atleast one checkbox!');
+        // } else {
+            stepper.next();
+
+        // }
+
+    }
+
+    subStatus(value: any, i, k, j) {
+        if (value.checked) {
+        } else {
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
         }
-        sessionStorage.this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
+
     }
 
+    // nominee details
+    religareNomineeDetails(stepper: MatStepper, value) {
+        this.lastStepper = stepper;
+        console.log(value);
+
+        //     if (this.nomineeDetails.valid) {
+        //         sessionStorage.nomineeData = '';
+        //         sessionStorage.nomineeData = JSON.stringify(value);
+        //         this.proposal();
+        //     }
+        // }
+    }
 }
