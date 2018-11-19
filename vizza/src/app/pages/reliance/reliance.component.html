@@ -114,7 +114,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Alternate Number"   maxlength="20"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="keyPress($event)" autocomplete="off">
+                                                    <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)" (keypress)="keyPress($event)" autocomplete="off">
                                                     <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                                                     <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                 </mat-form-field>
@@ -757,6 +757,7 @@
                                             <li class="list-group-item"><strong>Personal Email Id:</strong> {{summaryData.ClientDetails.Email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ClientDetails.MobileNo}}</li>
                                             <li class="list-group-item"><strong>Phone Number:</strong> {{summaryData.ClientDetails.PhoneNo}}</li>
+                                            <li class="list-group-item"><strong>Alternate Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo}}</li>
                                         </ul>
                                     </div>
                                 </div>
