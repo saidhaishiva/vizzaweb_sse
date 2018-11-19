@@ -73,7 +73,7 @@
           <mat-card-content>
             <h4 class="color-pink"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Health Insurance</h4>
             <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
-              <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index" >
+              <mat-tab class="headerColor" *ngFor="let lists of personalPremiumLists;let pi = index" >
                 <ng-template matTabLabel>
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                        width="20" height="80"

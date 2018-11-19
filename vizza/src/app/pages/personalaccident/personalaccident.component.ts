@@ -61,6 +61,7 @@ export class PersonalaccidentComponent implements OnInit {
     firstSelectedAmount: any;
     changeSuninsuredAmount: any;
     shortlistArray: any;
+    personalPremiumLists: any;
     updateFlag: boolean;
     ageUpdateFlag: boolean;
     nonEditable: boolean;
@@ -269,8 +270,6 @@ export class PersonalaccidentComponent implements OnInit {
             return false;
         }
 
-        this.firstPage = false;
-        this.secondPage = true;
 
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
@@ -320,38 +319,34 @@ export class PersonalaccidentComponent implements OnInit {
 
     public personalAccidentSuccess(successData , index) {
         console.log(successData.ResponseObject);
-        this.insuranceLists = successData.ResponseObject;//.product_lists;
-        console.log(this.insuranceLists, 'jhghfhjfhgfhgfjhyf');
-        // for( let i =0; i<=this.insuranceLists.length; i++) {
-        //             this.personalaccidents.controls['occupation'].setValue(this.insuranceLists[i].occupation_code)
-        //             this.personalaccidents.controls['annualincome'].setValue(this.insuranceLists[i].annual_salary)
-        // }
+        this.personalPremiumLists = successData.ResponseObject[0];
+        console.log(this.personalPremiumLists, 'jhghfhjfhgfhgfjhyf');
     }
 
     public personalAccidentFailure(error) {
         console.log(error);
     }
 
-    onSelectedIndexChange(index) {
-        if (this.insuranceLists.length == index) {
-            // this.getShortListDetails(this.enquiryId, index, name);
-            this.compareArray = [];
-        } else {
-            this.updateFlag = false;
-            this.ageUpdateFlag = false;
-            // this.settings.loadingSpinner = true;
-            this.changedTabDetails = this.insuranceLists[index];
-            sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
-            this.currentGroupName = this.insuranceLists[index].name;
-            this.changedTabIndex = index;
-            sessionStorage.changedTabIndex = index;
-            this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
-            sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
-            // this.updateTabPolicy(this.insuranceLists[index], index);
-        }
-    }
-    updateFunction(){
-
-    }
+    // onSelectedIndexChange(index) {
+    //     if (this.insuranceLists.length == index) {
+    //         // this.getShortListDetails(this.enquiryId, index, name);
+    //         this.compareArray = [];
+    //     } else {
+    //         this.updateFlag = false;
+    //         this.ageUpdateFlag = false;
+    //         // this.settings.loadingSpinner = true;
+    //         this.changedTabDetails = this.insuranceLists[index];
+    //         sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
+    //         this.currentGroupName = this.insuranceLists[index].name;
+    //         this.changedTabIndex = index;
+    //         sessionStorage.changedTabIndex = index;
+    //         this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+    //         sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
+    //         // this.updateTabPolicy(this.insuranceLists[index], index);
+    //     }
+    // }
+    // updateFunction(){
+    //
+    // }
 }
 
