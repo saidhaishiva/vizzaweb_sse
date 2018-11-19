@@ -202,7 +202,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="annualincome" [disabled]="true" >
+                    <input matInput name="annualincome"  [disabled]="true" [(ngModel)]="AnnualIncome">
                   </mat-form-field>
                 </div>
               </div>
@@ -213,7 +213,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="age" [disabled]="true" >
+                    <input matInput name="age" [(ngModel)]="Age" [disabled]="true">
                   </mat-form-field>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="occupation" [disabled]="true" >
+                    <input matInput name="occupation"  [disabled]="true" [(ngModel)]="Occupation" >
                   </mat-form-field>
                 </div>
               </div>
@@ -252,22 +252,22 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="compareArray != ''">
-  <div class="col-md-3" *ngFor="let clists of compareArray; let i = index">
-    <div fxLayout="column" class="flex-p">
-      <mat-card class="custom-card compare-icon text-center">
-        <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>
-        </div>
-        <mat-card-content class="p-0">
-          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
-          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-  </div>
-</div>
+<!--<div class="row" *ngIf="compareArray != ''">-->
+  <!--<div class="col-md-3" *ngFor="let clists of compareArray; let i = index">-->
+    <!--<div fxLayout="column" class="flex-p">-->
+      <!--<mat-card class="custom-card compare-icon text-center">-->
+        <!--<div class="text-right closeBtnClass">-->
+          <!--<mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>-->
+        <!--</div>-->
+        <!--<mat-card-content class="p-0">-->
+          <!--<p class="color-green mb-0 text-center">{{clists.product_name}}</p>-->
+          <!--<img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >-->
+        <!--</mat-card-content>-->
+      <!--</mat-card>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">-->
+    <!--<button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>-->
+  <!--</div>-->
+<!--</div>-->
 

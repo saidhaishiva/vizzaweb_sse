@@ -23,17 +23,19 @@ export class PersonalaccidentComponent implements OnInit {
     setArray1: any;
     getArray: any;
     closeIcon: boolean;
-
+    occerror: boolean;
     index: any;
     memberLength: any;
     auto: boolean;
     finalData: any;
     sumerror: boolean;
     pinerror: boolean;
+    annualerror: any;
     selectedAmount: any;
     pincoce: any;
     Occupation: any;
     Age: any;
+    ageerror: any;
     AnnualIncome: any;
     count: any;
     sumInsuredAmountLists: any;
@@ -98,7 +100,9 @@ export class PersonalaccidentComponent implements OnInit {
         });
         this.sumInsuredAmountLists = 0;
         this.compareArray = [];
-
+       console.log(this.AnnualIncome, 'this.AnnualIncomethis.AnnualIncome');
+       console.log(this.selectedAmount , ' this.selectedAmount  this.selectedAmount ');
+       console.log(this.Occupation , ' this.Occupation  this.Occupation ');
     }
 
     ngOnInit() {
@@ -249,13 +253,15 @@ export class PersonalaccidentComponent implements OnInit {
 
     changeAmount() {
         sessionStorage.setInsuredAmount = this.selectedAmount;
-    }
-
-    selectPincode() {
         sessionStorage.setPincode = this.pincoce;
+        sessionStorage.setOccupation = this.Occupation;
+        sessionStorage.setAnnualIncome = this.AnnualIncome;
+        sessionStorage.setAge = this.Age;
+
     }
-
-
+    ageChange() {
+        this.ageUpdateFlag = true;
+    }
     getPersonalAccident(value){
 
         if(this.personalaccidents.controls['age'].value <=18 ){
@@ -276,7 +282,11 @@ export class PersonalaccidentComponent implements OnInit {
         } else {
             this.pinerror = false;
         }
-
+        if (this.Occupation == '' || this.Occupation == undefined) {
+            this.occerror = true;
+        } else {
+            this.occerror = false;
+        }
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
 
         const data = {
@@ -312,6 +322,10 @@ export class PersonalaccidentComponent implements OnInit {
         console.log(successData.ResponseObject);
         this.insuranceLists = successData.ResponseObject;//.product_lists;
         console.log(this.insuranceLists, 'jhghfhjfhgfhgfjhyf');
+        // for( let i =0; i<=this.insuranceLists.length; i++) {
+        //             this.personalaccidents.controls['occupation'].setValue(this.insuranceLists[i].occupation_code)
+        //             this.personalaccidents.controls['annualincome'].setValue(this.insuranceLists[i].annual_salary)
+        // }
     }
 
     public personalAccidentFailure(error) {
@@ -336,6 +350,8 @@ export class PersonalaccidentComponent implements OnInit {
             // this.updateTabPolicy(this.insuranceLists[index], index);
         }
     }
+    updateFunction(){
 
+    }
 }
 
