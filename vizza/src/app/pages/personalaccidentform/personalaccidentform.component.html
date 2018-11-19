@@ -54,7 +54,7 @@
                       </div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="keyPress($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar"  autocomplete="off">
+                        <input matInput placeholder="Aadhar Number" (keypress)="onNumber($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
 
                       </mat-form-field></div>
@@ -79,7 +79,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="onNumber($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
@@ -246,10 +246,10 @@
                       </div>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Height(cms)" (keypress)="keyPress($event)"  maxlength="3"  [(ngModel)]="item.ins_height" required >
+                      <input matInput placeholder="Height(cms)" (keypress)="onNumber($event)"  maxlength="3"  [(ngModel)]="item.ins_height" required >
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Weight(kgs)" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.ins_weight" required >
+                      <input matInput placeholder="Weight(kgs)" (keypress)="onNumber($event)"  maxlength="3" [(ngModel)]="item.ins_weight" required >
                     </mat-form-field></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">

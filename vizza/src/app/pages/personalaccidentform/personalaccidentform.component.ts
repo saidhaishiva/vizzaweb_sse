@@ -997,8 +997,8 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
 
-
-    public keyPress(event: any) {
+// only numbers can accept
+    public onNumber(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
