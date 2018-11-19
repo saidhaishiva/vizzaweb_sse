@@ -46,7 +46,7 @@ export class PersonalaccidentformComponent implements OnInit {
     public stopNext: boolean;
     public buyPersonaldetails: any;
     public groupName: any;
-    public getFamilyDetails: any;
+    public getFamilyDetail: any;
     public enquiryId: any;
     public personalData: any;
     public occupationList: any;
@@ -109,8 +109,8 @@ export class PersonalaccidentformComponent implements OnInit {
     public arr: any;
     public insureRelationList: any;
     array: any;
-    public familyMembers: any;
-    buyProductdetails: any;
+    public familyMember: any;
+    buyProductdetail: any;
 
     constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -185,7 +185,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
 
     ngOnInit() {
-        this.buyProductdetails = {
+        this.buyProductdetail = {
             "product_id": "6",
             "product_name": "Mediclassic Individual",
             "premium_id": "1995",
@@ -232,7 +232,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.setOccupationListCode();
         this.setOccupationList();
         this.setRelationship();
-        this.getFamilyDetails = {
+        this.getFamilyDetail = {
             "name": "Group A",
             "postal_code": "608001",
             "insurance_type": "1",
@@ -856,10 +856,10 @@ export class PersonalaccidentformComponent implements OnInit {
             "enquiry_id": 90,
             "group_suminsured_id": "4-6"
         }
-        if (this.familyMembers == '' || this.familyMembers == undefined) {
+        if (this.familyMember == '' || this.familyMember == undefined) {
             this.groupList();
         } else {
-            this.familyMembers = [{
+            this.familyMember = [{
                 "type": "Self",
                 "age": "25",
                 "ins_name": "asdd",
@@ -882,33 +882,33 @@ export class PersonalaccidentformComponent implements OnInit {
                 "illness": "false"
             }]
         }
-        for (let i = 0; i < this.familyMembers.length; i++) {
-            if (this.familyMembers[i].type == 'Spouse') {
-                this.familyMembers[i].ins_gender = 'Female';
+        for (let i = 0; i < this.familyMember.length; i++) {
+            if (this.familyMember[i].type == 'Spouse') {
+                this.familyMember[i].ins_gender = 'Female';
             }
-            else if (this.familyMembers[i].type == 'Son') {
-                this.familyMembers[i].ins_gender = 'Male';
+            else if (this.familyMember[i].type == 'Son') {
+                this.familyMember[i].ins_gender = 'Male';
             }
-            else if (this.familyMembers[i].type == 'Daughter') {
-                this.familyMembers[i].ins_gender = 'Female';
+            else if (this.familyMember[i].type == 'Daughter') {
+                this.familyMember[i].ins_gender = 'Female';
             }
-            else if (this.familyMembers[i].type == 'Father') {
-                this.familyMembers[i].ins_gender = 'Male';
+            else if (this.familyMember[i].type == 'Father') {
+                this.familyMember[i].ins_gender = 'Male';
             }
-            else if (this.familyMembers[i].type == 'Mother') {
-                this.familyMembers[i].ins_gender = 'Female';
+            else if (this.familyMember[i].type == 'Mother') {
+                this.familyMember[i].ins_gender = 'Female';
             }
-            else if (this.familyMembers[i].type == 'Father In Law') {
-                this.familyMembers[i].ins_gender = 'Male';
+            else if (this.familyMember[i].type == 'Father In Law') {
+                this.familyMember[i].ins_gender = 'Male';
             }
-            else if (this.familyMembers[i].type == 'Mother In Law') {
-                this.familyMembers[i].ins_gender = 'Female';
+            else if (this.familyMember[i].type == 'Mother In Law') {
+                this.familyMember[i].ins_gender = 'Female';
             }
-            else if (this.familyMembers[i].type == 'Brother') {
-                this.familyMembers[i].ins_gender = 'Male';
+            else if (this.familyMember[i].type == 'Brother') {
+                this.familyMember[i].ins_gender = 'Male';
             }
-            else if (this.familyMembers[i].type == 'Sister') {
-                this.familyMembers[i].ins_gender = 'Female';
+            else if (this.familyMember[i].type == 'Sister') {
+                this.familyMember[i].ins_gender = 'Female';
             }
         }
     }
@@ -924,26 +924,26 @@ export class PersonalaccidentformComponent implements OnInit {
 
 
     groupList() {
-        this.familyMembers = this.getFamilyDetails.family_members;
-        console.log(this.familyMembers);
-        for (let i = 0; i < this.familyMembers.length; i++) {
-            this.familyMembers[i].ins_name = '';
-            this.familyMembers[i].ins_dob = '';
-            this.familyMembers[i].ins_gender = '';
-            this.familyMembers[i].ins_illness = 'No';
-            this.familyMembers[i].ins_weight = '';
-            this.familyMembers[i].ins_height = '';
-            this.familyMembers[i].ins_occupation_id = '';
+        this.familyMember = this.getFamilyDetail.family_members;
+        console.log(this.familyMember);
+        for (let i = 0; i < this.familyMember.length; i++) {
+            this.familyMember[i].ins_name = '';
+            this.familyMember[i].ins_dob = '';
+            this.familyMember[i].ins_gender = '';
+            this.familyMember[i].ins_illness = 'No';
+            this.familyMember[i].ins_weight = '';
+            this.familyMember[i].ins_height = '';
+            this.familyMember[i].ins_occupation_id = '';
             // this.familyMembers[i].insurincome = '';
-            this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'None';
-            this.familyMembers[i].ins_engage_winter_sports = 'None';
-            this.familyMembers[i].ins_personal_accident_applicable = '0';
-            this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
-            this.familyMembers[i].engage_manual_status = '0';
-            this.familyMembers[i].engage_winter_status = '0';
-            this.familyMembers[i].ageRestriction = '';
+            this.familyMember[i].ins_relationship = '';
+            this.familyMember[i].ins_hospital_cash = '1';
+            this.familyMember[i].ins_engage_manual_labour = 'None';
+            this.familyMember[i].ins_engage_winter_sports = 'None';
+            this.familyMember[i].ins_personal_accident_applicable = '0';
+            this.familyMember[i].ins_suminsured_indiv = this.buyProductdetail.suminsured_id;
+            this.familyMember[i].engage_manual_status = '0';
+            this.familyMember[i].engage_winter_status = '0';
+            this.familyMember[i].ageRestriction = '';
         }
 
     }

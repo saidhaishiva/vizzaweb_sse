@@ -205,7 +205,7 @@
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3" >
-                <div class="col-md-12 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
+                <div class="col-md-12 box-card pt-3"  *ngFor="let item of familyMember; let i = index">
                   <h6 class="color-green">INSURED DETAILS ({{item.type}})</h6>
                   <div class="row">
                     <div class="col-md-12">
@@ -233,8 +233,8 @@
                         <input matInput placeholder="Gender" [(ngModel)]="item.ins_gender" required readonly>
                       </mat-form-field></div>
                     <div class="col-md-6" >
-                      <p class="mr-3" *ngIf="buyProductdetails.product_id != '7'">Do you have any health problem?<span class="error">*</span></p>
-                      <p class="mr-3" *ngIf="buyProductdetails.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility?<span class="error">*</span></p>
+                      <p class="mr-3" *ngIf="buyProductdetail.product_id != '7'">Do you have any health problem?<span class="error">*</span></p>
+                      <p class="mr-3" *ngIf="buyProductdetail.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility?<span class="error">*</span></p>
                       <div  fxLayoutAlign="start center">
                         <mat-radio-group [(ngModel)]="item.illness" (change)="illnessStatus($event, i)" required>
                           <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
@@ -270,17 +270,17 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field></div>
-                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 6">
+                    <div class="col-md-12" *ngIf="buyProductdetail.product_id == 6">
                       <p>Additional premium applicable</p>
                       <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
                         <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                       </mat-radio-group>
                     </div>
-                    <div class="col-md-6" *ngIf="buyProductdetails.product_id == 6">
+                    <div class="col-md-6" *ngIf="buyProductdetail.product_id == 6">
                       <strong>(cash benefit of Rs.1000/- for each and every completed day of hospitalization subject to a maximum of 7 days per hospitalization and 14 days per policy year .Date of admission and Date of discharge not considered.)</strong>
                     </div>
-                    <div class="col-md-12 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                    <div class="col-md-12 " *ngIf="(buyProductdetail.product_id == 9 || buyProductdetail.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>personal Accident Applicable</p>
                       <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
                         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
@@ -288,7 +288,7 @@
                       </mat-radio-group>
                     </div>
                     <hr>
-                    <div class="col-md-6" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                    <div class="col-md-6" *ngIf="(buyProductdetail.product_id == 9 || buyProductdetail.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>Does your occupation require you to engage in manual labour?</p>
                       <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
                         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
@@ -298,7 +298,7 @@
                         <input matInput placeholder="Engage Manual Labour" [(ngModel)]="item.ins_engage_manual_labour" required>
                       </mat-form-field></div>
                     </div>
-                    <div class="col-md-6 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                    <div class="col-md-6 " *ngIf="(buyProductdetail.product_id == 9 || buyProductdetail.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                       <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
                       <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
                         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
@@ -310,7 +310,7 @@
                     </div>
 
                   </div>
-                  <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMembers.length - 1 == i">
+                  <div class="proposal-buttom mt-3 mb-3 text-right w-100" *ngIf="familyMember.length - 1 == i">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary"  type="submit" (click)="InsureDetails(stepper, i, 'Insured Details')">Next</button>
                   </div>
@@ -397,12 +397,12 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" [required]="buyProductdetails.product_id == 1">
+                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" [required]="buyProductdetail.product_id == 1">
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)"  [required]="buyProductdetails.product_id == 1">
+                        <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)"  [required]="buyProductdetail.product_id == 1">
                         <mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
 

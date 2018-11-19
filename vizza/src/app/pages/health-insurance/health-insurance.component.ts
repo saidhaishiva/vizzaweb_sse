@@ -461,6 +461,15 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
+    reset() {
+        this.selectedAmount = '';
+        this.pincoce = '';
+        for (let i = 0; i < this.setArray.length; i++) {
+            this.setArray[i].age = '';
+            this.setArray[i].checked = '';
+        }
+
+    }
     // this function will get the policy quotation lists
     getPolicyQuotationList() {
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
