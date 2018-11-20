@@ -20,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LoginService } from './shared/services/login.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
+import { TravelService} from './shared/services/travel.service';
 import { CommonService } from './shared/services/common.service';
 import { ProposalService} from './shared/services/proposal.service';
 import { LearningcenterService} from './shared/services/learningcenter.service';
@@ -152,6 +153,8 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
 import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
 import { PersonalaccidentformComponent } from './pages/personalaccidentform/personalaccidentform.component';
 import { PreligareComponent } from './pages/preligare/preligare.component';
+import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
+import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -282,6 +285,8 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
       ReliancePaymentSuccessComponent,
       PersonalaccidentformComponent,
       PreligareComponent,
+      TravelPremiumListComponent,
+      TravelProposalComponent,
 
   ],
   providers: [
@@ -290,6 +295,7 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
       ConfigurationService,
       AuthService,
       CommonService,
+      TravelService,
       LearningcenterService,
       ProposalService,
       DeactivateGuard,

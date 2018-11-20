@@ -1,43 +1,22 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import { AppSettings } from '../../app.settings';
-import { Settings } from '../../app.settings.model';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {CommonService} from '../../shared/services/common.service';
-import {ToastrService} from 'ngx-toastr';
-import {ConfigurationService} from '../../shared/services/configuration.service';
-import {AuthService} from '../../shared/services/auth.service';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {DatePipe} from '@angular/common';
-import * as moment from 'moment';
 import {TravelService} from '../../shared/services/travel.service';
+import {ToastrService} from 'ngx-toastr';
+import {FormBuilder} from '@angular/forms';
+import {AuthService} from '../../shared/services/auth.service';
+import {AppSettings} from '../../app.settings';
+import {MatDialog} from '@angular/material';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {DatePipe} from '@angular/common';
+import {Settings} from '../../app.settings.model';
 
-
-export const MY_FORMATS = {
-    parse: {
-        dateInput: 'DD/MM/YYYY',
-    },
-    display: {
-        dateInput: 'DD/MM/YYYY',
-        monthYearLabel: 'MM YYYY',
-        dateA11yLabel: 'DD/MM/YYYY',
-
-        monthYearA11yLabel: 'MM YYYY',
-    },
-};
 @Component({
-  selector: 'app-travel',
-  templateUrl: './travel.component.html',
-  styleUrls: ['./travel.component.scss'],
-  providers: [
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ]
+  selector: 'app-travel-premium-list',
+  templateUrl: './travel-premium-list.component.html',
+  styleUrls: ['./travel-premium-list.component.scss']
 })
-export class TravelComponent implements OnInit {
-
+export class TravelPremiumListComponent implements OnInit {
+    public settings: Settings;
     selfArray: any;
     familyArray: any;
     studentArray: any;
@@ -67,7 +46,7 @@ export class TravelComponent implements OnInit {
     today: any;
 
     selectedAmount: any;
-    travelType: any;
+    travelTime: any;
     startDate: any;
     endDate: any;
     travelPlan: any;
@@ -75,19 +54,47 @@ export class TravelComponent implements OnInit {
     finalData: any;
     sumerror: any;
     duration: any;
-
+    premiumLists: any;
+    travelType: any;
+    getArray: any;
+    webhost: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
-        this.showSelf = true;
-        this.showGroup = false;
-        this.showstudent = false;
-        this.selfDetails();
-        this.familyDetails();
-        this.studentDetails();
-        this.currentTab = 'self';
+        this.settings = this.appSettings.settings;
+        this.premiumLists = JSON.parse(sessionStorage.premiumLists);
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
+        this.webhost = this.config.getimgUrl();
+        this.selectedAmount = this.premiumLists.suminsured_id;
+        this.startDate = this.premiumLists.start_date;
+        this.endDate = this.premiumLists.end_date;
+        this.travelPlan = this.premiumLists.plan_type;
+        this.travelType = this.premiumLists.travel_time_type;
+        this.duration = this.premiumLists.duration;
+        this.medicalCondition = this.premiumLists.medical_condition;
+
+        if (this.premiumLists.travel_type == 'self') {
+            this.selfDetails();
+            this.showSelf = true;
+            this.showGroup = false;
+            this.showstudent = false;
+            this.currentTab = 'self';
+        } else if (this.premiumLists.travel_type == 'family') {
+            this.familyDetails();
+            this.showSelf = false;
+            this.showGroup = true;
+            this.showstudent = false;
+            this.currentTab = 'family';
+        } else if (this.premiumLists.travel_type == 'students') {
+            this.studentDetails();
+            this.showSelf = false;
+            this.showGroup = false;
+            this.showstudent = true;
+            this.currentTab = 'students';
+        }
         this.today = new Date();
 
     }
-
     ngOnInit() {
         this.Child3BTn = true;
         this.FatherBTn = true;
@@ -111,6 +118,14 @@ export class TravelComponent implements OnInit {
             {name: 'Child1', age: '', disabled: false, checked: false, required: false, error: ''},
             {name: 'Child2', age: '', disabled: false, checked: false, required: false, error: ''}
         ];
+        this.getArray = this.premiumLists.family_details;
+        for (let i =0; i < this.getArray.length; i++) {
+                if (this.getArray[i].age !='') {
+                    this.selfArray[i].checked = true;
+                    this.selfArray[i].required = false;
+                    this.selfArray[i].age = this.getArray[i].age;
+                }
+        }
     }
     familyDetails() {
         this.familyArray = [
@@ -119,6 +134,14 @@ export class TravelComponent implements OnInit {
             {name: 'Member3', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Member4', age: '', disabled: false, checked: false, required: true, error: ''}
         ];
+        this.getArray = this.premiumLists.family_details;
+        for (let i =0; i < this.getArray.length; i++) {
+            if (this.getArray[i].age !='') {
+                this.familyArray[i].checked = true;
+                this.familyArray[i].required = false;
+                this.familyArray[i].age = this.getArray[i].age;
+            }
+        }
     }
     studentDetails() {
         this.studentArray = [
@@ -127,7 +150,16 @@ export class TravelComponent implements OnInit {
             {name: 'Student3', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Student4', age: '', disabled: false, checked: false, required: true, error: ''}
         ];
+        this.getArray = this.premiumLists.family_details;
+        for (let i =0; i < this.getArray.length; i++) {
+            if (this.getArray[i].age !='') {
+                this.studentArray[i].checked = true;
+                this.studentArray[i].required = false;
+                this.studentArray[i].age = this.getArray[i].age;
+            }
+        }
     }
+
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
         const data = {
@@ -153,62 +185,25 @@ export class TravelComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
-    refresh() {
-        this.selectedAmount = '';
-        this.travelType = '';
-        this.travelPlan = '';
-        this.duration = '';
-        this.medicalCondition = '';
-        this.Child3BTn = false;
-        this.FatherBTn = false;
-        this.MotherBTn = false;
-        this.Member5BTn = false;
-        this.Member6BTn = false;
-        this.Member7BTn = false;
-        this.Member8BTn = false;
-        this.Student5BTn = false;
-        this.Student6BTn = false;
-        this.Student7BTn = false;
-        this.Student8BTn = false;
-        this.selfDetails();
-        this.familyDetails();
-        this.studentDetails();
-
-    }
 
     onSelectedIndexChange(event){
-        console.log(event, 'value');
-        this.currentTab = '';
-        if (event == 0) {
-            this.currentTab = 'self';
-            this.selfDetails();
+        console.log((this.premiumLists.travel_type == 'self' ? 0 : ''), 'valuffess');
+        console.log(event, 'event');
+        if (event == (this.premiumLists.travel_type == 'self' ? 0 : '')) {
             this.showSelf = true;
             this.showGroup = false;
             this.showstudent = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
-        }
-        if (event == 1) {
-            this.currentTab = 'family';
-            this.familyDetails();
+        } else if (event == (this.premiumLists.travel_type == 'family' ? 1 : '')) {
             this.showGroup = true;
             this.showSelf = false;
             this.showstudent = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
-        }
-        if (event == 2) {
-            this.currentTab = 'students';
-            this.studentDetails();
-            this.showstudent = true;
+        } else if (event == (this.premiumLists.travel_type == 'students' ? 2 : '')) {
             this.showGroup = false;
             this.showSelf = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
+        } else {
+            this.router.navigate(['/travel']);
         }
+
     }
     ckeckedUser(index, checked, name) {
         console.log(this.currentTab, 'this.currentTab');
@@ -442,9 +437,9 @@ export class TravelComponent implements OnInit {
             }
         }
 
-       // console.log(this.familyArray, 'this.familyArray');
+        // console.log(this.familyArray, 'this.familyArray');
         //
-       // console.log(this.studentArray, 'this.studentArray');
+        // console.log(this.studentArray, 'this.studentArray');
         if (!memberValid) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -454,7 +449,7 @@ export class TravelComponent implements OnInit {
             console.log(tDate);
             let diff = Date.parse(tDate) - Date.parse(fDate);
             let days =  Math.floor(diff / 86400000);
-            console.log(this.travelType, 'tyy');
+            console.log(days);
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -464,7 +459,7 @@ export class TravelComponent implements OnInit {
                 'family_members': this.finalData,
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
-                'enquiry_id': '',
+                'enquiry_id': this.premiumLists.enquiry_id,
                 'start_date': sDate,
                 'end_date': eDate,
                 'day_count': days,
@@ -488,13 +483,21 @@ export class TravelComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             sessionStorage.premiumLists = JSON.stringify(successData.ResponseObject);
+            this.premiumLists = successData.ResponseObject;
+
             this.router.navigate(['/travelpremium']);
         } else {
             this.toast.error(successData.ErrorObject);
         }
+
     }
     public getTravelPremiumCalFailure(error) {
 
+    }
+    booking(value) {
+        console.log(value, 'vlitss');
+        sessionStorage.travelPremiumList = JSON.stringify(value);
+        this.router.navigate(['/travelproposal']);
     }
 
 }
