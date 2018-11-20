@@ -43,6 +43,19 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get the personal accident sum insured lists
+    getpersonalSumInsuredAmount(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personal_accident/suminsured_amount' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     // this function will get the travel sum insured amount lists
     getTravelSumInsuredAmount(data) {
         console.log(data, 'ssssssssssss');

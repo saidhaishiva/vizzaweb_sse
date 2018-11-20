@@ -1058,7 +1058,7 @@ public RediretUrlLink: any;
             'proposal_id': this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
         };
 
         this.settings.loadingSpinner = true;
