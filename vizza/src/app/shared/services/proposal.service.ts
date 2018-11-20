@@ -154,7 +154,7 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
+// personal accident List
     personalAccident(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -164,6 +164,19 @@ export class ProposalService {
         const url = this.configurationService.getHost() + 'personal_accident/lists';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // update personal Accident
+    updatePersonalAccident(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personal_accident/update_familygroup_suminsured' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
             .catch(this.handleError);
     }
     getDownloadPdf(data) {

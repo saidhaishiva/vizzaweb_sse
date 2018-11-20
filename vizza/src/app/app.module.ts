@@ -152,6 +152,7 @@ import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.com
 import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
 import { PersonalaccidentformComponent } from './pages/personalaccidentform/personalaccidentform.component';
 import { PreligareComponent } from './pages/preligare/preligare.component';
+import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -282,6 +283,7 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
       ReliancePaymentSuccessComponent,
       PersonalaccidentformComponent,
       PreligareComponent,
+      CompareDetailsComponent,
 
   ],
   providers: [
@@ -305,7 +307,7 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
     ]
 })
 export class AppModule { }
