@@ -28,7 +28,7 @@
                       <div class="col-md-5">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
-                          <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
+                          <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-5"><mat-form-field class="w-100">
@@ -68,7 +68,7 @@
                         </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required >
+                        <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple>
                           <mat-option *ngFor="let lists of placeOfVisiLists" value="{{lists.country_name}}" >
                             {{lists.country_name}}
                           </mat-option>
@@ -85,7 +85,7 @@
                         <mat-error *ngIf="personal.controls.physicianContactNumber.errors?.required">Physician Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.physicianContactNumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-12"><mat-checkbox formControlName="travelDeclaration" ><strong>travelDeclaration</strong></mat-checkbox></div>
+                      <div class="col-md-12"><mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"><strong>travelDeclaration</strong></mat-checkbox></div>
 
                     </div>
                   </div>
@@ -131,7 +131,7 @@
                     </div>
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primary"  (click)="personalDetails(stepper, personal.value)" [disabled]="!travelDeclaration" >Next</button>
+                    <button mat-raised-button color="primary"  (click)="personalDetails(stepper, personal.value)" [disabled]="!AcceptDeclaration" >Next</button>
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -168,8 +168,8 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="insurerName"  (keypress)="typeValidate($event)" autocomplete="off" required >
-                            <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
+                            <input matInput placeholder="Name" formControlName="insurerName"  (keypress)="typeValidate($event)" autocomplete="off" required >
+                            <mat-error *ngIf="insureArray.invalid">Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6"><mat-form-field class="w-100">
@@ -209,7 +209,7 @@
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Assignee Name" formControlName="assigneeName"  (keypress)="typeValidate($event)" autocomplete="off" required >
-                            <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Assignee Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6"><mat-form-field class="w-100">

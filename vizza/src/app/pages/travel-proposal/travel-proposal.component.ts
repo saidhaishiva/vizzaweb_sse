@@ -125,6 +125,7 @@ export class TravelProposalComponent implements OnInit {
     preExistingDisease: any;
     personalDobError: any;
     getAge: any;
+    AcceptDeclaration: boolean;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -208,12 +209,7 @@ export class TravelProposalComponent implements OnInit {
         console.log(this.insureArray, 'insureArray');
         console.log(this.items, 'items');
         this.sessionData();
-
-
     }
-
-
-
     setStep(index: number) {
         this.step = index;
     }
@@ -221,7 +217,6 @@ export class TravelProposalComponent implements OnInit {
     prevStep() {
         this.step--;
     }
-
     initItemRows() {
         return this.fb.group(
             {
@@ -242,7 +237,23 @@ export class TravelProposalComponent implements OnInit {
             }
         );
     }
+    //Personal Details
+    personalDetails(stepper: MatStepper, value) {
+        this.personalData = value;
+        let dob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
 
+        console.log(dob, 'personalldobdd');
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        if (this.personal.valid) {
+            if (sessionStorage.proposerAge >= 18) {
+                // this.proposerInsureData.push(this.personalData);
+                stepper.next();
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
     //Insure Details
     religareInsureDetails(stepper: MatStepper, value, key) {
         console.log(value);
@@ -283,7 +294,7 @@ export class TravelProposalComponent implements OnInit {
                 'proposerPhone': this.personalData.personalMobile,
                 'planId': this.getTravelPremiumList.plan_id,
                 'travelPurposeId': this.personalData.travelPurpose,
-                'placeOfVisit': this.personalData.placeOfVisit,
+                'placeOfVisit': this.personalData.placeOfVisit.toString(),
                 'proposerAddressOne': this.personalData.personalAddress,
                 'proposerAddressTwo': this.personalData.personalAddress2,
                 'proposerAreaId': this.personalData.personalPincode,
@@ -313,24 +324,6 @@ export class TravelProposalComponent implements OnInit {
             } else {
             }
 
-        }
-    }
-
-
-    //Personal Details
-    personalDetails(stepper: MatStepper, value) {
-        this.personalData = value;
-        console.log(this.personalData, 'personall');
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        if (this.personal.valid) {
-            // this.proposerInsureData = [];
-            if (sessionStorage.proposerAge >= 18) {
-                // this.proposerInsureData.push(this.personalData);
-                stepper.next();
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
         }
     }
 
@@ -382,14 +375,16 @@ export class TravelProposalComponent implements OnInit {
             }
         }
     }
-    // addEvent(event) {
-    //     this.selectDate = event.value;
-    //     console.log(this.selectDate);
-    //     this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-    //     this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    //     this.personalAge = this.ageCalculate(this.setDateAge);
-    //     sessionStorage.setItem('proposerAge', this.personalAge);
-    // }
+    acceptDeclaration() {
+        console.log(this.personal.controls['travelDeclaration'].value, 'value');
+        if (this.personal.controls['travelDeclaration'].value) {
+            this.AcceptDeclaration = true;
+        } else {
+            this.AcceptDeclaration = false;
+        }
+
+
+    }
     addEvent(event) {
         if (event.value != null) {
             let selectedDate = '';
@@ -579,6 +574,11 @@ export class TravelProposalComponent implements OnInit {
                 physicianContactNumber: this.getStepper1.physicianContactNumber,
                 travelDeclaration: this.getStepper1.travelDeclaration
             });
+            if (this.getStepper1.travelDeclaration) {
+                this.AcceptDeclaration = true;
+            } else {
+                this.AcceptDeclaration = false;
+            }
 
 
             setTimeout(() => {
