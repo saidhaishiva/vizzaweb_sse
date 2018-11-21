@@ -15,29 +15,34 @@
       <mat-card>
         <mat-card-header><h5>Personal Accident for..</h5></mat-card-header>
         <mat-form-field class="w-100" required>
-          <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmount" (change)="changeAmount()">
+          <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmountP" (change)="changeAmount()">
             <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
               {{amounts.si_amount}}
             </mat-option>
           </mat-select>
-
         </mat-form-field>
+        <div *ngIf="annualerror" class="ngError">SumInsured Amount Required</div>
         <mat-form-field class="w-100">
-          <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncome" (keypress)="keyPress($event)">
+          <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncomeP" (keypress)="keyPress($event)">
         </mat-form-field>
+        <div *ngIf="annualerror" class="ngError">AnnualIncome Required</div>
 
         <mat-form-field class="w-100">
           <input matInput  placeholder="AGE" name="age"  [(ngModel)]="Age" (keypress)="keyPress($event)" maxlength="3">
         </mat-form-field>
+        <div *ngIf="ageerror" class="ngError">Age Required</div>
         <mat-form-field class="w-100">
-        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="Occupation">
+        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP">
           <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_description">{{occupation.occupation_description}}</mat-option>
         </mat-select>
         </mat-form-field>
-          <mat-form-field class="w-100">
-            <input matInput  placeholder="PIN CODE" (keypress)="keyPress($event)" [(ngModel)]="pincoce"  maxlength="6">
+        <div *ngIf="occerror" class="ngError">Occupation Required</div>
+        <mat-form-field class="w-100">
+            <input matInput  placeholder="PIN CODE" (keypress)="keyPress($event)" [(ngModel)]="pincoceP"  maxlength="6">
             <mat-icon matSuffix>place</mat-icon>
-          </mat-form-field>
+        </mat-form-field>
+        <div *ngIf="pinerror" class="ngError">Pincode Required</div>
+
         <div fxLayoutAlign="center center" class="mt-3">
           <button mat-raised-button color="accent" type="button" (click)="getPersonalAccident()">Submit</button>
         </div>
@@ -51,12 +56,12 @@
 <!--second page-->
 
 <div class="row " id="product-list" fxLayoutAlign="center start">
-  <div class="col-sm-9">
-    <div fxLayout="column" *ngIf="secondPage">
+  <div class="col-sm-9"  *ngIf="secondPage">
+    <div fxLayout="column" >
       <div class="flex-p">
         <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
           <mat-card-content>
-            <h4 class="color-pink"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Personal Accident Insurance</h4>
+            <h4 class="color-pink" (click)="painsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Personal Accident Insurance</h4>
             <!--<mat-tab-group #tabGroup [selectedIndex]="tabIndex">-->
               <div class="headerColor" let pi = "index" >
                 <ng-template>
@@ -67,6 +72,7 @@
                   <p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>
 
                 </ng-template>
+
                 <table class="table health-table" *ngIf="personalPremiumLists.product_lists !='' ">
                   <thead>
                   <tr>
@@ -113,7 +119,7 @@
                     </td>
                     <td>
                       <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
-                      <p><button mat-raised-button color="accent" >Buy</button></p>
+                      <p><button mat-raised-button color="accent" (click)="buyDetails(plists)">Buy</button></p>
                     </td>
                   </tr>
 
@@ -157,7 +163,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()">
+                    <mat-select [(ngModel)]="selectedAmountP" name="suminsure" (change)="changeAmount()">
                       <mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
                         {{amounts.si_amount}}
                       </mat-option>
@@ -172,9 +178,10 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="annualincome"  [(ngModel)]="AnnualIncome" (input)="annualincome()" [disabled]="true">
+                    <input matInput name="annualincome"  [(ngModel)]="AnnualIncomeP"  [disabled]="true">
                   </mat-form-field>
                 </div>
+
               </div>
 
               <div class="row" fxLayoutAlign="left center">
@@ -183,9 +190,10 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="age" [(ngModel)]="Age" (input)="ageChange()" [disabled]="true">
+                    <input matInput name="age" [(ngModel)]="Age"  [disabled]="true">
                   </mat-form-field>
                 </div>
+
               </div>
 
               <div class="row" fxLayoutAlign="left center">
@@ -194,11 +202,12 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select  name="occupation" [(ngModel)]="Occupation" (change)="occupationList()" [disabled]="true" >
+                    <mat-select  name="occupation" [(ngModel)]="occupationP"  [disabled]="true" >
                       <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_description">{{occupation.occupation_description}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
+
               </div>
 
               <div class="row" fxLayoutAlign="left center">
@@ -207,7 +216,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoce" (input)="pincode()" [disabled]="true">
+                    <input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoceP">
                   </mat-form-field>
                 </div>
               </div>
@@ -226,7 +235,7 @@
 </div>
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
+    <mat-icon (click)="removeAllCompare()">close</mat-icon>
   </div>
   <div style="width: 250px" *ngFor="let plists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">

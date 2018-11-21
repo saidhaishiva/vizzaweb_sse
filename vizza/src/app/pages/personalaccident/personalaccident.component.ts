@@ -32,11 +32,11 @@ export class PersonalaccidentComponent implements OnInit {
     occupationCode: any;
     sumerror: boolean;
     pinerror: boolean;
-    selectedAmount: any;
-    pincoce: any;
-    Occupation: any;
+    selectedAmountP: any;
+    pincoceP: any;
+    occupationP: any;
     Age: any;
-    AnnualIncome: any;
+    AnnualIncomeP: any;
     count: any;
     sumInsuredAmountLists: any;
     insuranceLists: any;
@@ -48,23 +48,21 @@ export class PersonalaccidentComponent implements OnInit {
     tabIndex: number;
     indexList: any;
     currentGroupName: any;
-    enquiryId: any;
+    enquiryIdP: any;
     changeSuninsuredAmount: any;
     personalPremiumLists: any;
     updateFlag: boolean;
     ageUpdateFlag: boolean;
     nonEditable: boolean;
-    updateData: any;
-    equiryId: any;
-    goupName: any;
-
+    annualerror: any;
+    ageerror: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService, public proposalservice: ProposalService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
         // this.settings.loadingSpinner = true
-        if (!sessionStorage.sideMenu) {
+        if (!sessionStorage.sideMenuP) {
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
@@ -73,7 +71,7 @@ export class PersonalaccidentComponent implements OnInit {
         this.pageSettings = 0;
         this.sumerror = false;
         this.pinerror = false;
-        this.Occupation = false;
+        this.occupationP = false;
         this.updateFlag = false;
         this.ageUpdateFlag = false;
         this.nonEditable = false;
@@ -100,6 +98,11 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     public keyPress(event: any) {
+        sessionStorage.pincoceP = this.pincoceP;
+        sessionStorage.occupationP = this.occupationP;
+        sessionStorage.AnnualIncomeP = this.AnnualIncomeP;
+        sessionStorage.setAge = this.Age;
+
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -108,43 +111,42 @@ export class PersonalaccidentComponent implements OnInit {
             }
         }
     }
-
+    painsurance(){
+        this.firstPage = true;
+        this.secondPage = false;
+    }
 // this function will get the session data
     sessionData() {
-        if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
-            this.selectedAmount = sessionStorage.setInsuredAmount;
+        if (sessionStorage.selectedAmountP != undefined && sessionStorage.selectedAmountP != '') {
+            this.selectedAmountP = sessionStorage.selectedAmountP;
         }
-        if (sessionStorage.setPincode != undefined && sessionStorage.setPincode != '') {
-            this.pincoce = sessionStorage.setPincode;
+        if (sessionStorage.pincoceP != undefined && sessionStorage.pincoceP != '') {
+            this.pincoceP = sessionStorage.pincoceP;
         }
         if (sessionStorage.setAge != undefined && sessionStorage.setAge) {
             this.Age = sessionStorage.setAge;
         }
-        if (sessionStorage.setAnnualIncome != undefined && sessionStorage.setAnnualIncome) {
-            this.AnnualIncome = sessionStorage.setAnnualIncome;
+        if (sessionStorage.AnnualIncomeP != undefined && sessionStorage.AnnualIncomeP) {
+            this.AnnualIncomeP = sessionStorage.AnnualIncomeP;
         }
-        if (sessionStorage.setOccupation != undefined && sessionStorage.setOccupation) {
-            this.Occupation = sessionStorage.setOccupation;
+        if (sessionStorage.occupationP != undefined && sessionStorage.occupationP) {
+            this.occupationP = sessionStorage.occupationP;
         }
-        if (sessionStorage.setPage != undefined && sessionStorage.setPage != '') {
-            this.pageSettings = sessionStorage.setPage;
-            if (sessionStorage.sideMenu) {
+        if (sessionStorage.setPageP != undefined && sessionStorage.setPageP != '') {
+            this.pageSettings = sessionStorage.setPageP;
+            if (sessionStorage.sideMenuP) {
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
             }
         }
 
-        if (sessionStorage.enquiryId != undefined && sessionStorage.enquiryId != '') {
-            this.enquiryId = sessionStorage.enquiryId;
+        if (sessionStorage.enquiryIdP != undefined && sessionStorage.enquiryIdP != '') {
+            this.enquiryIdP = sessionStorage.enquiryIdP;
         }
-        if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            this.personalPremiumLists = JSON.parse(sessionStorage.policyLists).value;
+        if (sessionStorage.personalPremiumLists != undefined && sessionStorage.personalPremiumLists != '') {
+            this.personalPremiumLists = JSON.parse(sessionStorage.personalPremiumLists);
 
-        }
-
-        if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
-            this.changeSuninsuredAmount = sessionStorage.changeSuninsuredAmount;
         }
 
 
@@ -181,19 +183,7 @@ export class PersonalaccidentComponent implements OnInit {
     checkNetwork() {
         if (this.sumInsuredAmountLists == 0) {
             this.toast.error("Unable to connect to the network");
-
         }
-    }
-
-    changeSuminsured(event) {
-        if (event.source.selected) {
-            this.updateFlag = true;
-        } else {
-            this.ageUpdateFlag = true;
-            this.updateFlag = false;
-        }
-        sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
-
     }
 
     setOccupationListCode() {
@@ -225,25 +215,7 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     changeAmount() {
-        sessionStorage.setInsuredAmount = this.selectedAmount;
-    }
-
-    pincode() {
-        sessionStorage.setPincode = this.pincoce;
-    }
-
-    occupationList() {
-        sessionStorage.setOccupation = this.Occupation;
-    }
-
-    annualincome() {
-        sessionStorage.setAnnualIncome = this.AnnualIncome;
-
-    }
-
-    ageChange() {
-
-        sessionStorage.setAge = this.Age;
+        sessionStorage.selectedAmountP = this.selectedAmountP;
     }
 
     getPersonalAccident() {
@@ -253,30 +225,45 @@ export class PersonalaccidentComponent implements OnInit {
             return false;
         }
 
-        if (this.selectedAmount == '' || this.selectedAmount == undefined) {
+        if (this.selectedAmountP == '' || this.selectedAmountP == undefined) {
             this.sumerror = true;
         } else {
             this.sumerror = false;
         }
-        if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
+        if (this.pincoceP == '' || this.pincoceP == undefined || this.pincoceP.length < 6) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
         }
-        if (this.Occupation == '' || this.Occupation == undefined) {
+        if (this.occupationP == '' || this.occupationP == undefined) {
             this.occerror = true;
         } else {
             this.occerror = false;
         }
-        if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
+        if (this.occupationP == '' || this.occupationP == undefined) {
+            this.occerror = true;
+        } else {
+            this.occerror = false;
+        }
+        if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined) {
+            this.annualerror = true;
+        } else {
+            this.annualerror = false;
+        }
+        if (this.Age == '' || this.Age == undefined) {
+            this.ageerror = true;
+        } else {
+            this.ageerror = false;
+        }
+        if (this.selectedAmountP != '' && this.selectedAmountP != undefined && this.pincoceP != '' && this.pincoceP != undefined) {
 
             const data = {
                 "platform": "web",
                 "insurance_type": "2",
-                "annual_salary": this.AnnualIncome,
-                "occupation_code": this.Occupation,
-                "postalcode": this.pincoce ? this.pincoce : '',
-                "sum_insured": this.selectedAmount,
+                "annual_salary": this.AnnualIncomeP,
+                "occupation_code": this.occupationP,
+                "postalcode": this.pincoceP ? this.pincoceP : '',
+                "sum_insured": this.selectedAmountP,
                 "created_by": "0",
                 "pos_status": "0",
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -302,12 +289,18 @@ export class PersonalaccidentComponent implements OnInit {
     public personalAccidentSuccess(successData, index) {
         console.log(successData.ResponseObject);
         this.personalPremiumLists = successData.ResponseObject;
+        sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
         console.log(this.personalPremiumLists, 'jhghfhjfhgfhgfjhyf');
         this.firstPage = false;
         this.secondPage = true;
-        sessionStorage.setPage = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
-        if (sessionStorage.setPage != 1) {
-            sessionStorage.sideMenu = true;
+        this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
+        this.enquiryIdP = this.personalPremiumLists.enquiry_id;
+        this.occupationP = this.personalPremiumLists.occupation_code;
+        this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
+
+        sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
+        if (sessionStorage.setPageP != 1) {
+            sessionStorage.sideMenuP = true;
             this.settings.HomeSidenavUserBlock = false;
             this.settings.sidenavIsOpened = false;
             this.settings.sidenavIsPinned = false;
@@ -326,8 +319,8 @@ export class PersonalaccidentComponent implements OnInit {
 
         const data = {
             'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': this.selectedAmount,
+            'postalcode': this.pincoceP,
+            'sum_insured': this.selectedAmountP,
             'family_details': [{
                 "type": "self",
                 "age": this.Age
@@ -354,8 +347,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     public updateSuccess(successData, index) {
         this.personalPremiumLists = successData.ResponseObject;
-        console.log(this.personalPremiumLists, '  this.personalPremiumLists');
-        sessionStorage.setItem('updateList', this.personalPremiumLists);
+        sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
     }
 
 
@@ -379,7 +371,7 @@ export class PersonalaccidentComponent implements OnInit {
             company_name: value.company_name,
             key_features: value.key_features
         };
-        this.equiryId = equiryId;
+        this.enquiryIdP = equiryId;
         this.personalPremiumLists.product_lists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
@@ -407,7 +399,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
 
     }
-    removeAllCompare(index) {
+    removeAllCompare() {
         for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
             this.personalPremiumLists.product_lists[i].compare = false;
         }
@@ -457,6 +449,13 @@ export class PersonalaccidentComponent implements OnInit {
         //     this.settings.loadingSpinner = false;
         // }
 
+
+    }
+    // buy details
+    buyDetails(value){
+        console.log(value);
+        sessionStorage.pAccidentProposalList =  JSON.stringify(value);
+        this.router.navigate(['/personalaccidentform']);
 
     }
 }

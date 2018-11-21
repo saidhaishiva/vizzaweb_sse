@@ -39,6 +39,8 @@ export const MY_FORMATS = {
 export class PersonalaccidentformComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
+    public insured: FormGroup;
+
     public nomineeDetails: FormGroup;
     public items: FormArray;
     public setDate: any;
@@ -111,7 +113,14 @@ export class PersonalaccidentformComponent implements OnInit {
     array: any;
     public familyMember: any;
     buyProductdetail: any;
-
+    insureName: any;
+    insuredob: any;
+    gender: any;
+    sameFieldsInsure: any;
+    sameinsure: any;
+    ipersonalCitys: any;
+    insurerResponse: any;
+    iresidenceCitys: any;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -131,6 +140,8 @@ export class PersonalaccidentformComponent implements OnInit {
         this.mobileNumber = 'true';
         this.inputReadonly = false;
         this.sameField = false;
+        this.sameFieldsInsure = false;
+        this.sameinsure = false;
         this.isDisable = false;
         this.insureCity = false;
         this.proposerInsureData = [];
@@ -159,7 +170,38 @@ export class PersonalaccidentformComponent implements OnInit {
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceState: ['', Validators.required],
-            sameas: false,
+            sameAsProposer: false,
+            rolecd: 'PROPOSER',
+            type: '',
+            medical_status: 'No'
+
+        });
+        //
+        this.insured = this.fb.group({
+            insuredTitle: ['', Validators.required],
+            insuredFirstname: new FormControl(''),
+            insuredLastname: ['', Validators.required],
+            insuredGender: ['', Validators.compose([Validators.required])],
+            insuredDob: ['', Validators.compose([Validators.required])],
+            insuredrelationship: 'SELF',
+            insuredAadhar: ['', Validators.compose([Validators.minLength(12)])],
+            insuredPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+            insuredGst: ['', Validators.compose([Validators.minLength(15)])],
+            insuredAddress: ['', Validators.required],
+            insuredAddress2: ['', Validators.required],
+            insuredPincode: ['', Validators.required],
+            insuredCity: ['', Validators.required],
+            insuredState: ['', Validators.required],
+            insuredEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            insuredMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            insuredAltnumber: '',
+            insuredrAddress: ['', Validators.required],
+            insuredrAddress2: [''],
+            insuredrPincode: ['', Validators.required],
+            insuredrCity: ['', Validators.required],
+            insuredrState: ['', Validators.required],
+            sameAsinsureProposer: false,
+            sameasInsuredAddress: false,
             rolecd: 'PROPOSER',
             type: '',
             medical_status: 'No'
@@ -182,738 +224,23 @@ export class PersonalaccidentformComponent implements OnInit {
             this.personal.controls['personalGender'].patchValue('Female');
         }
     }
-
-
-    ngOnInit() {
-        this.buyProductdetail = {
-            "product_id": "6",
-            "product_name": "Mediclassic Individual",
-            "premium_id": "1995",
-            "premium_amount": "5080.00",
-            "scheme": "1A",
-            "suminsured_amount": "500000.00",
-            "tenure": "1",
-            "suminsured_id": "5",
-            "prod_shortform": "MCINEW",
-            "company_logo": "api/assets/images/starhealth_logo.png",
-            "company_name": "Star Health",
-            "type_name": "Health",
-            "indiv_shortlist_status": false,
-            "shortlist_status": false,
-            "key_features": [{
-                "key_features_name": "Copay",
-                "key_features_value": "No-Cap*",
-                "kf_info": "",
-                "key_feature_status": "1"
-            }, {
-                "key_features_name": "Room Rent",
-                "key_features_value": "Rs.5,000/day",
-                "kf_info": "",
-                "key_feature_status": "1"
-            }, {
-                "key_features_name": "Pre Existing Disease",
-                "key_features_value": "Covered after 48 months",
-                "kf_info": "",
-                "key_feature_status": "1"
-            }, {
-                "key_features_name": "Pre Hospitalization",
-                "key_features_value": "Up to 30 days",
-                "kf_info": "",
-                "key_feature_status": "1"
-            }, {
-                "key_features_name": "Post Hospitalization",
-                "key_features_value": "Up to 60 days",
-                "kf_info": "",
-                "key_feature_status": "1"
-            }],
-            "compare": false,
-            "shortlist": false
-        }
-        this.setOccupationListCode();
-        this.setOccupationList();
-        this.setRelationship();
-        this.getFamilyDetail = {
-            "name": "Group A",
-            "postal_code": "608001",
-            "insurance_type": "1",
-            "purchase_status": "0",
-            "product_lists": [{
-                "product_id": "1",
-                "product_name": "Care V2",
-                "premium_id": "2",
-                "premium_amount": "3739.00",
-                "scheme": "1A",
-                "suminsured_amount": "300000.00",
-                "tenure": "1",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "20%",
-                    "kf_info": "",
-                    "key_feature_status": "0"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Acc. To SI**",
-                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "2 Years waiting period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "1",
-                "product_name": "Care V2",
-                "premium_id": "13",
-                "premium_amount": "4187.00",
-                "scheme": "1A",
-                "suminsured_amount": "400000.00",
-                "tenure": "1",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "20%",
-                    "kf_info": "",
-                    "key_feature_status": "0"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Acc. To SI**",
-                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "2 Years waiting period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "1",
-                "product_name": "Care V2",
-                "premium_id": "24",
-                "premium_amount": "5140.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000.00",
-                "tenure": "1",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "20%",
-                    "kf_info": "",
-                    "key_feature_status": "0"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Acc. To SI**",
-                    "kf_info": "1. If SI is 3-4 L - 1% of SI\r\n2. If SI is 5-10 L - Single Private Room.\r\n3. If SI is 15-75 L - Single Private Room, Upgradable to next level",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "2 Years waiting period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "6",
-                "product_name": "Mediclassic Individual",
-                "premium_id": "1975",
-                "premium_amount": "4000.00",
-                "scheme": "1A",
-                "suminsured_amount": "300000.00",
-                "tenure": "1",
-                "suminsured_id": "3",
-                "prod_shortform": "MCINEW",
-                "company_logo": "api/assets/images/starhealth_logo.png",
-                "company_name": "Star Health",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No-Cap*",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Rs.5,000/day",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Covered after 48 months",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "6",
-                "product_name": "Mediclassic Individual",
-                "premium_id": "1985",
-                "premium_amount": "4515.00",
-                "scheme": "1A",
-                "suminsured_amount": "400000.00",
-                "tenure": "1",
-                "suminsured_id": "4",
-                "prod_shortform": "MCINEW",
-                "company_logo": "api/assets/images/starhealth_logo.png",
-                "company_name": "Star Health",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No-Cap*",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Rs.5,000/day",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Covered after 48 months",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "6",
-                "product_name": "Mediclassic Individual",
-                "premium_id": "1995",
-                "premium_amount": "5080.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000.00",
-                "tenure": "1",
-                "suminsured_id": "5",
-                "prod_shortform": "MCINEW",
-                "company_logo": "api/assets/images/starhealth_logo.png",
-                "company_name": "Star Health",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No-Cap*",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Rs.5,000/day",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Covered after 48 months",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "9",
-                "product_name": "Star Comprehensive Individual",
-                "premium_id": "3210",
-                "premium_amount": "7015.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000.00",
-                "tenure": "1",
-                "suminsured_id": "1",
-                "prod_shortform": "COMPREHENSIVEIND",
-                "company_logo": "api/assets/images/starhealth_logo.png",
-                "company_name": "Star Health",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No-Cap*",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Unlimited",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Covered after 48 months",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "11",
-                "product_name": "Health Gain",
-                "premium_id": "3254",
-                "premium_amount": "4700.00",
-                "scheme": "1A",
-                "suminsured_amount": "300000.00",
-                "tenure": "1",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/reliance_logo.png",
-                "company_name": "Reliance",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "Nil*",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "36 months waiting period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "4",
-                "product_name": "Joy Today",
-                "premium_id": "3640",
-                "premium_amount": "60080.51",
-                "scheme": "1A",
-                "suminsured_amount": "500000.00",
-                "tenure": "3",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "Nil*",
-                    "kf_info": "* 20% after 61 years",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Private AC room",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "4 years waitng period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "4",
-                "product_name": "Joy Today",
-                "premium_id": "3643",
-                "premium_amount": "43824.58",
-                "scheme": "1A",
-                "suminsured_amount": "300000.00",
-                "tenure": "3",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "Nil*",
-                    "kf_info": "* 20% after 61 years",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Private AC room",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "4 years waitng period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "5",
-                "product_name": "Joy Tomorrow",
-                "premium_id": "3646",
-                "premium_amount": "20775.42",
-                "scheme": "1A",
-                "suminsured_amount": "500000.00",
-                "tenure": "1",
-                "suminsured_id": null,
-                "prod_shortform": null,
-                "company_logo": "api/assets/images/religare_logo.png",
-                "company_name": "Religare",
-                "type_name": "Health",
-                "indiv_shortlist_status": false,
-                "shortlist_status": false,
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "Nil*",
-                    "kf_info": "* 20% after 61 years",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Upto 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Room Rent",
-                    "key_features_value": "Private AC room",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Upto 60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "4 years waitng period",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "12",
-                "product_code": "11119",
-                "product_name": "Optima Restore Individual One Year ",
-                "premium_id": "",
-                "premium_amount": "6755.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000",
-                "tenure": 1,
-                "suminsured_id": "",
-                "prod_shortform": "Optima Restore Individual One Year ",
-                "company_logo": "api/assets/images/apollo_munich_logo.png",
-                "company_name": "Apollo Munich",
-                "type_name": "Helth",
-                "indiv_shortlist_status": "",
-                "shortlist_status": "",
-                "SACCode": 1,
-                "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "7970.90",
-                "TaxAmount": "1215.90",
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Up to 3 years",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "60 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "180 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "13",
-                "product_code": "11300",
-                "product_name": "Health Wallet Individual",
-                "premium_id": "",
-                "premium_amount": "10906.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000",
-                "tenure": 1,
-                "suminsured_id": "",
-                "prod_shortform": "Health Wallet Individual",
-                "company_logo": "api/assets/images/apollo_munich_logo.png",
-                "company_name": "Apollo Munich",
-                "type_name": "Helth",
-                "indiv_shortlist_status": "",
-                "shortlist_status": "",
-                "SACCode": 1,
-                "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "12869.08",
-                "TaxAmount": "1963.08",
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Up to 3 years",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 90 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "13",
-                "product_code": "11410",
-                "product_name": "Health Wallet Individual 2 Lacs Deductible",
-                "premium_id": "",
-                "premium_amount": "8168.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000",
-                "tenure": 1,
-                "suminsured_id": "",
-                "prod_shortform": "Health Wallet Individual 2 Lacs Deductible",
-                "company_logo": "api/assets/images/apollo_munich_logo.png",
-                "company_name": "Apollo Munich",
-                "type_name": "Helth",
-                "indiv_shortlist_status": "",
-                "shortlist_status": "",
-                "SACCode": 1,
-                "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "9638.24",
-                "TaxAmount": "1470.24",
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Up to 3 years",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 90 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }, {
-                "product_id": "13",
-                "product_code": "11411",
-                "product_name": "Health Wallet Individual 3 Lacs Deductible",
-                "premium_id": "",
-                "premium_amount": "7548.00",
-                "scheme": "1A",
-                "suminsured_amount": "500000",
-                "tenure": 1,
-                "suminsured_id": "",
-                "prod_shortform": "Health Wallet Individual 3 Lacs Deductible",
-                "company_logo": "api/assets/images/apollo_munich_logo.png",
-                "company_name": "Apollo Munich",
-                "type_name": "Helth",
-                "indiv_shortlist_status": "",
-                "shortlist_status": "",
-                "SACCode": 1,
-                "DiscountAmount": "0.00",
-                "GrossPremiumAmount": "8906.64",
-                "TaxAmount": "1358.64",
-                "key_features": [{
-                    "key_features_name": "Copay",
-                    "key_features_value": "No",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Existing Disease",
-                    "key_features_value": "Up to 3 years",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Pre Hospitalization",
-                    "key_features_value": "Up to 30 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }, {
-                    "key_features_name": "Post Hospitalization",
-                    "key_features_value": "Up to 90 days",
-                    "kf_info": "",
-                    "key_feature_status": "1"
-                }]
-            }],
-            "selected_tab_index": 0,
-            "family_members": [{
-                "type": "Self",
-                "age": "25"
-            }],
-            "enquiry_id": 90,
-            "group_suminsured_id": "4-6"
-        }
-        if (this.familyMember == '' || this.familyMember == undefined) {
-            this.groupList();
+    insurechangeGender() {
+        if (this.insured.controls['insuredTitle'].value == 'MR') {
+            this.insured.controls['insuredGender'].patchValue('Male');
         } else {
-            this.familyMember = [{
-                "type": "Self",
-                "age": "25",
-                "ins_name": "asdd",
-                "ins_dob": "1995-09-20",
-                "ins_gender": "Male",
-                "ins_illness": "No",
-                "ins_weight": "78",
-                "ins_height": "167",
-                "ins_occupation_id": "2",
-                "ins_relationship": "1",
-                "ins_hospital_cash": "1",
-                "ins_engage_manual_labour": "None",
-                "ins_engage_winter_sports": "None",
-                "ins_personal_accident_applicable": "0",
-                "ins_suminsured_indiv": "5",
-                "engage_manual_status": "0",
-                "engage_winter_status": "0",
-                "ageRestriction": "",
-                "ins_age": 23,
-                "illness": "false"
-            }]
-        }
-        for (let i = 0; i < this.familyMember.length; i++) {
-            if (this.familyMember[i].type == 'Spouse') {
-                this.familyMember[i].ins_gender = 'Female';
-            }
-            else if (this.familyMember[i].type == 'Son') {
-                this.familyMember[i].ins_gender = 'Male';
-            }
-            else if (this.familyMember[i].type == 'Daughter') {
-                this.familyMember[i].ins_gender = 'Female';
-            }
-            else if (this.familyMember[i].type == 'Father') {
-                this.familyMember[i].ins_gender = 'Male';
-            }
-            else if (this.familyMember[i].type == 'Mother') {
-                this.familyMember[i].ins_gender = 'Female';
-            }
-            else if (this.familyMember[i].type == 'Father In Law') {
-                this.familyMember[i].ins_gender = 'Male';
-            }
-            else if (this.familyMember[i].type == 'Mother In Law') {
-                this.familyMember[i].ins_gender = 'Female';
-            }
-            else if (this.familyMember[i].type == 'Brother') {
-                this.familyMember[i].ins_gender = 'Male';
-            }
-            else if (this.familyMember[i].type == 'Sister') {
-                this.familyMember[i].ins_gender = 'Female';
-            }
+            this.insured.controls['insuredGender'].patchValue('Female');
         }
     }
 
 
+    ngOnInit() {
+        this.setOccupationListCode();
+        this.setOccupationList();
+        this.setRelationship();
+        this.getFamilyDetail = JSON.parse(sessionStorage.pAccidentProposalList);
+        console.log(this.getFamilyDetail, 'this.getFamilyDetail');
+        this.sessionData();
+    }
     setStep(index: number) {
         this.step = index;
     }
@@ -921,59 +248,113 @@ export class PersonalaccidentformComponent implements OnInit {
     prevStep() {
         this.step--;
     }
+// session
+    sessionData() {
+        if (sessionStorage.proposal1Detail != '' && sessionStorage.proposal1Detail != undefined) {
+            console.log(JSON.parse(sessionStorage.proposal1Detail), 'sessionStorage.proposal1Detail');
+            this.getStepper1 = JSON.parse(sessionStorage.proposal1Detail);
+            this.personal = this.fb.group({
+                personalTitle: this.getStepper1.personalTitle,
+                personalFirstname: this.getStepper1.personalFirstname,
+                personalLastname: this.getStepper1.personalLastname,
+                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
+                personalArea: this.getStepper1.personalArea,
+                residenceArea: this.getStepper1.residenceArea,
+                personalAadhar: this.getStepper1.personalAadhar,
+                personalrelationship: this.getStepper1.personalrelationship,
+                sameAsProposer: this.getStepper1.sameAsProposer,
+                personalGender: this.getStepper1.personalGender,
+                personalPan: this.getStepper1.personalPan.toUpperCase(),
+                personalGst: this.getStepper1.personalGst,
+                personalAddress: this.getStepper1.personalAddress,
+                personalAddress2: this.getStepper1.personalAddress2,
+                personalPincode: this.getStepper1.personalPincode,
+                personalCity: this.getStepper1.personalCity,
+                personalState: this.getStepper1.personalState,
+                personalEmail: this.getStepper1.personalEmail,
+                personalMobile: this.getStepper1.personalMobile,
+                personalAltnumber: this.getStepper1.personalAltnumber,
+                personalWeight: this.getStepper1.personalWeight,
+                personalHeight: this.getStepper1.personalHeight,
+                residenceAddress: this.getStepper1.residenceAddress,
+                residenceAddress2: this.getStepper1.residenceAddress2,
+                residencePincode: this.getStepper1.residencePincode,
+                residenceCity: this.getStepper1.residenceCity,
+                residenceState: this.getStepper1.residenceState,
+                rolecd: this.getStepper1.rolecd,
+                relationshipcd: this.getStepper1.relationshipcd
+            });
 
-
-    groupList() {
-        this.familyMember = this.getFamilyDetail.family_members;
-        console.log(this.familyMember);
-        for (let i = 0; i < this.familyMember.length; i++) {
-            this.familyMember[i].ins_name = '';
-            this.familyMember[i].ins_dob = '';
-            this.familyMember[i].ins_gender = '';
-            this.familyMember[i].ins_illness = 'No';
-            this.familyMember[i].ins_weight = '';
-            this.familyMember[i].ins_height = '';
-            this.familyMember[i].ins_occupation_id = '';
-            // this.familyMembers[i].insurincome = '';
-            this.familyMember[i].ins_relationship = '';
-            this.familyMember[i].ins_hospital_cash = '1';
-            this.familyMember[i].ins_engage_manual_labour = 'None';
-            this.familyMember[i].ins_engage_winter_sports = 'None';
-            this.familyMember[i].ins_personal_accident_applicable = '0';
-            this.familyMember[i].ins_suminsured_indiv = this.buyProductdetail.suminsured_id;
-            this.familyMember[i].engage_manual_status = '0';
-            this.familyMember[i].engage_winter_status = '0';
-            this.familyMember[i].ageRestriction = '';
         }
+        if (sessionStorage.proposal2Detail != '' && sessionStorage.proposal2Detail != undefined) {
+            console.log(JSON.parse(sessionStorage.proposal1Detail), 'sessionStorage.proposal2Detail');
+            this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
+            this.personal = this.fb.group({
+                insuredTitle: this.getStepper2.insuredTitle,
+                insuredFirstname: this.getStepper2.insuredFirstname,
+                insuredLastname: this.getStepper2.insuredLastname,
+                insuredDob: this.getStepper2.insuredDob,
+                insuredArea: this.getStepper2.insuredArea,
+                insuredAadhar: this.getStepper2.insuredAadhar,
+                insuredrelationship: this.getStepper2.insuredrelationship,
+                sameAsinsureProposer: this.getStepper2.sameAsinsureProposer,
+                insuredGender: this.getStepper2.insuredGender,
+                insuredPan: this.getStepper2.insuredPan.toUpperCase(),
+                insuredGst: this.getStepper2.insuredGst,
+                insuredAddress: this.getStepper2.insuredAddress,
+                insuredAddress2: this.getStepper2.insuredAddress2,
+                insuredPincode: this.getStepper2.insuredPincode,
+                insuredCity: this.getStepper2.insuredCity,
+                insuredState: this.getStepper2.insuredState,
+                insuredEmail: this.getStepper2.insuredEmail,
+                insuredMobile: this.getStepper2.insuredMobile,
+                insuredAltnumber: this.getStepper2.insuredAltnumber,
+                insuredWeight: this.getStepper2.insuredWeight,
+                insuredHeight: this.getStepper2.insuredHeight,
+                insuredrAddress: this.getStepper2.insuredrAddress,
+                insuredrAddress2: this.getStepper2.insuredrAddress2,
+                insuredrPincode: this.getStepper2.insuredrPincode,
+                insuredrCity: this.getStepper2.insuredrCity,
+                insuredrState: this.getStepper2.insuredrState,
+                rolecd: this.getStepper2.rolecd,
+                relationshipcd: this.getStepper2.relationshipcd
+            });
 
+        }
     }
 
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        stepper.next();
-        // this.personalData = value;
-        // console.log(this.personalData, 'dfgdfg');
-        // this.personalData.rolecd = 'PROPOSER';
-        // this.personalData.type = 'SELF';
-        // sessionStorage.stepper1Details = '';
-        // sessionStorage.stepper1Details = JSON.stringify(value);
-        // console.log(value.personalDob, 'value');
-        // if (this.personal.valid) {
-        //
-        //     this.proposerInsureData = [];
-        //     if (sessionStorage.proposerAge >= 18) {
-        //         this.proposerInsureData.push(this.personalData);
-        //         if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-        //             stepper.next();
-        //         }
-        //
-        //     } else {
-        //         this.toastr.error('Proposer age should be 18 or above');
-        //     }
-        // }
-    }
+        this.personalData = value;
+        console.log(this.personalData, 'dfgdfg');
+        this.personalData.rolecd = 'PROPOSER';
+        this.personalData.type = 'SELF';
+        sessionStorage.proposal1Detail = '';
+        sessionStorage.proposal1Detail = JSON.stringify(value);
+        console.log(value.personalDob, 'value');
+        if (this.personal.valid) {
 
+            this.proposerInsureData = [];
+            if (sessionStorage.proposerAge >= 18) {
+                this.proposerInsureData.push(this.personalData);
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+                }
+
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
+// insured details
+    InsureDetails(stepper: MatStepper, value) {
+        console.log(value, 'fffff');
+        sessionStorage.proposal2Detail = '';
+        sessionStorage.proposal2Detail = JSON.stringify(value);
+        stepper.next();
+
+    }
 
     sameAddress(values: any) {
         this.sameField = values.checked;
@@ -996,6 +377,90 @@ export class PersonalaccidentformComponent implements OnInit {
 
         }
     }
+    // insured
+    insuredsameAddress(values: any) {
+        this.sameinsure = values.checked;
+        if (values.checked) {
+            this.inputReadonly = true;
+            console.log(values.checked);
+            this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
+            this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
+            this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
+            this.insured.controls['insuredrPincode'].patchValue(this.insured.controls['insuredPincode'].value);
+            this.insured.controls['insuredrState'].patchValue(this.insured.controls['insuredState'].value);
+
+        } else {
+            this.inputReadonly = false;
+            this.insured.controls['insuredrAddress'].patchValue('');
+            this.insured.controls['insuredrAddress2'].patchValue('');
+            this.insured.controls['insuredrCity'].patchValue('');
+            this.insured.controls['insuredrPincode'].patchValue('');
+            this.insured.controls['insuredrState'].patchValue('');
+
+        }
+    }
+    //sameaddress\
+    sameProposer(value: any) {
+        if (value.checked) {
+            // this.insured.controls[''].cityHide.patchValue(true);
+            // this.insured.controls['']pCityHide.patchValue(true);
+            this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
+            this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);
+            this.insured.controls['insuredLastname'].patchValue(this.personal.controls['personalLastname'].value);
+            this.insured.controls['insuredDob'].patchValue(this.personal.controls['personalDob'].value);
+            this.insured.controls['insuredAadhar'].patchValue(this.personal.controls['personalAadhar'].value);
+            this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
+            this.insured.controls['insuredGender'].patchValue(this.personal.controls['personalGender'].value);
+            this.insured.controls['insuredPan'].patchValue(this.personal.controls['personalPan'].value.toUpperCase());
+            this.insured.controls['insuredGst'].patchValue(this.personal.controls['personalGst'].value);
+            this.insured.controls['insuredAddress'].patchValue(this.personal.controls['personalAddress'].value);
+            this.insured.controls['insuredAddress2'].patchValue(this.personal.controls['personalAddress2'].value);
+            this.insured.controls['insuredCity'].patchValue(this.personal.controls['personalCity'].value);
+            this.insured.controls['insuredPincode'].patchValue(this.personal.controls['personalPincode'].value);
+            this.insured.controls['insuredState'].patchValue(this.personal.controls['personalState'].value);
+            this.insured.controls['insuredEmail'].patchValue(this.personal.controls['personalEmail'].value);
+            this.insured.controls['insuredMobile'].patchValue(this.personal.controls['personalMobile'].value);
+            this.insured.controls['insuredAltnumber'].patchValue(this.personal.controls['personalAltnumber'].value);
+            this.insured.controls['insuredHeight'].patchValue(this.personal.controls['personalHeight'].value);
+            this.insured.controls['insuredWeight'].patchValue(this.personal.controls['personalWeight'].value);
+            this.insured.controls['insuredrAddress'].patchValue(this.personal.controls['residenceAddress'].value);
+            this.insured.controls['insuredrAddress2'].patchValue(this.personal.controls['residenceAddress2'].value);
+            this.insured.controls['insuredrCity'].patchValue(this.personal.controls['residenceCity'].value);
+            this.insured.controls['insuredrPincode'].patchValue(this.personal.controls['residencePincode'].value);
+            this.insured.controls['insuredrState'].patchValue(this.personal.controls['residenceState'].value);
+            this.insured.controls['insuredrolecd'].patchValue('PRIMARY');
+
+        }
+        else{
+            this.insured.controls['insuredTitle'].patchValue('');
+            this.insured.controls['insuredFirstname'].patchValue('');
+            this.insured.controls['insuredLastname'].patchValue('');
+            this.insured.controls['insuredDob'].patchValue('');
+            this.insured.controls['insuredAadhar'].patchValue('');
+            this.insured.controls['insuredrelationship'].patchValue('');
+            this.insured.controls['insuredGender'].patchValue('');
+            this.insured.controls['insuredPan'].patchValue('');
+            this.insured.controls['insuredGst'].patchValue('');
+            this.insured.controls['insuredAddress'].patchValue('');
+            this.insured.controls['insuredAddress2'].patchValue('');
+            this.insured.controls['insuredCity'].patchValue('');
+            this.insured.controls['insuredPincode'].patchValue('');
+            this.insured.controls['insuredState'].patchValue('');
+            this.insured.controls['insuredEmail'].patchValue('');
+            this.insured.controls['insuredMobile'].patchValue('');
+            this.insured.controls['insuredAltnumber'].patchValue('');
+            this.insured.controls['insuredHeight'].patchValue('');
+            this.insured.controls['insuredWeight'].patchValue('');
+            this.insured.controls['insuredrAddress'].patchValue('');
+            this.insured.controls['insuredrAddress2'].patchValue('');
+            this.insured.controls['insuredrCity'].patchValue('');
+            this.insured.controls['insuredrPincode'].patchValue('');
+            this.insured.controls['insuredrState'].patchValue('');
+            this.insured.controls['insuredrolecd'].patchValue('');
+
+        }
+    }
+
 
 // only numbers can accept
     public onNumber(event: any) {
@@ -1237,11 +702,74 @@ export class PersonalaccidentformComponent implements OnInit {
             }
         }
     }
-
-
     public getpostalFailure(error) {
         console.log(error);
     }
+
+// insure postal
+//     insuregetPostal(pin, title) {
+//         this.pin = pin;
+//         this.title = title;
+//         console.log(this.title, 'kjhjkghkhk')
+//         const data = {
+//             'platform': 'web',
+//             'user_id': '0',
+//             'role_id': '4',
+//             'pincode': this.pin
+//         }
+//         if (this.pin.length == 6) {
+//             this.proposalservice.getPostalReligare(data).subscribe(
+//                 (successData) => {
+//                     this.insuregetpostalSuccess(successData);
+//                 },
+//                 (error) => {
+//                     this.insuregetpostalFailure(error);
+//                 }
+//             );
+//         }
+//     }
+//
+//     public insuregetpostalSuccess(successData) {
+//
+//
+//         if (this.title == 'personal') {
+//             this.ipersonalCitys = [];
+//             this.response = successData.ResponseObject;
+//             if (successData.IsSuccess) {
+//
+//                 this.insured.controls['insuredState'].setValue(this.response[0].state);
+//                 for (let i = 0; i < this.response.length; i++) {
+//                     this.ipersonalCitys.push({city: this.response[i].city});
+//                 }
+//             } else if (successData.IsSuccess != true) {
+//
+//                 this.insured.controls['insuredState'].setValue('');
+//                 for (let i = 0; i < this.response.length; i++) {
+//                     this.ipersonalCitys.push({city: this.response[i].city = ''});
+//                 }
+//                 this.toastr.error('In valid Pincode');
+//             }
+//         }
+//         if (this.title == 'residence') {
+//             this.iresidenceCitys = [];
+//             this.insurerResponse = successData.ResponseObject;
+//             if (successData.IsSuccess) {
+//                 this.insured.controls['insuredrState'].setValue(this.rResponse[0].state);
+//                 for (let i = 0; i < this.rResponse.length; i++) {
+//                     this.residenceCitys.push({city: this.rResponse[i].city});
+//                 }
+//             } else if (successData.IsSuccess != true) {
+//                 this.insured.controls['insuredrState'].setValue('');
+//                 for (let i = 0; i < this.rResponse.length; i++) {
+//                     this.residenceCitys.push({city: this.rResponse[i].city = ''});
+//                 }
+//                 this.toastr.error('In valid Pincode');
+//             }
+//         }
+//     }
+//     public insuregetpostalFailure(error) {
+//         console.log(error);
+//     }
 
 
 //summary city detail
@@ -1364,7 +892,7 @@ export class PersonalaccidentformComponent implements OnInit {
         //this.relationshipLists = this.relationshipList.name;
 
         this.insureRelationList = [];
-        if (this.insurePersons.length > 1) {
+        if (this.insurePersons.length >= 1) {
             for (let i = 0; i < this.relationshipList.length; i++) {
                 if (this.relationshipList[i].status == 1) {
                     this.insureRelationList.push({
@@ -1436,131 +964,9 @@ export class PersonalaccidentformComponent implements OnInit {
 
     }
 
-// insured details
-    InsureDetails(stepper: MatStepper, index, key) {
-        stepper.next();
 
-    }
 
-    //     sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
-    //     // if (this.ageRestriction == '') {
-    //     this.illnesStatus = false;
-    //     this.insureStatus = false;
-    //     console.log(this.familyMembers, 'ghdfkljghdfkljghkldfjghdfkljgh');
-    //
-    //
-    //     if (key == 'Insured Details') {
-    //         for (let i = 0; i < this.familyMembers.length; i++) {
-    //             if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
-    //                 this.errorMessage = false;
-    //                 if (this.familyMembers[i].ins_illness != 'No') {
-    //                     if (this.familyMembers[i].ins_illness == '') {
-    //                         this.illnesStatus = true;
-    //                         break;
-    //                     }
-    //
-    //                 } else {
-    //                     this.illnesStatus = false;
-    //                 }
-    //             } else {
-    //                 this.errorMessage = true;
-    //                 break;
-    //             }
-    //         }
-    //         if (this.errorMessage) {
-    //             this.toastr.error('Please fill the empty fields', key);
-    //         } else if (this.illnesStatus) {
-    //             this.toastr.error('Please fill the empty fields', key);
-    //         } else if (this.illnesStatus == false) {
-    //             for (let i = 0; i < this.familyMembers.length; i++) {
-    //                 if (this.buyProductdetails.product_id == 6) {
-    //                     this.insureStatus = false;
-    //                     if (this.familyMembers[i].ins_hospital_cash != '') {
-    //                         if (i == this.familyMembers.length - 1) {
-    //                             this.insureStatus = true;
-    //                         }
-    //                     } else {
-    //                         this.errorMessage = true;
-    //                         break;
-    //                     }
-    //
-    //                 } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
-    //                     this.errorMessage = false;
-    //                     this.insureStatus = false;
-    //                     this.previousInsurence = [];
-    //                     for (let i = 0; i < this.familyMembers.length; i++) {
-    //                         this.previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
-    //                     }
-    //
-    //
-    //                     if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
-    //                         if (!this.previousInsurence.includes('2')) {
-    //                             this.insureStatus = false;
-    //                             this.toastr.error('You need to select one adult for personal accident cover');
-    //                             break;
-    //                         }
-    //
-    //
-    //                     } else {
-    //                         if (i == this.familyMembers.length - 1) {
-    //                             this.insureStatus = true;
-    //                         }
-    //                     }
-    //                     if (this.familyMembers[i].engage_manual_status == '2') {
-    //                         if (this.familyMembers[i].ins_engage_manual_labour != '') {
-    //                             if (i == this.familyMembers.length - 1) {
-    //                                 this.insureStatus = true;
-    //                             }
-    //                         } else {
-    //                             this.errorMessage = true;
-    //                             this.insureStatus = false;
-    //                             break;
-    //                         }
-    //
-    //                     }  if (this.familyMembers[i].engage_winter_status == '2') {
-    //                         if (this.familyMembers[i].ins_engage_winter_sports != '') {
-    //                             if (i == this.familyMembers.length - 1) {
-    //                                 this.insureStatus = true;
-    //                             }
-    //                         } else {
-    //                             this.errorMessage = true;
-    //                             this.insureStatus = false;
-    //                             break;
-    //                         }
-    //                     } if (this.familyMembers[i].engage_manual_status == '0' && this.familyMembers[i].engage_winter_status == '0' ) {
-    //                         if (i == this.familyMembers.length - 1) {
-    //                             this.insureStatus = true;
-    //                         }
-    //                     }
-    //                 } else {
-    //                     this.insureStatus = true;
-    //                 }
-    //             }
-    //         } else {
-    //
-    //         }
-    //     }
-    //     if (this.errorMessage) {
-    //         this.toastr.error('Please fill the empty fields', key);
-    //     }
-    //     console.log(this.ageRestriction, 'ageRestriction');
-    //
-    //     if (this.insureStatus) {
-    //         if (this.ageRestriction == '') {
-    //             stepper.next();
-    //         }
-    //         if (this.ageRestriction == 'true') {
-    //             stepper.next();
-    //         }
-    //
-    //
-    //     }
-    //
-    //     console.log(this.errorMessage, 'errorMessage');
-    //     console.log(this.insureStatus, 'insureStatus');
-    //     console.log(this.illnesStatus, 'illnesStatus');
-    //
-    // }
+
 
 // Medical
     medicalHistoryDetails(stepper: MatStepper) {
