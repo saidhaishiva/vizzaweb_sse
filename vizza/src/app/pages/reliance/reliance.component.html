@@ -472,11 +472,6 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Previous Policy No" formControlName="PreviousPolNo"  (keypress)="add($event)"  autocomplete="off">
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <mat-form-field class="w-100">
                                                         <mat-select  placeholder="Cover Type" formControlName="CoverTypeID"  class="w-100">
                                                             <mat-option *ngFor="let list of coverTypeList" [value]= 'list.covertype_id'> {{list.covertype}} </mat-option>
                                                         </mat-select>
