@@ -18,19 +18,19 @@
                     <div class="row">
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()">
-                            <mat-option value="MR">Mr</mat-option>
-                            <mat-option value="MS">Ms</mat-option>
-                            <!--<mat-option value="MRS">Mrs</mat-option>-->
-                          </mat-select>
-                          <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
+                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()">
+                                <mat-option value="MR">Mr</mat-option>
+                                <mat-option value="MS">Ms</mat-option>
+                                <!--<mat-option value="MRS">Mrs</mat-option>-->
+                            </mat-select>
+                            <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
-                          <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
+                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
@@ -401,6 +401,66 @@
           </mat-accordion>
         </mat-step>
 
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+              <mat-accordion class="mt-4 w-100 float-left ">
+                  <mat-expansion-panel expanded>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                              {{groupName}}
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                      <div class="row mt-3">
+                          <div class="col-md-12 box-card pt-3 pb-3" >
+                              <h6 class="color-green mb-3" >MEDICAL HISTORY </h6>
+
+                              <mat-accordion class="question-panel">
+                                  <mat-expansion-panel *ngFor="let item of religareQuestionsList; let i = index" [disabled]="item.answer_status == false" [expanded]="item.answer_status">
+
+                                      <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                              {{item.main_question}}
+                                          </mat-panel-title>
+                                          <mat-panel-description>
+                                              <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                                          </mat-panel-description>
+                                      </mat-expansion-panel-header>
+                                      <table class="qesTable able table-striped mt-3">
+                                          <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
+                                              <td width="50%" *ngIf="item.display_question == '1'">
+                                                  {{j + 1}}) {{subQes.question_details.question_description}}
+                                              </td>
+                                              <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
+                                              </mat-checkbox>
+                                                  <section class="w-100" *ngIf="fGroup.status">
+                                                      <div class="w-100" *ngIf="subQes.question_details.checkbox == '1'"><mat-form-field>
+                                                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since"  [(ngModel)]="fGroup.existingSince" (keypress)="dobkeyPress($event)" autocomplete="off">
+                                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                          <mat-datepicker #picker></mat-datepicker>
+                                                      </mat-form-field></div>
+                                                      <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
+                                                          <textarea matInput placeholder="other Description"  [(ngModel)]="fGroup.diseasesDescription"></textarea>
+                                                      </mat-form-field></div>
+                                                  </section>
+                                              </td>
+                                          </tr>
+                                      </table>
+                                  </mat-expansion-panel>
+                              </mat-accordion>
+                              <div class="proposal-buttom mt-3 text-right w-100">
+                                  <button mat-button matStepperPrevious >Back</button>
+                                  <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
+                                  <!--<button mat-raised-button color="primary" *ngIf="buyProductdetails.product_id == 1" (click)="medicalHistoryDetails(stepper, 'noCreateProposal')">Next</button>-->
+                              </div>
+
+                          </div>
+
+                      </div>
+                  </mat-expansion-panel>
+              </mat-accordion>
+
+          </mat-step>
 
         <!--<mat-step [stepControl]="">-->
           <!--<ng-template matStepLabel>NOMINEE DETAILS</ng-template>-->

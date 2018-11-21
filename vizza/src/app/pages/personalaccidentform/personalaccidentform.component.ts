@@ -965,7 +965,65 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
 
+// medical details
+    religareQuestions() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'family_group': this.insurePersons,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getReligareQuestions(data).subscribe(
+            (successData) => {
+                this.religareQuestionsSuccess(successData);
+            },
+            (error) => {
+                this.religareQuestionsFailure(error);
+            }
+        );
 
+    }
+
+    public religareQuestionsSuccess(successData) {
+        this.religareQuestionsList = successData.ResponseObject;
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            this.religareQuestionsList[i].mStatus = 'No';
+            this.religareQuestionsList[i].answer_status = false;
+            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+
+                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+
+                }
+            }
+        }
+    }
+
+    public religareQuestionsFailure(error) {
+        console.log(error);
+    }
+// question
+    questionYes(id, value: any) {
+        if (value.checked) {
+            this.religareQuestionsList[id].mStatus = 'Yes';
+            this.religareQuestionsList[id].answer_status = true;
+        } else {
+            this.religareQuestionsList[id].mStatus = 'No';
+            this.religareQuestionsList[id].answer_status = false;
+            for (let i = 0; i < this.religareQuestionsList.length; i++) {
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+                    }
+                }
+            }
+        }
+    }
 
 
 // Medical
