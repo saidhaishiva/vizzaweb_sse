@@ -289,7 +289,7 @@ export class PersonalaccidentformComponent implements OnInit {
         if (sessionStorage.proposal2Detail != '' && sessionStorage.proposal2Detail != undefined) {
             console.log(JSON.parse(sessionStorage.proposal1Detail), 'sessionStorage.proposal2Detail');
             this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
-            this.personal = this.fb.group({
+            this.insured = this.fb.group({
                 insuredTitle: this.getStepper2.insuredTitle,
                 insuredFirstname: this.getStepper2.insuredFirstname,
                 insuredLastname: this.getStepper2.insuredLastname,
