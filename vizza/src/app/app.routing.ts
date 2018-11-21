@@ -40,6 +40,7 @@ import { EntranceexamComponent} from './pages/entranceexam/entranceexam.componen
 import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
+import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -162,6 +163,7 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
+            { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
 

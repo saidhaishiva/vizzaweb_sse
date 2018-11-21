@@ -156,6 +156,7 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -289,6 +290,7 @@ import { CompareDetailsComponent } from './pages/personalaccident/compare-detail
       TravelPremiumListComponent,
       TravelProposalComponent,
       CompareDetailsComponent,
+      AppolloMunichComponent,
 
   ],
   providers: [
