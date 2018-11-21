@@ -1076,8 +1076,9 @@ export class HealthInsuranceComponent implements OnInit {
     }
     // view key features details
     viewKeyList(value) {
+        console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(ViewdetailsComponent, {
-            width: '1500px', data: value.product_id
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name}
         });
         dialogRef.disableClose = true;
 

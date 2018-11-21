@@ -37,11 +37,13 @@ export class ViewdetailsComponent implements OnInit {
     getUrl: any;
     url: any;
     fileUploadPath: any;
+    productName: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
-        this.productId = data;
+        this.productId = data.productId;
+        this.productName = data.productName;
         this.webhost = this.config.getimgUrl();
         this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
        // this.id = 0;

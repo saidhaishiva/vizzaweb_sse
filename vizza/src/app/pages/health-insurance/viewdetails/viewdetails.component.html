@@ -1,7 +1,11 @@
 
 <div class="row mb-3" >
-  <div class="col-sm-12 text-right">
-    <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+  <div class="col-sm-6 text-left">
+  <h4 style="margin-left: 35px;">{{productName}}</h4>
+  </div>
+
+  <div class="col-sm-6 text-right">
+    <mat-icon (click)="onNoClick()" style="cursor: pointer">cancel</mat-icon>
   </div>
 </div>
 
@@ -9,10 +13,11 @@
   <div class="">
     <div fxLayout="column">
       <div class="container">
+
         <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">
           <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="example-tab-icon">vpn_key</mat-icon>
+            <ng-template mat-tab-label class="border border-dark">
+              <mat-icon >vpn_key</mat-icon>
               KEY POLICY FEATURES
             </ng-template>
             <!--<div mat-dialog-content >-->
@@ -48,8 +53,8 @@
             <!--</div>-->
           </mat-tab>
           <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="example-tab-icon">assignment</mat-icon>
+            <ng-template mat-tab-label class="border border-dark">
+              <mat-icon >assignment</mat-icon>
               PRODUCT DOCUMENTS
             </ng-template>
             <div class="row">
@@ -84,8 +89,8 @@
           </mat-tab>
 
           <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="example-tab-icon">assignment</mat-icon>
+            <ng-template mat-tab-label class="border border-dark">
+              <mat-icon>assignment</mat-icon>
               CLAIM DETAILS
             </ng-template>
             <div class="row">
@@ -101,7 +106,7 @@
                   <mat-nav-list>
                     <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#18ccb4' : '#8e8e8e'">
                       <i class="material-icons">keyboard_arrow_right</i>
-                      <a matLine  style="font-weight: bold !important;" >Vizza Accidents</a>
+                      <a matLine  style="font-weight: bold !important;" >Vizza Assistance</a>
                     </mat-list-item>
                   </mat-nav-list>
 

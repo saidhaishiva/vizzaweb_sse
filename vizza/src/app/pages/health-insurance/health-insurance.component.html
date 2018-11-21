@@ -1,14 +1,14 @@
 
-<div class="container-fuild dashboard h-100" fxLayoutAlign="center center" *ngIf="firstPage">
-  <div class="row" fxLayoutAlign="center center">
+<div class="container-fuild dashboard h-100" fxLayoutAlign="start start" *ngIf="firstPage">
+  <div class="row" fxLayoutAlign="cenetr start">
     <h3 class="w-100 text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
-    <div class="col-md-7 col-sm-12 col-xs-12 pt-2">
+    <div class="col-md-7 col-sm-12 col-xs-12">
       <mat-card class="mat-radius" style="box-shadow: none; ">
         <mat-card-header>
           <h3 class="w-100 text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
         </mat-card-header>
         <mat-card-content>
-          <p>Health Insurance is a kind of Insurance that deals with the wellness of your finances when you fall ill. Health Insurance fully or partially covers the expenses INCURRED due to health and sickness related procedures at the hospital.… <button mat-button color="accent" (click)="healthInsurer()"> Know More</button></p>
+          <p class="text-justify">Health Insurance is a kind of Insurance that deals with the wellness of your finances when you fall ill. Health Insurance fully or partially covers the expenses INCURRED due to health and sickness related procedures at the hospital.… <button mat-button color="accent" (click)="healthInsurer()" style="border: 1px solid #000;"> Know More</button></p>
           <figure fxLayoutAlign="center center" class="p-3"><img src="assets/img/Vaidhini-&-Kid2.png" style="width: auto" alt=""> </figure>
         </mat-card-content>
       </mat-card>
@@ -58,8 +58,10 @@
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Required</div>
         <div fxLayoutAlign="center center" class="mt-3">
-          <button mat-raised-button  type="reset" (click)="reset()">Reset</button>
-          <button mat-raised-button color="accent"  class="ml-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>
+
+          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>
+          <mat-icon (click)="reset()" style="cursor: pointer">refresh</mat-icon>
+
         </div>
 
       </mat-card>
@@ -103,8 +105,8 @@
                       {{plists.error}}
                     </td>
                     <td>
-                      <p class="color-green">{{plists.product_name | titlecase}}</p>
-                      <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 100px;" alt="5">
+                      <p class="color-green font-weight-bold" style="font-size: 15px;">{{plists.product_name | titlecase}}</p>
+                      <img  src="{{webhost + '/' + plists.company_logo}}" style="width: auto;" alt="5">
                     </td>
                     <td>
                       <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
