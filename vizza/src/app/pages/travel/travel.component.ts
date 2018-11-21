@@ -66,7 +66,7 @@ export class TravelComponent implements OnInit {
     endDateError: any;
     today: any;
 
-    selectedAmount: any;
+    selectedAmountTravel: any;
     travelType: any;
     startDate: any;
     endDate: any;
@@ -103,6 +103,7 @@ export class TravelComponent implements OnInit {
         this.Student8BTn = true;
         this.count = 0;
         this.sumInsuredAmonut();
+        this.sessionData();
     }
     selfDetails() {
         this.selfArray = [
@@ -153,8 +154,12 @@ export class TravelComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
+    selectedSumAmount() {
+        alert();
+        sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
+    }
     refresh() {
-        this.selectedAmount = '';
+        this.selectedAmountTravel = '';
         this.travelType = '';
         this.travelPlan = '';
         this.duration = '';
@@ -306,6 +311,17 @@ export class TravelComponent implements OnInit {
                 this.Student8BTn = true;
             }
         }
+        sessionStorage.Child3BTn = this.Child3BTn;
+        sessionStorage.FatherBTn = this.FatherBTn;
+        sessionStorage.Member5BTn = this.Member5BTn;
+        sessionStorage.Member6BTn = this.Member6BTn;
+        sessionStorage.Member7BTn = this.Member7BTn;
+        sessionStorage.Member8BTn = this.Member8BTn;
+        sessionStorage.Student5BTn = this.Student5BTn;
+        sessionStorage.Student6BTn = this.Student6BTn;
+        sessionStorage.Student7BTn = this.Student7BTn;
+        sessionStorage.Student8BTn = this.Student8BTn;
+
     }
     typeAge(checked, index, value) {
         if (value != '') {
@@ -317,14 +333,31 @@ export class TravelComponent implements OnInit {
             this.familyArray[index].checked = false;
             this.studentArray[index].checked = false;
         }
+        sessionStorage.selfArray = JSON.stringify(this.selfArray);
     }
     addFamilyMembers(value){
         this.familyArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
         this.contrlButtons(value, true);
+        sessionStorage.familyArray = JSON.stringify(this.familyArray);
+
     }
     addStudents(value){
         this.studentArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
         this.contrlButtons(value, true);
+        sessionStorage.studentArray = JSON.stringify(this.studentArray);
+
+    }
+    changeTravelType() {
+        sessionStorage.travelType = this.travelType;
+    }
+    changeTravelPlan() {
+        sessionStorage.travelPlan = this.travelPlan;
+    }
+    changeTravelDuration() {
+        sessionStorage.duration = this.duration;
+    }
+    changeMedicalCondition() {
+        sessionStorage.medicalCondition = this.medicalCondition;
     }
 
     numberOnly(event): boolean {
@@ -377,12 +410,17 @@ export class TravelComponent implements OnInit {
             }
             console.log(this.maxDate, 'maxDate22');
         }
+        if (type == 'sDate') {
+            sessionStorage.startDate = this.startDate;
+        } else if (type == 'eDate') {
+            sessionStorage.endDate = this.endDate;
+        }
     }
 
     submit(groupname) {
         console.log(groupname, 'groupname');
         this.finalData = [];
-        if (this.selectedAmount == '' || this.selectedAmount == undefined) {
+        if (this.selectedAmountTravel == '' || this.selectedAmountTravel == undefined) {
             this.sumerror = true;
         } else {
             this.sumerror = false;
@@ -460,7 +498,7 @@ export class TravelComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'sum_insured': this.selectedAmount,
+                'sum_insured': this.selectedAmountTravel,
                 'family_members': this.finalData,
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
@@ -494,6 +532,71 @@ export class TravelComponent implements OnInit {
         }
     }
     public getTravelPremiumCalFailure(error) {
+
+    }
+    sessionData() {
+
+        if (sessionStorage.selfArray != undefined && sessionStorage.selfArray != '') {
+            this.selfArray = JSON.parse(sessionStorage.selfArray);
+        }
+        if (sessionStorage.familyArray != undefined && sessionStorage.familyArray != '') {
+            this.familyArray = JSON.parse(sessionStorage.familyArray);
+        }
+        if (sessionStorage.studentArray != undefined && sessionStorage.studentArray != '') {
+            this.studentArray = JSON.parse(sessionStorage.studentArray);
+        }
+
+        if (sessionStorage.selectedAmountTravel != undefined && sessionStorage.selectedAmountTravel != '') {
+            this.selectedAmountTravel = sessionStorage.selectedAmountTravel;
+        }
+        if (sessionStorage.Child3BTn != undefined && sessionStorage.Child3BTn != '') {
+            this.Child3BTn = sessionStorage.Child3BTn;
+        }
+        if (sessionStorage.FatherBTn != undefined && sessionStorage.FatherBTn != '') {
+            this.FatherBTn = sessionStorage.FatherBTn;
+        }
+        if (sessionStorage.Member5BTn != undefined && sessionStorage.Member5BTn != '') {
+            this.Member5BTn = sessionStorage.Member5BTn;
+        }
+        if (sessionStorage.Member6BTn != undefined && sessionStorage.Member6BTn != '') {
+            this.Member6BTn = sessionStorage.Member6BTn;
+        }
+        if (sessionStorage.Member7BTn != undefined && sessionStorage.Member7BTn != '') {
+            this.Member7BTn = sessionStorage.Member7BTn;
+        }
+        if (sessionStorage.Member8BTn != undefined && sessionStorage.Member8BTn != '') {
+            this.Member8BTn = sessionStorage.Member8BTn;
+        }
+        if (sessionStorage.Student5BTn != undefined && sessionStorage.Student5BTn != '') {
+            this.Student5BTn = sessionStorage.Student5BTn;
+        }
+        if (sessionStorage.Student6BTn != undefined && sessionStorage.Student6BTn != '') {
+            this.Student6BTn = sessionStorage.Student6BTn;
+        }
+        if (sessionStorage.Student7BTn != undefined && sessionStorage.Student7BTn != '') {
+            this.Student7BTn = sessionStorage.Student7BTn;
+        }
+        if (sessionStorage.Student8BTn != undefined && sessionStorage.Student8BTn != '') {
+            this.Student8BTn = sessionStorage.Student8BTn;
+        }
+        if (sessionStorage.startDate != undefined && sessionStorage.startDate != '') {
+            this.startDate = sessionStorage.startDate;
+        }
+        if (sessionStorage.endDate != undefined && sessionStorage.endDate != '') {
+            this.endDate = sessionStorage.endDate;
+        }
+        if (sessionStorage.travelType != undefined && sessionStorage.travelType != '') {
+            this.travelType = sessionStorage.travelType;
+        }
+        if (sessionStorage.travelPlan != undefined && sessionStorage.travelPlan != '') {
+            this.travelPlan = sessionStorage.travelPlan;
+        }
+        if (sessionStorage.duration != undefined && sessionStorage.duration != '') {
+            this.duration = sessionStorage.duration;
+        }
+        if (sessionStorage.medicalCondition != undefined && sessionStorage.medicalCondition != '') {
+            this.medicalCondition = sessionStorage.medicalCondition;
+        }
 
     }
 

@@ -83,7 +83,7 @@ export class TravelProposalComponent implements OnInit {
     public sumAreaName: any;
     public sumAreaNameComm: any;
     public setDateAge: any;
-    public personalAge: any;
+    public expiryDt: any;
     public occupationCode: any;
     public religareQuestionsList: any;
     public items: any;
@@ -232,6 +232,7 @@ export class TravelProposalComponent implements OnInit {
                 illness: ['', Validators.required],
                 insurerDobError: '',
                 insurerDobValidError: '',
+                insurerExpiryValidError: '',
                 type: '',
                 ins_age: ''
             }
@@ -241,7 +242,6 @@ export class TravelProposalComponent implements OnInit {
     personalDetails(stepper: MatStepper, value) {
         this.personalData = value;
         let dob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
-
         console.log(dob, 'personalldobdd');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
@@ -385,32 +385,49 @@ export class TravelProposalComponent implements OnInit {
 
 
     }
-    addEvent(event) {
+    addEvent(event, i, type) {
         if (event.value != null) {
             let selectedDate = '';
+            this.expiryDt = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.personalDobError = '';
+                    if (type == 'insurer') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
+                    } else {
+                        this.personalDobError = '';
+                    }
+
                 } else {
-                    this.personalDobError = 'Enter Valid Date';
+                    if (type == 'insurer') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('Enter Valid Date');
+                    } else {
+                        this.personalDobError = 'Enter Valid Date';
+                    }
+
                 }
                 selectedDate = event.value._i;
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob = this.datepipe.transform(event.value, 'MMM d, y');
                 console.log(dob,'dob');
                 if (selectedDate.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
+                    this.expiryDt = this.ageCalculate(dob);
                 }
 
             } else if (typeof event.value._i == 'object') {
 
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob = this.datepipe.transform(event.value, 'MMM d, y');
                 if (dob.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
+                    this.expiryDt = this.ageCalculate(dob);
                 }
                 this.personalDobError = '';
             }
-            sessionStorage.setItem('proposerAge', this.personalAge);
+            if (this.expiryDt && type == 'insurer') {
+                console.log(dob, 'dobdob');
+                console.log(this.expiryDt, 'expiryDt');
+                this.insureArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(dob);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
+            }
 
         }
     }
@@ -422,32 +439,36 @@ export class TravelProposalComponent implements OnInit {
 
         if (event.value != null) {
             let selectedDate = '';
+            let dob = '';
             this.getAge = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Invalid Dob');
+                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                 }
                 selectedDate = event.value._i;
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
                     this.getAge = this.ageCalculate(dob);
                 }
 
             } else if (typeof event.value._i == 'object') {
 
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob, 'dob11');
+
                 if (dob.length == 10) {
                     this.getAge = this.ageCalculate(dob);
                 }
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
 
             }
             if (this.getAge) {
-                console.log(this.getAge, 'newwagee');
-
+                console.log(this.getAge, 'newwagee11');
+                console.log(dob, 'dob2');
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                 this.ageValidation(i, type);
             }
@@ -515,16 +536,16 @@ export class TravelProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
+        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
+        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        // }
+        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
+        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        // }
 
         console.log(smallest, 'smallest');
     }
@@ -569,11 +590,13 @@ export class TravelProposalComponent implements OnInit {
                 personalMobile: this.getStepper1.personalMobile,
                 personalGst: this.getStepper1.personalGst,
                 travelPurpose: this.getStepper1.travelPurpose,
-                placeOfVisit: this.getStepper1.placeOfVisit,
+                placeOfVisit: '',
                 physicianName: this.getStepper1.physicianName,
                 physicianContactNumber: this.getStepper1.physicianContactNumber,
                 travelDeclaration: this.getStepper1.travelDeclaration
             });
+
+            this.personal.controls['placeOfVisit'].patchValue(this.getStepper1.placeOfVisit);
             if (this.getStepper1.travelDeclaration) {
                 this.AcceptDeclaration = true;
             } else {
