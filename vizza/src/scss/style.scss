@@ -1969,4 +1969,11 @@ fieldset {
         }
       }
     }
+    thead th{
+      background: #7dc3e0 !important;
+    }
+
+}
+#view-details .mat-tab-label, #view-details .mat-tab-link {
+  border: 1px solid #000!important;
 }

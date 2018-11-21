@@ -32,8 +32,8 @@
                 <div class="travel">
                   <mat-form-field class="w-100">
                     <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  required>
-                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                        {{amounts.si_amount}}
+                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                        {{amounts.suminsured_amount}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -101,7 +101,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelTime">
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType">
                             <mat-option value="1">
                               Business
                             </mat-option>
@@ -115,7 +115,7 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <div *ngIf="travelTime == '3'">
+                    <div *ngIf="travelType == '3'">
                       <mat-radio-group class="w-100" [(ngModel)]="duration" >
                         <div class="row">
                           <div class="col-md-5">
@@ -263,7 +263,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelTime">
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType">
                             <mat-option value="1">
                               Business
                             </mat-option>
@@ -277,7 +277,7 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <div *ngIf="travelTime == '3'">
+                    <div *ngIf="travelType == '3'">
                       <mat-radio-group class="w-100" [(ngModel)]="duration" >
                         <div class="row">
                           <div class="col-md-5">

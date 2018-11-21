@@ -76,6 +76,8 @@ import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.compo
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalaccidentformComponent} from './pages/personalaccidentform/personalaccidentform.component';
 import {PreligareComponent} from './pages/preligare/preligare.component';
+import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
+import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -160,6 +162,8 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
+            { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
+            { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
 
         ]
     },
