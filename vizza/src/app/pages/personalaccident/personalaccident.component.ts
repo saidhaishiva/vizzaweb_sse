@@ -288,23 +288,27 @@ export class PersonalaccidentComponent implements OnInit {
 
     public personalAccidentSuccess(successData, index) {
         console.log(successData.ResponseObject);
-        this.personalPremiumLists = successData.ResponseObject;
-        sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
-        console.log(this.personalPremiumLists, 'jhghfhjfhgfhgfjhyf');
-        this.firstPage = false;
-        this.secondPage = true;
-        this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
-        this.enquiryIdP = this.personalPremiumLists.enquiry_id;
-        this.occupationP = this.personalPremiumLists.occupation_code;
-        this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
+        if (successData.IsSuccess) {
+            this.personalPremiumLists = successData.ResponseObject;
+            sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
+            console.log(this.personalPremiumLists, 'jhghfhjfhgfhgfjhyf');
+            this.firstPage = false;
+            this.secondPage = true;
+            this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
+            this.enquiryIdP = this.personalPremiumLists.enquiry_id;
+            this.occupationP = this.personalPremiumLists.occupation_code;
+            this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
 
-        sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
-        if (sessionStorage.setPageP != 1) {
-            sessionStorage.sideMenuP = true;
-            this.settings.HomeSidenavUserBlock = false;
-            this.settings.sidenavIsOpened = false;
-            this.settings.sidenavIsPinned = false;
+            sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
+            if (sessionStorage.setPageP != 1) {
+                sessionStorage.sideMenuP = true;
+                this.settings.HomeSidenavUserBlock = false;
+                this.settings.sidenavIsOpened = false;
+                this.settings.sidenavIsPinned = false;
 
+            }
+        } else {
+            this.toast.error(successData.ErrorObject);
         }
 
 
