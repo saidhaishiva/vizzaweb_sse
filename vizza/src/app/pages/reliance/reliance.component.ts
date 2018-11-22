@@ -310,7 +310,7 @@ public RediretUrlLink: any;
                 occupation: ['', Validators.required],
                 // personalWeight: ['', Validators.required],
                 // personalHeight: ['', Validators.required],
-                IsExistingIllness: '',
+                IsExistingIllness: 'No',
                 DiseaseID: '',
                 IsInsuredConsumetobacco: '',
                 HasAnyPreClaimOnInsured: '',
