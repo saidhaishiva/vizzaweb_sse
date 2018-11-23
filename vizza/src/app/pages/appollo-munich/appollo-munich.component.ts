@@ -52,6 +52,9 @@ export class AppolloMunichComponent implements OnInit {
     public enquiryId: any;
     public proposerData: any;
     public relationshipList: any;
+    public AppolloStateList: any;
+    public AppolloDistrictList: any;
+    public AppolloCityList: any;
     public today: any;
     public declaration: boolean;
     public summaryData: any;
@@ -125,6 +128,7 @@ export class AppolloMunichComponent implements OnInit {
     public minDate: any;
     public maxDate: any;
     public RediretUrlLink: any;
+    public stateCode: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -233,6 +237,9 @@ export class AppolloMunichComponent implements OnInit {
         // this.setNomineeRelationship();
         this.maritalStatus();
         this.IdProofList();
+        this. AppolloCity();
+        this.AppolloDistrict();
+        this.AppolloState();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -1216,6 +1223,92 @@ export class AppolloMunichComponent implements OnInit {
     console.log(error);
     }
 
+    //Appollo state
+    AppolloState(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloState(data).subscribe(
+            (successData) => {
+                this.setAppolloStateSuccess(successData);
+            },
+            (error) => {
+                this.setAppolloStateFailure(error);
+            }
+        );
+    }
+
+    public setAppolloStateSuccess(successData){
+        console.log(successData.ResponseObject);
+        this.AppolloStateList = successData.ResponseObject;
+        console.log( this.AppolloStateList, 'AppolloStateList');
+    }
+    public setAppolloStateFailure(error){
+        console.log(error);
+    }
+
+
+    stateChange(stateId: any, title){
+        console.log(stateId.value, 'value');
+        this.stateCode = stateId.value
+        console.log(this.stateCode);
+    }
+
+    //Appollo District
+    AppolloDistrict(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'state_code': this.stateCode
+        }
+        this.proposalservice.getAppolloDistrict(data).subscribe(
+            (successData) => {
+                this.setAppolloDistrictSuccess(successData);
+            },
+            (error) => {
+                this.setAppolloDistrictFailure(error);
+            }
+        );
+    }
+
+    public setAppolloDistrictSuccess(successData){
+      this.AppolloDistrictList = successData.ResponseObject;
+        console.log( this.AppolloDistrictList, 'AppolloDistrictList');
+    }
+    public setAppolloDistrictFailure(error){
+        console.log(error);
+    }
+
+    //Appollo City
+    AppolloCity(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        }
+        this.proposalservice.getAppolloCity(data).subscribe(
+            (successData) => {
+                this.setAppolloCitySuccess(successData);
+            },
+            (error) => {
+                this.setAppolloCityFailure(error);
+            }
+        );
+    }
+
+    public setAppolloCitySuccess(successData){
+      this.AppolloCityList = successData.ResponseObject;
+        console.log( this.AppolloCityList, 'AppolloCityList');
+    }
+    public setAppolloCityFailure(error){
+        console.log(error);
+    }
 
     setRelationship() {
         const data = {
@@ -1313,6 +1406,4 @@ export class AppolloMunichComponent implements OnInit {
             }
         }
     }
-
-
 }
