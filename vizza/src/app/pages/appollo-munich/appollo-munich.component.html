@@ -96,26 +96,26 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO2'">
+                        <mat-form-field class="w-100"  >
                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Driving License" formControlName="proposerDriving">
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO3'" >
+                        <mat-form-field class="w-100" >
+                          <input matInput placeholder="Driving License" formControlName="proposerDriving" >
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Passport" formControlName="proposerPassport">
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'" >
+                        <mat-form-field class="w-100" >
+                          <input matInput placeholder="Passport" formControlName="proposerPassport" >
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Voter Id" formControlName="proposerVoter">
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO4'" >
+                        <mat-form-field class="w-100" >
+                          <input matInput placeholder="Voter Id" formControlName="proposerVoter" >
                         </mat-form-field>
                       </div>
 
