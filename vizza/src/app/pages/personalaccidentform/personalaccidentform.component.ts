@@ -99,8 +99,6 @@ export class PersonalaccidentformComponent implements OnInit {
     public partyQuestionDOList: any;
     public questions_list: any;
     public totalData: any;
-    public iPersonalCitys: any;
-    public iResidenceCitys: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -127,6 +125,18 @@ export class PersonalaccidentformComponent implements OnInit {
     rinsuredResponse: any;
     insuremobileNumber: any;
     personalAccidentQuestionsList: any;
+    occupationdescription: any;
+    occupationFirst: boolean;
+    occupationSecond :boolean;
+    occupationDescription: boolean;
+    insureoccupationFirst:boolean;
+    insureoccupationSecond: boolean;
+    insureoccupationdescription:boolean;
+    occupationClass: boolean;
+    insureClassDescription: any;
+    personalClassDescription: boolean;
+    insureoccupationDescription: boolean;
+    insureoccupationClass: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -154,6 +164,14 @@ export class PersonalaccidentformComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        this.occupationFirst = true;
+        this.occupationSecond = false;
+        this.insureoccupationFirst = true;
+        this.insureoccupationSecond = false;
+        this.occupationDescription = false;
+        this.insureoccupationDescription = false;
+        this.occupationClass = false;
+        this.insureoccupationClass = false;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -161,15 +179,20 @@ export class PersonalaccidentformComponent implements OnInit {
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
-            personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-            personalGst: ['', Validators.compose([Validators.minLength(15)])],
+            personalAnualIncome: '',
+            personalOccupationCode: '',
+            personalDescription: '',
+            personalDescriptionCode: '',
+            personalClassDescriptionCode:'',
+            personalPan: '',
+            personalPassPort: '',
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
@@ -191,15 +214,20 @@ export class PersonalaccidentformComponent implements OnInit {
             insuredGender: ['', Validators.compose([Validators.required])],
             insuredDob: ['', Validators.compose([Validators.required])],
             insuredrelationship: 'SELF',
-            insuredAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            insuredPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-            insuredGst: ['', Validators.compose([Validators.minLength(15)])],
+            insuredAnnualIncome: '',
+            insuredOccupationCode: '',
+            insuredDescription: '',
+            insuredDescriptionCode: '',
+            insuredClassDescriptionCode: '',
+            insuredPan: '',
+            insuredPassPort: '',
             insuredAddress: ['', Validators.required],
             insuredAddress2: ['', Validators.required],
             insuredPincode: ['', Validators.required],
             insuredCity: ['', Validators.required],
             insuredState: ['', Validators.required],
             insuredEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            insuredEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             insuredMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             insuredAltnumber: '',
             insuredrAddress: ['', Validators.required],
@@ -242,7 +270,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
     ngOnInit() {
         this.setOccupationListCode();
-        this.setOccupationList();
+        this. setpersonalDescriptionListCode();
         this.setRelationship();
         this. religareQuestions();
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
@@ -280,22 +308,25 @@ export class PersonalaccidentformComponent implements OnInit {
                 personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
                 personalArea: this.getStepper1.personalArea,
                 residenceArea: this.getStepper1.residenceArea,
-                personalAadhar: this.getStepper1.personalAadhar,
+                personalAnualIncome: this.getStepper1.personalAnualIncome,
                 personalrelationship: this.getStepper1.personalrelationship,
+                personalOccupationCode: this.getStepper1.personalOccupationCode,
+                personalDescriptionCode: this.getStepper1.personalDescriptionCode,
+                personalClassDescriptionCode: this.getStepper1.personalClassDescriptionCode,
+                personalDescription: this.getStepper1.personalDescription,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 personalGender: this.getStepper1.personalGender,
                 personalPan: this.getStepper1.personalPan.toUpperCase(),
-                personalGst: this.getStepper1.personalGst,
+                personalPassPort: this.getStepper1.personalPassPort,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
                 personalState: this.getStepper1.personalState,
                 personalEmail: this.getStepper1.personalEmail,
+                personalEmail2: this.getStepper1.personalEmail2,
                 personalMobile: this.getStepper1.personalMobile,
                 personalAltnumber: this.getStepper1.personalAltnumber,
-                personalWeight: this.getStepper1.personalWeight,
-                personalHeight: this.getStepper1.personalHeight,
                 residenceAddress: this.getStepper1.residenceAddress,
                 residenceAddress2: this.getStepper1.residenceAddress2,
                 residencePincode: this.getStepper1.residencePincode,
@@ -315,23 +346,26 @@ export class PersonalaccidentformComponent implements OnInit {
                 insuredLastname: this.getStepper2.insuredLastname,
                 insuredDob: this.getStepper2.insuredDob,
                 insuredArea: this.getStepper2.insuredArea,
-                insuredAadhar: this.getStepper2.insuredAadhar,
+                insuredAnnualIncome: this.getStepper2.insuredAnnualIncome,
                 insuredrelationship: this.getStepper2.insuredrelationship,
                 sameAsinsureProposer: this.getStepper2.sameAsinsureProposer,
                 sameasInsuredAddress: this.getStepper2.sameasInsuredAddress,
+                insuredOccupationCode: this.getStepper1.insuredOccupationCode,
+                insuredDescriptionCode: this.getStepper1.insuredDescriptionCode,
+                insuredClassDescriptionCode: this.getStepper1.insuredClassDescriptionCode,
+                insuredDescription: this.getStepper1.insuredDescription,
                 insuredGender: this.getStepper2.insuredGender,
                 insuredPan: this.getStepper2.insuredPan.toUpperCase(),
-                insuredGst: this.getStepper2.insuredGst,
+                insuredPassPort: this.getStepper2.insuredPassPort,
                 insuredAddress: this.getStepper2.insuredAddress,
                 insuredAddress2: this.getStepper2.insuredAddress2,
                 insuredPincode: this.getStepper2.insuredPincode,
                 insuredCity: this.getStepper2.insuredCity,
                 insuredState: this.getStepper2.insuredState,
                 insuredEmail: this.getStepper2.insuredEmail,
+                insuredEmail2: this.getStepper2.insuredEmail2,
                 insuredMobile: this.getStepper2.insuredMobile,
                 insuredAltnumber: this.getStepper2.insuredAltnumber,
-                insuredWeight: this.getStepper2.insuredWeight,
-                insuredHeight: this.getStepper2.insuredHeight,
                 insuredrAddress: this.getStepper2.insuredrAddress,
                 insuredrAddress2: this.getStepper2.insuredrAddress2,
                 insuredrPincode: this.getStepper2.insuredrPincode,
@@ -458,21 +492,24 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);
             this.insured.controls['insuredLastname'].patchValue(this.personal.controls['personalLastname'].value);
             this.insured.controls['insuredDob'].patchValue(this.personal.controls['personalDob'].value);
-            this.insured.controls['insuredAadhar'].patchValue(this.personal.controls['personalAadhar'].value);
+            this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnnualIncome'].value);
+            this.insured.controls['insuredOccupationCode'].patchValue(this.personal.controls['personalOccupationCode'].value);
+            this.insured.controls['insuredinsuredDescription'].patchValue(this.personal.controls['personalinsuredDescription'].value);
+            this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
+            this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['insuredClassDescriptionCode'].value);
             this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
             this.insured.controls['insuredGender'].patchValue(this.personal.controls['personalGender'].value);
             this.insured.controls['insuredPan'].patchValue(this.personal.controls['personalPan'].value.toUpperCase());
-            this.insured.controls['insuredGst'].patchValue(this.personal.controls['personalGst'].value);
+            this.insured.controls['insuredPassPort'].patchValue(this.personal.controls['personalPassPort'].value);
             this.insured.controls['insuredAddress'].patchValue(this.personal.controls['personalAddress'].value);
             this.insured.controls['insuredAddress2'].patchValue(this.personal.controls['personalAddress2'].value);
             this.insured.controls['insuredCity'].patchValue(this.personal.controls['personalCity'].value);
             this.insured.controls['insuredPincode'].patchValue(this.personal.controls['personalPincode'].value);
             this.insured.controls['insuredState'].patchValue(this.personal.controls['personalState'].value);
             this.insured.controls['insuredEmail'].patchValue(this.personal.controls['personalEmail'].value);
+            this.insured.controls['insuredEmail2'].patchValue(this.personal.controls['personalEmail2'].value);
             this.insured.controls['insuredMobile'].patchValue(this.personal.controls['personalMobile'].value);
             this.insured.controls['insuredAltnumber'].patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insured.controls['insuredHeight'].patchValue(this.personal.controls['personalHeight'].value);
-            this.insured.controls['insuredWeight'].patchValue(this.personal.controls['personalWeight'].value);
             this.insured.controls['insuredrAddress'].patchValue(this.personal.controls['residenceAddress'].value);
             this.insured.controls['insuredrAddress2'].patchValue(this.personal.controls['residenceAddress2'].value);
             this.insured.controls['insuredrCity'].patchValue(this.personal.controls['residenceCity'].value);
@@ -486,21 +523,20 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredFirstname'].patchValue('');
             this.insured.controls['insuredLastname'].patchValue('');
             this.insured.controls['insuredDob'].patchValue('');
-            this.insured.controls['insuredAadhar'].patchValue('');
+            this.insured.controls['insuredAnnualIncome'].patchValue('');
             this.insured.controls['insuredrelationship'].patchValue('');
             this.insured.controls['insuredGender'].patchValue('');
             this.insured.controls['insuredPan'].patchValue('');
-            this.insured.controls['insuredGst'].patchValue('');
+            this.insured.controls['insuredPassPort'].patchValue('');
             this.insured.controls['insuredAddress'].patchValue('');
             this.insured.controls['insuredAddress2'].patchValue('');
             this.insured.controls['insuredCity'].patchValue('');
             this.insured.controls['insuredPincode'].patchValue('');
             this.insured.controls['insuredState'].patchValue('');
             this.insured.controls['insuredEmail'].patchValue('');
+            this.insured.controls['insuredEmail2'].patchValue('');
             this.insured.controls['insuredMobile'].patchValue('');
             this.insured.controls['insuredAltnumber'].patchValue('');
-            this.insured.controls['insuredHeight'].patchValue('');
-            this.insured.controls['insuredWeight'].patchValue('');
             this.insured.controls['insuredrAddress'].patchValue('');
             this.insured.controls['insuredrAddress2'].patchValue('');
             this.insured.controls['insuredrCity'].patchValue('');
@@ -514,6 +550,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
 // only numbers can accept
     public onNumber(event: any) {
+        console.log(this.personal.controls['personalAnnualIncome'].value, 'ooooo');
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -841,6 +878,155 @@ export class PersonalaccidentformComponent implements OnInit {
     public occupationCodeFailure(error) {
         console.log(error);
     }
+    setpersonalOccupationListCode() {
+        const data = {
+            'platform': 'web',
+            'occupationCode':this.personal.controls['personalOccupationCode'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getPersonalOccupationCode(data).subscribe(
+            (successData) => {
+                this.occupationdescriptionSuccess(successData);
+            },
+            (error) => {
+                this.occupationdescriptionFailure(error);
+            }
+        );
+
+    }
+
+    public occupationdescriptionSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.occupationFirst = true;
+            this.occupationSecond = true;
+            this.occupationdescription = successData.ResponseObject;
+            console.log(this.occupationdescription, 'occupationdescription');
+        } else {
+            this.occupationFirst = true;
+            this.occupationSecond = false;
+
+            // this.toastr.error(successData.ErrorObject);
+        }
+
+    }
+
+    public occupationdescriptionFailure(error) {
+        console.log(error);
+    }
+    setpersonalDescriptionListCode() {
+
+        if (this.personal.controls['personalDescriptionCode'].value == 'C5') {
+            this.occupationDescription = true;
+            this.occupationClass = false;
+        } else {
+            this.occupationDescription = false;
+            this.occupationClass = true;
+        }
+        const data = {
+            'platform': 'web',
+            'occupationId':this.personal.controls['personalDescriptionCode'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.classOccupationCode(data).subscribe(
+            (successData) => {
+                this.classSuccess(successData);
+            },
+            (error) => {
+                this.classFailure(error);
+            }
+        );
+
+    }
+    public classSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.personalClassDescription = successData.ResponseObject;
+
+
+    }
+
+    public classFailure(error) {
+        console.log(error);
+    }
+
+
+    // insured occupation list
+    setinsureOccupationListCode() {
+        console.log(this.insured.controls['insuredOccupationCode'].value, 'ppppp');
+        const data = {
+            'platform': 'web',
+            'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getPersonalOccupationCode(data).subscribe(
+            (successData) => {
+                this.insureoccupationdescriptionSuccess(successData);
+            },
+            (error) => {
+                this.insureoccupationdescriptionFailure(error);
+            }
+        );
+
+    }
+
+    public insureoccupationdescriptionSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.insureoccupationFirst = true;
+            this.insureoccupationSecond = true;
+            this.insureoccupationdescription = successData.ResponseObject;
+        } else {
+            this.insureoccupationFirst = true;
+            this.insureoccupationSecond = false;
+
+            // this.toastr.error(successData.ErrorObject);
+        }
+
+    }
+
+    public insureoccupationdescriptionFailure(error) {
+        console.log(error);
+    }
+    setinsureDescriptionListCode() {
+        if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
+            this.insureoccupationDescription = true;
+            this.insureoccupationClass = false;
+
+        } else {
+            this.insureoccupationDescription = false;
+            this.insureoccupationClass = true;
+
+        }
+        const data = {
+            'platform': 'web',
+            'occupationId':this.insured.controls['insuredDescriptionCode'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.classOccupationCode(data).subscribe(
+            (successData) => {
+                this.classoccupationSuccess(successData);
+            },
+            (error) => {
+                this.classoccupationFailure(error);
+            }
+        );
+
+    }
+    public classoccupationSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.insureClassDescription = successData.ResponseObject;
+
+
+    }
+
+    public classoccupationFailure(error) {
+        console.log(error);
+    }
+
 
     setRelationship() {
         const data = {
@@ -1017,7 +1203,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
     // Create Proposal
     proposal() {
-
+console.log( this.personal.controls['personalAnualIncome'].value, ' this.personal.controls[\'personalAnnualIncome\'].value');
      const data= {
             'product_id': this.getBuyDetails.product_id,
             'policy_term': '1',
@@ -1041,10 +1227,10 @@ export class PersonalaccidentformComponent implements OnInit {
                 'relationCd': this.personal.controls['personalDob'].value,
                 'roleCd': "PROPOSER",
                 'titleCd': this.personal.controls['personalTitle'].value,
-                'annualSalary': this.personal.controls['personalDob'].value,
-                'occupationCode': "SLRD",
-                'occupationClass': "C1",
-                'classDescription': "OCC CL GRP 1",
+                'annualSalary': this.personal.controls['personalAnualIncome'].value,
+                'occupationCode': this.personal.controls['personalOccupationCode'].value,
+                'occupationClass': this.personal.controls['personalDescriptionCode'].value,
+                'classDescription':'value',
                 'lastName':this.personal.controls['personalLastname'].value,
                 'partyAddressDOList': [{
                     'addressLine1Lang1': this.personal.controls['personalAddress'].value,
@@ -1102,11 +1288,10 @@ export class PersonalaccidentformComponent implements OnInit {
                     'birthDt':  this.insured.controls['insuredDob'].value,
                     'firstName': this.insured.controls['insuredFirstname'].value,
                     'genderCd':  this.insured.controls['insuredGender'].value,
-                    'annualSalary': this.insured.controls['insuredDob'].value,
-                    'occupationCode': "SLRD",
-                    'occupationClass': "C1",
-                    'classDescription': "",
-
+                    'annualSalary': this.insured.controls['insuredAnnualIncome'].value,
+                    'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+                    'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                    'classDescription': 'value',
                     'lastName':  this.insured.controls['insuredLastname'].value,
                     "partyAddressDOList": [{
                         'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
@@ -1161,7 +1346,7 @@ export class PersonalaccidentformComponent implements OnInit {
                     "partyQuestionDOList": this.partyQuestionDOList,
                     'relationCd': 'SELF',
                     'roleCd': 'PRIMARY',
-                    'titleCd': 'MR',
+                    'titleCd': this.insured.controls['insuredTitle'].value,
                     'partyEmploymentDOList': {
                         'occupationCd': 'C1'
                     }
@@ -1194,28 +1379,10 @@ export class PersonalaccidentformComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             console.log(this.relationshipList, 'this.relationshipList');
             this.summaryData = successData.ResponseObject;
-            // let getdata=[];
-            // for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
-            //     for (let j = 0; j <  this.relationshipList.length; j++) {
-            //         if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
-            //             this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
-            //         }
-            //     }
-            // }
-            // console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
-            // this.proposalId = this.summaryData.proposal_id;
-            // sessionStorage.proposalID = this.proposalId;
-            // //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
-            // this.relationshipcode = [];
-            // console.log(this.relationshipList,'lll');
-            // for (let i = 0; i < this.relationshipList.length; i++) {
-            //     this.relationshipcode.push(this.relationshipList[i].relationship_name);
-            // }
-            // console.log(this.relationshipcode ,'ooooo');
             this.lastStepper.next();
 
         } else {
-            // this.toastr.error(successData.ErrorObject);
+            this.toastr.error(successData.ErrorObject);
         }
     }
 

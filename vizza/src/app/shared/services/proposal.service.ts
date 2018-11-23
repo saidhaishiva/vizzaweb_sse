@@ -120,7 +120,30 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
+    // personal acciddent occupation code
+    getPersonalOccupationCode(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationcode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // class description
+    classOccupationCode(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationname';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getOccupationClass(data) {
         const json = JSON.stringify(data);
         console.log(json);

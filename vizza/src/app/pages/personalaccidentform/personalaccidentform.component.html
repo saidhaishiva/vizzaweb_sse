@@ -53,29 +53,67 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="onNumber($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar"  autocomplete="off">
-                        <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                      <div class="col-md-6">
+                          <!--<mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="personalAnnualIncome"  autocomplete="off">-->
+                        <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.personalAnnualIncome.hasError('minlength')">Annual Income Required</mat-error>&ndash;&gt;-->
 
-                      </mat-form-field></div>
-                      <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" required>
+                      <!--</mat-form-field>-->
+                          <mat-form-field class="w-100">
+                              <input matInput placeholder="Annual Income"  formControlName="personalAnualIncome"  autocomplete="off">
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6" *ngIf="occupationFirst">
+                          <mat-form-field class="w-100" >
+                        <mat-select placeholder="OCCUPATION" name="occupation" formControlName="personalOccupationCode" (change)="setpersonalOccupationListCode()" required>
+                          <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      </div>
+                        <div class="col-md-6" *ngIf="occupationSecond">
+                            <mat-form-field class="w-100">
+                            <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode()">
+                                <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.id">{{occupation.description}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="occupationDescription">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Description"    formControlName="personalDescription"  autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="occupationClass">
+                            <mat-form-field class="w-100" >
+                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="personalClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{class.occ_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="w-100">
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalPan.errors?.required">Pan is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
-                      </mat-form-field></div>
+                      </mat-form-field>
+                      </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number" (keypress)="keyEvent($event)"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
-                        <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
-                        <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter valid GST</mat-error>
+                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="personalPassPort"  autocomplete="off">
+                        <mat-error *ngIf="personal.controls.personalPassPort.hasError('minlength')">Enter PassPort</mat-error>
 
                       </mat-form-field></div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
+                        <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" >
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="OfficalEmail ID"   formControlName="personalEmail2"  autocomplete="off" >
+                        <mat-error *ngIf="personal.controls.personalEmail2.errors?.required">Email ID is required</mat-error>
+                        <mat-error *ngIf="personal.controls.personalEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -85,7 +123,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event, 'personal')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Resicednce Number"   maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event, 'personal')" (keypress)="onAlternative($event)" autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
@@ -252,10 +290,43 @@
                       </div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="onNumber($event)"  minlength="12"  maxlength="12" formControlName="insuredAadhar"  autocomplete="off">
-                        <mat-error *ngIf="insured.controls.insuredAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                        <input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="insuredAnnualIncome"  autocomplete="off">
+                        <!--<mat-error *ngIf="insured.controls.insuredAnnualIncome.hasError('minlength')">Annual Income Required</mat-error>-->
 
                       </mat-form-field></div>
+                        <div class="col-md-6" *ngIf="insureoccupationFirst">
+                            <mat-form-field class="w-100" >
+                                <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()" required>
+                                    <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="insureoccupationSecond">
+                            <mat-form-field class="w-100">
+                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()">
+                                    <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.id">{{occupation.description}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="insureoccupationDescription">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Description"  formControlName="insuredDescription"  autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription" [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="insureoccupationClass">
+                            <mat-form-field class="w-100" >
+                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{class.occ_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
@@ -264,16 +335,22 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number" (keypress)="keyEvent($event)"  minlength="15"  maxlength="15" formControlName="insuredGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
-                        <mat-error *ngIf="insured.controls.insuredGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
-                        <mat-error *ngIf="insured.controls.insuredGst.hasError('pattern')">Enter valid GST</mat-error>
+                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  autocomplete="off">
+                        <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
 
                       </mat-form-field></div>
+
 
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="insuredEmail"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
+
+                      </mat-form-field></div>
+                      <div class="col-md-6"><mat-form-field class="w-100">
+                        <input matInput placeholder="OfficalEmail ID"   formControlName="insuredEmail2"  autocomplete="off" required>
+                        <mat-error *ngIf="insured.controls.insuredEmail2.errors?.required">Email ID is required</mat-error>
+                        <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -283,7 +360,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="insuredAltnumber" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Resicdence Number"   maxlength="10"  formControlName="insuredAltnumber" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
