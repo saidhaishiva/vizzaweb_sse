@@ -82,19 +82,19 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="proposerrelationship" required >
-                            <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>
+                            <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="proposer.controls.proposerrelationship.errors?.required">Relationship is required</mat-error>
+                          <!--<mat-error *ngIf="proposer.controls.proposerrelationship.errors?.required">Relationship is required</mat-error>-->
                         </mat-form-field>
                       </div>
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof" required >-->
-                            <!--<mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.}}" > {{}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="proposer.controls.proposerrelationship.errors?.required">Id Proof is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof"  >
+                            <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                          </mat-select>
+                          <!--<mat-error *ngIf="proposer.controls.proposerIdProof.errors?.required">Id Proof is required</mat-error>-->
+                        </mat-form-field>
+                      </div>
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -184,7 +184,17 @@
                                 <mat-error *ngIf="proposer.controls.TotalPremiumAmount.errors?.required">Total Premium Amount is required</mat-error>
                             </mat-form-field>
                         </div>
+                      <div class="col-md-12">
+                        <h6 class="mt-3">Medical Informations details:</h6>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field  class="w-100">
+                          <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
+                          <mat-error *ngIf="proposer.controls.MedicalInformations.errors?.required">Total Premium Amount is required</mat-error>
+                        </mat-form-field>
+                      </div>
                     </div>
+
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
                   </div>
@@ -208,9 +218,9 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-green">INSURED DETAILS</h6>
                       <div class="row">
-                        <!--<div class="col-md-12 mb-3" *ngIf="i == 0">-->
-                        <!--<mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>-->
-                        <!--</div>-->
+                        <div class="col-md-12 mb-3" *ngIf="i == 0">
+                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                        </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)">
@@ -238,13 +248,13 @@
                             <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Gender" formControlName="proposerGender" required readonly autocomplete="off">
                             <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent($event)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -252,7 +262,7 @@
                             <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" readonly>
                             <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
@@ -275,40 +285,40 @@
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Annual Income"  (keypress)="keyPress($event)" formControlName="proposerAnnualIncome" autocomplete="off" required>
-                            <mat-error *ngIf="proposer.controls.proposerAnnualIncome.errors?.required">Annual Income is required</mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Annual Income is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Family Members"  (keypress)="keyPress($event)" formControlName="proposerFamilySize" autocomplete="off" required>
-                            <mat-error *ngIf="proposer.controls.proposerFamilySize.errors?.required">Family Members Detail is required</mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Family Members Detail is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="proposerrelationship" required >
-                              <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>
+                              <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="proposer.controls.proposerrelationship.errors?.required">Relationship is required</mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" required  class="w-100">
                               <mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation_name}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
                         </div>
 
-                        <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                        <!--<mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof" required >-->
-                        <!--<mat-option *ngFor="" value="{{}}" > {{}} </mat-option>-->
-                        <!--</mat-select>-->
-                        <!--<mat-error *ngIf="proposer.controls.proposerrelationship.errors?.required">Id Proof is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--</div>-->
+                        <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                        <mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof"  >
+                        <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="insureArray.invalid">Id Proof is required</mat-error>
+                        </mat-form-field>
+                        </div>
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -453,12 +463,12 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" autocomplete="off"></textarea>
+                            <textarea matInput placeholder="Previous Insurer Code" formControlName="PreviousInsurer" autocomplete="off"></textarea>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy No" formControlName="PreviousPolNo"   (keypress)="add($event)" autocomplete="off">
+                            <input matInput placeholder="Previous Policy N0" formControlName="PreviousPolicyNumber"   (keypress)="add($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
                           <div class="col-md-6">
@@ -545,7 +555,7 @@
                     </div>
                     <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button mat-raised-button color="primary"  (click)="relianceInsureDetails(stepper, i, insureArray.value)">Next</button>
+                      <button mat-raised-button color="primary"  (click)="AppolloInsureDetails(stepper, i, insureArray.value)">Next</button>
                     </div>
                   </div>
                 </mat-expansion-panel>
@@ -572,25 +582,21 @@
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name"  formControlName="nomineeFirstName" autocomplete="off" required>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeFirstName.errors?.required">First Name of Nominee is required</mat-error>
+                          <input matInput placeholder="Nominee Name"  formControlName="nomineeName" autocomplete="off" required>
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeFirstName.errors?.required">First Name of Nominee is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name"  formControlName="nomineeMidName" autocomplete="off">
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeMidName.errors?.required">Mid Name of Nominee is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name"  formControlName="nomineeLastName" autocomplete="off" required>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeLastName.errors?.required"> Last Name of Nominee is required</mat-error>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
+                            <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-4">-->

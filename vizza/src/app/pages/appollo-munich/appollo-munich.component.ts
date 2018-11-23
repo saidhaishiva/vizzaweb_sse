@@ -157,7 +157,7 @@ export class AppolloMunichComponent implements OnInit {
           proposerGender: ['', Validators.compose([Validators.required])],
           proposerDob: ['', Validators.compose([Validators.required])],
           proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-          proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+          proposerMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
           proposerrelationship: 'SELF',
           proposerIdProof: '',
@@ -173,63 +173,34 @@ export class AppolloMunichComponent implements OnInit {
           nationality: 'IN',
           proposerPincode: ['', Validators.required],
           proposerCity: ['', Validators.required],
-          propserCountry: 'IND',
+          proposerCountry: 'IND',
           proposerState: ['', Validators.required],
-          proposerDistrict: ['', Validators.required],
-          personalCityIdP: '',
-          personalStateIdP: '',
-          personalCountryIdP: '',
-          personalDistrictIdP: '',
+          proposerDistrict: '',
+          proposerCityIdP: '',
+          proposerStateIdP: '',
+          proposerCountryIdP: '',
+          proposerDistrictIdP: '',
+          MedicalInformations: '',
           TotalPremiumAmount: ['', Validators.required],
-          proposerAnnualIncome: ['', Validators.required],
-          proposerFamilySize: ['', Validators.required],
-          proposerHeight: ['', Validators.required],
-          proposerWeight: ['', Validators.required],
-          LifeStyleHabits: ['', Validators.required],
-          LiquorPeg: ['', Validators.required],
-          Smoking: ['', Validators.required],
-          WineGlass: ['', Validators.required],
-          BeerBottle: ['', Validators.required],
-          Pouches: ['', Validators.required],
-          PolicyStartDate: ['', Validators.required],
-          PolicyEndDate: ['', Validators.required],
-          InsuranceCompName: ['', Validators.required],
-          PreviousPolNo: ['', Validators.required],
-          SumInsured: ['', Validators.required],
-          QualifyingAmount: ['', Validators.required],
-          WaivePeriod: ['', Validators.required],
-          Remarks: ['', Validators.required],
-          BasePremiumAmount: ['', Validators.required],
-          DiscountAmount: ['', Validators.required],
-          GrossPremiumAmount: ['', Validators.required],
-          ProductCode: ['', Validators.required],
-          ProductGroup: ['', Validators.required],
-          ProductLine: ['', Validators.required],
-          ProductType: ['', Validators.required],
-          ProductVersion: ['', Validators.required],
-          SumAssured: ['', Validators.required],
-          SACCode: ['', Validators.required],
-          TaxAmount: ['', Validators.required],
           rolecd: 'PROPOSER',
           type: ''
 
       });
       this.nomineeDetails = this.fb.group({
-          nomineeTitle: ['', Validators.required],
-          nomineeFirstName: ['', Validators.required],
-          nomineeMidName: '',
-          nomineeLastName: ['', Validators.required],
-          nomineeAddress: ['', Validators.required],
-          nomineePincode: ['', Validators.required],
-          nomineeCity: ['', Validators.required],
+          nomineeTitle: '',
+          nomineeName: '',
+          nomineeAddress: '',
+          nomineePincode: '',
+          nomineeCity: '',
           nomineeCityId: '',
-          nomineeState: ['', Validators.required],
+          nomineeState: '',
           nomineeStateId: '',
           nomineeCountryId: '',
           nomineeCountry: 'IND',
           nationality: 'IN',
-          nomineeDistrict: ['', Validators.required],
-          nomineeDistrictId: ''
+          nomineeDistrict: '',
+          nomineeDistrictId: '',
+          nomineeRelationship: ''
 
       });
   }
@@ -289,41 +260,78 @@ export class AppolloMunichComponent implements OnInit {
             {
                 rolecd: 'PRIMARY',
                 proposerTitle: ['', Validators.required],
-                proposerFirstname: new FormControl(''),
+                proposerFirstname: ['', Validators.compose([Validators.required])],
                 proposerLastname: ['', Validators.required],
                 proposerMidname: '',
                 proposerDob: ['', Validators.compose([Validators.required])],
                 proposerGender: ['', Validators.compose([Validators.required])],
+                proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+                proposerMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
                 proposerAge: ['', Validators.compose([Validators.required])],
                 maritalStatus: ['', Validators.compose([Validators.required])],
-                proposerrelationship: ['', Validators.required],
-                IsExistingIllness: '',
-                DiseaseID: '',
-                IsInsuredConsumetobacco: '',
-                HasAnyPreClaimOnInsured: '',
-                HasAnyPreHealthInsuranceCancelled: '',
-                DetailsOfPreClaimOnInsured: '',
-                DetailsOfPrevInsuranceCancelled: '',
-                OtherDisease: '',
-                InsuranceCompName: '',
-                PreviousPolNo: '',
+                proposerIdProof: '',
+                proposerIdProofIdP: '',
+                proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
+                proposerDriving: '',
+                proposerPassport: '',
+                proposerVoter: '',
+                proposerGst: ['', Validators.compose([Validators.minLength(15)])],
+                proposerAddress: ['', Validators.required],
+                proposerAddress2: '',
+                proposerAddress3: '',
+                nationality: 'IN',
+                proposerPincode: ['', Validators.required],
+                proposerCity: ['', Validators.required],
+                proposerCountry: 'IND',
+                proposerState: ['', Validators.required],
+                proposerDistrict: '',
+                proposerCityIdP: '',
+                proposerStateIdP: '',
+                proposerCountryIdP: '',
+                proposerDistrictIdP: '',
+                proposerAnnualIncome: ['', Validators.required],
+                proposerFamilySize: ['', Validators.compose([Validators.maxLength(2)])],
+                proposerHeight: ['', Validators.required],
+                proposerWeight: ['', Validators.required],
+                LifeStyleHabits: ['', Validators.required],
+                LiquorPeg: ['', Validators.required],
+                Smoking: ['', Validators.required],
+                WineGlass: ['', Validators.required],
+                BeerBottle: ['', Validators.required],
+                Pouches: ['', Validators.required],
                 PolicyStartDate: '',
                 PolicyEndDate: '',
-                CoverTypeID: '',
-                SumInsured: '',
-                AccumulatedCumulativeBonus: '',
+                PreviousInsurer: ['', Validators.required],
+                PreviousPolicyNumber: ['', Validators.required],
+                SumInsured: ['', Validators.required],
+                QualifyingAmount: '',
+                WaivePeriod: '',
+                Remarks: '',
+                BasePremiumAmount: ['', Validators.required],
+                ClientCode: '',
+                DiscountAmount: ['', Validators.required],
+                GrossPremiumAmount: ['', Validators.required],
+                ProductCode: ['', Validators.required],
+                ProductGroup: ['', Validators.required],
+                ProductLine: ['', Validators.required],
+                ProductType: ['', Validators.required],
+                ProductVersion: ['', Validators.required],
+                SumAssured: ['', Validators.required],
+                SACCode: ['', Validators.required],
+                TaxAmount: ['', Validators.required],
+                Proposeroccupation: ['', Validators.required],
+                proposerrelationship: ['', Validators.required],
                 sameAsProposer: false,
                 sameas: false,
                 type: '',
                 cityHide: '',
                 pCityHide: '',
-                altmobileNumber:''
             }
         );
     }
 
     //Insure Details
-    relianceInsureDetails(stepper: MatStepper, id, value, key) {
+    AppolloInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
@@ -332,30 +340,40 @@ export class AppolloMunichComponent implements OnInit {
             console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
-                    'RelationshipWithProposerID': this.insurerData[i].proposerrelationship,
-                    'Salutation': this.insurerData[i].proposerTitle,
+                    'Address': this.insurerData[i].proposerAddress,
+                        'Age': this.insurerData[i].proposerAge,
+                    'BirthDate': this.insurerData[i].proposerDob,
+                    'ClientCode': this.insurerData[i].ClientCode,
+                    'ContactInformation': this.insurerData[i].proposerMobile,
+                    'Dependants': '',
                     'FirstName': this.insurerData[i].proposerFirstname,
+                    'GenderCode': this.insurerData[i].proposerGender,
+                    'GstinNumber': this.insurerData[i].proposerGst,
+                    'Height': this.insurerData[i].proposerHeight,
+                    'IDProofNumber': this.insurerData[i].proposerIdProof,
+                    'IDProofTypeCode': this.insurerData[i].proposerIdProofIdP,
                     'LastName': this.insurerData[i].proposerLastname,
-                    'Gender': this.insurerData[i].proposerGender,
-                    'Age': this.insurerData[i].proposerAge,
-                    'DOB': this.insurerData[i].proposerDob,
-                    'MaritalStatusID': this.insurerData[i].maritalStatus,
-                    'PreExistingDisease': {
-                        'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'Yes' ? 'true' : 'false',
-                        'DiseaseList': {
-                            'DiseaseDetail': {
-                                'DiseaseID': this.insurerData[i].DiseaseID,
-                                'SufferingSince': '',
-                                'OtherDisease': ''
-                            }
-                        },
+                    'LifeStyleHabits': {
+                        'BeerBottle': this.insurerData[i].BeerBottle,
+                        'LiquorPeg': this.insurerData[i].LiquorPeg,
+                        'Pouches': this.insurerData[i].Pouches,
+                        'Smoking': this.insurerData[i].Smoking,
+                        'WineGlass': this.insurerData[i].WineGlass
+                },
+                'MaritalStatusCode': this.insurerData[i].maritalStatus,
+                    'MiddleName': this.insurerData[i].proposerMidname,
+                    'NationalityCode': 'IN',
+                    'OccuptionCode': this.insurerData[i].Proposeroccupation,
+                    'PreviousInsurer': this.insurerData[i].PreviousInsurerCode,
+                    'Product': {
+                    'Product': {
 
-                        'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco == 'Yes' ? 'true' : 'false',
-                        'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured == 'Yes' ? 'true' : 'false',
-                        'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
-                        'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled == 'Yes' ? 'true' : 'false'
-                    },
-                    'OtherInsuranceList': this.insurerData[i].proposerTitle
+                    }
+                },
+                'ProfessionCode': this.insurerData[i].Proposeroccupation,
+                    'RelationshipCode': this.insurerData[i].proposerrelationship,
+                    'TitleCode': this.insurerData[i].proposerTitle,
+                    'Weight': this.insurerData[i].proposerWeight
                 });
             }
             if (sessionStorage.insurerAge  >= 18) {
@@ -547,7 +565,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
                 proposerAddress3: this.getStepper1.proposerAddress3,
-                proposerNearestLandMark: this.getStepper1.proposerNearestLandMark,
+                nationality: this.getStepper1.nationality,
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerCity: this.getStepper1.proposerCity,
                 proposerState: this.getStepper1.proposerState,
@@ -561,10 +579,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerDistrictIdP: this.getStepper1.proposerDistrictIdP,
                 proposerDistrict: this.getStepper1.proposerDistrict,
                 proposerEmail: this.getStepper1.proposerEmail,
-                proposerEmail2: this.getStepper1.proposerEmail,
-                proposerMobile2: this.getStepper1.proposerMobile,
                 proposerMobile: this.getStepper1.proposerMobile,
-                proposerPhone2: this.getStepper1.proposerPhone,
                 rolecd: this.getStepper1.rolecd,
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
@@ -599,21 +614,59 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-                this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.patchValue(this.getStepper2.items[i].IsExistingIllness);
-                this.insureArray['controls'].items['controls'][i]['controls'].DiseaseID.patchValue(this.getStepper2.items[i].DiseaseID);
-                this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.patchValue(this.getStepper2.items[i].IsInsuredConsumetobacco);
-                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.patchValue(this.getStepper2.items[i].HasAnyPreClaimOnInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.patchValue(this.getStepper2.items[i].HasAnyPreHealthInsuranceCancelled);
-                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPreClaimOnInsured.patchValue(this.getStepper2.items[i].DetailsOfPreClaimOnInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPrevInsuranceCancelled.patchValue(this.getStepper2.items[i].DetailsOfPrevInsuranceCancelled);
-                this.insureArray['controls'].items['controls'][i]['controls'].OtherDisease.patchValue(this.getStepper2.items[i].OtherDisease);
-                this.insureArray['controls'].items['controls'][i]['controls'].InsuranceCompName.patchValue(this.getStepper2.items[i].InsuranceCompName);
-                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolNo.patchValue(this.getStepper2.items[i].PreviousPolNo);
+                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerEmail.patchValue(this.getStepper2.items[i].proposerEmail);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.patchValue(this.getStepper2.items[i].proposerIdProof);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue(this.getStepper2.items[i].proposerPan);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue(this.getStepper2.items[i].proposerDriving);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue(this.getStepper2.items[i].proposerPassport);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.patchValue(this.getStepper2.items[i].proposerVoter);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerGst.patchValue(this.getStepper2.items[i].proposerGst);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress.patchValue(this.getStepper2.items[i].proposerAddress);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress2.patchValue(this.getStepper2.items[i].proposerAddress2);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress3.patchValue(this.getStepper2.items[i].proposerAddress3);
+                this.insureArray['controls'].items['controls'][i]['controls'].nationality.patchValue(this.getStepper2.items[i].nationality);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPincode.patchValue(this.getStepper2.items[i].proposerPincode);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCity.patchValue(this.getStepper2.items[i].proposerCity);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountry.patchValue(this.getStepper2.items[i].proposerCountry);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerState.patchValue(this.getStepper2.items[i].proposerState);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrict.patchValue(this.getStepper2.items[i].proposerDistrict);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCityIdP.patchValue(this.getStepper2.items[i].proposerCityIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerStateIdP.patchValue(this.getStepper2.items[i].proposerStateIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountryIdP.patchValue(this.getStepper2.items[i].proposerCountryIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrictIdP.patchValue(this.getStepper2.items[i].proposerDistrictIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
+                this.insureArray['controls'].items['controls'][i]['controls'].LifeStyleHabits.patchValue(this.getStepper2.items[i].LifeStyleHabits);
+                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.patchValue(this.getStepper2.items[i].LiquorPeg);
+                this.insureArray['controls'].items['controls'][i]['controls'].Smoking.patchValue(this.getStepper2.items[i].Smoking);
+                this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
+                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.patchValue(this.getStepper2.items[i].BeerBottle);
+                this.insureArray['controls'].items['controls'][i]['controls'].Pouches.patchValue(this.getStepper2.items[i].Pouches);
                 this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].CoverTypeID.patchValue(this.getStepper2.items[i].CoverTypeID);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreviousInsurer.patchValue(this.getStepper2.items[i].PreviousInsurer);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolicyNumber.patchValue(this.getStepper2.items[i].PreviousPolicyNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].AccumulatedCumulativeBonus.patchValue(this.getStepper2.items[i].AccumulatedCumulativeBonus);
+                this.insureArray['controls'].items['controls'][i]['controls'].QualifyingAmount.patchValue(this.getStepper2.items[i].QualifyingAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
+                this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
+                this.insureArray['controls'].items['controls'][i]['controls'].BasePremiumAmount.patchValue(this.getStepper2.items[i].BasePremiumAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].DiscountAmount.patchValue(this.getStepper2.items[i].DiscountAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].GrossPremiumAmount.patchValue(this.getStepper2.items[i].GrossPremiumAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProductCode.patchValue(this.getStepper2.items[i].ProductCode);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProductGroup.patchValue(this.getStepper2.items[i].ProductGroup);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProductLine.patchValue(this.getStepper2.items[i].ProductLine);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProductType.patchValue(this.getStepper2.items[i].ProductType);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProductVersion.patchValue(this.getStepper2.items[i].ProductVersion);
+                this.insureArray['controls'].items['controls'][i]['controls'].SumAssured.patchValue(this.getStepper2.items[i].SumAssured);
+                this.insureArray['controls'].items['controls'][i]['controls'].SACCode.patchValue(this.getStepper2.items[i].SACCode);
+                this.insureArray['controls'].items['controls'][i]['controls'].TaxAmount.patchValue(this.getStepper2.items[i].TaxAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
             }
         }
 
@@ -621,9 +674,7 @@ export class AppolloMunichComponent implements OnInit {
             console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
-                nomineeFirstName: this.getNomineeData.nomineeFirstName,
-                nomineeMidName: this.getNomineeData.nomineeMidName,
-                nomineeLastName: this.getNomineeData.nomineeLastName,
+                nomineeName: this.getNomineeData.nomineeName,
                 nomineeRelationship: this.getNomineeData.nomineeRelationship,
                 nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
                 nomineeAddress: this.getNomineeData.nomineeAddress,
@@ -638,10 +689,8 @@ export class AppolloMunichComponent implements OnInit {
                 nomineeCityId: this.getNomineeData.nomineeCityId,
                 nomineeStateId: this.getNomineeData.nomineeStateId,
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
-                nomineeArea: this.getNomineeData.nomineeArea,
-                nearestLandMark: this.getNomineeData.nearestLandMark,
                 nomineeTitle: this.getNomineeData.nomineeTitle,
-                nomineeDob: this.getNomineeData.nomineeDob
+                nomineeDob: this.getNomineeData.nomineeDob,
             });
         }
 
@@ -797,6 +846,7 @@ export class AppolloMunichComponent implements OnInit {
 
     //Create Appollo-Munich Details
     proposal() {
+
         const data  = {
             'enquiry_id': this.enquiryId,
             'proposal_id': this.proposalId,
@@ -807,130 +857,132 @@ export class AppolloMunichComponent implements OnInit {
                 'Prospect': {
                     'Application': {
                         'NomineeAddress': {
-                            'AddressLine1': '',
-                            'CountryCode': 'IN',
-                            'District': '',
-                            'PinCode': '',
-                            'StateCode': '',
-                            'TownCode': ''
+                            'AddressLine1': this.proposerData.nomineeAddress,
+                            'CountryCode': this.proposerData.nomineeCountry,
+                            'District': this.proposerData.nomineeDistrict,
+                            'PinCode': this.proposerData.nomineePincode,
+                            'StateCode': this.proposerData.nomineeState,
+                            'TownCode': this.proposerData.nomineeCity
                         },
-                        'NomineeName': '',
-                        'NomineeTitleCode': '',
+                        'NomineeName': this.proposerData.nomineeName,
+                        'NomineeTitleCode': this.proposerData.nomineeTitle,
+                        'RelationToNomineeCode': this.proposerData.nomineeRelationship,
                         'Proposer': {
                             'Address': {
                                 'Address': {
-                                    'AddressLine1': '',
-                                    'AddressLine2': '',
-                                    'AddressLine3': '',
-                                    'CountryCode': 'IN',
-                                    'District': '',
-                                    'PinCode': '',
-                                    'StateCode': '',
-                                    'TownCode': ''
+                                    'AddressLine1': this.proposerData.proposerAddress,
+                                    'AddressLine2': this.proposerData.proposerAddress2,
+                                    'AddressLine3': this.proposerData.proposerAddress3,
+                                    'CountryCode': this.proposerData.proposerCountry,
+                                    'District': this.proposerData.proposerDistrict,
+                                    'PinCode': this.proposerData.proposerPincode,
+                                    'StateCode': this.proposerData.proposerState,
+                                    'TownCode': this.proposerData.proposerCity
                                 }
                             },
-                            'BirthDate': '',
-                            'ClientCode': '',
+                            'BirthDate': this.proposerData.proposerDob,
+                            'ClientCode': this.proposerData.ClientCode,
                             'ContactInformation': {
                                 'ContactNumber': {
                                     'ContactNumber': {
-                                        'Number': ''
+                                        'Number': this.proposerData.proposerMobile
                                     }
                                 },
-                                'Email': ''
+                                'Email': this.proposerData.proposerEmail
                             },
-                            'FirstName': '',
-                            'GenderCode': '',
-                            'GstinNumber': '',
-                            'IDProofNumber': '',
-                            'IDProofTypeCode': '',
-                            'LastName': '',
-                            'MaritalStatusCode': '',
-                            'MiddleName': '',
-                            'RelationshipCode': '1'
-                        },
-                        'RelationToNomineeCode': ''
+                            'FirstName': this.proposerData.proposerFirstname,
+                            'GenderCode': this.proposerData.proposerGender,
+                            'GstinNumber': this.proposerData.proposerGst,
+                            'IDProofNumber': this.proposerData.proposerIdProof,
+                            'IDProofTypeCode': this.proposerData.proposerIdProofIdP,
+                            'LastName': this.proposerData.proposerLastname,
+                            'MaritalStatusCode': this.proposerData.maritalStatus,
+                            'MiddleName': this.proposerData.proposerMidname,
+                            'RelationshipCode': this.proposerData.proposerrelationship
+                        }
                     },
                     'Client': {
                         'Address': {
                             'Address': {
-                                'AddressLine1': '',
-                                'AddressLine2': '',
-                                'AddressLine3': '',
+                                'AddressLine1': this.totalInsureDetails[0].proposerAddress,
+                                'AddressLine2': this.totalInsureDetails[0].proposerAddress2,
+                                'AddressLine3': this.totalInsureDetails[0].proposerAddress3,
                                 'CountryCode': 'IN',
-                                'District': '',
-                                'PinCode': '',
-                                'StateCode': '',
-                                'TownCode': ''
+                                'District': this.totalInsureDetails[0].proposerDistrict,
+                                'PinCode': this.totalInsureDetails[0].proposerPincode,
+                                'StateCode': this.totalInsureDetails[0].proposerState,
+                                'TownCode': this.totalInsureDetails[0].proposerCity
                             }
                         },
-                        'Age': '',
-                        'AnnualIncome': '',
-                        'BirthDate': '',
-                        'ClientCode': '',
+                        'Age': this.totalInsureDetails[0].proposerAge,
+                        'AnnualIncome': this.totalInsureDetails[0].proposerAnnualIncome,
+                        'BirthDate': this.totalInsureDetails[0].proposerDob,
+                        'ClientCode': this.totalInsureDetails[0].ClientCode,
                         'ContactInformation': {
                             'ContactNumber': {
                                 'ContactNumber': {
-                                    'Number': ''
+                                    'Number': this.totalInsureDetails[0].proposerMobile
                                 }
                             },
                             'Email': ''
                         },
-                        'Dependants': '',
-                        'FamilySize': '',
-                        'FirstName': '',
-                        'GenderCode': '',
-                        'GstinNumber': '',
-                        'Height': '',
-                        'IDProofNumber': '',
-                        'IDProofTypeCode': '',
-                        'LastName': '',
-                        'MaritalStatusCode': '',
-                        'MiddleName': '',
-                        'NationalityCode': 'IN',
-                        'OccuptionCode': '',
+                        'Dependants': {
+                                'Client' : this.totalInsureDetails
+                            },
+                        'FamilySize': this.totalInsureDetails[0].proposerFamilySize,
+                        'FirstName': this.totalInsureDetails[0].proposerFirstname,
+                        'GenderCode': this.totalInsureDetails[0].proposerGender,
+                        'GstinNumber': this.totalInsureDetails[0].proposerGst,
+                        'Height': this.totalInsureDetails[0].proposerHeight,
+                        'IDProofNumber': this.totalInsureDetails[0].proposerIdProof,
+                        'IDProofTypeCode': this.totalInsureDetails[0].proposerIdProofIdP,
+                        'LastName': this.totalInsureDetails[0].proposerLastname,
+                        'MaritalStatusCode': this.totalInsureDetails[0].maritalStatus,
+                        'MiddleName': this.totalInsureDetails[0].proposerMidname,
+                        'NationalityCode': this.totalInsureDetails[0].nationality,
+                        'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                         'PreviousInsurer': {
                             'PreviousInsurer': {
-                                'InceptionDate': '',
-                                'EndDate': '',
-                                'PreviousInsurerCode': '',
-                                'PreviousPolicyNumber': '',
-                                'SumInsured': '',
-                                'QualifyingAmount': '',
-                                'WaivePeriod': '',
-                                'Remarks': ''
+                                'InceptionDate': this.totalInsureDetails[0].InceptionDate,
+                                'EndDate': this.totalInsureDetails[0].EndDate,
+                                'PreviousInsurerCode': this.totalInsureDetails[0].PreviousInsurerCode,
+                                'PreviousPolicyNumber': this.totalInsureDetails[0].PreviousPolicyNumber,
+                                'SumInsured': this.totalInsureDetails[0].SumInsured,
+                                'QualifyingAmount': this.totalInsureDetails[0].QualifyingAmount,
+                                'WaivePeriod': this.totalInsureDetails[0].WaivePeriod,
+                                'Remarks': this.totalInsureDetails[0].Remarks
                             }
                         },
                         'LifeStyleHabits': {
-                            'BeerBottle': '',
-                            'LiquorPeg': '',
-                            'Pouches': '',
-                            'Smoking': '',
-                            'WineGlass': ''
+                            'BeerBottle': this.totalInsureDetails[0].BeerBottle,
+                            'LiquorPeg': this.totalInsureDetails[0].LiquorPeg,
+                            'Pouches': this.totalInsureDetails[0].Pouches,
+                            'Smoking': this.totalInsureDetails[0].Smoking,
+                            'WineGlass': this.totalInsureDetails[0].WineGlass
                         },
                         'Product': {
                             'Product': {
-                                'BasePremiumAmount': '',
-                                'ClientCode': '',
-                                'DiscountAmount': '',
-                                'GrossPremiumAmount': '',
-                                'ProductCode': '',
-                                'ProductGroup': '',
-                                'ProductLine': '',
-                                'ProductType': '',
-                                'ProductVersion': '',
-                                'SACCode': '',
-                                'SumAssured': '',
-                                'TaxAmount': ''
+                                'BasePremiumAmount': this.totalInsureDetails[0].BasePremiumAmount,
+                                'ClientCode': this.totalInsureDetails[0].ClientCode,
+                                'DiscountAmount': this.totalInsureDetails[0].DiscountAmount,
+                                'GrossPremiumAmount': this.totalInsureDetails[0].GrossPremiumAmount,
+                                'ProductCode': this.totalInsureDetails[0].ProductCode,
+                                'ProductGroup': this.totalInsureDetails[0].ProductGroup,
+                                'ProductLine': this.totalInsureDetails[0].ProductLine,
+                                'ProductType': this.totalInsureDetails[0].ProductType,
+                                'ProductVersion': this.totalInsureDetails[0].ProductVersion,
+                                'SACCode': this.totalInsureDetails[0].SACCode,
+                                'SumAssured': this.totalInsureDetails[0].SumAssured,
+                                'TaxAmount': this.totalInsureDetails[0].TaxAmount
 
                             }
                         },
-                        'ProfessionCode': '',
-                        'RelationshipCode': '',
-                        'TitleCode': '',
-                        'Weight': ''
+                        'ProfessionCode': this.totalInsureDetails[0].Proposeroccupation,
+                        'RelationshipCode': this.totalInsureDetails[0].proposerrelationship,
+                        'TitleCode': this.totalInsureDetails[0].proposerTitle,
+                        'Weight': this.totalInsureDetails[0].proposerWeight
                     },
-                    'MedicalInformations': ''
+                    'MedicalInformations': this.totalInsureDetails[0].MedicalInformations
                 }
             }
 
@@ -963,14 +1015,14 @@ export class AppolloMunichComponent implements OnInit {
 
             for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
                 for( let j=0; j < this.relationshipList.length; j++){
-                    if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_proposer_id ) {
-                        this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+                    if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship;
                     }
                 }
             }
             for( let j=0; j < this.relationshipList.length; j++){
-                if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_proposer_id ) {
-                    this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
+                if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_code ) {
+                    this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship;
                 }
             }
             // disease name
