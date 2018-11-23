@@ -157,6 +157,7 @@ import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-p
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -291,6 +292,7 @@ import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.comp
       TravelProposalComponent,
       CompareDetailsComponent,
       AppolloMunichComponent,
+      IffcoTokioComponent,
 
   ],
   providers: [

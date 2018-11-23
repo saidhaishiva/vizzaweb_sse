@@ -41,6 +41,7 @@ import {PersonalaccidentComponent} from './pages/personalaccident/personalaccide
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -166,6 +167,7 @@ export const routes: Routes = [
             { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
+            { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
 
         ]
     },
