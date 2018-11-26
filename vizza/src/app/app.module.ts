@@ -159,6 +159,8 @@ import { CompareDetailsComponent } from './pages/personalaccident/compare-detail
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
 
+import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -294,6 +296,8 @@ import { DownloadtravelMessage} from './pages/payment-success-travel/payment-suc
       TravelProposalComponent,
       CompareDetailsComponent,
       PaymentSuccessTravelComponent,
+      AppolloMunichComponent,
+      IffcoTokioComponent,
 
   ],
   providers: [

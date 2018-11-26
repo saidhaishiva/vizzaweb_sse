@@ -41,6 +41,8 @@ import {PersonalaccidentComponent} from './pages/personalaccident/personalaccide
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';
+import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -163,9 +165,11 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
+            { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
+            { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
 
         ]
     },

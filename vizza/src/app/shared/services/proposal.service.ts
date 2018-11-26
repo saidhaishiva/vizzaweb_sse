@@ -38,6 +38,19 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+// presonal accident
+    getPersonalAccidentReligareProposal(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/proposal_creation';
+        console.log(url);
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     getPolicyToken(data) {
         const json = JSON.stringify(data);
@@ -107,7 +120,30 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
+    // personal acciddent occupation code
+    getPersonalOccupationCode(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationcode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // class description
+    classOccupationCode(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationname';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getOccupationClass(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -127,6 +163,17 @@ export class ProposalService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/get_religare_questions';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    persosnalAccidentReligareQuestions(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_religare/proposalquestions';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -208,6 +255,107 @@ export class ProposalService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/get_religare_pincodes';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    //Appollo-Munich
+    getIdProofList(data){
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_id_proof';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloMaritalStatus(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'reliance/marital_status_list';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloOccupation(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_occupation_code';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloPreviousInsure(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_previous_insure';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloProffession(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_proffession';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloRelationship(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_relationship';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloState(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_state';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloDistrict(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_district';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppolloCity(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'apollomunich/get_city';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

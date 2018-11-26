@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
-import { MatStepper } from '@angular/material';
+import {MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
-import { AppSettings } from '../../app.settings';
+import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MomentDateAdapter } from '@angular/material-moment-adapter';
+import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -308,9 +308,7 @@ public RediretUrlLink: any;
                 maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
-                // personalWeight: ['', Validators.required],
-                // personalHeight: ['', Validators.required],
-                IsExistingIllness: '',
+                IsExistingIllness: 'No',
                 DiseaseID: '',
                 IsInsuredConsumetobacco: '',
                 HasAnyPreClaimOnInsured: '',
@@ -1055,7 +1053,7 @@ public RediretUrlLink: any;
                 'PrevYearPolicyEndDate': ''
             },
             'enquiry_id': this.enquiryId,
-            'proposal_id': this.proposalId,
+            'proposal_id': sessionStorage.proposalID != '' ? sessionStorage.proposalID : this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',

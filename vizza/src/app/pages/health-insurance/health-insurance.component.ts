@@ -1159,7 +1159,9 @@ export class HealthInsuranceComponent implements OnInit {
                 this.router.navigate(['/religare']);
             }  else if(value.product_id == 11){
                 this.router.navigate(['/reliance']);
-            } else {
+            } else if(value.product_id == 12 || value.product_id == 13 ){
+                this.router.navigate(['/appollo-munich']);
+            }else {
                 this.router.navigate(['/proposal']);
             }
         }
