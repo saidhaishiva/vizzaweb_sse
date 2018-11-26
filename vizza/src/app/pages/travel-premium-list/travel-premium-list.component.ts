@@ -60,7 +60,7 @@ export class TravelPremiumListComponent implements OnInit {
     webhost: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
-        this.premiumLists = JSON.parse(sessionStorage.premiumLists);
+        this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
         console.log(this.premiumLists, 'testy');
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -495,7 +495,7 @@ export class TravelPremiumListComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            sessionStorage.premiumLists = JSON.stringify(successData.ResponseObject);
+            sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
 
             this.router.navigate(['/travelpremium']);

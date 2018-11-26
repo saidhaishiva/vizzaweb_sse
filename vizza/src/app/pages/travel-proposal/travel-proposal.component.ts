@@ -344,7 +344,7 @@ export class TravelProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
             } else {
-                sessionStorage.proposerAge = this.proposerAge;
+                sessionStorage.proposerAgeForTravel = this.proposerAge;
             }
 
         }
@@ -484,9 +484,9 @@ export class TravelProposalComponent implements OnInit {
     }
 
     sessionData() {
-        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
-            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+        if (sessionStorage.stepper1DetailsForTravel != '' && sessionStorage.stepper1DetailsForTravel != undefined) {
+            console.log(JSON.parse(sessionStorage.stepper1DetailsForTravel), 'sessionStorage.stepper1Details');
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1DetailsForTravel);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
@@ -545,9 +545,9 @@ export class TravelProposalComponent implements OnInit {
 
 
 
-        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
-            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+        if (sessionStorage.stepper2DetailsForTravel != '' && sessionStorage.stepper2DetailsForTravel != undefined) {
+            console.log(JSON.parse(sessionStorage.stepper2DetailsForTravel), 'sessionStorage');
+            this.getStepper2 = JSON.parse(sessionStorage.stepper2DetailsForTravel);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerTitle.patchValue(this.getStepper2.items[i].insurerTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerName.patchValue(this.getStepper2.items[i].insurerName);
@@ -575,13 +575,13 @@ export class TravelProposalComponent implements OnInit {
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
+        sessionStorage.stepper1DetailsForTravel = '';
+        sessionStorage.stepper1DetailsForTravel = JSON.stringify(value);
         this.personalData = value;
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         console.log(this.personalData, 'first');
         if (this.personal.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -592,8 +592,8 @@ export class TravelProposalComponent implements OnInit {
     createProposal(stepper: MatStepper, value, key) {
         console.log(value);
         console.log(this.personalData, 'fft');
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper2Details = JSON.stringify(value);
+        sessionStorage.stepper2DetailsForTravel = '';
+        sessionStorage.stepper2DetailsForTravel = JSON.stringify(value);
         this.insurerData = value;
         this.allInsuredData = [];
         for (let i = 0; i < value.items.length; i++) {
@@ -1062,7 +1062,7 @@ export class TravelProposalComponent implements OnInit {
         } else {
             // this.mobileNumber = 'false';
         }
-        sessionStorage.mobileNumber = this.mobileNumber;
+        sessionStorage.mobileNumberForTravel = this.mobileNumber;
     }
 
 
@@ -1077,7 +1077,7 @@ export class TravelProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         this.settings.loadingSpinner = true;
-        this.proposalservice.getPolicyToken(data).subscribe(
+        this.travelservice.getPolicyToken(data).subscribe(
             (successData) => {
                 this.getPolicyTokenSuccess(successData);
             },

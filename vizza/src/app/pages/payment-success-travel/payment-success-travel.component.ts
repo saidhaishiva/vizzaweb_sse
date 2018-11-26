@@ -86,12 +86,12 @@ export class PaymentSuccessTravelComponent implements OnInit {
            sessionStorage.travelPlan = '';
            sessionStorage.duration = '';
            sessionStorage.medicalCondition = '';
-           sessionStorage.premiumLists = '';
+           sessionStorage.allTravelPremiumLists = '';
            sessionStorage.travelPremiumList = '';
-           sessionStorage.stepper1Details = '';
-           sessionStorage.stepper2Details = '';
-           sessionStorage.proposerAge = '';
-           sessionStorage.mobileNumber = '';
+           sessionStorage.stepper1DetailsForTravel = '';
+           sessionStorage.stepper2DetailsForTravel = '';
+           sessionStorage.proposerAgeForTravel = '';
+           sessionStorage.mobileNumberForTravel = '';
 
 
 

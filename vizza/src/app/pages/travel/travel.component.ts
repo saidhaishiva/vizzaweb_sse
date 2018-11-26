@@ -528,7 +528,7 @@ export class TravelComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            sessionStorage.premiumLists = JSON.stringify(successData.ResponseObject);
+            sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.router.navigate(['/travelpremium']);
         } else {
             this.toast.error(successData.ErrorObject);
