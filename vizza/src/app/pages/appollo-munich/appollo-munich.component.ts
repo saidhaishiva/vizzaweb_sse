@@ -370,7 +370,16 @@ export class AppolloMunichComponent implements OnInit {
                     'MiddleName': this.insurerData[i].proposerMidname,
                     'NationalityCode': 'IN',
                     'OccuptionCode': this.insurerData[i].Proposeroccupation,
-                    'PreviousInsurer': this.insurerData[i].PreviousInsurerCode,
+                    'PreviousInsurer': {
+                        'InceptionDate': this.insurerData[i].InceptionDate,
+                        'EndDate': this.insurerData[i].EndDate,
+                        'PreviousInsurerCode': this.insurerData[i].PreviousInsurerCode,
+                        'PreviousPolicyNumber': this.insurerData[i].PreviousPolicyNumber,
+                        'SumInsured': this.insurerData[i].SumInsured,
+                        'QualifyingAmount': this.insurerData[i].QualifyingAmount,
+                        'WaivePeriod': this.insurerData[i].WaivePeriod,
+                        'Remarks': this.insurerData[i].Remarks
+                    },
                     'Product': {
                     'Product': {
 
