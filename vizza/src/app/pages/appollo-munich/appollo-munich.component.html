@@ -627,7 +627,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="nomineeStateChange($event, 'nominee',i)" required>
+                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="stateChange($event, 'nominee',i)" required>
                             <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
