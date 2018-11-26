@@ -665,7 +665,7 @@ export class TravelProposalComponent implements OnInit {
             }
 
             if (valid) {
-             //   this.settings.loadingSpinner = true;
+                this.settings.loadingSpinner = true;
                 this.travelservice.createTravelProposal(data).subscribe(
                     (successData) => {
                         this.proposalSuccess(successData);

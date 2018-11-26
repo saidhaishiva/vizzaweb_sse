@@ -147,7 +147,7 @@
                     </mat-radio-group>
                     <div fxLayoutAlign="center center" class="mt-3">
                       <button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;
-                      <button mat-raised-button color="accent" style="background: #00695c !important;" type="button" (click)="submit('self')">Proceed <i class="fa fa-arrow-right"></i></button>
+                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="fa fa-arrow-right"></i></button>
                     </div>
 
                     <!--<mat-radio-group class="w-100" [(ngModel)]="travelPlan">-->
@@ -308,8 +308,8 @@
 
                     </mat-radio-group>
                     <div fxLayoutAlign="center center" class="mt-3">
-                      <button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="fa fa-arrow-right"></i></button>&nbsp;&nbsp;
-                      <button mat-raised-button color="accent" type="button" (click)="submit('family')">Proceed <i class="fa fa-arrow-right"></i></button>
+                      <button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;
+                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="fa fa-arrow-right"></i></button>
                     </div>
                   </div>
                 </div>
@@ -406,8 +406,8 @@
                       </div>
                     </mat-radio-group>
                     <div fxLayoutAlign="center center" class="mt-3">
-                      <button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="fa fa-arrow-right"></i></button>&nbsp;&nbsp;
-                      <button mat-raised-button color="accent" type="button" (click)="submit('students')">Proceed <i class="fa fa-arrow-right"></i></button>
+                      <button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;
+                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('students')">Proceed <i class="fa fa-arrow-right"></i></button>
                     </div>
                   </div>
                 </div>
@@ -424,3 +424,9 @@
 
   </div>
 </div>
+
+<style>
+  .btn-color {
+    background: #00695c !important;
+  }
+</style>
