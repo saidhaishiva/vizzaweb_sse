@@ -108,10 +108,10 @@ export class HealthInsuranceComponent implements OnInit {
         this.hideChild = [];
 
         this.setArray = [
-            {name: 'Self', age: '', disabled: false, checked: false, auto: false, error: ''},
-            {name: 'Spouse', age: '', disabled: false, checked: false, auto: false, error: ''},
-            {name: 'Son', age: '', disabled: false, checked: false, auto: false, error: ''},
-            {name: 'Daughter', age: '', disabled: false, checked: false, auto: false, error: ''}
+            {name: 'Self', age: '', disabled: false, checked: false, required: true, auto: false, error: ''},
+            {name: 'Spouse', age: '', disabled: false, checked: false, required: false, auto: false, error: ''},
+            {name: 'Son', age: '', disabled: false, checked: false, required: false, auto: false, error: ''},
+            {name: 'Daughter', age: '', disabled: false, checked: false, required: false, auto: false, error: ''}
         ];
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
@@ -161,6 +161,12 @@ export class HealthInsuranceComponent implements OnInit {
     sessionData() {
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
             this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
+            for (let i = 0; i < this.setArray.length; i++) {
+                this.setArray[i].auto = false;
+                if (this.setArray[i].checked && this.setArray[i].age != '') {
+                    this.setArray[i].error = '';
+                }
+            }
         }
         if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
             this.selectedAmount = sessionStorage.setInsuredAmount;
@@ -209,6 +215,10 @@ export class HealthInsuranceComponent implements OnInit {
                     if (this.setArray[i].name == this.getArray[j].type) {
                         this.setArray[i].auto = true;
                     }
+                    if (this.setArray[i].checked && this.setArray[i].age != '') {
+                        this.setArray[i].error = '';
+                    }
+
                 }
             }
             this.tabIndex = index;
@@ -274,7 +284,7 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.sonBTn = true;
                 sessionStorage.daughterBTn = true;
                 let size= '';
-                console.log(this.setArray[index].name +'/' + this.setArray[4].name);
+              //  console.log(this.setArray[index].name +'/' + this.setArray[4].name);
                 // for (let i = 0; i < this.setArray.length; i++) {
                 //         if (this.setArray[length].name == 'Son') {
                 //             this.setArray[3].disabled = true;
@@ -467,6 +477,7 @@ export class HealthInsuranceComponent implements OnInit {
         for (let i = 0; i < this.setArray.length; i++) {
             this.setArray[i].age = '';
             this.setArray[i].checked = '';
+            this.setArray[0].required = true;
         }
 
     }
@@ -484,35 +495,56 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         this.finalData = [];
-        let validArray=[];
-
-        for (let i = 0; i < this.setArray.length; i++) {
-            if (this.setArray[i].checked) {
-                validArray.push(1);
-                if (this.setArray[i].age == '') {
-                    this.setArray[i].error = 'Required';
-
+        // let validArray=[];
+        // for (let i = 0; i < this.setArray.length; i++) {
+        //     if (this.setArray[i].checked) {
+        //         validArray.push(1);
+        //         if (this.setArray[i].age == '') {
+        //             this.setArray[i].error = 'Required';
+        //
+        //             } else {
+        //             this.setArray[i].error = '';
+        //             this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+        //         }
+        //     }
+        // }
+        // if(!validArray.includes(1)){
+        //     this.toast.error("Please select atleast one member");
+        //
+        // }
+        let memberValid = false;
+        // if (!this.setArray[0].checked) {
+        //     this.setArray[0].error = 'Required';
+        //     memberValid = true;
+        // } else {
+            for (let i = 0; i < this.setArray.length; i++) {
+                if (this.setArray[i].checked) {
+                    if (this.setArray[i].age == '') {
+                        this.setArray[i].error = 'Required';
+                        memberValid = true;
+                        break;
                     } else {
-                    this.setArray[i].error = '';
-                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+                        this.setArray[i].error = '';
+                        memberValid = false;
+                        this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+                    }
                 }
             }
-        }
-        if(!validArray.includes(1)){
-            this.toast.error("Please select atleast one member");
+        // }
 
-        }
+
 
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
-            if (this.finalData != '') {
-                // if (this.setArray[index].age.length > 1) {
-                // if (this.setArray[0].age < 18) {
-                //     this.toast.error("Self age should not be less than 18");
-                // } else if (this.setArray[1].age != '') {
-                //     if (this.setArray[1].age < 18) {
-                //         this.toast.error("Spouse age should not be less than 18");
-                //     }
-                // } else {
+            if (!memberValid) {
+                if (this.finalData != '') {
+                    // if (this.setArray[index].age.length > 1) {
+                    // if (this.setArray[0].age < 18) {
+                    //     this.toast.error("Self age should not be less than 18");
+                    // } else if (this.setArray[1].age != '') {
+                    //     if (this.setArray[1].age < 18) {
+                    //         this.toast.error("Spouse age should not be less than 18");
+                    //     }
+                    // } else {
                     const data = {
                         'platform': 'web',
                         'postalcode': this.pincoce ? this.pincoce : '',
@@ -537,11 +569,12 @@ export class HealthInsuranceComponent implements OnInit {
 
                         }
                     );
-                // }
-                // }
+                    // }
+                    // }
 
-            } else {
+                } else {
                     // this.toast.error("Please select atleast one member");
+                }
             }
         }
     }

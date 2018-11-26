@@ -60,7 +60,8 @@ export class TravelPremiumListComponent implements OnInit {
     webhost: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
-        this.premiumLists = JSON.parse(sessionStorage.premiumLists);
+        this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        console.log(this.premiumLists, 'testy');
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
@@ -189,20 +190,30 @@ export class TravelPremiumListComponent implements OnInit {
     onSelectedIndexChange(event){
         console.log((this.premiumLists.travel_type == 'self' ? 0 : ''), 'valuffess');
         console.log(event, 'event');
-        if (event == (this.premiumLists.travel_type == 'self' ? 0 : '')) {
+        if (event == 0) {
+            console.log('seff');
+
             this.showSelf = true;
             this.showGroup = false;
             this.showstudent = false;
-        } else if (event == (this.premiumLists.travel_type == 'family' ? 1 : '')) {
+            this.selfDetails();
+        } else if (event == 1) {
+            console.log('ffm');
             this.showGroup = true;
             this.showSelf = false;
             this.showstudent = false;
-        } else if (event == (this.premiumLists.travel_type == 'students' ? 2 : '')) {
+            this.familyDetails();
+        } else if (event == 2) {
+            console.log('sst');
             this.showGroup = false;
             this.showSelf = false;
-        } else {
-            this.router.navigate(['/travel']);
+            this.showstudent = true;
+            this.studentDetails();
+
         }
+        // else {
+        //     this.router.navigate(['/travel']);
+        // }
 
     }
     ckeckedUser(index, checked, name) {
@@ -450,6 +461,7 @@ export class TravelPremiumListComponent implements OnInit {
             let diff = Date.parse(tDate) - Date.parse(fDate);
             let days =  Math.floor(diff / 86400000);
             console.log(days);
+            this.settings.loadingSpinner = true;
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -481,8 +493,9 @@ export class TravelPremiumListComponent implements OnInit {
     }
     public getTravelPremiumCalSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            sessionStorage.premiumLists = JSON.stringify(successData.ResponseObject);
+            sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
 
             this.router.navigate(['/travelpremium']);
@@ -492,7 +505,7 @@ export class TravelPremiumListComponent implements OnInit {
 
     }
     public getTravelPremiumCalFailure(error) {
-
+        this.settings.loadingSpinner = false;
     }
     booking(value) {
         console.log(value, 'vlitss');

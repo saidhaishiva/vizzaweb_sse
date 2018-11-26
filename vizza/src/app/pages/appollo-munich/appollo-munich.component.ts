@@ -55,6 +55,7 @@ export class AppolloMunichComponent implements OnInit {
     public AppolloStateList: any;
     public AppolloDistrictList: any;
     public AppolloCityList: any;
+    public occupationList: any;
     public today: any;
     public declaration: boolean;
     public summaryData: any;
@@ -238,6 +239,7 @@ export class AppolloMunichComponent implements OnInit {
         this.maritalStatus();
         this.IdProofList();
         this.AppolloState();
+        this.setOccupationList();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -597,18 +599,6 @@ export class AppolloMunichComponent implements OnInit {
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
             });
-            if (this.getStepper1.proposerPincode != '') {
-                this.commonPincode(this.getStepper1.proposerPincode, 'proposalP');
-                setTimeout(() =>{
-                    if(this.getStepper1.sameas == true) {
-                        this.inputReadonly = true;
-                        this.commonPincode(this.getStepper1.proposerPincode, 'proposalR');
-                    } else if(this.getStepper1.sameas == false) {
-                        this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
-                    }
-                },2000);
-            };
-
         }
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
@@ -767,94 +757,6 @@ export class AppolloMunichComponent implements OnInit {
 
         }
 
-    }
-
-    commonPincode(pin, title){
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getCheckpincode(data).subscribe(
-                (successData) => {
-                    this.commonPincodeSuccess(successData);
-                },
-                (error) => {
-                    this.commonPincodeFailure(error);
-                }
-            );
-        }
-    }
-
-    public commonPincodeSuccess(successData) {
-        this.setPincode = successData.ResponseObject;
-        if (this.title == 'proposalP') {
-            if (successData.IsSuccess) {
-                this.proposer['controls'].proposerState.patchValue(this.setPincode.state_name);
-                this.proposer['controls'].proposerDistrict.patchValue(this.setPincode.district_name);
-                this.proposer['controls'].proposerCity.patchValue(this.setPincode.city_village_name);
-                this.proposalPArea = this.setPincode.area_details;
-                this.proposer['controls'].proposerDistrictIdP.patchValue(this.setPincode.district_id);
-                this.proposer['controls'].proposerCityIdP.patchValue(this.setPincode.city_village_id);
-                this.proposer['controls'].proposerStateIdP.patchValue(this.setPincode.state_id);
-            } else {
-                this.toastr.error('In valid Pincode');
-                this.proposer['controls'].proposerState.patchValue('');
-                this.proposer['controls'].proposerDistrict.patchValue('');
-                this.proposer['controls'].proposerCity.patchValue('');
-                this.proposalPArea = [];
-                this.proposer['controls'].proposerDistrictIdP.patchValue('');
-                this.proposer['controls'].proposerCityIdP.patchValue('');
-                this.proposer['controls'].proposerStateIdP.patchValue('');
-            }
-        }
-        if (this.title == 'proposalR') {
-            if (successData.IsSuccess) {
-                this.proposer['controls'].residenceState.patchValue(this.setPincode.state_name);
-                this.proposer['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
-                this.proposer['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
-                this.proposalRArea = this.setPincode.area_details;
-                this.proposer['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
-                this.proposer['controls'].proposerCityIdR.patchValue(this.setPincode.city_village_id);
-                this.proposer['controls'].proposerStateIdR.patchValue(this.setPincode.state_id);
-            } else {
-                this.toastr.error('In valid Pincode');
-                this.proposer['controls'].residenceState.patchValue('');
-                this.proposer['controls'].residenceDistrict.patchValue('');
-                this.proposer['controls'].residenceCity.patchValue('');
-                this.proposalRArea = [];
-                this.proposer['controls'].residenceDistrictIdR.patchValue('');
-                this.proposer['controls'].proposerCityIdR.patchValue('');
-                this.proposer['controls'].proposerStateIdR.patchValue('');
-            }
-        }
-
-        if (this.title == 'Nominee') {
-            if (successData.IsSuccess) {
-                this.nomineeDetails['controls'].nomineeState.patchValue(this.setPincode.state_name);
-                this.nomineeDetails['controls'].nomineeDistrict.patchValue(this.setPincode.district_name);
-                this.nomineeDetails['controls'].nomineeCity.patchValue(this.setPincode.city_village_name);
-                this.nomineeAreaList = this.setPincode.area_details;
-                this.nomineeDetails['controls'].nomineeDistrictId.patchValue(this.setPincode.district_id);
-                this.nomineeDetails['controls'].nomineeCityId.patchValue(this.setPincode.city_village_id);
-                this.nomineeDetails['controls'].nomineeStateId.patchValue(this.setPincode.state_id);
-            } else {
-                this.toastr.error('In valid Pincode');
-                this.nomineeDetails['controls'].nomineeState.patchValue('');
-                this.nomineeDetails['controls'].nomineeDistrict.patchValue('');
-                this.nomineeDetails['controls'].nomineeCity.patchValue('');
-                this.nomineeAreaList = [];
-                this.nomineeDetails['controls'].nomineeDistrictId.patchValue('');
-                this.nomineeDetails['controls'].nomineeCityId.patchValue('');
-                this.nomineeDetails['controls'].nomineeStateId.patchValue('');
-            }
-        }
-    }
-
-    public commonPincodeFailure(error) {
-        console.log(error);
     }
 
     //Create Appollo-Munich Details
@@ -1262,7 +1164,7 @@ export class AppolloMunichComponent implements OnInit {
         }
         this.proposalservice.getAppolloDistrict(data).subscribe(
             (successData) => {
-                this.setAppolloDistrictSuccess(successData);
+                this.setAppolloDistrictSuccess(successData)
             },
             (error) => {
                 this.setAppolloDistrictFailure(error);
@@ -1321,6 +1223,35 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     public setRelationshipFailure(error) {
+        console.log(error);
+    }
+
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloOccupation(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
+            }
+        );
+
+    }
+
+    public occupationListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.occupationList = successData.ResponseObject;
+        }
+        console.log(this.occupationList, 'occupationList');
+    }
+
+    public occupationListFailure(error) {
         console.log(error);
     }
 

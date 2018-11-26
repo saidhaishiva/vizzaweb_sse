@@ -75,8 +75,10 @@ export class TravelComponent implements OnInit {
     finalData: any;
     sumerror: any;
     duration: any;
+    public settings: Settings;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
+        this.settings = this.appSettings.settings;
         this.showSelf = true;
         this.showGroup = false;
         this.showstudent = false;
@@ -155,7 +157,6 @@ export class TravelComponent implements OnInit {
         console.log(error, 'error');
     }
     selectedSumAmount() {
-        alert();
         sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
     }
     refresh() {
@@ -493,6 +494,7 @@ export class TravelComponent implements OnInit {
             let diff = Date.parse(tDate) - Date.parse(fDate);
             let days =  Math.floor(diff / 86400000);
             console.log(this.travelType, 'tyy');
+            this.settings.loadingSpinner = true;
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -524,15 +526,16 @@ export class TravelComponent implements OnInit {
     }
     public getTravelPremiumCalSuccess(successData) {
         console.log(successData);
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            sessionStorage.premiumLists = JSON.stringify(successData.ResponseObject);
+            sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.router.navigate(['/travelpremium']);
         } else {
             this.toast.error(successData.ErrorObject);
         }
     }
     public getTravelPremiumCalFailure(error) {
-
+        this.settings.loadingSpinner = false;
     }
     sessionData() {
 
@@ -580,10 +583,12 @@ export class TravelComponent implements OnInit {
             this.Student8BTn = sessionStorage.Student8BTn;
         }
         if (sessionStorage.startDate != undefined && sessionStorage.startDate != '') {
-            this.startDate = sessionStorage.startDate;
+            this.startDate = this.datePipe.transform(sessionStorage.startDate, 'y-MM-dd');
+
         }
         if (sessionStorage.endDate != undefined && sessionStorage.endDate != '') {
-            this.endDate = sessionStorage.endDate;
+            this.endDate = this.datePipe.transform(sessionStorage.endDate, 'y-MM-dd');
+
         }
         if (sessionStorage.travelType != undefined && sessionStorage.travelType != '') {
             this.travelType = sessionStorage.travelType;

@@ -156,6 +156,9 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
+import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
+
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 @NgModule({
@@ -222,6 +225,7 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
+      DownloadtravelMessage,
       DownloadMessageReligare,
       PosstatusAlert,
       TruncatePipe,
@@ -291,6 +295,7 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
       TravelPremiumListComponent,
       TravelProposalComponent,
       CompareDetailsComponent,
+      PaymentSuccessTravelComponent,
       AppolloMunichComponent,
       IffcoTokioComponent,
 
@@ -317,7 +322,7 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadtravelMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
     ]
 })
 export class AppModule { }
