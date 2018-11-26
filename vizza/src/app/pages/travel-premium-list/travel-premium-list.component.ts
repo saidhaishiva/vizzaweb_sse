@@ -32,11 +32,14 @@ export class TravelPremiumListComponent implements OnInit {
     Member6BTn: boolean;
     Member7BTn: boolean;
     Member8BTn: boolean;
+    Member9BTn: boolean;
+    Member10BTn: boolean;
     Student5BTn: boolean;
     Student6BTn: boolean;
     Student7BTn: boolean;
     Student8BTn: boolean;
-
+    Student9BTn: boolean;
+    Student10BTn: boolean;
     count: any;
     sumInsuredAmountLists: any;
     currentTab: any;
@@ -53,6 +56,7 @@ export class TravelPremiumListComponent implements OnInit {
     medicalCondition: any;
     finalData: any;
     sumerror: any;
+    medicalerror: any;
     duration: any;
     premiumLists: any;
     travelType: any;
@@ -105,10 +109,14 @@ export class TravelPremiumListComponent implements OnInit {
         this.Member6BTn = true;
         this.Member7BTn = true;
         this.Member8BTn = true;
+        this.Member9BTn = true;
+        this.Member10BTn = true;
         this.Student5BTn = true;
         this.Student6BTn = true;
         this.Student7BTn = true;
         this.Student8BTn = true;
+        this.Student9BTn = true;
+        this.Student10BTn = true;
         this.count = 0;
         this.sumInsuredAmonut();
     }
@@ -393,6 +401,11 @@ export class TravelPremiumListComponent implements OnInit {
         } else {
             this.sumerror = false;
         }
+        if (this.medicalCondition == '' || this.medicalCondition == undefined) {
+            this.medicalerror = true;
+        } else {
+            this.medicalerror = false;
+        }
         let memberValid = false;
         if (groupname == 'self') {
             if (!this.selfArray[0].checked) {
@@ -451,7 +464,7 @@ export class TravelPremiumListComponent implements OnInit {
         // console.log(this.familyArray, 'this.familyArray');
         //
         // console.log(this.studentArray, 'this.studentArray');
-        if (!memberValid) {
+        if (!memberValid && this.medicalerror == false) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -511,6 +524,9 @@ export class TravelPremiumListComponent implements OnInit {
         console.log(value, 'vlitss');
         sessionStorage.travelPremiumList = JSON.stringify(value);
         this.router.navigate(['/travelproposal']);
+    }
+    viewKeyList() {
+
     }
 
 }

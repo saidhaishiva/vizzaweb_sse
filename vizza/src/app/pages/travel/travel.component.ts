@@ -53,10 +53,14 @@ export class TravelComponent implements OnInit {
     Member6BTn: boolean;
     Member7BTn: boolean;
     Member8BTn: boolean;
+    Member9BTn: boolean;
+    Member10BTn: boolean;
     Student5BTn: boolean;
     Student6BTn: boolean;
     Student7BTn: boolean;
     Student8BTn: boolean;
+    Student9BTn: boolean;
+    Student10BTn: boolean;
 
     count: any;
     sumInsuredAmountLists: any;
@@ -75,6 +79,7 @@ export class TravelComponent implements OnInit {
     finalData: any;
     sumerror: any;
     duration: any;
+    medicalerror: any;
     public settings: Settings;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
@@ -99,10 +104,14 @@ export class TravelComponent implements OnInit {
         this.Member6BTn = true;
         this.Member7BTn = true;
         this.Member8BTn = true;
+        this.Member9BTn = true;
+        this.Member10BTn = true;
         this.Student5BTn = true;
         this.Student6BTn = true;
         this.Student7BTn = true;
         this.Student8BTn = true;
+        this.Student9BTn = true;
+        this.Student10BTn = true;
         this.count = 0;
         this.sumInsuredAmonut();
         this.sessionData();
@@ -172,10 +181,14 @@ export class TravelComponent implements OnInit {
         this.Member6BTn = false;
         this.Member7BTn = false;
         this.Member8BTn = false;
+        this.Member9BTn = false;
+        this.Member10BTn = false;
         this.Student5BTn = false;
         this.Student6BTn = false;
         this.Student7BTn = false;
         this.Student8BTn = false;
+        this.Student9BTn = false;
+        this.Student10BTn = false;
         this.selfDetails();
         this.familyDetails();
         this.studentDetails();
@@ -267,8 +280,12 @@ export class TravelComponent implements OnInit {
             }
             else if(value == 'Member8'){
                 this.Member8BTn = false;
-            } else  if (value == 'Student5'){
-                this.Student5BTn = false;
+            }
+            else if(value == 'Member9'){
+                this.Member9BTn = false;
+            }
+            else if(value == 'Member10'){
+                this.Member10BTn = false;
             }
             else if(value == 'Student6'){
                 this.Student6BTn = false;
@@ -278,6 +295,12 @@ export class TravelComponent implements OnInit {
             }
             else if(value == 'Student8'){
                 this.Student8BTn = false;
+            }
+            else if(value == 'Student9'){
+                this.Student9BTn = false;
+            }
+            else if(value == 'Student10'){
+                this.Student10BTn = false;
             }
         } else {
             if (value == 'Child3'){
@@ -299,7 +322,14 @@ export class TravelComponent implements OnInit {
             }
             else if(value == 'Member8'){
                 this.Member8BTn = true;
-            } else  if (value == 'Student5'){
+            }
+            else if(value == 'Member9'){
+                this.Member9BTn = true;
+            }
+            else if(value == 'Member10'){
+                this.Member10BTn = true;
+            }
+            else if (value == 'Student5'){
                 this.Student5BTn = true;
             }
             else if(value == 'Student6'){
@@ -311,6 +341,12 @@ export class TravelComponent implements OnInit {
             else if(value == 'Student8'){
                 this.Student8BTn = true;
             }
+            else if(value == 'Student9'){
+                this.Student9BTn = true;
+            }
+            else if(value == 'Student10'){
+                this.Student10BTn = true;
+            }
         }
         sessionStorage.Child3BTn = this.Child3BTn;
         sessionStorage.FatherBTn = this.FatherBTn;
@@ -318,10 +354,14 @@ export class TravelComponent implements OnInit {
         sessionStorage.Member6BTn = this.Member6BTn;
         sessionStorage.Member7BTn = this.Member7BTn;
         sessionStorage.Member8BTn = this.Member8BTn;
+        sessionStorage.Member9BTn = this.Member9BTn;
+        sessionStorage.Member10BTn = this.Member10BTn;
         sessionStorage.Student5BTn = this.Student5BTn;
         sessionStorage.Student6BTn = this.Student6BTn;
         sessionStorage.Student7BTn = this.Student7BTn;
         sessionStorage.Student8BTn = this.Student8BTn;
+        sessionStorage.Student9BTn = this.Student9BTn;
+        sessionStorage.Student10BTn = this.Student10BTn;
 
     }
     typeAge(checked, index, value) {
@@ -420,19 +460,22 @@ export class TravelComponent implements OnInit {
 
     submit(groupname) {
         console.log(groupname, 'groupname');
+        this.medicalerror = true;
         this.finalData = [];
         if (this.selectedAmountTravel == '' || this.selectedAmountTravel == undefined) {
             this.sumerror = true;
         } else {
             this.sumerror = false;
         }
+        if (this.medicalCondition == '' || this.medicalCondition == undefined) {
+            this.medicalerror = true;
+        } else {
+            this.medicalerror = false;
+        }
         let memberValid = false;
         if (groupname == 'self') {
-            if (!this.selfArray[0].checked) {
-                this.selfArray[0].error = 'Required';
-                memberValid = true;
-            } else {
                 for (let i = 0; i < this.selfArray.length; i++) {
+                    memberValid = false;
                     if (this.selfArray[i].checked) {
                         if (this.selfArray[i].age == '') {
                             this.selfArray[i].error = 'Required';
@@ -443,9 +486,10 @@ export class TravelComponent implements OnInit {
                             memberValid = false;
                             this.finalData.push({type: this.selfArray[i].name, age: this.selfArray[i].age });
                         }
+                    } else {
+                        this.selfArray[0].error = 'Required';
                     }
                 }
-            }
 
         } else if (groupname == 'family') {
             for (let i = 0; i < 4; i++) {
@@ -484,7 +528,7 @@ export class TravelComponent implements OnInit {
        // console.log(this.familyArray, 'this.familyArray');
         //
        // console.log(this.studentArray, 'this.studentArray');
-        if (!memberValid) {
+        if (!memberValid && this.medicalerror == false) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -570,6 +614,12 @@ export class TravelComponent implements OnInit {
         if (sessionStorage.Member8BTn != undefined && sessionStorage.Member8BTn != '') {
             this.Member8BTn = sessionStorage.Member8BTn;
         }
+        if (sessionStorage.Member9BTn != undefined && sessionStorage.Member9BTn != '') {
+            this.Member9BTn = sessionStorage.Member9BTn;
+        }
+        if (sessionStorage.Member10BTn != undefined && sessionStorage.Member10BTn != '') {
+            this.Member10BTn = sessionStorage.Member10BTn;
+        }
         if (sessionStorage.Student5BTn != undefined && sessionStorage.Student5BTn != '') {
             this.Student5BTn = sessionStorage.Student5BTn;
         }
@@ -581,6 +631,12 @@ export class TravelComponent implements OnInit {
         }
         if (sessionStorage.Student8BTn != undefined && sessionStorage.Student8BTn != '') {
             this.Student8BTn = sessionStorage.Student8BTn;
+        }
+        if (sessionStorage.Student9BTn != undefined && sessionStorage.Student9BTn != '') {
+            this.Student9BTn = sessionStorage.Student9BTn;
+        }
+        if (sessionStorage.Student10BTn != undefined && sessionStorage.Student10BTn != '') {
+            this.Student10BTn = sessionStorage.Student10BTn;
         }
         if (sessionStorage.startDate != undefined && sessionStorage.startDate != '') {
             this.startDate = this.datePipe.transform(sessionStorage.startDate, 'y-MM-dd');

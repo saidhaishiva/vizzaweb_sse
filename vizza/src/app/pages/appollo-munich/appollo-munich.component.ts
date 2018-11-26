@@ -1406,4 +1406,7 @@ export class AppolloMunichComponent implements OnInit {
             }
         }
     }
+    districtChange(event) {
+
+    }
 }

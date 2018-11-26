@@ -76,10 +76,14 @@ export class PaymentSuccessTravelComponent implements OnInit {
            sessionStorage.Member6BTn = '';
            sessionStorage.Member7BTn = '';
            sessionStorage.Member8BTn = '';
+           sessionStorage.Member9BTn = '';
+           sessionStorage.Member10BTn = '';
            sessionStorage.Student5BTn = '';
            sessionStorage.Student6BTn = '';
            sessionStorage.Student7BTn = '';
            sessionStorage.Student8BTn = '';
+           sessionStorage.Student9BTn = '';
+           sessionStorage.Student10BTn = '';
            sessionStorage.startDate = '';
            sessionStorage.endDate = '';
            sessionStorage.travelType = '';
