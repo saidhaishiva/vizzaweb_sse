@@ -636,7 +636,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="nomineeDistrict">
-                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloDistrict of nomineeAppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -644,7 +644,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="nomineeCity"  required>
-                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>

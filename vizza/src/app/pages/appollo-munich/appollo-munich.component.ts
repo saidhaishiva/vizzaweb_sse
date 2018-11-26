@@ -130,6 +130,9 @@ export class AppolloMunichComponent implements OnInit {
     public maxDate: any;
     public RediretUrlLink: any;
     public stateCode: any;
+    public stateTitle: any;
+    public nomineeAppolloDistrictList: any;
+    public nomineeAppolloCityLis: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -1125,7 +1128,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     stateChange(stateId: any, title){
-        if(title == 'proposer'|| title == 'nominee') {
+            this.stateTitle = title;
             this.stateCode = stateId.value
             console.log(this.stateCode);
             const data = {
@@ -1135,6 +1138,8 @@ export class AppolloMunichComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'state_code': this.stateCode
             }
+
+
             this.proposalservice.getAppolloDistrict(data).subscribe(
                 (successData) => {
                     this.setAppolloDistrictSuccess(successData)
@@ -1143,7 +1148,6 @@ export class AppolloMunichComponent implements OnInit {
                     this.setAppolloDistrictFailure(error);
                 }
             );
-
 
             this.proposalservice.getAppolloCity(data).subscribe(
                 (successData) => {
@@ -1154,11 +1158,15 @@ export class AppolloMunichComponent implements OnInit {
                 }
             );
         }
-    }
+
+
 //Appollo District
     public setAppolloDistrictSuccess(successData){
-      this.AppolloDistrictList = successData.ResponseObject;
-        console.log( this.AppolloDistrictList, 'AppolloDistrictList');
+      if (this.stateTitle == 'proposer') {
+          this.AppolloDistrictList = successData.ResponseObject;
+      } else{
+          this.nomineeAppolloDistrictList = successData.ResponseObject;
+      }
     }
     public setAppolloDistrictFailure(error){
         console.log(error);
@@ -1166,8 +1174,11 @@ export class AppolloMunichComponent implements OnInit {
 
     //Appollo City
     public setAppolloCitySuccess(successData){
-      this.AppolloCityList = successData.ResponseObject;
-        console.log( this.AppolloCityList, 'AppolloCityList');
+        if (this.stateTitle == 'proposer') {
+            this.AppolloCityList = successData.ResponseObject;
+        }else {
+            this.nomineeAppolloCityLis = successData.ResponseObject;
+        }
     }
     public setAppolloCityFailure(error){
         console.log(error);
