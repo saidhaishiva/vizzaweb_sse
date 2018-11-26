@@ -270,6 +270,12 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
+                            <input matInput placeholder="Email ID"   formControlName="proposerEmail"  autocomplete="off" required>
+                            <mat-error *ngIf="insureArray.invalid">Email ID is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
                             <input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" readonly>
                             <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
                           </mat-form-field>
@@ -311,7 +317,7 @@
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" required >
-                              <mat-option *ngFor="let list of occupationList" value= "{{list.occupation_id}}" > {{list.occupation}} </mat-option>
+                              <mat-option *ngFor="let list of occupationList" value="{{list.occupation_id}}" > {{list.occupation}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
@@ -620,24 +626,48 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
-                        <mat-form-field class="w-100" >
-                          <input matInput placeholder="City" formControlName="nomineeCity" autocomplete="off" required>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="stateChange($event, 'nominee')" required>
+                            <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="nomineeState" autocomplete="off" required readonly>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4">
-                        <mat-form-field  class="w-100">
-                          <input matInput placeholder="District" formControlName="nomineeDistrict" autocomplete="off" required readonly>
+                          <mat-select placeholder="District"  formControlName="nomineeDistrict">
+                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
+                          </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="City"  formControlName="nomineeCity"  required>
+                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100" >-->
+                          <!--<input matInput placeholder="City" formControlName="nomineeCity" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field  class="w-100">-->
+                          <!--<input matInput placeholder="District" formControlName="nomineeDistrict" autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
 
                     </div>
                     <div class="proposal-buttom mb-3 text-right w-100">

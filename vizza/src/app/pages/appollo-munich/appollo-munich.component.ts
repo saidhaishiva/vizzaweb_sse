@@ -646,7 +646,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].QualifyingAmount.patchValue(this.getStepper2.items[i].QualifyingAmount);
                 this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
                 this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
-                                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
             }
         }
 
@@ -1121,33 +1121,35 @@ export class AppolloMunichComponent implements OnInit {
 
 
     stateChange(stateId: any, title){
-        this.stateCode = stateId.value
-        console.log(this.stateCode);
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'state_code': this.stateCode
+        if(title == 'proposer'|| title == 'nominee') {
+            this.stateCode = stateId.value
+            console.log(this.stateCode);
+            const data = {
+                'platform': 'web',
+                'product_id': '11',
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'state_code': this.stateCode
+            }
+            this.proposalservice.getAppolloDistrict(data).subscribe(
+                (successData) => {
+                    this.setAppolloDistrictSuccess(successData)
+                },
+                (error) => {
+                    this.setAppolloDistrictFailure(error);
+                }
+            );
+
+
+            this.proposalservice.getAppolloCity(data).subscribe(
+                (successData) => {
+                    this.setAppolloCitySuccess(successData);
+                },
+                (error) => {
+                    this.setAppolloCityFailure(error);
+                }
+            );
         }
-        this.proposalservice.getAppolloDistrict(data).subscribe(
-            (successData) => {
-                this.setAppolloDistrictSuccess(successData)
-            },
-            (error) => {
-                this.setAppolloDistrictFailure(error);
-            }
-        );
-
-
-        this.proposalservice.getAppolloCity(data).subscribe(
-            (successData) => {
-                this.setAppolloCitySuccess(successData);
-            },
-            (error) => {
-                this.setAppolloCityFailure(error);
-            }
-        );
     }
 //Appollo District
     public setAppolloDistrictSuccess(successData){
