@@ -219,6 +219,8 @@
                   <button mat-menu-item (click)="addFamilyMembers('Member6')" *ngIf="Member6BTn">Member6</button>
                   <button mat-menu-item (click)="addFamilyMembers('Member7')" *ngIf="Member7BTn">Member7</button>
                   <button mat-menu-item (click)="addFamilyMembers('Member8')" *ngIf="Member8BTn">Member8</button>
+                  <button mat-menu-item (click)="addFamilyMembers('Member9')" *ngIf="Member9BTn">Member9</button>
+                  <button mat-menu-item (click)="addFamilyMembers('Member10')" *ngIf="Member10BTn">Member10</button>
                 </mat-menu>
               </div>
             </div>
@@ -346,12 +348,13 @@
                 </div>
               </div>
               <div class="text-right">
-                <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu2" [disabled]="!Student5BTn && !Student6BTn && !Student7BTn && !Student8BTn"><i class="material-icons">add_circle_outline</i> Add Student</button>
                 <mat-menu #menu2="matMenu">
                   <button mat-menu-item (click)="addStudents('Student5')" *ngIf="Student5BTn">Student5</button>
                   <button mat-menu-item (click)="addStudents('Student6')" *ngIf="Student6BTn">Student6</button>
                   <button mat-menu-item (click)="addStudents('Student7')" *ngIf="Student7BTn">Student7</button>
                   <button mat-menu-item (click)="addStudents('Student8')" *ngIf="Student8BTn">Student8</button>
+                  <button mat-menu-item (click)="addStudents('Student9')" *ngIf="Student9BTn">Student9</button>
+                  <button mat-menu-item (click)="addStudents('Student10')" *ngIf="Student10BTn">Student10</button>
                 </mat-menu>
               </div>
 
