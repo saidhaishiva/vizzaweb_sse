@@ -1189,38 +1189,38 @@ export class AppolloMunichComponent implements OnInit {
         }
         this.proposalservice.getAppolloDistrict(data).subscribe(
             (successData) => {
-                this.setAppolloDistrictSuccess(successData)
+                this.setInsureAppolloDistrictSuccess(successData)
             },
             (error) => {
-                this.setAppolloDistrictFailure(error);
+                this.setInsureAppolloDistrictFailure(error);
             }
         );
 
 
         this.proposalservice.getAppolloCity(data).subscribe(
             (successData) => {
-                this.setAppolloCitySuccess(successData);
+                this.setInsureAppolloCitySuccess(successData);
             },
             (error) => {
-                this.setAppolloCityFailure(error);
+                this.setInsureAppolloCityFailure(error);
             }
         );
     }
 //Appollo District
-    public setAppolloDistrictSuccess(successData){
+    public setInsureAppolloDistrictSuccess(successData){
         this.AppolloDistrictList = successData.ResponseObject;
         console.log( this.AppolloDistrictList, 'AppolloDistrictList');
     }
-    public setAppolloDistrictFailure(error){
+    public setInsureAppolloDistrictFailure(error){
         console.log(error);
     }
 
     //Appollo City
-    public setAppolloCitySuccess(successData){
+    public setInsureAppolloCitySuccess(successData){
         this.AppolloCityList = successData.ResponseObject;
         console.log( this.AppolloCityList, 'AppolloCityList');
     }
-    public setAppolloCityFailure(error){
+    public setInsureAppolloCityFailure(error){
         console.log(error);
     }
 
