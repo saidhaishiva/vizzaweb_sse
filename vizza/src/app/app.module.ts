@@ -158,6 +158,8 @@ import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
+import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
+import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -293,7 +295,8 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
       CompareDetailsComponent,
       AppolloMunichComponent,
       IffcoTokioComponent,
-
+      ReligarePaymentSuccessPaComponent,
+      DownloadMessageReligarePersonal,
   ],
   providers: [
       AppSettings,
@@ -317,7 +320,7 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,
     ]
 })
 export class AppModule { }

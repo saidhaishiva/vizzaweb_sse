@@ -80,6 +80,7 @@ import {PersonalaccidentformComponent} from './pages/personalaccidentform/person
 import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
 import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
+import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -168,6 +169,7 @@ export const routes: Routes = [
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
+            { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
 
         ]
     },

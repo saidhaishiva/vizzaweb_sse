@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()">
+                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
                                 <mat-option value="MR">Mr</mat-option>
                                 <mat-option value="MS">Ms</mat-option>
                                 <!--<mat-option value="MRS">Mrs</mat-option>-->
@@ -54,13 +54,8 @@
                       </div>
 
                       <div class="col-md-6">
-                          <!--<mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="personalAnnualIncome"  autocomplete="off">-->
-                        <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.personalAnnualIncome.hasError('minlength')">Annual Income Required</mat-error>&ndash;&gt;-->
-
-                      <!--</mat-form-field>-->
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="Annual Income"  formControlName="personalAnualIncome"  autocomplete="off">
+                              <input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off">
                           </mat-form-field>
                       </div>
                       <div class="col-md-6" *ngIf="occupationFirst">
@@ -73,7 +68,7 @@
                         <div class="col-md-6" *ngIf="occupationSecond">
                             <mat-form-field class="w-100">
                             <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.id">{{occupation.description}}</mat-option>
+                                <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         </div>
@@ -85,13 +80,13 @@
                         <div class="col-md-6" *ngIf="occupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="personalClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{class.occ_name}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                       <div class="col-md-6">
                           <mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalPan.errors?.required">Pan is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
@@ -105,7 +100,7 @@
                       </mat-form-field></div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" >
+                        <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -193,7 +188,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -304,7 +299,7 @@
                         <div class="col-md-6" *ngIf="insureoccupationSecond">
                             <mat-form-field class="w-100">
                                 <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()">
-                                    <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.id">{{occupation.description}}</mat-option>
+                                    <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -313,17 +308,10 @@
                                 <input matInput placeholder="Description"  formControlName="insuredDescription"  autocomplete="off">
                             </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                            <mat-form-field class="w-100">
-                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription" [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
                         <div class="col-md-6" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{class.occ_name}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -390,7 +378,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -436,7 +424,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"    maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"    maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -570,14 +558,14 @@
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</span> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
             </div>
-            <section *ngFor="let item of summaryData.proposer_insurer_details">
-              <h5 class="mt-3 sub-title">{{item.role_cd}} DETAILS </h5>
+            <section>
+              <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-12">
                   <!--<h6>{{item.role_cd}} DETAILS</h6>-->
@@ -585,32 +573,32 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{item.name_title}} {{item.first_name}} {{item.last_name}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
-                      <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_name}}</li>
-                      <li class="list-group-item"><strong>Personal Email Id:</strong> {{item.personal_email}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob}}</li>
+                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
+                      <li class="list-group-item"><strong>Offical Email Id:</strong>  {{summaryData.proposer_details.p_off_email}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
-                      <li class="list-group-item"><strong>PAN Number:</strong> {{item.pan_no}}</li>
-                      <li class="list-group-item"><strong>GST Number:</strong> {{item.gst_no}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                      <li class="list-group-item"><strong>PassPort Number:</strong>{{summaryData.proposer_details.p_pass_idnum}}</li>
+                      <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
+                      <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_details.p_annual_salary}} </li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6>{{item.role_cd}} COMMUNICATION DETAILS</h6>
+                    <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{item.comm_address_line1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong> {{item.comm_address_line2}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong>  {{item.comm_pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{item.comm_city}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{item.comm_state}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_p}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_details.p_pincode_p}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_details.p_citycd_p}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_p}}</li>
 
 
                     </ul>
@@ -618,18 +606,73 @@
                 </div>
                 <div class="col-md-6">
                   <div class=" p-3">
-                    <h6>{{item.role_cd}} RESIDENCE DETAILS</h6>
+                    <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{item.res_address_line1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong> {{item.res_address_line2}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong>  {{item.res_pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{item.res_city}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{item.res_state}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_c}} </li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_c}} </li>
+                      <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_details.p_pincode_c}} </li>
+                      <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_details.p_citycd_c}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_c}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </section>
+            <section>
+              <h5 class="mt-3 sub-title">INSURE DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-12">
+                  <!--<h6>{{item.role_cd}} DETAILS</h6>-->
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob}}</li>
+                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
+                      <li class="list-group-item"><strong>Offical Email Id:</strong>  {{summaryData.proposer_insurer_details.i_off_email}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>PassPort Number:</strong>{{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
+                      <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
+                      <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_insurer_details.i_annual_salary}} </li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6>COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address2_c}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_insurer_details.i_pincode_c}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_insurer_details.i_citycd_c}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
+
+
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6>RESIDENCE DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address2_c}} </li>
+                      <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_insurer_details.i_pincode_c}} </li>
+                      <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_insurer_details.i_citycd_c}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">
@@ -637,7 +680,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.proposer_details.nominee_name}}</li>
                       </ul>
                     </div>
 
@@ -649,7 +692,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.nominee_relationship}}</li>
                       </ul>
                     </div>
 

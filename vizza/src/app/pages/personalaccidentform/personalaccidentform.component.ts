@@ -254,16 +254,16 @@ export class PersonalaccidentformComponent implements OnInit {
 
     changeGender() {
         if (this.personal.controls['personalTitle'].value == 'MR') {
-            this.personal.controls['personalGender'].patchValue('Male');
+            this.personal.controls['personalGender'].patchValue('MALE');
         } else {
-            this.personal.controls['personalGender'].patchValue('Female');
+            this.personal.controls['personalGender'].patchValue('FEMALE');
         }
     }
     insurechangeGender() {
         if (this.insured.controls['insuredTitle'].value == 'MR') {
-            this.insured.controls['insuredGender'].patchValue('Male');
+            this.insured.controls['insuredGender'].patchValue('MALE');
         } else {
-            this.insured.controls['insuredGender'].patchValue('Female');
+            this.insured.controls['insuredGender'].patchValue('FEMALE');
         }
     }
 
@@ -492,11 +492,11 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);
             this.insured.controls['insuredLastname'].patchValue(this.personal.controls['personalLastname'].value);
             this.insured.controls['insuredDob'].patchValue(this.personal.controls['personalDob'].value);
-            this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnnualIncome'].value);
+            this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnualIncome'].value);
             this.insured.controls['insuredOccupationCode'].patchValue(this.personal.controls['personalOccupationCode'].value);
             this.insured.controls['insuredinsuredDescription'].patchValue(this.personal.controls['personalinsuredDescription'].value);
             this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
-            this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['insuredClassDescriptionCode'].value);
+            this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['personalClassDescriptionCode'].value);
             this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
             this.insured.controls['insuredGender'].patchValue(this.personal.controls['personalGender'].value);
             this.insured.controls['insuredPan'].patchValue(this.personal.controls['personalPan'].value.toUpperCase());
@@ -525,6 +525,9 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredDob'].patchValue('');
             this.insured.controls['insuredAnnualIncome'].patchValue('');
             this.insured.controls['insuredrelationship'].patchValue('');
+            this.insured.controls['insuredOccupationCode'].patchValue('');
+            this.insured.controls['insuredinsuredDescription'].patchValue('');
+            this.insured.controls['insuredClassDescriptionCode'].patchValue('');
             this.insured.controls['insuredGender'].patchValue('');
             this.insured.controls['insuredPan'].patchValue('');
             this.insured.controls['insuredPassPort'].patchValue('');
@@ -550,7 +553,6 @@ export class PersonalaccidentformComponent implements OnInit {
 
 // only numbers can accept
     public onNumber(event: any) {
-        console.log(this.personal.controls['personalAnnualIncome'].value, 'ooooo');
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -1078,15 +1080,6 @@ export class PersonalaccidentformComponent implements OnInit {
         console.log(error);
     }
 
-    add(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
 
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
@@ -1221,22 +1214,22 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
 
         "policy": {
             "partyDOList": [{
-                'birthDt': this.personal.controls['personalDob'].value,
+                'birthDt': this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
                 'firstName': this.personal.controls['personalFirstname'].value,
                 'genderCd':this.personal.controls['personalGender'].value,
-                'relationCd': this.personal.controls['personalDob'].value,
+                'relationCd': 'SELF',
                 'roleCd': "PROPOSER",
                 'titleCd': this.personal.controls['personalTitle'].value,
                 'annualSalary': this.personal.controls['personalAnualIncome'].value,
                 'occupationCode': this.personal.controls['personalOccupationCode'].value,
                 'occupationClass': this.personal.controls['personalDescriptionCode'].value,
-                'classDescription':'value',
+                'classDescription':this.personal.controls['personalClassDescriptionCode'].value,
                 'lastName':this.personal.controls['personalLastname'].value,
                 'partyAddressDOList': [{
                     'addressLine1Lang1': this.personal.controls['personalAddress'].value,
                     'addressLine2Lang1': this.personal.controls['personalAddress2'].value,
                     'addressTypeCd': "PERMANENT",
-                    'areaCd': this.personal.controls['personalDob'].value,
+                    'areaCd': this.personal.controls['personalCity'].value,
                     'cityCd': this.personal.controls['personalCity'].value,
                     'pinCode': this.personal.controls['personalPincode'].value,
                     'stateCd': this.personal.controls['personalState'].value,
@@ -1246,7 +1239,7 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                         'addressLine1Lang1': this.personal.controls['residenceAddress'].value,
                         'addressLine2Lang1': this.personal.controls['residenceAddress2'].value,
                         'addressTypeCd': "COMMUNICATION",
-                        'areaCd': this.personal.controls['personalCity'].value,
+                        'areaCd': this.personal.controls['residenceCity'].value,
                         'cityCd':this.personal.controls['residencePincode'].value,
                         'pinCode': this.personal.controls['residenceCity'].value,
                         'stateCd': this.personal.controls['residenceState'].value,
@@ -1269,7 +1262,7 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                     'emailTypeCd': 'PERSONAL'
                 },
                     {
-                        "emailAddress": this.personal.controls['personalEmail'].value,
+                        "emailAddress": this.personal.controls['personalEmail2'].value,
                         "emailTypeCd": 'OFFICIAL'
                     }
                 ],
@@ -1285,19 +1278,19 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
 
             },
                 {
-                    'birthDt':  this.insured.controls['insuredDob'].value,
+                    'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
                     'firstName': this.insured.controls['insuredFirstname'].value,
                     'genderCd':  this.insured.controls['insuredGender'].value,
                     'annualSalary': this.insured.controls['insuredAnnualIncome'].value,
                     'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
-                    'classDescription': 'value',
+                    'classDescription': this.insured.controls['insuredClassDescriptionCode'].value,
                     'lastName':  this.insured.controls['insuredLastname'].value,
                     "partyAddressDOList": [{
                         'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
                         'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
                         'addressTypeCd': "PERMANENT",
-                        'areaCd':  this.insured.controls['insuredDob'].value,
+                        'areaCd':  this.insured.controls['insuredCity'].value,
                         'cityCd': this.insured.controls['insuredCity'].value,
                         'pinCode':  this.insured.controls['insuredPincode'].value,
                         'stateCd':  this.insured.controls['insuredState'].value,
@@ -1306,8 +1299,8 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                         {
                             'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
                             'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
-                            'addressTypeCd': this.insured.controls['insuredDob'].value,
-                            'areaCd':  'COMMUNICATION',
+                            'addressTypeCd': 'COMMUNICATION',
+                            'areaCd':  this.insured.controls['insuredrCity'].value,
                             'cityCd':  this.insured.controls['insuredrCity'].value,
                             'pinCode':  this.insured.controls['insuredrPincode'].value,
                             'stateCd':  this.insured.controls['insuredrState'].value,
@@ -1330,7 +1323,7 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                         'emailTypeCd': "PERSONAL"
                     },
                         {
-                            'emailAddress':  this.insured.controls['insuredEmail'].value,
+                            'emailAddress':  this.insured.controls['insuredEmail2'].value,
                             'emailTypeCd': "OFFICIAL"
                         }
                     ],
@@ -1377,8 +1370,8 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
-            console.log(this.relationshipList, 'this.relationshipList');
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'this.summaryData');
             this.lastStepper.next();
 
         } else {
