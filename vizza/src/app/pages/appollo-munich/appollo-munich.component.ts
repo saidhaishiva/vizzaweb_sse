@@ -339,7 +339,14 @@ export class AppolloMunichComponent implements OnInit {
             console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
-                    'Address': this.insurerData[i].proposerAddress,
+                    'AddressLine1': this.insurerData[i].proposerAddress,
+                    'AddressLine2': this.insurerData[i].proposerAddress2,
+                    'AddressLine3': this.insurerData[i].proposerAddress3,
+                    'CountryCode': this.insurerData[i].proposerCountry,
+                    'District': this.insurerData[i].proposerDistrict,
+                    'PinCode': this.insurerData[i].proposerPincode,
+                    'StateCode': this.insurerData[i].proposerState,
+                    'TownCode': this.insurerData[i].proposerCity,
                         'Age': this.insurerData[i].proposerAge,
                     'BirthDate': this.insurerData[i].proposerDob,
                     'ClientCode': this.insurerData[i].ClientCode,

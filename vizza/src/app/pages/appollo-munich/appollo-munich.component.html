@@ -274,7 +274,7 @@
                             <mat-error *ngIf="insureArray.invalid">Email ID is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" readonly>
                             <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
@@ -375,7 +375,7 @@
                           </mat-form-field>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <mat-checkbox>Smoking</mat-checkbox>
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Smoking" formControlName="Smoking" required  class="w-100">
@@ -384,7 +384,7 @@
                             </mat-select>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <mat-checkbox>Pouches</mat-checkbox>
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Pouches" formControlName="Pouches" required  class="w-100">
@@ -488,7 +488,7 @@
 
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="State"  formControlName="proposerState" (change)="insureStateChange($event, 'insure',  i)" required>
+                                  <mat-select placeholder="State"  formControlName="proposerState" (change)="nomineeStateChange($event, 'nominee')" required>
                                       <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
@@ -627,7 +627,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="stateChange($event, 'nominee')" required>
+                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="nomineeStateChange($event, 'nominee',i)" required>
                             <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
