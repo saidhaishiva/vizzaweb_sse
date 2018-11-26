@@ -149,7 +149,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalP')" formControlName="proposerPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -158,7 +158,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event, 'proposer')"  required>
+                          <mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event.target.value, 'proposer')"  required>
                             <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
@@ -167,7 +167,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="districtChange($event)" required>
-                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district}} </mat-option>
+                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -175,7 +175,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="proposerCity"  required>
-                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city}} </mat-option>
+                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -311,7 +311,7 @@
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" required  class="w-100">
-                              <mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation_name}} </mat-option>
+                              <mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
@@ -377,30 +377,111 @@
                         </div>
 
                         <div class="col-md-4">
+                          <mat-checkbox>Smoking</mat-checkbox>
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Liquor Peg Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="LiquorPeg" autocomplete="off" required>
+                            <mat-select  placeholder="Smoking" formControlName="Smoking" required  class="w-100">
+                              <mat-option value="1">less than or equal to 10 per day</mat-option>
+                              <mat-option value="2">More than 10 per day</mat-option>
+                            </mat-select>
+                            <!--<mat-error *ngIf="insureArray.invalid">Smoking is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
+                          <mat-checkbox>Pouches</mat-checkbox>
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Smoking Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="Smoking" autocomplete="off" required>
+                            <mat-select  placeholder="Smoking" formControlName="Smoking" required  class="w-100">
+                              <mat-option value="1">less than or equal to 7 per day</mat-option>
+                              <mat-option value="2">More than 7 per day</mat-option>
+                            </mat-select>
+                            <!--<mat-error *ngIf="insureArray.invalid">Smoking is required</mat-error>-->
                           </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                          <h6>Drinking habits (per week)</h6>
                         </div>
                         <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Wine Glass Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="WineGlass" autocomplete="off" required>
-                          </mat-form-field>
+                            <mat-checkbox>Liquor Peg</mat-checkbox>
+                            <mat-form-field class="w-100">
+                              <mat-select  placeholder="Liquor Peg" formControlName="LiquorPeg" required  class="w-100">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                                <mat-option value="4">4</mat-option>
+                                <mat-option value="5">5</mat-option>
+                                <mat-option value="6">6</mat-option>
+                                <mat-option value="7">7</mat-option>
+                                <mat-option value="8">8</mat-option>
+                                <mat-option value="9">9</mat-option>
+                                <mat-option value="10">10</mat-option>
+                                <mat-option value="11">11</mat-option>
+                              </mat-select>
+                              <!--<mat-error *ngIf="insureArray.invalid">Liquor Peg is required</mat-error>-->
+                            </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Beer Bottle Weekly"  (keypress)="keyPress($event)"   maxlength="2" formControlName="BeerBottle" autocomplete="off" required>
-                          </mat-form-field>
+                        <div class="col-md-4">
+                            <mat-checkbox>Wine Glass</mat-checkbox>
+                            <mat-form-field class="w-100">
+                              <mat-select  placeholder="Wine Glass" formControlName="WineGlass" required  class="w-100">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                                <mat-option value="4">4</mat-option>
+                                <mat-option value="5">5</mat-option>
+                                <mat-option value="6">6</mat-option>
+                                <mat-option value="7">7</mat-option>
+                                <mat-option value="8">8</mat-option>
+                                <mat-option value="9">9</mat-option>
+                                <mat-option value="10">10</mat-option>
+                                <mat-option value="11">11</mat-option>
+                              </mat-select>
+                              <!--<mat-error *ngIf="insureArray.invalid">Liquor Peg is required</mat-error>-->
+                            </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Pouches Weekly"  (keypress)="keyPress($event)"   maxlength="2" formControlName="Pouches" autocomplete="off" required>
-                          </mat-form-field>
+                        <div class="col-md-4">
+                            <mat-checkbox>Beer Bottle</mat-checkbox>
+                            <mat-form-field class="w-100">
+                              <mat-select  placeholder="Beer Bottle" formControlName="BeerBottle" required  class="w-100">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                                <mat-option value="4">4</mat-option>
+                                <mat-option value="5">5</mat-option>
+                                <mat-option value="6">6</mat-option>
+                                <mat-option value="7">7</mat-option>
+                                <mat-option value="8">8</mat-option>
+                                <mat-option value="9">9</mat-option>
+                                <mat-option value="10">10</mat-option>
+                                <mat-option value="11">11</mat-option>
+                              </mat-select>
+                              <!--<mat-error *ngIf="insureArray.invalid">Liquor Peg is required</mat-error>-->
+                            </mat-form-field>
                         </div>
+
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Liquor Peg Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="LiquorPeg" autocomplete="off" required>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Smoking Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="Smoking" autocomplete="off" required>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Wine Glass Daily"  (keypress)="keyPress($event)"   maxlength="2" formControlName="WineGlass" autocomplete="off" required>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Beer Bottle Weekly"  (keypress)="keyPress($event)"   maxlength="2" formControlName="BeerBottle" autocomplete="off" required>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Pouches Weekly"  (keypress)="keyPress($event)"   maxlength="2" formControlName="Pouches" autocomplete="off" required>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
                         <div class="col-md-12">
                           <h6 class="mt-3">Proposer Details Address:</h6>
                         </div>
