@@ -158,7 +158,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event, 'proposer')"  required>
+                          <mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event, 'proposer')" required>
                             <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
@@ -166,8 +166,8 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="districtChange($event)" required>
-                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district}} </mat-option>
+                          <mat-select placeholder="District"  formControlName="proposerDistrict">
+                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -175,7 +175,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="proposerCity"  required>
-                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city}} </mat-option>
+                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -224,9 +224,9 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-green">INSURED DETAILS</h6>
                       <div class="row">
-                        <div class="col-md-12 mb-3" *ngIf="i == 0">
-                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
-                        </div>
+                        <!--<div class="col-md-12 mb-3" *ngIf="i == 0">-->
+                        <!--<mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>-->
+                        <!--</div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)">
@@ -326,24 +326,24 @@
                         </mat-form-field>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO2'">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off">
                             <mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                             <mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO3'">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Driving License" formControlName="proposerDriving">
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO1'">
+                          <mat-form-field class="w-100" >
                             <input matInput placeholder="Passport" formControlName="proposerPassport">
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO4'">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Voter Id" formControlName="proposerVoter">
                           </mat-form-field>
