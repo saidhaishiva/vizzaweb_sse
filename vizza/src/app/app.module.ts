@@ -156,6 +156,9 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
+import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
+
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
@@ -224,6 +227,7 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
+      DownloadtravelMessage,
       DownloadMessageReligare,
       PosstatusAlert,
       TruncatePipe,
@@ -293,6 +297,7 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
       TravelPremiumListComponent,
       TravelProposalComponent,
       CompareDetailsComponent,
+      PaymentSuccessTravelComponent,
       AppolloMunichComponent,
       IffcoTokioComponent,
       ReligarePaymentSuccessPaComponent,
@@ -320,7 +325,7 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,
     ]
 })
 export class AppModule { }

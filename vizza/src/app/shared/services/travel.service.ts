@@ -104,7 +104,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     getIlnessList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -113,6 +112,52 @@ export class TravelService {
         const url = this.configurationService.getHost() + 'starhealthtravel/get_pre_existing_disease' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
+            .catch(this.handleError);
+    }
+    createTravelProposal(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'starhealthtravel/create_proposal_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getPolicyToken(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_proposaltoken';
+        console.log(url);
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getPurchaceStatus(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_purchasetoken';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_schedule';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
             .catch(this.handleError);
     }
 
