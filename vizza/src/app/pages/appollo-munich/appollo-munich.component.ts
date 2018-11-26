@@ -314,18 +314,6 @@ export class AppolloMunichComponent implements OnInit {
                 QualifyingAmount: '',
                 WaivePeriod: '',
                 Remarks: '',
-                BasePremiumAmount: ['', Validators.required],
-                ClientCode: '',
-                DiscountAmount: ['', Validators.required],
-                GrossPremiumAmount: ['', Validators.required],
-                ProductCode: ['', Validators.required],
-                ProductGroup: ['', Validators.required],
-                ProductLine: ['', Validators.required],
-                ProductType: ['', Validators.required],
-                ProductVersion: ['', Validators.required],
-                SumAssured: ['', Validators.required],
-                SACCode: ['', Validators.required],
-                TaxAmount: ['', Validators.required],
                 Proposeroccupation: ['', Validators.required],
                 proposerrelationship: ['', Validators.required],
                 sameAsProposer: false,
@@ -658,18 +646,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].QualifyingAmount.patchValue(this.getStepper2.items[i].QualifyingAmount);
                 this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
                 this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
-                this.insureArray['controls'].items['controls'][i]['controls'].BasePremiumAmount.patchValue(this.getStepper2.items[i].BasePremiumAmount);
-                this.insureArray['controls'].items['controls'][i]['controls'].DiscountAmount.patchValue(this.getStepper2.items[i].DiscountAmount);
-                this.insureArray['controls'].items['controls'][i]['controls'].GrossPremiumAmount.patchValue(this.getStepper2.items[i].GrossPremiumAmount);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProductCode.patchValue(this.getStepper2.items[i].ProductCode);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProductGroup.patchValue(this.getStepper2.items[i].ProductGroup);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProductLine.patchValue(this.getStepper2.items[i].ProductLine);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProductType.patchValue(this.getStepper2.items[i].ProductType);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProductVersion.patchValue(this.getStepper2.items[i].ProductVersion);
-                this.insureArray['controls'].items['controls'][i]['controls'].SumAssured.patchValue(this.getStepper2.items[i].SumAssured);
-                this.insureArray['controls'].items['controls'][i]['controls'].SACCode.patchValue(this.getStepper2.items[i].SACCode);
-                this.insureArray['controls'].items['controls'][i]['controls'].TaxAmount.patchValue(this.getStepper2.items[i].TaxAmount);
-                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
+                                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
             }
         }
 
@@ -877,18 +854,9 @@ export class AppolloMunichComponent implements OnInit {
                         },
                         'Product': {
                             'Product': {
-                                'BasePremiumAmount': this.totalInsureDetails[0].BasePremiumAmount,
-                                'ClientCode': this.totalInsureDetails[0].ClientCode,
-                                'DiscountAmount': this.totalInsureDetails[0].DiscountAmount,
-                                'GrossPremiumAmount': this.totalInsureDetails[0].GrossPremiumAmount,
-                                'ProductCode': this.totalInsureDetails[0].ProductCode,
-                                'ProductGroup': this.totalInsureDetails[0].ProductGroup,
-                                'ProductLine': this.totalInsureDetails[0].ProductLine,
-                                'ProductType': this.totalInsureDetails[0].ProductType,
-                                'ProductVersion': this.totalInsureDetails[0].ProductVersion,
-                                'SACCode': this.totalInsureDetails[0].SACCode,
-                                'SumAssured': this.totalInsureDetails[0].SumAssured,
-                                'TaxAmount': this.totalInsureDetails[0].TaxAmount
+                                'ClientCode': '',
+                                'ProductCode': '',
+                                'SumAssured': ''
 
                             }
                         },
