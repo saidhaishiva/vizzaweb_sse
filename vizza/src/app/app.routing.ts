@@ -40,6 +40,7 @@ import { EntranceexamComponent} from './pages/entranceexam/entranceexam.componen
 import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
+import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -164,6 +165,7 @@ export const routes: Routes = [
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
+            { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
 
         ]
     },

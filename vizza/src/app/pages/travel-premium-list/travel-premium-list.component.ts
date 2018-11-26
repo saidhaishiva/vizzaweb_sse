@@ -189,20 +189,30 @@ export class TravelPremiumListComponent implements OnInit {
     onSelectedIndexChange(event){
         console.log((this.premiumLists.travel_type == 'self' ? 0 : ''), 'valuffess');
         console.log(event, 'event');
-        if (event == (this.premiumLists.travel_type == 'self' ? 0 : '')) {
+        if (event == 0) {
+            console.log('seff');
+
             this.showSelf = true;
             this.showGroup = false;
             this.showstudent = false;
-        } else if (event == (this.premiumLists.travel_type == 'family' ? 1 : '')) {
+            this.selfDetails();
+        } else if (event == 1) {
+            console.log('ffm');
             this.showGroup = true;
             this.showSelf = false;
             this.showstudent = false;
-        } else if (event == (this.premiumLists.travel_type == 'students' ? 2 : '')) {
+            this.familyDetails();
+        } else if (event == 2) {
+            console.log('sst');
             this.showGroup = false;
             this.showSelf = false;
-        } else {
-            this.router.navigate(['/travel']);
+            this.showstudent = true;
+            this.studentDetails();
+
         }
+        // else {
+        //     this.router.navigate(['/travel']);
+        // }
 
     }
     ckeckedUser(index, checked, name) {

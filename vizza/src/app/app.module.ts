@@ -156,6 +156,9 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
+import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -220,6 +223,7 @@ import { CompareDetailsComponent } from './pages/personalaccident/compare-detail
       PaymentSuccessComponent,
       DownloadPolicyComponent,
       DownloadMessage,
+      DownloadtravelMessage,
       DownloadMessageReligare,
       PosstatusAlert,
       TruncatePipe,
@@ -289,6 +293,7 @@ import { CompareDetailsComponent } from './pages/personalaccident/compare-detail
       TravelPremiumListComponent,
       TravelProposalComponent,
       CompareDetailsComponent,
+      PaymentSuccessTravelComponent,
 
   ],
   providers: [
@@ -313,7 +318,7 @@ import { CompareDetailsComponent } from './pages/personalaccident/compare-detail
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadtravelMessage, DownloadMessageReligare, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer
     ]
 })
 export class AppModule { }

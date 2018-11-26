@@ -790,6 +790,65 @@ a:hover {
     text-transform: capitalize;
   }
 }
+
+
+.tavelProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+  //.mat-checkbox {
+  //  .mat-checkbox-background {
+  //    background-color: #4896d8 !important;
+  //  }
+  //  .mat-checkbox-focused {
+  //    .mat-ink-ripple {
+  //      background-color: #ffffff !important;
+  //    }
+  //  }
+  //}
+  .mat-primaryBlue {
+    background-color: #4896d8 !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #2d8dc5 !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #3a7fca !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #4896d8 !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #4683c4;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #4683c4 !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #4683c4 !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+}
+
+
+
 .non-editable{
   pointer-events: none;
 }

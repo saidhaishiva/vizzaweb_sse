@@ -67,7 +67,7 @@
               </mat-select>
             </mat-form-field>
             <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2">
+            <div class="w-100 mb-2" *ngIf="showSelf">
               <div class="row" fxLayoutAlign="start center">
                 <div class="col-md-6" *ngFor="let item of selfArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
@@ -191,13 +191,13 @@
           <div class="travel">
             <mat-form-field class="w-100">
               <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                  {{amounts.si_amount}}
+                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                  {{amounts.suminsured_amount}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2" >
+            <div class="w-100 mb-2" *ngIf="showGroup">
               <div class="row" fxLayoutAlign="start center">
                 <div class="col-md-6" *ngFor="let item of familyArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
@@ -321,13 +321,13 @@
           <div class="travel">
             <mat-form-field class="w-100">
               <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                  {{amounts.si_amount}}
+                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                  {{amounts.suminsured_amount}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2 travel">
+            <div class="w-100 mb-2 travel" *ngIf="showstudent">
               <div class="row" fxLayoutAlign="start center">
                 <div class="col-md-6" *ngFor="let item of studentArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">

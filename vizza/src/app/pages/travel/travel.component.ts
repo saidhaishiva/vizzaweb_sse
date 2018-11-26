@@ -155,7 +155,6 @@ export class TravelComponent implements OnInit {
         console.log(error, 'error');
     }
     selectedSumAmount() {
-        alert();
         sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
     }
     refresh() {
@@ -580,10 +579,12 @@ export class TravelComponent implements OnInit {
             this.Student8BTn = sessionStorage.Student8BTn;
         }
         if (sessionStorage.startDate != undefined && sessionStorage.startDate != '') {
-            this.startDate = sessionStorage.startDate;
+            this.startDate = this.datePipe.transform(sessionStorage.startDate, 'y-MM-dd');
+
         }
         if (sessionStorage.endDate != undefined && sessionStorage.endDate != '') {
-            this.endDate = sessionStorage.endDate;
+            this.endDate = this.datePipe.transform(sessionStorage.endDate, 'y-MM-dd');
+
         }
         if (sessionStorage.travelType != undefined && sessionStorage.travelType != '') {
             this.travelType = sessionStorage.travelType;

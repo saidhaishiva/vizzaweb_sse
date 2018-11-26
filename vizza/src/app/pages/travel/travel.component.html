@@ -31,7 +31,7 @@
                 <!--<div mat-dialog-content >-->
                 <div class="travel">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount" required>
+                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount()" required>
                       <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                         {{amounts.suminsured_amount}}
                       </mat-option>
@@ -69,7 +69,7 @@
                     <div class="row mt-2" >
                       <div class="col-md-6">
                         <mat-form-field color="accent" class="w-100">
-                          <mat-label>Trip Start Date</mat-label>
+                          <mat-label>Trip Start Date </mat-label>
                           <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -192,9 +192,9 @@
                 </ng-template>
                 <div class="travel">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure" required>
-                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                        {{amounts.si_amount}}
+                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure" (change)="selectedSumAmount()" required>
+                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                        {{amounts.suminsured_amount}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -322,9 +322,9 @@
                 </ng-template>
                 <div class="travel">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure" required>
-                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                        {{amounts.si_amount}}
+                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure" (change)="selectedSumAmount()" required>
+                      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                        {{amounts.suminsured_amount}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
