@@ -347,7 +347,7 @@ export class AppolloMunichComponent implements OnInit {
                     'PinCode': this.insurerData[i].proposerPincode,
                     'StateCode': this.insurerData[i].proposerState,
                     'TownCode': this.insurerData[i].proposerCity,
-                        'Age': this.insurerData[i].proposerAge,
+                    'Age': this.insurerData[i].proposerAge,
                     'BirthDate': this.insurerData[i].proposerDob,
                     'ClientCode': this.insurerData[i].ClientCode,
                     'ContactInformation': this.insurerData[i].proposerMobile,
@@ -763,16 +763,16 @@ export class AppolloMunichComponent implements OnInit {
                 'Prospect': {
                     'Application': {
                         'NomineeAddress': {
-                            'AddressLine1': this.proposerData.nomineeAddress,
-                            'CountryCode': this.proposerData.nomineeCountry,
-                            'District': this.proposerData.nomineeDistrict,
-                            'PinCode': this.proposerData.nomineePincode,
-                            'StateCode': this.proposerData.nomineeState,
-                            'TownCode': this.proposerData.nomineeCity
+                            'AddressLine1': this.nomineeData.nomineeAddress,
+                            'CountryCode': this.nomineeData.nomineeCountry,
+                            'District': this.nomineeData.nomineeDistrict,
+                            'PinCode': this.nomineeData.nomineePincode,
+                            'StateCode': this.nomineeData.nomineeState,
+                            'TownCode': this.nomineeData.nomineeCity
                         },
-                        'NomineeName': this.proposerData.nomineeName,
-                        'NomineeTitleCode': this.proposerData.nomineeTitle,
-                        'RelationToNomineeCode': this.proposerData.nomineeRelationship,
+                        'NomineeName': this.nomineeData.nomineeName,
+                        'NomineeTitleCode': this.nomineeData.nomineeTitle,
+                        'RelationToNomineeCode': this.nomineeData.nomineeRelationship,
                         'Proposer': {
                             'Address': {
                                 'Address': {
@@ -860,11 +860,11 @@ export class AppolloMunichComponent implements OnInit {
                             }
                         },
                         'LifeStyleHabits': {
-                            'BeerBottle': this.totalInsureDetails[0].BeerBottle,
-                            'LiquorPeg': this.totalInsureDetails[0].LiquorPeg,
-                            'Pouches': this.totalInsureDetails[0].Pouches,
-                            'Smoking': this.totalInsureDetails[0].Smoking,
-                            'WineGlass': this.totalInsureDetails[0].WineGlass
+                            'BeerBottle': this.totalInsureDetails[0].LifeStyleHabits.BeerBottle,
+                            'LiquorPeg': this.totalInsureDetails[0].LifeStyleHabits.LiquorPeg,
+                            'Pouches': this.totalInsureDetails[0].LifeStyleHabits.Pouches,
+                            'Smoking': this.totalInsureDetails[0].LifeStyleHabits.Smoking,
+                            'WineGlass': this.totalInsureDetails[0].LifeStyleHabits.WineGlass
                         },
                         'Product': {
                             'Product': {
@@ -885,6 +885,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
         };
+        console.log(data, 'datadata');
 
         this.settings.loadingSpinner = true;
         this.proposalservice.apollomunichProposal(data).subscribe(
