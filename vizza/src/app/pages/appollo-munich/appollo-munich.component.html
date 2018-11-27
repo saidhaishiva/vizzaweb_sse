@@ -479,7 +479,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalP')" formControlName="proposerPincode" autocomplete="off" required>
+                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
                           </mat-form-field>
                         </div>

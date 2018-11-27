@@ -1145,7 +1145,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
 
-    stateChange(stateId: any, title){
+    stateChange(stateId: any, title, index){
             this.stateTitle = title;
             this.stateCode = stateId.value
             console.log(this.stateCode);
