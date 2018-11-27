@@ -438,6 +438,7 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
 
+
     //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
@@ -455,16 +456,6 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
-            if(value.proposerDriving != ""){
-                this.proposerProofNum = value.proposerDriving;
-            } else if(value.proposerPassport != ""){
-                this.proposerProofNum = value.proposerPassport;
-            }else if(value.proposerVoter != ""){
-                this.proposerProofNum = value.proposerVoter;
-            } else if(value.proposerPan != ""){
-                this.proposerProofNum = value.proposerPan;
-            }
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
