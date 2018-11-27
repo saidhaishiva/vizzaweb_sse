@@ -183,7 +183,7 @@ export class AppolloMunichComponent implements OnInit {
           nationality: 'IN',
           proposerPincode: ['', Validators.required],
           proposerCity: ['', Validators.required],
-          proposerCountry: 'IND',
+          proposerCountry: 'IN',
           proposerState: ['', Validators.required],
           proposerDistrict: '',
           proposerCityIdP: '',
@@ -206,7 +206,7 @@ export class AppolloMunichComponent implements OnInit {
           nomineeState: '',
           nomineeStateId: '',
           nomineeCountryId: '',
-          nomineeCountry: 'IND',
+          nomineeCountry: 'IN',
           nationality: 'IN',
           nomineeDistrict: '',
           nomineeDistrictId: '',
@@ -294,7 +294,7 @@ export class AppolloMunichComponent implements OnInit {
                 nationality: 'IN',
                 proposerPincode: ['', Validators.required],
                 proposerCity: ['', Validators.required],
-                proposerCountry: 'IND',
+                proposerCountry: 'IN',
                 proposerState: ['', Validators.required],
                 proposerDistrict: '',
                 proposerCityIdP: '',
@@ -317,6 +317,7 @@ export class AppolloMunichComponent implements OnInit {
                 PouchesStatus: '',
                 PolicyStartDate: '',
                 PolicyEndDate: '',
+                previousInsurerStatus: 'No',
                 PreviousInsurer: ['', Validators.required],
                 PreviousPolicyNumber: ['', Validators.required],
                 SumInsured: ['', Validators.required],
@@ -730,6 +731,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.patchValue(this.getStepper2.items[i].WineGlassStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
             }
         }
 
