@@ -70,7 +70,8 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
-        this.selectedAmount = this.premiumLists.suminsured_id;
+        // this.selectedAmount = this.premiumLists.suminsured_id;
+        this.selectedAmount = this.premiumLists.suminsured_amount;
         this.startDate = this.premiumLists.start_date;
         this.endDate = this.premiumLists.end_date;
         this.travelPlan = this.premiumLists.plan_type;
