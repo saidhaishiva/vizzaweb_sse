@@ -52,7 +52,13 @@
                           <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                       </div>
-
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="RelationShip List"  formControlName="personalrelationship"  (change)="setRelationship()" required>
+                            <mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-6">
                           <mat-form-field class="w-100">
                               <input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off">
@@ -94,8 +100,10 @@
                       </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="personalPassPort"  autocomplete="off">
+                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="personalPassPort" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalPassPort.hasError('minlength')">Enter PassPort</mat-error>
+                        <mat-error *ngIf="personal.controls.personalPassPort.hasError('pattern')"> Enter Valid PassPort </mat-error>
+
 
                       </mat-form-field></div>
 
@@ -323,7 +331,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  autocomplete="off">
+                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
 
                       </mat-form-field></div>

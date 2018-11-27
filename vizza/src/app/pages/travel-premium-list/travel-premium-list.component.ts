@@ -465,6 +465,12 @@ export class TravelPremiumListComponent implements OnInit {
         // console.log(this.familyArray, 'this.familyArray');
         //
         // console.log(this.studentArray, 'this.studentArray');
+        let sum_amount = '';
+        for (let i = 0; i < this.sumInsuredAmountLists.length; i++) {
+            if (this.sumInsuredAmountLists[i].suminsured_amount == this.selectedAmount) {
+                sum_amount = this.sumInsuredAmountLists[i].suminsured_id;
+            }
+        }
         if (!memberValid && this.medicalerror == false) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -481,7 +487,8 @@ export class TravelPremiumListComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'sum_insured': this.selectedAmount,
+                'sum_insured': sum_amount,
+                'sum_amount': this.selectedAmount,
                 'family_members': this.finalData,
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
