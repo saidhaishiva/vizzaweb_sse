@@ -134,6 +134,7 @@ export class AppolloMunichComponent implements OnInit {
     public nomineeAppolloDistrictList: any;
     public nomineeAppolloCityLis: any;
     public proposerProofNum: any;
+    public smokingStatus: boolean;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -304,11 +305,16 @@ export class AppolloMunichComponent implements OnInit {
                 proposerFamilySize: ['', Validators.compose([Validators.maxLength(2)])],
                 proposerHeight: ['', Validators.required],
                 proposerWeight: ['', Validators.required],
-                LiquorPeg: ['', Validators.required],
-                Smoking: ['', Validators.required],
-                WineGlass: ['', Validators.required],
-                BeerBottle: ['', Validators.required],
-                Pouches: ['', Validators.required],
+                LiquorPeg: 0,
+                LiquorPegStatus: '',
+                Smoking: 0,
+                SmokingStatus: '',
+                WineGlass: 0,
+                WineGlassStatus: '',
+                BeerBottle: 0,
+                BeerBottleStatus: '',
+                Pouches: 0,
+                PouchesStatus: '',
                 PolicyStartDate: '',
                 PolicyEndDate: '',
                 PreviousInsurer: ['', Validators.required],
@@ -519,6 +525,36 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
 
+    selectHabitat(value: any, id, key){
+      if(key == 'Smoking' && value.checked) {
+          this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue('');
+      } else{
+          this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue(0);
+      }
+      if (key == 'Pouches' && value.checked) {
+            this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue('');
+        } else{
+            this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue(0);
+        }
+        if (key == 'Liquor' && value.checked) {
+            this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue('');
+        } else{
+            this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue(0);
+        }
+
+        if (key == 'Wine' && value.checked) {
+            this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue('');
+        } else{
+            this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue(0);
+        }
+
+        if (key == 'Beer' && value.checked) {
+            this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue('');
+        } else{
+            this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
+        }
+    }
+
 
     addEvent(event, title, index) {
         let dd = event.value;
@@ -698,6 +734,11 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
                 this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
                 this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.patchValue(this.getStepper2.items[i].SmokingStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.patchValue(this.getStepper2.items[i].LiquorPegStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.patchValue(this.getStepper2.items[i].WineGlassStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
             }
         }
 
@@ -793,7 +834,7 @@ export class AppolloMunichComponent implements OnInit {
       let clientData = this.totalInsureDetails.slice(1);
       console.log(clientData, 'clientDataclientDataclientDataclientData');
 
-        const data  = {
+        let data  = {
             'enquiry_id': this.enquiryId,
             'proposal_id': this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -926,6 +967,10 @@ export class AppolloMunichComponent implements OnInit {
 
 
         };
+        if (clientData == ''){
+            delete data.ProposalCaptureServiceRequest.Prospect.Client.Dependants.Client
+        }
+
         console.log(data, 'datadata');
 
         this.settings.loadingSpinner = true;
