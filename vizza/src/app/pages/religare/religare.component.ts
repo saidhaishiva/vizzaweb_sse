@@ -772,14 +772,14 @@ array: any;
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 45');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 45 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 45');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 45 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 

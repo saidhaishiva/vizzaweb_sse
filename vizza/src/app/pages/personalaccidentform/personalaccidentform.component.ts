@@ -6,11 +6,11 @@ import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog, MatStepper} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
+import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -109,16 +109,10 @@ export class PersonalaccidentformComponent implements OnInit {
     public arr: any;
     public insureRelationList: any;
     array: any;
-    public familyMember: any;
-    buyProductdetail: any;
-    insureName: any;
-    insuredob: any;
     gender: any;
     sameFieldsInsure: any;
     sameinsure: any;
-    ipersonalCitys: any;
-    insurerResponse: any;
-    iresidenceCitys: any;
+    proposerList: any;
     insurepersonalCitys: any;
     iresponse: any;
     insuredresidenceCitys: any;
@@ -137,8 +131,8 @@ export class PersonalaccidentformComponent implements OnInit {
     personalClassDescription: boolean;
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
-    constructor(private fb: FormBuilder, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: CommonService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+    constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+                public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -178,7 +172,7 @@ export class PersonalaccidentformComponent implements OnInit {
             personalLastname: ['', Validators.required],
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
-            personalrelationship: 'SELF',
+            personalrelationship: '',
             personalAnualIncome: '',
             personalOccupationCode: '',
             personalDescription: '',
@@ -269,9 +263,8 @@ export class PersonalaccidentformComponent implements OnInit {
 
 
     ngOnInit() {
-        this.setOccupationListCode();
-        this. setpersonalDescriptionListCode();
         this.setRelationship();
+        this.setOccupationListCode();
         this. religareQuestions();
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
         this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
@@ -494,7 +487,7 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredDob'].patchValue(this.personal.controls['personalDob'].value);
             this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnualIncome'].value);
             this.insured.controls['insuredOccupationCode'].patchValue(this.personal.controls['personalOccupationCode'].value);
-            this.insured.controls['insuredinsuredDescription'].patchValue(this.personal.controls['personalinsuredDescription'].value);
+            this.insured.controls['insuredDescription'].patchValue(this.personal.controls['personalDescription'].value);
             this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
             this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['personalClassDescriptionCode'].value);
             this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
@@ -622,7 +615,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'pincode': pincode,
             'city_id': cid
         }
-        this.common.getArea(data).subscribe(
+        this.personalservice.getArea(data).subscribe(
             (successData) => {
                 this.getCityResistSuccess(successData);
             },
@@ -664,7 +657,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'pincode': this.pin
         }
         if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
+            this.personalservice.getPostalReligare(data).subscribe(
                 (successData) => {
                     this.getpostalSuccess(successData);
                 },
@@ -727,7 +720,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'pincode': this.pin
         }
         if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
+            this.personalservice.getPostalReligare(data).subscribe(
                 (successData) => {
                     this.getinsurepostalSuccess(successData);
                 },
@@ -795,7 +788,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'pincode': this.sumPin
         }
         if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
+            this.personalservice.getPostal(data).subscribe(
                 (successData) => {
                     this.PostalSummarySuccess(successData);
                 },
@@ -834,7 +827,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getOccupationList(data).subscribe(
+        this.personalservice.getOccupationList(data).subscribe(
             (successData) => {
                 this.occupationListSuccess(successData);
             },
@@ -854,14 +847,13 @@ export class PersonalaccidentformComponent implements OnInit {
         console.log(error);
     }
 
-
     setOccupationListCode() {
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getOccupationCode(data).subscribe(
+        this.personalservice.getOccupationCode(data).subscribe(
             (successData) => {
                 this.occupationCodeSuccess(successData);
             },
@@ -887,7 +879,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getPersonalOccupationCode(data).subscribe(
+        this.personalservice.getPersonalOccupationCode(data).subscribe(
             (successData) => {
                 this.occupationdescriptionSuccess(successData);
             },
@@ -932,7 +924,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.classOccupationCode(data).subscribe(
+        this.personalservice.classOccupationCode(data).subscribe(
             (successData) => {
                 this.classSuccess(successData);
             },
@@ -963,7 +955,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getPersonalOccupationCode(data).subscribe(
+        this.personalservice.getPersonalOccupationCode(data).subscribe(
             (successData) => {
                 this.insureoccupationdescriptionSuccess(successData);
             },
@@ -1008,7 +1000,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.classOccupationCode(data).subscribe(
+        this.personalservice.classOccupationCode(data).subscribe(
             (successData) => {
                 this.classoccupationSuccess(successData);
             },
@@ -1037,7 +1029,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getRelationshipList(data).subscribe(
+        this.personalservice.getRelationshipList(data).subscribe(
             (successData) => {
                 this.setRelationshipSuccess(successData);
             },
@@ -1137,7 +1129,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.persosnalAccidentReligareQuestions(data).subscribe(
+        this.personalservice.persosnalAccidentReligareQuestions(data).subscribe(
             (successData) => {
                 this.religareQuestionsSuccess(successData);
             },
@@ -1197,6 +1189,9 @@ export class PersonalaccidentformComponent implements OnInit {
     // Create Proposal
     proposal() {
 console.log( this.personal.controls['personalAnualIncome'].value, ' this.personal.controls[\'personalAnnualIncome\'].value');
+
+    let pan = this.personal.controls['personalPan'].value;
+    let pan1 = this.insured.controls['insuredPan'].value;
      const data= {
             'product_id': this.getBuyDetails.product_id,
             'policy_term': '1',
@@ -1217,7 +1212,7 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                 'birthDt': this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
                 'firstName': this.personal.controls['personalFirstname'].value,
                 'genderCd':this.personal.controls['personalGender'].value,
-                'relationCd': 'SELF',
+                'relationCd':'SELF',
                 'roleCd': "PROPOSER",
                 'titleCd': this.personal.controls['personalTitle'].value,
                 'annualSalary': this.personal.controls['personalAnualIncome'].value,
@@ -1267,11 +1262,11 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                     }
                 ],
                 "partyIdentityDOList": [{
-                    'identityNum': this.personal.controls['personalPan'].value,
+                    'identityNum': pan.toUpperCase(),
                     'identityTypeCd': 'PAN'
                 },
                     {
-                        'identityNum': this.personal.controls['personalPan'].value,
+                        'identityNum': this.personal.controls['personalPassPort'].value,
                         'identityTypeCd': "PASSPORT"
                     }
                 ]
@@ -1328,11 +1323,11 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
                         }
                     ],
                     "partyIdentityDOList": [{
-                        'identityNum':  this.insured.controls['insuredPan'].value,
+                        'identityNum': pan1.toUpperCase(),
                         'identityTypeCd': "PAN"
                     },
                         {
-                            'identityNum':  this.insured.controls['insuredPan'].value,
+                            'identityNum':  this.insured.controls['insuredPassPort'].value,
                             'identityTypeCd': "PASSPORT"
                         }
                     ],
@@ -1354,7 +1349,7 @@ console.log( this.personal.controls['personalAnualIncome'].value, ' this.persona
      }
 
         this.settings.loadingSpinner = true;
-        this.proposalservice.  getPersonalAccidentReligareProposal(data).subscribe(
+        this.personalservice.  getPersonalAccidentReligareProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
             },

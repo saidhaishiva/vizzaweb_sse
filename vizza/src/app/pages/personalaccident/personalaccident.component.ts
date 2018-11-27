@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 import {GrouppopupComponent} from '../health-insurance/grouppopup/grouppopup.component';
 import {CompareDetailsComponent} from './compare-details/compare-details.component';
 import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
+import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 
 @Component({
   selector: 'app-personalaccident',
@@ -56,7 +57,7 @@ export class PersonalaccidentComponent implements OnInit {
     nonEditable: boolean;
     annualerror: any;
     ageerror: any;
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService, public proposalservice: ProposalService) {
+    constructor(public appSettings: AppSettings,public personalService: PersonalAccidentService, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -159,7 +160,7 @@ export class PersonalaccidentComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
-        this.common.getpersonalSumInsuredAmount(data).subscribe(
+        this.personalService.getpersonalSumInsuredAmount(data).subscribe(
             (successData) => {
                 this.getSumInsuredAmountSuccess(successData);
             },
@@ -192,7 +193,7 @@ export class PersonalaccidentComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.proposalservice.getOccupationCode(data).subscribe(
+        this.personalService.getOccupationCode(data).subscribe(
             (successData) => {
                 this.occupationCodeSuccess(successData);
             },
@@ -272,7 +273,7 @@ export class PersonalaccidentComponent implements OnInit {
                     "age": this.Age
                 }]
             }
-            this.proposalservice.personalAccident(data).subscribe(
+            this.personalService.personalAccident(data).subscribe(
                 (successData) => {
                     //this.settings.loadingSpinner = true;
                     this.personalAccidentSuccess(successData, 0);
@@ -337,7 +338,7 @@ export class PersonalaccidentComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
 
         }
-        this.proposalservice.updatePersonalAccident(data).subscribe(
+        this.personalService.updatePersonalAccident(data).subscribe(
             (successData) => {
                 //this.settings.loadingSpinner = true;
                 this.updateSuccess(successData, 0);

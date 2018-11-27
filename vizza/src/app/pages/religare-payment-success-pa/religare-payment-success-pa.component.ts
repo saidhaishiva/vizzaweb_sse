@@ -8,6 +8,7 @@ import {AppSettings} from '../../app.settings';
 import {ProposalService} from '../../shared/services/proposal.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
+import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 
 
 @Component({
@@ -16,14 +17,14 @@ import {Settings} from '../../app.settings.model';
     styleUrls: ['./religare-payment-success-pa.component.scss']
 })
 export class ReligarePaymentSuccessPaComponent implements OnInit {
-    public paymentStatus: any
-    public currenturl: any
-    public type: any
-    public path: any
-    public proposalId: any
+    public paymentStatus: any;
+    public currenturl: any;
+    public type: any;
+    public path: any;
+    public proposalId: any;
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
 
         this.route.params.forEach((params) => {
@@ -35,6 +36,16 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
         });
     }
     ngOnInit() {
+            sessionStorage.AnnualIncomeP= '';
+           sessionStorage.occupationP='';
+           sessionStorage.personalPremiumLists = '';
+           sessionStorage.pincoceP= '';
+           sessionStorage.selectedAmountP= '';
+           sessionStorage.setAge= '';
+           sessionStorage.pAccidentProposalList= '';
+           sessionStorage.proposal1Detail= '';
+           sessionStorage.proposal2Detail= '';
+
     }
 
     DownloadPdf() {
@@ -46,7 +57,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
         this.settings.loadingSpinner = true;
-        this.proposalservice.getDownloadPdfReligarepa(data).subscribe(
+        this.personalService.getDownloadPdfReligarepa(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
             },
@@ -54,7 +65,6 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
                 this.downloadPdfFailure(error);
             }
         );
-
     }
     public downloadPdfSuccess(successData) {
         console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
@@ -83,8 +93,6 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
     public downloadPdfFailure(error) {
         console.log(error);
     }
-
-
     downloadMessage() {
         const dialogRef = this.dialog.open(DownloadMessageReligarePersonal, {
             width: '400px',

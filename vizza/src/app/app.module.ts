@@ -163,6 +163,7 @@ import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.comp
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
+import {PersonalAccidentService} from './shared/services/personal-accident.service';
 @NgModule({
   imports: [
     BrowserModule,
@@ -312,6 +313,7 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
       TravelService,
       LearningcenterService,
       ProposalService,
+      PersonalAccidentService,
       DeactivateGuard,
       DeactivatetimeGuard,
       ExamactivateGuard,

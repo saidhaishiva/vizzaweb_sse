@@ -38,20 +38,6 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-// presonal accident
-    getPersonalAccidentReligareProposal(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/proposal_creation';
-        console.log(url);
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
-
     getPolicyToken(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -120,30 +106,6 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    // personal acciddent occupation code
-    getPersonalOccupationCode(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationcode';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
-    // class description
-    classOccupationCode(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationname';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
     getOccupationClass(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -167,17 +129,7 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    persosnalAccidentReligareQuestions(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/proposalquestions';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
+
 
     getRelationshipList(data) {
         const json = JSON.stringify(data);
@@ -201,31 +153,7 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-// personal accident List
-    personalAccident(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personal_accident/lists';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
-    // update personal Accident
-    updatePersonalAccident(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personal_accident/update_familygroup_suminsured' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+
     getDownloadPdf(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -249,17 +177,7 @@ export class ProposalService {
             .catch(this.handleError);
     }
 
-    getDownloadPdfReligarepa(data) {
-        const json = JSON.stringify(data);
-        console.log(json);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_religare_pa_policypdf';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
+
     getPostalReligare(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -290,7 +208,7 @@ export class ProposalService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance/marital_status_list';
+        const url = this.configurationService.getHost() + 'apollomunich/get_material_status';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
