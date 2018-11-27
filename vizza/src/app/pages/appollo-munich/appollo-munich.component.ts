@@ -133,6 +133,7 @@ export class AppolloMunichComponent implements OnInit {
     public stateTitle: any;
     public nomineeAppolloDistrictList: any;
     public nomineeAppolloCityLis: any;
+    public proposerProofNum: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -303,7 +304,6 @@ export class AppolloMunichComponent implements OnInit {
                 proposerFamilySize: ['', Validators.compose([Validators.maxLength(2)])],
                 proposerHeight: ['', Validators.required],
                 proposerWeight: ['', Validators.required],
-                //LifeStyleHabits: ['', Validators.required],
                 LiquorPeg: ['', Validators.required],
                 Smoking: ['', Validators.required],
                 WineGlass: ['', Validators.required],
@@ -330,11 +330,19 @@ export class AppolloMunichComponent implements OnInit {
 
     //Insure Details
     AppolloInsureDetails(stepper: MatStepper, id, value, key) {
-      console.log(value, 'valueeeeeeeeeeeee')
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            if(this.insureArray['controls'].items['controls'][id]['controls'].proposerDriving.value != ""){
+                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerDriving.value);
+            } else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerPassport.value != ""){
+                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerPassport.value);
+            }else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerVoter.value != ""){
+                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerVoter.value);
+            } else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerPan.value != ""){
+                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerPan.value);
+            }
             this.totalInsureDetails = [];
             console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
@@ -345,6 +353,9 @@ export class AppolloMunichComponent implements OnInit {
                     'CountryCode': this.insurerData[i].proposerCountry,
                     'District': this.insurerData[i].proposerDistrict,
                     'PinCode': this.insurerData[i].proposerPincode,
+                    'proposerMobile': this.insurerData[i].proposerMobile,
+                    'proposerEmail': this.insurerData[i].proposerEmail,
+                    'FamilySize': this.insurerData[i].proposerFamilySize,
                     'StateCode': this.insurerData[i].proposerState,
                     'TownCode': this.insurerData[i].proposerCity,
                     'Age': this.insurerData[i].proposerAge,
@@ -356,8 +367,8 @@ export class AppolloMunichComponent implements OnInit {
                     'GenderCode': this.insurerData[i].proposerGender,
                     'GstinNumber': this.insurerData[i].proposerGst,
                     'Height': this.insurerData[i].proposerHeight,
-                    'IDProofNumber': this.insurerData[i].proposerIdProof,
-                    'IDProofTypeCode': this.insurerData[i].proposerIdProofIdP,
+                    'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
+                    'IDProofTypeCode': this.insurerData[i].proposerIdProof,
                     'LastName': this.insurerData[i].proposerLastname,
                     'LifeStyleHabits': {
                         'BeerBottle': this.insurerData[i].BeerBottle,
@@ -366,7 +377,7 @@ export class AppolloMunichComponent implements OnInit {
                         'Smoking': this.insurerData[i].Smoking,
                         'WineGlass': this.insurerData[i].WineGlass
                 },
-                'MaritalStatusCode': this.insurerData[i].maritalStatus,
+                    'MaritalStatusCode': this.insurerData[i].maritalStatus,
                     'MiddleName': this.insurerData[i].proposerMidname,
                     'NationalityCode': 'IN',
                     'OccuptionCode': this.insurerData[i].Proposeroccupation,
@@ -385,7 +396,7 @@ export class AppolloMunichComponent implements OnInit {
 
                     }
                 },
-                'ProfessionCode': this.insurerData[i].Proposeroccupation,
+                    'ProfessionCode': this.insurerData[i].Proposeroccupation,
                     'RelationshipCode': this.insurerData[i].proposerrelationship,
                     'TitleCode': this.insurerData[i].proposerTitle,
                     'Weight': this.insurerData[i].proposerWeight
@@ -419,16 +430,35 @@ export class AppolloMunichComponent implements OnInit {
         } else {
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
         }
-
     }
 
     //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
         this.proposerData = value;
+        if(value.proposerDriving != ""){
+            this.proposerProofNum = value.proposerDriving;
+        } else if(value.proposerPassport != ""){
+            this.proposerProofNum = value.proposerPassport;
+        }else if(value.proposerVoter != ""){
+            this.proposerProofNum = value.proposerVoter;
+        } else if(value.proposerPan != ""){
+            this.proposerProofNum = value.proposerPan;
+        }
+        this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
+            if(value.proposerDriving != ""){
+                this.proposerProofNum = value.proposerDriving;
+            } else if(value.proposerPassport != ""){
+                this.proposerProofNum = value.proposerPassport;
+            }else if(value.proposerVoter != ""){
+                this.proposerProofNum = value.proposerVoter;
+            } else if(value.proposerPan != ""){
+                this.proposerProofNum = value.proposerPan;
+            }
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
@@ -583,6 +613,7 @@ export class AppolloMunichComponent implements OnInit {
                 nationality: this.getStepper1.nationality,
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerIdProof: this.getStepper1.proposerIdProof,
+                proposerIdProofIdP: this.getStepper1.proposerIdProofIdP,
                 proposerPan: this.getStepper1.proposerPan,
                 proposerPassport: this.getStepper1.proposerPassport,
                 proposerVoter: this.getStepper1.proposerVoter,
@@ -632,6 +663,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerEmail.patchValue(this.getStepper2.items[i].proposerEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.patchValue(this.getStepper2.items[i].proposerIdProof);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.getStepper2.items[i].proposerIdProofIdP);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue(this.getStepper2.items[i].proposerPan);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue(this.getStepper2.items[i].proposerDriving);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue(this.getStepper2.items[i].proposerPassport);
@@ -652,7 +684,6 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrictIdP.patchValue(this.getStepper2.items[i].proposerDistrictIdP);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
-                //this.insureArray['controls'].items['controls'][i]['controls'].LifeStyleHabits.patchValue(this.getStepper2.items[i].LifeStyleHabits);
                 this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.patchValue(this.getStepper2.items[i].LiquorPeg);
                 this.insureArray['controls'].items['controls'][i]['controls'].Smoking.patchValue(this.getStepper2.items[i].Smoking);
                 this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
@@ -808,8 +839,8 @@ export class AppolloMunichComponent implements OnInit {
                             'FirstName': this.proposerData.proposerFirstname,
                             'GenderCode': this.proposerData.proposerGender,
                             'GstinNumber': this.proposerData.proposerGst,
-                            'IDProofNumber': this.proposerData.proposerIdProof,
-                            'IDProofTypeCode': this.proposerData.proposerIdProofIdP,
+                            'IDProofNumber': this.proposerData.proposerIdProofIdP,
+                            'IDProofTypeCode': this.proposerData.proposerIdProof,
                             'LastName': this.proposerData.proposerLastname,
                             'MaritalStatusCode': this.proposerData.maritalStatus,
                             'MiddleName': this.proposerData.proposerMidname,
@@ -820,42 +851,42 @@ export class AppolloMunichComponent implements OnInit {
                     'Client': {
                         'Address': {
                             'Address': {
-                                'AddressLine1': this.totalInsureDetails[0].proposerAddress,
-                                'AddressLine2': this.totalInsureDetails[0].proposerAddress2,
-                                'AddressLine3': this.totalInsureDetails[0].proposerAddress3,
+                                'AddressLine1': this.totalInsureDetails[0].AddressLine1,
+                                'AddressLine2': this.totalInsureDetails[0].AddressLine2,
+                                'AddressLine3': this.totalInsureDetails[0].AddressLine3,
                                 'CountryCode': 'IN',
-                                'District': this.totalInsureDetails[0].proposerDistrict,
-                                'PinCode': this.totalInsureDetails[0].proposerPincode,
-                                'StateCode': this.totalInsureDetails[0].proposerState,
-                                'TownCode': this.totalInsureDetails[0].proposerCity
+                                'District': this.totalInsureDetails[0].District,
+                                'PinCode': this.totalInsureDetails[0].PinCode,
+                                'StateCode': this.totalInsureDetails[0].StateCode,
+                                'TownCode': this.totalInsureDetails[0].TownCode
                             }
                         },
-                        'Age': this.totalInsureDetails[0].proposerAge,
-                        'AnnualIncome': this.totalInsureDetails[0].proposerAnnualIncome,
-                        'BirthDate': this.totalInsureDetails[0].proposerDob,
-                        'ClientCode': this.totalInsureDetails[0].ClientCode,
+                        'Age': this.totalInsureDetails[0].Age,
+                        'AnnualIncome': this.totalInsureDetails[0].AnnualIncome,
+                        'BirthDate': this.totalInsureDetails[0].BirthDate,
+                        'ClientCode': 'PolicyHolder',
                         'ContactInformation': {
                             'ContactNumber': {
                                 'ContactNumber': {
                                     'Number': this.totalInsureDetails[0].proposerMobile
                                 }
                             },
-                            'Email': ''
+                            'Email': this.totalInsureDetails[0].proposerEmail
                         },
                         'Dependants': {
                                 'Client' : clientData
                             },
-                        'FamilySize': this.totalInsureDetails[0].proposerFamilySize,
-                        'FirstName': this.totalInsureDetails[0].proposerFirstname,
-                        'GenderCode': this.totalInsureDetails[0].proposerGender,
-                        'GstinNumber': this.totalInsureDetails[0].proposerGst,
-                        'Height': this.totalInsureDetails[0].proposerHeight,
-                        'IDProofNumber': this.totalInsureDetails[0].proposerIdProof,
-                        'IDProofTypeCode': this.totalInsureDetails[0].proposerIdProofIdP,
-                        'LastName': this.totalInsureDetails[0].proposerLastname,
-                        'MaritalStatusCode': this.totalInsureDetails[0].maritalStatus,
-                        'MiddleName': this.totalInsureDetails[0].proposerMidname,
-                        'NationalityCode': this.totalInsureDetails[0].nationality,
+                        'FamilySize': this.totalInsureDetails[0].FamilySize,
+                        'FirstName': this.totalInsureDetails[0].FirstName,
+                        'GenderCode': this.totalInsureDetails[0].GenderCode,
+                        'GstinNumber': this.totalInsureDetails[0].GstinNumber,
+                        'Height': this.totalInsureDetails[0].Height,
+                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber,
+                        'IDProofTypeCode': this.totalInsureDetails[0].IDProofTypeCode,
+                        'LastName': this.totalInsureDetails[0].LastName,
+                        'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
+                        'MiddleName': this.totalInsureDetails[0].MiddleName,
+                        'NationalityCode': this.totalInsureDetails[0].NationalityCode,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                         'PreviousInsurer': {
                             'PreviousInsurer': {
@@ -878,18 +909,18 @@ export class AppolloMunichComponent implements OnInit {
                         },
                         'Product': {
                             'Product': {
-                                'ClientCode': '',
-                                'ProductCode': '',
-                                'SumAssured': ''
+                                'ClientCode': 'PolicyHolder',
+                                'ProductCode': this.buyProductdetails.product_code,
+                                'SumAssured': this.buyProductdetails.suminsured_amount
 
                             }
                         },
-                        'ProfessionCode': this.totalInsureDetails[0].Proposeroccupation,
-                        'RelationshipCode': this.totalInsureDetails[0].proposerrelationship,
-                        'TitleCode': this.totalInsureDetails[0].proposerTitle,
-                        'Weight': this.totalInsureDetails[0].proposerWeight
+                        'ProfessionCode': this.totalInsureDetails[0].ProfessionCode,
+                        'RelationshipCode': this.totalInsureDetails[0].RelationshipCode,
+                        'TitleCode': this.totalInsureDetails[0].TitleCode,
+                        'Weight': this.totalInsureDetails[0].Weight
                     },
-                    'MedicalInformations': this.totalInsureDetails[0].MedicalInformations
+                    'MedicalInformations': this.proposerData.MedicalInformations,
                 }
             }
 

@@ -208,7 +208,7 @@ export class ProposalService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance/marital_status_list';
+        const url = this.configurationService.getHost() + 'apollomunich/get_material_status';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

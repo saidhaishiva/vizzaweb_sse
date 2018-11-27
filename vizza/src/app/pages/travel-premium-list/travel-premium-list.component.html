@@ -57,7 +57,7 @@
           <div class="travel">
             <mat-form-field class="w-100">
               <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">
                   {{amounts.suminsured_amount}}
                 </mat-option>
               </mat-select>

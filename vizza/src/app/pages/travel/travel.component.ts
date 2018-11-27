@@ -473,8 +473,16 @@ export class TravelComponent implements OnInit {
             this.medicalerror = false;
         }
         let memberValid = false;
+        let getFiledData = '';
         if (groupname == 'self') {
-                for (let i = 0; i < this.selfArray.length; i++) {
+            getFiledData = this.selfArray.filter(data => data.checked == true);
+            if (getFiledData != '') {
+                this.selfArray[0].error = '';
+            } else {
+                this.selfArray[0].error = 'Required';
+            }
+            console.log(getFiledData, 'getFiledData1');
+            for (let i = 0; i < this.selfArray.length; i++) {
                     memberValid = false;
                     if (this.selfArray[i].checked) {
                         if (this.selfArray[i].age == '') {
@@ -486,9 +494,11 @@ export class TravelComponent implements OnInit {
                             memberValid = false;
                             this.finalData.push({type: this.selfArray[i].name, age: this.selfArray[i].age });
                         }
-                    } else {
-                        this.selfArray[0].error = 'Required';
                     }
+                    // else {
+                    //     if (this.selfArray[i].checked) {
+                    //     this.selfArray[0].error = 'Required';
+                    // }
                 }
 
         } else if (groupname == 'family') {
@@ -524,11 +534,16 @@ export class TravelComponent implements OnInit {
                 }
             }
         }
-
+        let sum_amount = '';
+        for (let i = 0; i < this.sumInsuredAmountLists.length; i++) {
+            if (this.sumInsuredAmountLists[i].suminsured_id == this.selectedAmountTravel) {
+                sum_amount = this.sumInsuredAmountLists[i].suminsured_amount;
+            }
+        }
        // console.log(this.familyArray, 'this.familyArray');
         //
        // console.log(this.studentArray, 'this.studentArray');
-        if (!memberValid && this.medicalerror == false) {
+        if (!memberValid && this.medicalerror == false && getFiledData != '') {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -545,6 +560,7 @@ export class TravelComponent implements OnInit {
                 'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'sum_insured': this.selectedAmountTravel,
+                'sum_amount': sum_amount,
                 'family_members': this.finalData,
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
@@ -585,12 +601,15 @@ export class TravelComponent implements OnInit {
 
         if (sessionStorage.selfArray != undefined && sessionStorage.selfArray != '') {
             this.selfArray = JSON.parse(sessionStorage.selfArray);
+            this.members(this.selfArray);
         }
         if (sessionStorage.familyArray != undefined && sessionStorage.familyArray != '') {
             this.familyArray = JSON.parse(sessionStorage.familyArray);
+            this.members(this.familyArray);
         }
         if (sessionStorage.studentArray != undefined && sessionStorage.studentArray != '') {
             this.studentArray = JSON.parse(sessionStorage.studentArray);
+            this.members(this.studentArray);
         }
 
         if (sessionStorage.selectedAmountTravel != undefined && sessionStorage.selectedAmountTravel != '') {
@@ -659,6 +678,17 @@ export class TravelComponent implements OnInit {
             this.medicalCondition = sessionStorage.medicalCondition;
         }
 
+    }
+    members(array) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].checked) {
+                if (array[i].age == '') {
+                    array[i].error = 'Required';
+                } else {
+                    array[i].error = '';
+                }
+            }
+        }
     }
 
 }
