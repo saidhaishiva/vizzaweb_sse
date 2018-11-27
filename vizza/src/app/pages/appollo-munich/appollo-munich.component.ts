@@ -341,14 +341,16 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
-            if(this.insureArray['controls'].items['controls'][id]['controls'].proposerDriving.value != ""){
-                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerDriving.value);
-            } else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerPassport.value != ""){
-                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerPassport.value);
-            }else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerVoter.value != ""){
-                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerVoter.value);
-            } else if(this.insureArray['controls'].items['controls'][id]['controls'].proposerPan.value != ""){
-                this.insureArray['controls'].items['controls'][id]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][id]['controls'].proposerPan.value);
+            for(let i = 0; i < this.insurerData.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
+                }
             }
             this.totalInsureDetails = [];
             console.log(this.insurerData, 'this.insurerData this.insurerData');
@@ -410,6 +412,7 @@ export class AppolloMunichComponent implements OnInit {
                 });
             }
             if (sessionStorage.insurerAge  >= 18) {
+
                 stepper.next();
 
             } else {

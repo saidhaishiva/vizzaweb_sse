@@ -493,7 +493,7 @@
 
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="State"  formControlName="proposerState" (change)="nomineeStateChange($event, 'nominee')" required>
+                                  <mat-select placeholder="State"  formControlName="proposerState" (change)="insureStateChange($event, 'insure', i)" required>
                                       <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
