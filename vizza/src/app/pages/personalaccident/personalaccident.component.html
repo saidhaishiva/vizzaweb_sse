@@ -33,7 +33,7 @@
         <div *ngIf="ageerror" class="ngError">Age Required</div>
         <mat-form-field class="w-100">
         <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP">
-          <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_description">{{occupation.occupation_description}}</mat-option>
+          <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
         </mat-select>
         </mat-form-field>
         <div *ngIf="occerror" class="ngError">Occupation Required</div>
@@ -202,8 +202,8 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select  name="occupation" [(ngModel)]="occupationP"  [disabled]="true" >
-                      <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_description">{{occupation.occupation_description}}</mat-option>
+                    <mat-select  name="occupation" [(ngModel)]="occupationP" [disabled]="true">
+                      <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>

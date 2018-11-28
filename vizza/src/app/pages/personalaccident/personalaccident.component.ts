@@ -57,6 +57,7 @@ export class PersonalaccidentComponent implements OnInit {
     nonEditable: boolean;
     annualerror: any;
     ageerror: any;
+    productData: any;
     constructor(public appSettings: AppSettings,public personalService: PersonalAccidentService, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
@@ -90,7 +91,7 @@ export class PersonalaccidentComponent implements OnInit {
         // this.closeIcon = true;
         this.sumInsuredAmonut();
         this.setOccupationListCode();
-        this.sessionData();
+        this.sessionData()
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
@@ -193,7 +194,7 @@ export class PersonalaccidentComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.personalService.getOccupationCode(data).subscribe(
+        this.personalService.getOccupationCodeList(data).subscribe(
             (successData) => {
                 this.occupationCodeSuccess(successData);
             },
@@ -326,6 +327,7 @@ export class PersonalaccidentComponent implements OnInit {
             'platform': 'web',
             'postalcode': this.pincoceP,
             'sum_insured': this.selectedAmountP,
+            'occupation_code': this.occupationP,
             'family_details': [{
                 "type": "self",
                 "age": this.Age
@@ -376,6 +378,7 @@ export class PersonalaccidentComponent implements OnInit {
             company_name: value.company_name,
             key_features: value.key_features
         };
+        console.log(data, 'data');
         this.enquiryIdP = equiryId;
         this.personalPremiumLists.product_lists[index].compare = true;
         this.compareArray.push(data);
@@ -413,54 +416,61 @@ export class PersonalaccidentComponent implements OnInit {
 
     // comparelist
     compareList(value) {
-        //     this.productLists = [];
-        //     let scheme = value[0].scheme;
-        //     for (let i = 0; i < value.length; i++) {
-        //         this.productLists.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
-        //     }
-        //     const data = {
-        //         'platform': 'web',
-        //         'scheme': scheme,
-        //         'group_name': this.goupName,
-        //         'enquiry_id': this.equiryId,
-        //         'product_lists': this.productLists,
-        //         'created_by': 0,
-        //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-        //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        //
-        //     };
-        //     this.settings.loadingSpinner = true;
-        //     this.common.addtoCompare(data).subscribe(
-        //         (successData) => {
-        //             this.compareSuccess(successData);
-        //         },
-        //         (error) => {
-        //             this.compareFailure(error);
-        //         }
-        //     );
-        // }
-        // public compareSuccess(successData) {
-        //     this.settings.loadingSpinner = false;
-        //     if (successData.IsSuccess) {
-        //         let dialogRef = this.dialog.open(ComparelistComponent, {
-        //             width: '1500px', data: {comparedata: successData.ResponseObject}});
-        //         dialogRef.disableClose = true;
-        //
-        //         dialogRef.afterClosed().subscribe(result => {
-        //         });
-        //     }
-        // }
-        // public compareFailure(error) {
-        //     this.settings.loadingSpinner = false;
-        // }
+            this.productData = [];
+            let scheme = value[0].scheme;
+            for (let i = 0; i < value.length; i++) {
+                this.productData.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+            }
+            const data = {
+                'platform': 'web',
+                'scheme': scheme,
+                'group_name': 'GROUP A',
+                'enquiry_id': this.enquiryIdP,
+                'product_lists': this.productData,
+                'created_by': 0,
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+
+            };
+            this.settings.loadingSpinner = true;
+            this.personalService.addtoCompare(data).subscribe(
+                (successData) => {
+                    this.compareSuccess(successData);
+                },
+                (error) => {
+                    this.compareFailure(error);
+                }
+            );
+        }
+        public compareSuccess(successData) {
+            this.settings.loadingSpinner = false;
+            if (successData.IsSuccess) {
+                let dialogRef = this.dialog.open(ComparelistComponent, {
+                    width: '1500px', data: {comparedata: successData.ResponseObject}});
+                dialogRef.disableClose = true;
+
+                dialogRef.afterClosed().subscribe(result => {
+                });
+            }
+        }
+        public compareFailure(error) {
+            this.settings.loadingSpinner = false;
+        }
 
 
-    }
+
     // buy details
     buyDetails(value){
-        console.log(value);
+        console.log(value, 'kljkjjkjkjk');
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
-        this.router.navigate(['/personalaccidentform']);
+        if (value.product_id == 14 || value.product_id == 15){
+            this.router.navigate(['/appollopa']);
+        } else {
+            if(value.product_id == 3){
+                this.router.navigate(['/personalaccidentform']);
+            }
+        }
+
 
     }
 }
