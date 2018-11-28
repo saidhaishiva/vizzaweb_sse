@@ -669,6 +669,165 @@
             </mat-expansion-panel>
           </mat-accordion>
         </mat-step>
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>SUMMARAY</ng-template>
+              <section class="summary-details" *ngIf="summaryData">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> </span></h4>
+                      </div>
+                      <div class="col-md-8">
+                          <ul class="summary-head">
+                              <li><span>Insurer:</span> &nbsp;<img src="" class="img-thumbnail" style="width: 125px;" /> </li>
+                              <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> </span> /</li>
+                              <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> </span> </li>
+                              <li></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <section>
+                      <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+                      <div class="row box-card">
+                          <div class="col-md-12">
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Name:</strong> </li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> </li>
+                                      <li class="list-group-item"><strong>Personal Email Id:</strong> </li>
+                                      <li class="list-group-item"><strong>Mobile Number:</strong> </li>
+                                      <li class="list-group-item"><strong>Phone Number:</strong> </li>
+                                      <li class="list-group-item"><strong>Alternate Number:</strong> </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Gender:</strong> </li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> }</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> </li>
+                                      <li class="list-group-item"><strong>Nationality:</strong> </li>
+                                      <li class="list-group-item"><strong>PAN Number:</strong> </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <h6>PROPOSER COMMUNICATION DETAILS</h6>
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Address 1:</strong> </li>
+                                      <li class="list-group-item"><strong>Address 2:</strong> </li>
+                                      <li class="list-group-item"><strong>Address 3:</strong> </li>
+                                      <li class="list-group-item"><strong>PIN code:</strong> </li>
+                                      <li class="list-group-item"><strong>Area:</strong> </li>
+                                      <li class="list-group-item"><strong>City:</strong> </li>
+                                      <li class="list-group-item"><strong>State:</strong> </li>
+                                      <li class="list-group-item"><strong>Country:</strong> </li>
+                                      <li class="list-group-item"><strong>Mobile No:</strong> </li>
+                                      <li class="list-group-item"><strong>Phone No:</strong> </li>
+                                      <li class="list-group-item"><strong>Fax:</strong> </li>
+                                      <li class="list-group-item"><strong>Nearest Landmark:</strong> </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class=" p-3">
+                                  <h6>PROPOSER RESIDENCE DETAILS</h6>
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Address 1:</strong> </li>
+                                      <li class="list-group-item"><strong>Address 2:</strong> </li>
+                                      <li class="list-group-item"><strong>Address 3:</strong> </li>
+                                      <li class="list-group-item"><strong>PIN code:</strong> </li>
+                                      <li class="list-group-item"><strong>Area:</strong> </li>
+                                      <li class="list-group-item"><strong>City:</strong> </li>
+                                      <li class="list-group-item"><strong>State:</strong> </li>
+                                      <li class="list-group-item"><strong>Country:</strong> </li>
+                                      <li class="list-group-item"><strong>Nearest Landmark:</strong> </li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+
+                  <section *ngFor="let item of summaryData.InsuredDetailsList">
+                      <h5 class="mt-3 sub-title"> DETAILS </h5>
+                      <div class="row box-card">
+                          <div class="col-md-12">
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Name:</strong></li>
+                                      <li class="list-group-item"><strong>Gender:</strong> </li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> </li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> </li>
+                                      <li class="list-group-item"><strong>Age:</strong> </li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> </li>
+                                      <li class="list-group-item"><strong>Relationship:</strong> </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong >Existing Illness:  </strong> No </li>
+
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                  <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                  <div class="row box-card">
+                      <div class="col-md-6">
+                          <div class="p-3">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Nominee name:</strong> </li>
+                                          <li class="list-group-item"><strong>Address 1:</strong></li>
+                                          <li class="list-group-item"><strong>Address 2:</strong></li>
+                                          <li class="list-group-item"><strong>Address 3:</strong></li>
+                                          <li class="list-group-item"><strong>PIN code:</strong> </li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="p-3">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Relationship with Proposer:</strong> </li>
+                                          <li class="list-group-item"><strong>Area:</strong> </li>
+                                          <li class="list-group-item"><strong>City:</strong> </li>
+                                          <li class="list-group-item"><strong>State:</strong> </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <p class="mt-2 pl-3">
+                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
+                  </p>
+                  <hr>
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <form action='{{RediretUrlLink}}' method='post' #form>
+                              <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                          </form>
+                      </div>
+                  </div>
+              </section>
+              <div class="proposal-buttom mt-3 text-right w-100">
+                  <button mat-button matStepperPrevious>Back</button>
+              </div>
+          </mat-step>
 
       </mat-horizontal-stepper>
     </div>

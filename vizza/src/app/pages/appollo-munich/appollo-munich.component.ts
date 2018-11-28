@@ -471,14 +471,20 @@ export class AppolloMunichComponent implements OnInit {
         this.proposerData = value;
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
         } else if(value.proposerPassport != ""){
             this.proposerProofNum = value.proposerPassport;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         }else if(value.proposerVoter != ""){
             this.proposerProofNum = value.proposerVoter;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         } else if(value.proposerPan != ""){
             this.proposerProofNum = value.proposerPan;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         }
-        this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
@@ -1008,9 +1014,10 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            this.RediretUrlLink = '';
+            this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.InsurePolicyholderDetails[0].proposer_id;
             sessionStorage.proposalID = this.proposalId;
+            this.lastStepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);

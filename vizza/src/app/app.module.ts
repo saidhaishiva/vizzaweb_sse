@@ -164,6 +164,7 @@ import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
+import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -303,6 +304,7 @@ import {PersonalAccidentService} from './shared/services/personal-accident.servi
       IffcoTokioComponent,
       ReligarePaymentSuccessPaComponent,
       DownloadMessageReligarePersonal,
+      ApollomunichPaymentSuccessComponent,
   ],
   providers: [
       AppSettings,
