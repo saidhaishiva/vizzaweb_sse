@@ -83,6 +83,7 @@ import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
 import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
+import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -167,6 +168,7 @@ export const routes: Routes = [
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
+            { path: 'appollopa', component:AppollomunichpaComponent, data: { breadcrumb: 'Appolo Munich Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
             { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },

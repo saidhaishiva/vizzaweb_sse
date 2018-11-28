@@ -179,6 +179,17 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getOccupationCodeList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personal_accident/occupationlist';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 // RelationShip List
     getRelationshipList(data) {
         const json = JSON.stringify(data);
@@ -191,6 +202,19 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //   // this function will compare the product lists
+        addtoCompare(data) {
+            console.log(data, 'ssssssssssss');
+            const json = JSON.stringify(data);
+            const token = this.authService.getAccessToken();
+            const httpOptions = {
+                headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+            };
+            const url = this.configurationService.getHost() + 'quote/compare_shkeyfeatures' ;
+            return this.http.post(url, json, httpOptions)
+                .map(this.extractData)
+                .catch(this.handleError);
+        }
 
     private extractData(res: Response) {
         const body = res;
