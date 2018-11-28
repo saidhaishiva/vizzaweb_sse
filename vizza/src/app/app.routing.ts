@@ -43,6 +43,7 @@ import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult
 import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
+import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -160,6 +161,7 @@ export const routes: Routes = [
             { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'reliance-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'apollomunich-payment-success/:status/:proId', component: ApollomunichPaymentSuccessComponent, data: { breadcrumb: 'Apollo munich payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },

@@ -135,6 +135,8 @@ export class AppolloMunichComponent implements OnInit {
     public nomineeAppolloCityLis: any;
     public proposerProofNum: any;
     public smokingStatus: boolean;
+    public previousInsureList: any;
+    public proffessionList: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -191,7 +193,6 @@ export class AppolloMunichComponent implements OnInit {
           proposerCountryIdP: '',
           proposerDistrictIdP: '',
           MedicalInformations: '',
-          TotalPremiumAmount: ['', Validators.required],
           rolecd: 'PROPOSER',
           type: ''
 
@@ -245,6 +246,8 @@ export class AppolloMunichComponent implements OnInit {
         this.IdProofList();
         this.AppolloState();
         this.setOccupationList();
+        this.getPreviousInsure();
+        this.getProffession();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -322,6 +325,7 @@ export class AppolloMunichComponent implements OnInit {
                 PreviousPolicyNumber: ['', Validators.required],
                 SumInsured: ['', Validators.required],
                 QualifyingAmount: '',
+                ProffessionList: '',
                 WaivePeriod: '',
                 Remarks: '',
                 Proposeroccupation: ['', Validators.required],
@@ -334,6 +338,10 @@ export class AppolloMunichComponent implements OnInit {
             }
         );
     }
+
+
+
+
 
     //Insure Details
     AppolloInsureDetails(stepper: MatStepper, id, value, key) {
@@ -405,7 +413,7 @@ export class AppolloMunichComponent implements OnInit {
 
                     }
                 },
-                    'ProfessionCode': this.insurerData[i].Proposeroccupation,
+                    'ProfessionCode': this.insurerData[i].ProffessionList,
                     'RelationshipCode': this.insurerData[i].proposerrelationship,
                     'TitleCode': this.insurerData[i].proposerTitle,
                     'Weight': this.insurerData[i].proposerWeight
@@ -417,6 +425,23 @@ export class AppolloMunichComponent implements OnInit {
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
+
+
+    changeIdproof(title){
+        if(title == 'proposer') {
+            this.proposer.controls['proposerDriving'].patchValue('');
+            this.proposer.controls['proposerPassport'].patchValue('');
+            this.proposer.controls['proposerVoter'].patchValue('');
+            this.proposer.controls['proposerPan'].patchValue('');
+        } else if(title == 'insurer'){
+            for(let i = 0; i < this.insurePersons.length; i++) {
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue('');
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue('');
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.patchValue('');
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue('');
             }
         }
     }
@@ -435,6 +460,7 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
 
+
     subStatus(value: any, i, k, j) {
         if (value.checked) {
         } else {
@@ -449,14 +475,20 @@ export class AppolloMunichComponent implements OnInit {
         this.proposerData = value;
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
         } else if(value.proposerPassport != ""){
             this.proposerProofNum = value.proposerPassport;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         }else if(value.proposerVoter != ""){
             this.proposerProofNum = value.proposerVoter;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         } else if(value.proposerPan != ""){
             this.proposerProofNum = value.proposerPan;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
         }
-        this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
@@ -650,7 +682,6 @@ export class AppolloMunichComponent implements OnInit {
                 proposerVoter: this.getStepper1.proposerVoter,
                 proposerGst: this.getStepper1.proposerGst,
                 proposerDriving: this.getStepper1.proposerDriving,
-                TotalPremiumAmount: this.getStepper1.TotalPremiumAmount,
                 MedicalInformations: this.getStepper1.MedicalInformations,
                 proposerCity: this.getStepper1.proposerCity,
                 proposerState: this.getStepper1.proposerState,
@@ -735,6 +766,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
             }
         }
 
@@ -830,9 +862,9 @@ export class AppolloMunichComponent implements OnInit {
       let clientData = this.totalInsureDetails.slice(1);
       console.log(clientData, 'clientDataclientDataclientDataclientData');
 
-        let data  = {
+        const data  = {
             'enquiry_id': this.enquiryId,
-            'proposal_id': this.proposalId,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -984,116 +1016,15 @@ export class AppolloMunichComponent implements OnInit {
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            if(successData.ResponseObject.ErrorMessages.ErrMessages == ''){
-                this.toastr.success('Proposal created successfully!!');
-            } else{
-                this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
-            }
+            this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, 'summaryDatasummaryData');
-            let getdata=[];
-
-            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
-                for( let j=0; j < this.relationshipList.length; j++){
-                    if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship;
-                    }
-                }
-            }
-            for( let j=0; j < this.relationshipList.length; j++){
-                if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_code ) {
-                    this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship;
-                }
-            }
-            // disease name
-
-            for( let j=0; j < this.diseaseList.length; j++){
-                if( this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID == this.diseaseList[j].pre_existing_disease_id ) {
-                    this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].pre_existing_disease_name = this.diseaseList[j].pre_existing_disease_name;
-                }
-            }
-
-            console.log(this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID, 'fdghjkwesdrfghjtr');
-
-            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
-                for (let j = 0; j < this.maritalDetail.length; j++) {
-                    if (this.summaryData.InsuredDetailsList[i].MaritalStatusID == this.maritalDetail[j].marital_status_id) {
-                        this.summaryData.InsuredDetailsList[i].marital_status = this.maritalDetail[j].marital_status;
-                    }
-                }
-            }
-            for (let j = 0; j < this.maritalDetail.length; j++) {
-                if (this.summaryData.ClientDetails.MaritalStatusID == this.maritalDetail[j].marital_status_id) {
-                    this.summaryData.ClientDetails.marital_status = this.maritalDetail[j].marital_status;
-                }
-            }
-            for (let j = 0; j <  this.nationalityList.length; j++) {
-                if (this.summaryData.ClientDetails.Nationality == this.nationalityList[j].nationality_id) {
-                    this.summaryData.ClientDetails.nationality = this.nationalityList[j].nationality;
-                }
-            }
-            console.log(this.setPincode, 'pinn');
-            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
-                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID == this.setPincode.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name =  this.setPincode.state_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID == this.setPincode.city_village_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name =  this.setPincode.city_village_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.setPincode.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.setPincode.state_name;
-            }
-
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                console.log(this.setPincode.area_details[0], 'jhfsajhdg');
-                if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.setPincode.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-            // nominee
-            if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
-                this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
-            }
-            console.log(this. summaryData.NomineeDetails.NomineeAddress, 'sedrtfgyhuj');
-            if(this.summaryData.NomineeDetails.NomineeAddress.StateID == this.setPincode.state_id) {
-                this.summaryData.NomineeDetails.NomineeAddress.state_name =  this.setPincode.state_name;
-            }
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                console.log(this.setPincode.area_details[0], 'seeee');
-                if (this.summaryData.NomineeDetails.NomineeAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    console.log(this.summaryData.NomineeDetails.NomineeAddress.AreaID, 'nomiee');
-                    this. summaryData.NomineeDetails.NomineeAddress.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-            this.proposalId = this.summaryData.proposal_id;
-            this.RediretUrlLink = successData.RediretUrlLink;
-            this.proposalId = this.summaryData.proposal_id;
+            this.RediretUrlLink = this.summaryData.PaymentURL;
+            this.proposalId = this.summaryData.InsurePolicyholderDetails[0].proposer_id;
             sessionStorage.proposalID = this.proposalId;
-            if (this.nomineeDetails.valid) {
-                if (sessionStorage.proposerAge >= 18) {
-                    if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                        this.lastStepper.next();
-                    }
-
-                } else {
-                    this.toastr.error('Proposer age should be 18 or above');
-                }
-            }
-        } else {
+            this.lastStepper.next();
+        }
+        else{
             this.toastr.error(successData.ErrorObject);
-            // this.toastr.error('Nominee age should be 18 or above');
-
-
         }
     }
 
@@ -1130,6 +1061,65 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setMaritalStatusFailure(error) {
+        console.log(error);
+    }
+
+    //proffession list
+    getProffession() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichProffession(data).subscribe(
+            (successData) => {
+                this.getProffessionSuccess(successData);
+            },
+            (error) => {
+                this.getProffessionFailure(error);
+            }
+        );
+    }
+
+    public getProffessionSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.proffessionList = successData.ResponseObject;
+
+        }
+    }
+
+    public getProffessionFailure(error) {
+        console.log(error);
+    }
+
+
+    //Previous Insure
+    getPreviousInsure() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichPreviousInsure(data).subscribe(
+            (successData) => {
+                this.getPreviousInsureSuccess(successData);
+            },
+            (error) => {
+                this.getPreviousInsureFailure(error);
+            }
+        );
+    }
+
+    public getPreviousInsureSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.previousInsureList = successData.ResponseObject;
+
+        }
+    }
+
+    public getPreviousInsureFailure(error) {
         console.log(error);
     }
 

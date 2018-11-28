@@ -1053,7 +1053,7 @@ public RediretUrlLink: any;
                 'PrevYearPolicyEndDate': ''
             },
             'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID != '' ? sessionStorage.proposalID : this.proposalId,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -1179,7 +1179,6 @@ public RediretUrlLink: any;
 
                 }
             }
-            this.proposalId = this.summaryData.proposal_id;
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;

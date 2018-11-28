@@ -165,6 +165,7 @@ import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-succ
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
 import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichpa.component';
+import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -305,6 +306,7 @@ import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichp
       ReligarePaymentSuccessPaComponent,
       DownloadMessageReligarePersonal,
       AppollomunichpaComponent,
+      ApollomunichPaymentSuccessComponent,
   ],
   providers: [
       AppSettings,
