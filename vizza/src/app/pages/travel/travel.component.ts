@@ -41,6 +41,7 @@ export class TravelComponent implements OnInit {
     selfArray: any;
     familyArray: any;
     studentArray: any;
+    groupArray: any;
     value: any;
     showSelf: boolean;
     showGroup: boolean;
@@ -69,6 +70,7 @@ export class TravelComponent implements OnInit {
     startDateError: any;
     endDateError: any;
     today: any;
+    daysCount: any;
 
     selectedAmountTravel: any;
     travelType: any;
@@ -80,16 +82,19 @@ export class TravelComponent implements OnInit {
     sumerror: any;
     duration: any;
     medicalerror: any;
+    showFamily: boolean;
     public settings: Settings;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.showSelf = true;
+        this.showFamily = false;
         this.showGroup = false;
         this.showstudent = false;
         this.selfDetails();
         this.familyDetails();
         this.studentDetails();
+        this.groupDetails();
         this.currentTab = 'self';
         this.today = new Date();
 
@@ -118,14 +123,19 @@ export class TravelComponent implements OnInit {
     }
     selfDetails() {
         this.selfArray = [
+            {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''}
+        ];
+    }
+    familyDetails() {
+        this.familyArray = [
             {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Spouse', age: '', disabled: false, checked: false, required: false, error: ''},
             {name: 'Child1', age: '', disabled: false, checked: false, required: false, error: ''},
             {name: 'Child2', age: '', disabled: false, checked: false, required: false, error: ''}
         ];
     }
-    familyDetails() {
-        this.familyArray = [
+    groupDetails() {
+        this.groupArray = [
             {name: 'Member1', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Member2', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Member3', age: '', disabled: false, checked: false, required: true, error: ''},
@@ -173,6 +183,10 @@ export class TravelComponent implements OnInit {
         this.travelType = '';
         this.travelPlan = '';
         this.duration = '';
+        this.startDate = '';
+        this.endDate = '';
+        this.daysCount = '';
+        this.maxDate = '';
         this.medicalCondition = '';
         this.Child3BTn = false;
         this.FatherBTn = false;
@@ -191,6 +205,7 @@ export class TravelComponent implements OnInit {
         this.Student10BTn = false;
         this.selfDetails();
         this.familyDetails();
+        this.groupDetails();
         this.studentDetails();
 
     }
@@ -202,31 +217,33 @@ export class TravelComponent implements OnInit {
             this.currentTab = 'self';
             this.selfDetails();
             this.showSelf = true;
+            this.showFamily = false;
             this.showGroup = false;
             this.showstudent = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
-        }
-        if (event == 1) {
+        } else if (event == 1) {
             this.currentTab = 'family';
             this.familyDetails();
-            this.showGroup = true;
             this.showSelf = false;
+            this.showFamily = true;
+            this.showGroup = false;
             this.showstudent = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
-        }
-        if (event == 2) {
+        } else if (event == 2) {
+            this.currentTab = 'group';
+            this.groupDetails();
+            this.showSelf = false;
+            this.showFamily = false;
+            this.showGroup = true;
+            this.showstudent = false;
+        } else if (event == 3) {
             this.currentTab = 'students';
             this.studentDetails();
-            this.showstudent = true;
-            this.showGroup = false;
             this.showSelf = false;
-            this.travelType = '';
-            this.travelPlan = '';
-            this.medicalCondition = '';
+            this.showFamily = false;
+            this.showGroup = false;
+            this.showstudent = true;
+            // this.travelType = '';
+            // this.travelPlan = '';
+            // this.medicalCondition = '';
         }
     }
     ckeckedUser(index, checked, name) {
@@ -237,27 +254,37 @@ export class TravelComponent implements OnInit {
                 this.selfArray[index].checked = true;
             } else if (this.currentTab == 'family') {
                 this.familyArray[index].checked = true;
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = true;
             } else if (this.currentTab == 'students') {
                 this.studentArray[index].checked = true;
             }
         } else {
             if (this.currentTab == 'self') {
                 this.selfArray[index].checked = false;
-                if (this.selfArray.length > 4) this.selfArray.splice(index, 1);
+                this.selfArray[index].age = '';
+                if (this.selfArray.length > 1) this.selfArray.splice(index, 1);
             } else if (this.currentTab == 'family') {
                 this.familyArray[index].checked = false;
+                this.familyArray[index].age = '';
                 if (this.familyArray.length > 4) this.familyArray.splice(index, 1);
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = false;
+                this.groupArray[index].age = '';
+                if (this.groupArray.length > 4) this.groupArray.splice(index, 1);
             } else if (this.currentTab == 'students') {
                 this.studentArray[index].checked = false;
+                this.studentArray[index].age = '';
                 if (this.studentArray.length > 4) this.studentArray.splice(index, 1);
             }
             this.contrlButtons(name, checked);
         }
     }
     addFamily(value){
-        this.selfArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
+        this.familyArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
         this.contrlButtons(value, true);
-        console.log(this.selfArray, 'this.selfArray');
+        console.log(this.familyArray, 'this.selfArray');
+        sessionStorage.familyArray = this.familyArray
     }
     contrlButtons(value, checked) {
         if (checked) {
@@ -366,20 +393,35 @@ export class TravelComponent implements OnInit {
     }
     typeAge(checked, index, value) {
         if (value != '') {
-            this.selfArray[index].checked = true;
-            this.familyArray[index].checked = true;
-            this.studentArray[index].checked = true;
+            if (this.currentTab == 'self') {
+                this.selfArray[index].checked = true;
+            } else if (this.currentTab == 'family') {
+                this.familyArray[index].checked = true;
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = true;
+            } else if (this.currentTab == 'students') {
+                this.studentArray[index].checked = true;
+            }
         } else {
-            this.selfArray[index].checked = false;
-            this.familyArray[index].checked = false;
-            this.studentArray[index].checked = false;
+            if (this.currentTab == 'self') {
+                this.selfArray[index].checked = false;
+            } else if (this.currentTab == 'family') {
+                this.familyArray[index].checked = false;
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = false;
+            } else if (this.currentTab == 'students') {
+                this.studentArray[index].checked = false;
+            }
         }
         sessionStorage.selfArray = JSON.stringify(this.selfArray);
-    }
-    addFamilyMembers(value){
-        this.familyArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
-        this.contrlButtons(value, true);
         sessionStorage.familyArray = JSON.stringify(this.familyArray);
+        sessionStorage.groupArray = JSON.stringify(this.groupArray);
+        sessionStorage.studentArray = JSON.stringify(this.studentArray);
+    }
+    addGroupMembers(value){
+        this.groupArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
+        this.contrlButtons(value, true);
+        sessionStorage.groupArray = JSON.stringify(this.groupArray);
 
     }
     addStudents(value){
@@ -455,6 +497,12 @@ export class TravelComponent implements OnInit {
             sessionStorage.startDate = this.startDate;
         } else if (type == 'eDate') {
             sessionStorage.endDate = this.endDate;
+            let days = this.dyasCalculation();
+            this.daysCount = days;
+            sessionStorage.daysCount = days;
+
+            console.log(days, 'daysdays');
+
         }
     }
 
@@ -481,39 +529,53 @@ export class TravelComponent implements OnInit {
             } else {
                 this.selfArray[0].error = 'Required';
             }
-            console.log(getFiledData, 'getFiledData1');
-            for (let i = 0; i < this.selfArray.length; i++) {
+            if (this.selfArray[0].checked) {
+                if (this.selfArray[0].age == '') {
+                    this.selfArray[0].error = 'Required';
+                    memberValid = true;
+                } else {
+                    this.selfArray[0].error = '';
                     memberValid = false;
-                    if (this.selfArray[i].checked) {
-                        if (this.selfArray[i].age == '') {
-                            this.selfArray[i].error = 'Required';
-                            memberValid = true;
-                            break;
-                        } else {
-                            this.selfArray[i].error = '';
-                            memberValid = false;
-                            this.finalData.push({type: this.selfArray[i].name, age: this.selfArray[i].age });
-                        }
-                    }
-                    // else {
-                    //     if (this.selfArray[i].checked) {
-                    //     this.selfArray[0].error = 'Required';
-                    // }
-                }
-
-        } else if (groupname == 'family') {
-            for (let i = 0; i < 4; i++) {
-                if (!this.familyArray[i].checked) {
-                    this.familyArray[i].error = 'Required';
+                    this.finalData.push({type: this.selfArray[0].name, age: this.selfArray[0].age });
                 }
             }
+
+        } else if (groupname == 'family') {
+            getFiledData = this.familyArray.filter(data => data.checked == true);
+            if (getFiledData != '') {
+                this.familyArray[0].error = '';
+            } else {
+                this.familyArray[0].error = 'Required';
+            }
+            console.log(getFiledData, 'getFiledData1');
             for (let i = 0; i < this.familyArray.length; i++) {
+                memberValid = false;
                 if (this.familyArray[i].checked) {
                     if (this.familyArray[i].age == '') {
                         this.familyArray[i].error = 'Required';
+                        memberValid = true;
+                        break;
                     } else {
                         this.familyArray[i].error = '';
-                        this.finalData.push({type: this.familyArray[i].name, age: this.familyArray[i].age});
+                        memberValid = false;
+                        this.finalData.push({type: this.familyArray[i].name, age: this.familyArray[i].age });
+                    }
+                }
+            }
+
+        } else if (groupname == 'group') {
+            for (let i = 0; i < 4; i++) {
+                if (!this.groupArray[i].checked) {
+                    this.groupArray[i].error = 'Required';
+                }
+            }
+            for (let i = 0; i < this.groupArray.length; i++) {
+                if (this.groupArray[i].checked) {
+                    if (this.groupArray[i].age == '') {
+                        this.groupArray[i].error = 'Required';
+                    } else {
+                        this.groupArray[i].error = '';
+                        this.finalData.push({type: this.groupArray[i].name, age: this.groupArray[i].age});
                     }
                 }
             }
@@ -543,16 +605,11 @@ export class TravelComponent implements OnInit {
        // console.log(this.familyArray, 'this.familyArray');
         //
        // console.log(this.studentArray, 'this.studentArray');
-        if (!memberValid && this.medicalerror == false && getFiledData != '') {
+        if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
-            let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
-            let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');
-            console.log(fDate);
-            console.log(tDate);
-            let diff = Date.parse(tDate) - Date.parse(fDate);
-            let days =  Math.floor(diff / 86400000);
-            console.log(this.travelType, 'tyy');
+            let days = this.dyasCalculation();
+            console.log(days, 'days');
             this.settings.loadingSpinner = true;
             const data = {
                 'platform': 'web',
@@ -602,6 +659,10 @@ export class TravelComponent implements OnInit {
         if (sessionStorage.selfArray != undefined && sessionStorage.selfArray != '') {
             this.selfArray = JSON.parse(sessionStorage.selfArray);
             this.members(this.selfArray);
+        }
+        if (sessionStorage.groupArray != undefined && sessionStorage.groupArray != '') {
+            this.groupArray = JSON.parse(sessionStorage.groupArray);
+            this.members(this.groupArray);
         }
         if (sessionStorage.familyArray != undefined && sessionStorage.familyArray != '') {
             this.familyArray = JSON.parse(sessionStorage.familyArray);
@@ -659,7 +720,10 @@ export class TravelComponent implements OnInit {
         }
         if (sessionStorage.startDate != undefined && sessionStorage.startDate != '') {
             this.startDate = this.datePipe.transform(sessionStorage.startDate, 'y-MM-dd');
-
+            this.maxDate = this.startDate;
+        }
+        if (sessionStorage.daysCount != undefined && sessionStorage.daysCount != '') {
+            this.daysCount = sessionStorage.daysCount;
         }
         if (sessionStorage.endDate != undefined && sessionStorage.endDate != '') {
             this.endDate = this.datePipe.transform(sessionStorage.endDate, 'y-MM-dd');
@@ -689,6 +753,12 @@ export class TravelComponent implements OnInit {
                 }
             }
         }
+    }
+    dyasCalculation() {
+        let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
+        let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');
+        let diff = Date.parse(tDate) - Date.parse(fDate);
+        return Math.floor(diff / 86400000);
     }
 
 }

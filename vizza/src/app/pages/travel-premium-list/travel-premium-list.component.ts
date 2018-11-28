@@ -20,6 +20,9 @@ export class TravelPremiumListComponent implements OnInit {
     selfArray: any;
     familyArray: any;
     studentArray: any;
+    groupArray: any;
+    showFamily: boolean;
+
     value: any;
     showSelf: boolean;
     showGroup: boolean;
@@ -49,7 +52,7 @@ export class TravelPremiumListComponent implements OnInit {
     today: any;
 
     selectedAmount: any;
-    travelTime: any;
+    daysCount: any;
     startDate: any;
     endDate: any;
     travelPlan: any;
@@ -62,6 +65,8 @@ export class TravelPremiumListComponent implements OnInit {
     travelType: any;
     getArray: any;
     webhost: any;
+    selectedIndex: any;
+    compareArray: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -73,32 +78,53 @@ export class TravelPremiumListComponent implements OnInit {
         // this.selectedAmount = this.premiumLists.suminsured_id;
         this.selectedAmount = this.premiumLists.suminsured_amount;
         this.startDate = this.premiumLists.start_date;
+        this.maxDate = this.startDate;
         this.endDate = this.premiumLists.end_date;
         this.travelPlan = this.premiumLists.plan_type;
         this.travelType = this.premiumLists.travel_time_type;
         this.duration = this.premiumLists.duration;
         this.medicalCondition = this.premiumLists.medical_condition;
-
+        this.daysCount = this.premiumLists.day_count;
+        for (let i = 0; i < this.premiumLists.length; i++) {
+            this.premiumLists[i].compare = false;
+            this.premiumLists[i].shortlist = false;
+        }
+        console.log(this.premiumLists.travel_type, 'pppp');
         if (this.premiumLists.travel_type == 'self') {
+            this.selectedIndex = 0;
             this.selfDetails();
             this.showSelf = true;
+            this.showFamily = false;
             this.showGroup = false;
             this.showstudent = false;
             this.currentTab = 'self';
         } else if (this.premiumLists.travel_type == 'family') {
+            this.selectedIndex = 1;
             this.familyDetails();
             this.showSelf = false;
-            this.showGroup = true;
+            this.showFamily = true;
+            this.showGroup = false;
             this.showstudent = false;
             this.currentTab = 'family';
+        } else if (this.premiumLists.travel_type == 'group') {
+            this.selectedIndex = 2;
+            this.groupDetails();
+            this.showSelf = false;
+            this.showFamily = false;
+            this.showGroup = true;
+            this.showstudent = false;
+            this.currentTab = 'group';
         } else if (this.premiumLists.travel_type == 'students') {
+            this.selectedIndex = 3;
             this.studentDetails();
             this.showSelf = false;
+            this.showFamily = false;
             this.showGroup = false;
             this.showstudent = true;
             this.currentTab = 'students';
         }
         this.today = new Date();
+        this.compareArray = [];
 
     }
     ngOnInit() {
@@ -123,10 +149,7 @@ export class TravelPremiumListComponent implements OnInit {
     }
     selfDetails() {
         this.selfArray = [
-            {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Spouse', age: '', disabled: false, checked: false, required: false, error: ''},
-            {name: 'Child1', age: '', disabled: false, checked: false, required: false, error: ''},
-            {name: 'Child2', age: '', disabled: false, checked: false, required: false, error: ''}
+            {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''}
         ];
         this.getArray = this.premiumLists.family_details;
         for (let i =0; i < this.getArray.length; i++) {
@@ -139,6 +162,22 @@ export class TravelPremiumListComponent implements OnInit {
     }
     familyDetails() {
         this.familyArray = [
+            {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''},
+            {name: 'Spouse', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Child1', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Child2', age: '', disabled: false, checked: false, required: false, error: ''}
+        ];
+        this.getArray = this.premiumLists.family_details;
+        for (let i =0; i < this.getArray.length; i++) {
+            if (this.getArray[i].age !='') {
+                this.familyArray[i].checked = true;
+                this.familyArray[i].required = false;
+                this.familyArray[i].age = this.getArray[i].age;
+            }
+        }
+    }
+    groupDetails() {
+        this.groupArray = [
             {name: 'Member1', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Member2', age: '', disabled: false, checked: false, required: true, error: ''},
             {name: 'Member3', age: '', disabled: false, checked: false, required: true, error: ''},
@@ -147,9 +186,9 @@ export class TravelPremiumListComponent implements OnInit {
         this.getArray = this.premiumLists.family_details;
         for (let i =0; i < this.getArray.length; i++) {
             if (this.getArray[i].age !='') {
-                this.familyArray[i].checked = true;
-                this.familyArray[i].required = false;
-                this.familyArray[i].age = this.getArray[i].age;
+                this.groupArray[i].checked = true;
+                this.groupArray[i].required = false;
+                this.groupArray[i].age = this.getArray[i].age;
             }
         }
     }
@@ -197,34 +236,39 @@ export class TravelPremiumListComponent implements OnInit {
     }
 
     onSelectedIndexChange(event){
-        console.log((this.premiumLists.travel_type == 'self' ? 0 : ''), 'valuffess');
-        console.log(event, 'event');
+        console.log(event, 'value');
+        this.currentTab = this.premiumLists.travel_type;
         if (event == 0) {
-            console.log('seff');
-
-            this.showSelf = true;
-            this.showGroup = false;
-            this.showstudent = false;
+            this.currentTab = 'self';
             this.selfDetails();
-        } else if (event == 1) {
-            console.log('ffm');
-            this.showGroup = true;
-            this.showSelf = false;
-            this.showstudent = false;
-            this.familyDetails();
-        } else if (event == 2) {
-            console.log('sst');
+            this.showSelf = true;
+            this.showFamily = false;
             this.showGroup = false;
+            this.showstudent = false;
+        } else if (event == 1) {
+            this.currentTab = 'family';
+            this.familyDetails();
             this.showSelf = false;
-            this.showstudent = true;
+            this.showFamily = true;
+            this.showGroup = false;
+            this.showstudent = false;
+        } else if (event == 2) {
+            this.currentTab = 'group';
+            this.groupDetails();
+            this.showSelf = false;
+            this.showFamily = false;
+            this.showGroup = true;
+            this.showstudent = false;
+        } else if (event == 3) {
+            this.currentTab = 'students';
             this.studentDetails();
-
+            this.showSelf = false;
+            this.showFamily = false;
+            this.showGroup = false;
+            this.showstudent = true;
         }
-        // else {
-        //     this.router.navigate(['/travel']);
-        // }
-
     }
+
     ckeckedUser(index, checked, name) {
         console.log(this.currentTab, 'this.currentTab');
 
@@ -233,27 +277,35 @@ export class TravelPremiumListComponent implements OnInit {
                 this.selfArray[index].checked = true;
             } else if (this.currentTab == 'family') {
                 this.familyArray[index].checked = true;
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = true;
             } else if (this.currentTab == 'students') {
                 this.studentArray[index].checked = true;
             }
         } else {
             if (this.currentTab == 'self') {
                 this.selfArray[index].checked = false;
-                if (this.selfArray.length > 4) this.selfArray.splice(index, 1);
+                this.selfArray[index].age = '';
+                if (this.selfArray.length > 1) this.selfArray.splice(index, 1);
             } else if (this.currentTab == 'family') {
                 this.familyArray[index].checked = false;
+                this.familyArray[index].age = '';
                 if (this.familyArray.length > 4) this.familyArray.splice(index, 1);
+            } else if (this.currentTab == 'group') {
+                this.groupArray[index].checked = false;
+                this.groupArray[index].age = '';
+                if (this.groupArray.length > 4) this.groupArray.splice(index, 1);
             } else if (this.currentTab == 'students') {
                 this.studentArray[index].checked = false;
+                this.studentArray[index].age = '';
                 if (this.studentArray.length > 4) this.studentArray.splice(index, 1);
             }
             this.contrlButtons(name, checked);
         }
     }
     addFamily(value){
-        this.selfArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
+        this.familyArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
         this.contrlButtons(value, true);
-        console.log(this.selfArray, 'this.selfArray');
     }
     contrlButtons(value, checked) {
         if (checked) {
@@ -276,8 +328,12 @@ export class TravelPremiumListComponent implements OnInit {
             }
             else if(value == 'Member8'){
                 this.Member8BTn = false;
-            } else  if (value == 'Student5'){
-                this.Student5BTn = false;
+            }
+            else if(value == 'Member9'){
+                this.Member9BTn = false;
+            }
+            else if(value == 'Member10'){
+                this.Member10BTn = false;
             }
             else if(value == 'Student6'){
                 this.Student6BTn = false;
@@ -287,6 +343,12 @@ export class TravelPremiumListComponent implements OnInit {
             }
             else if(value == 'Student8'){
                 this.Student8BTn = false;
+            }
+            else if(value == 'Student9'){
+                this.Student9BTn = false;
+            }
+            else if(value == 'Student10'){
+                this.Student10BTn = false;
             }
         } else {
             if (value == 'Child3'){
@@ -308,7 +370,14 @@ export class TravelPremiumListComponent implements OnInit {
             }
             else if(value == 'Member8'){
                 this.Member8BTn = true;
-            } else  if (value == 'Student5'){
+            }
+            else if(value == 'Member9'){
+                this.Member9BTn = true;
+            }
+            else if(value == 'Member10'){
+                this.Member10BTn = true;
+            }
+            else if (value == 'Student5'){
                 this.Student5BTn = true;
             }
             else if(value == 'Student6'){
@@ -320,21 +389,58 @@ export class TravelPremiumListComponent implements OnInit {
             else if(value == 'Student8'){
                 this.Student8BTn = true;
             }
+            else if(value == 'Student9'){
+                this.Student9BTn = true;
+            }
+            else if(value == 'Student10'){
+                this.Student10BTn = true;
+            }
         }
+        sessionStorage.Child3BTn = this.Child3BTn;
+        sessionStorage.FatherBTn = this.FatherBTn;
+        sessionStorage.Member5BTn = this.Member5BTn;
+        sessionStorage.Member6BTn = this.Member6BTn;
+        sessionStorage.Member7BTn = this.Member7BTn;
+        sessionStorage.Member8BTn = this.Member8BTn;
+        sessionStorage.Member9BTn = this.Member9BTn;
+        sessionStorage.Member10BTn = this.Member10BTn;
+        sessionStorage.Student5BTn = this.Student5BTn;
+        sessionStorage.Student6BTn = this.Student6BTn;
+        sessionStorage.Student7BTn = this.Student7BTn;
+        sessionStorage.Student8BTn = this.Student8BTn;
+        sessionStorage.Student9BTn = this.Student9BTn;
+        sessionStorage.Student10BTn = this.Student10BTn;
+
     }
     typeAge(checked, index, value) {
-        if (value != '') {
-            this.selfArray[index].checked = true;
-            this.familyArray[index].checked = true;
-            this.studentArray[index].checked = true;
-        } else {
-            this.selfArray[index].checked = false;
-            this.familyArray[index].checked = false;
-            this.studentArray[index].checked = false;
-        }
+            if (value != '') {
+                if (this.currentTab == 'self') {
+                    this.selfArray[index].checked = true;
+                } else if (this.currentTab == 'family') {
+                    this.familyArray[index].checked = true;
+                } else if (this.currentTab == 'group') {
+                    this.groupArray[index].checked = true;
+                } else if (this.currentTab == 'students') {
+                    this.studentArray[index].checked = true;
+                }
+            } else {
+                if (this.currentTab == 'self') {
+                    this.selfArray[index].checked = false;
+                } else if (this.currentTab == 'family') {
+                    this.familyArray[index].checked = false;
+                } else if (this.currentTab == 'group') {
+                    this.groupArray[index].checked = false;
+                } else if (this.currentTab == 'students') {
+                    this.studentArray[index].checked = false;
+                }
+            }
+            // sessionStorage.selfArray = JSON.stringify(this.selfArray);
+            // sessionStorage.familyArray = JSON.stringify(this.familyArray);
+            // sessionStorage.groupArray = JSON.stringify(this.groupArray);
+            // sessionStorage.studentArray = JSON.stringify(this.studentArray);
     }
-    addFamilyMembers(value){
-        this.familyArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
+    addGroupMembers(value){
+        this.groupArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
         this.contrlButtons(value, true);
     }
     addStudents(value){
@@ -384,18 +490,30 @@ export class TravelPremiumListComponent implements OnInit {
                 } else if (type == 'eDate') {
                     this.endDateError = '';
                 }
-                console.log(event.value, 'event.value');
                 if (type == 'sDate') {
                     console.log('inobt');
                     this.maxDate = event.value;
                 }
             }
-            console.log(this.maxDate, 'maxDate22');
+            if (type == 'sDate') {
+                sessionStorage.startDate = this.startDate;
+            } else if (type == 'eDate') {
+                sessionStorage.endDate = this.endDate;
+                let days = this.dyasCalculation();
+                this.daysCount = days;
+                sessionStorage.daysCount = days;
+                console.log(days, 'daysdays');
+
+            }
         }
     }
 
+
+
+
     submit(groupname) {
         console.log(groupname, 'groupname');
+        this.medicalerror = true;
         this.finalData = [];
         if (this.selectedAmount == '' || this.selectedAmount == undefined) {
             this.sumerror = true;
@@ -408,39 +526,61 @@ export class TravelPremiumListComponent implements OnInit {
             this.medicalerror = false;
         }
         let memberValid = false;
+        let getFiledData = '';
         if (groupname == 'self') {
-            if (!this.selfArray[0].checked) {
-                this.selfArray[0].error = 'Required';
-                memberValid = true;
+            getFiledData = this.selfArray.filter(data => data.checked == true);
+            if (getFiledData != '') {
+                this.selfArray[0].error = '';
             } else {
-                for (let i = 0; i < this.selfArray.length; i++) {
-                    if (this.selfArray[i].checked) {
-                        if (this.selfArray[i].age == '') {
-                            this.selfArray[i].error = 'Required';
-                            memberValid = true;
-                            break;
-                        } else {
-                            this.selfArray[i].error = '';
-                            memberValid = false;
-                            this.finalData.push({type: this.selfArray[i].name, age: this.selfArray[i].age });
-                        }
-                    }
+                this.selfArray[0].error = 'Required';
+            }
+            if (this.selfArray[0].checked) {
+                if (this.selfArray[0].age == '') {
+                    this.selfArray[0].error = 'Required';
+                    memberValid = true;
+                } else {
+                    this.selfArray[0].error = '';
+                    memberValid = false;
+                    this.finalData.push({type: this.selfArray[0].name, age: this.selfArray[0].age });
                 }
             }
 
         } else if (groupname == 'family') {
-            for (let i = 0; i < 4; i++) {
-                if (!this.familyArray[i].checked) {
-                    this.familyArray[i].error = 'Required';
-                }
+            getFiledData = this.familyArray.filter(data => data.checked == true);
+            if (getFiledData != '') {
+                this.familyArray[0].error = '';
+            } else {
+                this.familyArray[0].error = 'Required';
             }
+            console.log(getFiledData, 'getFiledData1');
             for (let i = 0; i < this.familyArray.length; i++) {
+                memberValid = false;
                 if (this.familyArray[i].checked) {
                     if (this.familyArray[i].age == '') {
                         this.familyArray[i].error = 'Required';
+                        memberValid = true;
+                        break;
                     } else {
                         this.familyArray[i].error = '';
-                        this.finalData.push({type: this.familyArray[i].name, age: this.familyArray[i].age});
+                        memberValid = false;
+                        this.finalData.push({type: this.familyArray[i].name, age: this.familyArray[i].age });
+                    }
+                }
+            }
+
+        } else if (groupname == 'group') {
+            for (let i = 0; i < 4; i++) {
+                if (!this.groupArray[i].checked) {
+                    this.groupArray[i].error = 'Required';
+                }
+            }
+            for (let i = 0; i < this.groupArray.length; i++) {
+                if (this.groupArray[i].checked) {
+                    if (this.groupArray[i].age == '') {
+                        this.groupArray[i].error = 'Required';
+                    } else {
+                        this.groupArray[i].error = '';
+                        this.finalData.push({type: this.groupArray[i].name, age: this.groupArray[i].age});
                     }
                 }
             }
@@ -461,26 +601,18 @@ export class TravelPremiumListComponent implements OnInit {
                 }
             }
         }
-
-        // console.log(this.familyArray, 'this.familyArray');
-        //
-        // console.log(this.studentArray, 'this.studentArray');
         let sum_amount = '';
         for (let i = 0; i < this.sumInsuredAmountLists.length; i++) {
             if (this.sumInsuredAmountLists[i].suminsured_amount == this.selectedAmount) {
                 sum_amount = this.sumInsuredAmountLists[i].suminsured_id;
             }
         }
-        if (!memberValid && this.medicalerror == false) {
+        // console.log(this.studentArray, 'this.studentArray');
+        if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
-            let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
-            let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');
-            console.log(fDate);
-            console.log(tDate);
-            let diff = Date.parse(tDate) - Date.parse(fDate);
-            let days =  Math.floor(diff / 86400000);
-            console.log(days);
+            let days = this.dyasCalculation();
+            console.log(days, 'days');
             this.settings.loadingSpinner = true;
             const data = {
                 'platform': 'web',
@@ -512,6 +644,9 @@ export class TravelPremiumListComponent implements OnInit {
         }
 
     }
+
+
+
     public getTravelPremiumCalSuccess(successData) {
         console.log(successData);
         this.settings.loadingSpinner = false;
@@ -535,6 +670,51 @@ export class TravelPremiumListComponent implements OnInit {
     }
     viewKeyList() {
 
+    }
+
+    dyasCalculation() {
+        let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
+        let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');
+        let diff = Date.parse(tDate) - Date.parse(fDate);
+        return Math.floor(diff / 86400000);
+    }
+
+    addCompare(value, pi, index, equiryId, name) {
+        // const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
+        // this.equiryId = equiryId;
+        // this.goupName = name;
+        // this.insuranceLists[pi].product_lists[index].compare = true;
+        // this.compareArray.push(data);
+        // if (this.compareArray.length >= 3) {
+        //     for (let i = 0; i < this.insuranceLists[pi].product_lists.length; i++) {
+        //         this.insuranceLists[pi].product_lists[i].compare = true;
+        //     }
+        // }
+
+    }
+    removeCompare(index , pindex, tabIndex) {
+        // this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
+        // this.compareArray.splice(index, 1);
+        // let getCount;
+        // for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
+        //     getCount = false;
+        //     for (let j = 0; j < this.compareArray.length; j++) {
+        //         if (this.compareArray[j].premium_id == this.insuranceLists[tabIndex].product_lists[i].premium_id) {
+        //             getCount = true;
+        //             this.insuranceLists[tabIndex].product_lists[i].compare = true;
+        //         }
+        //     }
+        //     if (!getCount) {
+        //         this.insuranceLists[tabIndex].product_lists[i].compare = false;
+        //     }
+        // }
+
+    }
+    removeAllCompare(index, tabIndex) {
+        // for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
+        //     this.insuranceLists[tabIndex].product_lists[i].compare = false;
+        // }
+        // this.compareArray = [];
     }
 
 }
