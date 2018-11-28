@@ -90,7 +90,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof"  >
+                          <mat-select placeholder="Select ID Proof" (change)="changeIdproof('proposer')"  formControlName="proposerIdProof"  >
                             <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="proposer.controls.proposerIdProof.errors?.required">Id Proof is required</mat-error>-->
@@ -326,7 +326,7 @@
 
                         <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Select ID Proof"  formControlName="proposerIdProof"  >
+                        <mat-select placeholder="Select ID Proof" (change)="changeIdproof('insurer')"  formControlName="proposerIdProof"  >
                         <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Id Proof is required</mat-error>
