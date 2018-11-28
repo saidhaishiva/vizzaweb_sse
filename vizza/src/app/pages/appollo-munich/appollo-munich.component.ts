@@ -135,6 +135,8 @@ export class AppolloMunichComponent implements OnInit {
     public nomineeAppolloCityLis: any;
     public proposerProofNum: any;
     public smokingStatus: boolean;
+    public previousInsureList: any;
+    public proffessionList: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -191,7 +193,6 @@ export class AppolloMunichComponent implements OnInit {
           proposerCountryIdP: '',
           proposerDistrictIdP: '',
           MedicalInformations: '',
-          TotalPremiumAmount: ['', Validators.required],
           rolecd: 'PROPOSER',
           type: ''
 
@@ -245,6 +246,8 @@ export class AppolloMunichComponent implements OnInit {
         this.IdProofList();
         this.AppolloState();
         this.setOccupationList();
+        this.getPreviousInsure();
+        this.getProffession();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -322,6 +325,7 @@ export class AppolloMunichComponent implements OnInit {
                 PreviousPolicyNumber: ['', Validators.required],
                 SumInsured: ['', Validators.required],
                 QualifyingAmount: '',
+                ProffessionList: '',
                 WaivePeriod: '',
                 Remarks: '',
                 Proposeroccupation: ['', Validators.required],
@@ -409,7 +413,7 @@ export class AppolloMunichComponent implements OnInit {
 
                     }
                 },
-                    'ProfessionCode': this.insurerData[i].Proposeroccupation,
+                    'ProfessionCode': this.insurerData[i].ProffessionList,
                     'RelationshipCode': this.insurerData[i].proposerrelationship,
                     'TitleCode': this.insurerData[i].proposerTitle,
                     'Weight': this.insurerData[i].proposerWeight
@@ -678,7 +682,6 @@ export class AppolloMunichComponent implements OnInit {
                 proposerVoter: this.getStepper1.proposerVoter,
                 proposerGst: this.getStepper1.proposerGst,
                 proposerDriving: this.getStepper1.proposerDriving,
-                TotalPremiumAmount: this.getStepper1.TotalPremiumAmount,
                 MedicalInformations: this.getStepper1.MedicalInformations,
                 proposerCity: this.getStepper1.proposerCity,
                 proposerState: this.getStepper1.proposerState,
@@ -763,6 +766,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
             }
         }
 
@@ -1057,6 +1061,65 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setMaritalStatusFailure(error) {
+        console.log(error);
+    }
+
+    //proffession list
+    getProffession() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichProffession(data).subscribe(
+            (successData) => {
+                this.getProffessionSuccess(successData);
+            },
+            (error) => {
+                this.getProffessionFailure(error);
+            }
+        );
+    }
+
+    public getProffessionSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.proffessionList = successData.ResponseObject;
+
+        }
+    }
+
+    public getProffessionFailure(error) {
+        console.log(error);
+    }
+
+
+    //Previous Insure
+    getPreviousInsure() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichPreviousInsure(data).subscribe(
+            (successData) => {
+                this.getPreviousInsureSuccess(successData);
+            },
+            (error) => {
+                this.getPreviousInsureFailure(error);
+            }
+        );
+    }
+
+    public getPreviousInsureSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.previousInsureList = successData.ResponseObject;
+
+        }
+    }
+
+    public getPreviousInsureFailure(error) {
         console.log(error);
     }
 
