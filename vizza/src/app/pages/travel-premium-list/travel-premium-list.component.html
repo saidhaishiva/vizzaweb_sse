@@ -1,7 +1,14 @@
 <div class="container-fluid dashboard h-100" fxLayoutAlign="start start" id="travel-starthealth">
-  <div class="row" fxLayoutAlign="center start">
+  <div class="flex-p">
+    <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+      <mat-card-header fxLayoutAlign="left left">
+        <h4 class="color-blue" style="cursor: pointer" ><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h4>
+      </mat-card-header>
+      <mat-card-content>
 
-    <div class="col-md-8 col-sm-12 col-xs-12 " id="product-list">
+
+  <div class="row" fxLayoutAlign="center start">
+    <div class="col-md-9 col-sm-12 col-xs-12 " id="product-list">
       <table class="table health-table" >
         <thead>
         <tr>
@@ -13,16 +20,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let plists of premiumLists.product_lists;let i = index">
           <td>
             <!--<p class="color-green">{{plists.product_name | titlecase}}</p>-->
-            <img  src="{{webhost + '/' + premiumLists.company_logo}}" alt="">
+            <img  src="{{webhost + '/' + plists.company_logo}}" alt="">
           </td>
           <td>
-            <p>{{premiumLists.suminsured_amount | currency: 'INR'}}</p>
+            <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
           </td>
           <td style="width: 40%">
-            <div class="row" fxLayoutAlign="left center" *ngFor="let keys of premiumLists.key_features">
+            <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
               <div class="col-md-5">
                 <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>
               </div>
@@ -33,16 +40,17 @@
                 <a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>
               </div>
             </div>
-            <div class="text-right mt-4">
-              <p class="linkClor" style="cursor: pointer" (click)="viewKeyList()"><strong>Policy Details / Product Documents</strong></p>
+            <div class="text-right mt-3">
+              <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists)"><strong>Policy Details / Product Documents</strong></p>
             </div>
           </td>
           <td>
-            <p><button mat-raised-button color="primary" [hidden]="premiumLists.compare"  (click)="addCompare(premiumLists)">Add to Compare</button></p>
-            <p><button mat-raised-button disabled *ngIf="premiumLists.compare">Add to Compare</button></p>
+            <p><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, i)">Add to Compare</button></p>
+            <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
           </td>
           <td>
-            <p><button mat-raised-button color="accent" (click)="booking(premiumLists)">{{premiumLists.total_premium | currency: 'INR'}}</button></p>
+            <p></p>
+            <p><button mat-raised-button color="accent" (click)="booking(plists)">{{plists.total_premium | currency: 'INR'}}</button></p>
             <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
           </td>
         </tr>
@@ -52,7 +60,7 @@
 
 
     </div>
-    <div id="start-travel" class="col-md-4 col-sm-12 col-xs-12">
+    <div id="start-travel" class="col-md-3 col-sm-12 col-xs-12">
 
       <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" [(selectedIndex)]="selectedIndex" class="travel-box">
         <mat-tab>
@@ -71,7 +79,7 @@
             <div *ngIf="sumerror" class="ngError">Required</div>
             <div class="w-100 mb-2">
               <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-6" *ngFor="let item of selfArray; let i = index; let last = last">
+                <div class="col-md-12" *ngFor="let item of selfArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
                     <div class="col-md-1">
                       <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
@@ -117,7 +125,7 @@
                   <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                 </div>
                 <div class="col-md-4">
-                  <p class="days-count">Total Days : {{daysCount}}</p>
+                  <p class="days-count">Tot Days : {{daysCount}}</p>
                 </div>
               </div>
               <div class="row mt-2">
@@ -152,13 +160,13 @@
               <div *ngIf="travelType == '3'">
                 <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
                   <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                       <mat-label>Max trip Duraion (in days) </mat-label>
                     </div>
-                    <div class="col-md-1">
-                      :
-                    </div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-1">-->
+                      <!--:-->
+                    <!--</div>-->
+                    <div class="col-md-12">
                       <mat-radio-button value="30">30</mat-radio-button>
                       <mat-radio-button value="45">45</mat-radio-button>
                       <mat-radio-button value="60">60</mat-radio-button>
@@ -169,10 +177,10 @@
               </div><br>
               <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
                 <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-md-12">
                     <mat-label>Any medical conditions?</mat-label>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <mat-radio-button value="1">Yes</mat-radio-button>
                     <mat-radio-button value="0">No</mat-radio-button>
                   </div>
@@ -182,7 +190,7 @@
 
               <div fxLayoutAlign="center center" class="mt-3">
                 <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="fa fa-arrow-right"></i></button>
+                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="material-icons">play_arrow</i></button>
               </div>
 
             </div>
@@ -207,7 +215,7 @@
             <div *ngIf="sumerror" class="ngError">Required</div>
             <div class="w-100 mb-2">
               <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-6" *ngFor="let item of familyArray; let i = index; let last = last">
+                <div class="col-md-12" *ngFor="let item of familyArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
                     <div class="col-md-1">
                       <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
@@ -224,7 +232,7 @@
                 </div>
               </div>
               <div class="text-right">
-                <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Add</button>
+                <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Relatives</button>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>
                   <button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>
@@ -289,13 +297,13 @@
               <div *ngIf="travelType == '3'">
                 <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
                   <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                       <mat-label>Max trip Duraion (in days) </mat-label>
                     </div>
-                    <div class="col-md-1">
-                      :
-                    </div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-1">-->
+                      <!--:-->
+                    <!--</div>-->
+                    <div class="col-md-12">
                       <mat-radio-button value="30">30</mat-radio-button>
                       <mat-radio-button value="45">45</mat-radio-button>
                       <mat-radio-button value="60">60</mat-radio-button>
@@ -303,13 +311,13 @@
                     </div>
                   </div>
                 </mat-radio-group>
-              </div><br>
+              </div>
               <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <mat-label>Any medical conditions?</mat-label>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-12">
                     <mat-radio-button value="1">Yes</mat-radio-button>
                     <mat-radio-button value="0">No</mat-radio-button>
                   </div>
@@ -319,7 +327,7 @@
 
               <div fxLayoutAlign="center center" class="mt-3">
                 <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="fa fa-arrow-right"></i>></button>
+                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>
               </div>
 
 
@@ -343,7 +351,7 @@
             <div *ngIf="sumerror" class="ngError">Required</div>
             <div class="w-100 mb-2" >
               <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-6" *ngFor="let item of groupArray; let i = index; let last = last">
+                <div class="col-md-12" *ngFor="let item of groupArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
                     <div class="col-md-1">
                       <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
@@ -428,13 +436,13 @@
               <div *ngIf="travelType == '3'">
                 <mat-radio-group class="w-100" [(ngModel)]="duration" >
                   <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                       <mat-label>Max trip Duraion (in days) </mat-label>
                     </div>
-                    <div class="col-md-1">
-                      :
-                    </div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-1">-->
+                      <!--:-->
+                    <!--</div>-->
+                    <div class="col-md-12">
                       <mat-radio-button value="30">30</mat-radio-button>
                       <mat-radio-button value="45">45</mat-radio-button>
                       <mat-radio-button value="60">60</mat-radio-button>
@@ -442,13 +450,13 @@
                     </div>
                   </div>
                 </mat-radio-group>
-              </div><br>
+              </div>
               <mat-radio-group class="w-100" [(ngModel)]="medicalCondition">
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <mat-label>Any medical conditions?</mat-label>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-12">
                     <mat-radio-button value="1">Yes</mat-radio-button>
                     <mat-radio-button value="0">No</mat-radio-button>
                   </div>
@@ -458,7 +466,7 @@
 
               <div fxLayoutAlign="center center" class="mt-3">
                 <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('group')">Proceed <i class="fa fa-arrow-right"></i></button>
+                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('group')">Proceed <i class="material-icons">play_arrow</i></button>
               </div>
             </div>
           </div>
@@ -480,7 +488,7 @@
             <div *ngIf="sumerror" class="ngError">Required</div>
             <div class="w-100 mb-2 travel">
               <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-6" *ngFor="let item of studentArray; let i = index; let last = last">
+                <div class="col-md-12" *ngFor="let item of studentArray; let i = index; let last = last">
                   <div class="row" fxLayoutAlign="start center">
                     <div class="col-md-1">
                       <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
@@ -551,10 +559,10 @@
               </div>
               <mat-radio-group class="w-100" [(ngModel)]="medicalCondition">
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <mat-label>Any medical conditions?</mat-label>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-12">
                     <mat-radio-button value="1">Yes</mat-radio-button>
                     <mat-radio-button value="0">No</mat-radio-button>
                   </div>
@@ -564,7 +572,7 @@
 
               <div fxLayoutAlign="center center" class="mt-3">
                 <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('students')">Proceed <i class="fa fa-arrow-right"></i></button>
+                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('students')">Proceed <i class="material-icons">play_arrow</i></button>
               </div>
             </div>
           </div>
@@ -577,27 +585,32 @@
 
 
   </div>
+
+  </mat-card-content>
+  </mat-card>
 </div>
+</div>
+
 <div class="row compar-fix" *ngIf="compareArray != ''">
-  <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i, tabIndex)">close</mat-icon>
-  </div>
-  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
-    <div fxLayout="column" class="flex-p">
-      <mat-card class="custom-card compare-icon text-center">
-        <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>
-        </div>
-        <mat-card-content class="p-0">
-          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
-          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
-        </mat-card-content>
-      </mat-card>
+    <div class="text-right closeBtnClass">
+        <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
     </div>
-  </div>
-  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-  </div>
+    <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+        <div fxLayout="column" class="flex-p">
+            <mat-card class="custom-card compare-icon text-center">
+                <div class="text-right closeBtnClass">
+                    <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+                </div>
+                <mat-card-content class="p-0">
+                    <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+                    <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+        <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+    </div>
 </div>
 
 <style>

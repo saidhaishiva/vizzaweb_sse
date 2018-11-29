@@ -167,7 +167,9 @@ import {PersonalAccidentService} from './shared/services/personal-accident.servi
 import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
-
+import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
+import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
+import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -309,7 +311,10 @@ import { ViewProductDetailsComponent} from './pages/personalaccident/view-produc
       DownloadMessageReligarePersonal,
       AppollomunichpaComponent,
       ApollomunichPaymentSuccessComponent,
-      ViewProductDetailsComponent
+      ViewProductDetailsComponent,
+      TravelCompareComponent,
+      TravelViewKeyFeaturesComponent,
+      BajajAlianzComponent,
   ],
   providers: [
       AppSettings,
@@ -334,7 +339,8 @@ import { ViewProductDetailsComponent} from './pages/personalaccident/view-produc
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
+       // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,
     ]
 })
 export class AppModule { }

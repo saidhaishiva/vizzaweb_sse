@@ -9,6 +9,8 @@ import {MatDialog} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DatePipe} from '@angular/common';
 import {Settings} from '../../app.settings.model';
+import { TravelViewKeyFeaturesComponent} from './travel-view-key-features/travel-view-key-features.component';
+import { TravelCompareComponent} from './travel-compare/travel-compare.component';
 
 @Component({
   selector: 'app-travel-premium-list',
@@ -67,6 +69,8 @@ export class TravelPremiumListComponent implements OnInit {
     webhost: any;
     selectedIndex: any;
     compareArray: any;
+    productLists: any;
+    equiryId: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -653,7 +657,10 @@ export class TravelPremiumListComponent implements OnInit {
         if (successData.IsSuccess) {
             sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
-
+            for (let i = 0; i < this.premiumLists.length; i++) {
+                this.premiumLists[i].compare = false;
+                this.premiumLists[i].shortlist = false;
+            }
             this.router.navigate(['/travelpremium']);
         } else {
             this.toast.error(successData.ErrorObject);
@@ -668,9 +675,6 @@ export class TravelPremiumListComponent implements OnInit {
         sessionStorage.travelPremiumList = JSON.stringify(value);
         this.router.navigate(['/travelproposal']);
     }
-    viewKeyList() {
-
-    }
 
     dyasCalculation() {
         let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -678,44 +682,97 @@ export class TravelPremiumListComponent implements OnInit {
         let diff = Date.parse(tDate) - Date.parse(fDate);
         return Math.floor(diff / 86400000);
     }
+    // view key features details
+    viewKeyList(value) {
+        console.log(value, 'valuevaluevaluevalue');
+        let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
+            width: '1500px', data: {planId : value.plan_id, planName: value.plan_name}
+        });
+        dialogRef.disableClose = true;
 
-    addCompare(value, pi, index, equiryId, name) {
-        // const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
-        // this.equiryId = equiryId;
-        // this.goupName = name;
-        // this.insuranceLists[pi].product_lists[index].compare = true;
-        // this.compareArray.push(data);
-        // if (this.compareArray.length >= 3) {
-        //     for (let i = 0; i < this.insuranceLists[pi].product_lists.length; i++) {
-        //         this.insuranceLists[pi].product_lists[i].compare = true;
-        //     }
-        // }
+        dialogRef.afterClosed().subscribe(result => {
+        });
 
     }
-    removeCompare(index , pindex, tabIndex) {
-        // this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
-        // this.compareArray.splice(index, 1);
-        // let getCount;
-        // for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
-        //     getCount = false;
-        //     for (let j = 0; j < this.compareArray.length; j++) {
-        //         if (this.compareArray[j].premium_id == this.insuranceLists[tabIndex].product_lists[i].premium_id) {
-        //             getCount = true;
-        //             this.insuranceLists[tabIndex].product_lists[i].compare = true;
-        //         }
-        //     }
-        //     if (!getCount) {
-        //         this.insuranceLists[tabIndex].product_lists[i].compare = false;
-        //     }
-        // }
+
+
+    addCompare(value, index) {
+        console.log(value, 'valuepp');
+        const data  = { index: index, plan_id: value.plan_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
+        this.equiryId = value.enquiry_id;
+        this.premiumLists.product_lists[index].compare = true;
+        this.compareArray.push(data);
+        if (this.compareArray.length >= 3) {
+            for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
+                this.premiumLists.product_lists[i].compare = true;
+            }
+        }
 
     }
-    removeAllCompare(index, tabIndex) {
-        // for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
-        //     this.insuranceLists[tabIndex].product_lists[i].compare = false;
-        // }
-        // this.compareArray = [];
+    removeCompare(index , pindex) {
+        this.premiumLists.product_lists[pindex].compare = false;
+        this.compareArray.splice(index, 1);
+        let getCount;
+        for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
+            getCount = false;
+            for (let j = 0; j < this.compareArray.length; j++) {
+                if (this.compareArray[j].premium_id == this.premiumLists.product_lists[i].premium_id) {
+                    getCount = true;
+                    this.premiumLists.product_lists[i].compare = true;
+                }
+            }
+            if (!getCount) {
+                this.premiumLists.product_lists[i].compare = false;
+            }
+        }
+
     }
+    removeAllCompare(index) {
+        for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
+            this.premiumLists.product_lists[i].compare = false;
+        }
+        this.compareArray = [];
+    }
+    compareList(value) {
+        console.log(value, 'lop1');
+        this.productLists = [];
+        for (let i = 0; i < value.length; i++) {
+            this.productLists.push({plan_id: value[i].plan_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+        }
+        const data = {
+            'platform': 'web',
+            'enquiry_id': this.equiryId,
+            'product_lists': this.productLists,
+            'created_by': 0,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+
+        };
+        this.settings.loadingSpinner = true;
+        this.travel.addtoCompare(data).subscribe(
+            (successData) => {
+                this.compareSuccess(successData);
+            },
+            (error) => {
+                this.compareFailure(error);
+            }
+        );
+    }
+    public compareSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            let dialogRef = this.dialog.open(TravelCompareComponent, {
+                width: '1500px', data: {comparedata: successData.ResponseObject}});
+            dialogRef.disableClose = true;
+
+            dialogRef.afterClosed().subscribe(result => {
+            });
+        }
+    }
+    public compareFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
 
 }
 

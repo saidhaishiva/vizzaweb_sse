@@ -74,6 +74,10 @@ button:focus{
     font-size: 11px;
     margin-top: -16px;
   }
+  .mat-primaryBlue {
+    background-color: #7dc3e0 !important;
+    color: #ffffff !important;
+  }
 }
 .sidenav-header{
   border-bottom: 1px solid #ccc;
@@ -2013,7 +2017,7 @@ fieldset {
     min-width: 110px !important;
   }
     .mat-card{
-      background: rgba(243, 240, 240, 0.87) !important;
+     background: #ffffff !important;
     }
     mat-card.mat-radius{
       background: #faf3f3 !important;
@@ -2037,5 +2041,35 @@ fieldset {
     thead th{
       background: #7dc3e0 !important;
     }
+
+  .son{
+    background: #f5deff;
+    padding:15px;
+    border-radius: 5px;
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+      i{
+        font-size: 18px;
+      }
+    }
+  }
+  .accentDaughter{
+    background-color: #306eca !important;
+
+  }
+  .ngError{
+    color: red;
+    font-size: 11px;
+    margin-top: -16px;
+  }
+  .mat-primaryBlue {
+    background-color: #7dc3e0 !important;
+    color: #ffffff !important;
+  }
+  .color-blue{
+    color:  #4896d8 !important;
+  }
 
 }

@@ -2,7 +2,7 @@
   <div class="row proposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
-        <mat-step [stepControl]="proposer">
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="proposer" >
@@ -17,9 +17,8 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()">
-                            <mat-option value="MR">Mr</mat-option>
-                            <mat-option value="MS">Ms</mat-option>
+                          <mat-select placeholder="Tittle" formControlName="proposerTitle" (change)="changeGender()">
+                            <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -224,8 +223,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)">
-                              <mat-option value="MR">Mr</mat-option>
-                              <mat-option value="MS">Ms</mat-option>
+                              <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
@@ -520,7 +518,7 @@
                           <div class="col-md-12"><hr></div>
                         <div class="col-md-12">
                           <h6 class="mt-3 color-green">Previous Insurer Details:</h6>
-                          <mat-radio-group formControlName="previousInsurerStatus">
+                          <mat-radio-group formControlName="previousInsurerStatus" (change)="pInsureStatus($event, i)">
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
@@ -543,7 +541,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer"  required>
+                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer"  >
                               <mat-option *ngFor="let previousInsure of previousInsureList" value="{{previousInsure.insure_code}}" > {{previousInsure.insure_name}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Previous Insurer is required</mat-error>
@@ -551,13 +549,13 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy N0" formControlName="PreviousPolicyNumber" [required]="insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == 'Yes'"  (keypress)="add($event)" autocomplete="off">
+                            <input matInput placeholder="Previous Policy N0" formControlName="PreviousPolicyNumber"   (keypress)="add($event)" autocomplete="off">
                               <mat-error *ngIf="insureArray.invalid">Previous policy n0 is required</mat-error>
                           </mat-form-field>
                         </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured" [required]="insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == 'Yes'"   (keypress)="add($event)" autocomplete="off">
+                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"    (keypress)="add($event)" autocomplete="off">
                                   <mat-error *ngIf="insureArray.invalid">Sum insured is required</mat-error>
                               </mat-form-field>
                           </div>
@@ -606,8 +604,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="nomineeTitle">
-                            <mat-option value="MR">Mr</mat-option>
-                            <mat-option value="MS">Ms</mat-option>
+                            <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -680,13 +677,13 @@
               <section class="summary-details" *ngIf="summaryData">
                   <div class="row">
                       <div class="col-md-4">
-                          <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> </span></h4>
+                          <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                       </div>
                       <div class="col-md-8">
                           <ul class="summary-head">
-                              <li><span>Insurer:</span> &nbsp;<img src="" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> </span> /</li>
-                              <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> </span> </li>
+                              <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> </span></li>
+                              <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> </span></li>
                               <li></li>
                           </ul>
                       </div>
@@ -698,24 +695,14 @@
                           </div>
                           <div class="col-md-6">
                               <div class="p-3">
+                                <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> </li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> </li>
-                                      <li class="list-group-item"><strong>Personal Email Id:</strong> </li>
-                                      <li class="list-group-item"><strong>Mobile Number:</strong> </li>
-                                      <li class="list-group-item"><strong>Phone Number:</strong> </li>
-                                      <li class="list-group-item"><strong>Alternate Number:</strong> </li>
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="p-3">
-                                  <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Gender:</strong> </li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> }</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> </li>
-                                      <li class="list-group-item"><strong>Nationality:</strong> </li>
-                                      <li class="list-group-item"><strong>PAN Number:</strong> </li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob}}</li>
+                                      <li class="list-group-item"><strong>Personal Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
+                                      <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
+                                    <li class="list-group-item"><strong>Gender:</strong> {{summaryData.ProposalDetails.p_gender}}</li>
+                                    <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.p_maritalstatus}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -723,98 +710,66 @@
                               <div class="p-3">
                                   <h6>PROPOSER COMMUNICATION DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Address 1:</strong> </li>
-                                      <li class="list-group-item"><strong>Address 2:</strong> </li>
-                                      <li class="list-group-item"><strong>Address 3:</strong> </li>
-                                      <li class="list-group-item"><strong>PIN code:</strong> </li>
-                                      <li class="list-group-item"><strong>Area:</strong> </li>
-                                      <li class="list-group-item"><strong>City:</strong> </li>
-                                      <li class="list-group-item"><strong>State:</strong> </li>
-                                      <li class="list-group-item"><strong>Country:</strong> </li>
-                                      <li class="list-group-item"><strong>Mobile No:</strong> </li>
-                                      <li class="list-group-item"><strong>Phone No:</strong> </li>
-                                      <li class="list-group-item"><strong>Fax:</strong> </li>
-                                      <li class="list-group-item"><strong>Nearest Landmark:</strong> </li>
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class=" p-3">
-                                  <h6>PROPOSER RESIDENCE DETAILS</h6>
-                                  <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Address 1:</strong> </li>
-                                      <li class="list-group-item"><strong>Address 2:</strong> </li>
-                                      <li class="list-group-item"><strong>Address 3:</strong> </li>
-                                      <li class="list-group-item"><strong>PIN code:</strong> </li>
-                                      <li class="list-group-item"><strong>Area:</strong> </li>
-                                      <li class="list-group-item"><strong>City:</strong> </li>
-                                      <li class="list-group-item"><strong>State:</strong> </li>
-                                      <li class="list-group-item"><strong>Country:</strong> </li>
-                                      <li class="list-group-item"><strong>Nearest Landmark:</strong> </li>
+                                      <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.ProposalDetails.p_address1}}</li>
+                                      <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.ProposalDetails.p_address2}}</li>
+                                      <li class="list-group-item"><strong>Address 3:</strong> {{summaryData.ProposalDetails.p_address3}}</li>
+                                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ProposalDetails.p_pincode}}</li>
+                                      <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.p_towncode}}</li>
+                                      <li class="list-group-item"><strong>District:</strong> {{summaryData.ProposalDetails.p_district}}</li>
+                                      <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.p_statecode}}</li>
+                                      <li class="list-group-item"><strong>Country:</strong> {{summaryData.ProposalDetails.p_country}}</li>
                                   </ul>
                               </div>
                           </div>
                       </div>
                   </section>
 
-                  <section *ngFor="let item of summaryData.InsuredDetailsList">
-                      <h5 class="mt-3 sub-title"> DETAILS </h5>
+                  <section *ngFor="let item of summaryData.InsurePolicyholderDetails">
+                      <h5 class="mt-3 sub-title">{{item.relationship}} DETAILS</h5>
                       <div class="row box-card">
-                          <div class="col-md-12">
-                          </div>
                           <div class="col-md-6">
                               <div class="p-3">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong></li>
-                                      <li class="list-group-item"><strong>Gender:</strong> </li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> </li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> </li>
-                                      <li class="list-group-item"><strong>Age:</strong> </li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> </li>
-                                      <li class="list-group-item"><strong>Relationship:</strong> </li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
+                                      <li class="list-group-item"><strong>Gender:</strong> {{item.i_gender}}</li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
+                                      <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                   </ul>
                               </div>
                           </div>
-                          <div class="col-md-6">
-                              <div class="p-3">
-                                  <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong >Existing Illness:  </strong> No </li>
-
-                                  </ul>
-                              </div>
+                        <div class="col-md-6">
+                          <div class="p-3">
+                            <ul>
+                            <li class="list-group-item"><strong>Address 1:</strong> {{item.i_address1}}</li>
+                            <li class="list-group-item"><strong>Address 2:</strong> {{item.i_address2}}</li>
+                            <li class="list-group-item"><strong>Address 3:</strong> {{item.i_address3}}</li>
+                            <li class="list-group-item"><strong>City:</strong> {{item.i_towncode}}</li>
+                            <li class="list-group-item"><strong>District:</strong> {{item.i_district}}</li>
+                            <li class="list-group-item"><strong>State:</strong> {{item.i_statecode}}</li>
+                            <li class="list-group-item"><strong>Country:</strong> {{item.i_country}}</li>
+                              <li class="list-group-item"><strong>PIN code:</strong> {{item.i_pincode}}</li>
+                            </ul>
                           </div>
+                        </div>
                       </div>
                   </section>
-                  <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-                  <div class="row box-card">
-                      <div class="col-md-6">
+                  <section>
+                      <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                      <div class="row box-card">
+                        <div class="col-md-6">
                           <div class="p-3">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <ul class="m-0 list-group">
-                                          <li class="list-group-item"><strong>Nominee name:</strong> </li>
-                                          <li class="list-group-item"><strong>Address 1:</strong></li>
-                                          <li class="list-group-item"><strong>Address 2:</strong></li>
-                                          <li class="list-group-item"><strong>Address 3:</strong></li>
-                                          <li class="list-group-item"><strong>PIN code:</strong> </li>
-
-                                      </ul>
-                                  </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <ul class="m-0 list-group">
+                                  <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}} {{summaryData.ProposalDetails.n_name}}</li>
+                                  <li class="list-group-item"><strong>Address:</strong> {{summaryData.InsurePolicyholderDetails.n_address}}</li>
+                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.InsurePolicyholderDetails.n_relation}}</li>
+                                </ul>
                               </div>
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="p-3">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <ul class="m-0 list-group">
-                                          <li class="list-group-item"><strong>Relationship with Proposer:</strong> </li>
-                                          <li class="list-group-item"><strong>Area:</strong> </li>
-                                          <li class="list-group-item"><strong>City:</strong> </li>
-                                          <li class="list-group-item"><strong>State:</strong> </li>
-                                      </ul>
-                                  </div>
-                              </div>
+                            </div>
                           </div>
                       </div>
                   </div>
@@ -833,8 +788,8 @@
               <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-button matStepperPrevious>Back</button>
               </div>
+              </section>
           </mat-step>
-
       </mat-horizontal-stepper>
     </div>
   </div>
