@@ -695,6 +695,7 @@
                           </div>
                           <div class="col-md-6">
                               <div class="p-3">
+                                <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob}}</li>
@@ -723,35 +724,33 @@
                       </div>
                   </section>
 
-                  <section *ngFor="let item of summaryData.InsuredDetailsList">
-                      <h5 class="mt-3 sub-title">INSURER DETAILS</h5>
+                  <section *ngFor="let item of summaryData.InsurePolicyholderDetails">
+                      <h5 class="mt-3 sub-title">{{item.relationship}} DETAILS</h5>
                       <div class="row box-card">
-                          <div class="col-md-12">
-                          </div>
                           <div class="col-md-6">
                               <div class="p-3">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.InsurePolicyholderDetails.i_tittlecode}} {{summaryData.InsurePolicyholderDetails.i_fname}} {{summaryData.InsurePolicyholderDetails.i_mname}} {{summaryData.InsurePolicyholderDetails.i_lname}} </li>
-                                      <li class="list-group-item"><strong>Gender:</strong> {{summaryData.InsurePolicyholderDetails.i_gender}}</li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.InsurePolicyholderDetails.i_dob}}</li>
-                                      <li class="list-group-item"><strong>Age:</strong> {{summaryData.InsurePolicyholderDetails.i_age}}</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.InsurePolicyholderDetails.i_occuption}}</li>
-                                      <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.InsurePolicyholderDetails.i_relation}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
+                                      <li class="list-group-item"><strong>Gender:</strong> {{item.i_gender}}</li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
+                                      <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                   </ul>
                               </div>
                           </div>
                         <div class="col-md-6">
                           <div class="p-3">
                             <ul>
-                            <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.InsurePolicyholderDetails.i_address1}}</li>
-                            <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.InsurePolicyholderDetails.i_address2}}</li>
-                            <li class="list-group-item"><strong>Address 3:</strong> {{summaryData.InsurePolicyholderDetails.i_address3}}</li>
-                            <li class="list-group-item"><strong>City:</strong> {{summaryData.InsurePolicyholderDetails.i_towncode}}</li>
-                            <li class="list-group-item"><strong>District:</strong> {{summaryData.InsurePolicyholderDetails.i_district}}</li>
-                            <li class="list-group-item"><strong>State:</strong> {{summaryData.InsurePolicyholderDetails.i_statecode}}</li>
-                            <li class="list-group-item"><strong>Country:</strong> {{summaryData.InsurePolicyholderDetails.i_country}}</li>
-                              <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.InsurePolicyholderDetails.i_pincode}}</li>
+                            <li class="list-group-item"><strong>Address 1:</strong> {{item.i_address1}}</li>
+                            <li class="list-group-item"><strong>Address 2:</strong> {{item.i_address2}}</li>
+                            <li class="list-group-item"><strong>Address 3:</strong> {{item.i_address3}}</li>
+                            <li class="list-group-item"><strong>City:</strong> {{item.i_towncode}}</li>
+                            <li class="list-group-item"><strong>District:</strong> {{item.i_district}}</li>
+                            <li class="list-group-item"><strong>State:</strong> {{item.i_statecode}}</li>
+                            <li class="list-group-item"><strong>Country:</strong> {{item.i_country}}</li>
+                              <li class="list-group-item"><strong>PIN code:</strong> {{item.i_pincode}}</li>
                             </ul>
                           </div>
                         </div>
