@@ -232,6 +232,7 @@ export class TravelProposalComponent implements OnInit {
                 assigneeRelationship: ['', Validators.required],
                 passportNumber: ['', Validators.required],
                 passportExpiry: ['', Validators.required],
+                visaType: ['', Validators.required],
                 illness: ['', Validators.required],
                 insurerDobError: '',
                 insurerDobValidError: '',
@@ -558,6 +559,7 @@ export class TravelProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].passportNumber.patchValue(this.getStepper2.items[i].passportNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(this.getStepper2.items[i].passportExpiry);
+                this.insureArray['controls'].items['controls'][i]['controls'].visaType.patchValue(this.getStepper2.items[i].visaType);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].illness.patchValue(this.getStepper2.items[i].illness);
@@ -604,6 +606,7 @@ export class TravelProposalComponent implements OnInit {
                 'sex': value.items[i].insurerGender,
                 'relationshipId': value.items[i].insurerRelationship,
                 'passportNumber': value.items[i].passportNumber,
+                'visaType': value.items[i].visaType,
                 'passportExpiry': this.datepipe.transform(value.items[i].passportExpiry, 'MMM d, y'),
                 'assigneeName': value.items[i].assigneeName,
                 'assigneeRelationshipId': value.items[i].assigneeRelationship,
@@ -700,6 +703,8 @@ export class TravelProposalComponent implements OnInit {
                     }
                 }
             }
+        } else {
+            this.toastr.error(successData.ErrorObject);
         }
     }
     public proposalFailure(error) {

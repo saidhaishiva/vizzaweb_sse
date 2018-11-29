@@ -200,7 +200,7 @@
                           <mat-error *ngIf="insureArray.invalid">Passport number is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-6"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker3"  placeholder="Passport Expiry (DD/MM/YYYY)"   formControlName="passportExpiry" (dateInput)="addEvent($event, i, 'insurer')" (dateChange)="addEvent($event, i, 'insurer')" (keypress)="dobkeyPress($event, i)"  minlength="10"  maxlength="10" autocomplete="off" required >
+                          <input matInput [matDatepicker]="picker3" [min]="today" placeholder="Passport Expiry (DD/MM/YYYY)"   formControlName="passportExpiry" (dateInput)="addEvent($event, i, 'insurer')" (dateChange)="addEvent($event, i, 'insurer')" (keypress)="dobkeyPress($event, i)"  minlength="10"  maxlength="10" autocomplete="off" required >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
                           <mat-error *ngIf="insureArray.invalid">Passport Expiry is required</mat-error>
@@ -208,6 +208,12 @@
                             <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value}}</p>
 
                         </div>
+                          <div class="col-md-6">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Visa Type" formControlName="visaType" maxlength="10" autocomplete="off" required >
+                                  <mat-error *ngIf="insureArray.invalid">Visa Type is required</mat-error>
+                              </mat-form-field>
+                          </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Assignee Name" formControlName="assigneeName"  (keypress)="typeValidate($event)" autocomplete="off" required >
