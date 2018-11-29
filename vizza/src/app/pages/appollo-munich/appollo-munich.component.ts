@@ -262,7 +262,8 @@ export class AppolloMunichComponent implements OnInit {
         this.sessionData();
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-      }
+
+    }
 
     setStep(index: number) {
         this.step = index;
@@ -736,6 +737,9 @@ export class AppolloMunichComponent implements OnInit {
             });
         }
 
+
+
+
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -802,6 +806,25 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
             }
+
+
+        }
+
+        for (let i = 0; i < this.insurePersons.length; i++) {
+            if (this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "Yes") {
+                alert('in');
+                this.items.at(i).controls.PreviousPolicyNumber.setValidators([Validators.required]);
+                this.items.at(i).controls.PreviousInsurer.setValidators([Validators.required]);
+                this.items.at(i).controls.SumInsured.setValidators([Validators.required]);
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "No"){
+                alert('out');
+                this.items.at(i).controls.PreviousPolicyNumber.setValidators(null);
+                this.items.at(i).controls.PreviousInsurer.setValidators(null);
+                this.items.at(i).controls.SumInsured.setValidators(null);
+            }
+            this.items.at(i).controls.PreviousPolicyNumber.updateValueAndValidity();
+            this.items.at(i).controls.PreviousInsurer.updateValueAndValidity();
+            this.items.at(i).controls.SumInsured.updateValueAndValidity();
         }
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
