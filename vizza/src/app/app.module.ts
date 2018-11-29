@@ -166,6 +166,8 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
 import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
+import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -307,6 +309,7 @@ import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-paymen
       DownloadMessageReligarePersonal,
       AppollomunichpaComponent,
       ApollomunichPaymentSuccessComponent,
+      ViewProductDetailsComponent
   ],
   providers: [
       AppSettings,
@@ -331,7 +334,7 @@ import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-paymen
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
     ]
 })
 export class AppModule { }

@@ -210,17 +210,113 @@ export class PersonalAccidentService {
             const httpOptions = {
                 headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
             };
-            const url = this.configurationService.getHost() + 'quote/compare_shkeyfeatures' ;
+            const url = this.configurationService.getHost() + 'personal_accident/compare_shkeyfeatures' ;
             return this.http.post(url, json, httpOptions)
                 .map(this.extractData)
                 .catch(this.handleError);
         }
-
+        // product Details Key features
+    viewKeyFeatureList(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personal_accident/view_keyfeatures' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     // Appolo Munich Personal Accident
+    // Relation with Proposer
+    appolloRelationshipPa(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_relationship';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // Id Proof
+   paIdProofList(data){
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_id_proof';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // Marital Status
+   paMaritalStatus(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_material_status';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // pre insure List
+    preInsure(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_previous_insure';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // State List in Appollo Munich List Personal Accident
+   stateListPa(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_state';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         const body = res;
         return body || {};
     }
-
+// District List in Appollo Munich List Personal Accident
+    districtPaList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_district';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // City List in Appollo Munich List Persoanl Accident
+   cityPaList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_city';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     private handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
