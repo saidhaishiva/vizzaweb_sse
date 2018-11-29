@@ -451,7 +451,14 @@ export class AppolloMunichComponent implements OnInit {
           this.items.at(id).controls.PreviousInsurer.setValidators([Validators.required]);
           this.items.at(id).controls.SumInsured.setValidators([Validators.required]);
       } else {
-
+          this.insureArray['controls'].items['controls'][id]['controls'].PreviousPolicyNumber.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].PreviousInsurer.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].SumInsured.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].PolicyStartDate.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].PolicyEndDate.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].WaivePeriod.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].QualifyingAmount.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].Remarks.patchValue('');
           this.items.at(id).controls.PreviousPolicyNumber.setValidators(null);
           this.items.at(id).controls.PreviousInsurer.setValidators(null);
           this.items.at(id).controls.SumInsured.setValidators(null);
@@ -812,12 +819,12 @@ export class AppolloMunichComponent implements OnInit {
 
         for (let i = 0; i < this.insurePersons.length; i++) {
             if (this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "Yes") {
-                alert('in');
+
                 this.items.at(i).controls.PreviousPolicyNumber.setValidators([Validators.required]);
                 this.items.at(i).controls.PreviousInsurer.setValidators([Validators.required]);
                 this.items.at(i).controls.SumInsured.setValidators([Validators.required]);
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "No"){
-                alert('out');
+
                 this.items.at(i).controls.PreviousPolicyNumber.setValidators(null);
                 this.items.at(i).controls.PreviousInsurer.setValidators(null);
                 this.items.at(i).controls.SumInsured.setValidators(null);
