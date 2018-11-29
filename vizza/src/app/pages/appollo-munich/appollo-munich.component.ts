@@ -161,6 +161,7 @@ export class AppolloMunichComponent implements OnInit {
       this.proposerInsureData = [];
       this.totalInsureDetails = [];
       this.questions_list = [];
+
       this.proposer = this.fb.group({
           proposerTitle: ['', Validators.required],
           proposerFirstname: ['', Validators.required],
@@ -240,6 +241,7 @@ export class AppolloMunichComponent implements OnInit {
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
+
         this.setRelationship();
         // this.setNomineeRelationship();
         this.maritalStatus();
@@ -364,21 +366,31 @@ export class AppolloMunichComponent implements OnInit {
             console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
+                    'Address': {
+                        'Address': {
                     'AddressLine1': this.insurerData[i].proposerAddress,
                     'AddressLine2': this.insurerData[i].proposerAddress2,
                     'AddressLine3': this.insurerData[i].proposerAddress3,
                     'CountryCode': this.insurerData[i].proposerCountry,
                     'District': this.insurerData[i].proposerDistrict,
                     'PinCode': this.insurerData[i].proposerPincode,
-                    'proposerMobile': this.insurerData[i].proposerMobile,
-                    'proposerEmail': this.insurerData[i].proposerEmail,
-                    'FamilySize': this.insurerData[i].proposerFamilySize,
-                    'StateCode': this.insurerData[i].proposerState,
                     'TownCode': this.insurerData[i].proposerCity,
+                    'StateCode': this.insurerData[i].proposerState,
+                        }
+                    },
+                    'proposerMobile': this.insurerData[i].proposerMobile,
+                    'FamilySize': this.insurerData[i].proposerFamilySize,
                     'Age': this.insurerData[i].proposerAge,
                     'BirthDate': this.insurerData[i].proposerDob,
                     'ClientCode': this.insurerData[i].ClientCode,
-                    'ContactInformation': this.insurerData[i].proposerMobile,
+                    "ContactInformation": {
+                        "ContactNumber": {
+                            "ContactNumber": {
+                                "Number": this.insurerData[i].proposerMobile
+                            }
+                        },
+                        "Email": this.insurerData[i].proposerEmail,
+                    },
                     'Dependants': '',
                     'FirstName': this.insurerData[i].proposerFirstname,
                     'GenderCode': this.insurerData[i].proposerGender,
@@ -399,9 +411,9 @@ export class AppolloMunichComponent implements OnInit {
                     'NationalityCode': 'IN',
                     'OccuptionCode': this.insurerData[i].Proposeroccupation,
                     'PreviousInsurer': {
-                        'InceptionDate': this.insurerData[i].InceptionDate,
-                        'EndDate': this.insurerData[i].EndDate,
-                        'PreviousInsurerCode': this.insurerData[i].PreviousInsurerCode,
+                        'InceptionDate': this.insurerData[i].PolicyStartDate,
+                        'EndDate': this.insurerData[i].PolicyEndDate,
+                        'PreviousInsurerCode': this.insurerData[i].PreviousInsurer,
                         'PreviousPolicyNumber': this.insurerData[i].PreviousPolicyNumber,
                         'SumInsured': this.insurerData[i].SumInsured,
                         'QualifyingAmount': this.insurerData[i].QualifyingAmount,
@@ -428,6 +440,28 @@ export class AppolloMunichComponent implements OnInit {
             }
         }
     }
+
+
+    pInsureStatus(title: any, id){
+
+      if(title.value == 'Yes') {
+
+          this.items.at(id).controls.PreviousPolicyNumber.setValidators([Validators.required]);
+          this.items.at(id).controls.PreviousInsurer.setValidators([Validators.required]);
+          this.items.at(id).controls.SumInsured.setValidators([Validators.required]);
+      } else {
+
+          this.items.at(id).controls.PreviousPolicyNumber.setValidators(null);
+          this.items.at(id).controls.PreviousInsurer.setValidators(null);
+          this.items.at(id).controls.SumInsured.setValidators(null);
+      }
+        this.items.at(id).controls.PreviousPolicyNumber.updateValueAndValidity();
+        this.items.at(id).controls.PreviousInsurer.updateValueAndValidity();
+        this.items.at(id).controls.SumInsured.updateValueAndValidity();
+
+
+
+}
 
 
     changeIdproof(title){
@@ -920,14 +954,14 @@ export class AppolloMunichComponent implements OnInit {
                     'Client': {
                         'Address': {
                             'Address': {
-                                'AddressLine1': this.totalInsureDetails[0].AddressLine1,
-                                'AddressLine2': this.totalInsureDetails[0].AddressLine2,
-                                'AddressLine3': this.totalInsureDetails[0].AddressLine3,
+                                'AddressLine1': this.totalInsureDetails[0].Address.Address.AddressLine1,
+                                'AddressLine2': this.totalInsureDetails[0].Address.Address.AddressLine2,
+                                'AddressLine3': this.totalInsureDetails[0].Address.Address.AddressLine3,
                                 'CountryCode': 'IN',
-                                'District': this.totalInsureDetails[0].District,
-                                'PinCode': this.totalInsureDetails[0].PinCode,
-                                'StateCode': this.totalInsureDetails[0].StateCode,
-                                'TownCode': this.totalInsureDetails[0].TownCode
+                                'District': this.totalInsureDetails[0].Address.Address.District,
+                                'PinCode': this.totalInsureDetails[0].Address.Address.PinCode,
+                                'StateCode': this.totalInsureDetails[0].Address.Address.StateCode,
+                                'TownCode': this.totalInsureDetails[0].Address.Address.TownCode
                             }
                         },
                         'Age': this.totalInsureDetails[0].Age,
@@ -937,10 +971,10 @@ export class AppolloMunichComponent implements OnInit {
                         'ContactInformation': {
                             'ContactNumber': {
                                 'ContactNumber': {
-                                    'Number': this.totalInsureDetails[0].proposerMobile
+                                    'Number': this.totalInsureDetails[0].ContactInformation.ContactNumber.ContactNumber.Number
                                 }
                             },
-                            'Email': this.totalInsureDetails[0].proposerEmail
+                            'Email': this.totalInsureDetails[0].ContactInformation.Email
                         },
                         'Dependants': {
                                 'Client' : clientData
@@ -957,18 +991,17 @@ export class AppolloMunichComponent implements OnInit {
                         'MiddleName': this.totalInsureDetails[0].MiddleName,
                         'NationalityCode': this.totalInsureDetails[0].NationalityCode,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
-                        'PreviousInsurer': {
                             'PreviousInsurer': {
-                                'InceptionDate': this.totalInsureDetails[0].InceptionDate,
-                                'EndDate': this.totalInsureDetails[0].EndDate,
-                                'PreviousInsurerCode': this.totalInsureDetails[0].PreviousInsurerCode,
-                                'PreviousPolicyNumber': this.totalInsureDetails[0].PreviousPolicyNumber,
-                                'SumInsured': this.totalInsureDetails[0].SumInsured,
-                                'QualifyingAmount': this.totalInsureDetails[0].QualifyingAmount,
-                                'WaivePeriod': this.totalInsureDetails[0].WaivePeriod,
-                                'Remarks': this.totalInsureDetails[0].Remarks
-                            }
-                        },
+                                'InceptionDate': this.totalInsureDetails[0].PreviousInsurer.InceptionDate,
+                                'EndDate': this.totalInsureDetails[0].PreviousInsurer.EndDate,
+                                'PreviousInsurerCode': this.totalInsureDetails[0].PreviousInsurer.PreviousInsurerCode,
+                                'PreviousPolicyNumber': this.totalInsureDetails[0].PreviousInsurer.PreviousPolicyNumber,
+                                'SumInsured': this.totalInsureDetails[0].PreviousInsurer.SumInsured,
+                                'QualifyingAmount': this.totalInsureDetails[0].PreviousInsurer.QualifyingAmount,
+                                'WaivePeriod': this.totalInsureDetails[0].PreviousInsurer.WaivePeriod,
+                                'Remarks': this.totalInsureDetails[0].PreviousInsurer.Remarks
+                            },
+
                         'LifeStyleHabits': {
                             'BeerBottle': this.totalInsureDetails[0].LifeStyleHabits.BeerBottle,
                             'LiquorPeg': this.totalInsureDetails[0].LifeStyleHabits.LiquorPeg,

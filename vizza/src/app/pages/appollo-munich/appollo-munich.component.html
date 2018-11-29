@@ -2,7 +2,7 @@
   <div class="row proposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
-        <mat-step [stepControl]="proposer">
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="proposer" >
@@ -520,7 +520,7 @@
                           <div class="col-md-12"><hr></div>
                         <div class="col-md-12">
                           <h6 class="mt-3 color-green">Previous Insurer Details:</h6>
-                          <mat-radio-group formControlName="previousInsurerStatus">
+                          <mat-radio-group formControlName="previousInsurerStatus" (change)="pInsureStatus($event, i)">
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
@@ -543,7 +543,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer"  required>
+                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer"  >
                               <mat-option *ngFor="let previousInsure of previousInsureList" value="{{previousInsure.insure_code}}" > {{previousInsure.insure_name}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Previous Insurer is required</mat-error>
@@ -551,13 +551,13 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy N0" formControlName="PreviousPolicyNumber" [required]="insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == 'Yes'"  (keypress)="add($event)" autocomplete="off">
+                            <input matInput placeholder="Previous Policy N0" formControlName="PreviousPolicyNumber"   (keypress)="add($event)" autocomplete="off">
                               <mat-error *ngIf="insureArray.invalid">Previous policy n0 is required</mat-error>
                           </mat-form-field>
                         </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured" [required]="insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == 'Yes'"   (keypress)="add($event)" autocomplete="off">
+                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"    (keypress)="add($event)" autocomplete="off">
                                   <mat-error *ngIf="insureArray.invalid">Sum insured is required</mat-error>
                               </mat-form-field>
                           </div>
