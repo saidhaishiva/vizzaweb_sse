@@ -59,7 +59,7 @@ export class AppolloMunichComponent implements OnInit {
     public today: any;
     public declaration: boolean;
     public summaryData: any;
-    public InsuredDetailsList: any;
+    public InsurePolicyholderDetails: any;
     public lastStepper: any;
     public questionerData: any;
     public webhost: any;
@@ -1086,11 +1086,11 @@ export class AppolloMunichComponent implements OnInit {
             console.log(this.summaryData, 'summaryDatasummaryData');
             let getdata=[];
 
-            for(let i = 0; i < this.summaryData.ProposalDetails.length; i++){
+            for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++){
 
                 for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.ProposalDetails[i].RelationshipCode == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.ProposalDetails[i].relationship = this.relationshipList[j].relationship;
+                    if(this.summaryData.InsurePolicyholderDetails[i].RelationshipCode == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
                     }
                 }
             }
