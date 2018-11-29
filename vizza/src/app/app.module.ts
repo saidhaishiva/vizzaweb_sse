@@ -168,6 +168,7 @@ import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichp
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
 import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
+import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -311,6 +312,7 @@ import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/trav
       ApollomunichPaymentSuccessComponent,
       TravelCompareComponent,
       TravelViewKeyFeaturesComponent,
+      BajajAlianzComponent,
   ],
   providers: [
       AppSettings,
