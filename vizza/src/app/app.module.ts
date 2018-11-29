@@ -166,6 +166,7 @@ import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
 import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
+import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -307,6 +308,7 @@ import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-paymen
       DownloadMessageReligarePersonal,
       AppollomunichpaComponent,
       ApollomunichPaymentSuccessComponent,
+      BajajAlianzComponent,
   ],
   providers: [
       AppSettings,
