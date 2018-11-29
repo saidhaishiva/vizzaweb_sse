@@ -137,6 +137,7 @@ export class AppolloMunichComponent implements OnInit {
     public smokingStatus: boolean;
     public previousInsureList: any;
     public proffessionList: any;
+    public titleCodeList: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -245,6 +246,7 @@ export class AppolloMunichComponent implements OnInit {
         this.setRelationship();
         // this.setNomineeRelationship();
         this.maritalStatus();
+        this.TitleCodeStatus();
         this.IdProofList();
         this.AppolloState();
         this.setOccupationList();
@@ -1081,6 +1083,19 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'summaryDatasummaryData');
+            let getdata=[];
+
+            for(let i = 0; i < this.summaryData.ProposalDetails.length; i++){
+
+                for(let j = 0; j< this.relationshipList.length; j++){
+                    if(this.summaryData.ProposalDetails[i].RelationshipCode == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.ProposalDetails[i].relationship = this.relationshipList[j].relationship;
+                    }
+                }
+            }
+
+
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.InsurePolicyholderDetails[0].proposer_id;
             sessionStorage.proposalID = this.proposalId;
@@ -1124,6 +1139,34 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setMaritalStatusFailure(error) {
+        console.log(error);
+    }//TitleCode Status
+    TitleCodeStatus() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getTitleCode(data).subscribe(
+            (successData) => {
+                this.setTitleCodeSuccess(successData);
+            },
+            (error) => {
+                this.setTitleCodeFailure(error);
+            }
+        );
+    }
+
+    public setTitleCodeSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.titleCodeList = successData.ResponseObject;
+            console.log( this.titleCodeList , 'titleCodeeeeeee');
+
+        }
+    }
+
+    public setTitleCodeFailure(error) {
         console.log(error);
     }
 
@@ -1396,7 +1439,7 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
+        console.log(successData.ResponseObject,'relationship');
         this.relationshipList = successData.ResponseObject;
         console.log( this.relationshipList, 'sdfghsdfghszdfgh');
 
