@@ -106,7 +106,7 @@
             </div>
             <div *ngIf="showSelf">
               <div class="row mt-2" >
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip Start Date </mat-label>
                     <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
@@ -115,7 +115,7 @@
                   </mat-form-field>
                   <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip End Date</mat-label>
                     <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
@@ -124,8 +124,10 @@
                   </mat-form-field>
                   <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                 </div>
-                <div class="col-md-4">
-                  <p class="days-count">Tot Days : {{daysCount}}</p>
+              </div>
+              <div class="row mt-2" >
+                <div class="col-md-12">
+                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
               <div class="row mt-2">
@@ -242,7 +244,7 @@
             </div>
             <div *ngIf="showFamily">
               <div class="row mt-2" >
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip Start Date </mat-label>
                     <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
@@ -251,7 +253,7 @@
                   </mat-form-field>
                   <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip End Date</mat-label>
                     <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
@@ -260,8 +262,10 @@
                   </mat-form-field>
                   <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                 </div>
-                <div class="col-md-4">
-                  <p class="days-count">Total Days : {{daysCount}}</p>
+              </div>
+              <div class="row mt-2" >
+                <div class="col-md-12">
+                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
 
@@ -381,7 +385,7 @@
             </div>
             <div *ngIf="showGroup">
               <div class="row mt-2" >
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip Start Date</mat-label>
                     <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
@@ -390,7 +394,7 @@
                   </mat-form-field>
                   <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field color="accent" class="w-100">
                     <mat-label>Trip End Date</mat-label>
                     <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
@@ -399,8 +403,10 @@
                   </mat-form-field>
                   <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                 </div>
-                <div class="col-md-4">
-                  <p class="days-count">Total Days : {{daysCount}}</p>
+              </div>
+              <div class="row mt-2" >
+                <div class="col-md-12">
+                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
 
@@ -538,8 +544,10 @@
                   </mat-form-field>
                   <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                 </div>
-                <div class="col-md-4">
-                  <p class="days-count">Total Days : {{daysCount}}</p>
+              </div>
+              <div class="row mt-2" >
+                <div class="col-md-12">
+                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
 
