@@ -34,7 +34,11 @@ public lastPage: any;
 public getAllPremiumDetails: any;
 public getBuyDetails: any;
 public preinsure: any;
-public smoke: any;
+public pannumber: boolean;
+public passport: boolean;
+public drivinglicense: boolean;
+public voter: boolean;
+public prevList: boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -121,6 +125,7 @@ public smoke: any;
           insuredPouchesList:'',
           insuredPaDistrictIdP: '',
           MedicalInformations: '',
+          previousradio:'',
           rolecd: 'PROPOSER',
           type: ''
       });
@@ -140,6 +145,15 @@ public smoke: any;
           PaNomineeCountryIdP: '',
           PaNomineeDistrictIdP: ''
       });
+      this.insured.controls['insuredPouchesList'].disable();
+      this.insured.controls['insuredSmokeList'].disable();
+      this.insured.controls['insuredLiquor'].disable();
+      this.insured.controls['insuredWine'].disable();
+      this.insured.controls['insuredBeer'].disable();
+      this.pannumber= false;
+      this.passport= false;
+      this.voter= false;
+      this.drivinglicense= false;
 
   }
 
@@ -411,27 +425,62 @@ preInsureList() {
         console.log(error);
     }
     // checkbox
-    // check1(value){
-    //   if(value.checked){
-    //       this.insured.controls['insuredSmoke'].value.enable();
-    //   } else {
-    //       this.insured.controls['insuredSmokeList'].value.disable();
-    //   }
-    // }
-    // check2(value){
-    //     if(value.checked){
-    //         this.insured.controls['insuredPouchesList'].value.enable();
-    //     } else {
-    //         this.insured.controls['insuredPouchesList'].value.disable();
-    //     }
-    // }
-    check1(value){
-      if(value.checked){
-   this.smoke = true;
-      } else{
-          this.smoke = true;
+    check1(value, type){
+      if(value.checked && type == 'smoke'){
+          this.insured.controls['insuredSmokeList'].enable();
+      } else {
+          this.insured.controls['insuredSmokeList'].disable();
+
+      }
+    if(value.checked && type == 'pouches'){
+            this.insured.controls['insuredPouchesList'].enable();
+        } else {
+            this.insured.controls['insuredPouchesList'].disable();
+        }
+        if(value.checked && type == 'liquor'){
+            this.insured.controls['insuredLiquor'].enable();
+        } else {
+            this.insured.controls['insuredLiquor'].disable();
+        }
+        if(value.checked && type == 'wine'){
+            this.insured.controls['insuredWine'].enable();
+        } else {
+            this.insured.controls['insuredWine'].disable();
+        }
+        if(value.checked && type == 'beer'){
+            this.insured.controls['insuredBeer'].enable();
+        } else {
+            this.insured.controls['insuredBeer'].disable();
+        }
+    }
+
+// list id
+    idList(){
+      if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
+      this.pannumber = true;
+      } else  if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1'){
+          this.passport = true;
+          this.pannumber = false;
+      } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO4'){
+          this.voter = true;
+          this.passport = false;
+          this.pannumber = false;
+      } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO3'){
+          this.drivinglicense= true;
+          this.voter = false;
+          this.passport = false;
+          this.pannumber = false;
       }
     }
+    // previous radio
+    previous(value){
+      if(value == 'yes'){
+          this.prevList = true;
+      } else{
+          this.prevList = false;
+      }
+    }
+
      // proposal creation
     proposal(){
 const data = {
