@@ -218,14 +218,15 @@ export class AppolloMunichComponent implements OnInit {
       });
   }
     changeGender() {
-        if (this.proposer.controls['proposerTitle'].value == 'MR'){
+        if (this.proposer.controls['proposerTitle'].value == 'MR'|| this.proposer.controls['proposerTitle'].value == 'MASTER'){
             this.proposer.controls['proposerGender'].patchValue('Male');
         } else {
             this.proposer.controls['proposerGender'].patchValue('Female');
         }
     }
     insureChangeGender(index) {
-        if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR') {
+        if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR' ||
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MASTER') {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
         } else {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
@@ -1089,12 +1090,22 @@ export class AppolloMunichComponent implements OnInit {
             for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++){
 
                 for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.InsurePolicyholderDetails[i].RelationshipCode == this.relationshipList[j].relationship_code ) {
+                    if(this.summaryData.InsurePolicyholderDetails[i].p_relation == this.relationshipList[j].RelationshipCode ) {
                         this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
                     }
                 }
             }
+            for(let i = 0; i < this.summaryData.ProposalDetails.length; i++){
 
+                for(let j = 0; j< this.relationshipList.length; j++){
+                    if(this.summaryData.InsurePolicyholderDetails[i].n_relation == this.relationshipList[j].RelationToNomineeCode ) {
+                        this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
+                    }
+                }
+            }
+            // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
+            //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
+            // }
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.InsurePolicyholderDetails[0].proposer_id;
