@@ -6,6 +6,9 @@ import {PersonalAccidentService} from '../../shared/services/personal-accident.s
 import {MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+
 
 @Component({
   selector: 'app-appollomunichpa',
@@ -20,6 +23,7 @@ public relationshipListPa: any;
 public paIdProofList: any;
 public paMaritalList: any;
 public paStateList: any;
+public settings: Settings;
 public padistrictList: any;
 public paCityList: any;
 public proposerPaData: any;
@@ -39,7 +43,13 @@ public passport: boolean;
 public drivinglicense: boolean;
 public voter: boolean;
 public prevList: boolean;
-  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
+public occupationCode: any;
+public appollo1: any;
+public appollo2: any;
+public getpanomineeData: any;
+public appollosummaryData: any;
+public declaration: any;
+  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -124,7 +134,9 @@ public prevList: boolean;
           insuredSmokeList:'',
           insuredPouchesList:'',
           insuredPaDistrictIdP: '',
+          insuredOccupationList:'',
           MedicalInformations: '',
+          insuredAnnual:'',
           previousradio:'',
           rolecd: 'PROPOSER',
           type: ''
@@ -154,22 +166,35 @@ public prevList: boolean;
       this.passport= false;
       this.voter= false;
       this.drivinglicense= false;
-
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
   }
 
   ngOnInit() {
       this.relationshipPaProposer();
+      this. setOccupationListCode();
+      this.setProfessionList();
       this.paIdList();
       this.stateListPa();
       this.paMaritalStatusList();
       this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-
+      this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+      this.sessionData();
   }
     changeGender() {
         if (this.ProposerPa.controls['proposerPaTitle'].value == 'MR') {
             this.ProposerPa.controls['proposerPaGender'].patchValue('MALE');
         } else {
             this.ProposerPa.controls['proposerPaGender'].patchValue('FEMALE');
+        }
+    }
+    insurechangeGender() {
+        if (this.insured.controls['insuredPaTitle'].value == 'MR') {
+            this.insured.controls['insuredPaGender'].patchValue('MALE');
+        } else {
+            this.insured.controls['insuredPaGender'].patchValue('FEMALE');
         }
     }
     // RelationShip with Proposer
@@ -338,16 +363,16 @@ public prevList: boolean;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
         if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAge >= 18) {
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+            // if (sessionStorage.proposerAge >= 18) {
+            //     if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
-                }
+                // }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
         }
-    }
+
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
         sessionStorage.appollo2Detail = '';
@@ -392,7 +417,8 @@ public prevList: boolean;
         if (this.nomineeDetail.valid) {
             sessionStorage.panomineeData = '';
             sessionStorage.panomineeData = JSON.stringify(value);
-            this.proposal();
+            alert('innnnn');
+            this.createrPoposal();
         }
         this.lastPage = stepper;
 
@@ -425,7 +451,7 @@ preInsureList() {
         console.log(error);
     }
     // checkbox
-    check1(value, type){
+    checkHabits(value, type){
       if(value.checked && type == 'smoke'){
           this.insured.controls['insuredSmokeList'].enable();
       } else {
@@ -473,16 +499,178 @@ preInsureList() {
       }
     }
     // previous radio
-    previous(value){
-      if(value == 'yes'){
+    previousinsureList(value){
+      if(this.insured.controls['previousradio'].value == 1){
           this.prevList = true;
       } else{
           this.prevList = false;
       }
     }
+// Occupation List
 
-     // proposal creation
-    proposal(){
+    setOccupationListCode() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.getOccupationCodeList(data).subscribe(
+            (successData) => {
+                this.occupationCodeSuccess(successData);
+            },
+            (error) => {
+                this.occupationCodeFailure(error);
+            }
+        );
+
+    }
+
+
+    public occupationCodeSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.occupationCode = successData.ResponseObject;
+
+    }
+
+    public occupationCodeFailure(error) {
+        console.log(error);
+    }
+    // profession List
+    setProfessionList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.getProfessionList(data).subscribe(
+            (successData) => {
+                this.professionListSuccess(successData);
+            },
+            (error) => {
+                this.professionListFailure(error);
+            }
+        );
+
+    }
+
+
+    public professionListSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.occupationCode = successData.ResponseObject;
+
+    }
+
+    public professionListFailure(error) {
+        console.log(error);
+    }
+// session Data
+    sessionData() {
+        if (sessionStorage.appollo1Details != '' && sessionStorage.appollo1Details != undefined) {
+            this.appollo1 = JSON.parse(sessionStorage.appollo1Details);
+            this.ProposerPa = this.proposerpa.group({
+                proposerPaTitle: this.appollo1.proposerPaTitle,
+                proposerPaFirstname: this.appollo1.proposerPaFirstname,
+                proposerPaLastname: this.appollo1.proposerPaLastname,
+                proposerPaMidname: this.appollo1.proposerPaMidname,
+                maritalStatus: this.appollo1.maritalStatus,
+                proposerPaDob: this.appollo1.proposerPaDob,
+                proposerParelationship: this.appollo1.proposerParelationship,
+                sameAsProposer: this.appollo1.sameAsProposer,
+                proposerPaGender: this.appollo1.proposerPaGender,
+                proposerPaAddress: this.appollo1.proposerPaAddress,
+                proposerPaAddress2: this.appollo1.proposerPaAddress2,
+                proposerPaAddress3: this.appollo1.proposerPaAddress3,
+                nationality: this.appollo1.nationality,
+                proposerPaPincode: this.appollo1.proposerPaPincode,
+                proposerPaIdProof: this.appollo1.proposerPaIdProof,
+                proposerPaIdProofIdP: this.appollo1.proposerPaIdProofIdP,
+                proposerPaPan: this.appollo1.proposerPaPan,
+                proposerPaPassport: this.appollo1.proposerPaPassport,
+                proposerPaVoter: this.appollo1.proposerPaVoter,
+                proposerPaGst: this.appollo1.proposerPaGst,
+                proposerPaDriving: this.appollo1.proposerPaDriving,
+                MedicalInformations: this.appollo1.MedicalInformations,
+                proposerPaCity: this.appollo1.proposerPaCity,
+                proposerPaState: this.appollo1.proposerPaState,
+                proposerPaCountry: this.appollo1.proposerPaCountry,
+                proposerPaDistrict: this.appollo1.proposerPaDistrict,
+                proposerPaStateIdP: this.appollo1.proposerPaStateIdP,
+                proposerPaCountryIdP: this.appollo1.proposerPaCountryIdP,
+                proposerPaCityIdP: this.appollo1.proposerPaCityIdP,
+                proposerPaDistrictIdP: this.appollo1.proposerPaDistrictIdP,
+                proposerPaEmail: this.appollo1.proposerPaEmail,
+                proposerPaMobile: this.appollo1.proposerPaMobile,
+                rolecd: this.appollo1.rolecd,
+                relationshipcd: this.appollo1.relationshipcd,
+            });
+        }
+
+
+
+        if (sessionStorage.appollo2Detail != '' && sessionStorage.appollo2Detail != undefined) {
+            console.log(JSON.parse(sessionStorage.appollo2Detail), 'sessionStorage.stepper1Details');
+            this.appollo2 = JSON.parse(sessionStorage.appollo2Detail);
+            this.insured = this.proposerpa.group({
+                insuredPaTitle: this.appollo2.insuredPaTitle,
+                insuredPaFirstname: this.appollo2.insuredPaFirstname,
+                insuredPaLastname: this.appollo2.insuredPaLastname,
+                insuredPaMidname: this.appollo2.insuredPaMidname,
+                maritalStatus: this.appollo2.maritalStatus,
+                insuredPaDob: this.appollo2.insuredPaDob,
+                insuredParelationship: this.appollo2.insuredParelationship,
+                sameAsProposer: this.appollo2.sameAsProposer,
+                insuredPaGender: this.appollo2.insuredPaGender,
+                insuredPaAddress: this.appollo2.insuredPaAddress,
+                insuredPaAddress2: this.appollo2.insuredPaAddress2,
+                insuredPaAddress3: this.appollo2.insuredPaAddress3,
+                nationality: this.appollo2.nationality,
+                insuredPaPincode: this.appollo2.insuredPaPincode,
+                insuredPaIdProof: this.appollo2.insuredPaIdProof,
+                insuredPaIdProofIdP: this.appollo2.insuredPaIdProofIdP,
+                insuredPaPan: this.appollo2.insuredPaPan,
+                insuredPaPassport: this.appollo2.insuredPaPassport,
+                insuredPaVoter: this.appollo2.insuredPaVoter,
+                insuredPaGst: this.appollo2.insuredPaGst,
+                insuredPaDriving: this.appollo2.insuredPaDriving,
+                MedicalInformations: this.appollo2.MedicalInformations,
+                insuredPaCity: this.appollo2.insuredPaCity,
+                insuredPaState: this.appollo2.insuredPaState,
+                insuredPaCountry: this.appollo2.insuredPaCountry,
+                insuredPaDistrict: this.appollo2.insuredPaDistrict,
+                insuredPaStateIdP: this.appollo2.insuredPaStateIdP,
+                insuredPaCountryIdP: this.appollo2.insuredPaCountryIdP,
+                insuredPaCityIdP: this.appollo2.insuredPaCityIdP,
+                insuredPaDistrictIdP: this.appollo2.insuredPaDistrictIdP,
+                insuredPaEmail: this.appollo2.insuredPaEmail,
+                insuredPaMobile: this.appollo2.insuredPaMobile,
+                rolecd: this.appollo2.rolecd,
+                relationshipcd: this.appollo2.relationshipcd,
+            });
+        }
+
+        if (sessionStorage.panomineeData != '' && sessionStorage.panomineeData != undefined) {
+            console.log(JSON.parse(sessionStorage.panomineeData), 'sessionStorage.stepper1Details');
+            this.getpanomineeData = JSON.parse(sessionStorage.panomineeData);
+            this.nomineeDetail = this.proposerpa.group({
+                paNomineeName: this.getpanomineeData.paNomineeName,
+                paRelationship: this.getpanomineeData.paRelationship,
+                PaNomineeAddress: this.getpanomineeData.PaNomineeAddress,
+                PaNomineePincode: this.getpanomineeData.PaNomineePincode,
+                PaNomineeCountry: this.getpanomineeData.PaNomineeCountry,
+                PaNomineeCity: this.getpanomineeData.PaNomineeCity,
+                PaNomineeState: this.getpanomineeData.PaNomineeState,
+                PaNomineeCountryIdP: this.getpanomineeData.PaNomineeCountryIdP,
+                PaNomineeCityIdP: this.getpanomineeData.PaNomineeCityIdP,
+                PaNomineeStateIdP: this.getpanomineeData.PaNomineeStateIdP,
+                PaNomineeDistrictIdP: this.getpanomineeData.PaNomineeDistrictIdP,
+                paNomineeTitle: this.getpanomineeData.paNomineeTitle,
+            });
+        }
+    }
+
+    // proposal creation
+    createrPoposal(){
+      alert();
 const data = {
     "enquiry_id": this.getAllPremiumDetails.enquiry_id,
     "proposal_id": 0,
@@ -516,7 +704,7 @@ const data = {
                             "TownCode": this.ProposerPa.controls['proposerPaCity'].value,
                         }
                     },
-                    "BirthDate": "1992-01-04T18:30:00.000Z",
+                    "BirthDate": this.ProposerPa.controls['proposerPaDob'].value,
                     "ContactInformation": {
                         "ContactNumber": {
                             "ContactNumber": {
@@ -550,8 +738,8 @@ const data = {
                     }
                 },
                 "Age": "26",
-                "AnnualIncome": "999999",
-                "BirthDate": "1992-01-04T18:30:00.000Z",
+                "AnnualIncome":  this.insured.controls['insuredAnnual'].value,
+                "BirthDate":  this.insured.controls['insuredPaCity'].value,
                 "ClientCode": "PolicyHolder",
                 "ContactInformation": {
                     "ContactNumber": {
@@ -577,36 +765,66 @@ const data = {
                 "OccuptionCode": "303601",
 
                 "PreviousInsurer": {
-                    "InceptionDate": "",
-                    "EndDate": "",
-                    "PreviousInsurerCode": "616301",
-                    "PreviousPolicyNumber": "3455",
-                    "SumInsured": "4545454",
-                    "QualifyingAmount": "",
-                    "WaivePeriod": "",
-                    "Remarks": ""
+                    "InceptionDate": this.insured.controls['policyStartDate'].value,
+                    "EndDate": this.insured.controls['policyEndDate'].value,
+                    "PreviousInsurerCode":this.insured.controls['insuredPrevList'].value,
+                    "PreviousPolicyNumber": this.insured.controls['insuredPrevious'].value,
+                    "SumInsured":this.insured.controls['insureSumInsured'].value,
+                    "QualifyingAmount":this.insured.controls['insuredQualify'].value,
+                    "WaivePeriod": this.insured.controls['insuredWaive'].value,
+                    "Remarks": this.insured.controls['insuredremark'].value,
                 },
                 "LifeStyleHabits": {
-                    "BeerBottle": "1",
-                    "LiquorPeg": "0",
-                    "Pouches": "0",
-                    "Smoking": "1",
-                    "WineGlass": "1"
+                    "BeerBottle": this.insured.controls['insuredBeer'].value,
+                    "LiquorPeg": this.insured.controls['insuredLiquor'].value,
+                    "Pouches":this.insured.controls['insuredPouchesList'].value,
+                    "Smoking": this.insured.controls['insuredSmokeList'].value,
+                    "WineGlass": this.insured.controls['insuredWine'].value,
                 },
                 "Product": {
                     "Product": {
                         "ClientCode": "PolicyHolder",
-                        "ProductCode": "21007",
-                        "SumAssured": "300000"
+                        "ProductCode": this.getBuyDetails.product_code,
+                        "SumAssured": this.getBuyDetails.suminsured_amount,
                     }
                 },
-                "ProfessionCode": "303960",
-                "RelationshipCode": "1",
-                "TitleCode": "MR"
+                "ProfessionCode": this.insured.controls['insuredOccupationList'].value,
+                "RelationshipCode":this.insured.controls['insuredParelationship'].value,
+                "TitleCode": this.insured.controls['insuredPaTitle'].value,
             },
             "MedicalInformations": "13131"
         }
     }
 }
+        this.settings.loadingSpinner = true;
+        this.personalservice.  getPersonalAccidentAppolloProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            }
+        );
+
+    }
+
+
+    public proposalSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.appollosummaryData = successData.ResponseObject;
+            console.log(this.appollosummaryData, 'this.summaryData');
+            this.lastPage.next();
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public proposalFailure(error) {
+        this.settings.loadingSpinner = false;
+        console.log(error);
     }
 }
+
