@@ -291,11 +291,16 @@
 
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                            <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" >
-                                <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.code">{{occupation.profession}}</mat-option>
+                            <mat-select placeholder="Profession" formControlName="insuredProfessionList" >
+                                <mat-option *ngFor="let professioncode of professionList" [value]="professioncode.code">{{professioncode.profession}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         </div>
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList">
+                          <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="insuredParelationship" required >
@@ -492,7 +497,7 @@
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker2"  placeholder="Previous StartDate(DD/MM/YYYY)"   formControlName="policyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" maxlength="10"
-                                 autocomplete="off"   required>
+                                 autocomplete="off"   >
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
@@ -501,7 +506,7 @@
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker3"  placeholder="Previous EndDate(DD/MM/YYYY)"   formControlName="policyEndDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" maxlength="10"
-                                 autocomplete="off"   required>
+                                 autocomplete="off"   >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
                         </mat-form-field>
@@ -613,41 +618,41 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName=" PaNomineeAddress" autocomplete="off" required></textarea>
-                          <mat-error *ngIf="nomineeDetail.controls. PaNomineeAddress.errors?.required">Address is required</mat-error>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="paNomineeAddress" autocomplete="off" required></textarea>
+                          <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="PaNomineePincode" autocomplete="off" required>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineePincode.hasError('required')">Pincode required</mat-error>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" required>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('required')">Pincode required</mat-error>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="PaNomineeState" (change)=" onChangeState()"  required>
+                          <mat-select placeholder="State"  formControlName="paNomineeState" (change)=" onChangeState()"  required>
                             <mat-option *ngFor="let statePA of paStateList" value="{{statePA.state_code}}" > {{statePA.state}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineeState.errors?.required">State is required</mat-error>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineeState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="PaNomineeDistrict" (change)="onChangecityListPa()">
+                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListPa()">
                             <mat-option *ngFor="let paDistrict of padistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineeDistrict.errors?.required">District is required</mat-error>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="City"  formControlName="PaNomineeCity">
+                          <mat-select placeholder="City"  formControlName="paNomineeCity">
                             <mat-option *ngFor="let paCity of paCityList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeDetail.controls.PaNomineeCity.errors?.required">City is required</mat-error>
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div>
