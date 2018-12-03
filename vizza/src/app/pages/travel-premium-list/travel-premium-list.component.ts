@@ -151,6 +151,9 @@ export class TravelPremiumListComponent implements OnInit {
         this.count = 0;
         this.sumInsuredAmonut();
     }
+    selectedSumAmount(){
+
+    }
     selfDetails() {
         this.selfArray = [
             {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''}

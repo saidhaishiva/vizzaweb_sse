@@ -336,7 +336,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'ersonalaccident_apollomunich/create_proposal_details';
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/create_proposal_details';
         console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )

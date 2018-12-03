@@ -160,11 +160,11 @@ import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/pa
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
 
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import{AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
-import { AppollomunichpaComponent } from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
@@ -309,12 +309,13 @@ import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.componen
       IffcoTokioComponent,
       ReligarePaymentSuccessPaComponent,
       DownloadMessageReligarePersonal,
-      AppollomunichpaComponent,
+
       ApollomunichPaymentSuccessComponent,
       ViewProductDetailsComponent,
       TravelCompareComponent,
       TravelViewKeyFeaturesComponent,
       BajajAlianzComponent,
+      AppollomunichpaComponent,
   ],
   providers: [
       AppSettings,
