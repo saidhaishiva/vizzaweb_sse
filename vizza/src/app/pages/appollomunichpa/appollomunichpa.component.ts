@@ -750,7 +750,7 @@ const data = {
                 },
                 "Age": "26",
                 "AnnualIncome": '200000',
-                "BirthDate":  this.insured.controls['insuredPaCity'].value,
+                "BirthDate":  this.insured.controls['insuredPaDob'].value,
                 "ClientCode": "PolicyHolder",
                 "ContactInformation": {
                     "ContactNumber": {
@@ -765,9 +765,9 @@ const data = {
                 "FamilySize": "1",
                 "FirstName": this.insured.controls['insuredPaFirstname'].value,
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
-                "GstinNumber": this.insured.controls['insuredPaCity'].value,
+                "GstinNumber": this.insured.controls['insuredPaGst'].value,
 
-                "IDProofNumber": this.insured.controls['insuredPaCity'].value,
+                "IDProofNumber": this.insured.controls[''].value,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -803,7 +803,7 @@ const data = {
                 "RelationshipCode":this.insured.controls['insuredParelationship'].value,
                 "TitleCode": this.insured.controls['insuredPaTitle'].value,
             },
-            "MedicalInformations": "13131"
+            "MedicalInformations": ""
         }
     }
 }
