@@ -105,12 +105,14 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO3'" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Driving License" formControlName="proposerDriving" >
+                          <input matInput placeholder="Driving License" formControlName="proposerDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
+                          <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'" >
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="proposerPassport" >
+                          <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <mat-error *ngIf="proposer.controls.proposerPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO4'" >
@@ -341,12 +343,14 @@
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO3'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Driving License" formControlName="proposerDriving">
+                            <input matInput placeholder="Driving License" formControlName="proposerDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
+                            <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO1'">
                           <mat-form-field class="w-100" >
-                            <input matInput placeholder="Passport" formControlName="proposerPassport">
+                            <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                            <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Passport</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO4'">

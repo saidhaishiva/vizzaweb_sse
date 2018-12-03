@@ -208,6 +208,38 @@ export class TravelComponent implements OnInit {
         this.groupDetails();
         this.studentDetails();
 
+
+        sessionStorage.selfArray = '';
+        sessionStorage.familyArray = '';
+        sessionStorage.studentArray = '';
+        sessionStorage.selectedAmountTravel = '';
+        sessionStorage.Child3BTn = '';
+        sessionStorage.FatherBTn = '';
+        sessionStorage.Member6BTn = '';
+        sessionStorage.Member7BTn = '';
+        sessionStorage.Member8BTn = '';
+        sessionStorage.Member9BTn = '';
+        sessionStorage.Member10BTn = '';
+        sessionStorage.Student5BTn = '';
+        sessionStorage.Student6BTn = '';
+        sessionStorage.Student7BTn = '';
+        sessionStorage.Student8BTn = '';
+        sessionStorage.Student9BTn = '';
+        sessionStorage.Student10BTn = '';
+        sessionStorage.startDate = '';
+        sessionStorage.endDate = '';
+        sessionStorage.travelType = '';
+        sessionStorage.travelPlan = '';
+        sessionStorage.duration = '';
+        sessionStorage.medicalCondition = '';
+        sessionStorage.allTravelPremiumLists = '';
+        sessionStorage.travelPremiumList = '';
+        sessionStorage.stepper1DetailsForTravel = '';
+        sessionStorage.stepper2DetailsForTravel = '';
+        sessionStorage.proposerAgeForTravel = '';
+        sessionStorage.mobileNumberForTravel = '';
+
+
     }
 
     onSelectedIndexChange(event){
