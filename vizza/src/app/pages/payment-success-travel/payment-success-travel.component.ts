@@ -66,7 +66,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
     public purchaseStatusSuccess(successData) {
         if (successData.IsSuccess) {
             this.purchaseStatus = successData.ResponseObject;
-
            sessionStorage.selfArray = '';
            sessionStorage.familyArray = '';
            sessionStorage.studentArray = '';
@@ -97,46 +96,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
            sessionStorage.proposerAgeForTravel = '';
            sessionStorage.mobileNumberForTravel = '';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // sessionStorage.nomineeDate = '';
-            // sessionStorage.familyMembers = '';
-            // sessionStorage.stepper1Details = '';
-            // sessionStorage.setPage = '';
-            // sessionStorage.sideMenu = false;
-            // sessionStorage.setFamilyDetails = '';
-            // sessionStorage.setInsuredAmount = '';
-            // sessionStorage.setPincode = '';
-            // sessionStorage.setPage = '';
-            // sessionStorage.policyLists = '';
-            // sessionStorage.sideMenu = '';
-            // sessionStorage.sonBTn = '';
-            // sessionStorage.daughterBTn = '';
-            // sessionStorage.fatherBTn = '';
-            // sessionStorage.motherBtn = '';
-            // sessionStorage.fatherInLawBTn = '';
-            // sessionStorage.motherInLawBtn = '';
-            // sessionStorage.changedTabDetails = '';
-            // sessionStorage.changeSuninsuredAmount = '';
-            // sessionStorage.changedTabIndex = '';
-            // sessionStorage.shorListTab = '';
-            // sessionStorage.enquiryId = '';
-            // sessionStorage.proposalId = '';
-            // sessionStorage.mobileNumber = '';
-            // sessionStorage.ageRestriction = '';
         } else {
             this.purchaseStatus = successData.ResponseObject;
         }
