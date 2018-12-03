@@ -328,13 +328,17 @@ public RediretUrlLink: any;
                 type: '',
                 cityHide: '',
                 pCityHide: '',
-                altmobileNumber:''
+                altmobileNumber:'',
+                ins_age: '',
+                ins_days: '',
+                insurerDobError: ''
             }
         );
     }
 
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
+        console.log(value, 'insurerDobErrorinsurerDobError')
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
@@ -370,12 +374,19 @@ public RediretUrlLink: any;
                         'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
             }
-            if (sessionStorage.insurerAge  >= 18) {
-                    stepper.next();
+            let ageValidate = [];
+            for (let i = 0; i< this.insurerData.length; i++){
+                if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+                    ageValidate.push(1);
 
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
+                } else{
+                    ageValidate.push(0);
+                }
             }
+            if(!ageValidate.includes(1)){
+                stepper.next();
+            }
+
         }
     }
 
@@ -560,18 +571,37 @@ public RediretUrlLink: any;
     }
 
 
-    addEvent(event, title, index) {
+    addEvent(event, index, type, title) {
         let dd = event.value;
         this.selectDate = event.value;
         console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
+        let age = this.ageCalculate(this.setDateAge);
+        let days = this.DobDaysCalculate(this.setDateAge);
+        this.personalAge = age;
+        console.log(this.personalAge, 'this.personalAge');
+
         if(title == 'proposer'){
             sessionStorage.setItem('proposerAge', this.personalAge);
         } else if(title == 'insurer') {
             sessionStorage.setItem('insurerAge', this.personalAge);
             this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
+            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daugther' )) {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
+            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daugther' ))  {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+            } else{
+                if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 18 above');
+                } else if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 18)  {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+                }
+            }
+
+
         }
         if (event.value != null) {
             let selectedDate = '';
@@ -618,6 +648,23 @@ public RediretUrlLink: any;
             }
             console.log( this.dob, 'ghjkl');
         }
+
+    }
+
+
+
+
+
+    DobDaysCalculate(dobDays) {
+        let mdate = dobDays.toString();
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
+        let todays = new Date();
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        return Bob_days;
 
     }
 
@@ -737,6 +784,9 @@ public RediretUrlLink: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].CoverTypeID.patchValue(this.getStepper2.items[i].CoverTypeID);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
                 this.insureArray['controls'].items['controls'][i]['controls'].AccumulatedCumulativeBonus.patchValue(this.getStepper2.items[i].AccumulatedCumulativeBonus);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
             }
         }
         if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -1053,7 +1103,7 @@ public RediretUrlLink: any;
                 'PrevYearPolicyEndDate': ''
             },
             'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',

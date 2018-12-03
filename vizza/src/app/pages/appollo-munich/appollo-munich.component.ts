@@ -342,6 +342,9 @@ export class AppolloMunichComponent implements OnInit {
                 type: '',
                 cityHide: '',
                 pCityHide: '',
+                ins_age: '',
+                ins_days: '',
+                insurerDobError: ''
             }
         );
     }
@@ -436,13 +439,19 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
-            if (sessionStorage.insurerAge  >= 18) {
+            let ageValidate = [];
+            for (let i = 0; i< this.insurerData.length; i++){
+                if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+                    ageValidate.push(1);
 
-                stepper.next();
-
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
+                } else{
+                    ageValidate.push(0);
+                }
             }
+            if(!ageValidate.includes(1)){
+                stepper.next();
+            }
+
         }
     }
 
@@ -629,18 +638,33 @@ export class AppolloMunichComponent implements OnInit {
     }
 
 
-    addEvent(event, title, index) {
+    addEvent(event, index, type, title) {
         let dd = event.value;
         this.selectDate = event.value;
         console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.proposerAge = this.ageCalculate(this.setDateAge);
+        let age = this.ageCalculate(this.setDateAge);
+        let days = this.DobDaysCalculate(this.setDateAge);
+        this.proposerAge = age;
         if(title == 'proposer'){
             sessionStorage.setItem('proposerAge', this.proposerAge);
         } else if(title == 'insurer') {
             sessionStorage.setItem('insurerAge', this.proposerAge);
             this.insureArray['controls'].items['controls'][index]['controls'].proposerAge.patchValue(sessionStorage.insurerAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
+            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daugther' )) {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
+            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daugther' ))  {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+            } else{
+                if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 18 above');
+                } else if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 18)  {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+                }
+            }
         }
         if (event.value != null) {
             let selectedDate = '';
@@ -687,6 +711,20 @@ export class AppolloMunichComponent implements OnInit {
             }
             console.log( this.dob, 'ghjkl');
         }
+
+    }
+
+
+    DobDaysCalculate(dobDays) {
+        let mdate = dobDays.toString();
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
+        let todays = new Date();
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        return Bob_days;
 
     }
 
@@ -1108,7 +1146,7 @@ export class AppolloMunichComponent implements OnInit {
             // }
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
-            this.proposalId = this.summaryData.proposer_id;
+            this.proposalId = this.summaryData.proposerId;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
         }
