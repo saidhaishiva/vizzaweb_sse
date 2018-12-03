@@ -60,6 +60,7 @@ export class AppolloMunichComponent implements OnInit {
     public declaration: boolean;
     public summaryData: any;
     public InsurePolicyholderDetails: any;
+    public ProposalDetails: any;
     public lastStepper: any;
     public questionerData: any;
     public webhost: any;
@@ -218,14 +219,15 @@ export class AppolloMunichComponent implements OnInit {
       });
   }
     changeGender() {
-        if (this.proposer.controls['proposerTitle'].value == 'MR'){
+        if (this.proposer.controls['proposerTitle'].value == 'MR'|| this.proposer.controls['proposerTitle'].value == 'MASTER'){
             this.proposer.controls['proposerGender'].patchValue('Male');
         } else {
             this.proposer.controls['proposerGender'].patchValue('Female');
         }
     }
     insureChangeGender(index) {
-        if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR') {
+        if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR' ||
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MASTER') {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
         } else {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
@@ -921,7 +923,6 @@ export class AppolloMunichComponent implements OnInit {
         }
 
     }
-
     //Create Appollo-Munich Details
     proposal() {
 
@@ -1089,15 +1090,25 @@ export class AppolloMunichComponent implements OnInit {
             for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++){
 
                 for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.InsurePolicyholderDetails[i].RelationshipCode == this.relationshipList[j].relationship_code ) {
+                    if(this.summaryData.InsurePolicyholderDetails[i].p_relation == this.relationshipList[j].relationship_code ) {
                         this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
                     }
                 }
             }
+            for(let i = 0; i < this.summaryData.ProposalDetails.length; i++){
 
+                for(let j = 0; j< this.relationshipList.length; j++){
+                    if(this.summaryData.ProposalDetails[i].n_relation == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.ProposalDetails[i].relationship = this.relationshipList[j].relationship;
+                    }
+                }
+            }
+            // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
+            //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
+            // }
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
-            this.proposalId = this.summaryData.InsurePolicyholderDetails[0].proposer_id;
+            this.proposalId = this.summaryData.proposer_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
         }
@@ -1477,32 +1488,6 @@ export class AppolloMunichComponent implements OnInit {
         console.log(error);
     }
 
-    // setNomineeRelationship() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'product_id': '11',
-    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-    //     }
-    //     this.proposalservice.getNomineeRelatioshipList(data).subscribe(
-    //         (successData) => {
-    //             this.setNomineeRelationshipSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.setNomineeRelationshipFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // public setNomineeRelationshipSuccess(successData) {
-    //     console.log(successData.ResponseObject);
-    //     this.nomineeRelationshipList = successData.ResponseObject;
-    //     console.log(this.nomineeRelationshipList, 'this.nomineeRelationshipList');
-    // }
-    //
-    // public setNomineeRelationshipFailure(error) {
-    //     console.log(error);
-    // }
     add(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;
@@ -1545,8 +1530,5 @@ export class AppolloMunichComponent implements OnInit {
                 event.preventDefault();
             }
         }
-    }
-    districtChange(event) {
-
     }
 }

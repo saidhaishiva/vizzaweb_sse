@@ -1825,6 +1825,10 @@ footer{
   width: 16px;
 }
 app-horizontal-menu{
+  a {
+    font-size: 12px !important;
+    padding: 0 13px !important;
+  }
   .horizontal-menu-item:last-child{
     background: #ffffff !important;
     color: #000000;

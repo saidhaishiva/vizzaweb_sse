@@ -105,12 +105,14 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO3'" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Driving License" formControlName="proposerDriving" >
+                          <input matInput placeholder="Driving License" formControlName="proposerDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
+                          <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'" >
+                      <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="proposerPassport" >
+                          <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <mat-error *ngIf="proposer.controls.proposerPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO4'" >
@@ -341,12 +343,14 @@
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO3'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Driving License" formControlName="proposerDriving">
+                            <input matInput placeholder="Driving License" formControlName="proposerDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
+                            <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO1'">
                           <mat-form-field class="w-100" >
-                            <input matInput placeholder="Passport" formControlName="proposerPassport">
+                            <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                            <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Passport</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO4'">
@@ -682,8 +686,8 @@
                       <div class="col-md-8">
                           <ul class="summary-head">
                               <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> </span></li>
-                              <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> </span></li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProductdetails.product_code}}</span></li>
+                              <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li></li>
                           </ul>
                       </div>
@@ -729,6 +733,7 @@
                       <div class="row box-card">
                           <div class="col-md-6">
                               <div class="p-3">
+                                  <h6>INSURED DETAILS</h6>
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
                                       <li class="list-group-item"><strong>Gender:</strong> {{item.i_gender}}</li>
@@ -736,13 +741,14 @@
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
                                       <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
                                       <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
-                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
+                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship}}</li>
                                   </ul>
                               </div>
                           </div>
                         <div class="col-md-6">
                           <div class="p-3">
-                            <ul>
+                              <h6>INSURED COMMUNICATION DETAILS</h6>
+                            <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Address 1:</strong> {{item.i_address1}}</li>
                             <li class="list-group-item"><strong>Address 2:</strong> {{item.i_address2}}</li>
                             <li class="list-group-item"><strong>Address 3:</strong> {{item.i_address3}}</li>
@@ -754,6 +760,33 @@
                             </ul>
                           </div>
                         </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <h6>PERSONAL HABITS</h6>
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Smoking:</strong> {{item.i_smoking}}</li>
+                                      <li class="list-group-item"><strong>Pouches:</strong> {{item.i_pouches}}</li>
+                                      <li class="list-group-item"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
+                                      <li class="list-group-item"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
+                                      <li class="list-group-item"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <h6>PREVIOUS INSURER DETAILS</h6>
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
+                                      <li class="list-group-item"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
+                                      <li class="list-group-item"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
+                                      <li class="list-group-item"><strong>Previous Policy N0:</strong> {{item.PreviousPolicyNumber}}</li>
+                                      <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
+                                      <li class="list-group-item"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
+                                      <li class="list-group-item"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
+                                      <li class="list-group-item"><strong>Remark Details:</strong> {{item.Remarks}}</li>
+                                  </ul>
+                              </div>
+                          </div>
                       </div>
                   </section>
                   <section>
@@ -765,8 +798,8 @@
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}} {{summaryData.ProposalDetails.n_name}}</li>
-                                  <li class="list-group-item"><strong>Address:</strong> {{summaryData.InsurePolicyholderDetails.n_address}}</li>
-                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.InsurePolicyholderDetails.n_relation}}</li>
+                                  <li class="list-group-item"><strong>Address:</strong> {{summaryData.ProposalDetails.n_address}}</li>
+                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.relationship}}</li>
                                 </ul>
                               </div>
                             </div>

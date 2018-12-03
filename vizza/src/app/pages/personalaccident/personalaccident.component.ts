@@ -13,6 +13,8 @@ import {GrouppopupComponent} from '../health-insurance/grouppopup/grouppopup.com
 import {CompareDetailsComponent} from './compare-details/compare-details.component';
 import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
+import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
+import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 
 @Component({
   selector: 'app-personalaccident',
@@ -471,6 +473,18 @@ export class PersonalaccidentComponent implements OnInit {
             }
         }
 
+
+    }
+    // view key features details
+    viewKeyList(value) {
+        console.log(value, 'valuevaluevaluevalue');
+        let dialogRef = this.dialog.open(ViewProductDetailsComponent, {
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name}
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
 
     }
 }

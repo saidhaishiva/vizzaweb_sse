@@ -60,7 +60,7 @@ export const verticalMenuItems = [
 ]
 
 export const horizontalMenuItems = [ 
-    new Menu (1, 'Home', '/home', null, 'home', null, false, 0),
+    new Menu (1, 'Home', '/home', null, 'home', null, true, 0),
     new Menu (2, 'Online Insurance', '/', null, null, null, true, 0),
     new Menu (6, 'Motor Car Insurance', '/fix-appointment/car', null, null, null, true, 2),
     new Menu (7, 'Motor Bike Insurance', '/fix-appointment/bike', null, null, null, true, 2),
@@ -95,15 +95,18 @@ export const horizontalMenuItems = [
     // new Menu (30, 'Aviation Insurance', '/aviation', null, null, null, false, 22),
     // new Menu (31, 'Erection All risk Policy', '/erection', null, null, null, false, 22),
     // new Menu (32, 'Directors and Officers Liability Policy', '/directors', null, null, null, false, 22),
-    new Menu (33, 'Media', '/fix-appointment/media', null, null, null, true, 0),
+    new Menu (67, 'Renewal', '/', null, null, null, true, 0),
+    new Menu (68, 'Claim Assistance', '/', null, null, null, true, 0),
+    new Menu (33, 'Blogs', '/fix-appointment/media', null, null, null, true, 0),
     new Menu (49, 'Media Library', '/', null, null, null, false, 33),
     new Menu (50, 'Learning Center', '/mediacenter', null, null, null, false, 33),
     new Menu (34, 'POS', '/about-pos', null, null, null, true, 0),
     // new Menu (36, 'About POS', '/about-pos', null, null, null, false, 34),
     // new Menu (37, 'POS Login', '/pos', null, null, null, false, 34),
-    new Menu (35, 'Contact us', '/contact', null, null, null, false, 39),
-    new Menu (38, 'Careers', '/careers', null, null, null, false, 39),
-    new Menu (39, 'About us', '/about-vizza', null, null, null, true, 0),
+    new Menu (39, 'About us', '/about-vizza', null, null, null, false, 1),
+
+    new Menu (35, 'Contact us', '/contact', null, null, null, false, 1),
+    new Menu (38, 'Careers', '/careers', null, null, null, false, 1),
     // new Menu (45, 'Login', '/', null, null, null, true, 0),
     // new Menu (46, 'POS Login', '/pos', null, null, null, false, 45),
     // new Menu (47, 'Distance Marketing Login', '/dm-login', null, null, null, false, 45),

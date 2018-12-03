@@ -90,33 +90,33 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="proposerPaIdProof"  >
+                          <mat-select placeholder="Select ID Proof"  formControlName="proposerPaIdProof" (change)="idList()">
                             <mat-option *ngFor="let IdProof of paIdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaIdProof.errors?.required">Id Proof is required</mat-error>
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100"  >
+                      <div class="col-md-3" *ngIf="pannumber">
+                        <mat-form-field class="w-100" >
                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPaPan"  autocomplete="off">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"  >
+                      <div class="col-md-3" *ngIf="drivinglicense">
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Driving License" formControlName="proposerPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaDriving.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" >
+                      <div class="col-md-3"  *ngIf="passport" >
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Passport" formControlName="proposerPaPassport"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" >
+                      <div class="col-md-3" *ngIf="voter" >
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Voter Id" formControlName="proposerPaVoter" >
                         </mat-form-field>
@@ -220,7 +220,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()">
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                           </mat-select>
@@ -266,6 +266,11 @@
                           <mat-error *ngIf="insured.controls.insuredPaEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
                       </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Annual Income"   formControlName="insuredAnnual"  autocomplete="off" required>
+                            </mat-form-field>
+                        </div>
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -283,6 +288,14 @@
                           <mat-error *ngIf="insured.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                         </mat-form-field>
                       </div>
+
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                            <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" >
+                                <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.code">{{occupation.profession}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="insuredParelationship" required >
@@ -293,33 +306,33 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof"  >
+                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="idList()">
                             <mat-option *ngFor="let IdProof of paIdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaIdProof.errors?.required">Id Proof is required</mat-error>
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="pannumber">
                         <mat-form-field class="w-100"  >
                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan"  autocomplete="off">
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"  >
-                        <mat-form-field class="w-100" >
+                      <div class="col-md-3" *ngIf="drivinglicense" >
+                        <mat-form-field class="w-100">
                           <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$">
                           <mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" >
+                      <div class="col-md-3" *ngIf="passport">
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Passport" formControlName="insuredPaPassport"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" >
+                      <div class="col-md-3" *ngIf="voter" >
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" >
                         </mat-form-field>
@@ -390,16 +403,16 @@
                         <h6 class="mt-3">Personal Habits:</h6>
                       </div>
                       <div class="col-md-6">
-                        <mat-checkbox formControlName="insuredSmoke" (change)="check1($event)">Smoking</mat-checkbox>
+                        <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" *ngIf="smoke">
-                          <mat-option value="1">less than or equal to 10 per day</mat-option>
+                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" >
+                          <mat-option value="1" >less than or equal to 10 per day</mat-option>
                           <mat-option value="2">More than 10 per day</mat-option>
                         </mat-select>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
-                        <mat-checkbox formControlName="insuredPouches">Pouches</mat-checkbox>
+                        <mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>
                         <mat-form-field class="w-100">
                         <mat-select placeholder="Pouches" formControlName="insuredPouchesList">
                           <mat-option value="1">less than or equal to 7 per day</mat-option>
@@ -411,7 +424,7 @@
                         <h6 class="mt-3">Drinking Habits(per week):</h6>
                       </div>
                       <div class="col-md-4">
-                        <mat-checkbox formControlName="insuredCheck" >Liquor Peg</mat-checkbox>
+                        <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
 
                         <mat-form-field class="w-100" >
                         <mat-select placeholder="LiquorPeg" formControlName="insuredLiquor">
@@ -430,7 +443,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
-                        <mat-checkbox formControlName="insuredCheck1">Wine Glass</mat-checkbox>
+                        <mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
                         <mat-form-field class="w-100" >
                         <mat-select placeholder=Wine formControlName="insuredWine" >
                           <mat-option value="1">1</mat-option>
@@ -448,7 +461,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
-                        <mat-checkbox formControlName="insuredCheck2">Beer Bottle</mat-checkbox>
+                        <mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
                         <mat-form-field class="w-100">
                         <mat-select placeholder=Beer formControlName="insuredBeer">
                           <mat-option value="1">1</mat-option>
@@ -469,11 +482,13 @@
                         <h6 class="mt-3">Pre Insure details:</h6>
                       </div>
                       <div class="col-md-12">
-                        <mat-radio-group>
+                        <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio" >
                           <mat-radio-button value="1">Yes</mat-radio-button>
                           <mat-radio-button value="2">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
+                      <div *ngIf="prevList">
+                      <div class="col-md-12">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker2"  placeholder="Previous StartDate(DD/MM/YYYY)"   formControlName="policyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" maxlength="10"
@@ -482,6 +497,7 @@
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                       </div>
+
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker3"  placeholder="Previous EndDate(DD/MM/YYYY)"   formControlName="policyEndDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" maxlength="10"
@@ -489,6 +505,7 @@
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
                         </mat-form-field>
+                      </div>
                       </div>
                       <div class="col-md-12">
                         <div class="row">
@@ -541,7 +558,7 @@
                         </div>
                         </div>
                       </div>
-
+                      </div>
                     </div>
 
                     <div class="proposal-buttom mt-3 text-right w-100">
@@ -586,8 +603,10 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" formControlName="paRelationship" autocomplete="off">
-                        <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
+                              <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" required >
+                                  <mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                              </mat-select>
+                          <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-12">
                         <h6 class="mt-3">Nominee Details Address :</h6>
@@ -631,7 +650,7 @@
                           <mat-error *ngIf="nomineeDetail.controls.PaNomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div>
                         <div class="proposal-buttom mb-3 text-right w-100">
                           <button mat-button matStepperPrevious>Back</button>
                           <button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetail.value)">Next</button>
@@ -643,6 +662,151 @@
               </div>
             </mat-expansion-panel>
           </mat-accordion>
+        </mat-step>
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <section class="summary-details" *ngIf="appollosummaryData">
+            <div class="row">
+              <div class="col-md-4"> <h4>{{appollosummaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-8">
+                <ul class="summary-head">
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.premium}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.premium}}</span> </li>
+                  <li></li>
+                </ul>
+              </div>
+            </div>
+            <section>
+              <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-12">
+                  <!--<h6>{{item.role_cd}} DETAILS</h6>-->
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}} </li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.ProposalDetails.p_dob}}</li>
+                      <li class="list-group-item"><strong> Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>PassPort Number:</strong>{{appollosummaryData.ProposalDetails.p_pass_idnum}}</li>
+                      <li class="list-group-item"><strong>PAN Number:</strong> {{appollosummaryData.ProposalDetails.p_pan_idnum}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.ProposalDetails.p_mobilenumber}} </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6>COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong>{{appollosummaryData.ProposalDetails.p_address1}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{appollosummaryData.ProposalDetails.p_address2}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.p_towncode}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{appollosummaryData.ProposalDetails.p_statecode}}</li>
+
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <h5 class="mt-3 sub-title">INSURE DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-12">
+                  <!--<h6>{{item.role_cd}} DETAILS</h6>-->
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
+                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}} </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6>COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_towncode}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_statecode}}</li>
+
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+            <div class="row box-card">
+              <div class="col-md-6">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Nominee name:</strong> {{appollosummaryData.proposer_details.nominee_name}}</li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.proposer_details.nominee_relationship}}</li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <hr>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <form action={{appollosummaryData.action}}  method='post' #form>
+
+                  <div>
+                    <input type='hidden' name='proposalNum' value={{appollosummaryData.proposalNum}}/>
+                    <input type='hidden' name='returnURL' value={{appollosummaryData.returnURL}}/>
+                  </div>
+                  <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                </form>
+
+
+              </div>
+            </div>
+          </section>
+
+          <div class="proposal-buttom mt-3 text-right w-100">
+            <button mat-button matStepperPrevious  >Back</button>
+          </div>
         </mat-step>
 
       </mat-horizontal-stepper>
