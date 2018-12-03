@@ -931,7 +931,7 @@ export class AppolloMunichComponent implements OnInit {
 
         const data  = {
             'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',

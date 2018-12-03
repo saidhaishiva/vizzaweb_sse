@@ -1024,7 +1024,7 @@ array: any;
 
         this.totalData = {
             'platform': 'web',
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
             'enquiry_id': this.enquiryId,
             'group_name': 'Group A',
             'company_name': 'Religare',
