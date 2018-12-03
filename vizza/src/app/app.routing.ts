@@ -84,6 +84,7 @@ import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-pre
 import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component';
+import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -176,7 +177,7 @@ export const routes: Routes = [
             { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
-
+            { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'}}
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
