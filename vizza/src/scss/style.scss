@@ -1693,42 +1693,42 @@ footer{
 #a{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  -webkit-animation: mymoveback 6s infinite;
-  animation: mymoveback 6s infinite;
+  -webkit-animation: mymoveback 12s infinite;
+  animation: mymoveback 12s infinite;
 }
 #b {
-  -webkit-animation: mymove 6s infinite;
-  animation: mymove 6s infinite;
+  -webkit-animation: mymove 12s infinite;
+  animation: mymove 12s infinite;
 }
 #a1{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  -webkit-animation: mymoveback 10s infinite;
-  animation: mymoveback 10s infinite;
+  -webkit-animation: mymoveback 14s infinite;
+  animation: mymoveback 14s infinite;
 }
 #b1 {
-  -webkit-animation: mymove 10s infinite;
-  animation: mymove 10s infinite;
+  -webkit-animation: mymove 14s infinite;
+  animation: mymove 14s infinite;
 }
 #a2{
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-  -webkit-animation: mymoveback 12s infinite;
-  animation: mymoveback 12s infinite;
-}
-#b2 {
-  -webkit-animation: mymove 12s infinite;
-  animation: mymove 12s infinite;
-}
-#a3{
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
   -webkit-animation: mymoveback 16s infinite;
   animation: mymoveback 16s infinite;
 }
-#b3 {
+#b2 {
   -webkit-animation: mymove 16s infinite;
   animation: mymove 16s infinite;
+}
+#a3{
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-animation: mymoveback 18s infinite;
+  animation: mymoveback 18s infinite;
+}
+#b3 {
+  -webkit-animation: mymove 18s infinite;
+  animation: mymove 18s infinite;
 }
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
