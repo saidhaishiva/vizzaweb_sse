@@ -108,7 +108,7 @@ export class AppolloMunichComponent implements OnInit {
     public maritalDetail: any;
     public nationalityList: any;
     public ServiceTaxId: any;
-    public setPincode: any;
+    public setStatecode: any;
     public riskData: any;
     public nomineeData: any;
     public nomineeRelationshipList: any;
@@ -717,6 +717,36 @@ export class AppolloMunichComponent implements OnInit {
         }
 
     }
+    getPincode(pin, title){
+            this.pin = pin;
+            this.title = title;
+            const data = {
+                'platform': 'web',
+                'postalcode': this.pin
+            }
+            if (this.pin.length == 6) {
+                this.proposalservice.getApollomunichPincode(data).subscribe(
+                    (successData) => {
+                        this.pincodeSuccess(successData);
+                    },
+                    (error) => {
+                        this.pincodeFailure(error);
+                    }
+                );
+            }
+        }
+
+    public pincodeSuccess(successData) {
+        this.setStatecode = successData.ResponseObject;
+        if (this.title == 'proposer') {
+            this.proposer.controls['proposerState'].patchValue(this.setStatecode.state);
+            this.proposer.controls['proposerStateIdP'].patchValue(this.setStatecode.state_code);
+            this.stateChange(this.setStatecode.state_code, this.title);
+        }
+    }
+    public pincodeFailure(error) {
+        console.log(error);
+    }
 
 
     DobDaysCalculate(dobDays) {
@@ -973,7 +1003,7 @@ export class AppolloMunichComponent implements OnInit {
                                     'CountryCode': this.proposerData.proposerCountry,
                                     'District': this.proposerData.proposerDistrict,
                                     'PinCode': this.proposerData.proposerPincode,
-                                    'StateCode': this.proposerData.proposerState,
+                                    'StateCode': this.proposerData.proposerStateIdP,
                                     'TownCode': this.proposerData.proposerCity
                                 }
                             },
@@ -1355,9 +1385,9 @@ export class AppolloMunichComponent implements OnInit {
 
 
 
-    stateChange(stateId: any, title, index){
+    stateChange(stateId, title){
             this.stateTitle = title;
-            this.stateCode = stateId.value
+            this.stateCode = stateId;
             console.log(this.stateCode);
             const data = {
                 'platform': 'web',
