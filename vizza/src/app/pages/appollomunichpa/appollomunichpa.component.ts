@@ -52,6 +52,9 @@ public declaration: any;
 public professionList: any;
 public applloPAproposalId: any;
 public webhost: any;
+public paPinList: any;
+public idListDetails: any;
+public idListDetailsProposal: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       this.ProposerPa = this.proposerpa.group({
@@ -483,18 +486,29 @@ preInsureList() {
     idList(){
       if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
       this.pannumber = true;
+      this.idListDetails = this.ProposerPa.controls['insuredPaPan'].value;
+      this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPan'].value;
       } else  if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1'){
           this.passport = true;
           this.pannumber = false;
+          this.idListDetails = this.ProposerPa.controls['insuredPaPassport'].value;
+          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPassport'].value;
+
       } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO4'){
           this.voter = true;
           this.passport = false;
           this.pannumber = false;
+          this.idListDetails = this.ProposerPa.controls['insuredPaVoter'].value;
+          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaVoter'].value;
+
       } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO3'){
           this.drivinglicense= true;
           this.voter = false;
           this.passport = false;
           this.pannumber = false;
+          this.idListDetails = this.ProposerPa.controls['insuredPaDriving'].value;
+          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaDriving'].value;
+
       }
     }
     // previous radio
@@ -626,6 +640,7 @@ preInsureList() {
                 nationality: this.appollo2.nationality,
                 insuredPaPincode: this.appollo2.insuredPaPincode,
                 insuredPaIdProof: this.appollo2.insuredPaIdProof,
+                insuredAnnual: this.appollo2.insuredAnnual,
                 insuredPaIdProofIdP: this.appollo2.insuredPaIdProofIdP,
                 insuredPaPan: this.appollo2.insuredPaPan,
                 insuredPaPassport: this.appollo2.insuredPaPassport,
@@ -647,6 +662,7 @@ preInsureList() {
                 insuredSmokeList: this.appollo2.insuredSmokeList,
                 insuredLiquor: this.appollo2.insuredLiquor,
                 insuredWine: this.appollo2.insuredWine,
+                insuredOccupationList: this.appollo2.insuredOccupationList,
                 insuredBeer: this.appollo2.insuredBeer,
                 rolecd: this.appollo2.rolecd,
                 relationshipcd: this.appollo2.relationshipcd,
@@ -672,6 +688,31 @@ preInsureList() {
             });
         }
     }
+// Pin validate
+//     pinValidate(){
+//         const data = {
+//             'platform': 'web',
+//             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+//             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+//         }
+//         this.personalservice.pinPaList(data).subscribe(
+//             (successData) => {
+//                 this.pinPaListSuccess(successData);
+//             },
+//             (error) => {
+//                 this.pinPaListFailure(error);
+//             }
+//         );
+//     }
+//
+//     public pinPaListSuccess(successData){
+//         console.log(successData.ResponseObject);
+//         this.paPinList = successData.ResponseObject;
+//         console.log( this.paPinList, 'paPinList');
+//     }
+//     public pinPaListFailure(error){
+//         console.log(error);
+//     }
 
     // proposal creation
     createrPoposal(){
@@ -679,7 +720,7 @@ preInsureList() {
       let enq_id = this.getAllPremiumDetails.enquiry_id;
 const data = {
     "enquiry_id": enq_id.toString(),
-    "proposal_id":"0",
+    "proposal_id": "0",
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
@@ -722,7 +763,7 @@ const data = {
                     "FirstName": this.ProposerPa.controls['proposerPaFirstname'].value,
                     "GenderCode": this.ProposerPa.controls['proposerPaGender'].value,
                     "GstinNumber": this.ProposerPa.controls['proposerPaGst'].value,
-                    "IDProofNumber": this.ProposerPa.controls['proposerPaPan'].value,
+                    "IDProofNumber": this.idListDetailsProposal,
                     "IDProofTypeCode":this.ProposerPa.controls['proposerPaIdProof'].value,
                     "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
                     "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
@@ -762,7 +803,7 @@ const data = {
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
 
-                "IDProofNumber": this.insured.controls['insuredPaPan'].value,
+                "IDProofNumber": this.idListDetails,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -821,7 +862,7 @@ const data = {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             console.log(this.appollosummaryData, 'this.summaryData');
-            sessionStorage.appolloPAproposalID = this.applloPAproposalId;
+            sessionStorage.appolloPAproposalID =  this.appollosummaryData.ProposalId;
 
             this.lastPage.next();
 
