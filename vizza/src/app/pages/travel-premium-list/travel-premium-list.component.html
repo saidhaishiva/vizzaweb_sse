@@ -28,7 +28,7 @@
           <td *ngIf="plists.policy_available">
             <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
           </td>
-          <td style="width: 40%" *ngIf="plists.policy_available">
+          <td style="width: 43%" *ngIf="plists.policy_available">
             <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
               <div class="col-md-5">
                 <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="text-right mt-3">
-              <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists)"><strong>Policy Details / Product Documents</strong></p>
+              <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists, premiumLists.travel_type)"><strong>Policy Details / Product Documents</strong></p>
             </div>
           </td>
           <td *ngIf="plists.policy_available">

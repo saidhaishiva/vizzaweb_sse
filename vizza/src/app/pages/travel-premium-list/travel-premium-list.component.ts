@@ -632,6 +632,7 @@ export class TravelPremiumListComponent implements OnInit {
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
                 'enquiry_id': this.premiumLists.enquiry_id,
+                'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student' ,
                 'start_date': sDate,
                 'end_date': eDate,
                 'day_count': days,
@@ -686,10 +687,10 @@ export class TravelPremiumListComponent implements OnInit {
         return Math.floor(diff / 86400000);
     }
     // view key features details
-    viewKeyList(value) {
+    viewKeyList(value, type) {
         console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
-            width: '1500px', data: {planId : value.plan_id, planName: value.plan_name}
+            width: '1500px', data: {planId : value.plan_id, planName: value.plan_name, type: type}
         });
         dialogRef.disableClose = true;
 

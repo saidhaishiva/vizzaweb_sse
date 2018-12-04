@@ -637,6 +637,12 @@ export class TravelComponent implements OnInit {
        // console.log(this.familyArray, 'this.familyArray');
         //
        // console.log(this.studentArray, 'this.studentArray');
+       //  if (groupname == 'self' || groupname == 'family' || groupname == 'group')  {
+       //      alert('in');
+       //  } else {
+       //      alert('out');
+       //
+       //  }
         if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -654,6 +660,7 @@ export class TravelComponent implements OnInit {
                 'travel_plan': this.travelPlan,
                 'travel_time_type': this.travelType,
                 'enquiry_id': '',
+                'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student' ,
                 'start_date': sDate,
                 'end_date': eDate,
                 'day_count': days,

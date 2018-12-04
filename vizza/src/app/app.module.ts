@@ -169,7 +169,6 @@ import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-paymen
 import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
 import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
-import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -314,7 +313,6 @@ import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.componen
       ViewProductDetailsComponent,
       TravelCompareComponent,
       TravelViewKeyFeaturesComponent,
-      BajajAlianzComponent,
       AppollomunichpaComponent,
   ],
   providers: [

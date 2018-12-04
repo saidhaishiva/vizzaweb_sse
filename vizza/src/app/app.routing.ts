@@ -83,7 +83,6 @@ import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
 import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
-import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -175,7 +174,6 @@ export const routes: Routes = [
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
             { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
-            { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
 
         ]
     },
