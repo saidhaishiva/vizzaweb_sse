@@ -14,6 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -610,29 +611,29 @@ export class AppolloMunichComponent implements OnInit {
     selectHabitat(value: any, id, key){
       if(key == 'Smoking' && value.checked) {
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue('');
-      } else{
+      } else if(key == 'Smoking' && !value.checked){
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue(0);
       }
       if (key == 'Pouches' && value.checked) {
             this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue('');
-        } else{
+        } else if(key == 'Pouches' && !value.checked){
             this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue(0);
         }
         if (key == 'Liquor' && value.checked) {
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue('');
-        } else{
+        } else if(key == 'Liquor' && !value.checked){
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue(0);
         }
 
         if (key == 'Wine' && value.checked) {
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue('');
-        } else{
+        } else if(key == 'Wine' && !value.checked){
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue(0);
         }
 
         if (key == 'Beer' && value.checked) {
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue('');
-        } else{
+        } else if(key == 'Beer' && !value.checked){
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
         }
     }
