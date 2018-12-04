@@ -532,14 +532,14 @@
                               <div class="row">
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" maxlength="10" autocomplete="off">
+                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="add($event)" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker3"  max="maxDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
+                            <input matInput [matDatepicker]="picker3"  [min]="minDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
                           </mat-form-field>

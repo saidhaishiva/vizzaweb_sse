@@ -55,8 +55,12 @@ public webhost: any;
 public paPinList: any;
 public idListDetails: any;
 public idListDetailsProposal: any;
+public minDate: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
+      const minDate = new Date();
+      this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      this.minDate = this.selectDate;
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -394,6 +398,7 @@ public idListDetailsProposal: any;
     addEvent(event) {
         this.selectDate = event.value;
         console.log(this.selectDate);
+        this.minDate = this.selectDate;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.personalAge = this.ageCalculate(this.setDateAge);

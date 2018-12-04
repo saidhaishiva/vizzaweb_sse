@@ -523,7 +523,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy No" formControlName="insuredPrevious">
+                            <input matInput placeholder="Previous Policy No" [min]="minDate" formControlName="insuredPrevious">
                             <mat-error *ngIf="insured.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>
                           </mat-form-field>
                         </div>

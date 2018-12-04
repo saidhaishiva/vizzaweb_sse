@@ -144,6 +144,7 @@ export class AppolloMunichComponent implements OnInit {
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      this.minDate = this.selectDate;
       this.stopNext = false;
       this.hideQuestion = false;
       this.declaration = false;
@@ -643,6 +644,7 @@ export class AppolloMunichComponent implements OnInit {
         let dd = event.value;
         this.selectDate = event.value;
         console.log(this.selectDate);
+        this.minDate = this.selectDate;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         let age = this.ageCalculate(this.setDateAge);
@@ -962,6 +964,7 @@ export class AppolloMunichComponent implements OnInit {
         }
 
     }
+
     //Create Appollo-Munich Details
     proposal() {
 
