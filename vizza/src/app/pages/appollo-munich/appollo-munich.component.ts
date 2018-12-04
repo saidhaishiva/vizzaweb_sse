@@ -344,9 +344,9 @@ export class AppolloMunichComponent implements OnInit {
                 type: '',
                 cityHide: '',
                 pCityHide: '',
-                ins_age: '',
+                insurerDobError: '',
                 ins_days: '',
-                insurerDobError: ''
+                ins_age: ''
             }
         );
     }
@@ -441,6 +441,7 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
+            console.log(this.insureArray);
             let ageValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -902,34 +903,6 @@ export class AppolloMunichComponent implements OnInit {
                 nomineeDob: this.getNomineeData.nomineeDob,
             });
         }
-
-
-        for (let i = 0; i < this.getStepper2.items.length; i++) {
-
-            if (this.getStepper2.items[i].proposerPincode != '') {
-                this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerCity.patchValue(this.getStepper2.items[i].proposerCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPincode.patchValue(this.getStepper2.items[i].proposerPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerState.patchValue(this.getStepper2.items[i].proposerState);
-
-                if (this.getStepper2.items[0].sameAsProposer) {
-                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-                }
-                if (this.getStepper2.items[i].sameas) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].proposerPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].proposerState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].proposerCity);
-                }
-                if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                }
-            }
-        }
     }
 
 
@@ -973,7 +946,7 @@ export class AppolloMunichComponent implements OnInit {
 
         const data  = {
             'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -1127,30 +1100,46 @@ export class AppolloMunichComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'summaryDatasummaryData');
-            let getdata=[];
+            // let getdata=[];
 
-            for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++){
-
-                for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.InsurePolicyholderDetails[i].p_relation == this.relationshipList[j].relationship_code ) {
+            for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
+                for (let j = 0; j < this.relationshipList.length; j++) {
+                    if (this.summaryData.InsurePolicyholderDetails[i].i_relation == this.relationshipList[j].relationship_code) {
                         this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
                     }
                 }
-            }
-            for(let i = 0; i < this.summaryData.ProposalDetails.length; i++){
-
-                for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.ProposalDetails[i].n_relation == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.ProposalDetails[i].relationship = this.relationshipList[j].relationship;
+                for (let j = 0; j < this.occupationList.length; j++) {
+                    if (this.summaryData.InsurePolicyholderDetails[i].i_occuption == this.occupationList[j].occupation_code) {
+                        this.summaryData.InsurePolicyholderDetails[i].occupation = this.occupationList[j].occupation;
                     }
                 }
-            }
+                    for(let j = 0; j< this.maritalDetail.length; j++){
+                        if(this.summaryData.InsurePolicyholderDetails[i].i_maritalstatus == this.maritalDetail[j].marital_code ) {
+                            this.summaryData.InsurePolicyholderDetails[i].marital_status = this.maritalDetail[j].marital_status;
+                        }
+                    }
+                    // if(this.summaryData.InsurePolicyholderDetails[i].i_gender == 1){
+                    //     this.summaryData.InsurePolicyholderDetails[i].i_gender.patchValue('Male');
+                    // }else{
+                    //     this.summaryData.InsurePolicyholderDetails[i].i_gender.patchValue('Female');
+                    // }
+                }
+                for(let j = 0; j< this.relationshipList.length; j++){
+                    if(this.summaryData.ProposalDetails.n_relation == this.relationshipList[j].relationship_code ) {
+                        this.summaryData.ProposalDetails.relationship = this.relationshipList[j].relationship;
+                    }
+                } for(let j = 0; j< this.maritalDetail.length; j++){
+                    if(this.summaryData.ProposalDetails.p_maritalstatus == this.maritalDetail[j].marital_code ) {
+                        this.summaryData.ProposalDetails.marital_status = this.maritalDetail[j].marital_status;
+                    }
+                }
+
             // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
             //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
             // }
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
-            this.proposalId = this.summaryData.proposerId;
+            this.proposalId = this.summaryData.ProposalId;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
         }
@@ -1529,7 +1518,6 @@ export class AppolloMunichComponent implements OnInit {
     public occupationListFailure(error) {
         console.log(error);
     }
-
     add(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;
@@ -1573,4 +1561,5 @@ export class AppolloMunichComponent implements OnInit {
             }
         }
     }
+
 }

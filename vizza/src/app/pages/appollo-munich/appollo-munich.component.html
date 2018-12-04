@@ -231,7 +231,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="onCharacter($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="onCharacter($event)" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -243,7 +243,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="onCharacter($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="onCharacter($event)" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -261,7 +261,6 @@
                             <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                           </mat-form-field>
                           <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
-
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
@@ -687,7 +686,7 @@
                       <div class="col-md-8">
                           <ul class="summary-head">
                               <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProductdetails.product_code}}</span></li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li></li>
                           </ul>
@@ -738,10 +737,10 @@
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
                                       <li class="list-group-item"><strong>Gender:</strong> {{item.i_gender}}</li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
                                       <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.occupation}}</li>
                                       <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship}}</li>
                                   </ul>
                               </div>
