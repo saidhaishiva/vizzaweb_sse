@@ -386,7 +386,7 @@
                         <div class="col-md-6">
                           <mat-checkbox formControlName="SmokingStatus" (change)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Smoking" formControlName="Smoking" [required]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
+                            <mat-select  placeholder="Smoking" formControlName="Smoking" [required]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
                               <mat-option value="1">less than or equal to 10 per day</mat-option>
                               <mat-option value="2">More than 10 per day</mat-option>
                             </mat-select>
