@@ -190,6 +190,18 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //
+    getAppolloOccupationCodeList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_occupation_code';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     // Profession List
     getProfessionList(data) {
         const json = JSON.stringify(data);
@@ -329,6 +341,18 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    // Pin validate
+    pinPaList(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_pincode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     // Appollo munich Proposal successs
     getPersonalAccidentAppolloProposal(data) {
         const json = JSON.stringify(data);
@@ -338,6 +362,19 @@ export class PersonalAccidentService {
         };
         const url = this.configurationService.getHost() + 'personalaccident_apollomunich/create_proposal_details';
         console.log(url);
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    // Download Pdf
+    getAppolloPersonalAccidentDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + '';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

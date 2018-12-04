@@ -10,7 +10,6 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title> Group A </mat-panel-title>
                 </mat-expansion-panel-header>
-
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-green">PROPOSER DETAILS</h6>
@@ -48,7 +47,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'proposer', 'i')" (dateChange)="addEvent( $event, 'proposer', 'i')"  (keypress)="add($event)"
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
@@ -151,7 +150,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -159,12 +158,15 @@
                       </div>
 
                       <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event, 'proposer', 'index')" required>
-                            <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
-                        </mat-form-field>
+                          <mat-form-field class="w-100" >
+                              <input matInput placeholder="State" formControlName="proposerState" required readonly>
+                              <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
+                          </mat-form-field>
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="State"  formControlName="proposerState" (change)="stateChange($event, 'proposer', 'index')" required>-->
+                            <!--<mat-option *ngFor="let AppolloState of setStatecode" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>-->
+                          <!--</mat-select>-->
+                        <!--</mat-form-field>-->
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -232,7 +234,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="onCharacter($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="onCharacter($event)" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -244,7 +246,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="onCharacter($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="onCharacter($event)" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -256,11 +258,12 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent($event)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>
+                            <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent( $event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                           </mat-form-field>
+                          <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
@@ -385,7 +388,7 @@
                         <div class="col-md-6">
                           <mat-checkbox formControlName="SmokingStatus" (change)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Smoking" formControlName="Smoking" [required]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
+                            <mat-select  placeholder="Smoking" formControlName="Smoking" [required]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
                               <mat-option value="1">less than or equal to 10 per day</mat-option>
                               <mat-option value="2">More than 10 per day</mat-option>
                             </mat-select>
@@ -531,14 +534,14 @@
                               <div class="row">
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" maxlength="10" autocomplete="off">
+                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="add($event)" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker3"  max="maxDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
+                            <input matInput [matDatepicker]="picker3"  [min]="minDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
                           </mat-form-field>
@@ -642,7 +645,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="nomineeState" (change)="stateChange($event, 'nominee','i')" required>
+                          <mat-select placeholder="State"  formControlName="nomineeState"  required>
                             <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
@@ -686,7 +689,7 @@
                       <div class="col-md-8">
                           <ul class="summary-head">
                               <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProductdetails.product_code}}</span></li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li></li>
                           </ul>
@@ -737,10 +740,10 @@
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
                                       <li class="list-group-item"><strong>Gender:</strong> {{item.i_gender}}</li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
                                       <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.occupation}}</li>
                                       <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship}}</li>
                                   </ul>
                               </div>
