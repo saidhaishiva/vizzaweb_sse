@@ -697,10 +697,10 @@ console.log(value,'fgh');
 
     }
     typeAge(value, index, ci) {
-        if (value >= 18) {
-            this.nomineeDate[index].nominee[ci].ageSetting = false;
-        } else {
+        if (value <= 18) {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
+        } else {
+            this.nomineeDate[index].nominee[ci].ageSetting = false;
         }
     }
     //Nominee Details

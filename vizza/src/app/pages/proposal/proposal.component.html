@@ -345,10 +345,10 @@
                     </div>
                     </div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Height(cms)" (keypress)="keyPress($event)"  maxlength="3"  [(ngModel)]="item.ins_height" required >
+                      <input matInput placeholder="Height(cms)" (keypress)="keyPress($event)"  maxlength="3"  [(ngModel)]="item.ins_height" autocomplete="off" required >
                     </mat-form-field></div>
                     <div class="col-md-6"><mat-form-field class="w-100">
-                      <input matInput placeholder="Weight(kgs)" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.ins_weight" required >
+                      <input matInput placeholder="Weight(kgs)" (keypress)="keyPress($event)"  maxlength="3" [(ngModel)]="item.ins_weight"  autocomplete="off" required >
                     </mat-form-field></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
@@ -455,7 +455,7 @@
                         <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="keyPress($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim)"  >
                       </mat-form-field></div>
                     </div>
-                    <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS {{nomineeadd.ageSetting}}</h6>
+                    <h6 class="color-green  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS</h6>
                     <div class="row" *ngIf="nomineeadd.ageSetting">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
