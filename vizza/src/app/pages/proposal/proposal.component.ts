@@ -942,8 +942,8 @@ console.log(value,'fgh');
                         this.familyMembers[i].ageRestriction = '';
                     }
                 } else if(this.buyProductdetails.product_id == '7' && (type != 'Son' || type != 'Daughter')) {
-                    if (age < 25 || age > 60) {
-                        this.familyMembers[i].ageRestriction = ' Age between 25 years to 60 years';
+                    if (age < 18 || age > 60) {
+                        this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
                     } else {
                         this.familyMembers[i].ageRestriction = '';
                     }
@@ -958,7 +958,7 @@ console.log(value,'fgh');
                         this.familyMembers[i].ageRestriction = '';
                     }
                 } else if (this.buyProductdetails.product_id == '8' && (type != 'Son' || type != 'Daughter')) {
-                    if (age < 18 || age > 60) {
+                    if (age <= 18 || age > 60) {
                         this.familyMembers[i].ageRestriction = 'Age between 3 months to 60 years';
                     } else {
                         this.familyMembers[i].ageRestriction = '';
@@ -1017,8 +1017,8 @@ console.log(value,'fgh');
                         this.familyMembers[i].ageRestriction = '';
                     }
                 } else if(this.buyProductdetails.product_id == '7' && (type != 'Son' || type != 'Daughter')) {
-                    if (age < 25 || age > 60) {
-                        this.familyMembers[i].ageRestriction = ' Age between 25 years to 60 years';
+                    if (age <= 18 || age > 60) {
+                        this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
                     } else {
                         this.familyMembers[i].ageRestriction = '';
                     }
