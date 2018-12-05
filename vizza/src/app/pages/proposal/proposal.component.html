@@ -340,7 +340,7 @@
                         <mat-radio-button value="false">No</mat-radio-button>
                       </mat-radio-group>
                       <mat-form-field class="w-100" *ngIf="item.illness == 'true'">
-                        <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" required >
+                        <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" (keypress)="data($event)" required >
                       </mat-form-field>
                     </div>
                     </div>
