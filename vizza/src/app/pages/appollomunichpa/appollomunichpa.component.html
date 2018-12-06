@@ -152,7 +152,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="onNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="proposerPaPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  (keypress)="onNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="proposerPaPincode" autocomplete="off" (input)="getPostalCode($event.target.value)" required>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -161,9 +161,10 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="proposerPaState" (change)=" onChangeState()"  required>
-                            <mat-option *ngFor="let statePA of paStateList" value="{{statePA.state_code}}" > {{statePA.state}} </mat-option>
-                          </mat-select>
+                          <input matInput placeholder="State" formControlName="proposproposerPaStateerPaDriving" required>
+
+                          <!--<mat-select placeholder="State"  formControlName="proposerPaState" (change)=" onChangeState()"  required>-->
+
                           <mat-error *ngIf="ProposerPa.controls.proposerPaState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -601,25 +602,25 @@
                       <div class="col-md-12">
                         <h6 class="mt-3">Nominee Details Address :</h6>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="paNomineeAddress" autocomplete="off" required></textarea>
                           <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <mat-form-field class="w-100">
                                 <textarea matInput placeholder="Address 2" rows="2" formControlName="paNomineeAddress2" autocomplete="off" ></textarea>
                                 <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress2.errors?.required">Address is required</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <mat-form-field class="w-100">
                                 <textarea matInput placeholder="Address 3" rows="2" formControlName="paNomineeAddress3" autocomplete="off" ></textarea>
                                 <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress3.errors?.required">Address is required</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12"></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" required>
@@ -654,7 +655,6 @@
                         </mat-form-field>
                       </div>
                       </div>
-                    </div>
                       <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-right w-100">
                           <button mat-button matStepperPrevious>Back</button>

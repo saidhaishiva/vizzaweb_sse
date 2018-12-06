@@ -57,6 +57,7 @@ public idListDetails: any;
 public idListDetailsProposal: any;
 public minDate: any;
 public appolloPA: any;
+public pin: any;
 public insuredPouches: boolean;
 public insuredCheck2: boolean;
 public insuredCheck1: boolean;
@@ -165,6 +166,8 @@ public insuredSmoke: boolean;
           paNomineeName: '',
           paRelationship: '',
           paNomineeAddress: ['', Validators.required],
+          paNomineeAddress2:'',
+          paNomineeAddress3: '',
           nationality: 'IN',
           paNomineePincode: ['', Validators.required],
           paNomineeCity: ['', Validators.required],
@@ -390,6 +393,7 @@ public insuredSmoke: boolean;
         console.log(successData.ResponseObject);
         this.paCityList = successData.ResponseObject;
         console.log( this.paCityList, 'paCityList');
+
     }
     public paCityPaListFailure(error){
         console.log(error);
@@ -724,6 +728,8 @@ preInsureList() {
                 paNomineeName: this.getpanomineeData.paNomineeName,
                 paRelationship: this.getpanomineeData.paRelationship,
                 paNomineeAddress: this.getpanomineeData.paNomineeAddress,
+                paNomineeAddress2: this.getpanomineeData.paNomineeAddress2,
+                paNomineeAddress3: this.getpanomineeData.paNomineeAddress3,
                 paNomineePincode: this.getpanomineeData.paNomineePincode,
                 paNomineeCountry: this.getpanomineeData.paNomineeCountry,
                 paNomineeCity: this.getpanomineeData.paNomineeCity,
@@ -737,30 +743,34 @@ preInsureList() {
         }
     }
 // Pin validate
-//     pinValidate(){
-//         const data = {
-//             'platform': 'web',
-//             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-//         }
-//         this.personalservice.pinPaList(data).subscribe(
-//             (successData) => {
-//                 this.pinPaListSuccess(successData);
-//             },
-//             (error) => {
-//                 this.pinPaListFailure(error);
-//             }
-//         );
-//     }
-//
-//     public pinPaListSuccess(successData){
-//         console.log(successData.ResponseObject);
-//         this.paPinList = successData.ResponseObject;
-//         console.log( this.paPinList, 'paPinList');
-//     }
-//     public pinPaListFailure(error){
-//         console.log(error);
-//     }
+    getPostalCode(pin){
+      console.log(pin , 'pinpin');
+      this.pin =pin;
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'postalcode': this.pin
+        }
+        this.personalservice.pinPaList(data).subscribe(
+            (successData) => {
+                this.pinPaListSuccess(successData);
+            },
+            (error) => {
+                this.pinPaListFailure(error);
+            }
+        );
+    }
+
+    public pinPaListSuccess(successData){
+        console.log(successData);
+        this.paPinList = successData.ResponseObject;
+        console.log( this.paPinList, 'paPinList');
+        // this.ProposerPa.controls['proposerPaState'].value
+    }
+    public pinPaListFailure(error){
+        console.log(error);
+    }
 
     // proposal creation
     createrPoposal(){
