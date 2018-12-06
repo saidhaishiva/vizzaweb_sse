@@ -413,7 +413,7 @@
                       <div class="col-md-6">
                         <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" >
+                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" [required]="insuredSmoke">
                           <mat-option value="1" >less than or equal to 10 per day</mat-option>
                           <mat-option value="2">More than 10 per day</mat-option>
                         </mat-select>
@@ -422,7 +422,7 @@
                       <div class="col-md-6">
                         <mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Pouches" formControlName="insuredPouchesList">
+                        <mat-select placeholder="Pouches" formControlName="insuredPouchesList" [required]="insuredPouches">
                           <mat-option value="1">less than or equal to 7 per day</mat-option>
                           <mat-option value="2">less than or equal to 7 per day</mat-option>
                         </mat-select>
@@ -435,7 +435,7 @@
                         <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
 
                         <mat-form-field class="w-100" >
-                        <mat-select placeholder="LiquorPeg" formControlName="insuredLiquor">
+                        <mat-select placeholder="LiquorPeg" formControlName="insuredLiquor" [required]="insuredCheck">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -452,8 +452,8 @@
                       </div>
                       <div class="col-md-4">
                         <mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
-                        <mat-form-field class="w-100" >
-                        <mat-select placeholder=Wine formControlName="insuredWine" >
+                        <mat-form-field class="w-100">
+                        <mat-select placeholder=Wine formControlName="insuredWine" [required]="insuredCheck1">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -470,8 +470,8 @@
                       </div>
                       <div class="col-md-4">
                         <mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
-                        <mat-form-field class="w-100">
-                        <mat-select placeholder=Beer formControlName="insuredBeer">
+                        <mat-form-field class="w-100" >
+                        <mat-select placeholder=Beer formControlName="insuredBeer" [required]="insuredCheck2">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -496,8 +496,8 @@
                         </mat-radio-group>
                       </div>
                    <div *ngIf="prevList">
+                     <div class="col-md-12">
                         <div class="row">
-                          <div class="col-md-12">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)" (keypress)="onNumber($event)"   formControlName="PolicyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  maxlength="10" minlength="10" autocomplete="off">
@@ -512,8 +512,6 @@
                               <mat-datepicker #picker3></mat-datepicker>
                             </mat-form-field>
                           </div>
-                          </div>
-                          <div class="col-md-12">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <mat-select placeholder="Previous Insurance List" (keypress)="onNumber($event)"  formControlName="insuredPrevList" (change)="preInsureList()">
@@ -527,8 +525,6 @@
                               <mat-error *ngIf="insured.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>
                             </mat-form-field>
                           </div>
-                          </div>
-                          <div class="col-md-12">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Sum Insured" (keypress)="onNumber($event)"  formControlName="insureSumInsured">
@@ -541,8 +537,6 @@
                               <mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
-                          </div>
-                          <div class="col-md-12">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Waive Period" (keypress)="onNumber($event)"  formControlName="insuredWaive">
@@ -556,9 +550,8 @@
                             </mat-form-field>
                           </div>
                         </div>
-                      </div>
                    </div>
-
+                   </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious>Back</button>
                       <button mat-raised-button color="primary"  (click)="InsureDetails(stepper, insured.value)" >Next</button>

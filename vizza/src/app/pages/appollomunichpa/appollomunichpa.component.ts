@@ -57,6 +57,11 @@ public idListDetails: any;
 public idListDetailsProposal: any;
 public minDate: any;
 public appolloPA: any;
+public insuredPouches: boolean;
+public insuredCheck2: boolean;
+public insuredCheck1: boolean;
+public insuredCheck: boolean;
+public insuredSmoke: boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -482,30 +487,40 @@ preInsureList() {
     // checkbox
     checkHabits(value, type){
       if(value.checked && type == 'smoke'){
+          this.insuredSmoke = true;
           this.insured.controls['insuredSmokeList'].enable();
       } else {
-          this.insured.controls['insuredSmokeList'].disable();
+          this.insuredSmoke = false;
+          this.insured.controls['insuredSmokeList'].patchValue('');
 
       }
     if(value.checked && type == 'pouches'){
+        this.insuredPouches = true;
             this.insured.controls['insuredPouchesList'].enable();
         } else {
-            this.insured.controls['insuredPouchesList'].disable();
+        this.insuredPouches = false;
+        this.insured.controls['insuredPouchesList'].patchValue('');
         }
         if(value.checked && type == 'liquor'){
+            this.insuredCheck = true;
             this.insured.controls['insuredLiquor'].enable();
         } else {
-            this.insured.controls['insuredLiquor'].disable();
+            this.insuredCheck = false;
+            this.insured.controls['insuredLiquor'].patchValue('');
         }
         if(value.checked && type == 'wine'){
+            this.insuredCheck = true;
             this.insured.controls['insuredWine'].enable();
         } else {
-            this.insured.controls['insuredWine'].disable();
+            this.insuredCheck = false;
+            this.insured.controls['insuredWine'].patchValue('');
         }
         if(value.checked && type == 'beer'){
+            this.insuredCheck2 = true;
             this.insured.controls['insuredBeer'].enable();
         } else {
-            this.insured.controls['insuredBeer'].disable();
+            this.insuredCheck2 = false;
+            this.insured.controls['insuredBeer'].patchValue('');
         }
     }
 
