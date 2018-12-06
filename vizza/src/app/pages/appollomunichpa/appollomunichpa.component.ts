@@ -56,11 +56,13 @@ public paPinList: any;
 public idListDetails: any;
 public idListDetailsProposal: any;
 public minDate: any;
+public appolloPA: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       this.minDate = this.selectDate;
+      this.mobileNumber = 'true';
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -71,7 +73,7 @@ public minDate: any;
           proposerPaEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           proposerPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
-          proposerParelationship: 'SELF',
+          proposerParelationship: '',
           proposerPaIdProof: '',
           proposerPaIdProofIdP: '',
           proposerPaPan: ['', Validators.compose([ Validators.minLength(10)])],
@@ -108,7 +110,7 @@ public minDate: any;
           insuredPaEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           insuredPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
-          insuredParelationship: 'SELF',
+          insuredParelationship: '',
           insuredPaIdProof: '',
           insuredPaIdProofIdP: '',
           insuredPaPan: ['', Validators.compose([ Validators.minLength(10)])],
@@ -314,7 +316,26 @@ public minDate: any;
     public pastateListFailure(error){
         console.log(error);
     }
-
+// accept Only Number
+    public onNumber(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    // Accept Only Character
+    public onCharacter(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     // District List
    onChangeState(){
         const data = {
@@ -375,13 +396,13 @@ public minDate: any;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
         if (this.ProposerPa.valid) {
-
+            if (sessionStorage.proposerAge >= 18) {
                     stepper.next();
-
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
         }
+    }
 
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
@@ -402,6 +423,7 @@ public minDate: any;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.personalAge = this.ageCalculate(this.setDateAge);
+        console.log(this.personalAge, 'this.personalAge');
         sessionStorage.setItem('proposerAge', this.personalAge);
     }
 
@@ -491,11 +513,16 @@ preInsureList() {
     idList(){
       if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
       this.pannumber = true;
-      this.idListDetails = this.ProposerPa.controls['insuredPaPan'].value;
+          this.voter = false;
+          this.passport = false;
+          this.drivinglicense= false;
+          this.idListDetails = this.ProposerPa.controls['insuredPaPan'].value;
       this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPan'].value;
       } else  if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1'){
           this.passport = true;
           this.pannumber = false;
+          this.voter = false;
+          this.drivinglicense= false;
           this.idListDetails = this.ProposerPa.controls['insuredPaPassport'].value;
           this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPassport'].value;
 
@@ -503,6 +530,7 @@ preInsureList() {
           this.voter = true;
           this.passport = false;
           this.pannumber = false;
+          this.drivinglicense= false;
           this.idListDetails = this.ProposerPa.controls['insuredPaVoter'].value;
           this.idListDetailsProposal = this.ProposerPa.controls['proposerPaVoter'].value;
 
@@ -768,7 +796,7 @@ const data = {
                     "FirstName": this.ProposerPa.controls['proposerPaFirstname'].value,
                     "GenderCode": this.ProposerPa.controls['proposerPaGender'].value,
                     "GstinNumber": this.ProposerPa.controls['proposerPaGst'].value,
-                    "IDProofNumber": this.idListDetailsProposal,
+                    "IDProofNumber":this.ProposerPa.controls['proposerPaPan'].value,
                     "IDProofTypeCode":this.ProposerPa.controls['proposerPaIdProof'].value,
                     "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
                     "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
@@ -808,7 +836,7 @@ const data = {
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
 
-                "IDProofNumber": this.idListDetails,
+                "IDProofNumber": this.insured.controls['insuredPaPan'].value,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -867,7 +895,9 @@ const data = {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             console.log(this.appollosummaryData, 'this.summaryData');
-            sessionStorage.appolloPAproposalID =  this.appollosummaryData.ProposalId;
+            this.appolloPA = this.appollosummaryData.ProposalId;
+            console.log( this.appolloPA, ' this.appolloPA');
+            sessionStorage.appolloPAproposalID = this.appolloPA ;
 
             this.lastPage.next();
 
