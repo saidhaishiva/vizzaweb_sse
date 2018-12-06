@@ -577,7 +577,7 @@
                   <h6 class="color-green mb-3" >NOMINEE DETAILS </h6>
                   <form [formGroup]="nomineeDetail">
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="paNomineeTitle" (change)="changeGender()">
                             <mat-option value="MR">Mr</mat-option>
@@ -586,13 +586,13 @@
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Name of Nominee"  formControlName="paNomineeName" (keypress)="onCharacter($event)" autocomplete="off">
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                               <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" required >
                                   <mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                               </mat-select>
@@ -607,6 +607,19 @@
                           <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <textarea matInput placeholder="Address 2" rows="2" formControlName="paNomineeAddress2" autocomplete="off" ></textarea>
+                                <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress2.errors?.required">Address is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <textarea matInput placeholder="Address 3" rows="2" formControlName="paNomineeAddress3" autocomplete="off" ></textarea>
+                                <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress3.errors?.required">Address is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" required>
@@ -640,12 +653,13 @@
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div>
+                      </div>
+                    </div>
+                      <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-right w-100">
                           <button mat-button matStepperPrevious>Back</button>
                           <button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetail.value)">Next</button>
                         </div></div>
-                    </div>
                   </form>
                 </div>
 
@@ -654,7 +668,7 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="appollosummaryData">
             <div class="row">
               <div class="col-md-4"> <h4>{{appollosummaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
