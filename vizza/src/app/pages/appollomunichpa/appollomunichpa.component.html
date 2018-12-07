@@ -392,7 +392,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListPa()">
+                          <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa()">
                             <mat-option *ngFor="let paDistrict of paInsureddistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
@@ -636,7 +636,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListPa()">
+                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa()">
                             <mat-option *ngFor="let paDistrict of paNomineedistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>
