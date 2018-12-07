@@ -1253,9 +1253,10 @@ console.log(value,'fgh');
             this.rAreaNames = successData.ResponseObject.area;
             // this.rAreaName = this.rAreaNames.area;
             if (this.sumTitle == 'residence') {
-                for (let i =0; i < this.rAreaName.length; i++) {
-                    if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
-                        this.sumAreaName = this.rAreaName[i].areaName;
+                for (let i =0; i < this.rAreaNames.length; i++) {
+                    if (this.rAreaNames[i].areaID == this.summaryData.prop_res_area) {
+                        this.sumAreaName = this.rAreaNames[i].areaName;
+                        console.log( this.sumAreaName, ' this.sumAreaName');
                     }
 
                 }
@@ -1288,9 +1289,10 @@ console.log(value,'fgh');
             this.rAreaNames = successData.ResponseObject.area;
             // this.rAreaName = this.rAreaNames.area;
             if (this.title == 'personal') {
-                for (let i =0; i < this.rAreaName.length; i++) {
-                    if (this.rAreaName[i].areaID == this.summaryData.prop_comm_area) {
-                        this.sumAreaNameComm = this.rAreaName[i].areaName;
+                for (let i =0; i < this.rAreaNames.length; i++) {
+                    if (this.rAreaNames[i].areaID == this.summaryData.prop_comm_area) {
+                        this.sumAreaNameComm = this.rAreaNames[i].areaName;
+                        console.log(this.sumAreaNameComm, ' this.sumAreaNameComm');
                     }
 
                 }
