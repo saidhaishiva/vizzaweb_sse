@@ -1544,6 +1544,15 @@ public RediretUrlLink: any;
             }
         }
     }
+    public keyEvent(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     alternateChange(event) {
         console.log(event,'ghj');
         if (event.target.value.length == 10) {

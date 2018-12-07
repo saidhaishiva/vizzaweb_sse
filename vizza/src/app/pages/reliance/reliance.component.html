@@ -432,17 +432,17 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Details Of Pre Claim On Insured" formControlName="DetailsOfPreClaimOnInsured" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Details Of Pre Claim On Insured" formControlName="DetailsOfPreClaimOnInsured"  (keypress)="keyEvent($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Details Of Prev Insurance Cancelled" formControlName="DetailsOfPrevInsuranceCancelled" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Details Of Prev Insurance Cancelled" formControlName="DetailsOfPrevInsuranceCancelled" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Other Disease" formControlName="OtherDisease" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Other Disease" formControlName="OtherDisease" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-12">
@@ -450,7 +450,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
