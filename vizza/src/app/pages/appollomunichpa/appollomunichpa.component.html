@@ -161,7 +161,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="proposproposerPaStateerPaDriving" required>
+                          <input matInput placeholder="State" formControlName="proposerPaState" required>
 
                           <!--<mat-select placeholder="State"  formControlName="proposerPaState" (change)=" onChangeState()"  required>-->
 
@@ -377,7 +377,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="onNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="insuredPaPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  (keypress)="onNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -386,16 +386,14 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="insuredPaState" (change)=" onChangeState()"  required>
-                            <mat-option *ngFor="let statePA of paStateList" value="{{statePA.state_code}}" > {{statePA.state}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="insured.controls.insuredPaState.errors?.required">State is required</mat-error>
+                            <input matInput placeholder="State" formControlName="insuredPaState"  autocomplete="off">
+                            <mat-error *ngIf="insured.controls.insuredPaState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListPa()">
-                            <mat-option *ngFor="let paDistrict of padistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
+                            <mat-option *ngFor="let paDistrict of paInsureddistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -403,7 +401,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="insuredPaCity">
-                            <mat-option *ngFor="let paCity of paCityList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
+                            <mat-option *ngFor="let paCity of paCityInsuredList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -623,7 +621,7 @@
                         <div class="col-md-12"></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" (input)=" getnomineePostalCode($event.target.value)" required>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -632,16 +630,14 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="paNomineeState" (change)=" onChangeState()"  required>
-                            <mat-option *ngFor="let statePA of paStateList" value="{{statePA.state_code}}" > {{statePA.state}} </mat-option>
-                          </mat-select>
+                          <input matInput placeholder="State"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineeState" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListPa()">
-                            <mat-option *ngFor="let paDistrict of padistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
+                            <mat-option *ngFor="let paDistrict of paNomineedistrictList" value="{{paDistrict.district_code}}" > {{paDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -649,7 +645,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="paNomineeCity">
-                            <mat-option *ngFor="let paCity of paCityList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
+                            <mat-option *ngFor="let paCity of paCityNomineeList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>

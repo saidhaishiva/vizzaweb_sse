@@ -63,6 +63,12 @@ public insuredCheck2: boolean;
 public insuredCheck1: boolean;
 public insuredCheck: boolean;
 public insuredSmoke: boolean;
+public paInsureddistrictList: any;
+public paPinInsuredList: any;
+public paCityInsuredList: any;
+public paPinnomineeList: any;
+public paCityNomineeList: any;
+public paNomineedistrictList: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -337,7 +343,7 @@ public insuredSmoke: boolean;
     // Accept Only Character
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -348,7 +354,7 @@ public insuredSmoke: boolean;
    onChangeState(){
         const data = {
             'platform': 'web',
-            'state_code':this.ProposerPa.controls['proposerPaState'].value,
+            'state_code':this.ProposerPa.controls['proposerPaStateIdP'].value,
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
         }
@@ -375,7 +381,7 @@ public insuredSmoke: boolean;
     onChangecityListPa(){
         const data = {
             'platform': 'web',
-            'state_code':this.ProposerPa.controls['proposerPaState'].value,
+            'state_code':this.ProposerPa.controls['proposerPaStateIdP'].value,
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
         }
@@ -396,6 +402,113 @@ public insuredSmoke: boolean;
 
     }
     public paCityPaListFailure(error){
+        console.log(error);
+    }
+    // insured district list
+    onChangeStateInsured(){
+        const data = {
+            'platform': 'web',
+            'state_code':this.insured.controls['insuredPaStateIdP'].value,
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.districtPaList(data).subscribe(
+            (successData) => {
+                this.insureddistrictPaListSuccess(successData);
+            },
+            (error) => {
+                this.insureddistrictPaListFailure(error);
+            }
+        );
+    }
+
+    public insureddistrictPaListSuccess(successData){
+        console.log(successData.ResponseObject);
+        this.paInsureddistrictList = successData.ResponseObject;
+        console.log( this.paInsureddistrictList, 'paInsureddistrictList');
+    }
+    public insureddistrictPaListFailure(error){
+        console.log(error);
+    }
+     // insured City
+    onChangecityListInsuredPa(){
+        const data = {
+            'platform': 'web',
+            'state_code':this.insured.controls['insuredPaStateIdP'].value,
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.cityPaList(data).subscribe(
+            (successData) => {
+                this.insuredCityPaListSuccess(successData);
+            },
+            (error) => {
+                this.insuredCityPaListFailure(error);
+            }
+        );
+    }
+
+    public insuredCityPaListSuccess(successData){
+        console.log(successData.ResponseObject);
+        this.paCityInsuredList = successData.ResponseObject;
+        console.log( this.paCityInsuredList, 'paCityInsuredList');
+
+    }
+    public insuredCityPaListFailure(error){
+        console.log(error);
+    }
+
+    // nominee district list
+    onChangeStateNominee(){
+        const data = {
+            'platform': 'web',
+            'state_code':this.nomineeDetail.controls['paNomineeStateIdP'].value,
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.districtPaList(data).subscribe(
+            (successData) => {
+                this.nomineedistrictPaListSuccess(successData);
+            },
+            (error) => {
+                this.nomineedistrictPaListFailure(error);
+            }
+        );
+    }
+
+    public nomineedistrictPaListSuccess(successData){
+        console.log(successData.ResponseObject);
+        this.paNomineedistrictList = successData.ResponseObject;
+        console.log( this.paNomineedistrictList, 'paNomineedistrictList');
+    }
+    public nomineedistrictPaListFailure(error){
+        console.log(error);
+    }
+    // nominee City
+    onChangecityListNomineePa(){
+        const data = {
+            'platform': 'web',
+            'state_code':this.nomineeDetail.controls['paNomineeStateIdP'].value,
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.cityPaList(data).subscribe(
+            (successData) => {
+                this.insuredCityPaListSuccess(successData);
+            },
+            (error) => {
+                this.insuredCityPaListFailure(error);
+            }
+        );
+    }
+
+    public nomineeCityPaListSuccess(successData){
+        console.log(successData.ResponseObject);
+        this.paCityNomineeList = successData.ResponseObject;
+        console.log( this.paCityNomineeList, 'paCityNomineeList');
+
+    }
+    public nomineeCityPaListFailure(error){
         console.log(error);
     }
     // Proposal details first Page
@@ -465,7 +578,6 @@ public insuredSmoke: boolean;
 preInsureList() {
         const data = {
             'platform': 'web',
-
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
         }
@@ -743,35 +855,104 @@ preInsureList() {
         }
     }
 // Pin validate
-    getPostalCode(pin){
-      console.log(pin , 'pinpin');
-      this.pin =pin;
+    getPostalCode(pin) {
+        console.log(pin, 'pinpin');
+        this.pin = pin;
         const data = {
             'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
             'postalcode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.personalservice.pinPaList(data).subscribe(
+                (successData) => {
+                    this.pinPaListSuccess(successData);
+                },
+                (error) => {
+                    this.pinPaListFailure(error);
+                }
+            );
         }
-        this.personalservice.pinPaList(data).subscribe(
-            (successData) => {
-                this.pinPaListSuccess(successData);
-            },
-            (error) => {
-                this.pinPaListFailure(error);
-            }
-        );
     }
-
     public pinPaListSuccess(successData){
         console.log(successData);
         this.paPinList = successData.ResponseObject;
-        console.log( this.paPinList, 'paPinList');
-        // this.ProposerPa.controls['proposerPaState'].value
+        console.log( this.paPinList.state, 'paPinList');
+        this.ProposerPa.controls['proposerPaState'].patchValue(this.paPinList.state);
+        this.ProposerPa.controls['proposerPaStateIdP'].patchValue(this.paPinList.state_code);
+        this.onChangeState();
+       this.onChangecityListPa();
+
     }
+
     public pinPaListFailure(error){
         console.log(error);
     }
+// insured pin validate
+    getinsuredPostalCode(pin) {
+        console.log(pin, 'pinpin');
+        this.pin = pin;
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.personalservice.pinPaList(data).subscribe(
+                (successData) => {
+                    this.pinPaInsuredListSuccess(successData);
+                },
+                (error) => {
+                    this.pinPaInsuredListFailure(error);
+                }
+            );
+        }
+    }
+    public pinPaInsuredListSuccess(successData){
+        console.log(successData);
+        this.paPinInsuredList = successData.ResponseObject;
+        console.log( this.paPinInsuredList.state, 'paPinInsuredList');
+        this.insured.controls['insuredPaState'].patchValue(this.paPinInsuredList.state);
+        this.insured.controls['insuredPaStateIdP'].patchValue(this.paPinInsuredList.state_code);
+         this.onChangecityListInsuredPa();
+         this.onChangeStateInsured();
 
+    }
+
+    public pinPaInsuredListFailure(error){
+        console.log(error);
+    }
+    // nomineee pin validate
+    getnomineePostalCode(pin) {
+        console.log(pin, 'pinpin');
+        this.pin = pin;
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.personalservice.pinPaList(data).subscribe(
+                (successData) => {
+                    this.pinPanomineeListSuccess(successData);
+                },
+                (error) => {
+                    this.pinPanomineeListFailure(error);
+                }
+            );
+        }
+    }
+    public pinPanomineeListSuccess(successData){
+        console.log(successData);
+        this.paPinnomineeList = successData.ResponseObject;
+        console.log( this.paPinnomineeList.state, 'paPinnomineeList');
+        this.nomineeDetail.controls['paNomineeState'].patchValue(this.paPinnomineeList.state);
+        this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.paPinnomineeList.state_code);
+        this. onChangeStateNominee();
+        this.onChangecityListNomineePa();
+
+    }
+
+    public pinPanomineeListFailure(error){
+        console.log(error);
+    }
     // proposal creation
     createrPoposal(){
       alert(this.getAllPremiumDetails.enquiry_id);
