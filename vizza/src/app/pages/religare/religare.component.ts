@@ -1573,7 +1573,7 @@ array: any;
 
         public typeValidate(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
