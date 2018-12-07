@@ -742,6 +742,9 @@ export class AppolloMunichComponent implements OnInit {
             this.proposer.controls['proposerState'].patchValue(this.setStatecode.state);
             this.proposer.controls['proposerStateIdP'].patchValue(this.setStatecode.state_code);
             this.stateChange(this.setStatecode.state_code, this.title);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+
         }
     }
     public pincodeFailure(error) {
@@ -1550,7 +1553,7 @@ export class AppolloMunichComponent implements OnInit {
     }
     add(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern = /[0-9/ ]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -1561,7 +1564,7 @@ export class AppolloMunichComponent implements OnInit {
     }
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
