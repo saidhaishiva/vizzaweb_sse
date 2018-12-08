@@ -131,6 +131,7 @@ export class PersonalaccidentformComponent implements OnInit {
     personalClassDescription: boolean;
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
+    public religarePAProposal: any;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -145,7 +146,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
-        this.proposalId = 0;
+        this.religarePAProposal= 0;
         this.step = 0;
         this.mobileNumber = 'true';
         this.insuremobileNumber = 'true';
@@ -221,7 +222,7 @@ export class PersonalaccidentformComponent implements OnInit {
             insuredCity: ['', Validators.required],
             insuredState: ['', Validators.required],
             insuredEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            insuredEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            insuredEmail2: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             insuredMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             insuredAltnumber: '',
             insuredrAddress: ['', Validators.required],
@@ -285,6 +286,11 @@ export class PersonalaccidentformComponent implements OnInit {
     setStep(index: number) {
         this.step = index;
     }
+    canDeactivate() {
+        return this.religarePAProposal;
+    }
+
+
 
     prevStep() {
         this.step--;
@@ -387,6 +393,10 @@ export class PersonalaccidentformComponent implements OnInit {
                 religareNomineeName: this.getpersonalNomineeData.religareNomineeName,
                 religareRelationship: this.getpersonalNomineeData.religareRelationship
             });
+        }
+        if (sessionStorage.paProposalID != '' && sessionStorage.paProposalID != undefined) {
+            this.religarePAProposal = sessionStorage.paProposalID;
+            console.log(this.religarePAProposal, 'this.religarePAProposal');
         }
     }
 
@@ -557,7 +567,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
     public dobkeyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern = /[0-9/]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -1196,7 +1206,7 @@ export class PersonalaccidentformComponent implements OnInit {
             'role_id': '4',
             'pos_status': '0',
             'platform': 'web',
-            'proposal_id': '0',
+            'proposal_id': this.religarePAProposal,
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'group_name': 'Group A',
             'company_name': this.getBuyDetails.company_name,
@@ -1355,13 +1365,15 @@ export class PersonalaccidentformComponent implements OnInit {
 
        }
 
-
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
+            this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
+            console.log(this.religarePAProposal, 'this.religarePAProposal');
+            sessionStorage.paProposalID = this.religarePAProposal;
             this.lastStepper.next();
 
         } else {

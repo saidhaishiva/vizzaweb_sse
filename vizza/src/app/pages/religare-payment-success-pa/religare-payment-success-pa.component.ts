@@ -56,7 +56,6 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
-        this.settings.loadingSpinner = true;
         this.personalService.getDownloadPdfReligarepa(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
