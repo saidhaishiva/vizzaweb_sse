@@ -1,4 +1,4 @@
-import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
+ import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProposalService} from '../../shared/services/proposal.service';
 import {DatePipe} from '@angular/common';
@@ -186,11 +186,11 @@ export class PersonalaccidentformComponent implements OnInit {
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            personalEmail2: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalEmail2: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
-            residenceAddress2: [''],
+            residenceAddress2: '',
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceState: ['', Validators.required],
@@ -225,7 +225,7 @@ export class PersonalaccidentformComponent implements OnInit {
             insuredMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             insuredAltnumber: '',
             insuredrAddress: ['', Validators.required],
-            insuredrAddress2: [''],
+            insuredrAddress2:'',
             insuredrPincode: ['', Validators.required],
             insuredrCity: ['', Validators.required],
             insuredrState: ['', Validators.required],
@@ -1096,7 +1096,6 @@ export class PersonalaccidentformComponent implements OnInit {
     alternateChange(event, type) {
         console.log(event, 'ghj');
         if (type == 'personal') {
-            if (event.target.value.length == 10) {
                 if (event.target.value == this.personal.get('personalMobile').value) {
                     this.mobileNumber = 'Alternate number should be different from mobile number';
                 } else {
@@ -1104,9 +1103,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
                 sessionStorage.mobileNumber = this.mobileNumber;
 
-            }
+
         } else if (type == 'insurer') {
-            if (event.target.value.length == 10) {
                 if (event.target.value == this.insured.get('insuredMobile').value) {
                     this.insuremobileNumber = 'Alternate number should be different from mobile number';
                 } else {
@@ -1114,7 +1112,6 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
                 sessionStorage.insuremobileNumber = this.insuremobileNumber;
 
-            }
         }
 
     }
@@ -1188,10 +1185,8 @@ export class PersonalaccidentformComponent implements OnInit {
 
     // Create Proposal
     proposal() {
-console.log( this.personal.controls['personalAnualIncome'].value, ' this.personal.controls[\'personalAnnualIncome\'].value');
-
-    let pan = this.personal.controls['personalPan'].value;
-    let pan1 = this.insured.controls['insuredPan'].value;
+        let pan = this.personal.controls['personalPan'].value;
+      let pan1 = this.insured.controls['insuredPan'].value;
      const data= {
             'product_id': this.getBuyDetails.product_id,
             'policy_term': '1',
