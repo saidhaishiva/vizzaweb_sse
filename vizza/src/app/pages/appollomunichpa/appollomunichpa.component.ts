@@ -74,6 +74,7 @@ public paNomineedistrictList: any;
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       this.minDate = this.selectDate;
+      this.appolloPA = 0;
       this.mobileNumber = 'true';
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -215,6 +216,10 @@ public paNomineedistrictList: any;
       this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
       this.sessionData();
   }
+    canDeactivate() {
+        return this.appolloPA;
+    }
+
     changeGender() {
         if (this.ProposerPa.controls['proposerPaTitle'].value == 'MR') {
             this.ProposerPa.controls['proposerPaGender'].patchValue('MALE');
@@ -853,6 +858,10 @@ preInsureList() {
                 paNomineeTitle: this.getpanomineeData.paNomineeTitle,
             });
         }
+        if (sessionStorage.paProposalID != '' && sessionStorage.paProposalID != undefined) {
+            this.appolloPA = sessionStorage.appolloPAproposalID;
+            console.log(this.appolloPA, 'this.appolloPAproposalID');
+        }
     }
 // Pin validate
     getPostalCode(pin) {
@@ -1101,7 +1110,7 @@ const data = {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             console.log(this.appollosummaryData, 'this.summaryData');
-            this.appolloPA = this.appollosummaryData.ProposalId;
+            this.appolloPA = this.appollosummaryData.ProposalDetails.ProposalId;
             console.log( this.appolloPA, ' this.appolloPA');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
 
