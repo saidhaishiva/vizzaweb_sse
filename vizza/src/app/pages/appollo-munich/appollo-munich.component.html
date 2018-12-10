@@ -150,7 +150,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer', 'i')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -176,6 +176,8 @@
                           <mat-error *ngIf="proposer.controls.proposerDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
+
+
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="proposerCity"  required>
@@ -490,37 +492,53 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" (input)="getPincode($event.target.value, 'insure', i)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                             <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
                           </mat-form-field>
                         </div>
 
 
-
-                          <div class="col-md-3">
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100" >
+                            <input matInput placeholder="State" formControlName="proposerState" required readonly>
+                            <mat-error *ngIf="insureArray.invalid">State is required</mat-error>                          </mat-form-field>
+                        </div>
+                          <!--<div class="col-md-3">-->
+                              <!--<mat-form-field class="w-100">-->
+                                  <!--<mat-select placeholder="State"  formControlName="proposerState" required>-->
+                                      <!--<mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>-->
+                                  <!--</mat-select>-->
+                                  <!--<mat-error *ngIf="insureArray.invalid">State is required</mat-error>-->
+                              <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="State"  formControlName="proposerState" (change)="insureStateChange($event, 'insure', i)" required>
-                                      <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
-                                  </mat-select>
-                                  <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
-                              </mat-form-field>
-                          </div>
-                          <div class="col-md-3">
-                              <mat-form-field class="w-100">
-                                  <mat-select placeholder="District"  formControlName="proposerDistrict">
-                                      <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
+                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname($event, i, 'district')">
+                                      <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">District is required</mat-error>
                               </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].stateHide.value">
+                          <mat-form-field class="w-100" >
+                            <input matInput placeholder="District" formControlName="proposerDistrictIdP" required readonly>
+                            <mat-error *ngIf="insureArray.invalid">District is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="City"  formControlName="proposerCity"  required>
-                                      <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                                  <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname($event, i, 'city')" required>
+                                      <mat-option *ngFor="let AppolloCity of iAppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                               </mat-form-field>
                           </div>
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].cityHide.value">
+                          <mat-form-field class="w-100" >
+                            <input matInput placeholder="City" formControlName="proposerCityIdP" required readonly>
+                            <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
+                          </mat-form-field>
+                        </div>
 
                           <div class="col-md-12"><hr></div>
                         <div class="col-md-12">
