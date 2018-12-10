@@ -630,7 +630,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="State"  pattern="[1-9][0-9]{5}"  (keypress)="onNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineeState" autocomplete="off" required>
+                          <input matInput placeholder="State"  formControlName="paNomineeState" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -647,7 +647,7 @@
                           <mat-select placeholder="City"  formControlName="paNomineeCity">
                             <mat-option *ngFor="let paCity of paCityNomineeList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
+                          <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       </div>

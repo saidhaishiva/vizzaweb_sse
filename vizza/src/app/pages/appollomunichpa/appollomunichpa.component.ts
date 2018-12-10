@@ -177,7 +177,7 @@ public paNomineedistrictList: any;
           paNomineeAddress3: '',
           nationality: 'IN',
           paNomineePincode: ['', Validators.required],
-          paNomineeCity: ['', Validators.required],
+          paNomineeCity:'',
           paNomineeCountry: 'IN',
           paNomineeState: ['', Validators.required],
           paNomineeDistrict: '',
@@ -571,9 +571,8 @@ public paNomineedistrictList: any;
     religareNomineeDetails(stepper: MatStepper, value) {
         console.log(value);
         // if (this.nomineeDetail.valid) {
-        //     sessionStorage.panomineeData = '';
-        //     sessionStorage.panomineeData = JSON.stringify(value);
-            alert('innnnn');
+            sessionStorage.panomineeData = '';
+            sessionStorage.panomineeData = JSON.stringify(value);
             this.createrPoposal();
         // }
         this.lastPage = stepper;
@@ -964,11 +963,10 @@ preInsureList() {
     }
     // proposal creation
     createrPoposal(){
-      alert(this.getAllPremiumDetails.enquiry_id);
       let enq_id = this.getAllPremiumDetails.enquiry_id;
 const data = {
     "enquiry_id": enq_id.toString(),
-    "proposal_id": "0",
+    "proposal_id":this.appolloPA,
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
@@ -981,7 +979,7 @@ const data = {
                     "District": this.nomineeDetail.controls['paNomineeDistrict'].value,
                     "PinCode": this.nomineeDetail.controls['paNomineePincode'].value,
                     "StateCode": this.nomineeDetail.controls['paNomineeState'].value,
-                    "TownCode": this.nomineeDetail.controls['paNomineeCity'].value,
+                    "TownCode": '4278',
                 },
                 "NomineeName": this.nomineeDetail.controls['paNomineeName'].value,
                 "NomineeTitleCode": this.nomineeDetail.controls['paNomineeTitle'].value,
@@ -1110,7 +1108,7 @@ const data = {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             console.log(this.appollosummaryData, 'this.summaryData');
-            this.appolloPA = this.appollosummaryData.ProposalDetails.ProposalId;
+            this.appolloPA = this.appollosummaryData.proposal_id;
             console.log( this.appolloPA, ' this.appolloPA');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
 
