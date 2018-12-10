@@ -307,7 +307,7 @@
       <!--Appointment letter-->
       <div class="certificate-bg">
         <div class="container mb-1 mt-1 w-100 text-right">
-          <button mat-raised-button class="text-right editBtn" (click)="printTraining()">Print & Download
+          <button mat-raised-button class="text-right editBtn " (click)="printTraining()">Print & Download
             <mat-icon>print</mat-icon>
           </button>
         </div>
@@ -331,17 +331,27 @@
                 </div>
                 <div class="col-md-9 off-pos">
                   <h1 class="c-font">Certification</h1>
-                  <h5 class="w-100 text-right"><span>OF ONLINE POS’P TRAINING</span></h5>
+                  <h5 class="w-100 text-right"><span>OF ONLINE DM TRAINING</span></h5>
                 </div>
               </section>
               <section class="row mt-5">
-                <div class="c-content w-100">
-                  <h5 class="c-title"><span>This is to certificaty that</span></h5>
-                  <p><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span> <strong>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}} </strong> has attended 15 hours of Online
-                    Training Programme for the Point of Sales Person, as per the Regulation, 2017 of
+                <!--<div class="c-content w-100">-->
+                  <!--<h5 class="c-title"><span>This is to certificaty that</span></h5>-->
+                  <!--<p><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span> <strong>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}} </strong> has attended 15 hours of Online-->
+                    <!--Training Programme for the Point of Sales Person, as per the Regulation, 2017 of-->
+                    <!--Insurance Regulatory and Development Authority.</p>-->
+                  <!--<p>The Said Candidate, had registered for the online training program on-->
+                    <!--{{startTrainingDate | date: 'dd-MMM-y'}} and completed the 15 hours of POS’P Online Training on-->
+                    <!--{{posData.training_completed_date | date:'dd-MMM-yy'}}</p>-->
+                <!--</div>-->
+
+                <div class="c-content w-100 text-justify">
+                  <h5 class="c-title"><span>This is to certify that</span></h5>
+                  <p> <strong><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}} </strong> has attended 25 hours of Online
+                    Training Programme for the Distance Marketing Person, as per the Regulation, 2017 of
                     Insurance Regulatory and Development Authority.</p>
-                  <p>The Said Candidate, had registered for the online training program on
-                    {{startTrainingDate | date: 'dd-MMM-y'}} and completed the 15 hours of POS’P Online Training on
+                  <p><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}}, had registered for the online training program on
+                    {{startTrainingDate | date:'dd-MMM-yy'}} and completed the 25 hours of Distance Marketing Online Training on
                     {{posData.training_completed_date | date:'dd-MMM-yy'}}</p>
                 </div>
               </section>
@@ -357,8 +367,8 @@
                       <td>{{posData.training_completed_date | date:'dd-MMM-yy' }}</td>
                     </tr>
                     <tr>
-                      <td>POS’P ID</td>
-                      <td>VIZAA/POS'P/{{posData.dm_id}}</td>
+                      <td>DM ID</td>
+                      <td>VIZAA/DM/{{posData.dm_id}}</td>
                     </tr>
                   </table>
                 </div>
@@ -386,7 +396,7 @@
       <!--Examination letter-->
       <div class="certificate-bg">
         <div class="container mb-1 mt-1 w-100 text-right">
-          <button mat-raised-button class="text-right editBtn" (click)="printExamination()">Print & Download
+          <button mat-raised-button class="text-right editBtn " (click)="printExamination()">Print & Download
             <mat-icon>print</mat-icon>
           </button>
         </div>
@@ -410,17 +420,17 @@
                 </div>
                 <div class="col-md-9">
                   <h1 class="c-font">Certificate</h1>
-                  <h5 class="w-100 text-right"><span>Of Qualification for POS’P Examination</span></h5>
+                  <h5 class="w-100 text-right"><span>Of Qualification for Distance Marketing Examination</span></h5>
                 </div>
               </section>
               <section class="row mt-5">
                 <div class="c-content text-center w-100">
                   <h5 class="c-title"><span>This is to certificaty that</span></h5>
                   <p><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span><strong>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}}</strong></p>
-                  <p>passed the Point of Sales Person Examination held on</p>
+                  <p>passed the Distance Marketing Person Examination held on</p>
                   <p>{{posData.exam_completed_date | date:'dd-MMM-yy'}}</p>
                   <p>and qualified under the stream of</p>
-                  <p>Point of Sales Person</p>
+                  <p>Distance Marketing</p>
                   <p>as per regulations 2017 of</p>
                   <p>Insurance Regulatory and Development Authority</p>
                 </div>
@@ -437,8 +447,8 @@
                       <td>{{posData.exam_completed_date | date:'dd-MMM-yy'}}</td>
                     </tr>
                     <tr>
-                      <td>POS’P ID</td>
-                      <td>VIZAA/POS'P/{{posData.dm_id}}</td>
+                      <td>DM ID</td>
+                      <td>VIZAA/DM/{{posData.dm_id}}</td>
                     </tr>
                   </table>
                 </div>
@@ -456,6 +466,128 @@
         </div>
       </div>
     </mat-expansion-panel>
+    <!--<mat-expansion-panel *ngIf="posData.dm_status == 1">-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+          <!--Certificate of Appointment-->
+        <!--</mat-panel-title>-->
+      <!--</mat-expansion-panel-header>-->
+      <!--<div class="certificate-bg">-->
+        <!--<div class="container-fluid row mb-1 mt-1 ml-3 w-100 ">-->
+          <!--<div class="col-md-12 text-right">-->
+            <!--<button mat-raised-button class="text-right editBtn" (click)="printAppointment()"> Print & Download-->
+              <!--<mat-icon>print</mat-icon>-->
+            <!--</button>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="container pt-7 pb-3" id="pos-cirtificate">-->
+          <!--<div id="appointment">-->
+            <!--<mat-card class="c-card" >-->
+
+              <!--<header>-->
+                <!--<div class="row" fxLayoutAlign="center center">-->
+                  <!--<div class="col-md-6">-->
+                    <!--<img src="assets/img/vizza-logoNewpos.png" alt="">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6 text-right">-->
+                    <!--<ul class="c-address">-->
+                      <!--<li>044 - 4269 1341 / 4204 4181</li>-->
+                      <!--<li>po_vizzainsbroker@vizzafin.com</li>-->
+                      <!--<li>www.vizzainsure.com</li>-->
+                      <!--<li>Direct Brokers ( Life and General Insurance)</li>-->
+                      <!--<li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+              <!--</header>-->
+              <!--<section class="row">-->
+                <!--<div class="col-md-12">-->
+                  <!--<h5 class="text-center font-weight-bold mt-2 print-title">Appointment of Registered Distance Marketing Person</h5>-->
+                  <!--<h4 class="text-center font-weight-normal print-title">for VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h4>-->
+                <!--</div>-->
+                <!--<div class="col-md-12 mt-3">-->
+                  <!--<div class="row mt-3">-->
+                    <!--<div class="col-md-6 print-address">-->
+                      <!--<table>-->
+                        <!--<tr>-->
+                          <!--<td>Date</td>-->
+                          <!--<td>{{posData.appointment_date | date:'dd-MMM-yy'}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                          <!--<td>DM ID</td>-->
+                          <!--<td>VIZAA/DM/{{posData.dm_id}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                          <!--<td><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span></td>-->
+                          <!--<td>{{posData.dm_firstname | titlecase}} {{posData.dm_lastname | titlecase}} </td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                          <!--<td>Address</td>-->
+                          <!--<td>-->
+                            <!--<p class="text-capitalize" >-->
+                              <!--<span>{{posData.dm_address1}}</span>-->
+                              <!--<span *ngIf="posData.dm_address2 != ''">,</span>-->
+                              <!--<span *ngIf="posData.dm_address2 != ''">{{posData.dm_address2}}</span>-->
+                              <!--<span *ngIf="posData.dm_cityid != ''">,</span>-->
+                            <!--</p>-->
+
+                            <!--<p *ngIf="posData.dm_cityid != ''" >{{posData.dm_cityid}}-->
+                              <!--<span *ngIf="posData.dm_cityid != null">-</span>-->
+                              <!--{{posData.dm_postalcode}}-->
+                              <!--<span *ngIf="posData.dm_stateid != ''">,</span>-->
+                            <!--</p>-->
+                            <!--<p *ngIf="posData.dm_stateid != ''" >{{posData.dm_stateid}}-->
+                              <!--<span *ngIf="posData.dm_countryid != ''">,</span>-->
+                            <!--</p>-->
+                            <!--<p *ngIf="posData.dm_countryid != ''">{{posData.dm_countryid}}</p>-->
+                          <!--</td>-->
+                        <!--</tr>-->
+                      <!--</table>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 text-right view-profile print-profile">-->
+                      <!--<img *ngIf="posData.dm_profile_img != ''"  style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.dm_profile_img}}">-->
+                      <!--<img *ngIf="posData.dm_profile_img == ''"  style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12 mt-5 c-content">-->
+                  <!--<p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales-->
+                    <!--Person.</p>-->
+                  <!--<p>This is to confirm that you have successfully completed the prescribed training and have also-->
+                    <!--passed the examination specified for Point of Sales examination conducted by-->
+                    <!--<strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales-->
+                    <!--Person for Non-life and Health lnsurers. Your personal details are as under:</p>-->
+                  <!--<p><strong>Aadhaar No: {{posData.doc_aadhar_no}}</strong></p>-->
+                  <!--<p>This letter authorizes you to act as Distance Marketing for (name of the insurer/ insurance-->
+                    <!--intermediary) to market products categorized and identified under the Guidelines only.</p>-->
+                  <!--<p>ln case you wish to work for another company, you are required to obtain a fresh letter from the-->
+                    <!--new insurer/ insurance intermediary in order to act as Distance Marketing for that entity.</p>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12 text-left print-sign">-->
+                  <!--<P>Yours truly,</P>-->
+                  <!--<p><img src="assets/img/vignesh-sign.png" width="200px" alt=""></p>-->
+                  <!--<p class="mb-0"><strong>T.S. VIGNESH KARTHIK</strong></p>-->
+                  <!--<p class="mb-0">Head - Corporate</p>-->
+                  <!--<p class="mb-0">(Authorised Signatory)</p>-->
+                <!--</div>-->
+              <!--</section>-->
+              <!--<footer class="mt-3 pt-3 print-footer">-->
+                <!--<h5 class="text-center">VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h5>-->
+                <!--<p class="text-center">Ground Floor, Flat No. G-A, Sridev Apartment, No.65, CIT Nagar First Main Road, Chennai - 600 035</p>-->
+              <!--</footer>-->
+            <!--</mat-card>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</mat-expansion-panel>-->
+
+
+
+
     <mat-expansion-panel *ngIf="posData.dm_status == 1">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -491,7 +623,7 @@
               </header>
               <section class="row">
                 <div class="col-md-12">
-                  <h5 class="text-center font-weight-bold mt-2 print-title">Appointment of Registered POS’P</h5>
+                  <h5 class="text-center font-weight-bold mt-2 print-title">Appointment of Registered DM</h5>
                   <h4 class="text-center font-weight-normal print-title">for VIZZA INSURANCE BROKING SERVICES PVT. LTD.</h4>
                 </div>
                 <div class="col-md-12 mt-3">
@@ -503,8 +635,8 @@
                           <td>{{posData.appointment_date | date:'dd-MMM-yy'}}</td>
                         </tr>
                         <tr>
-                          <td>POS’P ID</td>
-                          <td>VIZAA/POS'P/{{posData.dm_id}}</td>
+                          <td>DM ID</td>
+                          <td>VIZAA/DM/{{posData.dm_id}}</td>
                         </tr>
                         <tr>
                           <td><span *ngIf="posData.dm_gender == 'male'">Mr.</span><span *ngIf="posData.dm_gender == 'female'">Ms.</span></td>
@@ -514,8 +646,8 @@
                           <td>Address</td>
                           <td>
                             <p class="text-capitalize" >
-                              <span>{{posData.dm_address1}}</span>
-                              <span *ngIf="posData.dm_address2 != ''">,</span>
+                              <span>{{posData.pos_address1}}</span>
+                              <span *ngIf="posData.dm_address2 != '' && posData.pos_address1 != ''">,</span>
                               <span *ngIf="posData.dm_address2 != ''">{{posData.dm_address2}}</span>
                               <span *ngIf="posData.dm_cityid != ''">,</span>
                             </p>
@@ -534,24 +666,24 @@
                       </table>
                     </div>
                     <div class="col-md-6 text-right view-profile print-profile">
-                      <img *ngIf="posData.dm_profile_img != ''"  matListAvatar src="{{webhost + '/' + posData.dm_profile_img}}">
-                      <img *ngIf="posData.dm_profile_img == ''"  matListAvatar src="assets/img/users/default-user.jpg" alt="">
+                      <img *ngIf="posData.dm_profile_img != ''"  style="width: 200px; height: 200px" matListAvatar src="{{webhost + '/' + posData.dm_profile_img}}">
+                      <img *ngIf="posData.dm_profile_img == ''"  style="width: 200px; height: 200px" matListAvatar src="assets/img/users/default-user.jpg" alt="">
                     </div>
                   </div>
                 </div>
 
                 <div class="col-md-12 mt-5 c-content">
-                  <p>This is in reference to the application made by you, for enrolling yourself to act as Point of Sales
+                  <p>This is in reference to the application made by you, for enrolling yourself to act as Distance Marketing
                     Person.</p>
                   <p>This is to confirm that you have successfully completed the prescribed training and have also
-                    passed the examination specified for Point of Sales examination conducted by
+                    passed the examination specified for Distance Marketing examination conducted by
                     <strong>Vizza Insurance Broking Services Private Limited</strong> under the Guidelines on Point of Sales
                     Person for Non-life and Health lnsurers. Your personal details are as under:</p>
-                  <p><strong>Aadhaar No:</strong></p>
-                  <p>This letter authorizes you to act as Point of Sales Person for (name of the insurer/ insurance
+                  <p><strong>Aadhaar No: {{posData.doc_aadhar_no}}</strong></p>
+                  <p>This letter authorizes you to act as Distance Marketing Person for (name of the insurer/ insurance
                     intermediary) to market products categorized and identified under the Guidelines only.</p>
                   <p>ln case you wish to work for another company, you are required to obtain a fresh letter from the
-                    new insurer/ insurance intermediary in order to act as Point of Sales Person for that entity.</p>
+                    new insurer/ insurance intermediary in order to act as Distance Marketing Person for that entity.</p>
                 </div>
 
                 <div class="col-md-12 text-left print-sign">
@@ -573,71 +705,70 @@
     </mat-expansion-panel>
 
 
+    <!--<mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2 && posData.dm_status != 1">-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+          <!--Agreement Details-->
+        <!--</mat-panel-title>-->
+      <!--</mat-expansion-panel-header>-->
+      <!--<div class="row">-->
+        <!--<div class="col-md-4 insurance-renewal">-->
 
-    <mat-expansion-panel  [expanded]="step === 0" *ngIf="posData.exam_status == 2 && posData.dm_status != 1">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Agreement Details
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="row">
-        <div class="col-md-4 insurance-renewal">
+          <!--&lt;!&ndash;<div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<h2>Hello {{name}}</h2>&ndash;&gt;-->
+          <!--&lt;!&ndash;<input type="file" multiple (change)="onChange($event, showFileNames)" />&ndash;&gt;-->
+          <!--&lt;!&ndash;<input #showFileNames />&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
+
+
+          <!--&lt;!&ndash;<input type="file" ng2FileSelect [uploader]="uploader" multiple  >&ndash;&gt;-->
+
+          <!--&lt;!&ndash;<image-upload (uploadFinished)="readUrl($event)" >&ndash;&gt;-->
+          <!--&lt;!&ndash;</image-upload>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="custom-file">&ndash;&gt;-->
+          <!--&lt;!&ndash;<input type="file" class="custom-file-input" multiple (change)="readUrl($event, showFileNames)"  accept=".pdf,.doc,.docx" aria-describedby="inputGroupFileAddon01">&ndash;&gt;-->
+          <!--&lt;!&ndash;<label class="custom-file-label">Letter</label>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
           <!--<div>-->
-          <!--<h2>Hello {{name}}</h2>-->
-          <!--<input type="file" multiple (change)="onChange($event, showFileNames)" />-->
-          <!--<input #showFileNames />-->
+            <!--<label class="btn-bs-file btn ">-->
+              <!--<i class="fa fa-cloud-download" aria-hidden="true"></i> Upload Agreement Copy-->
+              <!--<input type="file" multiple (change)="readUrl($event)"  />-->
+            <!--</label>-->
           <!--</div>-->
 
-
-
-          <!--<input type="file" ng2FileSelect [uploader]="uploader" multiple  >-->
-
-          <!--<image-upload (uploadFinished)="readUrl($event)" >-->
-          <!--</image-upload>-->
-          <!--<div class="custom-file">-->
-          <!--<input type="file" class="custom-file-input" multiple (change)="readUrl($event, showFileNames)"  accept=".pdf,.doc,.docx" aria-describedby="inputGroupFileAddon01">-->
-          <!--<label class="custom-file-label">Letter</label>-->
+          <!--<div *ngFor="let names of fileDetails" class="mb-2">-->
+            <!--<a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHWSURBVFhH7ZbBS8JwFMf93yzxEAleBAvBU0fpIIjg0avmoS6K4qGzJ710DRSHFmFaaVorkPAiNkVd26v32NYgA2FvGrEPPNi+v7ff74O/n2MuB7uout3AVTWv91Kblg+cmAOcpxkIqOySnILLRoNfklMQ7u/5JbkF2SXtEGSVtEuQTdJOQRZJuwWxLElyCq5T2rLrgw9tCkfQKo6gVVgFX8/PoX9yAoPTUxhdXACoKuVioQD9dBrEXA7e223KkLdKBR5TKaMWo5E28g2rYH1/H+p7e3AdDtPEL8Ui5Xgt+P3QDAahurMDw1KJ8m4ySWPNgwNoHh7CTBQpN8Mu2IpEQFUUuAqFSAjB/k48Dsp8TiKCzweqLBuCH5JEfauwRRC5OTqiXwbRBZF+JkP30sPDdgRRCs8T9jydnVGO17ogbjvejwXhxxZ/TKfUYwbHtWXXBx9aBQrWPB46g2I+D8piQblZEKXxftJqGYKYPWezRr8ZdkF9i82YBdvRKP1R5Mlku2fQDPbfHh/DW7kMtd1duEskKP9Tgnp1YjFYjseUb1xQ6vVWvstmgwFI3S7ImpjOfDgE6evbD19Lv8EqaAeOoFUcQas4glZxBK3yfwU3WdqyDsy4XJ9IgqXpXHIZ/QAAAABJRU5ErkJggg==">{{names.name}}</a>-->
           <!--</div>-->
-          <div>
-            <label class="btn-bs-file btn ">
-              <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload Agreement Copy
-              <input type="file" multiple (change)="readUrl($event)"  />
-            </label>
-          </div>
+          <!--&lt;!&ndash;<pdf-viewer [src]="pdfSrc"&ndash;&gt;-->
+          <!--&lt;!&ndash;[render-text]="true"&ndash;&gt;-->
+          <!--&lt;!&ndash;style="display: block;"&ndash;&gt;-->
+          <!--&lt;!&ndash;&gt;</pdf-viewer>&ndash;&gt;-->
 
-          <div *ngFor="let names of fileDetails" class="mb-2">
-            <a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHWSURBVFhH7ZbBS8JwFMf93yzxEAleBAvBU0fpIIjg0avmoS6K4qGzJ710DRSHFmFaaVorkPAiNkVd26v32NYgA2FvGrEPPNi+v7ff74O/n2MuB7uout3AVTWv91Kblg+cmAOcpxkIqOySnILLRoNfklMQ7u/5JbkF2SXtEGSVtEuQTdJOQRZJuwWxLElyCq5T2rLrgw9tCkfQKo6gVVgFX8/PoX9yAoPTUxhdXACoKuVioQD9dBrEXA7e223KkLdKBR5TKaMWo5E28g2rYH1/H+p7e3AdDtPEL8Ui5Xgt+P3QDAahurMDw1KJ8m4ySWPNgwNoHh7CTBQpN8Mu2IpEQFUUuAqFSAjB/k48Dsp8TiKCzweqLBuCH5JEfauwRRC5OTqiXwbRBZF+JkP30sPDdgRRCs8T9jydnVGO17ogbjvejwXhxxZ/TKfUYwbHtWXXBx9aBQrWPB46g2I+D8piQblZEKXxftJqGYKYPWezRr8ZdkF9i82YBdvRKP1R5Mlku2fQDPbfHh/DW7kMtd1duEskKP9Tgnp1YjFYjseUb1xQ6vVWvstmgwFI3S7ImpjOfDgE6evbD19Lv8EqaAeOoFUcQas4glZxBK3yfwU3WdqyDsy4XJ9IgqXpXHIZ/QAAAABJRU5ErkJggg==">{{names.name}}</a>
-          </div>
-          <!--<pdf-viewer [src]="pdfSrc"-->
-          <!--[render-text]="true"-->
-          <!--style="display: block;"-->
-          <!--&gt;</pdf-viewer>-->
-
-        </div>
-        <div class="col-md-4">
-          <mat-form-field class="w-100">
-            <input matInput [matDatepicker]="birthday" placeholder="Date of Appointment(DD/MM/YY)"
-                   [(ngModel)]="appointmentdate" (dateInput)="addEvent($event)"
-                   (dateChange)="addEvent($event)" required
-                   maxlength="10">
-            <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-            <mat-datepicker touchUi #birthday></mat-datepicker>
-            <mat-error *ngIf="doaError != ''">Invalid date</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-md-4">
+        <!--</div>-->
+        <!--<div class="col-md-4">-->
           <!--<mat-form-field class="w-100">-->
-          <!--<mat-select placeholder="Manager List" [(ngModel)]="posManager" >-->
-          <!--<mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">-->
-          <!--{{list.manager_name}}-->
-          <!--</mat-option>-->
-          <!--</mat-select>-->
+            <!--<input matInput [matDatepicker]="birthday" placeholder="Date of Appointment(DD/MM/YY)"-->
+                   <!--[(ngModel)]="appointmentdate" (dateInput)="addEvent($event)"-->
+                   <!--(dateChange)="addEvent($event)" required-->
+                   <!--maxlength="10">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>-->
+            <!--<mat-datepicker touchUi #birthday></mat-datepicker>-->
+            <!--<mat-error *ngIf="doaError != ''">Invalid date</mat-error>-->
           <!--</mat-form-field>-->
-        </div>
-      </div>
+        <!--</div>-->
+        <!--<div class="col-md-4">-->
+          <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-select placeholder="Manager List" [(ngModel)]="posManager" >&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">&ndash;&gt;-->
+          <!--&lt;!&ndash;{{list.manager_name}}&ndash;&gt;-->
+          <!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
+          <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+          <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
 
-    </mat-expansion-panel>
+    <!--</mat-expansion-panel>-->
 
 
 
@@ -653,22 +784,22 @@
 
 
 
-    <mat-expansion-panel  *ngIf="posData.dm_status == 1">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Agreement Letter
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div  class="flex-p">
-        <button mat-button class="secondary-bg-color float-right" (click)="openPdf(webhost +'/' + posData.aggrement_file_path)">Download</button>
+    <!--<mat-expansion-panel  *ngIf="posData.dm_status == 1">-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+          <!--Agreement Letter-->
+        <!--</mat-panel-title>-->
+      <!--</mat-expansion-panel-header>-->
+      <!--<div  class="flex-p">-->
+        <!--<button mat-button class="secondary-bg-color float-right" (click)="openPdf(webhost +'/' + posData.aggrement_file_path)">Download</button>-->
 
-        <pdf-viewer src="{{webhost + '/' + posData.aggrement_file_path}}"
-                    [render-text]="true"
-                    style="display: block;"
-                    (click)="viewImage(posData.aggrement_file_path, 'Agreement Letter')" ></pdf-viewer>
-      </div>
+        <!--<pdf-viewer src="{{webhost + '/' + posData.aggrement_file_path}}"-->
+                    <!--[render-text]="true"-->
+                    <!--style="display: block;"-->
+                    <!--(click)="viewImage(posData.aggrement_file_path, 'Agreement Letter')" ></pdf-viewer>-->
+      <!--</div>-->
 
-    </mat-expansion-panel><br>
+    <!--</mat-expansion-panel><br>-->
 
 
 
