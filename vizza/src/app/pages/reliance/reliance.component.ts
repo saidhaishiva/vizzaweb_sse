@@ -877,9 +877,7 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-
-
-
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
@@ -892,8 +890,7 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-
-
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue( '');
         }
 
     }
