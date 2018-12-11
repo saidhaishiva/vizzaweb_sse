@@ -60,7 +60,7 @@
                       </div>
                       <div class="col-md-6">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off">
+                              <input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off" required>
                           </mat-form-field>
                       </div>
                       <div class="col-md-6" *ngIf="occupationFirst">
@@ -73,7 +73,7 @@
                         <div class="col-md-6" *ngIf="occupationSecond">
                             <mat-form-field class="w-100">
                             <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                <mat-option *ngFor="let occupation of occupationdescription" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
+                                <mat-option *ngFor="let occupation of occupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         </div>
@@ -84,8 +84,8 @@
                         </div>
                         <div class="col-md-6" *ngIf="occupationClass">
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="personalClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
+                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="personalClassDescriptionCode">
+                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -100,9 +100,7 @@
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="personalPassPort" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
-                        <mat-error *ngIf="personal.controls.personalPassPort.hasError('minlength')">Enter PassPort</mat-error>
                         <mat-error *ngIf="personal.controls.personalPassPort.hasError('pattern')"> Enter Valid PassPort </mat-error>
-
 
                       </mat-form-field></div>
 
@@ -334,7 +332,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="OfficalEmail ID"   formControlName="insuredEmail2"  autocomplete="off">
+                        <input matInput placeholder="Offical Email ID"   formControlName="insuredEmail2"  autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredEmail2.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -521,12 +519,12 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" [required]="getAllPremiumDetails.product_id == 1">
+                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" required>
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)" [required]="getAllPremiumDetails.product_id == 1">
+                        <input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)" required>
                         <mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
 

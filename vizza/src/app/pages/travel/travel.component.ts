@@ -83,6 +83,7 @@ export class TravelComponent implements OnInit {
     duration: any;
     medicalerror: any;
     showFamily: boolean;
+    daysBookingCount: any
     public settings: Settings;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
@@ -523,10 +524,20 @@ export class TravelComponent implements OnInit {
                     this.maxDate = event.value;
                 }
             }
-            console.log(this.maxDate, 'maxDate22');
         }
         if (type == 'sDate') {
             sessionStorage.startDate = this.startDate;
+            console.log(this.startDate, 'startDate1111');
+            let fDate = this.datePipe.transform(new Date(), 'MM/dd/yyyy');
+            let tDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
+            let diff = Date.parse(tDate) - Date.parse(fDate);
+            this.daysBookingCount =  Math.floor(diff / 86400000);
+            console.log(this.daysBookingCount, 'daysCount111');
+            sessionStorage.daysBookingCount = this.daysBookingCount;
+            // if (this.daysBookingCount > 60) {
+            //     this.toast.error('Travel booking shoud be less than 60 days ')
+            // }
+
         } else if (type == 'eDate') {
             sessionStorage.endDate = this.endDate;
             let days = this.dyasCalculation();
@@ -643,40 +654,45 @@ export class TravelComponent implements OnInit {
        //      alert('out');
        //
        //  }
-        if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
+        if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
             console.log(days, 'days');
-            this.settings.loadingSpinner = true;
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'sum_insured': this.selectedAmountTravel,
-                'sum_amount': sum_amount,
-                'family_members': this.finalData,
-                'travel_plan': this.travelPlan,
-                'travel_time_type': this.travelType,
-                'enquiry_id': '',
-                'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student' ,
-                'start_date': sDate,
-                'end_date': eDate,
-                'day_count': days,
-                'duration': this.duration ? this.duration : '',
-                'travel_type': groupname,
-                'medical_condition': this.medicalCondition
-            }
-            console.log(data, 'this.datadata');
-            this.travel.getTravelPremiumCal(data).subscribe(
-                (successData) => {
-                    this.getTravelPremiumCalSuccess(successData);
-                },
-                (error) => {
-                    this.getTravelPremiumCalFailure(error);
+            if (days < 180 ) {
+                const data = {
+                    'platform': 'web',
+                    'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                    'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
+                    'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                    'sum_insured': this.selectedAmountTravel,
+                    'sum_amount': sum_amount,
+                    'family_members': this.finalData,
+                    'travel_plan': this.travelPlan,
+                    'hidden_type': (this.travelPlan == 3 || this.travelPlan == 4 || this.travelPlan == 5) ? 1 : (this.travelPlan == 1 ? 6 : 0),
+                    'travel_time_type': this.travelType,
+                    'enquiry_id': '',
+                    'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
+                    'start_date': sDate,
+                    'end_date': eDate,
+                    'day_count': days,
+                    'duration': this.duration ? this.duration : '',
+                    'travel_type': groupname,
+                    'medical_condition': this.medicalCondition
                 }
-            );
+                this.settings.loadingSpinner = true;
+                console.log(data, 'this.datadata');
+                this.travel.getTravelPremiumCal(data).subscribe(
+                    (successData) => {
+                        this.getTravelPremiumCalSuccess(successData);
+                    },
+                    (error) => {
+                        this.getTravelPremiumCalFailure(error);
+                    }
+                );
+            } else {
+                this.toast.error('Travel period shoud not be grater than 180 days');
+            }
         }
 
     }
@@ -711,7 +727,9 @@ export class TravelComponent implements OnInit {
             this.studentArray = JSON.parse(sessionStorage.studentArray);
             this.members(this.studentArray);
         }
-
+        if (sessionStorage.daysBookingCount != undefined && sessionStorage.daysBookingCount != '') {
+            this.daysBookingCount = sessionStorage.daysBookingCount;
+        }
         if (sessionStorage.selectedAmountTravel != undefined && sessionStorage.selectedAmountTravel != '') {
             this.selectedAmountTravel = sessionStorage.selectedAmountTravel;
         }
