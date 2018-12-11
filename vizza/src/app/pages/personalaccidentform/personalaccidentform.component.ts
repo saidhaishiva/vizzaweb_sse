@@ -132,6 +132,7 @@ export class PersonalaccidentformComponent implements OnInit {
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
     public religarePAProposal: any;
+    public readonlyproposer: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -167,6 +168,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.insureoccupationDescription = false;
         this.occupationClass = false;
         this.insureoccupationClass = false;
+        this.readonlyproposer = false;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -499,8 +501,8 @@ export class PersonalaccidentformComponent implements OnInit {
     //sameaddress\
     sameProposer(value: any) {
         if (value.checked) {
-            // this.insured.controls[''].cityHide.patchValue(true);
-            // this.insured.controls['']pCityHide.patchValue(true);
+            this.readonlyproposer = true;
+            this.insured.controls['sameasInsuredAddress'].disable();
             this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
             this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);
             this.insured.controls['insuredLastname'].patchValue(this.personal.controls['personalLastname'].value);
@@ -532,6 +534,8 @@ export class PersonalaccidentformComponent implements OnInit {
 
         }
         else{
+            this.readonlyproposer = false;
+            this.insured.controls['sameasInsuredAddress'].enable();
             this.insured.controls['insuredTitle'].patchValue('');
             this.insured.controls['insuredFirstname'].patchValue('');
             this.insured.controls['insuredLastname'].patchValue('');

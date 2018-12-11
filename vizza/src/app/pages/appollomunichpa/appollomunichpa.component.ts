@@ -3,17 +3,34 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
-import {MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 
 @Component({
   selector: 'app-appollomunichpa',
   templateUrl: './appollomunichpa.component.html',
-  styleUrls: ['./appollomunichpa.component.scss']
+  styleUrls: ['./appollomunichpa.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class AppollomunichpaComponent implements OnInit {
 public ProposerPa: FormGroup;
@@ -69,6 +86,7 @@ public paCityInsuredList: any;
 public paPinnomineeList: any;
 public paCityNomineeList: any;
 public paNomineedistrictList: any;
+public insuredate: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -338,7 +356,7 @@ public paNomineedistrictList: any;
 // accept Only Number
     public onNumber(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9//]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -544,14 +562,28 @@ public paNomineedistrictList: any;
     }
     // date input
     addEvent(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.minDate = this.selectDate;
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
-        console.log(this.personalAge, 'this.personalAge');
-        sessionStorage.setItem('proposerAge', this.personalAge);
+
+
+        if (event.value != null) {
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.insuredate = '';
+                    } else {
+                        this.insuredate = 'Enter Valid Date';
+                    }
+                let selectedDate;
+                selectedDate = event.value._i;
+                console.log(selectedDate, 'selectedDate');
+                // if (selectedDate.length == 10) {
+                //         this.maxDate = event.value;
+                // }
+            } else if (typeof event.value._i == 'object') {
+                    this.insuredate = '';
+                console.log(event.value, 'event.value');
+
+            }
+        }
     }
 
 
