@@ -119,7 +119,7 @@ export class PersonalaccidentformComponent implements OnInit {
     rinsuredResponse: any;
     insuremobileNumber: any;
     personalAccidentQuestionsList: any;
-    occupationdescription: any;
+    occupationdescriptionList: any;
     occupationFirst: boolean;
     occupationSecond :boolean;
     occupationDescription: boolean;
@@ -174,7 +174,7 @@ export class PersonalaccidentformComponent implements OnInit {
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: '',
-            personalAnualIncome: '',
+            personalAnualIncome: ['', Validators.required],
             personalOccupationCode: '',
             personalDescription: '',
             personalDescriptionCode: '',
@@ -182,7 +182,7 @@ export class PersonalaccidentformComponent implements OnInit {
             personalPan: '',
             personalPassPort: '',
             personalAddress: ['', Validators.required],
-            personalAddress2: ['', Validators.required],
+            personalAddress2: '',
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
             personalState: ['', Validators.required],
@@ -238,8 +238,8 @@ export class PersonalaccidentformComponent implements OnInit {
 
         });
         this.nomineeDetails = this.fb.group({
-            'religareNomineeName': '',
-            'religareRelationship': ''
+            'religareNomineeName': ['', Validators.required],
+            'religareRelationship': ['', Validators.required]
         });
 
 
@@ -336,6 +336,16 @@ export class PersonalaccidentformComponent implements OnInit {
             });
 
         }
+        if (this.getStepper1.residencePincode ! = '') {
+            if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+                this.personalCitys = sessionStorage.personalCitys;
+            }
+            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+                this.residenceCitys = sessionStorage.residenceCitys;
+            }
+        }
+
+
         if (sessionStorage.proposal2Detail != '' && sessionStorage.proposal2Detail != undefined) {
             console.log(JSON.parse(sessionStorage.proposal2Detail), 'sessionStorage.proposal2Detail');
             this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
@@ -696,6 +706,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 for (let i = 0; i < this.response.length; i++) {
                     this.personalCitys.push({city: this.response[i].city = ''});
                 }
+                sessionStorage.personalCitys = this.personalCitys;
                 this.toastr.error('In valid Pincode');
             }
         }
@@ -712,6 +723,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 for (let i = 0; i < this.rResponse.length; i++) {
                     this.residenceCitys.push({city: this.rResponse[i].city = ''});
                 }
+                sessionStorage.residenceCitys = this.residenceCitys;
                 this.toastr.error('In valid Pincode');
             }
         }
@@ -905,11 +917,13 @@ export class PersonalaccidentformComponent implements OnInit {
         if (successData.IsSuccess) {
             this.occupationFirst = true;
             this.occupationSecond = true;
-            this.occupationdescription = successData.ResponseObject;
-            console.log(this.occupationdescription, 'occupationdescription');
+            this.occupationdescriptionList = successData.ResponseObject;
+            this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
+            console.log(this.occupationdescriptionList, 'occupationdescription');
         } else {
             this.occupationFirst = true;
             this.occupationSecond = false;
+            this.personal.get('personalDescriptionCode').setValidators(null);
 
             // this.toastr.error(successData.ErrorObject);
         }

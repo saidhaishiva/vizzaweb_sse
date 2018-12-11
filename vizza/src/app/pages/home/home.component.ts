@@ -86,6 +86,8 @@ export class HomeComponent implements OnInit {
             {'id': 3, 'name': 'Quarterly'},
             {'id': 4, 'name': 'Monthly'}
         ];
+        sessionStorage.setPageP = 1;
+        sessionStorage.sideMenuP = '';
     }
 
     ngOnInit() {

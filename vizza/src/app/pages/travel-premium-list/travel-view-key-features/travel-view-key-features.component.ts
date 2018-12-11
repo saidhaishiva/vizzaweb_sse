@@ -105,7 +105,7 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
             // this.id = getIndex;
             this.id1 = 0;
         } else if (index == 2) {
-            this.selectedClaimDetails = 'form2';
+            this.selectedClaimDetails = 'form1';
             const getIndex = this.getKeyList.findIndex( list => list.type == 2);
             this.id = getIndex;
         }

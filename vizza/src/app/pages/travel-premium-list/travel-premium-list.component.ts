@@ -71,6 +71,7 @@ export class TravelPremiumListComponent implements OnInit {
     compareArray: any;
     productLists: any;
     equiryId: any;
+    daysBookingCount: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -494,6 +495,11 @@ export class TravelPremiumListComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
                 if (type == 'sDate') {
                     this.startDateError = '';
+                    let fDate = this.datePipe.transform(new Date(), 'MM/dd/yyyy');
+                    let tDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
+                    let diff = Date.parse(tDate) - Date.parse(fDate);
+                    this.daysBookingCount =  Math.floor(diff / 86400000);
+                    console.log(this.daysBookingCount, 'daysCount22');
                 } else if (type == 'eDate') {
                     this.endDateError = '';
                 }
@@ -620,35 +626,39 @@ export class TravelPremiumListComponent implements OnInit {
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
             console.log(days, 'days');
-            this.settings.loadingSpinner = true;
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'sum_insured': sum_amount,
-                'sum_amount': this.selectedAmount,
-                'family_members': this.finalData,
-                'travel_plan': this.travelPlan,
-                'travel_time_type': this.travelType,
-                'enquiry_id': this.premiumLists.enquiry_id,
-                'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student' ,
-                'start_date': sDate,
-                'end_date': eDate,
-                'day_count': days,
-                'duration': this.duration ? this.duration : '',
-                'travel_type': groupname,
-                'medical_condition': this.medicalCondition
-            }
-            console.log(data, 'this.datadata');
-            this.travel.getTravelPremiumCal(data).subscribe(
-                (successData) => {
-                    this.getTravelPremiumCalSuccess(successData);
-                },
-                (error) => {
-                    this.getTravelPremiumCalFailure(error);
+            if (days < 180) {
+                const data = {
+                    'platform': 'web',
+                    'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                    'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
+                    'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                    'sum_insured': sum_amount,
+                    'sum_amount': this.selectedAmount,
+                    'family_members': this.finalData,
+                    'travel_plan': this.travelPlan,
+                    'travel_time_type': this.travelType,
+                    'enquiry_id': this.premiumLists.enquiry_id,
+                    'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
+                    'start_date': sDate,
+                    'end_date': eDate,
+                    'day_count': days,
+                    'duration': this.duration ? this.duration : '',
+                    'travel_type': groupname,
+                    'medical_condition': this.medicalCondition
                 }
-            );
+                this.settings.loadingSpinner = true;
+                console.log(data, 'this.datadata');
+                this.travel.getTravelPremiumCal(data).subscribe(
+                    (successData) => {
+                        this.getTravelPremiumCalSuccess(successData);
+                    },
+                    (error) => {
+                        this.getTravelPremiumCalFailure(error);
+                    }
+                );
+            } else {
+                this.toast.error('Travel period shoud not be grater than 180 days');
+            }
         }
 
     }

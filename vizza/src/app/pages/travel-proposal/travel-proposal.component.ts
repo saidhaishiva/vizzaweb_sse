@@ -127,6 +127,7 @@ export class TravelProposalComponent implements OnInit {
     personalDobError: any;
     getAge: any;
     paymentGatewayData: any;
+    visaTypeAllList: any;
     AcceptDeclaration: boolean;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -196,6 +197,7 @@ export class TravelProposalComponent implements OnInit {
         this.assigneeRelationship();
         this.travelPurposeList();
         this.getIlnessDetails();
+        this.visaTypeList();
 
       //  this.enquiryId = sessionStorage.enquiryId;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
@@ -899,8 +901,38 @@ export class TravelProposalComponent implements OnInit {
         }
     }
     public placeOfVisitFailure(error) {
+    }
+
+    visaTypeList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.travelservice.getVisaTypeList(data).subscribe(
+            (successData) => {
+                this.visaTypeSuccess(successData);
+            },
+            (error) => {
+                this.visaTypeFailure(error);
+            }
+        );
+    }
+    public visaTypeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.visaTypeAllList = successData.ResponseObject;
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public visaTypeFailure(error) {
 
     }
+
+
     travelPurposeList() {
         const data = {
             'platform': 'web',
