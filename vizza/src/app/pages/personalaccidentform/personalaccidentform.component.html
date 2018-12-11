@@ -246,7 +246,7 @@
                       <div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>
                       <div class="col-md-2">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="insuredTitle" (change)="insurechangeGender()">
+                          <mat-select placeholder="Title" formControlName="insuredTitle" (change)="insurechangeGender()" readonly="readonlyproposer">
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                             <!--<mat-option value="MRS">Mrs</mat-option>-->
@@ -257,13 +257,13 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" readonly="readonlyproposer" required >
                           <mat-error *ngIf="insured.controls.insuredFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredLastname"  (keypress)="typeValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredLastname"  (keypress)="typeValidate($event)"  readonly="readonlyproposer"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>
@@ -274,7 +274,7 @@
                       </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="insuredDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" readonly="readonlyproposer"   formControlName="insuredDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredDob.errors?.required">DOB is required</mat-error>
@@ -282,12 +282,12 @@
                       </div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="insuredAnnualIncome"  autocomplete="off">
+                        <input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="insuredAnnualIncome" readonly="readonlyproposer"  autocomplete="off">
 
                       </mat-form-field></div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()" required>
+                                <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()" readonly="readonlyproposer"  required>
                                     <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -312,39 +312,39 @@
                             </mat-form-field>
                         </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" readonly="readonlyproposer"  required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
+                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" readonly="readonlyproposer"  autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
 
                       </mat-form-field></div>
 
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"   formControlName="insuredEmail"  autocomplete="off" required>
+                        <input matInput placeholder="Email ID"   formControlName="insuredEmail"  autocomplete="off" readonly="readonlyproposer"  required>
                         <mat-error *ngIf="insured.controls.insuredEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Offical Email ID"   formControlName="insuredEmail2"  autocomplete="off">
+                        <input matInput placeholder="Offical Email ID"   formControlName="insuredEmail2" readonly="readonlyproposer"   autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredEmail2.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="onNumber($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="onNumber($event)" readonly="readonlyproposer"   maxlength="10" formControlName="insuredMobile" autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Residential Number"  formControlName="insuredAltnumber" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Residential Number" readonly="readonlyproposer"  formControlName="insuredAltnumber" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
 
                       </mat-form-field>
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
@@ -358,25 +358,25 @@
                     <div class="row">
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredAddress" autocomplete="off" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredAddress" autocomplete="off" readonly="readonlyproposer"  required></textarea>
                           <mat-error *ngIf="insured.controls.insuredAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredAddress2" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredAddress2" readonly="readonlyproposer" autocomplete="off"></textarea>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" readonly="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6" *ngIf="sameFieldsInsure != true"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" required>
+                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" readonly="readonlyproposer"  required>
                           <mat-option *ngFor="let city of insurepersonalCitys" [value]= 'city.city'>
                             {{city.city}}
                           </mat-option>
@@ -384,13 +384,13 @@
                         <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6" *ngIf="sameFieldsInsure"><mat-form-field class="w-100" >
-                        <input matInput placeholder="City" formControlName="insuredCity" autocomplete="off" required [readonly]="inputReadonly">
+                        <input matInput placeholder="City" formControlName="insuredCity" autocomplete="off" required readonly="readonlyproposer" >
                         <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
 
 
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="insuredState" autocomplete="off" required readonly>
+                        <input matInput placeholder="State" formControlName="insuredState" autocomplete="off" required  readonly>
                         <mat-error *ngIf="insured.controls.insuredState.errors?.required">State is required</mat-error>
 
                       </mat-form-field></div>
@@ -403,20 +403,20 @@
                       <div class="col-md-12"><mat-checkbox formControlName="sameasInsuredAddress" (change)="insuredsameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredrAddress" required autocomplete="off" ></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredrAddress" required autocomplete="off" readonly="readonlyproposer" ></textarea>
                           <mat-error *ngIf="insured.controls.insuredrAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredrAddress2" autocomplete="off" ></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredrAddress2" autocomplete="off" readonly="readonlyproposer" ></textarea>
                           <!--<mat-error *ngIf="insured.controls.insuredrAddress2.errors?.required">Address2 is required</mat-error>-->
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"    maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"  readonly="readonlyproposer"   maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -424,7 +424,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6" *ngIf="sameinsure != true"><mat-form-field class="w-100">
-                        <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off"  required>
+                        <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" readonly="readonlyproposer"  required>
                           <mat-option *ngFor="let citys of insuredresidenceCitys" [value]= 'citys.city'>
                             {{citys.city}}
                           </mat-option>
@@ -433,11 +433,11 @@
                       </mat-form-field></div>
 
                       <div class="col-md-6" *ngIf="sameinsure"><mat-form-field class="w-100" >
-                        <input matInput placeholder="City" formControlName="insuredrCity" autocomplete="off" required>
+                        <input matInput placeholder="City" formControlName="insuredrCity" autocomplete="off" readonly="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="insuredrState" autocomplete="off" required>
+                        <input matInput placeholder="State" formControlName="insuredrState" autocomplete="off" readonly="readonlyproposer"  required>
                         <mat-error *ngIf="insured.controls.insuredrState.errors?.required">State is required</mat-error>
 
                       </mat-form-field></div>
