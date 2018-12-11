@@ -299,6 +299,7 @@ export class PersonalaccidentComponent implements OnInit {
             this.firstPage = false;
             this.secondPage = true;
             this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
+            this.Age = this.personalPremiumLists.family_details[0].age;
             this.enquiryIdP = this.personalPremiumLists.enquiry_id;
             this.occupationP = this.personalPremiumLists.occupation_code;
             this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
