@@ -799,7 +799,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerLastname: this.getStepper1.proposerLastname,
                 proposerMidname: this.getStepper1.proposerMidname,
                 maritalStatus: this.getStepper1.maritalStatus,
-                proposerDob: this.getStepper1.proposerDob,
+                proposerDob:  new FormControl(new Date(this.getStepper1.proposerDob)),
                 proposerrelationship: this.getStepper1.proposerrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 proposerGender: this.getStepper1.proposerGender,
