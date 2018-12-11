@@ -585,6 +585,7 @@ public RediretUrlLink: any;
         if(title == 'proposer'){
             sessionStorage.setItem('proposerAge', this.personalAge);
         } else if(title == 'insurer') {
+            // alert('hai age');
             sessionStorage.setItem('insurerAge', this.personalAge);
             this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
             this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
@@ -873,11 +874,11 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.proposerAge);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
@@ -886,11 +887,11 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue( '');
         }
 
     }
@@ -1060,7 +1061,7 @@ public RediretUrlLink: any;
                 'Tenure': '1'
             },
             'RiskDetails': {
-                'SumInsured': '300000',
+                'SumInsured':  this.buyProductdetails.suminsured_amount,
                 'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
                 'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
                 'IsAnyEmployeeOfRelianceADAGroup': this.riskData.relianceAda == 'Yes' ? 'true' : 'false',
