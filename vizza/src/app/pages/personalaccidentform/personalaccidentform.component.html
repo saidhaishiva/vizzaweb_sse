@@ -29,7 +29,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
-                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Title is required</mat-error>
+                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Firstname is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
