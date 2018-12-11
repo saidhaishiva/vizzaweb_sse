@@ -1157,5 +1157,15 @@ preInsureList() {
         this.settings.loadingSpinner = false;
         console.log(error);
     }
+    public keyEvent(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9a-zA-Z ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
 }
 

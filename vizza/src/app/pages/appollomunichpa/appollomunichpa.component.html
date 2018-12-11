@@ -99,7 +99,7 @@
 
                       <div class="col-md-3" *ngIf="pannumber">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPaPan"  autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="keyEvent($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPaPan"  autocomplete="off">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
@@ -123,7 +123,7 @@
                       </div>
 
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="proposerPaGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                        <input matInput placeholder="GST Number" (keypress)="keyEvent($event)" minlength="15"  maxlength="15" formControlName="proposerPaGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="ProposerPa.controls.proposerPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="ProposerPa.controls.proposerPaGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field>
