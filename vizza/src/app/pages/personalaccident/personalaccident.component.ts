@@ -93,7 +93,7 @@ export class PersonalaccidentComponent implements OnInit {
         // this.closeIcon = true;
         this.sumInsuredAmonut();
         this.setOccupationListCode();
-        this.sessionData()
+        this.sessionData();
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
@@ -105,7 +105,7 @@ export class PersonalaccidentComponent implements OnInit {
         sessionStorage.pincoceP = this.pincoceP;
         sessionStorage.occupationP = this.occupationP;
         sessionStorage.AnnualIncomeP = this.AnnualIncomeP;
-        sessionStorage.setAge = this.Age;
+        sessionStorage.setAgeP= this.Age;
 
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
@@ -127,8 +127,8 @@ export class PersonalaccidentComponent implements OnInit {
         if (sessionStorage.pincoceP != undefined && sessionStorage.pincoceP != '') {
             this.pincoceP = sessionStorage.pincoceP;
         }
-        if (sessionStorage.setAge != undefined && sessionStorage.setAge) {
-            this.Age = sessionStorage.setAge;
+        if (sessionStorage.setAgeP != undefined && sessionStorage.setAgeP) {
+            this.Age = sessionStorage.setAgeP;
         }
         if (sessionStorage.AnnualIncomeP != undefined && sessionStorage.AnnualIncomeP) {
             this.AnnualIncomeP = sessionStorage.AnnualIncomeP;
