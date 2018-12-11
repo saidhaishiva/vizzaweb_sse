@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
@@ -74,7 +74,7 @@ public paNomineedistrictList: any;
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       this.minDate = this.selectDate;
-      this.appolloPA = 0;
+      this.appolloPA = "0";
       this.mobileNumber = 'true';
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -499,16 +499,16 @@ public paNomineedistrictList: any;
         }
         this.personalservice.cityPaList(data).subscribe(
             (successData) => {
-                this.insuredCityPaListSuccess(successData);
+                this.nomineeCityPaListSuccess(successData);
             },
             (error) => {
-                this.insuredCityPaListFailure(error);
+                this.nomineeCityPaListFailure(error);
             }
         );
     }
 
     public nomineeCityPaListSuccess(successData){
-        console.log(successData.ResponseObject);
+      console.log(successData, 'iuoiuoiuoiuoiuoiuoiuiouio');
         this.paCityNomineeList = successData.ResponseObject;
         console.log( this.paCityNomineeList, 'paCityNomineeList');
 
@@ -755,7 +755,7 @@ preInsureList() {
                 proposerPaLastname: this.appollo1.proposerPaLastname,
                 proposerPaMidname: this.appollo1.proposerPaMidname,
                 maritalStatus: this.appollo1.maritalStatus,
-                proposerPaDob: this.appollo1.proposerPaDob,
+                proposerPaDob: new FormControl(new Date(this.appollo1.proposerPaDob)),
                 proposerParelationship: this.appollo1.proposerParelationship,
                 sameAsProposer: this.appollo1.sameAsProposer,
                 proposerPaGender: this.appollo1.proposerPaGender,
@@ -798,7 +798,7 @@ preInsureList() {
                 insuredPaLastname: this.appollo2.insuredPaLastname,
                 insuredPaMidname: this.appollo2.insuredPaMidname,
                 maritalStatus: this.appollo2.maritalStatus,
-                insuredPaDob: this.appollo2.insuredPaDob,
+                insuredPaDob: new FormControl(new Date(this.appollo2.insuredPaDob)),
                 insuredParelationship: this.appollo2.insuredParelationship,
                 sameAsProposer: this.appollo2.sameAsProposer,
                 insuredPaGender: this.appollo2.insuredPaGender,
@@ -948,9 +948,7 @@ preInsureList() {
         }
     }
     public pinPanomineeListSuccess(successData){
-        console.log(successData);
         this.paPinnomineeList = successData.ResponseObject;
-        console.log( this.paPinnomineeList.state, 'paPinnomineeList');
         this.nomineeDetail.controls['paNomineeState'].patchValue(this.paPinnomineeList.state);
         this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.paPinnomineeList.state_code);
         this. onChangeStateNominee();
@@ -964,9 +962,9 @@ preInsureList() {
     // proposal creation
     createrPoposal(){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
-const data = {
+   const data = {
     "enquiry_id": enq_id.toString(),
-    "proposal_id":this.appolloPA,
+    "proposal_id": this.appolloPA,
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
@@ -978,8 +976,8 @@ const data = {
                     "CountryCode": "IN",
                     "District": this.nomineeDetail.controls['paNomineeDistrict'].value,
                     "PinCode": this.nomineeDetail.controls['paNomineePincode'].value,
-                    "StateCode": this.nomineeDetail.controls['paNomineeState'].value,
-                    "TownCode": '4278',
+                    "StateCode": this.nomineeDetail.controls['paNomineeStateIdP'].value,
+                    "TownCode": this.nomineeDetail.controls['paNomineeCity'].value,
                 },
                 "NomineeName": this.nomineeDetail.controls['paNomineeName'].value,
                 "NomineeTitleCode": this.nomineeDetail.controls['paNomineeTitle'].value,
@@ -993,7 +991,7 @@ const data = {
                             "CountryCode": "IN",
                             "District":this.ProposerPa.controls['proposerPaDistrict'].value,
                             "PinCode": this.ProposerPa.controls['proposerPaPincode'].value,
-                            "StateCode": this.ProposerPa.controls['proposerPaState'].value,
+                            "StateCode": this.ProposerPa.controls['proposerPaStateIdP'].value,
                             "TownCode": this.ProposerPa.controls['proposerPaCity'].value,
                         }
                     },
@@ -1026,7 +1024,7 @@ const data = {
                         "CountryCode": "IN",
                         "District": this.insured.controls['insuredPaDistrict'].value,
                         "PinCode": this.insured.controls['insuredPaPincode'].value,
-                        "StateCode": this.insured.controls['insuredPaState'].value,
+                        "StateCode": this.insured.controls['insuredPaStateIdP'].value,
                         "TownCode":  this.insured.controls['insuredPaCity'].value,
                     }
                 },
@@ -1108,10 +1106,46 @@ const data = {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             console.log(this.appollosummaryData, 'this.summaryData');
-            this.appolloPA = this.appollosummaryData.proposal_id;
+            this.appolloPA = this.appollosummaryData.ProposalId;
             console.log( this.appolloPA, ' this.appolloPA');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
+            // Proposer state
+            if(this.appollosummaryData.ProposalDetails.p_statecode == this.paPinList.state_code) {
+                this.appollosummaryData.ProposalDetails.state =  this.paPinList.state;
+            }
+            // Insured state
+            if(this.appollosummaryData.InsurePolicyholderDetails.i_statecode == this.paPinInsuredList.state_code) {
+                this.appollosummaryData.InsurePolicyholderDetails.state =  this.paPinInsuredList.state;
+            }
+            // proposer District
+                for( let i=0; i < this.padistrictList.length; i++) {
+                    if(this.appollosummaryData.ProposalDetails.p_district == this.padistrictList[i].district_code) {
+                        this.appollosummaryData.ProposalDetails.district_name =  this.padistrictList[i].district_name;
+                    }
+                }
+            // Insured District
+            for( let i=0; i < this.paInsureddistrictList.length; i++) {
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_district == this.paInsureddistrictList[i].district_code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.district_name =  this.paInsureddistrictList[i].district_name;
+                }
+            }
+            // Proposer City
+            for( let i=0; i < this.paCityList.length; i++) {
+                if(this.appollosummaryData.ProposalDetails.p_towncode == this.paCityList[i].city_code) {
+                    this.appollosummaryData.ProposalDetails.city_name =  this.paCityList[i].city_name;
+                }
+            }
+            // Insured City
+            for( let i=0; i < this.paCityInsuredList.length; i++) {
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_towncode == this.paCityInsuredList[i].city_code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.city_name =  this.paCityInsuredList[i].city_name;
+                }
+            }
 
+            // Marital List
+            if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList.marital_code) {
+                this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList.marital_status;
+            }
             this.lastPage.next();
 
         } else {
