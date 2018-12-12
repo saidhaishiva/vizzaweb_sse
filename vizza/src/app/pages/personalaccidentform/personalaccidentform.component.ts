@@ -623,13 +623,13 @@ export class PersonalaccidentformComponent implements OnInit {
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     if(type == 'personal'){
                         this.personaldateError = '';
-                    } else {
+                    } else if (type == 'insure'){
                         this.insurerdateError = '';
                     }
                 } else {
                     if(type == 'personal'){
                         this.personaldateError = 'Enter Valid Date';
-                    } else {
+                    } else if (type == 'insure') {
                         this.insurerdateError = 'Enter Valid Date';
                     }
                 }
@@ -638,9 +638,11 @@ export class PersonalaccidentformComponent implements OnInit {
                 console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     if(type == 'personal'){
+                       this.personaldateError = '';
                         this.personal.controls['personalDob'].patchValue(dob);
                         this.proposerAgeP = this.ageCalculate(dob);
                     } else {
+                        this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
 
                     }
@@ -651,9 +653,11 @@ export class PersonalaccidentformComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     if(type == 'personal'){
-                    this.personal.controls['personalDob'].patchValue(dob);
+                        this.personaldateError = '';
+                        this.personal.controls['personalDob'].patchValue(dob);
                     this.proposerAgeP = this.ageCalculate(dob);
                 } else {
+                        this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
 
                     }
