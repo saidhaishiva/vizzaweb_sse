@@ -577,6 +577,7 @@ public insurestardate: any;
     }
     // date input
     addEvent(event, type) {
+      console.log(type, 'type');
 
         if (event.value != null) {
             let selectedDate = '';
@@ -598,11 +599,10 @@ public insurestardate: any;
                 if(type == 'personal'){
                     this.insuredate = 'Enter Valid Date';
                 } else if (type == 'insure') {
-                    this.insurerdateError = '';
+                    this.insurerdateError = 'Enter Valid Date';
                 } else {
                     if (type == 'startdate') {
-                        this.insurestardate = '';
-                        this.insured.controls['PolicyStartDate'].patchValue(dob);
+                        this.insurestardate = 'Enter Valid Date';
                     }
                 }
             }
@@ -614,12 +614,15 @@ public insurestardate: any;
                         this.insuredate = '';
                         this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
                         this.proposerAgeP = this.ageCalculate(dob);
-                    } else {
+                    }  else if (type == 'insure') {
                         this.insurerdateError = '';
                         this.insured.controls['insuredPaDob'].patchValue(dob);
-
+                    } else {
+                        if (type == 'startdate') {
+                            this.insurestardate = '';
+                            this.insured.controls['PolicyStartDate'].patchValue(dob);
+                        }
                     }
-                    this.proposerAgeP = this.ageCalculate(dob);
                 }
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
