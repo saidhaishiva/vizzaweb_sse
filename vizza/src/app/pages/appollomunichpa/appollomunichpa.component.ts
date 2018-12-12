@@ -181,6 +181,8 @@ public proposerAgeP: any;
           insuredPaDistrictIdP: '',
           insuredOccupationList:'',
           insuredProfessionList:'',
+          PolicyStartDate:'',
+          PolicyEndDate:'',
           MedicalInformations: '',
           insuredAnnual:'',
           previousradio:'',
@@ -733,8 +735,28 @@ preInsureList() {
     previousinsureList(value){
       if(this.insured.controls['previousradio'].value == 1){
           this.prevList = true;
+          this.insuredSmoke = true;
+          console.log('in');
+          this.insured.controls['PolicyStartDate'].setValidators([Validators.required]);
+          this.insured.controls['PolicyEndDate'].setValidators([Validators.required]);
+          this.insured.controls['insuredPrevList'].setValidators([Validators.required]);
+          this.insured.controls['insuredPrevious'].setValidators([Validators.required]);
+          this.insured.controls['insureSumInsured'].setValidators([Validators.required]);
+          this.insured.controls['insuredQualify'].setValidators([Validators.required]);
+          this.insured.controls['insuredWaive'].setValidators([Validators.required]);
+          this.insured.controls['insuredremark'].setValidators([Validators.required]);
       } else{
           this.prevList = false;
+          this.insuredSmoke = false;
+          console.log('out');
+          this.insured.controls['PolicyStartDate'].setValidators(null);
+          this.insured.controls['PolicyEndDate'].setValidators(null);
+          this.insured.controls['insuredPrevList'].setValidators(null);
+          this.insured.controls['insuredPrevious'].setValidators(null);
+          this.insured.controls['insureSumInsured'].setValidators(null);
+          this.insured.controls['insuredQualify'].setValidators(null);
+          this.insured.controls['insuredWaive'].setValidators(null);
+          this.insured.controls['insuredremark'].setValidators(null);
       }
     }
 // Occupation List
@@ -1057,7 +1079,7 @@ preInsureList() {
                     "FirstName": this.ProposerPa.controls['proposerPaFirstname'].value,
                     "GenderCode": this.ProposerPa.controls['proposerPaGender'].value,
                     "GstinNumber": this.ProposerPa.controls['proposerPaGst'].value,
-                    "IDProofNumber":this.ProposerPa.controls['proposerPaPan'].value,
+                    "IDProofNumber": this.idListDetailsProposal,
                     "IDProofTypeCode":this.ProposerPa.controls['proposerPaIdProof'].value,
                     "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
                     "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
@@ -1097,23 +1119,22 @@ preInsureList() {
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
 
-                "IDProofNumber": this.insured.controls['insuredPaPan'].value,
+                "IDProofNumber":this.idListDetails,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
                 "MiddleName": this.insured.controls['insuredPaMidname'].value,
                 "NationalityCode": "IN",
                 "OccuptionCode":this.insured.controls['insuredOccupationList'].value,
-
                 "PreviousInsurer": {
-                    "InceptionDate": "",
-                    "EndDate":"",
-                    "PreviousInsurerCode":"",
-                    "PreviousPolicyNumber": "",
-                    "SumInsured":"",
-                    "QualifyingAmount":"",
-                    "WaivePeriod": "",
-                    "Remarks": "",
+                    "InceptionDate": this.insured.controls['PolicyStartDate'].value,
+                    "EndDate":this.insured.controls['PolicyEndDate'].value,
+                    "PreviousInsurerCode":this.insured.controls['insuredPrevList'].value,
+                    "PreviousPolicyNumber":this.insured.controls['insuredPrevious'].value,
+                    "SumInsured":this.insured.controls['insureSumInsured'].value,
+                    "QualifyingAmount":this.insured.controls['insuredQualify'].value,
+                    "WaivePeriod": this.insured.controls['insuredWaive'].value,
+                    "Remarks": this.insured.controls['insuredremark'].value
                 },
                 "LifeStyleHabits": {
                     "BeerBottle": this.insured.controls['insuredBeer'].value || this.insured.controls['insuredBeer'].value != undefined ? this.insured.controls['insuredBeer'].value: 0 ,

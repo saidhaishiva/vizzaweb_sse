@@ -133,7 +133,10 @@ export class PersonalaccidentformComponent implements OnInit {
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
     public religarePAProposal: any;
+    proposerAgeP: any;
     public readonlyproposer: boolean;
+    insuredate: any;
+    personaldateError: any;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -359,7 +362,6 @@ export class PersonalaccidentformComponent implements OnInit {
             console.log(JSON.parse(sessionStorage.proposal2Detail), 'sessionStorage.proposal2Detail');
             this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
             if (this.getStepper2.insuredOccupationCode != '') {
-                alert();
                 this.insured.controls['insuredOccupationCode'].patchValue(this.getStepper2.insuredOccupationCode);
                 this.setinsureOccupationListCode();
             }
@@ -610,13 +612,43 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     addEvent(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
-        sessionStorage.setItem('proposerAge', this.personalAge);
-    }
+
+        if (event.value != null) {
+            let selectedDate = '';
+            this.proposerAgeP = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.personaldateError = '';
+                } else {
+                    this.personaldateError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
+
+                    this.personal.controls['personalDob'].patchValue(dob);
+                    this.proposerAgeP = this.ageCalculate(dob);
+
+                }
+            } else if (typeof event.value._i == 'object') {
+                this.insuredate = '';
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+
+                    this.proposerAgeP = this.ageCalculate(dob);
+                }
+                this.personal.controls['personalDob'].patchValue(dob);
+
+            }
+            sessionStorage.proposerAgeP = this.proposerAgeP;
+
+        }
+
+
+}
 
 
     ageCalculate(dob) {

@@ -55,7 +55,6 @@
                           <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                         <div class="error" *ngIf="insuredate != ''">{{insuredate}}</div>
-
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -486,7 +485,7 @@
                         <h6 class="mt-3">Previous Insure details:</h6>
                       </div>
                       <div class="col-md-12">
-                        <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio" >
+                        <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
                           <mat-radio-button value="1">Yes</mat-radio-button>
                           <mat-radio-button value="2">No</mat-radio-button>
                         </mat-radio-group>
@@ -496,52 +495,55 @@
                         <div class="row">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)" (keypress)="onNumber($event)"   formControlName="PolicyStartDate" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  maxlength="10" minlength="10" autocomplete="off">
+                              <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)" (keypress)="onNumber($event)"   formControlName="PolicyStartDate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  required="insuredSmoke" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                               <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
+                            <div class="error" *ngIf="insuredate != ''">{{insuredate}}</div>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker3"  [min]="minDate" placeholder="Policy End Date" (keypress)="onNumber($event)"   formControlName="PolicyEndDate"  maxlength="10" minlength="10"  autocomplete="off">
+                              <input matInput [matDatepicker]="picker3"  [min]="minDate" placeholder="Policy End Date" (keypress)="onNumber($event)"   formControlName="PolicyEndDate" required="insuredSmoke" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                               <mat-datepicker #picker3></mat-datepicker>
                             </mat-form-field>
+                            <div class="error" *ngIf="insuredate != ''">{{insuredate}}</div>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Previous Insurance List" (keypress)="onNumber($event)"  formControlName="insuredPrevList" (change)="preInsureList()">
+                              <mat-select placeholder="Previous Insurance List" (keypress)="onNumber($event)"  formControlName="insuredPrevList" (change)="preInsureList()" required="insuredSmoke">
                                 <mat-option *ngFor="let previous of preinsure" value="{{previous.insure_code}}" > {{previous.insure_name}} </mat-option>
                               </mat-select>
+                              <mat-error *ngIf="insured.controls.insuredPrevList.errors?.required">Previous Insurance List is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Previous Policy No" (keypress)="onNumber($event)"  formControlName="insuredPrevious">
+                              <input matInput placeholder="Previous Policy No" (keypress)="onNumber($event)"  formControlName="insuredPrevious" required="insuredSmoke">
                               <mat-error *ngIf="insured.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Sum Insured" (keypress)="onNumber($event)"  formControlName="insureSumInsured">
+                              <input matInput placeholder="Sum Insured" (keypress)="onNumber($event)" required="insuredSmoke" formControlName="insureSumInsured">
                               <mat-error *ngIf="insured.controls.insureSumInsured.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Qualifying Amount" (keypress)="onNumber($event)"  formControlName="insuredQualify">
+                              <input matInput placeholder="Qualifying Amount" (keypress)="onNumber($event)" required="insuredSmoke"  formControlName="insuredQualify">
                               <mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Waive Period" (keypress)="onNumber($event)"  formControlName="insuredWaive">
+                              <input matInput placeholder="Waive Period" (keypress)="onNumber($event)" required="insuredSmoke" formControlName="insuredWaive">
                               <mat-error *ngIf="insured.controls.insuredWaive.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Enter Remark Details"  (keypress)="onNumber($event)" formControlName="insuredremark">
+                              <input matInput placeholder="Enter Remark Details"  (keypress)="onNumber($event)" required="insuredSmoke" formControlName="insuredremark">
                               <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
