@@ -659,7 +659,6 @@ export class PersonalaccidentformComponent implements OnInit {
                 } else {
                         this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
-
                     }
                 }
 
