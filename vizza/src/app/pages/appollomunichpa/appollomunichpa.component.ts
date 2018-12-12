@@ -87,6 +87,7 @@ public paPinnomineeList: any;
 public paCityNomineeList: any;
 public paNomineedistrictList: any;
 public insuredate: any;
+public proposerAgeP: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -218,6 +219,7 @@ public insuredate: any;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.prevList = false;
+
   }
 
   ngOnInit() {
@@ -541,7 +543,7 @@ public insuredate: any;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
         if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.proposerAgeP >= 18) {
                     stepper.next();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -563,8 +565,10 @@ public insuredate: any;
     // date input
     addEvent(event) {
 
-
         if (event.value != null) {
+            let selectedDate = '';
+            this.proposerAgeP = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                     if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -572,17 +576,21 @@ public insuredate: any;
                     } else {
                         this.insuredate = 'Enter Valid Date';
                     }
-                let selectedDate;
                 selectedDate = event.value._i;
-                console.log(selectedDate, 'selectedDate');
-                // if (selectedDate.length == 10) {
-                //         this.maxDate = event.value;
-                // }
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob,'dob');
+                if (selectedDate.length == 10) {
+                    this.proposerAgeP = this.ageCalculate(dob);
+                }
             } else if (typeof event.value._i == 'object') {
                     this.insuredate = '';
-                console.log(event.value, 'event.value');
-
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.proposerAgeP = this.ageCalculate(dob);
+                }
             }
+            sessionStorage.proposerAgeP = this.proposerAgeP;
+
         }
     }
 
@@ -637,42 +645,43 @@ preInsureList() {
         console.log(error);
     }
     // checkbox
-    checkHabits(value, type){
-      if(value.checked && type == 'smoke'){
-          this.insuredSmoke = true;
-          this.insured.controls['insuredSmokeList'].enable();
-      } else {
-          this.insuredSmoke = false;
-          this.insured.controls['insuredSmokeList'].patchValue('');
+    checkHabits(value, type) {
 
-      }
-    if(value.checked && type == 'pouches'){
-        this.insuredPouches = true;
-            this.insured.controls['insuredPouchesList'].enable();
+        if (value.checked) {
+            if (value.checked && type == 'smoke') {
+                this.insuredSmoke = true;
+                this.insured.controls['insuredSmokeList'].enable();
+            } else if (value.checked && type == 'pouches') {
+                this.insuredPouches = true;
+                this.insured.controls['insuredPouchesList'].enable();
+            } else if (value.checked && type == 'liquor') {
+                this.insuredCheck = true;
+                this.insured.controls['insuredLiquor'].enable();
+            } else if (value.checked && type == 'wine') {
+                this.insuredCheck1 = true;
+                this.insured.controls['insuredWine'].enable();
+            } else if (value.checked && type == 'beer') {
+                this.insuredCheck2 = true;
+                this.insured.controls['insuredBeer'].enable();
+            }
         } else {
-        this.insuredPouches = false;
-        this.insured.controls['insuredPouchesList'].patchValue('');
-        }
-        if(value.checked && type == 'liquor'){
-            this.insuredCheck = true;
-            this.insured.controls['insuredLiquor'].enable();
-        } else {
-            this.insuredCheck = false;
-            this.insured.controls['insuredLiquor'].patchValue('');
-        }
-        if(value.checked && type == 'wine'){
-            this.insuredCheck = true;
-            this.insured.controls['insuredWine'].enable();
-        } else {
-            this.insuredCheck = false;
-            this.insured.controls['insuredWine'].patchValue('');
-        }
-        if(value.checked && type == 'beer'){
-            this.insuredCheck2 = true;
-            this.insured.controls['insuredBeer'].enable();
-        } else {
-            this.insuredCheck2 = false;
-            this.insured.controls['insuredBeer'].patchValue('');
+            if (type == 'smoke') {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredSmokeList'].patchValue('');
+            } else if (type == 'pouches') {
+                this.insuredPouches = false;
+                this.insured.controls['insuredPouchesList'].patchValue('');
+            } else if (type == 'liquor') {
+                this.insuredCheck = false;
+                this.insured.controls['insuredLiquor'].patchValue('');
+            } else if (type == 'wine') {
+                this.insuredCheck1 = false;
+                this.insured.controls['insuredWine'].patchValue('');
+            } else if (type == 'beer') {
+                this.insuredCheck2 = false;
+                this.insured.controls['insuredBeer'].patchValue('');
+            }
+
         }
     }
 

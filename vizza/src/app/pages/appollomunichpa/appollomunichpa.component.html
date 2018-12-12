@@ -49,12 +49,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)" formControlName="proposerPaDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" maxlength="10" minlength="10"
+                          <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)" formControlName="proposerPaDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
-                            <div class="error" *ngIf="insuredate != ''">{{insuredate}}</div>
                         </mat-form-field>
+                        <div class="error" *ngIf="insuredate != ''">{{insuredate}}</div>
+
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -408,7 +409,7 @@
                       <div class="col-md-6">
                         <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" [required]="insuredSmoke">
+                        <mat-select placeholder="Smoking" formControlName="insuredSmokeList" required="insuredSmoke">
                           <mat-option value="1" >less than or equal to 10 per day</mat-option>
                           <mat-option value="2">More than 10 per day</mat-option>
                         </mat-select>
@@ -417,7 +418,7 @@
                       <div class="col-md-6">
                         <mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Pouches" formControlName="insuredPouchesList" [required]="insuredPouches">
+                        <mat-select placeholder="Pouches" formControlName="insuredPouchesList" required="insuredPouches">
                           <mat-option value="1">less than or equal to 7 per day</mat-option>
                           <mat-option value="2">less than or equal to 7 per day</mat-option>
                         </mat-select>
@@ -430,7 +431,7 @@
                         <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
 
                         <mat-form-field class="w-100" >
-                        <mat-select placeholder="LiquorPeg" formControlName="insuredLiquor" [required]="insuredCheck">
+                        <mat-select placeholder="LiquorPeg" formControlName="insuredLiquor" required="insuredCheck">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -448,7 +449,7 @@
                       <div class="col-md-4">
                         <mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
                         <mat-form-field class="w-100">
-                        <mat-select placeholder=Wine formControlName="insuredWine" [required]="insuredCheck1">
+                        <mat-select placeholder=Wine formControlName="insuredWine" required="insuredCheck1">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -466,7 +467,7 @@
                       <div class="col-md-4">
                         <mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
                         <mat-form-field class="w-100" >
-                        <mat-select placeholder=Beer formControlName="insuredBeer" [required]="insuredCheck2">
+                        <mat-select placeholder=Beer formControlName="insuredBeer" required="insuredCheck2">
                           <mat-option value="1">1</mat-option>
                           <mat-option value="2">2</mat-option>
                           <mat-option value="3">3</mat-option>
@@ -482,7 +483,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
-                        <h6 class="mt-3">Pre Insure details:</h6>
+                        <h6 class="mt-3">Previous Insure details:</h6>
                       </div>
                       <div class="col-md-12">
                         <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio" >
