@@ -609,6 +609,7 @@ public insurestardate: any;
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 console.log(dob,'dob');
+
                 if (selectedDate.length == 10) {
                     if(type == 'personal'){
                         this.insuredate = '';
