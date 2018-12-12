@@ -50,7 +50,7 @@
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
-                        <div class="error" *ngIf="personaldateError != ''">{{personaldateError}}</div>
+                        <div class="error" *ngIf="personaldateError !=''">{{personaldateError}}</div>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -124,7 +124,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="Residential Number"   formControlName="personalAltnumber" (keyup)="alternateChange($event, 'personal')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Residential Number"  maxlength="15" formControlName="personalAltnumber" (keyup)="alternateChange($event, 'personal')" (keypress)="onAlternative($event)" required autocomplete="off">
 
 
                       </mat-form-field>

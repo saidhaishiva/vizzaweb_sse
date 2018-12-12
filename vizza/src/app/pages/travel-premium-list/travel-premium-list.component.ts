@@ -11,11 +11,28 @@ import {DatePipe} from '@angular/common';
 import {Settings} from '../../app.settings.model';
 import { TravelViewKeyFeaturesComponent} from './travel-view-key-features/travel-view-key-features.component';
 import { TravelCompareComponent} from './travel-compare/travel-compare.component';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-travel-premium-list',
   templateUrl: './travel-premium-list.component.html',
-  styleUrls: ['./travel-premium-list.component.scss']
+  styleUrls: ['./travel-premium-list.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class TravelPremiumListComponent implements OnInit {
     public settings: Settings;
@@ -657,7 +674,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }
                 );
             } else {
-                this.toast.error('Travel period shoud not be grater than 180 days');
+                this.toast.error('Travel period shoud not be greater than 180 days');
             }
         }
 
