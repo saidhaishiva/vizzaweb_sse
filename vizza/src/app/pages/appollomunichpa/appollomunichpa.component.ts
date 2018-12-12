@@ -668,18 +668,27 @@ preInsureList() {
             if (type == 'smoke') {
                 this.insuredSmoke = false;
                 this.insured.controls['insuredSmokeList'].patchValue('');
+                this.insured.controls['insuredSmokeList'].disable();
+
             } else if (type == 'pouches') {
                 this.insuredPouches = false;
                 this.insured.controls['insuredPouchesList'].patchValue('');
+                this.insured.controls['insuredPouchesList'].disable();
             } else if (type == 'liquor') {
                 this.insuredCheck = false;
                 this.insured.controls['insuredLiquor'].patchValue('');
+                this.insured.controls['insuredLiquor'].disable();
+
             } else if (type == 'wine') {
                 this.insuredCheck1 = false;
                 this.insured.controls['insuredWine'].patchValue('');
+                this.insured.controls['insuredWine'].disable();
+
             } else if (type == 'beer') {
                 this.insuredCheck2 = false;
                 this.insured.controls['insuredBeer'].patchValue('');
+                this.insured.controls['insuredBeer'].disable();
+
             }
 
         }
