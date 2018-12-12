@@ -137,6 +137,8 @@ export class PersonalaccidentformComponent implements OnInit {
     public readonlyproposer: boolean;
     insuredate: any;
     personaldateError: any;
+    insurerdateError: any;
+
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -440,7 +442,7 @@ export class PersonalaccidentformComponent implements OnInit {
         if (this.personal.valid) {
 
             this.proposerInsureData = [];
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.proposerAgeP >= 18) {
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
@@ -611,8 +613,7 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
 
-    addEvent(event) {
-
+    addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAgeP = '';
@@ -620,27 +621,43 @@ export class PersonalaccidentformComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.personaldateError = '';
+                    if(type == 'personal'){
+                        this.personaldateError = '';
+                    } else {
+                        this.insurerdateError = '';
+                    }
                 } else {
-                    this.personaldateError = 'Enter Valid Date';
+                    if(type == 'personal'){
+                        this.personaldateError = 'Enter Valid Date';
+                    } else {
+                        this.insurerdateError = 'Enter Valid Date';
+                    }
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 console.log(dob,'dob');
                 if (selectedDate.length == 10) {
+                    if(type == 'personal'){
+                        this.personal.controls['personalDob'].patchValue(dob);
+                        this.proposerAgeP = this.ageCalculate(dob);
+                    } else {
+                        this.insured.controls['insuredDob'].patchValue(dob);
 
-                    this.personal.controls['personalDob'].patchValue(dob);
-                    this.proposerAgeP = this.ageCalculate(dob);
+                    }
 
                 }
             } else if (typeof event.value._i == 'object') {
                 this.insuredate = '';
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-
+                    if(type == 'personal'){
+                    this.personal.controls['personalDob'].patchValue(dob);
                     this.proposerAgeP = this.ageCalculate(dob);
+                } else {
+                        this.insured.controls['insuredDob'].patchValue(dob);
+
+                    }
                 }
-                this.personal.controls['personalDob'].patchValue(dob);
 
             }
             sessionStorage.proposerAgeP = this.proposerAgeP;

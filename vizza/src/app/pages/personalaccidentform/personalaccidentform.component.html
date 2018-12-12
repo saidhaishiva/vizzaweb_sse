@@ -29,7 +29,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
-                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Firstname is required</mat-error>
+                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
@@ -45,15 +45,16 @@
                       </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="personaldateError != ''">{{personaldateError}}</div>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="RelationShip With Insured"  formControlName="personalrelationship"  (change)="setRelationship()" required>
+                          <mat-select placeholder="Relationship With Insured"  formControlName="personalrelationship"  (change)="setRelationship()" required>
                             <mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -111,7 +112,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="OfficalEmail ID"   formControlName="personalEmail2"  autocomplete="off" >
+                        <input matInput placeholder="Offical Email ID"   formControlName="personalEmail2"  autocomplete="off" >
                         <!--<mat-error *ngIf="personal.controls.personalEmail2.errors?.required">Email ID is required</mat-error>-->
                         <mat-error *ngIf="personal.controls.personalEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -274,11 +275,13 @@
                       </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" readonly="readonlyproposer"   formControlName="insuredDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" readonly="readonlyproposer"   formControlName="insuredDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>
+
                       </div>
 
                       <div class="col-md-6"><mat-form-field class="w-100">
@@ -294,25 +297,25 @@
                         </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()">
+                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()" readonly="readonlyproposer" >
                                     <mat-option *ngFor="let occupation of insureoccupationdescriptionList" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" *ngIf="insureoccupationDescription">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Description"  formControlName="insuredDescription"  autocomplete="off">
+                                <input matInput placeholder="Description"  formControlName="insuredDescription" readonly="readonlyproposer" autocomplete="off">
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()">
+                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()" readonly="readonlyproposer">
                                     <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" readonly="readonlyproposer"  required>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" readonly="readonlyproposer" readonly="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
