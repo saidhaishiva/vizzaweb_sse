@@ -538,19 +538,19 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Qualifying Amount" (keypress)="onNumber($event)" required="insuredSmoke"  formControlName="insuredQualify">
-                              <mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Sum Insured is required</mat-error>
+                              <mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Qualifying Amount is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Waive Period" (keypress)="onNumber($event)" required="insuredSmoke" formControlName="insuredWaive">
-                              <mat-error *ngIf="insured.controls.insuredWaive.errors?.required">Sum Insured is required</mat-error>
+                              <mat-error *ngIf="insured.controls.insuredWaive.errors?.required">Waive Period is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Enter Remark Details"   required="insuredSmoke" formControlName="insuredremark">
-                              <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Sum Insured is required</mat-error>
+                              <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Enter Remark Details is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
