@@ -47,12 +47,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)" maxlength="10"
+                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"   maxlength="10"
                             minlength="10"     autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="proposer.controls.proposerDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -116,7 +117,9 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO4'" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="proposerVoter" >
+                          <input matInput placeholder="Voter Id" formControlName="proposerVoter" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$">
+                          <mat-error *ngIf="proposer.controls.proposerVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
+
                         </mat-form-field>
                       </div>
 
@@ -655,20 +658,26 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6"  formControlName="nomineePincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="getPincode($event.target.value, 'nominee', 'i')"  formControlName="nomineePincode" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="State"  formControlName="nomineeState"  required>
-                            <mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="State"  formControlName="nomineeState"  required>-->
+                            <!--<mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100" >
+                                <input matInput placeholder="State" formControlName="nomineeState" required readonly>
+                                <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
+                            </mat-form-field>
+                        </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="nomineeDistrict">

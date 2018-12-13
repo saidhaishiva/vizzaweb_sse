@@ -1388,7 +1388,7 @@ array: any;
     religareQuestions() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
+            'product_id': this.buyProductdetails.product_id,
             'family_group': this.insurePersons,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
