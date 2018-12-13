@@ -128,6 +128,7 @@ export class TravelProposalComponent implements OnInit {
     getAge: any;
     paymentGatewayData: any;
     visaTypeAllList: any;
+    placeOfVisitNames: any;
     AcceptDeclaration: boolean;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -728,6 +729,18 @@ export class TravelProposalComponent implements OnInit {
                     }
                 }
             }
+            let placeArray = this.summaryData.place_of_visit.split(',');
+            console.log(placeArray, 'placeArray');
+            this.placeOfVisitNames = [];
+            for (let i =0; i < this.placeOfVisiLists.length; i++) {
+                for (let j =0; j < placeArray.length; j++) {
+                    if (this.placeOfVisiLists[i].country_code == placeArray[j]) {
+                        this.placeOfVisitNames.push(this.placeOfVisiLists[i].country_name);
+                    }
+                }
+            }
+            console.log(this.placeOfVisitNames, 'placeOfVisitNames');
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
