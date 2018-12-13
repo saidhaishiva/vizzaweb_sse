@@ -49,7 +49,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)" formControlName="proposerPaDob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" maxlength="10" minlength="10"
+                          <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)" [max]="minDate" (keypress)="onNumber($event)" formControlName="proposerPaDob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" maxlength="10" minlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
@@ -91,7 +91,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="proposerPaIdProof" (change)="idList()">
+                          <mat-select placeholder="Select ID Proof"  formControlName="proposerPaIdProof" (change)="idList()" >
                             <mat-option *ngFor="let IdProof of paIdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaIdProof.errors?.required">Id Proof is required</mat-error>
@@ -188,7 +188,7 @@
                       <div class="col-md-12">
                         <mat-form-field  class="w-100">
                           <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
-                          <mat-error *ngIf="ProposerPa.controls.MedicalInformations.errors?.required">Total Premium Amount is required</mat-error>
+                          <mat-error *ngIf="ProposerPa.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
@@ -251,7 +251,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)"  formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
-                               autocomplete="off"   required>
+                               autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredPaDob.errors?.required">DOB is required</mat-error>
@@ -298,9 +298,10 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList">
+                          <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" required>
                             <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation}}</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">OCCUPATION is required</mat-error>
                         </mat-form-field>
                       </div>
 
@@ -314,7 +315,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList()">
+                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList()" >
                             <mat-option *ngFor="let IdProof of paIdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaIdProof.errors?.required">Id Proof is required</mat-error>
@@ -591,7 +592,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="paNomineeName" (keypress)="onCharacter($event)" autocomplete="off">
+                          <input matInput placeholder="Name of Nominee"  formControlName="paNomineeName" (keypress)="onCharacter($event)" required autocomplete="off">
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -735,8 +736,8 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
-                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}} </li>
+                      <!--<li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>-->
+                      <!--<li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}} </li>-->
                     </ul>
                   </div>
                 </div>
@@ -756,6 +757,13 @@
                       <li class="list-group-item"><strong>Address 1:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                       <li class="list-group-item"><strong>Address 2:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
+
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{appollosummaryData.InsurePolicyholderDetails.state}}</li>
                       <li class="list-group-item"><strong>District:</strong>{{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
@@ -798,7 +806,7 @@
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">
-                <form action={{appollosummaryData.PaymentURL}}  method='post' #form>
+                <form action= {{appollosummaryData.PaymentURL}} method='post' #form>
 
                   <div>
                     <input type='hidden' name='proposalNum' value={{appollosummaryData.proposalNum}}/>
