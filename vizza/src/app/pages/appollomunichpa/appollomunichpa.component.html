@@ -592,8 +592,8 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="paNomineeName" (keypress)="onCharacter($event)" required autocomplete="off">
-                          <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Name of Nominee is required</mat-error>
+                          <input matInput placeholder="Nominee Name"  formControlName="paNomineeName" (keypress)="onCharacter($event)" required autocomplete="off">
+                          <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Nominee Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
