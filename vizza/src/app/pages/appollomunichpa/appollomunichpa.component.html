@@ -214,7 +214,7 @@
 
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">Insured DETAILS</h6>
+                    <h6 class="color-green">INSURED DETAILS</h6>
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -549,7 +549,7 @@
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Enter Remark Details"  (keypress)="onNumber($event)" required="insuredSmoke" formControlName="insuredremark">
+                              <input matInput placeholder="Enter Remark Details"   required="insuredSmoke" formControlName="insuredremark">
                               <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Sum Insured is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -736,8 +736,6 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
-                      <!--<li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>-->
-                      <!--<li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}} </li>-->
                     </ul>
                   </div>
                 </div>
