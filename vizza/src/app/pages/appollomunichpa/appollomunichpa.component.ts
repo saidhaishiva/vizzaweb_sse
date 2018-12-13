@@ -1144,7 +1144,7 @@ preInsureList() {
                 paNomineeTitle: this.getpanomineeData.paNomineeTitle,
             });
         }
-        if (sessionStorage.paProposalID != '' && sessionStorage.paProposalID != undefined) {
+        if (sessionStorage.appolloPAproposalID != '' && sessionStorage.appolloPAproposalID != undefined) {
             this.appolloPA = sessionStorage.appolloPAproposalID;
             console.log(this.appolloPA, 'this.appolloPAproposalID');
         }

@@ -138,7 +138,7 @@ export class PersonalaccidentformComponent implements OnInit {
     insuredate: any;
     personaldateError: any;
     insurerdateError: any;
-
+    personalDescriptionclassPA: boolean
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -172,6 +172,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.insureoccupationSecond = false;
         this.occupationDescription = false;
         this.insureoccupationDescription = false;
+        this.personalDescriptionclassPA = false;
         this.occupationClass = false;
         this.insureoccupationClass = false;
         this.readonlyproposer = false;
@@ -1033,6 +1034,13 @@ export class PersonalaccidentformComponent implements OnInit {
 
         if (this.personal.controls['personalDescriptionCode'].value == 'C5') {
             this.occupationDescription = true;
+            if(this.occupationDescription = true) {
+                this.personalDescriptionclassPA = true;
+                this.personal.controls['personalDescription'].setValidators([Validators.required]);
+            } else{
+                this.personalDescriptionclassPA = false;
+                this.personal.controls['occupationDescription'].setValidators(null);
+            }
             this.occupationClass = false;
         } else {
             this.occupationDescription = false;
