@@ -134,6 +134,7 @@ export class PersonalaccidentformComponent implements OnInit {
     insureoccupationClass: boolean;
     public religarePAProposal: any;
     proposerAgePA: any;
+    insuredAgePA: any;
     public readonlyproposer: boolean;
     insuredate: any;
     personaldateError: any;
@@ -464,8 +465,13 @@ export class PersonalaccidentformComponent implements OnInit {
         this.insurerData = value;
         if (this.insured.valid) {
             console.log(value, 'ffffflll');
-                stepper.next();
+            if (sessionStorage.insuredAgePA>= 18) {
 
+                stepper.next();
+            } else {
+                this.toastr.error('Insured age should be 18 or above');
+
+            }
             // if (this.insuremobileNumber == '' || this.insuremobileNumber == 'true') {
             //     stepper.next();
             // }
@@ -628,6 +634,7 @@ export class PersonalaccidentformComponent implements OnInit {
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAgePA = '';
+            this.insuredAgePA = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -655,6 +662,7 @@ export class PersonalaccidentformComponent implements OnInit {
                     } else {
                         this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
+                        this.insuredAgePA = this.ageCalculate(dob);
 
                     }
 
@@ -670,12 +678,15 @@ export class PersonalaccidentformComponent implements OnInit {
                 } else {
                         this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
+                        this.insuredAgePA = this.ageCalculate(dob);
+
                     }
                 }
 
             }
             console.log(this.proposerAgePA, 'ppppppp');
             sessionStorage.proposerAgePA = this.proposerAgePA;
+            sessionStorage.insuredAgePA = this.insuredAgePA;
 
         }
 
