@@ -368,7 +368,7 @@ export class TravelProposalComponent implements OnInit {
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    this.getAge = this.ageCalculate(dob);
+                    this.getAge = this.ageCalculateInsurer(dob);
                 }
 
             } else if (typeof event.value._i == 'object') {
@@ -377,21 +377,43 @@ export class TravelProposalComponent implements OnInit {
                 console.log(dob, 'dob11');
 
                 if (dob.length == 10) {
-                    this.getAge = this.ageCalculate(dob);
+                    this.getAge = this.ageCalculateInsurer(dob);
                 }
 
             }
-            if (this.getAge) {
+            // if (this.getAge) {
                 console.log(this.getAge, 'newwagee11');
                 console.log(dob, 'dob2');
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-                this.ageValidation(i, type);
-            }
+                this.ageValidationInsurer(i, type);
+           // }
 
         }
 
+    }
+    ageCalculateInsurer(dob) {
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring(8, 10), 10);
+        let monthThen = parseInt(mdate.substring(5, 7), 10);
+        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let todays = new Date();
+        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
+        let month_age = Math.floor(day_age/30);
+        console.log(month_age, 'month_agepppp');
+        return month_age;
+    }
+    ageValidationInsurer(i, type) {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 5) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
+        } else {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        }
     }
     ageValidation(i, type) {
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
@@ -630,6 +652,7 @@ export class TravelProposalComponent implements OnInit {
                 'title': this.personalData.personalTitle,
                 'gender': this.personalData.personalGender,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
+                'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
                 'travelStartOn': this.datepipe.transform(this.getTravelPremiumList.start_date, 'MMM d, y'),
                 'travelEndOn': this.datepipe.transform(this.getTravelPremiumList.end_date, 'MMM d, y'),
                 'proposerName': this.personalData.personalFirstname,
@@ -663,7 +686,7 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
             if (ageValidate.includes(1)) {
-                this.toastr.error('Age shoud be grter than 18');
+                this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
             } else if(ageValidate.includes(2)){
                 stepper.next();
                 valid = true;

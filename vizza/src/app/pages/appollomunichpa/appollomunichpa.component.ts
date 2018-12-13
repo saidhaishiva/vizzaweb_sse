@@ -3,17 +3,34 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
-import {MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 
 @Component({
   selector: 'app-appollomunichpa',
   templateUrl: './appollomunichpa.component.html',
-  styleUrls: ['./appollomunichpa.component.scss']
+  styleUrls: ['./appollomunichpa.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class AppollomunichpaComponent implements OnInit {
 public ProposerPa: FormGroup;
@@ -55,7 +72,7 @@ public webhost: any;
 public paPinList: any;
 public idListDetails: any;
 public idListDetailsProposal: any;
-public minDate: any;
+public todays: any;
 public appolloPA: any;
 public pin: any;
 public insuredPouches: boolean;
@@ -69,13 +86,28 @@ public paCityInsuredList: any;
 public paPinnomineeList: any;
 public paCityNomineeList: any;
 public paNomineedistrictList: any;
+public insuredate: any;
+public idListDetailsinsured: any;
+public proposerAgeP: any;
+public insuredAgeP: any;
+public insurestardate: any;
+public  insurerdateError: any;
+public pannumberP: boolean;
+public voterP: boolean;
+public passportP: boolean;
+public drivinglicenseP: boolean;
+public minDate: any;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
-      this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-      this.minDate = this.selectDate;
+      this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       this.appolloPA = "0";
       this.mobileNumber = 'true';
+      this.idListDetailsinsured = '';
+      this.idListDetailsProposal = '';
+      this.proposerAgeP = '';
+      this.insuredAgeP = '';
+
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -160,18 +192,20 @@ public paNomineedistrictList: any;
           insuredSmokeList:'',
           insuredPouchesList:'',
           insuredPaDistrictIdP: '',
-          insuredOccupationList:'',
+          insuredOccupationList: ['', Validators.required],
           insuredProfessionList:'',
+          PolicyStartDate:'',
+          PolicyEndDate:'',
           MedicalInformations: '',
           insuredAnnual:'',
-          previousradio:'',
+          previousradio:'2',
           rolecd: 'PROPOSER',
           type: ''
       });
       this.nomineeDetail = this.proposerpa.group({
           paNomineeTitle: ['', Validators.required],
-          paNomineeName: '',
-          paRelationship: '',
+          paNomineeName: ['', Validators.required],
+          paRelationship: ['', Validators.required],
           paNomineeAddress: ['', Validators.required],
           paNomineeAddress2:'',
           paNomineeAddress3: '',
@@ -195,11 +229,16 @@ public paNomineedistrictList: any;
       this.passport= false;
       this.voter= false;
       this.drivinglicense= false;
+      this.pannumberP= false;
+      this.passportP= false;
+      this.voterP= false;
+      this.drivinglicenseP= false;
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.prevList = false;
+
   }
 
   ngOnInit() {
@@ -338,7 +377,7 @@ public paNomineedistrictList: any;
 // accept Only Number
     public onNumber(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9//]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -519,11 +558,12 @@ public paNomineedistrictList: any;
     // Proposal details first Page
     proposerDetails(stepper: MatStepper, value) {
         console.log(value, 'value');
+        console.log(sessionStorage.proposerAgeP, 'sessionStorage.proposerAgeP');
         this.proposerPaData = value;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
         if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.proposerAgeP >= 18) {
                     stepper.next();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -537,21 +577,94 @@ public paNomineedistrictList: any;
         sessionStorage.appollo2Detail = JSON.stringify(value);
         this.insuredData = value;
         if (this.insured.valid) {
+            if (sessionStorage.insuredAgeP >= 18){
+                stepper.next();
+            } else {
+                this.toastr.error('Insured age should be 18 or above');
+
+            }
             console.log(value, 'ffffflll');
-            stepper.next();
 
         }
     }
     // date input
-    addEvent(event) {
-        this.selectDate = event.value;
-        console.log(this.selectDate);
-        this.minDate = this.selectDate;
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
-        console.log(this.personalAge, 'this.personalAge');
-        sessionStorage.setItem('proposerAge', this.personalAge);
+    addEvent(event, type) {
+      console.log(type, 'type');
+
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                if(type == 'personal'){
+                    this.insuredate = '';
+                } else if (type == 'insure') {
+                    this.insurerdateError = '';
+                } else {
+                    if (type == 'startdate') {
+                        this.insurestardate = '';
+                    }
+                }
+            } else {
+                if(type == 'personal'){
+                    this.insuredate = 'Enter Valid Date';
+                } else if (type == 'insure') {
+                    this.insurerdateError = 'Enter Valid Date';
+                } else {
+                    if (type == 'startdate') {
+                        this.insurestardate = 'Enter Valid Date';
+                    }
+                }
+            }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob,'dob');
+
+                if (selectedDate.length == 10) {
+                    if(type == 'personal'){
+                        this.insuredate = '';
+                        this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
+                        this.proposerAgeP = this.ageCalculate(dob);
+                    }  else if (type == 'insure') {
+                        this.insurerdateError = '';
+                        this.insured.controls['insuredPaDob'].patchValue(dob);
+                        this.insuredAgeP = this.ageCalculate(dob);
+
+                    } else {
+                        if (type == 'startdate') {
+                            this.insurestardate = '';
+                            this.insured.controls['PolicyStartDate'].patchValue(dob);
+                        }
+                    }
+                }
+            } else if (typeof event.value._i == 'object') {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    if(type == 'personal'){
+                        this.insuredate = '';
+                        this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
+                        this.proposerAgeP = this.ageCalculate(dob);
+                    } else if (type == 'insure') {
+                        this.insurerdateError = '';
+                        this.insured.controls['insuredPaDob'].patchValue(dob);
+                        this.insuredAgeP = this.ageCalculate(dob);
+
+                    } else {
+                        if (type == 'startdate') {
+                            this.insurestardate = '';
+                            this.insured.controls['PolicyStartDate'].patchValue(dob);
+                        }
+                        // else if (type == 'startdate') {
+                        //
+                        // }
+                    }
+                }
+            }
+            sessionStorage.proposerAgeP = this.proposerAgeP;
+            sessionStorage.insuredAgeP = this.insuredAgeP;
+
+        }
     }
 
 
@@ -605,86 +718,158 @@ preInsureList() {
         console.log(error);
     }
     // checkbox
-    checkHabits(value, type){
-      if(value.checked && type == 'smoke'){
-          this.insuredSmoke = true;
-          this.insured.controls['insuredSmokeList'].enable();
-      } else {
-          this.insuredSmoke = false;
-          this.insured.controls['insuredSmokeList'].patchValue('');
+    checkHabits(value, type) {
+        if (value.checked) {
+            if (type == 'smoke') {
+                this.insuredSmoke = true;
+                this.insured.controls['insuredSmokeList'].enable();
+            } else if (type == 'pouches') {
+                this.insuredPouches = true;
+                this.insured.controls['insuredPouchesList'].enable();
+            } else if (type == 'liquor') {
+                this.insuredCheck = true;
+                this.insured.controls['insuredLiquor'].enable();
+            } else if (type == 'wine') {
+                this.insuredCheck1 = true;
+                this.insured.controls['insuredWine'].enable();
+            } else if (type == 'beer') {
+                this.insuredCheck2 = true;
+                this.insured.controls['insuredBeer'].enable();
+            }
+        } else {
+            if (type == 'smoke') {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredSmokeList'].patchValue('');
+                this.insured.controls['insuredSmokeList'].disable();
 
-      }
-    if(value.checked && type == 'pouches'){
-        this.insuredPouches = true;
-            this.insured.controls['insuredPouchesList'].enable();
-        } else {
-        this.insuredPouches = false;
-        this.insured.controls['insuredPouchesList'].patchValue('');
-        }
-        if(value.checked && type == 'liquor'){
-            this.insuredCheck = true;
-            this.insured.controls['insuredLiquor'].enable();
-        } else {
-            this.insuredCheck = false;
-            this.insured.controls['insuredLiquor'].patchValue('');
-        }
-        if(value.checked && type == 'wine'){
-            this.insuredCheck = true;
-            this.insured.controls['insuredWine'].enable();
-        } else {
-            this.insuredCheck = false;
-            this.insured.controls['insuredWine'].patchValue('');
-        }
-        if(value.checked && type == 'beer'){
-            this.insuredCheck2 = true;
-            this.insured.controls['insuredBeer'].enable();
-        } else {
-            this.insuredCheck2 = false;
-            this.insured.controls['insuredBeer'].patchValue('');
+            } else if (type == 'pouches') {
+                this.insuredPouches = false;
+                this.insured.controls['insuredPouchesList'].patchValue('');
+                this.insured.controls['insuredPouchesList'].disable();
+            } else if (type == 'liquor') {
+                this.insuredCheck = false;
+                this.insured.controls['insuredLiquor'].patchValue('');
+                this.insured.controls['insuredLiquor'].disable();
+
+            } else if (type == 'wine') {
+                this.insuredCheck1 = false;
+                this.insured.controls['insuredWine'].patchValue('');
+                this.insured.controls['insuredWine'].disable();
+
+            } else if (type == 'beer') {
+                this.insuredCheck2 = false;
+                this.insured.controls['insuredBeer'].patchValue('');
+                this.insured.controls['insuredBeer'].disable();
+
+            }
+
         }
     }
 
 // list id
     idList(){
       if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
-      this.pannumber = true;
+          this.pannumber = true;
           this.voter = false;
           this.passport = false;
           this.drivinglicense= false;
-          this.idListDetails = this.ProposerPa.controls['insuredPaPan'].value;
-      this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPan'].value;
       } else  if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1'){
           this.passport = true;
           this.pannumber = false;
           this.voter = false;
           this.drivinglicense= false;
-          this.idListDetails = this.ProposerPa.controls['insuredPaPassport'].value;
-          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPassport'].value;
-
       } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO4'){
           this.voter = true;
           this.passport = false;
           this.pannumber = false;
           this.drivinglicense= false;
-          this.idListDetails = this.ProposerPa.controls['insuredPaVoter'].value;
-          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaVoter'].value;
 
       } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO3'){
           this.drivinglicense= true;
           this.voter = false;
           this.passport = false;
           this.pannumber = false;
-          this.idListDetails = this.ProposerPa.controls['insuredPaDriving'].value;
-          this.idListDetailsProposal = this.ProposerPa.controls['proposerPaDriving'].value;
-
       }
     }
+    insureidList(){
+        if(this.insured.controls['insuredPaIdProof'].value == 'IDNO2'){
+            this.pannumberP= true;
+            this.voterP = false;
+            this.passportP = false;
+            this.drivinglicenseP= false;
+        } else  if(this.insured.controls['insuredPaIdProof'].value == 'IDNO1'){
+            this.passportP = true;
+            this.pannumberP = false;
+            this.voterP = false;
+            this.drivinglicenseP= false;
+        } else if(this.insured.controls['insuredPaIdProof'].value == 'IDNO4'){
+            this.voterP = true;
+            this.passportP = false;
+            this.pannumberP = false;
+            this.drivinglicenseP= false;
+
+        } else if(this.insured.controls['insuredPaIdProof'].value == 'IDNO3'){
+            this.drivinglicenseP= true;
+            this.voterP = false;
+            this.passportP = false;
+            this.pannumberP = false;
+        }
+    }
+    panType(type) {
+      if (type == 'personal') {
+          if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2') {
+              this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPan'].value;
+          } else  if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1') {
+              this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPassport'].value;
+          } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO4'){
+              this.idListDetailsProposal = this.ProposerPa.controls['proposerPaVoter'].value;
+          } else if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO3') {
+              this.idListDetailsProposal = this.ProposerPa.controls['proposerPaDriving'].value;
+          }
+
+      } else if (type == 'insurer') {
+          if(this.insured.controls['insuredPaIdProof'].value == 'IDNO2') {
+              this.idListDetailsinsured = this.insured.controls['insuredPaPan'].value;
+          } else  if(this.insured.controls['insuredPaIdProof'].value == 'IDNO1') {
+              this.idListDetailsinsured = this.insured.controls['insuredPaPassport'].value;
+          } else if(this.insured.controls['insuredPaIdProof'].value == 'IDNO4'){
+              this.idListDetailsinsured = this.insured.controls['insuredPaVoter'].value;
+          } else if(this.insured.controls['insuredPaIdProof'].value == 'IDNO3') {
+              this.idListDetailsinsured = this.insured.controls['insuredPaDriving'].value;
+          }
+
+      }
+
+    }
+
     // previous radio
     previousinsureList(value){
+
+      console.log(this.insured.controls['previousradio'].value , 'kjjkk');
       if(this.insured.controls['previousradio'].value == 1){
           this.prevList = true;
+          this.insuredSmoke = true;
+          console.log('in');
+          this.insured.controls['PolicyStartDate'].setValidators([Validators.required]);
+          this.insured.controls['PolicyEndDate'].setValidators([Validators.required]);
+          this.insured.controls['insuredPrevList'].setValidators([Validators.required]);
+          this.insured.controls['insuredPrevious'].setValidators([Validators.required]);
+          this.insured.controls['insureSumInsured'].setValidators([Validators.required]);
+          this.insured.controls['insuredQualify'].setValidators([Validators.required]);
+          this.insured.controls['insuredWaive'].setValidators([Validators.required]);
+          this.insured.controls['insuredremark'].setValidators([Validators.required]);
       } else{
           this.prevList = false;
+          this.insuredSmoke = false;
+          console.log('out');
+          this.insured.controls['PolicyStartDate'].setValidators(null);
+          this.insured.controls['PolicyEndDate'].setValidators(null);
+          this.insured.controls['insuredPrevList'].setValidators(null);
+          this.insured.controls['insuredPrevious'].setValidators(null);
+          this.insured.controls['insureSumInsured'].setValidators(null);
+          this.insured.controls['insuredQualify'].setValidators(null);
+          this.insured.controls['insuredWaive'].setValidators(null);
+          this.insured.controls['insuredremark'].setValidators(null);
       }
     }
 // Occupation List
@@ -749,6 +934,9 @@ preInsureList() {
     sessionData() {
         if (sessionStorage.appollo1Details != '' && sessionStorage.appollo1Details != undefined) {
             this.appollo1 = JSON.parse(sessionStorage.appollo1Details);
+            if (this.appollo1.proposerPaPincode != '') {
+                this.getPostalCode(this.appollo1.proposerPaPincode);
+            }
             this.ProposerPa = this.proposerpa.group({
                 proposerPaTitle: this.appollo1.proposerPaTitle,
                 proposerPaFirstname: this.appollo1.proposerPaFirstname,
@@ -792,6 +980,11 @@ preInsureList() {
         if (sessionStorage.appollo2Detail != '' && sessionStorage.appollo2Detail != undefined) {
             console.log(JSON.parse(sessionStorage.appollo2Detail), 'sessionStorage.stepper1Details');
             this.appollo2 = JSON.parse(sessionStorage.appollo2Detail);
+            if (this.appollo2.insuredPaPincode != '') {
+                this.getinsuredPostalCode(this.appollo2.insuredPaPincode);
+            }
+
+
             this.insured = this.proposerpa.group({
                 insuredPaTitle: this.appollo2.insuredPaTitle,
                 insuredPaFirstname: this.appollo2.insuredPaFirstname,
@@ -830,16 +1023,109 @@ preInsureList() {
                 insuredSmokeList: this.appollo2.insuredSmokeList,
                 insuredLiquor: this.appollo2.insuredLiquor,
                 insuredWine: this.appollo2.insuredWine,
+                insuredPouches: false,
+                insuredSmoke: false,
+                insuredCheck: false,
+                insuredCheck1: false,
+                insuredCheck2: false,
                 insuredOccupationList: this.appollo2.insuredOccupationList,
+                insuredProfessionList: this.appollo2.insuredProfessionList,
                 insuredBeer: this.appollo2.insuredBeer,
+                previousradio: this.appollo2.previousradio,
+                PolicyStartDate: this.appollo2.PolicyStartDate,
+                PolicyEndDate: this.appollo2.PolicyEndDate,
                 rolecd: this.appollo2.rolecd,
+                insuredPrevList: this.appollo2.insuredPrevList,
+                insuredPrevious: this.appollo2.insuredPrevious,
+                insureSumInsured: this.appollo2.insureSumInsured,
+                insuredQualify: this.appollo2.insuredQualify,
+                insuredremark: this.appollo2.insuredremark,
+                insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
             });
+            console.log(this.appollo2, 'this.appollo2');
+
+            if (this.appollo2.insuredSmoke) {
+                this.insured.controls['insuredSmoke'].patchValue(this.appollo2.insuredSmoke);
+                this.checkHabits(this.appollo2.insuredSmoke, 'smoke');
+                this.insured.controls['insuredSmokeList'].patchValue(this.appollo2.insuredSmokeList);
+                this.insured.controls['insuredSmokeList'].enable();
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredSmokeList'].disable();
+
+            }
+            if (this.appollo2.insuredPouches) {
+                this.insured.controls['insuredPouches'].patchValue(this.appollo2.insuredPouches);
+                this.checkHabits(this.appollo2.insuredPouches, 'pouches');
+                this.insured.controls['insuredPouchesList'].patchValue(this.appollo2.insuredPouchesList);
+                this.insured.controls['insuredPouchesList'].enable();
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredPouchesList'].disable();
+
+            }
+            if (this.appollo2.insuredCheck) {
+                this.insured.controls['insuredLiquor'].patchValue(this.appollo2.insuredLiquor);
+                this.checkHabits(this.appollo2.insuredLiquor, 'liquor');
+                this.insured.controls['insuredCheck'].patchValue(this.appollo2.insuredCheck);
+                this.insured.controls['insuredLiquor'].enable();
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredLiquor'].disable();
+
+            }
+            if (this.appollo2.insuredCheck1) {
+                this.insured.controls['insuredWine'].patchValue(this.appollo2.insuredWine);
+                this.checkHabits(this.appollo2.insuredWine, 'wine');
+                this.insured.controls['insuredCheck1'].patchValue(this.appollo2.insuredCheck1);
+                this.insured.controls['insuredWine'].enable();
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredWine'].disable();
+
+            }
+            if (this.appollo2.insuredCheck2) {
+                this.insured.controls['insuredBeer'].patchValue(this.appollo2.insuredBeer);
+                this.checkHabits(this.appollo2.insuredBeer, 'beer');
+                this.insured.controls['insuredCheck2'].patchValue(this.appollo2.insuredCheck2);
+                this.insured.controls['insuredBeer'].enable();
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['insuredBeer'].disable();
+
+            }
+            if (this.appollo2.previousradio == 1) {
+                this.insuredSmoke = true;
+                this.insured.controls['PolicyStartDate'].patchValue(this.appollo2.PolicyStartDate);
+                this.insured.controls['PolicyEndDate'].patchValue(this.appollo2.PolicyEndDate);
+                this.insured.controls['insuredPrevList'].patchValue(this.appollo2.insuredPrevList);
+                this.insured.controls['insuredPrevious'].patchValue(this.appollo2.insuredPrevious);
+                this.insured.controls['insureSumInsured'].patchValue(this.appollo2.insureSumInsured);
+                this.insured.controls['insuredQualify'].patchValue(this.appollo2.insuredQualify);
+                this.insured.controls['insuredWaive'].patchValue(this.appollo2.insuredWaive);
+                this.insured.controls['insuredremark'].patchValue(this.appollo2.insuredremark);
+                this.previousinsureList('');
+
+            } else {
+                this.insuredSmoke = false;
+                this.insured.controls['PolicyStartDate'].patchValue('');
+                this.insured.controls['PolicyEndDate'].patchValue('');
+                this.insured.controls['insuredPrevList'].patchValue('');
+                this.insured.controls['insuredPrevious'].patchValue('');
+                this.insured.controls['insureSumInsured'].patchValue('');
+                this.insured.controls['insuredQualify'].patchValue('');
+                this.insured.controls['insuredWaive'].patchValue('');
+                this.insured.controls['insuredremark'].patchValue('');
+            }
         }
 
         if (sessionStorage.panomineeData != '' && sessionStorage.panomineeData != undefined) {
             console.log(JSON.parse(sessionStorage.panomineeData), 'sessionStorage.stepper1Details');
             this.getpanomineeData = JSON.parse(sessionStorage.panomineeData);
+            if (this.getpanomineeData.paNomineePincode != '') {
+                this.getnomineePostalCode(this.getpanomineeData.paNomineePincode);
+            }
             this.nomineeDetail = this.proposerpa.group({
                 paNomineeName: this.getpanomineeData.paNomineeName,
                 paRelationship: this.getpanomineeData.paRelationship,
@@ -851,6 +1137,7 @@ preInsureList() {
                 paNomineeCity: this.getpanomineeData.paNomineeCity,
                 paNomineeState: this.getpanomineeData.paNomineeState,
                 paNomineeCountryIdP: this.getpanomineeData.paNomineeCountryIdP,
+                paNomineeDistrict: this.getpanomineeData.paNomineeDistrict,
                 paNomineeCityIdP: this.getpanomineeData.paNomineeCityIdP,
                 paNomineeStateIdP: this.getpanomineeData.paNomineeStateIdP,
                 paNomineeDistrictIdP: this.getpanomineeData.paNomineeDistrictIdP,
@@ -1007,7 +1294,7 @@ preInsureList() {
                     "FirstName": this.ProposerPa.controls['proposerPaFirstname'].value,
                     "GenderCode": this.ProposerPa.controls['proposerPaGender'].value,
                     "GstinNumber": this.ProposerPa.controls['proposerPaGst'].value,
-                    "IDProofNumber":this.ProposerPa.controls['proposerPaPan'].value,
+                    "IDProofNumber": this.idListDetailsProposal,
                     "IDProofTypeCode":this.ProposerPa.controls['proposerPaIdProof'].value,
                     "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
                     "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
@@ -1047,23 +1334,22 @@ preInsureList() {
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
 
-                "IDProofNumber": this.insured.controls['insuredPaPan'].value,
+                "IDProofNumber": this.idListDetailsinsured,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
                 "MiddleName": this.insured.controls['insuredPaMidname'].value,
                 "NationalityCode": "IN",
                 "OccuptionCode":this.insured.controls['insuredOccupationList'].value,
-
                 "PreviousInsurer": {
-                    "InceptionDate": "",
-                    "EndDate":"",
-                    "PreviousInsurerCode":"",
-                    "PreviousPolicyNumber": "",
-                    "SumInsured":"",
-                    "QualifyingAmount":"",
-                    "WaivePeriod": "",
-                    "Remarks": "",
+                    "InceptionDate": this.insured.controls['PolicyStartDate'].value,
+                    "EndDate":this.insured.controls['PolicyEndDate'].value,
+                    "PreviousInsurerCode":this.insured.controls['insuredPrevList'].value,
+                    "PreviousPolicyNumber":this.insured.controls['insuredPrevious'].value,
+                    "SumInsured":this.insured.controls['insureSumInsured'].value,
+                    "QualifyingAmount":this.insured.controls['insuredQualify'].value,
+                    "WaivePeriod": this.insured.controls['insuredWaive'].value,
+                    "Remarks": this.insured.controls['insuredremark'].value
                 },
                 "LifeStyleHabits": {
                     "BeerBottle": this.insured.controls['insuredBeer'].value || this.insured.controls['insuredBeer'].value != undefined ? this.insured.controls['insuredBeer'].value: 0 ,
