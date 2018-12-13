@@ -1053,7 +1053,7 @@ export class HealthInsuranceComponent implements OnInit {
         const data = {
             'platform': 'web',
             'postalcode': this.pincoce,
-            'sum_insured': sessionStorage.setInsuredAmount,
+            'sum_insured': sessionStorage.changeSuninsuredAmount,
             'family_details': this.finalData,
             'family_group_name': this.changedTabDetails.name,
             'enquiry_id': this.changedTabDetails.enquiry_id,

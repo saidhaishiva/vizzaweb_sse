@@ -85,8 +85,6 @@
                         <mat-error *ngIf="personal.controls.physicianContactNumber.errors?.required">Physician Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.physicianContactNumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-12"><mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"><strong>I hereby Confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category and my travel doesn`t include visit to any United Nation’s sanctioned Countries</strong></mat-checkbox></div>
-
                     </div>
                   </div>
 
@@ -130,7 +128,22 @@
                       </mat-form-field></div>
                     </div>
                   </div>
-                  <div class="proposal-buttom mt-3 text-right w-100">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1 text-right">
+                            <mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"></mat-checkbox>
+                        </div>
+                        <div class="col-md-11 text-left">
+                            <strong>
+                                I declare that the above mentioned information provided by me is true to my knowledge .
+                                I hereby also confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category .
+                                I authorize vizza Insurance Broking service pvt  Ltd. to represent on behalf of me for all my Insurance assistance.
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" [disabled]="!AcceptDeclaration" >Next</button>
                   </div>
                 </div>
@@ -272,7 +285,7 @@
                               <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount}}</span></h4>
                           </div>
                           <div class="col-md-6">
-                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> {{summaryData.place_of_visit}}</span></h4>
+                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisitNames">{{lists}}</span></span></h4>
                           </div>
                       </div>
                   </div>
@@ -333,6 +346,7 @@
                                   <li class="list-group-item" *ngIf="summaryData.gst_id_number != '' && summaryData.gst_id_number != 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
                                   <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.physician_name}}</li>
                                   <li class="list-group-item"><strong>Physician Contact:</strong> {{summaryData.phy_contact_number}}</li>
+                                  <li class="list-group-item"><strong>Address:</strong> {{summaryData.p_address1}} <span *ngIf="summaryData.p_address2 !=''">, {{summaryData.p_address2}}</span><span *ngIf="summaryData.p_area_id !=''">, {{summaryData.p_area_id}}</span></li>
                                   <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->
                               </ul>
                           </div>
