@@ -324,6 +324,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.personal.controls['personalDescriptionCode'].patchValue(this.getStepper1.personalDescriptionCode);
                 this.setpersonalDescriptionListCode();
             }
+
             if (sessionStorage.sameas != '' && sessionStorage.sameas != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.sameas);
             }
@@ -368,9 +369,20 @@ export class PersonalaccidentformComponent implements OnInit {
         if (sessionStorage.proposal2Detail != '' && sessionStorage.proposal2Detail != undefined) {
             console.log(JSON.parse(sessionStorage.proposal2Detail), 'sessionStorage.proposal2Detail');
             this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
-            if (this.getStepper2.insuredOccupationCode != '') {
-                this.insured.controls['insuredOccupationCode'].patchValue(this.getStepper2.insuredOccupationCode);
-                this.setinsureOccupationListCode();
+
+            if (this.getStepper2.sameAsinsureProposer) {
+                this.insuredAgePA = this.ageCalculate(this.getStepper1.personalDob);
+                sessionStorage.insuredAgePA = this.insuredAgePA;
+                if (this.getStepper1.personalOccupationCode != '') {
+                    this.insured.controls['insuredOccupationCode'].patchValue(this.getStepper1.personalOccupationCode);
+                    this.setinsureOccupationListCode();
+                }
+                this.getInsurePostal(this.getStepper1.personalPincode, 'personal');
+                setTimeout(() => {
+                    this.getInsurePostal(this.getStepper1.personalPincode, 'residence');
+                },600);
+                this.insured.controls['insuredDescriptionCode'].patchValue(this.getStepper1.personalDescriptionCode);
+                this.setinsureDescriptionListCode();
             }
             this.insured = this.fb.group({
                 insuredTitle: this.getStepper2.insuredTitle,
@@ -403,9 +415,10 @@ export class PersonalaccidentformComponent implements OnInit {
                 insuredrPincode: this.getStepper2.insuredrPincode,
                 insuredrCity: this.getStepper2.insuredrCity,
                 insuredrState: this.getStepper2.insuredrState,
-                rolecd: this.getStepper2.rolecd,
                 relationshipcd: this.getStepper2.relationshipcd
             });
+
+
 
         }
         if (sessionStorage.mobileNumber != '' ) {
@@ -528,8 +541,12 @@ export class PersonalaccidentformComponent implements OnInit {
     sameProposer(value: any) {
         if (value.checked) {
             sessionStorage.sameas = this.readonlyproposer;
-            this.getInsurePostal(this.personal.controls['residencePincode'].value, 'personal');
-            this.getInsurePostal(this.personal.controls['personalPincode'].value, 'residence');
+            this.getInsurePostal(this.personal.controls['personalPincode'].value, 'personal');
+            setTimeout(() => {
+                this.getInsurePostal(this.personal.controls['residencePincode'].value, 'residence');
+            },600);
+            this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
+            this.setinsureDescriptionListCode();
             this.readonlyproposer = true;
             this.insured.controls['sameasInsuredAddress'].disable();
             this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
@@ -539,8 +556,8 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnualIncome'].value);
             this.insured.controls['insuredOccupationCode'].patchValue(this.personal.controls['personalOccupationCode'].value);
             this.insured.controls['insuredDescription'].patchValue(this.personal.controls['personalDescription'].value);
-            this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
             this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['personalClassDescriptionCode'].value);
+
             this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
             this.insured.controls['insuredGender'].patchValue(this.personal.controls['personalGender'].value);
             this.insured.controls['insuredPan'].patchValue(this.personal.controls['personalPan'].value.toUpperCase());
@@ -559,10 +576,9 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredrCity'].patchValue(this.personal.controls['residenceCity'].value);
             this.insured.controls['insuredrPincode'].patchValue(this.personal.controls['residencePincode'].value);
             this.insured.controls['insuredrState'].patchValue(this.personal.controls['residenceState'].value);
-            this.insured.controls['insuredrolecd'].patchValue('PRIMARY');
 
-
-
+            this.insuredAgePA = this.ageCalculate(this.personal.controls['personalDob'].value);
+            sessionStorage.insuredAgePA = this.insuredAgePA;
 
         }
         else{
@@ -593,7 +609,8 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredrCity'].patchValue('');
             this.insured.controls['insuredrPincode'].patchValue('');
             this.insured.controls['insuredrState'].patchValue('');
-            this.insured.controls['insuredrolecd'].patchValue('');
+            sessionStorage.insuredAgePA = '';
+
 
         }
     }
