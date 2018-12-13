@@ -691,7 +691,7 @@ export class TravelComponent implements OnInit {
                     }
                 );
             } else {
-                this.toast.error('Travel period shoud not be grater than 180 days');
+                this.toast.error('Travel period shoud not be greater than 180 days');
             }
         }
 

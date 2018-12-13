@@ -322,15 +322,15 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Name:</strong>{{summaryData.p_name}}</li>
                                   <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.p_dob}}</li>
-                                  <li class="list-group-item"><strong>Gender:</strong> {{summaryData.p_email}}</li>
-                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.p_phone}}</li>
+                                  <li class="list-group-item"><strong>Email:</strong> {{summaryData.p_email}}</li>
+                                  <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.p_phone}}</li>
                               </ul>
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="p-3">
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="summaryData.gst_id_number == '' || summaryData.gst_id_number == 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
+                                  <li class="list-group-item" *ngIf="summaryData.gst_id_number != '' && summaryData.gst_id_number != 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
                                   <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.physician_name}}</li>
                                   <li class="list-group-item"><strong>Physician Contact:</strong> {{summaryData.phy_contact_number}}</li>
                                   <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->

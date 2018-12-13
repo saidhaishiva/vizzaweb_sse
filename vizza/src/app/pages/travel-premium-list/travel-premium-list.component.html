@@ -88,7 +88,7 @@
                     <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
+                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
                       </mat-form-field>
                       <div *ngIf="item.error != ''" class="ngError">Required</div>
                     </div>
@@ -130,7 +130,7 @@
                   <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking shoud be less than 60 days</div>
+              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days </div>
               <div class="row mt-2">
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
@@ -227,7 +227,7 @@
                     <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
+                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
                       </mat-form-field>
                       <div *ngIf="item.error != ''" class="ngError">Required</div>
                     </div>
@@ -269,7 +269,7 @@
                   <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking shoud be less than 60 days</div>
+              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
 
 
               <div class="row mt-2">
@@ -367,7 +367,7 @@
                     <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
+                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
                       </mat-form-field>
                       <div *ngIf="item.error != ''" class="ngError">Required</div>
                     </div>
@@ -412,7 +412,7 @@
                   <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking shoud be less than 60 days</div>
+              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
 
 
               <div class="row mt-2">
@@ -508,7 +508,7 @@
                     <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="3" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
+                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
                       </mat-form-field>
                       <div *ngIf="item.error != ''" class="ngError">Required</div>
                     </div>
@@ -555,7 +555,7 @@
                   <p class="days-count">Total Trip Days : {{daysCount}}</p>
                 </div>
               </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking shoud be less than 60 days</div>
+              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
 
 
               <div class="row mt-2">
