@@ -148,6 +148,8 @@ export class AppolloMunichComponent implements OnInit {
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      let today  = new Date();
+      this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.minDate = this.selectDate;
       this.stopNext = false;
       this.hideQuestion = false;
@@ -302,7 +304,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
                 proposerDriving: '',
                 proposerPassport: '',
-                proposerVoter: '',
+                proposerVoter: ['', Validators.compose([ Validators.minLength(10)])],
                 proposerGst: ['', Validators.compose([Validators.minLength(15)])],
                 proposerAddress: ['', Validators.required],
                 proposerAddress2: '',
@@ -556,7 +558,7 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
             if (sessionStorage.proposerAge >= 18) {
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                if (this.mobileNumber == '' || this.mobileNumber == 'true' && this.dobError == ''){
                     stepper.next();
                 }
 
@@ -607,7 +609,7 @@ export class AppolloMunichComponent implements OnInit {
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -754,6 +756,12 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.patchValue(this.setStatecode.state_code);;
                 this.insureStateChange(this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.value, this.title, this.insurID);
         }
+        else if (this.title == 'nominee') {
+
+            this.nomineeDetails.controls['nomineeState'].patchValue(this.setStatecode.state);
+            this.nomineeDetails.controls['nomineeStateId'].patchValue(this.setStatecode.state_code);
+            this.stateChangeN(this.setStatecode.state_code, this.title);
+        }
         else {
             this.toastr.error(successData.ErrorObject);
 
@@ -833,7 +841,6 @@ export class AppolloMunichComponent implements OnInit {
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
             });
-
             this.stateChange(this.getStepper1.proposerStateIdP, 'proposer');
         }
 
@@ -952,6 +959,11 @@ export class AppolloMunichComponent implements OnInit {
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob,
             });
+
+
+                this.stateChangeN(this.getNomineeData.nomineeStateId, 'nominee');
+
+
         }
     }
 
@@ -1406,6 +1418,7 @@ export class AppolloMunichComponent implements OnInit {
             this.stateTitle = title;
             this.stateCode = stateId;
             console.log(this.stateCode);
+            console.log(this.stateTitle, 'this.stateTitle');
             const data = {
                 'platform': 'web',
                 'product_id': '11',
@@ -1437,11 +1450,8 @@ export class AppolloMunichComponent implements OnInit {
 
 //Appollo District
     public setAppolloDistrictSuccess(successData){
-      if (this.stateTitle == 'proposer') {
           this.AppolloDistrictList = successData.ResponseObject;
-      } else{
-          this.nomineeAppolloDistrictList = successData.ResponseObject;
-      }
+
     }
     public setAppolloDistrictFailure(error){
         console.log(error);
@@ -1449,13 +1459,63 @@ export class AppolloMunichComponent implements OnInit {
 
     //Appollo City
     public setAppolloCitySuccess(successData){
-        if (this.stateTitle == 'proposer') {
-            this.AppolloCityList = successData.ResponseObject;
-        }else {
-            this.nomineeAppolloCityLis = successData.ResponseObject;
-        }
+           this.AppolloCityList = successData.ResponseObject;
+
     }
     public setAppolloCityFailure(error){
+        console.log(error);
+    }
+
+
+    stateChangeN(stateId, title){
+        this.stateTitle = title;
+        this.stateCode = stateId;
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'state_code': this.stateCode
+        }
+
+
+        this.proposalservice.getAppolloDistrict(data).subscribe(
+            (successData) => {
+                this.setAppolloDistrictNSuccess(successData)
+            },
+            (error) => {
+                this.setAppolloDistrictNFailure(error);
+            }
+        );
+
+        this.proposalservice.getAppolloCity(data).subscribe(
+            (successData) => {
+                this.setAppolloCityNSuccess(successData);
+            },
+            (error) => {
+                this.setAppolloCityNFailure(error);
+            }
+        );
+    }
+
+
+//Appollo District
+    public setAppolloDistrictNSuccess(successData){
+
+            this.nomineeAppolloDistrictList = successData.ResponseObject;
+
+    }
+    public setAppolloDistrictNFailure(error){
+        console.log(error);
+    }
+
+    //Appollo City
+    public setAppolloCityNSuccess(successData){
+
+            this.nomineeAppolloCityLis = successData.ResponseObject;
+
+    }
+    public setAppolloCityNFailure(error){
         console.log(error);
     }
 
@@ -1592,7 +1652,7 @@ export class AppolloMunichComponent implements OnInit {
     }
     add(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9/ ]/;
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
