@@ -100,7 +100,13 @@ export class PersonalaccidentComponent implements OnInit {
         }
     console.log(this.compareArray,'compareArraycompareArray');
     }
-
+reset(){
+    this.selectedAmountP = [];
+    this.pincoceP = '';
+    this.occupationP = '';
+    this.Age = '';
+    this.AnnualIncomeP = '';
+}
     public keyPress(event: any) {
         sessionStorage.pincoceP = this.pincoceP;
         sessionStorage.occupationP = this.occupationP;
