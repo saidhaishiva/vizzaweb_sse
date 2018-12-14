@@ -682,95 +682,97 @@
                 </ul>
               </div>
             </div>
-            <section>
-              <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
-              <div class="row box-card">
-                <div class="col-md-12">
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}} </li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.ProposalDetails.p_dob}}</li>
-                      <li class="list-group-item"><strong> Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.ProposalDetails.p_mobilenumber}} </li>
-                      <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6>COMMUNICATION DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{appollosummaryData.ProposalDetails.p_address1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{appollosummaryData.ProposalDetails.p_address2}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
 
-                    </ul>
+              <section>
+                <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+                <div class="row box-card">
+                  <div class="col-md-12">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6>PROPOSER DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob}}</li>
+                        <li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
+                        <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6>PROPOSER COMMUNICATION DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.ProposalDetails.p_address1}}</li>
+                        <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
+                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
+                        <li class="list-group-item"><strong>District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                        <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>State:</strong>{{appollosummaryData.ProposalDetails.state}}</li>
-                      <li class="list-group-item"><strong>District:</strong>{{appollosummaryData.ProposalDetails.district_name}}</li>
-                      <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
-                    </ul>
-                  </div>
+              </section>
+          <section>
+            <h5 class="mt-3 sub-title">INSURE DETAILS </h5>
+            <div class="row box-card">
+              <div class="col-md-6">
+                <div class="p-3">
+                  <h6>INSURED DETAILS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
+                    <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.occupation}}</li>
+                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.relationship}}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>
+                  </ul>
                 </div>
               </div>
-            </section>
-            <section>
-              <h5 class="mt-3 sub-title">INSURE DETAILS </h5>
-              <div class="row box-card">
-                <div class="col-md-12">
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.InsurePolicyholderDetails.i_per_email}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}} </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6>COMMUNICATION DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
-
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                      <li class="list-group-item"><strong>State:</strong>{{appollosummaryData.InsurePolicyholderDetails.state}}</li>
-                      <li class="list-group-item"><strong>District:</strong>{{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
-                    </ul>
-                  </div>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <h6>INSURED COMMUNICATION DETAILS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
+                    <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
+                    <li class="list-group-item"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
+                  </ul>
                 </div>
               </div>
-            </section>
 
+              <div class="col-md-6" *ngIf="CheckHabits">
+                <div class="p-3">
+                  <h6>PERSONAL HABITS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Smoking:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_smoking}}</li>
+                    <li class="list-group-item"><strong>Pouches:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_pouches}}</li>
+                    <li class="list-group-item"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
+                    <li class="list-group-item"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
+                    <li class="list-group-item"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="prevList">
+                <div class="p-3">
+                  <h6>PREVIOUS INSURER DETAILS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{appollosummaryData.InsurePolicyholderDetails.InceptionDate}}</li>
+                    <li class="list-group-item"><strong>Policy End Date:</strong> {{appollosummaryData.InsurePolicyholderDetails.EndDate}}</li>
+                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{appollosummaryData.InsurePolicyholderDetails.PreviousInsurerCode}}</li>
+                    <li class="list-group-item"><strong>Previous Policy No:</strong> {{appollosummaryData.InsurePolicyholderDetails.PreviousPolicyNumber}}</li>
+                    <li class="list-group-item"><strong>Sum Insured:</strong>{{appollosummaryData.InsurePolicyholderDetails.SumInsured}}</li>
+                    <li class="list-group-item"><strong>Qualifying Amount:</strong> {{appollosummaryData.InsurePolicyholderDetails.QualifyingAmount}}</li>
+                    <li class="list-group-item"><strong>Waive Period:</strong> {{appollosummaryData.InsurePolicyholderDetails.WaivePeriod}}</li>
+                    <li class="list-group-item"><strong>Remark Details:</strong>{{appollosummaryData.InsurePolicyholderDetails.Remarks}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">
@@ -790,16 +792,15 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.ProposalDetails.n_relation}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
                       </ul>
                     </div>
 
                   </div>
                 </div>
               </div>
-
-
             </div>
+          </section>
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row">
@@ -817,12 +818,10 @@
               </div>
             </div>
           </section>
-
           <div class="proposal-buttom mt-3 text-right w-100">
             <button mat-button matStepperPrevious  >Back</button>
           </div>
         </mat-step>
-
       </mat-horizontal-stepper>
     </div>
   </div>
