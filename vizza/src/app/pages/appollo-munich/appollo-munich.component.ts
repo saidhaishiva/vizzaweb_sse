@@ -392,7 +392,7 @@ export class AppolloMunichComponent implements OnInit {
                     'District': this.insurerData[i].proposerDistrict,
                     'PinCode': this.insurerData[i].proposerPincode,
                     'TownCode': this.insurerData[i].proposerCity,
-                    'StateCode': this.insurerData[i].proposerState,
+                    'StateCode': this.insurerData[i].proposerStateIdP,
                         }
                     },
                     'proposerMobile': this.insurerData[i].proposerMobile,
@@ -557,8 +557,9 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
+            alert('in')
             if (sessionStorage.proposerAge >= 18) {
-                if (this.mobileNumber == '' || this.mobileNumber == 'true' && this.dobError == ''){
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                 }
 
@@ -679,29 +680,30 @@ export class AppolloMunichComponent implements OnInit {
         }
         if (event.value != null) {
             let selectedDate = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
                 } else {
                     this.dobError = 'Enter Valid Date';
                 }
                 selectedDate = event.value._i;
-                // this.dob = event.value._i;
 
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.dob = dob;
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
+                    this.dobError = '';
+                    this.proposer.controls['proposerDob'].patchValue(dob);
                     this.ageCalculate(dob);
+
                 } else {
                 }
 
             } else if (typeof event.value._i == 'object') {
-
-                this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (this.dob.length == 10) {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.dobError = '';
+                    this.proposer.controls['proposerDob'].patchValue(dob);
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
                 } else {
 
@@ -807,7 +809,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerLastname: this.getStepper1.proposerLastname,
                 proposerMidname: this.getStepper1.proposerMidname,
                 maritalStatus: this.getStepper1.maritalStatus,
-                proposerDob:  new FormControl(new Date(this.getStepper1.proposerDob)),
+                proposerDob: new FormControl(new Date(this.getStepper1.proposerDob)),
                 proposerrelationship: this.getStepper1.proposerrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 proposerGender: this.getStepper1.proposerGender,
@@ -1017,7 +1019,7 @@ export class AppolloMunichComponent implements OnInit {
                             'CountryCode': this.nomineeData.nomineeCountry,
                             'District': this.nomineeData.nomineeDistrict,
                             'PinCode': this.nomineeData.nomineePincode,
-                            'StateCode': this.nomineeData.nomineeState,
+                            'StateCode': this.nomineeData.nomineeStateId,
                             'TownCode': this.nomineeData.nomineeCity
                         },
                         'NomineeName': this.nomineeData.nomineeName,
@@ -1652,7 +1654,7 @@ export class AppolloMunichComponent implements OnInit {
     }
     add(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
+            const pattern = /[0-9//]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {

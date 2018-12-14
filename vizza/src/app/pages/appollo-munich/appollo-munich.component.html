@@ -47,7 +47,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"   maxlength="10"
+                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')" (keypress)="add($event)"  maxlength="10"
                             minlength="10"     autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
