@@ -97,6 +97,9 @@ public voterP: boolean;
 public passportP: boolean;
 public drivinglicenseP: boolean;
 public minDate: any;
+public genderP: any;
+public genderI: any;
+    CheckHabits : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -238,6 +241,7 @@ public minDate: any;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.prevList = false;
+      this.CheckHabits = false;
 
   }
 
@@ -720,6 +724,7 @@ preInsureList() {
     // checkbox
     checkHabits(value, type) {
         if (value.checked) {
+           this.CheckHabits = true;
             if (type == 'smoke') {
                 this.insuredSmoke = true;
                 this.insured.controls['insuredSmokeList'].enable();
@@ -737,6 +742,7 @@ preInsureList() {
                 this.insured.controls['insuredBeer'].enable();
             }
         } else {
+            this.CheckHabits = true;
             if (type == 'smoke') {
                 this.insuredSmoke = false;
                 this.insured.controls['insuredSmokeList'].patchValue('');
@@ -1431,6 +1437,31 @@ preInsureList() {
             // Marital List
             if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList.marital_code) {
                 this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList.marital_status;
+            }
+            // relationship list in nominee
+
+            for( let i=0; i < this.relationshipListPa.length; i++) {
+                if(this.appollosummaryData.ProposalDetails.n_relation == this.relationshipListPa[i].relationship_code) {
+                    this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;
+                }
+            }
+            // relationship list in insured
+            for( let i=0; i < this.relationshipListPa.length; i++) {
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_relation == this.relationshipListPa[i].relationship_code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.relationship =  this.relationshipListPa[i].relationship;
+                }
+            }
+            // occupationCode
+            for( let i=0; i < this.occupationCode.length; i++) {
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_occuption == this.occupationCode[i].occupation_code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.occupation =  this.occupationCode[i].occupation;
+                }
+            }
+            // maritalstatus
+            for( let i=0; i < this.paMaritalList.length; i++) {
+                if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList[i].marital_code) {
+                    this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList[i].marital_status;
+                }
             }
             this.lastPage.next();
 
