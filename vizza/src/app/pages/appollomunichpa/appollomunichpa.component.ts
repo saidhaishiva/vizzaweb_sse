@@ -665,8 +665,11 @@ public genderI: any;
                     }
                 }
             }
-            sessionStorage.proposerAgeP = this.proposerAgeP;
-            sessionStorage.insuredAgeP = this.insuredAgeP;
+            if(type == 'personal'){
+                sessionStorage.proposerAgeP = this.proposerAgeP;
+            } else if (type == 'insure') {
+                sessionStorage.insuredAgeP = this.insuredAgeP;
+            }
 
         }
     }

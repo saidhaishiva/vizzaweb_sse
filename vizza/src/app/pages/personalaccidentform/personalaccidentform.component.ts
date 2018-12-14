@@ -674,13 +674,13 @@ export class PersonalaccidentformComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    if(type == 'personal'){
+                    if (type == 'personal') {
                         this.personaldateError = '';
-                    } else if (type == 'insure'){
+                    } else if (type == 'insure') {
                         this.insurerdateError = '';
                     }
                 } else {
-                    if(type == 'personal'){
+                    if (type == 'personal') {
                         this.personaldateError = 'Enter Valid Date';
                     } else if (type == 'insure') {
                         this.insurerdateError = 'Enter Valid Date';
@@ -688,10 +688,10 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob,'dob');
+                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
-                    if(type == 'personal'){
-                       this.personaldateError = '';
+                    if (type == 'personal') {
+                        this.personaldateError = '';
                         this.personal.controls['personalDob'].patchValue(dob);
                         this.proposerAgePA = this.ageCalculate(dob);
                     } else {
@@ -706,11 +706,11 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.insuredate = '';
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    if(type == 'personal'){
+                    if (type == 'personal') {
                         this.personaldateError = '';
                         this.personal.controls['personalDob'].patchValue(dob);
-                    this.proposerAgePA = this.ageCalculate(dob);
-                } else {
+                        this.proposerAgePA = this.ageCalculate(dob);
+                    } else {
                         this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
                         this.insuredAgePA = this.ageCalculate(dob);
@@ -720,9 +720,11 @@ export class PersonalaccidentformComponent implements OnInit {
 
             }
             console.log(this.proposerAgePA, 'ppppppp');
-            sessionStorage.proposerAgePA = this.proposerAgePA;
-            sessionStorage.insuredAgePA = this.insuredAgePA;
-
+            if (type == 'personal') {
+                sessionStorage.proposerAgePA = this.proposerAgePA;
+            } else if (type == 'insure') {
+                sessionStorage.insuredAgePA = this.insuredAgePA;
+        }
         }
 
 
