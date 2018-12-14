@@ -139,7 +139,9 @@ export class PersonalaccidentformComponent implements OnInit {
     insuredate: any;
     personaldateError: any;
     insurerdateError: any;
-    personalDescriptionclassPA: boolean
+    personalDescriptionclassPA: boolean;
+    Address2: boolean;
+    personalAddress2: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -177,6 +179,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.occupationClass = false;
         this.insureoccupationClass = false;
         this.readonlyproposer = false;
+        this.personalAddress2 = false;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
