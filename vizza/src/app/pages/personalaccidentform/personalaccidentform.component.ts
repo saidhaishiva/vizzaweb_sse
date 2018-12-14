@@ -294,7 +294,8 @@ export class PersonalaccidentformComponent implements OnInit {
         }
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-
+        // this.mobileNumber = '';
+        // this.insuremobileNumber = '';
         this.sessionData();
     }
     setStep(index: number) {
@@ -321,7 +322,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 if (this.getStepper1.residencePincode != '') {
                     this.getPostal(this.getStepper1.residencePincode, 'residence');
                 }
-            },700);
+
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
@@ -355,6 +356,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 residenceState: this.getStepper1.residenceState,
                 relationshipcd: this.getStepper1.relationshipcd
             });
+            },700);
             if (this.getStepper1.personalDescriptionCode != '') {
                 this.personal.controls['personalDescriptionCode'].patchValue(this.getStepper1.personalDescriptionCode);
                 this.setpersonalDescriptionListCode('session');
@@ -425,7 +427,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
 
         }
-        if (sessionStorage.mobileNumber != '' ) {
+        if (sessionStorage.mobileNumber != '' && sessionStorage.mobileNumber != undefined) {
             this.mobileNumber = sessionStorage.mobileNumber;
         } else {
             this.mobileNumber = 'true';
@@ -468,6 +470,8 @@ export class PersonalaccidentformComponent implements OnInit {
         sessionStorage.proposal1Detail = JSON.stringify(value);
         console.log(value.personalDob, 'value');
         if (this.personal.valid) {
+            console.log(this.mobileNumber, 'this.mobileNumber');
+            console.log(sessionStorage.proposerAgePA, 'this.sessionStorage.proposerAgePA');
 
             this.proposerInsureData = [];
             if (sessionStorage.proposerAgePA>= 18) {
@@ -674,13 +678,13 @@ export class PersonalaccidentformComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    if (type == 'personal') {
+                    if(type == 'personal'){
                         this.personaldateError = '';
-                    } else if (type == 'insure') {
+                    } else if (type == 'insure'){
                         this.insurerdateError = '';
                     }
                 } else {
-                    if (type == 'personal') {
+                    if(type == 'personal'){
                         this.personaldateError = 'Enter Valid Date';
                     } else if (type == 'insure') {
                         this.insurerdateError = 'Enter Valid Date';
@@ -688,10 +692,10 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'dob');
+                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
-                    if (type == 'personal') {
-                        this.personaldateError = '';
+                    if(type == 'personal'){
+                       this.personaldateError = '';
                         this.personal.controls['personalDob'].patchValue(dob);
                         this.proposerAgePA = this.ageCalculate(dob);
                     } else {
@@ -706,11 +710,11 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.insuredate = '';
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    if (type == 'personal') {
+                    if(type == 'personal'){
                         this.personaldateError = '';
                         this.personal.controls['personalDob'].patchValue(dob);
-                        this.proposerAgePA = this.ageCalculate(dob);
-                    } else {
+                    this.proposerAgePA = this.ageCalculate(dob);
+                } else {
                         this.insurerdateError = '';
                         this.insured.controls['insuredDob'].patchValue(dob);
                         this.insuredAgePA = this.ageCalculate(dob);
@@ -719,12 +723,12 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
 
             }
-            console.log(this.proposerAgePA, 'ppppppp');
-            if (type == 'personal') {
+            if(type == 'personal') {
                 sessionStorage.proposerAgePA = this.proposerAgePA;
-            } else if (type == 'insure') {
+            } else {
                 sessionStorage.insuredAgePA = this.insuredAgePA;
-        }
+            }
+
         }
 
 
@@ -1393,7 +1397,7 @@ export class PersonalaccidentformComponent implements OnInit {
                 'annualSalary': this.personal.controls['personalAnualIncome'].value,
                 'occupationCode': this.personal.controls['personalOccupationCode'].value,
                 'occupationClass': this.personal.controls['personalDescriptionCode'].value,
-                'classDescription':this.personal.controls['personalClassDescriptionCode'].value,
+                'classDescription': this.occupationDescription ? this.personal.controls['personalDescription'].value : this.personal.controls['personalClassDescriptionCode'].value,
                 'lastName':this.personal.controls['personalLastname'].value,
                 'partyAddressDOList': [{
                     'addressLine1Lang1': this.personal.controls['personalAddress'].value,
@@ -1454,7 +1458,7 @@ export class PersonalaccidentformComponent implements OnInit {
                     'annualSalary': this.insured.controls['insuredAnnualIncome'].value,
                     'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
-                    'classDescription': this.insured.controls['insuredClassDescriptionCode'].value,
+                    'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
                     'lastName':  this.insured.controls['insuredLastname'].value,
                     "partyAddressDOList": [{
                         'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
