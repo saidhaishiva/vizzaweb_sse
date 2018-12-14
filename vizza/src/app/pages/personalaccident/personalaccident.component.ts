@@ -508,12 +508,12 @@ reset(){
     selector: 'personalinsurer',
     template: `        
         <div class="container">
-        <div  class="row">
+        <div  class="row text-justify">
         
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Personal Accident</h3>
+                <h3 class="text-center" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> About Personal Accident</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
