@@ -45,6 +45,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
            sessionStorage.pAccidentProposalList= '';
            sessionStorage.proposal1Detail= '';
            sessionStorage.proposal2Detail= '';
+           sessionStorage.personalnomineeData= '';
 
     }
 
@@ -78,9 +79,9 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
             if (this.type == 'pdf') {
                 console.log(successData.ResponseObject, 'www333');
                 window.open(this.currenturl + '/' +  this.path,'_blank');
-            } else if (this.type === 'pdf') {
-                console.log(successData.ResponseObject, 'www3444');
-                window.open(this.currenturl + '/' +  this.path,'_blank');
+            // } else if (this.type === 'pdf') {
+            //     console.log(successData.ResponseObject, 'www3444');
+            //     window.open(this.currenturl + '/' +  this.path,'_blank');
             } else {
                 this.downloadMessage();
             }
