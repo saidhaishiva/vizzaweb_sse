@@ -689,7 +689,6 @@ export class TravelProposalComponent implements OnInit {
             if (ageValidate.includes(1)) {
                 this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
             } else if(ageValidate.includes(2)){
-                stepper.next();
                 valid = true;
             }
 
@@ -697,7 +696,7 @@ export class TravelProposalComponent implements OnInit {
                 this.settings.loadingSpinner = true;
                 this.travelservice.createTravelProposal(data).subscribe(
                     (successData) => {
-                        this.proposalSuccess(successData);
+                        this.proposalSuccess(successData, stepper);
                     },
                     (error) => {
                         this.proposalFailure(error);
@@ -713,9 +712,10 @@ export class TravelProposalComponent implements OnInit {
     }
 
 
-    public proposalSuccess(successData) {
+    public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            stepper.next();
             this.summaryData = successData.ResponseObject.proposal_details;
             console.log(this.summaryData);
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
