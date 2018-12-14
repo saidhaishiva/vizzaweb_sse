@@ -573,16 +573,24 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
+                      <li class="list-group-item" *ngIf="mobileno != ''"><strong>Residence Number:</strong>{{summaryData.proposer_details.p_res_std_code}} </li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
+                      <li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Occupation Class:</strong>  {{summaryData.proposer_details.description}}</li>
+                      <li class="list-group-item"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
+                      <li class="list-group-item" *ngIf="passPort!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_details.p_pass_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_details.p_annual_salary}} </li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
+                      <li class="list-group-item" *ngIf="gst != ''"><strong>Official Email Id:</strong>  {{summaryData.proposer_details.p_off_email}}</li>
+
                     </ul>
                   </div>
                 </div>
@@ -591,7 +599,7 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_p}}</li>
-                      <li class="list-group-item" *ngIf="personalAddress2"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
+                      <li class="list-group-item" *ngIf="personalAddress2 != ''"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_details.p_pincode_p}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_details.p_citycd_p}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_p}}</li>
@@ -605,6 +613,7 @@
                     <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_c}} </li>
+                      <li class="list-group-item" *ngIf="resAddress2 != ''"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_details.p_pincode_c}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_details.p_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_c}}</li>
@@ -624,15 +633,24 @@
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
+                      <li class="list-group-item" *ngIf="resnumber!= ''"><strong>Residence Number:</strong>{{summaryData.proposer_insurer_details.i_res_std_code}} </li>
+                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_insurer_details.occupation_description}}</li>
+
+
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Occupation Class:</strong>  {{summaryData.proposer_insurer_details.description}}</li>
+                      <li class="list-group-item"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
+                      <li class="list-group-item" *ngIf="passPort1!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_insurer_details.i_annual_salary}} </li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
+                      <li class="list-group-item" *ngIf="gst1 != ''"><strong>Official Email Id:</strong>  {{summaryData.proposer_insurer_details.i_off_email}}</li>
+
                     </ul>
                   </div>
                 </div>
@@ -641,6 +659,7 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
+                      <li class="list-group-item" *ngIf="addressPC != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_insurer_details.i_pincode_c}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
@@ -654,6 +673,7 @@
                     <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
+                      <li class="list-group-item" *ngIf="addressPr != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_insurer_details.i_pincode_c}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
