@@ -42,6 +42,7 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
         sessionStorage.pAccidentProposalList= '';
         sessionStorage.proposal1Detail= '';
         sessionStorage.proposal2Detail= '';
+        sessionStorage.panomineeData= '';
 
     }
 

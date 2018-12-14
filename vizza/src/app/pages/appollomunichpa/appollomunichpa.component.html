@@ -182,15 +182,15 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-12">
-                        <h6 class="mt-3">Medical Informations details:</h6>
-                      </div>
-                      <div class="col-md-12">
-                        <mat-form-field  class="w-100">
-                          <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
-                          <mat-error *ngIf="ProposerPa.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-12">-->
+                        <!--<h6 class="mt-3">Medical Informations details:</h6>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12">-->
+                        <!--<mat-form-field  class="w-100">-->
+                          <!--<input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="ProposerPa.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                     </div>
 
                     <div class="proposal-buttom mt-3 text-right w-100">
@@ -220,7 +220,7 @@
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()">
                             <mat-option value="MR">Mr</mat-option>
-                            <mat-option value="MS">Ms</mat-option>
+                            <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -583,7 +583,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="paNomineeTitle" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="paNomineeTitle">
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -694,9 +694,13 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob}}</li>
-                        <li class="list-group-item"><strong>Personal Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
+                        <li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
+                        <li class="list-group-item"><strong>RelationShip With Proposer:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
+                        <li class="list-group-item" *ngIf="proposerPaIdProof != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.proof_name}}</li>
+                        <li class="list-group-item" *ngIf="proposerPaIdProofnumber != ''"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no}}</li>
+                        <li class="list-group-item" *ngIf="proposerPaGst != ''"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
                       </ul>
                     </div>
                   </div>
@@ -705,10 +709,12 @@
                       <h6>PROPOSER COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.ProposalDetails.p_address1}}</li>
+                        <li class="list-group-item" *ngIf="personalAddress2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>
+                        <li class="list-group-item" *ngIf="personalAddress3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
-                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
-                        <li class="list-group-item"><strong>District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
+                        <li class="list-group-item" *ngIf="districtP != ''"><strong>District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
                       </ul>
                     </div>
                   </div>
@@ -735,9 +741,11 @@
                   <h6>INSURED COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
+                    <li class="list-group-item" *ngIf="insureAddress1 !=''"><strong>Address 2:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
+                    <li class="list-group-item" *ngIf="insureAddress2 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                    <li class="list-group-item"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
+                    <li class="list-group-item" *ngIf="districtI"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
                   </ul>
                 </div>
@@ -747,11 +755,13 @@
                 <div class="p-3">
                   <h6>PERSONAL HABITS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Smoking:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_smoking}}</li>
-                    <li class="list-group-item"><strong>Pouches:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_pouches}}</li>
-                    <li class="list-group-item"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
-                    <li class="list-group-item"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
-                    <li class="list-group-item"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 1"><strong>Smoking:</strong> Less than or equal to 10 per day</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 1"><strong>Pouches:</strong>Less than or equal to 10 per day</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
+                    <li class="list-group-item" *ngIf="liquor != ''"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
+                    <li class="list-group-item" *ngIf="Wine != ''"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
+                    <li class="list-group-item" *ngIf="Beer != ''"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
                   </ul>
                 </div>
               </div>
@@ -799,6 +809,45 @@
                   </div>
                 </div>
               </div>
+
+              <!--<div class="col-md-12" class="text-center">-->
+                <!--<h6 class="text-center">Nominee Address</h6>-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<h6 class="text-center">Nominee Address</h6>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+              <!--</div>-->
+              <div class="col-md-6">
+                <div class="p-3">
+                  <h6 >Nominee Address</h6>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Nominee Address1:</strong> {{appollosummaryData.ProposalDetails.n_address}}</li>
+                        <li class="list-group-item" *ngIf="nomineeAdd2 !=''"><strong>Nominee Address2:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
+                        <li class="list-group-item" *ngIf="nomineeAdd3 !=''"><strong>Nominee Address3:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
+                        <li class="list-group-item"><strong>Nominee Pincode:</strong> {{appollosummaryData.ProposalDetails.n_pinCode}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <h1 class="mt-3"></h1>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
+                        <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.city_name}}</li>
+                        <li class="list-group-item" *ngIf="districtN != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           </section>
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
