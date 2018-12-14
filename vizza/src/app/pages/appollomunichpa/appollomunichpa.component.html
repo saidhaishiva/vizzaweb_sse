@@ -698,9 +698,9 @@
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
                         <li class="list-group-item"><strong>RelationShip With Proposer:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
-                        <li class="list-group-item" *ngIf="proposerPaIdProof1 != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.proof_name}}</li>
-                        <li class="list-group-item" *ngIf="proposerPaIdProofnumber != ''"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no}}</li>
-                        <li class="list-group-item" *ngIf="proposerPaGst != ''"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.proof_name != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.proof_name}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != ''"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
                       </ul>
                     </div>
                   </div>
@@ -709,11 +709,11 @@
                       <h6>PROPOSER COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.ProposalDetails.p_address1}}</li>
-                        <li class="list-group-item" *ngIf="personalAddress2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>
-                        <li class="list-group-item" *ngIf="personalAddress3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
-                        <li class="list-group-item" *ngIf="districtP != ''"><strong>District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.district_name != ''"><strong>District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
                         <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
                       </ul>
                     </div>
@@ -732,6 +732,7 @@
                     <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.occupation}}</li>
                     <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.relationship}}</li>
+                    <li class="list-group-item"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
                   </ul>
                 </div>
@@ -741,11 +742,11 @@
                   <h6>INSURED COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
-                    <li class="list-group-item" *ngIf="insureAddress1 !=''"><strong>Address 2:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
-                    <li class="list-group-item" *ngIf="insureAddress2 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address2 !=''"><strong>Address 2:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                    <li class="list-group-item" *ngIf="districtI"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.district_name != ''"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
                   </ul>
                 </div>
@@ -759,9 +760,9 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 1"><strong>Pouches:</strong>Less than or equal to 10 per day</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
-                    <li class="list-group-item" *ngIf="liquor != ''"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
-                    <li class="list-group-item" *ngIf="Wine != ''"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
-                    <li class="list-group-item" *ngIf="Beer != ''"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != ''"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_wineglass != ''"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_beerbottle != ''"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
                   </ul>
                 </div>
               </div>
@@ -824,8 +825,8 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee Address1:</strong> {{appollosummaryData.ProposalDetails.n_address}}</li>
-                        <li class="list-group-item" *ngIf="nomineeAdd2 !=''"><strong>Nominee Address2:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
-                        <li class="list-group-item" *ngIf="nomineeAdd3 !=''"><strong>Nominee Address3:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_address2 !=''"><strong>Nominee Address2:</strong> {{appollosummaryData.ProposalDetails.n_address2}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_address3 !=''"><strong>Nominee Address3:</strong> {{appollosummaryData.ProposalDetails.n_address3}}</li>-->
                         <li class="list-group-item"><strong>Nominee Pincode:</strong> {{appollosummaryData.ProposalDetails.n_pinCode}}</li>
                       </ul>
                     </div>
@@ -840,7 +841,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
                         <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.city_name}}</li>
-                        <li class="list-group-item" *ngIf="districtN != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.district_name != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
                       </ul>
                     </div>
 
