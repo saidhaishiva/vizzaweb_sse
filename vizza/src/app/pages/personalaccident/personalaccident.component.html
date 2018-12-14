@@ -23,22 +23,22 @@
         </mat-form-field>
         <div *ngIf="annualerror" class="ngError">SumInsured Amount Required</div>
         <mat-form-field class="w-100">
-          <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncomeP" (keypress)="keyPress($event)">
+          <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncomeP" (keypress)="keyPress($event)" autocomplete="off">
         </mat-form-field>
         <div *ngIf="annualerror" class="ngError">AnnualIncome Required</div>
 
         <mat-form-field class="w-100">
-          <input matInput  placeholder="AGE" name="age"  [(ngModel)]="Age" (keypress)="keyPress($event)" maxlength="3">
+          <input matInput  placeholder="AGE" name="age"  [(ngModel)]="Age" (keypress)="keyPress($event)" maxlength="3" autocomplete="off">
         </mat-form-field>
         <div *ngIf="ageerror" class="ngError">Age Required</div>
         <mat-form-field class="w-100">
-        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP">
+        <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP" autocomplete="off">
           <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
         </mat-select>
         </mat-form-field>
         <div *ngIf="occerror" class="ngError">Occupation Required</div>
         <mat-form-field class="w-100">
-            <input matInput  placeholder="PIN CODE" (keypress)="keyPress($event)" [(ngModel)]="pincoceP"  maxlength="6">
+            <input matInput  placeholder="PIN CODE" (input)="keyPress($event)" [(ngModel)]="pincoceP"  maxlength="6" autocomplete="off">
             <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Pincode Required</div>
@@ -183,7 +183,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="annualincome"  [(ngModel)]="AnnualIncomeP"  [disabled]="true">
+                    <input matInput name="annualincome"  [(ngModel)]="AnnualIncomeP"  [disabled]="true" autocomplete="off">
                   </mat-form-field>
                 </div>
 
@@ -195,7 +195,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="age" [(ngModel)]="Age"  [disabled]="true">
+                    <input matInput name="age" [(ngModel)]="Age"  [disabled]="true" autocomplete="off">
                   </mat-form-field>
                 </div>
 
@@ -221,7 +221,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoceP">
+                    <input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoceP" autocomplete="off">
                   </mat-form-field>
                 </div>
               </div>

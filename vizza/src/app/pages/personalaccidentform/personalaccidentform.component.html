@@ -75,7 +75,7 @@
                       </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
-                            <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode()" required>
+                            <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode('current')" required>
                                 <mat-option *ngFor="let occupation of occupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -295,14 +295,14 @@
                         <div class="col-md-6" >
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
-                                    <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
+                                    <mat-option *ngFor="let occupation of occupationCode" value="{{occupation.occupation_code}}">{{occupation.occupation_description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()" >
-                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
+                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()" required>
+                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -314,7 +314,7 @@
                         <div class="col-md-6" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()" >
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -574,14 +574,12 @@
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
-                      <li class="list-group-item"><strong>Offical Email Id:</strong>  {{summaryData.proposer_details.p_off_email}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>PassPort Number:</strong>{{summaryData.proposer_details.p_pass_idnum}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_details.p_annual_salary}} </li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
@@ -593,7 +591,7 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_p}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
+                      <li class="list-group-item" *ngIf="personalAddress2"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_details.p_pincode_p}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_details.p_citycd_p}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_p}}</li>
@@ -607,7 +605,6 @@
                     <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_c}} </li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_c}} </li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_details.p_pincode_c}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_details.p_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_c}}</li>
@@ -627,14 +624,12 @@
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
                       <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
-                      <li class="list-group-item"><strong>Offical Email Id:</strong>  {{summaryData.proposer_insurer_details.i_off_email}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>PassPort Number:</strong>{{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_insurer_details.i_annual_salary}} </li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
@@ -646,7 +641,6 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address2_c}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_insurer_details.i_pincode_c}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
@@ -660,7 +654,6 @@
                     <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address2_c}} </li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_insurer_details.i_pincode_c}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
