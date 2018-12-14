@@ -75,7 +75,7 @@
                       </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
-                            <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode()" required>
+                            <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode('current')" required>
                                 <mat-option *ngFor="let occupation of occupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -295,14 +295,14 @@
                         <div class="col-md-6" >
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
-                                    <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
+                                    <mat-option *ngFor="let occupation of occupationCode" value="{{occupation.occupation_code}}">{{occupation.occupation_description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()" >
-                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList" [value]="occupation.occupation_class">{{occupation.description}}</mat-option>
+                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode" (change)="setinsureDescriptionListCode()" required>
+                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -314,7 +314,7 @@
                         <div class="col-md-6" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()" >
-                                    <mat-option *ngFor="let classOccupation of personalClassDescription"  [value]="classOccupation.occupation_class_description">{{classOccupation.occ_name}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
