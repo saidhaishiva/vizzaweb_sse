@@ -99,6 +99,7 @@ import { ConfrimAlert} from './pages/exam/exam.component';
 import { ViewresultComponent } from './pages/viewresult/viewresult.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
+import { PersonalInsurer} from './pages/personalaccident/personalaccident.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
 import { ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
@@ -169,7 +170,7 @@ import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-paymen
 import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
 import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
-// import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
+import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 @NgModule({
@@ -282,6 +283,7 @@ import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment
       HealthComponent,
       ReligarePaymentSuccessComponent,
       HealthInsurer,
+      PersonalInsurer,
       DmRegisterComponent,
       DmLoginComponent,
       DmProfileComponent,
@@ -317,7 +319,7 @@ import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment
       TravelCompareComponent,
       TravelViewKeyFeaturesComponent,
       AppollomunichpaComponent,
-      // BajajAlianzComponent,
+      BajajAlianzComponent,
       ApollomunichPaPaymentSuccessComponent,
       DownloadAppolloPersonalAccident,
   ],
@@ -345,7 +347,7 @@ import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment
     bootstrap: [AppComponent],
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent, DownloadAppolloPersonalAccident
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent, DownloadAppolloPersonalAccident,PersonalInsurer,
     ]
 })
 export class AppModule { }

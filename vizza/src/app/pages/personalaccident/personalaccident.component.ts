@@ -15,6 +15,7 @@ import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
+import {HealthInsurer} from '../health-insurance/health-insurance.component';
 
 @Component({
   selector: 'app-personalaccident',
@@ -100,6 +101,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
     console.log(this.compareArray,'compareArraycompareArray');
     }
+
 reset(){
     this.selectedAmountP = [];
     this.pincoceP = '';
@@ -494,6 +496,47 @@ reset(){
         });
 
     }
+    personalInsurer(){
+        const dialogRef = this.dialog.open(PersonalInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
 }
 
+@Component({
+    selector: 'personalinsurer',
+    template: `        
+        <div class="container">
+        <div  row>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Personal Accident</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+            <h3>PERSONAL ACCIDENT POLICY</h3>
+            <ol>
+                <li>The benefit under the Personal Accidental Death section is payable when an Injury results in the loss of life of the Insured solely due to accidental injury.</li>
+                <li>Accidental Injury means bodily injury caused solely and directly by violent, accidental, external and visible means and should necessarily occur during the Insured Period of 12 months from the date of inception of the policy.</li>
+                <li>The definition of Injury does not extend to other non physical consequences such as mental, nervous or emotional disorders, depression or anxiety of any Accident and these are specifically  excluded in the Personal Accident  Policy</li>
+                <li>The definition of Accident means a sudden, unforeseen and unexpected physical event caused by external, violent and visible means.</li>
+                <li>The policy on opting the widest cover provides for weekly compensation benefit to the extent of 1 % of sum insured every week for approximately 100 weeks ( The percentage and number of weeks varies from insurer to insurer) till such time that the insured is able to resume his /  her normal activities.</li>
+                <li>The Personal Accident policy has a coverage / compensation for Temporary Total Disablement and Temporary Partial Disablements on a fixed percentage basis if the insured opts with the TTD and TPD benefits apart from the death benefit.</li>
+            </ol>
+         </div>
+        </div>`,
+})
+export class PersonalInsurer {
 
+    constructor(
+        public dialogRef: MatDialogRef<PersonalInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
