@@ -128,15 +128,15 @@
                       </mat-form-field></div>
                     </div>
                   </div>
-                <div class="col-md-12">
+                <div class="col-md-12  box-card pt-3">
                     <div class="row">
-                        <div class="col-md-1 text-right">
+                        <div class="col-md-1 text-left">
                             <mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"></mat-checkbox>
                         </div>
                         <div class="col-md-11 text-left">
                             <strong>
-                                I declare that the above mentioned information provided by me is true to my knowledge .
-                                I hereby also confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category .
+                                I declare that the above mentioned information provided by me is true to my knowledge .<br>
+                                I hereby also confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category .<br>
                                 I authorize vizza Insurance Broking service pvt  Ltd. to represent on behalf of me for all my Insurance assistance.
                             </strong>
                         </div>
@@ -337,17 +337,19 @@
                                   <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.p_dob}}</li>
                                   <li class="list-group-item"><strong>Email:</strong> {{summaryData.p_email}}</li>
                                   <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.p_phone}}</li>
+                                  <li class="list-group-item" *ngIf="summaryData.gst_id_number != '' && summaryData.gst_id_number != 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
+
                               </ul>
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="p-3">
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="summaryData.gst_id_number != '' && summaryData.gst_id_number != 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
+                                  <li class="list-group-item"><strong>Travel Purpose:</strong> {{travelPurposeName}}</li>
                                   <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.physician_name}}</li>
                                   <li class="list-group-item"><strong>Physician Contact:</strong> {{summaryData.phy_contact_number}}</li>
                                   <li class="list-group-item"><strong>Address:</strong> {{summaryData.p_address1}} <span *ngIf="summaryData.p_address2 !=''">, {{summaryData.p_address2}}</span><span *ngIf="summaryData.p_area_id !=''">, {{summaryData.p_area_id}}</span></li>
-                                  <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->
+                                  <li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>
                               </ul>
                           </div>
                       </div>
