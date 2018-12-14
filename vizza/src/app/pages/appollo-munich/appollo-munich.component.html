@@ -153,7 +153,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer', 'i')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onlyNum($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer', 'i')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
