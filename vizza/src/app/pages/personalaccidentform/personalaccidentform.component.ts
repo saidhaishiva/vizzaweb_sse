@@ -149,6 +149,8 @@ export class PersonalaccidentformComponent implements OnInit {
     resnumber: boolean;
     passPort1: boolean;
     passPort: boolean;
+    addressPr: boolean;
+    addressPC: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -194,6 +196,8 @@ export class PersonalaccidentformComponent implements OnInit {
         this.resnumber = false;
         this.passPort1 = false;
         this.passPort = false;
+        this.addressPr = false;
+        this.addressPC = false;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),

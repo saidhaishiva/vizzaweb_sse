@@ -659,6 +659,7 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
+                      <li class="list-group-item" *ngIf="addressPC != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_insurer_details.i_pincode_c}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
@@ -672,6 +673,7 @@
                     <h6>RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
+                      <li class="list-group-item" *ngIf="addressPr != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_insurer_details.i_pincode_c}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_insurer_details.i_citycd_c}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
