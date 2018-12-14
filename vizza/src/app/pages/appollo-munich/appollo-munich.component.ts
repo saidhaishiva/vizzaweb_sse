@@ -557,7 +557,6 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
-            alert('in')
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
@@ -1655,6 +1654,18 @@ export class AppolloMunichComponent implements OnInit {
     add(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9//]/;
+            const inputChar = String.fromCharCode(event.charCode);
+
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
+    }
+
+    onlyNum(event){
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {

@@ -739,7 +739,14 @@ export class TravelProposalComponent implements OnInit {
                     }
                 }
             }
-            console.log(this.placeOfVisitNames, 'placeOfVisitNames');
+            for (let i =0; i < this.insurerDtails.length; i++) {
+                for (let j =0; j < this.visaTypeAllList.length; j++) {
+                    if (this.insurerDtails[i].visaType == this.visaTypeAllList[j].viz_type_id) {
+                        this.insurerDtails[i].visaTypeName = this.visaTypeAllList[j].viz_type_name;
+                    }
+                }
+            }
+            console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
 
         } else {
             this.toastr.error(successData.ErrorObject);
