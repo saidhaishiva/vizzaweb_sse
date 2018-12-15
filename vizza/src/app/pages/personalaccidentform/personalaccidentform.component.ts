@@ -151,6 +151,7 @@ export class PersonalaccidentformComponent implements OnInit {
     passPort: boolean;
     addressPr: boolean;
     addressPC: boolean;
+    insuredDescriptionValidator: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -188,16 +189,8 @@ export class PersonalaccidentformComponent implements OnInit {
         this.occupationClass = false;
         this.insureoccupationClass = false;
         this.readonlyproposer = false;
-        this.personalAddress2 = false;
-        this.mobileno = false;
-        this.resAddress2 = false;
-        this.gst = false;
-        this.gst1 = false;
-        this.resnumber = false;
-        this.passPort1 = false;
-        this.passPort = false;
-        this.addressPr = false;
-        this.addressPC = false;
+        this.insuredDescriptionValidator = false;
+
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -1189,6 +1182,15 @@ export class PersonalaccidentformComponent implements OnInit {
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
             this.insureoccupationDescription = true;
+            if( this.insureoccupationDescription ){
+                this.insuredDescriptionValidator = true
+                this.insured.controls['insuredDescription'].setValidators([Validators.required]);
+            } else {
+                this.insuredDescriptionValidator = true
+                this.insured.controls['insuredDescription'].setValidators(null);
+
+            }
+
             this.insureoccupationClass = false;
 
         } else {
@@ -1560,6 +1562,7 @@ export class PersonalaccidentformComponent implements OnInit {
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.lastStepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
@@ -1602,7 +1605,7 @@ export class PersonalaccidentformComponent implements OnInit {
                     this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
                 }
             }
-            this.lastStepper.next();
+
 
         } else {
             this.toastr.error(successData.ErrorObject);
