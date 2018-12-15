@@ -179,6 +179,7 @@ export class PersonalaccidentformComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        this.personalAccidentQuestionsList = [];
         this.occupationFirst = true;
         this.occupationSecond = false;
         this.insureoccupationFirst = true;
@@ -452,6 +453,8 @@ export class PersonalaccidentformComponent implements OnInit {
             console.log(JSON.parse(sessionStorage.proposal3Detail), 'sessionStorage.proposal3Detail');
            // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
             this.personalAccidentQuestionsList = JSON.parse(sessionStorage.proposal3Detail);
+            console.log(this.personalAccidentQuestionsList, 'sessionStorage.this.personalAccidentQuestionsList');
+
         }
 
 // nominee
@@ -1247,26 +1250,26 @@ export class PersonalaccidentformComponent implements OnInit {
         console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
 
-        this.insureRelationList = [];
-        if (this.insurePersons.length >= 1) {
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                if (this.relationshipList[i].status == 1) {
-                    this.insureRelationList.push({
-                        'relationship_code': this.relationshipList[i].relationship_code,
-                        'relationship_name': this.relationshipList[i].relationship_name,
-                        'status': this.relationshipList[i].status
-                    });
-                }
-            }
-        } else {
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                this.insureRelationList.push({
-                    'relationship_code': this.relationshipList[i].relationship_code,
-                    'relationship_name': this.relationshipList[i].relationship_name,
-                    'status': this.relationshipList[i].status
-                });
-            }
-        }
+        // this.insureRelationList = [];
+        // if (this.insurePersons.length >= 1) {
+        //     for (let i = 0; i < this.relationshipList.length; i++) {
+        //         if (this.relationshipList[i].status == 1) {
+        //             this.insureRelationList.push({
+        //                 'relationship_code': this.relationshipList[i].relationship_code,
+        //                 'relationship_name': this.relationshipList[i].relationship_name,
+        //                 'status': this.relationshipList[i].status
+        //             });
+        //         }
+        //     }
+        // } else {
+        //     for (let i = 0; i < this.relationshipList.length; i++) {
+        //         this.insureRelationList.push({
+        //             'relationship_code': this.relationshipList[i].relationship_code,
+        //             'relationship_name': this.relationshipList[i].relationship_name,
+        //             'status': this.relationshipList[i].status
+        //         });
+        //     }
+        // }
 
         console.log(this.insureRelationList, 'insureRelationListinsureRelationListinsureRelationList');
 
@@ -1342,10 +1345,14 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public religareQuestionsSuccess(successData) {
-        this.personalAccidentQuestionsList = successData.ResponseObject;
-        for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-            this.personalAccidentQuestionsList[i].checked = false;
+        if (sessionStorage.proposal3Detail == '' && sessionStorage.proposal3Detail == undefined) {
+
+            this.personalAccidentQuestionsList = successData.ResponseObject;
+            for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
+                this.personalAccidentQuestionsList[i].checked = false;
+            }
         }
+
         console.log(this.personalAccidentQuestionsList, 'this.personalAccidentQuestionsList');
 
     }
@@ -1360,10 +1367,10 @@ export class PersonalaccidentformComponent implements OnInit {
         this.partyQuestionDOList = [];
         let count = 0;
         for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-            if (this.personalAccidentQuestionsList[i].checked == true) {
+           // if (this.personalAccidentQuestionsList[i].checked == true) {
                 count ++;
                 this.partyQuestionDOList.push({'questionCd':this.personalAccidentQuestionsList[i].question_code, 'questionSetCd':this.personalAccidentQuestionsList[i].question_set_code, 'response': this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO' });
-            }
+          //  }
         }
         console.log(count, 'countcount');
         if (count == 5) {

@@ -144,6 +144,11 @@ export class AppolloMunichComponent implements OnInit {
     public titleCodeList: any;
     public iAppolloDistrictName: any;
     public iAppolloCityName: any;
+    public insurerAge: any;
+    public personalhabit: boolean;
+    public previousDetails: boolean;
+    public dobErrorInsure: any;
+    public dobErrorStartDate: any;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -168,6 +173,8 @@ export class AppolloMunichComponent implements OnInit {
       this.sameField = false;
       this.isDisable = false;
       this.insureCity = false;
+      this.personalhabit = false;
+      this.previousDetails = false;
       this.proposerInsureData = [];
       this.totalInsureDetails = [];
       this.questions_list = [];
@@ -459,7 +466,14 @@ export class AppolloMunichComponent implements OnInit {
                 }
             }
             if(!ageValidate.includes(1)){
-                stepper.next();
+                if (sessionStorage.proposerAge >= 18) {
+                    stepper.next();
+
+            } else {
+                    this.toastr.error('Insurer age should be 18 or above');
+
+                }
+
             }
 
         }
@@ -469,11 +483,12 @@ export class AppolloMunichComponent implements OnInit {
     pInsureStatus(title: any, id){
 
       if(title.value == 'Yes') {
-
+        this.previousDetails = true;
           this.items.at(id).controls.PreviousPolicyNumber.setValidators([Validators.required]);
           this.items.at(id).controls.PreviousInsurer.setValidators([Validators.required]);
           this.items.at(id).controls.SumInsured.setValidators([Validators.required]);
       } else {
+          this.previousDetails = false;
           this.insureArray['controls'].items['controls'][id]['controls'].PreviousPolicyNumber.patchValue('');
           this.insureArray['controls'].items['controls'][id]['controls'].PreviousInsurer.patchValue('');
           this.insureArray['controls'].items['controls'][id]['controls'].SumInsured.patchValue('');
@@ -619,30 +634,40 @@ export class AppolloMunichComponent implements OnInit {
 
     selectHabitat(value: any, id, key){
       if(key == 'Smoking' && value.checked) {
+          this.personalhabit = true;
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue('');
       } else if(key == 'Smoking' && !value.checked){
+          this.personalhabit = false;
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue(0);
       }
       if (key == 'Pouches' && value.checked) {
-            this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue('');
+          this.personalhabit = true;
+          this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue('');
         } else if(key == 'Pouches' && !value.checked){
-            this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue(0);
+          this.personalhabit = false;
+          this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue(0);
         }
         if (key == 'Liquor' && value.checked) {
+            this.personalhabit = true;
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue('');
         } else if(key == 'Liquor' && !value.checked){
+            this.personalhabit = false;
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue(0);
         }
 
         if (key == 'Wine' && value.checked) {
+            this.personalhabit = true;
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue('');
         } else if(key == 'Wine' && !value.checked){
+            this.personalhabit = false;
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue(0);
         }
 
         if (key == 'Beer' && value.checked) {
+            this.personalhabit = true;
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue('');
         } else if(key == 'Beer' && !value.checked){
+            this.personalhabit = false;
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
         }
     }
@@ -691,21 +716,35 @@ export class AppolloMunichComponent implements OnInit {
 
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    this.dobError = '';
-                    this.proposer.controls['proposerDob'].patchValue(dob);
-                    this.ageCalculate(dob);
+                    if (title == 'proposer') {
+                        this.dobError = '';
+                        this.proposer.controls['proposerDob'].patchValue(dob);
+                        this.ageCalculate(dob);
 
-                } else {
+                    } else if (title == 'insurer') {
+                        this.dobErrorInsure = '';
+                        this.insureArray['controls'].items['controls'][index]['controls'].proposerDob.patchValue(dob);
+                        this.ageCalculate(dob);
+                    } else if(title == 'startDate'){
+                        this.dobErrorStartDate = '';
+                        this.insureArray['controls'].items['controls'][index]['controls'].PolicyStartDate.patchValue(dob);
+                        this.ageCalculate(dob);
+                    }
                 }
-
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     this.dobError = '';
                     this.proposer.controls['proposerDob'].patchValue(dob);
                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
-                } else {
-
+                } else if (title == 'insurer') {
+                    this.dobErrorInsure = '';
+                    this.insureArray['controls'].items['controls'][index]['controls'].proposerDob.patchValue(dob);
+                    this.ageCalculate(dob);
+                } else if(title == 'startDate'){
+                    this.dobErrorStartDate = '';
+                    this.insureArray['controls'].items['controls'][index]['controls'].PolicyStartDate.patchValue(dob);
+                    this.ageCalculate(dob);
                 }
 
                 this.dobError = '';
@@ -1178,21 +1217,27 @@ export class AppolloMunichComponent implements OnInit {
                             this.summaryData.InsurePolicyholderDetails[i].marital_status = this.maritalDetail[j].marital_status;
                         }
                     }
-                    // if(this.summaryData.InsurePolicyholderDetails[i].i_gender == 1){
-                    //     this.summaryData.InsurePolicyholderDetails[i].i_gender.patchValue('Male');
-                    // }else{
-                    //     this.summaryData.InsurePolicyholderDetails[i].i_gender.patchValue('Female');
-                    // }
+                // for(let j = 0; j< this.proffessionList.length; j++){
+                //     if(this.summaryData.InsurePolicyholderDetails[i].i_procode == this.proffessionList[j].proffession.code ) {
+                //         this.summaryData.InsurePolicyholderDetails[i].profession = this.proffessionList[j].profession;
+                //     }
+                // }
                 }
                 for(let j = 0; j< this.relationshipList.length; j++){
                     if(this.summaryData.ProposalDetails.n_relation == this.relationshipList[j].relationship_code ) {
                         this.summaryData.ProposalDetails.relationship = this.relationshipList[j].relationship;
                     }
-                } for(let j = 0; j< this.maritalDetail.length; j++){
-                    if(this.summaryData.ProposalDetails.p_maritalstatus == this.maritalDetail[j].marital_code ) {
-                        this.summaryData.ProposalDetails.marital_status = this.maritalDetail[j].marital_status;
-                    }
                 }
+            for(let i = 0; i< this.IdProofList.length; i++){
+                if(this.summaryData.ProposalDetails.p_idproof_code== this.IdProofList[i].proof_code ) {
+                    this.summaryData.ProposalDetails.proof_name = this.IdProofList[i].proof_name;
+                }
+            }
+            for(let j = 0; j< this.maritalDetail.length; j++){
+                if(this.summaryData.InsurePolicyholderDetails.p_maritalstatus == this.maritalDetail[j].marital_code ) {
+                    this.summaryData.InsurePolicyholderDetails.marital_status = this.maritalDetail[j].marital_status;
+                }
+            }
 
             // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
             //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
@@ -1651,19 +1696,7 @@ export class AppolloMunichComponent implements OnInit {
     public occupationListFailure(error) {
         console.log(error);
     }
-    add(event){
-        if (event.charCode !== 0) {
-            const pattern = /[0-9//]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
-            }
-        }
-    }
-
-    onlyNum(event){
+    OnNumber(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -1674,6 +1707,18 @@ export class AppolloMunichComponent implements OnInit {
             }
         }
     }
+
+    // onlyNum(event){
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //
+    //         if (!pattern.test(inputChar)) {
+    //             // invalid character, prevent input
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z]/;
