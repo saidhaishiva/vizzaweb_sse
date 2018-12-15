@@ -44,6 +44,7 @@ import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/paym
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
+import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -179,7 +180,8 @@ export const routes: Routes = [
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
-            { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'}}
+            { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'}},
+            { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}}
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

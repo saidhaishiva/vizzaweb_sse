@@ -2071,3 +2071,18 @@ fieldset {
   }
 
 }
+
+.aboutImg {
+  postion: relative;
+}
+.aboutContent{
+  position: absolute;
+  top:0px;
+  left:0px;
+  padding: 10px 0px 0px 22px;
+}
+
+.my-flex-card > div > div.card {
+  height: calc(100% - 15px);
+  margin-bottom: 15px;
+}
