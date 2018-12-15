@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {FireInsurer} from '../fire/fire.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {PersonalInsurer} from '../personalaccident/personalaccident.component';
 @Component({
   selector: 'app-burglary',
   templateUrl: './burglary.component.html',
@@ -19,7 +22,7 @@ export class BurglaryComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog) {
       this.burgapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -130,6 +133,47 @@ export class BurglaryComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    BurglaryInsurer(){
+        const dialogRef = this.dialog.open(BurglaryInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'burglaryinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #000"><img src="assets/img/burglary-insurance.png" class="logo-size"> About BURGLARY INSURANCE</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+            <h3>BURGLARY INSURANCE</h3>
+            <p>Burglary policy is available in the market  for residences and  business premises (with optional  theft extension). The insurance covers loss or damage  to the insured property, due to burglary of the premises. The damage has to be caused to the insured property by
+forcible or violent means.</p>
+            <p>The Burglary policy can be issued on a first loss basis which means that if the insured is a godown containing stocks worth several crores in a large volume and a total loss is impossible the insured chooses a rateable portion for the insurance say 25 % and the premium is charged accordingly.</p>
+            <p>The policy can also be issued on a declaration basis wherever the value of stocks keeps on fluctuating. For all commercial establishments It is essential that a proper accounting of insured stocks as well as bills of purchase and sales books  are keptseparately in safe custody for the verification by the insurer in the unfortunate event of a claim.</p>
+            <p>FIR and NON TRACEABLE CERTIFICATES  are a must in this policy for claim settlement. Lodging of FIR with the nearest police station immediately on noticing the loss is essential under this policy. The policy is generally issued for a year.</p>
+            <p>Negligence by the insured person or failure to securely lock the entry to the premises and all openings will result in repudiation of the claim.</p>
+            <p>Losses discovered during routine stock verification and accumulated losses are specifically excluded under the policy.</p>
+         </div>
+        </div>`,
+})
+export class BurglaryInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<PersonalInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }

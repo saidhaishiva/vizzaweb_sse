@@ -129,6 +129,7 @@ export class TravelProposalComponent implements OnInit {
     paymentGatewayData: any;
     visaTypeAllList: any;
     placeOfVisitNames: any;
+    travelPurposeName: any;
     AcceptDeclaration: boolean;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -746,6 +747,12 @@ export class TravelProposalComponent implements OnInit {
                     }
                 }
             }
+            for (let i =0; i < this.travelPurposeLists.length; i++) {
+                if (this.travelPurposeLists[i].plan_id == this.summaryData.travel_purpose_id) {
+                    this.travelPurposeName = this.travelPurposeLists[i].plan_name;
+                }
+            }
+
             console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
 
         } else {

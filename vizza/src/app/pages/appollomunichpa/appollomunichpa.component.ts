@@ -97,20 +97,7 @@ public voterP: boolean;
 public passportP: boolean;
 public drivinglicenseP: boolean;
 public minDate: any;
-public genderP: any;
-public genderI: any;
     CheckHabits : boolean;
-    personalAddress2: boolean;
-    proposerPaIdProof1:boolean;
-    proposerPaIdProofnumber:boolean;
-    proposerPaGst: boolean;
-    insureAddress2: boolean;
-    insureAddress1:boolean;
-    nomineeAdd2: boolean;
-    nomineeAdd3: boolean;
-    districtP: boolean;
-    districtI: boolean;
-    districtN: boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
@@ -253,17 +240,6 @@ public genderI: any;
       this.settings.sidenavIsPinned = false;
       this.prevList = false;
       this.CheckHabits = false;
-      this.personalAddress2 = false;
-      this.proposerPaIdProof1 = false;
-      this.proposerPaIdProofnumber = false;
-      this.proposerPaGst = false;
-      this.insureAddress1 = false;
-      this.insureAddress2 = false;
-      this.nomineeAdd2 = false;
-      this.nomineeAdd3 = false;
-      this.districtP = false;
-      this.districtI = false;
-      this.districtN = false;
 
   }
 
@@ -1521,6 +1497,13 @@ preInsureList() {
             for( let i=0; i < this.paIdProofList.length; i++) {
                 if(this.appollosummaryData.InsurePolicyholderDetails.i_idproof_code == this.paIdProofList[i].proof_code) {
                     this.appollosummaryData.InsurePolicyholderDetails.proof_name =  this.paIdProofList[i].proof_name;
+                }
+            }
+            // profession  details
+
+            for( let i=0; i < this.professionList.length; i++) {
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_procode == this.professionList[i].code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.profession =  this.professionList[i].profession;
                 }
             }
             this.lastPage.next();

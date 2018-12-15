@@ -1,6 +1,6 @@
 
-<div class="container dashboard h-100" fxLayoutAlign="center center"  *ngIf="firstPage">
-  <div class="row" fxLayoutAlign="center center">
+<div class="container dashboard h-100" fxLayoutAlign="start start"  *ngIf="firstPage">
+  <div class="row" fxLayoutAlign="center start">
     <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> Personal Accident</h2>
     <div class="col-md-7 col-sm-12 col-xs-12">
       <mat-card class="mat-radius">
@@ -125,6 +125,8 @@
                     <td>
                       <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
                       <p><button mat-raised-button color="accent" (click)="buyDetails(plists)">Buy</button></p>
+                      <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
+
                     </td>
                   </tr>
 

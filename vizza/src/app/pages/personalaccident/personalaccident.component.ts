@@ -519,7 +519,8 @@ reset(){
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
             <h3>PERSONAL ACCIDENT POLICY</h3>
-            <ol>
+            <p>The personal accident insurance for employees insured as a group can be issued on a named or unnamed basis. The premium will also have the added advantages of group discount and low claim discount. There could be a loading if the claims ratio is high. Another advantage is that the policy can be issued for the employees whilst at work only for which a substantial premium reduction will be there.</p>
+            <ol class="ml-4">
                 <li>The benefit under the Personal Accidental Death section is payable when an Injury results in the loss of life of the Insured solely due to accidental injury.</li>
                 <li>Accidental Injury means bodily injury caused solely and directly by violent, accidental, external and visible means and should necessarily occur during the Insured Period of 12 months from the date of inception of the policy.</li>
                 <li>The definition of Injury does not extend to other non physical consequences such as mental, nervous or emotional disorders, depression or anxiety of any Accident and these are specifically  excluded in the Personal Accident  Policy</li>

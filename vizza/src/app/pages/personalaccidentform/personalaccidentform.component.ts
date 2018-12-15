@@ -129,7 +129,7 @@ export class PersonalaccidentformComponent implements OnInit {
     occupationClass: boolean;
     insureClassDescription: any;
     insureoccupationdescriptionList: any;
-    personalClassDescription: boolean;
+    personalClassDescription: any;
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
     public religarePAProposal: any;
@@ -142,6 +142,16 @@ export class PersonalaccidentformComponent implements OnInit {
     personalDescriptionclassPA: boolean;
     Address2: boolean;
     personalAddress2: boolean;
+    mobileno: boolean;
+    resAddress2: boolean;
+    gst: boolean;
+    gst1: boolean;
+    resnumber: boolean;
+    passPort1: boolean;
+    passPort: boolean;
+    addressPr: boolean;
+    addressPC: boolean;
+    insuredDescriptionValidator: boolean;
     constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -179,7 +189,8 @@ export class PersonalaccidentformComponent implements OnInit {
         this.occupationClass = false;
         this.insureoccupationClass = false;
         this.readonlyproposer = false;
-        this.personalAddress2 = false;
+        this.insuredDescriptionValidator = false;
+
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -1171,6 +1182,15 @@ export class PersonalaccidentformComponent implements OnInit {
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
             this.insureoccupationDescription = true;
+            if( this.insureoccupationDescription ){
+                this.insuredDescriptionValidator = true
+                this.insured.controls['insuredDescription'].setValidators([Validators.required]);
+            } else {
+                this.insuredDescriptionValidator = true
+                this.insured.controls['insuredDescription'].setValidators(null);
+
+            }
+
             this.insureoccupationClass = false;
 
         } else {
@@ -1542,13 +1562,50 @@ export class PersonalaccidentformComponent implements OnInit {
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.lastStepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
             console.log(this.religarePAProposal, 'this.religarePAProposal');
             sessionStorage.paProposalID = this.religarePAProposal;
-            this.lastStepper.next();
+            // get religare proposer occupation code
+            for( let i=0; i < this.occupationCode.length; i++) {
+                if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {
+                    this.summaryData.proposer_details.occupation_description =  this.occupationCode[i].occupation_description;
+                }
+            }
+            // get reliagre insure occupation code
+            for( let i=0; i < this.occupationCode.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_code == this.occupationCode[i].occupation_code) {
+                    this.summaryData.proposer_insurer_details.occupation_description =  this.occupationCode[i].occupation_description;
+                }
+            }
+            // occupation class in proposer
+            for( let i=0; i < this.occupationdescriptionList.length; i++) {
+                if(this.summaryData.proposer_details.p_occupation_class == this.occupationdescriptionList[i].occupation_class) {
+                    this.summaryData.proposer_details.description =  this.occupationdescriptionList[i].description;
+                }
+            }
+            // occupation class in insured
+            for( let i=0; i < this.occupationdescriptionList.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_class == this.occupationdescriptionList[i].occupation_code) {
+                    this.summaryData.proposer_insurer_details.description =  this.occupationdescriptionList[i].description;
+                }
+            }
+            // occupation class description in prorposer
+            for( let i=0; i < this.personalClassDescription.length; i++) {
+                if(this.summaryData.proposer_details.p_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
+                    this.summaryData.proposer_details.occ_name =  this.personalClassDescription[i].occ_name;
+                }
+            }
+            // occupation class description in insured
+            for( let i=0; i < this.personalClassDescription.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
+                    this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
+                }
+            }
+
 
         } else {
             this.toastr.error(successData.ErrorObject);

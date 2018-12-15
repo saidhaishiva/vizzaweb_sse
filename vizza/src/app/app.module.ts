@@ -175,6 +175,8 @@ import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/trav
 import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
+import { BurglaryInsurer} from './pages/burglary/burglary.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -326,6 +328,7 @@ import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment
       ApollomunichPaPaymentSuccessComponent,
       DownloadAppolloPersonalAccident,
       FireInsurer,
+      BurglaryInsurer,
   ],
   providers: [
       AppSettings,
@@ -352,7 +355,7 @@ import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,
+        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,
     ]
 })
 export class AppModule { }
