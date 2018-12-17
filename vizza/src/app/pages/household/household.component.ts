@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'app-household',
   templateUrl: './household.component.html',
@@ -19,7 +20,7 @@ export class HouseholdComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
       this.houapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -131,6 +132,46 @@ export class HouseholdComponent implements OnInit {
             }
         }
     }
+    HouseholdInsurer(){
+        const dialogRef = this.dialog.open(HouseholdInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
 
+
+}
+@Component({
+    selector: 'householdinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #00D4B5"><img src="assets/img/House-holders-policy.png" class="logo-size"> About House Holders Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+            <p>This insurance package provides you the protection for the property / items  you have obtained and covers damages arising out of Fire and natural calamities like flood, earthquake and other risks such as burglary,  theft,  vandalism which are beyond our control and cannot be predicted and losses are unavoidable in spite of our best precautions.</p>
+            <p>This policy is a specially packaged policy which protects the entire household and the building also. The policy can be extended to cover the travelling Baggage and also Personal accident.</p>
+            <p>Jewellery and Valuables can also be covered against an All Risk  which means that the jewels whilst worn or kept at home in safe can be covered for the insured and his or her family members. The Fixed Plate Glasses in the building can also be covered.</p>
+            <p>Household appliances like refrigerator, washing machine, air conditioners and such other items can be insured against Breakdown and all electronic equipments including Personal computers can be covered under the policy.</p>
+            <p>Many of us are not aware that we are legally liable for accidents occurring inside our house /residence for the workmen like servants, security staff and such other persons. It is essential that we cover the liability of such workmen at our home on an unnamed basis based on the salaries disbursed to them. There is a provision to cover the same in this package policy.</p>
+            <p>Apart from that it is essential that we have a public liability cover which takes care of any liability arising on us for example liability could arise from damages caused by a coconut falling from our tree on a person or vehicle or the falling of our dish antenna from the roof and so on.</p>
+         </div>
+        </div>`,
+})
+export class HouseholdInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<HouseholdInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }

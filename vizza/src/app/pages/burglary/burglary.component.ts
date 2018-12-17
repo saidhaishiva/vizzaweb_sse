@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {FireInsurer} from '../fire/fire.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {PersonalInsurer} from '../personalaccident/personalaccident.component';
 @Component({
   selector: 'app-burglary',
   templateUrl: './burglary.component.html',
@@ -168,7 +167,7 @@ forcible or violent means.</p>
 export class BurglaryInsurer {
 
     constructor(
-        public dialogRef: MatDialogRef<PersonalInsurer>,
+        public dialogRef: MatDialogRef<BurglaryInsurer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
