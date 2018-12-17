@@ -187,7 +187,7 @@ export const routes: Routes = [
             { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'}},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
-            { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}}
+            { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}}
         ]
     },
