@@ -181,6 +181,8 @@ import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
 import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/reliagretravelproposal.component';
+import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
+import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 
 @NgModule({
   imports: [
@@ -338,6 +340,8 @@ import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/
       CarInsurer,
       BikeInsuranceComponent,
       BikeInsurer,
+      TermLifeInsuranceComponent,
+      TermLifeInsurer,
       ReliagretravelproposalComponent,
   ],
   providers: [
@@ -365,7 +369,7 @@ import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,
+        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,
     ]
 })
 export class AppModule { }

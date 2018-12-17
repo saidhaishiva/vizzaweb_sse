@@ -8,12 +8,12 @@ import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
-  selector: 'app-fire',
-  templateUrl: './fire.component.html',
-  styleUrls: ['./fire.component.scss']
+  selector: 'app-term-life-insurance',
+  templateUrl: './term-life-insurance.component.html',
+  styleUrls: ['./term-life-insurance.component.scss']
 })
-export class FireComponent implements OnInit {
-    public fireapp: FormGroup;
+export class TermLifeInsuranceComponent implements OnInit {
+    public TermLifeapp: FormGroup;
     public setDate: any;
     public selectDate: any;
     public productName: any;
@@ -21,18 +21,17 @@ export class FireComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-
   constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
-      this.fireapp = this.fb.group({
+      this.TermLifeapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
           'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-          'contactperson':  ['', Validators.compose([Validators.required])],
+          'contactperson': ['', Validators.compose([Validators.required])],
           'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
           'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           'pincode': ['', Validators.compose([Validators.required])],
-          'insurance': ['',Validators.compose([Validators.required])],
-          'appointmentwith': ['',Validators.compose([Validators.required])]
+          'insurance': ['', Validators.compose([Validators.required])],
+          'appointmentwith': ['', Validators.compose([Validators.required])]
       });
       this.productName = '';
   }
@@ -50,22 +49,22 @@ export class FireComponent implements OnInit {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
-    fireKeeper(values) {
+    TermLifeKeeper(values) {
 
-        if (this.fireapp.valid) {
+        if (this.TermLifeapp.valid) {
             console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
                 'appointment_date': this.setDate,
-                'appointment_time': this.fireapp.controls['apptime'].value,
-                'company_name': this.fireapp.controls['name'].value,
-                'customer_mobile': this.fireapp.controls['mobile'].value,
-                'customer_email': this.fireapp.controls['email'].value,
-                'contact_person' : this.fireapp.controls['contactperson'].value,
-                'pincode': this.fireapp.controls['pincode'].value,
-                'product_name': this.fireapp.controls['insurance'].value,
-                'appointment_with': this.fireapp.controls['appointmentwith'].value,
+                'appointment_time': this.TermLifeapp.controls['apptime'].value,
+                'company_name': this.TermLifeapp.controls['name'].value,
+                'customer_mobile': this.TermLifeapp.controls['mobile'].value,
+                'customer_email': this.TermLifeapp.controls['email'].value,
+                'contact_person' : this.TermLifeapp.controls['contactperson'].value,
+                'pincode': this.TermLifeapp.controls['pincode'].value,
+                'product_name': this.TermLifeapp.controls['insurance'].value,
+                'appointment_with': this.TermLifeapp.controls['appointmentwith'].value,
 
             };
 
@@ -134,16 +133,15 @@ export class FireComponent implements OnInit {
             }
         }
     }
-
-    FireInsurer(){
-        const dialogRef = this.dialog.open(FireInsurer, {
+    TermLifeInsurer(){
+        const dialogRef = this.dialog.open(TermLifeInsurer, {
             width: '1200px',
         });
         dialogRef.disableClose = true;
     }
 }
 @Component({
-    selector: 'fireinsurer',
+    selector: 'termlifeinsurer',
     template: `        
         <div class="container">
         <div  class="row text-justify">
@@ -151,23 +149,22 @@ export class FireComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #F44D00"><img src="assets/img/fire-insurance.png" class="logo-size"> About Fire Insurance</h3>
+                <h4 class="text-center" style="color: #A521B3 "><img src="assets/img/term-life-insurance.png" class="logo-size"> About Term Life Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
-            <p>To insure the loss by fire or the risksincidental to fire we require a fire insurance policy. Fire policies are issued to buildings,furniture, fixtures and fittings, plant and machinery, stocks, stocks held in trust and such other items.</p>
-            <p>A Standard Fire Policy can cover the loss or damage to the property insured caused by the perils of Fire, Lightning, Explosion/Implosion, Aircraft Damage, impact damage, Riot, Strike,Malicious damage, Terrorism , Storm, Cyclone, Typhoon, Hurricane, Tornado,Flood, Inundation, Impact damage, Subsidence and Landslide, Bursting and or overflowing of water tanks apparatus and pipes, Leakage from automatic sprinkler installations and so on.</p>
-            <p>It is also possible to obtain certain additional covers which are available along with the Standard Fire Policy. Fire policies are generally issued for one year but residences can be issued for more than one year. It is possible to obtain fire policies for buildings under construction and for factories which are shut down wherein no manufacturing activity is carried on which are termed as a silent risks.</p>
-            <p>There are special types of fire policies like Floater policies which are issued for stocks / raw material / finished stock which keep floating amongst various godowns, Declaration policies can be issued for stocks which keeps on fluctuating and  Floater Declaration policies are also available.</p>
-            <p>There is a standard excess which has to be borne by the insured in a fire policy and there is a provision for voluntary excess also. The most important aspect in the event of a fire claim is that the origin of fire is not covered in the fire policy. To be more clear if the fire originates from a refrigerator the claim for the refrigerator is not payable under a fire policy although it would have been covered in the fire policy.</p>
+            <p>Term Insurance policies otherwise called as Protection plans only cover the risk of death for the specific period of policy. In case of death of insured during the policy period, the suminsured is paid to the nominated person in the policy.</p>
+            <p>There is no payment paid if the insured survives after the maturity of term insurance. The term insurance is a pure life insurance and acts as a complete security to the policy holders nominees.</p>
+            <p>If a house has been purchased on loan that can be secured by a term insurance, children education can be secured by a term insurance, in other words if planned well in the unfortunate event of death the nominees continue to live in the same life style we provided when we are alive. The Premium rates are very low in this plan since it covers the riskonly. Premium can be paid Single or yearly or half yearly.</p>
+            <p>In whole life plans also the risk of death alone can be covered and the nominee receives the sum insured. This premium can also be paid as quarterly or half yearly or annual mode.</p>
          </div>
         </div>`,
 })
-export class FireInsurer {
+export class TermLifeInsurer {
 
     constructor(
-        public dialogRef: MatDialogRef<FireInsurer>,
+        public dialogRef: MatDialogRef<TermLifeInsurer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {

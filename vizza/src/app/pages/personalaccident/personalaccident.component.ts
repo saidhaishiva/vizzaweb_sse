@@ -517,7 +517,6 @@ reset(){
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
-            <h3>PERSONAL ACCIDENT POLICY</h3>
             <ol class="ml-4">
                 <li>The benefit under the Personal Accidental Death section is payable when an Injury results in the loss of life of the Insured solely due to accidental injury.</li>
                 <li>Accidental Injury means bodily injury caused solely and directly by violent, accidental, external and visible means and should necessarily occur during the Insured Period of 12 months from the date of inception of the policy.</li>
