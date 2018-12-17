@@ -82,7 +82,7 @@ export const horizontalMenuItems = [
     new Menu (13, 'Money Insurance', '/money', null, null, null, false, 9),
     new Menu (20, 'Public Liability Policy', '/public', null, null, null, false, 9),
     new Menu (18, 'Contractors All Risk Policy', '/contractors', null, null, null, false, 9),
-    new Menu (44, 'Life Insurance', '/', null, null, null, false, 9),
+    new Menu (44, 'Life Insurance', '/life-insurance', null, null, null, false, 9),
 
 
     new Menu (22, 'Corporate Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),

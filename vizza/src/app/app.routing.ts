@@ -47,6 +47,7 @@ import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-
 import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
 import {BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-insurance.component';
+import {LifeInsuranceComponent} from './pages/life-insurance/life-insurance.component';
 
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
@@ -188,7 +189,8 @@ export const routes: Routes = [
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
-            { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}}
+            { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
+            { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}}
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

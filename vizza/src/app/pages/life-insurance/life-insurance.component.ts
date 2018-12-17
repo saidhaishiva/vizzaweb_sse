@@ -4,17 +4,16 @@ import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
-import {FireInsurer} from '../fire/fire.component';
+import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {PersonalInsurer} from '../personalaccident/personalaccident.component';
+
 @Component({
-  selector: 'app-burglary',
-  templateUrl: './burglary.component.html',
-  styleUrls: ['./burglary.component.scss']
+  selector: 'app-life-insurance',
+  templateUrl: './life-insurance.component.html',
+  styleUrls: ['./life-insurance.component.scss']
 })
-export class BurglaryComponent implements OnInit {
-    public burgapp: FormGroup;
+export class LifeInsuranceComponent implements OnInit {
+    public Lifeapp: FormGroup;
     public setDate: any;
     public selectDate: any;
     public productName: any;
@@ -22,17 +21,18 @@ export class BurglaryComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog) {
-      this.burgapp = this.fb.group({
+
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
+      this.Lifeapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
           'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-          'contactperson':  ['', Validators.compose([Validators.required])],
+          'contactperson': ['', Validators.compose([Validators.required])],
           'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-          'email': ['', Validators.compose([Validators.required,  Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+          'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           'pincode': ['', Validators.compose([Validators.required])],
-          'insurance': ['',Validators.compose([Validators.required])],
-          'appointmentwith': ['',Validators.compose([Validators.required])]
+          'insurance': ['', Validators.compose([Validators.required])],
+          'appointmentwith': ['', Validators.compose([Validators.required])]
       });
       this.productName = '';
   }
@@ -50,22 +50,22 @@ export class BurglaryComponent implements OnInit {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
-    burgKeeper(values) {
+    LifeKeeper(values) {
 
-        if (this.burgapp.valid) {
+        if (this.Lifeapp.valid) {
             console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
                 'appointment_date': this.setDate,
-                'appointment_time': this.burgapp.controls['apptime'].value,
-                'company_name': this.burgapp.controls['name'].value,
-                'customer_mobile': this.burgapp.controls['mobile'].value,
-                'customer_email': this.burgapp.controls['email'].value,
-                'contact_person' : this.burgapp.controls['contactperson'].value,
-                'pincode': this.burgapp.controls['pincode'].value,
-                'product_name': this.burgapp.controls['insurance'].value,
-                'appointment_with': this.burgapp.controls['appointmentwith'].value,
+                'appointment_time': this.Lifeapp.controls['apptime'].value,
+                'company_name': this.Lifeapp.controls['name'].value,
+                'customer_mobile': this.Lifeapp.controls['mobile'].value,
+                'customer_email': this.Lifeapp.controls['email'].value,
+                'contact_person' : this.Lifeapp.controls['contactperson'].value,
+                'pincode': this.Lifeapp.controls['pincode'].value,
+                'product_name': this.Lifeapp.controls['insurance'].value,
+                'appointment_with': this.Lifeapp.controls['appointmentwith'].value,
 
             };
 
@@ -134,15 +134,16 @@ export class BurglaryComponent implements OnInit {
             }
         }
     }
-    BurglaryInsurer(){
-        const dialogRef = this.dialog.open(BurglaryInsurer, {
+    LifeInsurer(){
+        const dialogRef = this.dialog.open(LifeInsurer, {
             width: '1200px',
         });
         dialogRef.disableClose = true;
     }
+
 }
 @Component({
-    selector: 'burglaryinsurer',
+    selector: 'lifeinsurer',
     template: `        
         <div class="container">
         <div  class="row text-justify">
@@ -150,25 +151,20 @@ export class BurglaryComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #000"><img src="assets/img/burglary-insurance.png" class="logo-size"> About BURGLARY INSURANCE</h3>
+                <h4 class="text-center" style="color: #A521B3 "><img src="assets/img/life-insurances.png" class="logo-size"> About Life Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
-            <p>Burglary policy is available in the market  for residences and  business premises (with optional  theft extension). The insurance covers loss or damage  to the insured property, due to burglary of the premises. The damage has to be caused to the insured property by
-forcible or violent means.</p>
-            <p>The Burglary policy can be issued on a first loss basis which means that if the insured is a godown containing stocks worth several crores in a large volume and a total loss is impossible the insured chooses a rateable portion for the insurance say 25 % and the premium is charged accordingly.</p>
-            <p>The policy can also be issued on a declaration basis wherever the value of stocks keeps on fluctuating. For all commercial establishments It is essential that a proper accounting of insured stocks as well as bills of purchase and sales books  are keptseparately in safe custody for the verification by the insurer in the unfortunate event of a claim.</p>
-            <p>FIR and NON TRACEABLE CERTIFICATES  are a must in this policy for claim settlement. Lodging of FIR with the nearest police station immediately on noticing the loss is essential under this policy. The policy is generally issued for a year.</p>
-            <p>Negligence by the insured person or failure to securely lock the entry to the premises and all openings will result in repudiation of the claim.</p>
-            <p>Losses discovered during routine stock verification and accumulated losses are specifically excluded under the policy.</p>
+            <p>Life insurance is a must for every individual as it provides financial succour through a lump sum payment when the untimely death of the bread winner happens. There are a wide range of products which ensure the financial safety amongst which the endowment plans are considered as the best. It serves the purpose of liquidity, investment, collateral security and savings in tax. Endowment policies are the best when lump sum money is required. The policies can be taken with bonus or without bonus.</p>
+            <p>Additional sum insured can be opted for death due to accidents and additional cover is available for major diseases. Nomination and assignments can be done and loans are available on the policy. Lapsed policies can be revived.</p>
          </div>
         </div>`,
 })
-export class BurglaryInsurer {
+export class LifeInsurer {
 
     constructor(
-        public dialogRef: MatDialogRef<PersonalInsurer>,
+        public dialogRef: MatDialogRef<LifeInsurer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
