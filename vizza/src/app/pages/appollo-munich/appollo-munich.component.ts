@@ -151,6 +151,7 @@ export class AppolloMunichComponent implements OnInit {
     public dobErrorStartDate: any;
     public insurepersonstype: any;
     public validateprvious: boolean;
+    public titleValidation: boolean;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -177,6 +178,7 @@ export class AppolloMunichComponent implements OnInit {
       this.insureCity = false;
       this.personalhabit = false;
       this.previousDetails = false;
+      this.titleValidation = true;
       this.proposerInsureData = [];
       this.totalInsureDetails = [];
       this.questions_list = [];
@@ -246,9 +248,15 @@ export class AppolloMunichComponent implements OnInit {
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR' ||
             this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MASTER') {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
+            this.titleValidation = true;
+        } else if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "BABY"  || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "BABY") {
+            this.titleValidation = false;
+            this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.value = '';
         } else {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
+            this.titleValidation = true;
         }
+        sessionStorage.titleValidation =  this.titleValidation;
     }
 
 
@@ -470,13 +478,16 @@ export class AppolloMunichComponent implements OnInit {
                 }
             }
             if(!ageValidate.includes(1)){
-                if (sessionStorage.proposerAge >= 18) {
+                if (this.titleValidation) {
+                    if (sessionStorage.proposerAge >= 18) {
+                        stepper.next();
+                    } else {
+                        this.toastr.error('Insurer age should be 18 or above');
+                    }
+                } else if (this.titleValidation == false) {
                     stepper.next();
-
-            } else {
-                    this.toastr.error('Insurer age should be 18 or above');
-
                 }
+
 
             }
 
@@ -982,7 +993,10 @@ export class AppolloMunichComponent implements OnInit {
             this.items.at(i).controls.PreviousInsurer.updateValueAndValidity();
             this.items.at(i).controls.SumInsured.updateValueAndValidity();
         }
-
+        if (sessionStorage.titleValidation != '' && sessionStorage.titleValidation != undefined) {
+            this.titleValidation = sessionStorage.titleValidation;
+           // if ( this.titleValidation == false){}
+        }
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
