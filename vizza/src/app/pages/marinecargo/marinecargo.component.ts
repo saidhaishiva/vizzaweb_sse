@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {GroupTermLifeInsurer} from '../groupterm/groupterm.component';
 @Component({
   selector: 'app-marinecargo',
   templateUrl: './marinecargo.component.html',
@@ -19,7 +21,7 @@ export class MarinecargoComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
       this.marineapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -130,6 +132,42 @@ export class MarinecargoComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    MarineCargoInsurer(){
+        const dialogRef = this.dialog.open(MarineCargoInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'marinecargoinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #81C784"> About Marine Cargo Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>The marine insurance policy covers losses and damages during transportation by Air, Road, Rail  and by Sea. Items such as Plant and Machinery, finished goods, raw materials can be covered under this policy. Domestic and overseas import / exports can be covered under the policy.</p>
+                <p>The marine policy can be issued from the time of loading to the time of unloading including the risks of loading and unloading. Temporary storage cover and multi modes of transport for the same consignment can be covered under a single policy. Continuous trade transits by business houses can be covered by open policy. A declaration to the insurer is sufficient.</p>
+                <p>Mode of Packing depending on the nature of goods is vital for the type of coverage granted. The premium depends on the coverage opted, mode of transit, carrier, nature of goods and the packing of goods. In some cases a pre acceptance survey by an insurance surveyor will be essential. If the original marine insurance terminates at the transporters godown or port of discharge or the railway yard an inland transit cover can be obtained after a pre acceptance survey of the consignment. It is advisable to obtain an ALL RISK cover from the time of loading to the final destination.</p>
+           </div>
+        </div>`,
+})
+export class MarineCargoInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<MarineCargoInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }

@@ -116,6 +116,7 @@ import { DmTrainingcompletedAlert} from './pages/dm-training/dm-training.compone
 import {ShopkeeperpolicyComponent} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
 import {ShopkepperInsurer} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
 import {MarinecargoComponent} from './pages/marinecargo/marinecargo.component';
+import {MarineCargoInsurer} from './pages/marinecargo/marinecargo.component';
 import {MarinehullComponent} from './pages/marinehull/marinehull.component';
 import {AviationComponent} from './pages/aviation/aviation.component';
 import {MoneyComponent} from './pages/money/money.component';
@@ -282,6 +283,7 @@ import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
       ShopkeeperpolicyComponent,
       ShopkepperInsurer,
       MarinecargoComponent,
+      MarineCargoInsurer,
       MarinehullComponent,
       AviationComponent,
       MoneyComponent,
@@ -385,7 +387,7 @@ import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,
+        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,
     ]
 })
 export class AppModule { }

@@ -6,7 +6,6 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {WorkmenInsurer} from '../workmen/workmen.component';
 @Component({
   selector: 'app-groupterm',
   templateUrl: './groupterm.component.html',
