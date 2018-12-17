@@ -1,3 +1,138 @@
-<p>
-  reliagretravelproposal works!
-</p>
+<div class="container-fluid">
+  <div class="row tavelProposal">
+    <div class="col-md-12">
+      <mat-horizontal-stepper  #stepper>
+        <mat-step [stepControl]="religarePersonal">
+          <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <form [formGroup]="religarePersonal" >
+              <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Group A
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mt-3">
+                  <div class="col-md-12 box-card pt-3">
+                    <h6 class="color-blue">PROPOSER DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Title" formControlName="religarePersonalTitle" (change)="changeGender()">
+                            <mat-option value="MR">Mr</mat-option>
+                            <mat-option value="MS">Ms</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalTitle.errors?.required">Title is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-5">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="First Name" formControlName="religarePersonalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalFirstname.errors?.required"> First Name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-5">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Last Name" formControlName="religarePersonalLastname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalLastname.errors?.required">Last Name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-5"><mat-form-field class="w-100">
+                        <input matInput placeholder="Gender" formControlName="religarePersonalGender" required readonly>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalGender.errors?.required">Gender is required</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="religarePersonalDob" (dateInput)="addEvent($event, 'index', 'proposor')" (dateChange)="addEvent($event, 'index', 'proposor')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalDob.errors?.required">DOB is required</mat-error>
+                        </mat-form-field>
+                        <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                      </div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="Email ID"   formControlName="religarePersonalEmail"  autocomplete="off" required>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalEmail.errors?.required">Email ID is required</mat-error>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
+                      </mat-form-field></div>
+
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="religarePersonalMobile" autocomplete="off" required>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalMobile.errors?.required">Mobile Number is required</mat-error>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                      </mat-form-field></div>
+                  </div>
+
+                  <div class="col-md-12 box-card pt-3">
+                    <h6 class="color-blue"> PROPOSER COMMUNICATION ADDRESS</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="religarePersonalAddress"  autocomplete="off" required></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalAddress.errors?.required">Address is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100">
+                          <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="religarePersonalAddress2" autocomplete="off" required></textarea>
+                          <mat-hint align="start"></mat-hint>
+                          <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                          <mat-error *ngIf="religarePersonal.controls.religarePersonalAddress2.errors?.required">Address2 is required</mat-error>
+
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="religarePersonalPincode" autocomplete="off" required>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalPincode.hasError('required')">Pincode required</mat-error>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100" >
+                        <mat-select placeholder="City" formControlName="religarePersonalCity" autocomplete="off" required>
+                          <mat-option *ngFor="let city of personalTravelCitys" [value]= 'city.city'>
+                            {{city.city}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalCity.errors?.required">City is required</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="State" formControlName="religarePersonalState" autocomplete="off" required readonly>
+                        <mat-error *ngIf="religarePersonal.controls.religarePersonalState.errors?.required">State is required</mat-error>
+                      </mat-form-field></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12  box-card pt-3">
+                    <div class="row">
+                      <div class="col-md-1 text-left">
+                        <mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"></mat-checkbox>
+                      </div>
+                      <div class="col-md-11 text-left">
+                        <strong>
+                          I declare that the above mentioned information provided by me is true to my knowledge .<br>
+                          I hereby also confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category .<br>
+                          I authorize vizza Insurance Broking service pvt  Ltd. to represent on behalf of me for all my Insurance assistance.
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proposal-buttom mt-3 text-right w-100">
+                    <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, religarePersonal.value)" [disabled]="!AcceptDeclaration" >Next</button>
+                  </div>
+                </div>
+                </div>
+              </mat-expansion-panel>
+            </form>
+          </mat-accordion>
+
+        </mat-step>
+
+
+
+
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>
