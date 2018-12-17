@@ -106,7 +106,6 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
 import { ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import { RegisterComponent} from './pages/register/register.component';
 import { FireInsurer} from './pages/fire/fire.component';
-import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 //import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
@@ -178,6 +177,9 @@ import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-p
 import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import { BurglaryInsurer} from './pages/burglary/burglary.component';
 import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.component';
+import {CarInsurer} from './pages/car-insurance/car-insurance.component';
+import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
+import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
 
 @NgModule({
   imports: [
@@ -333,6 +335,8 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
       BurglaryInsurer,
       CarInsuranceComponent,
       CarInsurer,
+      BikeInsuranceComponent,
+      BikeInsurer,
   ],
   providers: [
       AppSettings,
@@ -359,7 +363,7 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,
+        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,
     ]
 })
 export class AppModule { }

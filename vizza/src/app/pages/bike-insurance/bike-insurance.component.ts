@@ -8,12 +8,12 @@ import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
-  selector: 'app-car-insurance',
-  templateUrl: './car-insurance.component.html',
-  styleUrls: ['./car-insurance.component.scss']
+  selector: 'app-bike-insurance',
+  templateUrl: './bike-insurance.component.html',
+  styleUrls: ['./bike-insurance.component.scss']
 })
-export class CarInsuranceComponent implements OnInit {
-    public carapp: FormGroup;
+export class BikeInsuranceComponent implements OnInit {
+    public bikeapp: FormGroup;
     public setDate: any;
     public selectDate: any;
     public productName: any;
@@ -23,7 +23,7 @@ export class CarInsuranceComponent implements OnInit {
     public pincodeErrors: any;
 
   constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
-      this.carapp = this.fb.group({
+      this.bikeapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
           'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -50,22 +50,22 @@ export class CarInsuranceComponent implements OnInit {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
-    carKeeper(values) {
+    bikeKeeper(values) {
 
-        if (this.carapp.valid) {
+        if (this.bikeapp.valid) {
             console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
                 'appointment_date': this.setDate,
-                'appointment_time': this.carapp.controls['apptime'].value,
-                'company_name': this.carapp.controls['name'].value,
-                'customer_mobile': this.carapp.controls['mobile'].value,
-                'customer_email': this.carapp.controls['email'].value,
-                'contact_person' : this.carapp.controls['contactperson'].value,
-                'pincode': this.carapp.controls['pincode'].value,
-                'product_name': this.carapp.controls['insurance'].value,
-                'appointment_with': this.carapp.controls['appointmentwith'].value,
+                'appointment_time': this.bikeapp.controls['apptime'].value,
+                'company_name': this.bikeapp.controls['name'].value,
+                'customer_mobile': this.bikeapp.controls['mobile'].value,
+                'customer_email': this.bikeapp.controls['email'].value,
+                'contact_person' : this.bikeapp.controls['contactperson'].value,
+                'pincode': this.bikeapp.controls['pincode'].value,
+                'product_name': this.bikeapp.controls['insurance'].value,
+                'appointment_with': this.bikeapp.controls['appointmentwith'].value,
 
             };
 
@@ -134,16 +134,15 @@ export class CarInsuranceComponent implements OnInit {
             }
         }
     }
-    CarInsurer(){
-        const dialogRef = this.dialog.open(CarInsurer, {
+    BikeInsurer(){
+        const dialogRef = this.dialog.open(BikeInsurer, {
             width: '1200px',
         });
         dialogRef.disableClose = true;
     }
-
 }
 @Component({
-    selector: 'carinsurer',
+    selector: 'bikeinsurer',
     template: `        
         <div class="container">
         <div  class="row text-justify">
@@ -151,7 +150,7 @@ export class CarInsuranceComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #00FB88 "><img src="assets/img/car-insurance.png" class="logo-size"> About Car Insurance</h3>
+                <h4 class="text-center" style="color: #DF6600 "><img src="assets/img/bike-insurance.png" class="logo-size"> About Bike Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
@@ -167,10 +166,10 @@ export class CarInsuranceComponent implements OnInit {
          </div>
         </div>`,
 })
-export class CarInsurer {
+export class BikeInsurer {
 
     constructor(
-        public dialogRef: MatDialogRef<CarInsurer>,
+        public dialogRef: MatDialogRef<BikeInsurer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
