@@ -1696,7 +1696,7 @@ export class AppolloMunichComponent implements OnInit {
     public occupationListFailure(error) {
         console.log(error);
     }
-    onNumber(event){
+    OnNumber(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
