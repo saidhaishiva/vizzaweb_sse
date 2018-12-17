@@ -180,6 +180,7 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
 import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
+import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/reliagretravelproposal.component';
 
 @NgModule({
   imports: [
@@ -337,6 +338,7 @@ import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
       CarInsurer,
       BikeInsuranceComponent,
       BikeInsurer,
+      ReliagretravelproposalComponent,
   ],
   providers: [
       AppSettings,
