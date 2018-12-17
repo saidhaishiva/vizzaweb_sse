@@ -149,6 +149,8 @@ export class AppolloMunichComponent implements OnInit {
     public previousDetails: boolean;
     public dobErrorInsure: any;
     public dobErrorStartDate: any;
+    public insurepersonstype: any;
+    public validateprvious: boolean;
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -178,7 +180,7 @@ export class AppolloMunichComponent implements OnInit {
       this.proposerInsureData = [];
       this.totalInsureDetails = [];
       this.questions_list = [];
-
+    this.validateprvious = false;
       this.proposer = this.fb.group({
           proposerTitle: ['', Validators.required],
           proposerFirstname: ['', Validators.required],
@@ -259,7 +261,9 @@ export class AppolloMunichComponent implements OnInit {
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
-
+    for(let i =0; i< this.insurePersons.length; i++){
+        this.insurepersonstype = this.insurePersons[i].type;
+}
         this.setRelationship();
         // this.setNomineeRelationship();
         this.maritalStatus();
@@ -484,11 +488,13 @@ export class AppolloMunichComponent implements OnInit {
 
       if(title.value == 'Yes') {
         this.previousDetails = true;
+        this.validateprvious = true;
           this.items.at(id).controls.PreviousPolicyNumber.setValidators([Validators.required]);
           this.items.at(id).controls.PreviousInsurer.setValidators([Validators.required]);
           this.items.at(id).controls.SumInsured.setValidators([Validators.required]);
       } else {
           this.previousDetails = false;
+          this.validateprvious = false;
           this.insureArray['controls'].items['controls'][id]['controls'].PreviousPolicyNumber.patchValue('');
           this.insureArray['controls'].items['controls'][id]['controls'].PreviousInsurer.patchValue('');
           this.insureArray['controls'].items['controls'][id]['controls'].SumInsured.patchValue('');
@@ -1698,7 +1704,7 @@ export class AppolloMunichComponent implements OnInit {
     }
     OnNumber(event){
         if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
+            const pattern = /[0-9/]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {

@@ -290,7 +290,6 @@ export class PersonalaccidentformComponent implements OnInit {
     ngOnInit() {
         this.setRelationship();
         this.setOccupationListCode();
-        this. religareQuestions();
         this.setpersonalOccupationListCode();
         this.setinsureOccupationListCode();
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
@@ -455,6 +454,8 @@ export class PersonalaccidentformComponent implements OnInit {
             this.personalAccidentQuestionsList = JSON.parse(sessionStorage.proposal3Detail);
             console.log(this.personalAccidentQuestionsList, 'sessionStorage.this.personalAccidentQuestionsList');
 
+        } else {
+            this. religareQuestions();
         }
 
 // nominee
@@ -1345,13 +1346,12 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public religareQuestionsSuccess(successData) {
-        if (sessionStorage.proposal3Detail == '' && sessionStorage.proposal3Detail == undefined) {
-
+       // if (sessionStorage.proposal3Detail == '' && sessionStorage.proposal3Detail == undefined) {
             this.personalAccidentQuestionsList = successData.ResponseObject;
             for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
                 this.personalAccidentQuestionsList[i].checked = false;
             }
-        }
+     //   }
 
         console.log(this.personalAccidentQuestionsList, 'this.personalAccidentQuestionsList');
 

@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Tittle" formControlName="proposerTitle" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()">
                             <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
@@ -263,7 +263,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent( $event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off" maxlength="10" required>
+                            <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent( $event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="OnNumber($event)" autocomplete="off" maxlength="10" required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -389,6 +389,41 @@
                         </div>
                           <div class="col-md-12"><hr></div>
                           <div class="col-md-12">
+                              <h6 class="color-green mt-3">Insured Details Address:</h6>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                  <textarea matInput placeholder="Address 1" rows="2" formControlName="proposerAddress" autocomplete="off" required></textarea>
+                                  <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                  <textarea matInput placeholder="Address 2" rows="2" formControlName="proposerAddress2" autocomplete="off"></textarea>
+                                  <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                  <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3" autocomplete="off"></textarea>
+                                  <mat-error *ngIf="insureArray.invalid">Address3 is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="OnNumber($event)" (input)="getPincode($event.target.value, 'insure', i)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                                  <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
+                              </mat-form-field>
+                          </div>
+
+
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100" >
+                                  <input matInput placeholder="State" formControlName="proposerState" required readonly>
+                                  <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-12">
                               <h6 class="mt-3 color-green">Personal habits </h6>
                           </div>
                         <div class="col-md-6">
@@ -473,41 +508,7 @@
                         </div>
 
                           <div class="col-md-12"><hr></div>
-                        <div class="col-md-12">
-                          <h6 class="color-green mt-3">Insured Details Address:</h6>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Address 1" rows="2" formControlName="proposerAddress" autocomplete="off" required></textarea>
-                            <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Address 2" rows="2" formControlName="proposerAddress2" autocomplete="off"></textarea>
-                            <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3" autocomplete="off"></textarea>
-                            <mat-error *ngIf="insureArray.invalid">Address3 is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="OnNumber($event)" (input)="getPincode($event.target.value, 'insure', i)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
-                            <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
-                          </mat-form-field>
-                        </div>
 
-
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100" >
-                            <input matInput placeholder="State" formControlName="proposerState" required readonly>
-                            <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
-                          </mat-form-field>
-                        </div>
                           <!--<div class="col-md-3">-->
                               <!--<mat-form-field class="w-100">-->
                                   <!--<mat-select placeholder="State"  formControlName="proposerState" required>-->
@@ -571,7 +572,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer"  >
+                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer" [required]="validateprvious" >
                               <mat-option *ngFor="let previousInsure of previousInsureList" value="{{previousInsure.insure_code}}" > {{previousInsure.insure_name}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Previous Insurer is required</mat-error>
@@ -579,13 +580,13 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy No" formControlName="PreviousPolicyNumber"   (keypress)="OnNumber($event)" autocomplete="off">
+                            <input matInput placeholder="Previous Policy No" formControlName="PreviousPolicyNumber"  [required]="validateprvious" (keypress)="OnNumber($event)" autocomplete="off">
                               <mat-error *ngIf="insureArray.invalid">Previous policy n0 is required</mat-error>
                           </mat-form-field>
                         </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"    (keypress)="OnNumber($event)" autocomplete="off">
+                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"  [required]="validateprvious"  (keypress)="OnNumber($event)" autocomplete="off">
                                   <mat-error *ngIf="insureArray.invalid">Sum insured is required</mat-error>
                               </mat-form-field>
                           </div>
@@ -741,8 +742,8 @@
                                       <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE </li>
-                                    <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.marital_status}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{summaryData.ProposalDetails.proof_name}}</li>
+                                    <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.p_maritalstatus}}</li>
+                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{summaryData.ProposalDetails.p_idproof_code}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproof_no != ''"><strong>ID Proof Number:</strong> {{summaryData.ProposalDetails.p_idproof_no}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{summaryData.ProposalDetails.p_gstno}}</li>
                                   </ul>
@@ -758,7 +759,7 @@
                                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ProposalDetails.p_pincode}}</li>
                                       <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.p_towncode}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{summaryData.ProposalDetails.p_district}}</li>
-                                      <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.p_statecode}}</li>
+                                      <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.state}}</li>
                                       <li class="list-group-item"><strong>Country:</strong> {{summaryData.ProposalDetails.p_country}}</li>
                                   </ul>
                               </div>
@@ -767,7 +768,7 @@
                   </section>
 
                   <section *ngFor="let item of summaryData.InsurePolicyholderDetails">
-                      <h5 class="mt-3 sub-title">{{item.relationship}} DETAILS</h5>
+                      <h5 class="mt-3 sub-title">{{insurepersonstype}} DETAILS</h5>
                       <div class="row box-card">
                           <div class="col-md-6">
                               <div class="p-3">
@@ -776,16 +777,16 @@
                                       <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}} {{item.i_fname}} {{item.i_mname}} {{item.i_lname}} </li>
                                       <li class="list-group-item" *ngIf="item.i_gender == 1"><strong>Gender:</strong> MALE </li>
                                       <li class="list-group-item" *ngIf="item.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
-                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>
+                                      <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
                                       <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.occupation}}</li>
-                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship}}</li>
+                                      <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+                                      <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                       <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                                       <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
-                                      <li class="list-group-item"><strong>GST:</strong> {{item.relationship}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_idprooftype != ''"><strong>Select ID Proof:</strong> {{item.proof_name}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_idproofno != ''"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
+                                      <!--<li class="list-group-item"><strong>GST:</strong> {{item.relationship}}</li>-->
+                                      <li class="list-group-item" *ngIf="item.i_idproofno != ''"><strong>Select ID Proof:</strong> {{item.i_idproofno}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null "><strong>ID Proof Number:</strong> {{item.i_idprooftype}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -845,13 +846,28 @@
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}} {{summaryData.ProposalDetails.n_name}}</li>
                                   <li class="list-group-item"><strong>Address:</strong> {{summaryData.ProposalDetails.n_address}}</li>
-                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.relationship}}</li>
+                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.n_relation}}</li>
                                 </ul>
                               </div>
                             </div>
                           </div>
                       </div>
-                  </div>
+                          <div class="col-md-6">
+                              <div class="p-3">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <ul class="m-0 list-group">
+                                              <li class="list-group-item"><strong>Pin Code:</strong> {{summaryData.ProposalDetails.n_pinCode}} {{summaryData.ProposalDetails.n_name}}</li>
+                                              <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.n_stateCode}}</li>
+                                              <li class="list-group-item"><strong>District:</strong> {{summaryData.ProposalDetails.n_district}}</li>
+                                              <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.n_townCode}}</li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
                   <p class="mt-2 pl-3">
                       <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
                   </p>
