@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'app-workmen',
   templateUrl: './workmen.component.html',
@@ -20,7 +21,7 @@ export class WorkmenComponent implements OnInit {
     public response: any;
     public pincodeErrors: any;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog) {
       this.workapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -132,8 +133,44 @@ export class WorkmenComponent implements OnInit {
             }
         }
     }
+    WorkmenInsurer() {
+        const dialogRef = this.dialog.open(WorkmenInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'workmeninsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #FAD026"><img src="assets/img/workmen.png" class="logo-size"> About Workmen Compensation</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+         </div>
+         <p>Workmen compensation insurance provides compensation as per WC act to injuries in the course of employment.  The insurance takes care of the liability of the employer as defined under the Workmen Compensation Act for injuries and death of the employee defined as a workman during the course of employment.</p>
+         <p>The WC policy can be taken by any employer as a principal or contractor for engaging workmen as defined in the WC Act to cover the liability of the employer under statute and as per common law. The option of covering employees who do not qualify as “ WORKMEN”  by the employer by a separate table is also available.</p>
+         <p>The WC policy provides indemnity to the insured as an employer to accidental injuries and fatal accidents sustained by the workmen whilst at work. There is an option to cover medical expenses for accidental employment injuries on payment of extra premium.</p>
+         <p>The Workmen compensation act 1923,provides for the payment of compensation by an Employer to his Employees (for their dependants in the event of fatal accidents) If personal injury is caused to them by accidents arising out of and in the course of their employment. There is an amendment to the act in 2000 and as per that amendment the maximum compensation payable for Fatal Injury is Rs 4,57,080, for Permanent Total Disablement it is Rs 5,48,496. For Permanent Partial Disablement it is according to the incapacity caused. In case of Temporary disablement it is Rs 2000 per month upto a period of 5 years.</p>
+         <p>TheINDIAN FATAL ACCIDENTS ACT, 1855 enables claims for damages upto an unlimited amount to be maintained against a person who by this wrongful act, neglect or default causes the death of another.</p>
+         <p>The Common law gives a person the right to claim from another damages upto an unlimited amount for injury or loss sustained on account of the negligence of such other person or of his servants acting in the scope of their Employment.</p>
+        </div>`,
+})
+export class WorkmenInsurer {
 
+    constructor(
+        public dialogRef: MatDialogRef<WorkmenInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
