@@ -142,7 +142,7 @@ export const routes: Routes = [
             { path: 'public', component: PublicComponent, data: {breadcrumb: 'Public Liability Policy'}},
             { path: 'professional', component: ProfessionalComponent, data: {breadcrumb: 'Professional Indemnity Policy'}},
             { path: 'workmen', component: WorkmenComponent, data: {breadcrumb: 'Workmen Compensation'}},
-            { path: 'groupmedical', component: GroupmedicalComponent, data: {breadcrumb: 'Group Medical Insurance'}},
+            { path: 'grouphealth', component: GroupmedicalComponent, data: {breadcrumb: 'Group Health Insurance'}},
             { path: 'grouppersonal', component: GrouppersonalComponent, data: {breadcrumb: 'Group Personal Accident'}},
             { path: 'groupterm', component: GrouptermComponent, data: {breadcrumb: 'Group Term Life Insurance'}},
             { path: 'jewelersblock', component: JewelersblockComponent, data: {breadcrumb: 'Jewelers Block Policy'}},

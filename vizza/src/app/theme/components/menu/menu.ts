@@ -86,7 +86,7 @@ export const horizontalMenuItems = [
 
 
     new Menu (22, 'Corporate Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
-    new Menu (24, 'Group Medical Insurance', '/groupmedical', null, null, null, false, 22),
+    new Menu (24, 'Group Health Insurance', '/grouphealth', null, null, null, false, 22),
     new Menu (25, 'Group Personal Accident', '/grouppersonal', null, null, null, false, 22),
     new Menu (26, 'Group Term Life Insurance', '/groupterm', null, null, null, false, 22),
     // new Menu (27, 'Jewelers Block Policy', '/jewelersblock', null, null, null, false, 22),
