@@ -693,7 +693,7 @@
                       <h6>PROPOSER DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob  | date: 'dd-MMM-yyyy'}}</li>
                         <li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
@@ -729,7 +729,7 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd-MMM-yyyy'}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.occupation}}</li>
                     <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.relationship}}</li>
                     <li class="list-group-item"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
