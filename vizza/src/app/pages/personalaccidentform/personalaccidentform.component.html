@@ -572,7 +572,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob  | date: 'dd-MMM-yy'}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob  | date: 'dd-MMM-yyyy'}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{summaryData.proposer_details.p_res_contactnum}} </li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
@@ -631,7 +631,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob | date: 'dd-MMM-yy'}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob | date: 'dd-MMM-yyyy'}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_res_contactnum!= ''"><strong>Residence Number:</strong>{{summaryData.proposer_insurer_details.i_res_contactnum}} </li>

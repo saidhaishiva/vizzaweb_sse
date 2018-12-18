@@ -536,7 +536,6 @@
                             </mat-form-field>
                         </div>
 
-                          <div class="col-md-12"><hr></div>
 
                           <!--<div class="col-md-3">-->
                               <!--<mat-form-field class="w-100">-->
@@ -547,7 +546,7 @@
                               <!--</mat-form-field>-->
                           <!--</div>-->
 
-                          <div class="col-md-12"><hr></div>
+                          <!--<div class="col-md-12"><hr></div>-->
                         <div class="col-md-12">
                           <h6 class="mt-3 color-green">Previous Insurer Details:</h6>
                           <mat-radio-group formControlName="previousInsurerStatus" (change)="pInsureStatus($event, i)">
@@ -670,14 +669,6 @@
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="State"  formControlName="nomineeState"  required>-->
-                            <!--<mat-option *ngFor="let AppolloState of AppolloStateList" value="{{AppolloState.state_code}}" > {{AppolloState.state}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
                         <div class="col-md-3">
                             <mat-form-field class="w-100" >
                                 <input matInput placeholder="State" formControlName="nomineeState" required readonly>
@@ -738,7 +729,7 @@
                                 <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob | date: 'dd-MMM-yyyy'}}</li>
                                       <li class="list-group-item"><strong>Personal Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
                                       <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
@@ -779,15 +770,14 @@
                                       <li class="list-group-item" *ngIf="item.i_gender == 1"><strong>Gender:</strong> MALE </li>
                                       <li class="list-group-item" *ngIf="item.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
                                       <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob | date: 'dd-MMM-yyyy'}}</li>
                                       <li class="list-group-item"><strong>Age:</strong> {{item.i_age}}</li>
                                       <li class="list-group-item"><strong>Occupation:</strong> {{item.i_occuption}}</li>
                                       <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                       <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                                       <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
-                                      <!--<li class="list-group-item"><strong>GST:</strong> {{item.relationship}}</li>-->
-                                      <li class="list-group-item" *ngIf="item.i_idproofno != ''"><strong>Select ID Proof:</strong> {{item.i_idproofno}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null "><strong>ID Proof Number:</strong> {{item.i_idprooftype}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_idproofno != ''"><strong>Select ID Proof:</strong> {{item.i_idprooftype}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_idprooftype != ''"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -845,7 +835,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}} {{summaryData.ProposalDetails.n_name}}</li>
+                                  <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_name}}</li>
                                   <li class="list-group-item"><strong>Address:</strong> {{summaryData.ProposalDetails.n_address}}</li>
                                   <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.n_relation}}</li>
                                 </ul>
@@ -858,7 +848,7 @@
                                   <div class="row">
                                       <div class="col-md-12">
                                           <ul class="m-0 list-group">
-                                              <li class="list-group-item"><strong>Pin Code:</strong> {{summaryData.ProposalDetails.n_pinCode}} {{summaryData.ProposalDetails.n_name}}</li>
+                                              <li class="list-group-item"><strong>Pin Code:</strong> {{summaryData.ProposalDetails.n_pinCode}}</li>
                                               <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.n_stateCode}}</li>
                                               <li class="list-group-item"><strong>District:</strong> {{summaryData.ProposalDetails.n_district}}</li>
                                               <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.n_townCode}}</li>

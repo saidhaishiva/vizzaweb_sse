@@ -802,26 +802,48 @@ export class AppolloMunichComponent implements OnInit {
         }
 
     public pincodeSuccess(successData) {
-        this.setStatecode = successData.ResponseObject;
-        if (this.title == 'proposer') {
-            this.proposer.controls['proposerState'].patchValue(this.setStatecode.state);
-            this.proposer.controls['proposerStateIdP'].patchValue(this.setStatecode.state_code);
-            this.stateChange(this.setStatecode.state_code, this.title);
-        }
-        else if (this.title == 'insure') {
-                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerState.patchValue(this.setStatecode.state);;
-                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.patchValue(this.setStatecode.state_code);;
+        if (successData.IsSuccess) {
+            this.setStatecode = successData.ResponseObject;
+            if (this.title == 'proposer') {
+                this.proposer.controls['proposerState'].patchValue(this.setStatecode.state);
+                this.proposer.controls['proposerStateIdP'].patchValue(this.setStatecode.state_code);
+                this.stateChange(this.setStatecode.state_code, this.title);
+            }
+            else if (this.title == 'insure') {
+                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerState.patchValue(this.setStatecode.state);
+                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.patchValue(this.setStatecode.state_code);
                 this.insureStateChange(this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.value, this.title, this.insurID);
-        }
-        else if (this.title == 'nominee') {
+            }
+            else if (this.title == 'nominee') {
 
-            this.nomineeDetails.controls['nomineeState'].patchValue(this.setStatecode.state);
-            this.nomineeDetails.controls['nomineeStateId'].patchValue(this.setStatecode.state_code);
-            this.stateChangeN(this.setStatecode.state_code, this.title);
-        }
-        else {
-            this.toastr.error(successData.ErrorObject);
+                this.nomineeDetails.controls['nomineeState'].patchValue(this.setStatecode.state);
+                this.nomineeDetails.controls['nomineeStateId'].patchValue(this.setStatecode.state_code);
+                this.stateChangeN(this.setStatecode.state_code, this.title);
+            }
+            else {
+                this.toastr.error(successData.ErrorObject);
 
+            }
+        } else if (successData.IsSuccess != true) {
+            this.toastr.error('Fill Valid Pincode');
+            if (this.title == 'proposer') {
+                this.proposer.controls['proposerState'].patchValue('');
+                this.proposer.controls['proposerStateIdP'].patchValue('');
+                this.proposer.controls['proposerDistrict'].patchValue('');
+                this.proposer.controls['proposerCity'].patchValue('');
+            }
+            else if (this.title == 'insure') {
+                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerState.patchValue('');
+                this.insureArray['controls'].items['controls'][this.insurID]['controls'].proposerStateIdP.patchValue('');
+
+            }
+            else if (this.title == 'nominee') {
+                this.nomineeDetails.controls['nomineeState'].patchValue('');
+                this.nomineeDetails.controls['nomineeStateId'].patchValue('');
+                this.nomineeDetails.controls['nomineeDistrict'].patchValue('');
+                this.nomineeDetails.controls['nomineeCity'].patchValue('');
+
+            }
         }
     }
     public pincodeFailure(error) {

@@ -945,6 +945,9 @@ preInsureList() {
             if (this.appollo1.proposerPaPincode != '') {
                 this.getPostalCode(this.appollo1.proposerPaPincode);
             }
+            // if (this.appollo1.proposerPaIdProof != '') {
+            //     this.panType( this.appollo1.proposerPaIdProof);
+            // }
             this.ProposerPa = this.proposerpa.group({
                 proposerPaTitle: this.appollo1.proposerPaTitle,
                 proposerPaFirstname: this.appollo1.proposerPaFirstname,
@@ -1178,13 +1181,20 @@ preInsureList() {
     }
     public pinPaListSuccess(successData){
         console.log(successData);
-        this.paPinList = successData.ResponseObject;
-        console.log( this.paPinList.state, 'paPinList');
-        this.ProposerPa.controls['proposerPaState'].patchValue(this.paPinList.state);
-        this.ProposerPa.controls['proposerPaStateIdP'].patchValue(this.paPinList.state_code);
-        this.onChangeState();
-       this.onChangecityListPa();
-
+        if (successData.IsSuccess) {
+            this.paPinList = successData.ResponseObject;
+            console.log(this.paPinList.state, 'paPinList');
+            this.ProposerPa.controls['proposerPaState'].patchValue(this.paPinList.state);
+            this.ProposerPa.controls['proposerPaStateIdP'].patchValue(this.paPinList.state_code);
+            this.onChangeState();
+            this.onChangecityListPa();
+        } else if (successData.IsSuccess != true){
+            this.toastr.error('Fill Valid Pincode');
+            this.ProposerPa.controls['proposerPaState'].patchValue('');
+            this.ProposerPa.controls['proposerPaStateIdP'].patchValue('');
+            this.ProposerPa.controls['proposerPaDistrict'].patchValue('');
+            this.ProposerPa.controls['proposerPaCity'].patchValue('');
+        }
     }
 
     public pinPaListFailure(error){
@@ -1211,13 +1221,20 @@ preInsureList() {
     }
     public pinPaInsuredListSuccess(successData){
         console.log(successData);
-        this.paPinInsuredList = successData.ResponseObject;
-        console.log( this.paPinInsuredList.state, 'paPinInsuredList');
-        this.insured.controls['insuredPaState'].patchValue(this.paPinInsuredList.state);
-        this.insured.controls['insuredPaStateIdP'].patchValue(this.paPinInsuredList.state_code);
-         this.onChangecityListInsuredPa();
-         this.onChangeStateInsured();
-
+        if (successData.IsSuccess) {
+            this.paPinInsuredList = successData.ResponseObject;
+            console.log(this.paPinInsuredList.state, 'paPinInsuredList');
+            this.insured.controls['insuredPaState'].patchValue(this.paPinInsuredList.state);
+            this.insured.controls['insuredPaStateIdP'].patchValue(this.paPinInsuredList.state_code);
+            this.onChangecityListInsuredPa();
+            this.onChangeStateInsured();
+        } else if (successData.IsSuccess != true) {
+            this.toastr.error('Fill Valid Pincode');
+            this.insured.controls['insuredPaState'].patchValue('');
+            this.insured.controls['insuredPaStateIdP'].patchValue('');
+            this.insured.controls['insuredPaDistrict'].patchValue('');
+            this.insured.controls['insuredPaCity'].patchValue('');
+        }
     }
 
     public pinPaInsuredListFailure(error){
@@ -1243,12 +1260,20 @@ preInsureList() {
         }
     }
     public pinPanomineeListSuccess(successData){
-        this.paPinnomineeList = successData.ResponseObject;
-        this.nomineeDetail.controls['paNomineeState'].patchValue(this.paPinnomineeList.state);
-        this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.paPinnomineeList.state_code);
-        this. onChangeStateNominee();
-        this.onChangecityListNomineePa();
+        if (successData.IsSuccess) {
+            this.paPinnomineeList = successData.ResponseObject;
+            this.nomineeDetail.controls['paNomineeState'].patchValue(this.paPinnomineeList.state);
+            this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.paPinnomineeList.state_code);
+            this.onChangeStateNominee();
+            this.onChangecityListNomineePa();
+        } else if (successData.IsSuccess != true) {
+            this.toastr.error('Fill Valid Pincode');
+            this.nomineeDetail.controls['paNomineeState'].patchValue('');
+            this.nomineeDetail.controls['paNomineeStateIdP'].patchValue('');
+            this.nomineeDetail.controls['paNomineeDistrict'].patchValue('');
+            this.nomineeDetail.controls['paNomineeCity'].patchValue('');
 
+        }
     }
 
     public pinPanomineeListFailure(error){
