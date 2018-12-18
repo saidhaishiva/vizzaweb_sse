@@ -139,6 +139,7 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     getPolicyToken(data) {
         const json = JSON.stringify(data);
         console.log(json);
@@ -199,7 +200,33 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+// religare travel
+    // Religare RelationShipList
+    religareTravelRelationshipList(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'religaretravel/get_relationship_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // OuestionListReligareTravel
+    religareTravelQuestionList(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'religaretravel/get_question_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
 
     private extractData(res: Response) {
