@@ -84,16 +84,22 @@ export class BajajAlianzComponent implements OnInit {
           proposerDob: ['', Validators.compose([Validators.required])],
           proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
-          proposerAddress:'',
+          aadharnumber: ['', Validators.compose([Validators.required])],
+          proposerPan: ['', Validators.compose([ Validators.minLength(10), Validators.required])],
+          proposerPhone: '',
+          proposerAddress: ['',Validators.required],
           proposerAddress2:'',
-          proposerAddress3:'',
           proposerPincode: ['', Validators.required],
-          proposerNationality:'',
-          proposerState: '',
-          proposerDistrict:'',
-          proposerCity: '',
+          proposerNationality: ['', Validators.required],
+          proposerState: ['', Validators.required],
+          proposerDistrict: ['', Validators.required],
+          proposerCity: ['', Validators.required],
           proposerArea: ['', Validators.required],
+          proposerPIName:['', Validators.required],
+          proposerPIAddress:['', Validators.required],
+          proposerPItDate: ['', Validators.compose([Validators.required])],
+          proposerPINumber: ['', Validators.required],
+          proposerPIClaims: ['', Validators.required]
       });
       this.insureArray = this.fb.group({
 
@@ -108,10 +114,10 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     insureChangeGender(index) {
-        if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
-            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
+        if (this.insureArray['controls'].items['controls'][index]['controls'].insureTitle.value == 'MR') {
+            this.insureArray['controls'].items['controls'][index]['controls'].insureGender.patchValue('Male');
         } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
+            this.insureArray['controls'].items['controls'][index]['controls'].insureGender.patchValue('Female');
         }
     }
 
@@ -132,40 +138,15 @@ export class BajajAlianzComponent implements OnInit {
         return this.fb.group(
             {
                 rolecd: 'PRIMARY',
-                proposerTitle: ['', Validators.required],
-                proposerFirstname: ['', Validators.required],
-                proposerLastname: ['', Validators.required],
-                proposerMidname: '',
-                proposerDob: ['', Validators.compose([Validators.required])],
-                proposerGender: ['', Validators.compose([Validators.required])],
-                proposerAge: ['', Validators.compose([Validators.required])],
-                maritalStatus: ['', Validators.compose([Validators.required])],
-                proposerrelationship: ['', Validators.required],
-                occupation: ['', Validators.required],
-                IsExistingIllness: 'No',
-                DiseaseID: '',
-                IsInsuredConsumetobacco: '',
-                HasAnyPreClaimOnInsured: '',
-                HasAnyPreHealthInsuranceCancelled: '',
-                DetailsOfPreClaimOnInsured: '',
-                DetailsOfPrevInsuranceCancelled: '',
-                OtherDisease: '',
-                InsuranceCompName: '',
-                PreviousPolNo: '',
-                PolicyStartDate: '',
-                PolicyEndDate: '',
-                CoverTypeID: '',
-                SumInsured: '',
-                AccumulatedCumulativeBonus: '',
-                sameAsProposer: false,
-                sameas: false,
+                insureTitle: ['', Validators.required],
+                insureName: ['', Validators.required],
+                insureDob: ['', Validators.compose([Validators.required])],
+                insureGender: ['', Validators.compose([Validators.required])],
                 type: '',
-                cityHide: '',
-                pCityHide: '',
-                altmobileNumber:'',
-                ins_age: '',
+                insureDobError: '',
                 ins_days: '',
-                insurerDobError: ''
+                ins_age: ''
+
             }
         );
     }
