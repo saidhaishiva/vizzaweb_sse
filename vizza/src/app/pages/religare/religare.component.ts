@@ -115,6 +115,7 @@ export class ReligareComponent implements OnInit {
     public medicalStatus : any;
     public arr : any;
     public insureRelationList : any;
+    public insureSingle : any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -137,6 +138,7 @@ array: any;
         this.sameField = false;
         this.isDisable = false;
         this.insureCity = false;
+        this.insureSingle = true;
         this.proposerInsureData = [];
         //this.totalReligareData = [];
         this.questions_list = [];
@@ -228,6 +230,12 @@ array: any;
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+        }
+
+        if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
+        if(this.getFamilyDetails.family_members.length < 2) {
+           this.insureSingle = false;
+        }
         }
 
         this.previousinsurance = [
@@ -558,7 +566,6 @@ array: any;
                 this.toastr.error('Please check atleast one checkbox!');
             } else {
                 stepper.next();
-
             }
 
     }
