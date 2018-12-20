@@ -70,7 +70,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="proposerPhone" autocomplete="off" required>
+                                                    <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="proposerPhone" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -90,7 +90,7 @@
                                         </div>
                                     </div>
                                             <div class="col-md-12 box-card pt-3">
-                                                <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
+                                                <h6 class="color-green"> PROPOSER ADDRESS</h6>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
@@ -172,7 +172,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput [matDatepicker]="picker2"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="proposerPItDate" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" [max]="minDate" maxlength="10" autocomplete="off">
+                                                            <input matInput [matDatepicker]="picker2"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="proposerPItDate" (dateInput)="addEvent( $event, 'proposer', 'i')" (dateChange)="addEvent( $event, 'proposer', 'i')" (keypress)="add($event)" [max]="minDate" maxlength="10" autocomplete="off" required>
                                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                             <mat-datepicker #picker2></mat-datepicker>
                                                             <mat-error *ngIf="proposer.controls.proposerPItDate.errors?.required">Previous Policy Expiry Date is required</mat-error>
@@ -188,7 +188,7 @@
                                             </div>
                                     <div class="proposal-buttom mt-3 text-right w-100">
                                         <button mat-button matStepperNext >Next</button>
-                                        <!--<button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>-->
+                                        <!--<button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)">Next</button>-->
                                     </div>
                                 </div>
                             </mat-expansion-panel>
@@ -212,7 +212,7 @@
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Tittle" formControlName="insureTitle" (change)="changeGender()">
+                                                        <mat-select placeholder="Tittle" formControlName="insureTitle" (change)="insureChangeGender(i)">
                                                             <mat-option value="MR">Mr</mat-option>
                                                             <mat-option value="MRS">Ms</mat-option>
                                                         </mat-select>
@@ -239,144 +239,164 @@
                                                         <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100" autocomplete="off">-->
-                                                            <!--<mat-option *ngFor="let status of maritalDetail" [value]= 'status.marital_status_id'> {{status.marital_status}} </mat-option>-->
-                                                        <!--</mat-select>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">Marital Status is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>-->
-                                                        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                                                        <!--<mat-datepicker #picker></mat-datepicker>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" readonly>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">Age is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">-->
-                                                            <!--<mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation_name}} </mat-option>-->
-                                                        <!--</mat-select>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<mat-select placeholder="Relationship with Proposer"  formControlName="proposerrelationship" required >-->
-                                                            <!--<mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>-->
-                                                        <!--</mat-select>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<p>Is Existing Illness</p>-->
-                                                    <!--<mat-radio-group formControlName="IsExistingIllness" (change)="boolenHide($event, i, 'IsExistingIllness')">-->
-                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
-                                                        <!--<mat-radio-button value="No" [checked]="true">No</mat-radio-button>-->
-                                                    <!--</mat-radio-group>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-12">-->
-                                                    <!--<mat-form-field class="w-100" [hidden]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'No'">-->
-                                                        <!--<mat-select  placeholder="Disease" formControlName="DiseaseID"   class="w-100" autocomplete="off" [required]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'" >-->
-                                                            <!--<mat-option *ngFor="let list of diseaseList" [value]= 'list.pre_existing_disease_id'> {{list.pre_existing_disease_name}} </mat-option>-->
-                                                        <!--</mat-select>-->
-                                                        <!--<mat-error *ngIf="insureArray.invalid">Disease is required</mat-error>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-4">-->
-                                                    <!--<p>Is Insured Consume Tobacco</p>-->
-                                                    <!--<mat-radio-group formControlName="IsInsuredConsumetobacco">-->
-                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
-                                                        <!--<mat-radio-button value="No" [checked]="true">No</mat-radio-button>-->
-                                                    <!--</mat-radio-group>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-4">-->
-                                                    <!--<p>Has Any Pre Claim On Insured</p>-->
-                                                    <!--<mat-radio-group formControlName="HasAnyPreClaimOnInsured">-->
-                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
-                                                        <!--<mat-radio-button value="No" [checked]="true">No</mat-radio-button>-->
-                                                    <!--</mat-radio-group>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-4">-->
-                                                    <!--<p>Has Any Pre Health Insurance Cancelled</p>-->
-                                                    <!--<mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled">-->
-                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
-                                                        <!--<mat-radio-button value="No" [checked]="true">No</mat-radio-button>-->
-                                                    <!--</mat-radio-group>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<textarea matInput placeholder="Details Of Pre Claim On Insured" formControlName="DetailsOfPreClaimOnInsured" autocomplete="off"></textarea>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<textarea matInput placeholder="Details Of Prev Insurance Cancelled" formControlName="DetailsOfPrevInsuranceCancelled" autocomplete="off"></textarea>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<textarea matInput placeholder="Other Disease" formControlName="OtherDisease" autocomplete="off"></textarea>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-12">-->
-                                                    <!--<h6 class="mt-3">Other Insurance Details:</h6>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" autocomplete="off"></textarea>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput placeholder="Previous Policy No" formControlName="PreviousPolNo"   (keypress)="add($event)" autocomplete="off">-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEventInsurer( $event)" (dateChange)="addEventInsurer( $event)" (keypress)="add($event)" maxlength="10" autocomplete="off">-->
-                                                        <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-                                                        <!--<mat-datepicker #picker2></mat-datepicker>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput [matDatepicker]="picker3"  max="maxDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">-->
-                                                        <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
-                                                        <!--<mat-datepicker #picker3></mat-datepicker>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<mat-select  placeholder="Cover Type" formControlName="CoverTypeID"  class="w-100">-->
-                                                            <!--<mat-option *ngFor="let list of coverTypeList" [value]= 'list.covertype_id'> {{list.covertype}} </mat-option>-->
-                                                        <!--</mat-select>-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput placeholder="Sum Insured" formControlName="SumInsured"   (keypress)="add($event)" autocomplete="off">-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-6">-->
-                                                    <!--<mat-form-field class="w-100">-->
-                                                        <!--<input matInput placeholder="Accumulated Cumulative Bonus" formControlName="AccumulatedCumulativeBonus"   autocomplete="off">-->
-                                                    <!--</mat-form-field>-->
-                                                <!--</div>-->
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Age" formControlName="insureAge"     autocomplete="off" autocomplete="off" readonly>
+                                                        <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                <input matInput placeholder="Height(cm)" formControlName="insureHeight" required (keypress)="add($event)" maxlength="3" autocomplete="off">
+                                                <mat-error *ngIf="insureArray.invalid">Height is required</mat-error>
+                                                </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                <input matInput placeholder="Weight" formControlName="insureWeight" (keypress)="add($event)"  maxlength="3" required  autocomplete="off">
+                                                <mat-error *ngIf="insureArray.invalid">Weight is required</mat-error>
+                                                </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select  placeholder="Occupation" formControlName="insureoccupation" required  class="w-100">
+                                                            <mat-option *ngFor="let occupation of occupationList" value="{{occupation.occupation_id}}">{{occupation.occupation_name}}</mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="insurerelationship" required>
+                                                            <mat-option *ngFor="let relation of insureRelation" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Gross Monthly Income"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off" required>
+                                                        <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 box-card pt-3">
+                                            <h6 class="color-green">Personal Treatment DETAILS</h6>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <p>previous Establishing Disease</p>
+                                                    <mat-radio-group formControlName="insurePEDisease">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Asthma</p>
+                                                    <mat-radio-group formControlName="insureAsthma">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Cholesterol Disordr</p>
+                                                    <mat-radio-group formControlName="insureDisordr">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Heartburn Disease</p>
+                                                    <mat-radio-group formControlName="insureHeartDisease">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Hypertension</p>
+                                                    <mat-radio-group formControlName="insureHypertension">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Diabetes</p>
+                                                    <mat-radio-group formControlName="insureDiabetes">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Obesity</p>
+                                                    <mat-radio-group formControlName="insureObesity">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <p>Smoking</p>
+                                                    <mat-radio-group formControlName="insureSmoking">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 box-card pt-3">
+                                            <h6 class="color-green"> Previous Insurance Details</h6>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="onCharacter($event)" autocomplete="off">
+                                                        <mat-error *ngIf="insureArray.invalid">Company Name is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Previous Policy Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insurePINumber" autocomplete="off">
+                                                        <mat-error *ngIf="insureArray.invalid">Previous Policy Number is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput [matDatepicker]="picker2"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="insurePItDate" (dateInput)="addEvent( $event, 'insurer', 'i')" (dateChange)="addEvent( $event, 'proposer', 'i')" (keypress)="add($event)" [max]="minDate" maxlength="10" autocomplete="off">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                        <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Previous Sum Insurance"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
+                                                        <mat-error *ngIf="insureArray.invalid">Previous Sum Number is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 box-card pt-3">
+                                            <h6 class="color-green">Nominee DETAILS</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" autocomplete="off">
+                                                        <mat-error *ngIf="insureArray.invalid">Name of Nominee is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Relationship with Proposer" formControlName="bajajRelationship">
+                                                            <mat-option *ngFor="let relation of nomeeRelation" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="insureArray.invalid">Nominee Relationship is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                                             <button mat-button matStepperPrevious>Back</button>
-                                            <button mat-raised-button color="primary"  (click)="relianceInsureDetails(stepper, i, insureArray.value)">Next</button>
+                                            <!--<button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>-->
+                                            <button mat-button matStepperNext >Next</button>
                                         </div>
                                     </div>
                                 </mat-expansion-panel>
@@ -391,10 +411,9 @@
                         <!--<mat-expansion-panel expanded>-->
                             <!--<mat-expansion-panel-header>-->
                                 <!--<mat-panel-title>-->
-                                    <!--{{groupName}}-->
+                                    <!--&lt;!&ndash;{{groupName}}&ndash;&gt;-->
                                 <!--</mat-panel-title>-->
                             <!--</mat-expansion-panel-header>-->
-                            <!--<ng-template matStepLabel>INSURED DETAILS</ng-template>-->
                             <!--<div class="row mt-3">-->
                                 <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
                                     <!--<h6 class="color-green mb-3" >NOMINEE DETAILS </h6>-->
@@ -402,20 +421,22 @@
                                         <!--<div class="row">-->
                                             <!--<div class="col-md-4">-->
                                                 <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" [required]="buyProductdetails.product_id == 1">-->
-                                                    <!--<mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>-->
+                                                    <!--<input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" autocomplete="off">-->
+                                                    <!--<mat-error *ngIf="nomineeDetails.controls.bajajNomineeName.errors?.required">Name of Nominee is required</mat-error>-->
                                                 <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <!--<div class="col-md-4"><mat-form-field class="w-100">-->
-                                                <!--<input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)"  [required]="buyProductdetails.product_id == 1">-->
-                                                <!--<mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>-->
-                                            <!--</mat-form-field></div>-->
-
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput placeholder="Relationship with Proposer" formControlName="bajajRelationship" autocomplete="off" >-->
+                                                    <!--<mat-error *ngIf="nomineeDetails.controls.bajajRelationship.errors?.required">Relationship with Proposer is required</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                             <!--<div class="col-md-4">-->
                                                 <!--<div class="proposal-buttom mb-3 text-right w-100">-->
                                                     <!--<button mat-button matStepperPrevious  (click)="quesback()">Back</button>-->
-                                                    <!--<button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetails.value)">Next</button>-->
-                                                <!--</div></div>-->
+                                                    <!--<button mat-raised-button color="primary"   (click)="bajajNomineeDetails(stepper, nomineeDetails.value)">Next</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                         <!--</div>-->
                                     <!--</form>-->
                                 <!--</div>-->

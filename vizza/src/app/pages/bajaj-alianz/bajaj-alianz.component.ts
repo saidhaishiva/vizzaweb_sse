@@ -49,15 +49,31 @@ export class BajajAlianzComponent implements OnInit {
     public selectDate: any;
     public proposalId: any;
     public step: any;
+    public buyProductdetails: any;
+    public enquiryId: any;
+    public groupName: any;
+    public occupationList: any;
+    public relationshipList: any;
+    public nomineeRelation: any;
+    public insureRelation: any;
+    public nomeeRelation: any;
+
+    public getStepper2: any;
+    public getStepper1: any;
+    public proposerData: any;
+    public mobileNumber: any;
+    public lastStepper: any;
 
     public setDate: any;
     public setDateAge: any;
     public dob: any;
     public dobError: any;
-    public personalAge: any;
+    public insureAge: any;
     public getFamilyDetails: any;
     public items: any;
     public insurePersons: any;
+    public insurerData: any;
+    public totalInsureDetails: any;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -74,8 +90,11 @@ export class BajajAlianzComponent implements OnInit {
       this.selectDate = '';
       this.proposalId = 0;
       this.step = 0;
+      this.mobileNumber = true;
+      this.totalInsureDetails = [];
 
       this.proposer = this.fb.group({
+          rolecd: 'PROPOSER',
           proposerTitle: ['',Validators.required],
           proposerFirstname: ['',Validators.required],
           proposerMidname: '',
@@ -99,18 +118,19 @@ export class BajajAlianzComponent implements OnInit {
           proposerPIAddress:['', Validators.required],
           proposerPItDate: ['', Validators.compose([Validators.required])],
           proposerPINumber: ['', Validators.required],
-          proposerPIClaims: ['', Validators.required]
+          proposerPIClaims: ['', Validators.required],
+          sameas: false,
+          type: ''
       });
       this.insureArray = this.fb.group({
 
       });
-
   }
     changeGender() {
-        if (this.proposer.controls['personalTitle'].value == 'MR'){
-            this.proposer.controls['personalGender'].patchValue('Male');
+        if (this.proposer.controls['proposerTitle'].value == 'MR'){
+            this.proposer.controls['proposerGender'].patchValue('Male');
         } else {
-            this.proposer.controls['personalGender'].patchValue('Female');
+            this.proposer.controls['proposerGender'].patchValue('Female');
         }
     }
     insureChangeGender(index) {
@@ -122,6 +142,11 @@ export class BajajAlianzComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.setOccupationList();
+        this.setrelationshipList();
+        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        this.enquiryId = sessionStorage.enquiryId;
+        this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
         this.insureArray = this.fb.group({
@@ -132,6 +157,9 @@ export class BajajAlianzComponent implements OnInit {
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
+        this.sessionData();
+        this.setDate = Date.now();
+        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
   }
 
     initItemRows() {
@@ -142,6 +170,26 @@ export class BajajAlianzComponent implements OnInit {
                 insureName: ['', Validators.required],
                 insureDob: ['', Validators.compose([Validators.required])],
                 insureGender: ['', Validators.compose([Validators.required])],
+                insureAge: ['', Validators.compose([Validators.required])],
+                insureHeight: ['', Validators.compose([Validators.required])],
+                insureWeight: ['', Validators.compose([Validators.required])],
+                insureoccupation: ['', Validators.required],
+                insurerelationship: ['', Validators.required],
+                insureGMIncome: ['', Validators.required],
+                bajajNomineeName: ['', Validators.required],
+                bajajRelationship: ['', Validators.required],
+                insurePEDisease: 0,
+                insureAsthma: 0,
+                insureDisordr: 0,
+                insureHeartDisease: 0,
+                insureHypertension: 0,
+                insureDiabetes: 0,
+                insureObesity: 0,
+                insureSmoking: 0,
+                insureCName:'',
+                insurePItDate:'',
+                insurePINumber:'',
+                insureSInsurance:'',
                 type: '',
                 insureDobError: '',
                 ins_days: '',
@@ -150,6 +198,81 @@ export class BajajAlianzComponent implements OnInit {
             }
         );
     }
+
+    //Personal Details
+    proposerDetails(stepper: MatStepper, value) {
+        this.proposerData = value;
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        if (this.proposer.valid) {
+            if (sessionStorage.proposerAge >= 18) {
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+                }
+
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
+
+    //Insure Details
+    bajajInsureDetails(stepper: MatStepper, id, value, key) {
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper2Details = JSON.stringify(value);
+        if (this.insureArray.valid) {
+            this.insurerData = value.items;
+            this.totalInsureDetails = [];
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.totalInsureDetails.push({
+                    'membername': this.insurerData[i].insureName,
+                    'memrelation': this.insurerData[i].insurerelationship,
+                    'memdob': this.insurerData[i].insureDob,
+                    'memage': this.insurerData[i].insureAge,
+                    'memgender': this.insurerData[i].insureGender,
+                    'memheightcm': this.insurerData[i].insureHeight,
+                    'memweightkg': this.insurerData[i].insureWeight,
+                    'memoccupation': this.insurerData[i].insureoccupation,
+                    'memgrossmonthlyincome': this.insurerData[i].insureGMIncome,
+                    'memnomineename': this.insurerData[i].bajajNomineeName,
+                    'memnomineerelation': this.insurerData[i].bajajRelationship,
+                    'memcompname': this.insurerData[i].insureCName,
+                    'memprvpolno': this.insurerData[i].insurePINumber,
+                    'memprvexpdate': this.insurerData[i].insurePItDate,
+                    'memprvsi': this.insurerData[i].insureSInsurance,
+                    'mempreexistdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? 'true' : 'false',
+                    'memsmkertbco': this.insurerData[i].insureSmoking == 'Yes' ? 'true' : 'false',
+                    'memasthma': this.insurerData[i].insureAsthma == 'Yes' ? 'true' : 'false',
+                    'memcholstrldisordr': this.insurerData[i].insureDisordr == 'Yes' ? 'true' : 'false',
+                    'memheartdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? 'true' : 'false',
+                    'memhypertension': this.insurerData[i].insureHypertension == 'Yes' ? 'true' : 'false',
+                    'memdiabetes': this.insurerData[i].insureDiabetes == 'Yes' ? 'true' : 'false',
+                    'memobesity': this.insurerData[i].insureObesity == 'Yes' ? 'true' : 'false',
+                    'membmi': '',
+                    'memspecialcondition': 'NA',
+                    'memaddflag': 'Y'
+                });
+            }
+            let ageValidate = [];
+            for (let i = 0; i< this.insurerData.length; i++){
+                if ( this.insureArray['controls'].items['controls'][i]['controls'].insureDobError.value  != '') {
+                    ageValidate.push(1);
+
+                } else{
+                    ageValidate.push(0);
+                }
+            }
+            if(!ageValidate.includes(1)){
+                stepper.next();
+            }
+
+        }
+        if (this.insureArray.valid) {
+            this.insureArray = value;
+            this.proposal();
+        }
+    }
+
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
@@ -164,15 +287,15 @@ export class BajajAlianzComponent implements OnInit {
     addEvent(event, title, index) {
         let dd = event.value;
         this.selectDate = event.value;
-        console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.personalAge = this.ageCalculate(this.setDateAge);
+        this.insureAge = this.ageCalculate(this.setDateAge);
         if(title == 'proposer'){
-            sessionStorage.setItem('proposerAge', this.personalAge);
+            sessionStorage.setItem('proposerAge', this.insureAge);
         } else if(title == 'insurer') {
-            sessionStorage.setItem('insurerAge', this.personalAge);
-            this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
+            sessionStorage.setItem('insureAge', this.insureAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].insureAge.patchValue(sessionStorage.insureAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerPItDate.patchValue(sessionStorage.proposerPItDate);
         }
         if (event.value != null) {
             let selectedDate = '';
@@ -189,7 +312,6 @@ export class BajajAlianzComponent implements OnInit {
 
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -217,7 +339,6 @@ export class BajajAlianzComponent implements OnInit {
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
             }
-            console.log( this.dob, 'ghjkl');
         }
 
     }
@@ -241,7 +362,152 @@ export class BajajAlianzComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        console.log(yearAge, 'console.log(yearAge)');
         return yearAge;
+    }
+
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getBajajOccupation(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
+            }
+        );
+
+    }
+
+    public occupationListSuccess(successData) {
+        this.occupationList = successData.ResponseObject;
+    }
+
+    public occupationListFailure(error) {
+    }
+
+    setrelationshipList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getBajajRelationship(data).subscribe(
+            (successData) => {
+                this.relationListSuccess(successData);
+            },
+            (error) => {
+                this.relationListFailure(error);
+            }
+        );
+
+    }
+
+    public relationListSuccess(successData) {
+        this.relationshipList = successData.ResponseObject;
+             this.insureRelation = [];
+            this.nomeeRelation = [];
+        for (let i = 0; i < this.relationshipList.length; i++) {
+            if(this.relationshipList[i].show_prop_relationship == 1) {
+                this.insureRelation.push(
+                    {
+                    'relationship_name': this.relationshipList[i].relationship_name,
+                    'relationship_id': this.relationshipList[i].relationship_id
+                    });
+            }
+            if(this.relationshipList[i].show_nominee_relationship == 1) {
+                this.nomeeRelation.push(
+                    {
+                    'relationship_name': this.relationshipList[i].relationship_name,
+                    'relationship_id': this.relationshipList[i].relationship_id
+                });
+            }
+
+        }
+    }
+
+    public relationListFailure(error) {
+    }
+
+    sessionData() {
+        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+            this.proposer = this.fb.group({
+                rolecd: this.getStepper1.rolecd,
+                proposerTitle: this.getStepper1.proposerTitle,
+                proposerFirstname: this.getStepper1.proposerFirstname,
+                proposerMidname: this.getStepper1.proposerMidname,
+                proposerLastname: this.getStepper1.proposerLastname,
+                proposerGender: this.getStepper1.proposerGender,
+                proposerDob: this.getStepper1.proposerDob,
+                proposerEmail: this.getStepper1.proposerEmail,
+                proposerMobile: this.getStepper1.proposerMobile,
+                aadharnumber: this.getStepper1.aadharnumber,
+                proposerPan: this.getStepper1.proposerPan,
+                proposerPhone: this.getStepper1.proposerPhone,
+                proposerAddress: this.getStepper1.proposerAddress,
+                proposerAddress2: this.getStepper1.proposerAddress2,
+                proposerPincode: this.getStepper1.proposerPincode,
+                proposerNationality: this.getStepper1.proposerNationality,
+                proposerState: this.getStepper1.proposerState,
+                proposerDistrict: this.getStepper1.proposerDistrict,
+                proposerCity: this.getStepper1.proposerCity,
+                proposerArea: this.getStepper1.proposerArea,
+                proposerPIName: this.getStepper1.proposerPIName,
+                proposerPIAddress: this.getStepper1.proposerPIAddress,
+                proposerPItDate: this.getStepper1.proposerPItDate,
+                proposerPINumber: this.getStepper1.proposerPINumber,
+                proposerPIClaims: this.getStepper1.proposerPIClaims,
+            })
+        }
+        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+            for (let i = 0; i < this.getStepper2.items.length; i++) {
+                this.insureArray['controls'].items['controls'][i]['controls'].insureTitle.patchValue(this.getStepper2.items[i].insureTitle);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureName.patchValue(this.getStepper2.items[i].insureName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.getStepper2.items[i].insureDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureGender.patchValue(this.getStepper2.items[i].insureGender);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getStepper2.items[i].insureAge);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureHeight.patchValue(this.getStepper2.items[i].insureHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureWeight.patchValue(this.getStepper2.items[i].insureWeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureoccupation.patchValue(this.getStepper2.items[i].insureoccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.patchValue(this.getStepper2.items[i].insurerelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue(this.getStepper2.items[i].insureGMIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePEDisease.patchValue(this.getStepper2.items[i].insurePEDisease);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDisordr.patchValue(this.getStepper2.items[i].insureDisordr);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureHeartDisease.patchValue(this.getStepper2.items[i].insureHeartDisease);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureHypertension.patchValue(this.getStepper2.items[i].insureHypertension);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDiabetes.patchValue(this.getStepper2.items[i].insureDiabetes);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureObesity.patchValue(this.getStepper2.items[i].insureObesity);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureSmoking.patchValue(this.getStepper2.items[i].insureSmoking);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureCName.patchValue(this.getStepper2.items[i].insureCName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.getStepper2.items[i].insurePItDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePINumber.patchValue(this.getStepper2.items[i].insurePINumber);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureSInsurance.patchValue(this.getStepper2.items[i].insureSInsurance);
+                this.insureArray['controls'].items['controls'][i]['controls'].bajajNomineeName.patchValue(this.getStepper2.items[i].bajajNomineeName);
+                this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue(this.getStepper2.items[i].bajajRelationship);
+            }
+        }
+    }
+
+    //create poposal
+    proposal(){
+
+    }
+    add(event){
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
     }
 }
