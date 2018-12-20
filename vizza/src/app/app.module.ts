@@ -192,6 +192,7 @@ import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-lif
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
 import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
+import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 
 @NgModule({
   imports: [
@@ -360,7 +361,8 @@ import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
       TermLifeInsurer,
       ReliagretravelproposalComponent,
       LifeInsuranceComponent,
-      LifeInsurer
+      LifeInsurer,
+      HdfcHealthInsuranceComponent
   ],
   providers: [
       AppSettings,
