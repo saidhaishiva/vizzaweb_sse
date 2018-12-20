@@ -64,8 +64,8 @@
                       </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">
                       <input matInput placeholder="GST"  minlength="15" maxlength="15" formControlName="religarePersonalGst" autocomplete="off" required>
-                      <mat-error *ngIf="religarePersonal.controls.religarePersonalGst.errors?.required">Mobile Number is required</mat-error>
-                      <mat-error *ngIf="religarePersonal.controls.religarePersonalGst.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                      <mat-error *ngIf="religarePersonal.controls.religarePersonalGst.errors?.required">GST is required</mat-error>
+                      <mat-error *ngIf="religarePersonal.controls.religarePersonalGst.hasError('pattern')">Enter Valid  GST</mat-error>
                     </mat-form-field></div>
                   </div>
                   </div>
@@ -205,15 +205,15 @@
                           <input matInput placeholder="Gender" formControlName="insurerReligareGender" required readonly>
                           <mat-error *ngIf="insureReligareArray.invalid">Gender is required</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="insurerReligareDob" (dateInput)="addEvent($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEvent($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)"   minlength="10"  maxlength="10" autocomplete="off" required >
+                        <div class="col-md-6"><mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="insurerReligareDob" (dateInput)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="insureReligareArray.invalid">DOB is required</mat-error>
-                        </mat-form-field></div>
-                          <!--<p class="error mb-0" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>-->
-                          <!--<p class="error mb-0" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>-->
-                        <!--</div>-->
+                        </mat-form-field>
+                          <p class="error mb-0" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
+                          <p class="error mb-0" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
+                        </div>
 
                         <div class="col-md-4"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="insurerRelationship" required >

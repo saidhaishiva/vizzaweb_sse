@@ -74,6 +74,9 @@ export class ReliagretravelproposalComponent implements OnInit {
     public proposalId: any;
     public totalReligareData: any;
     public proposerInsureData: any;
+    public getAge: any;
+    public arr: any;
+    public medicalStatus: any;
 
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -83,7 +86,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
+        this.arr = [];
 
         this.religarePersonal = this.fb.group({
             religarePersonalTitle: ['', Validators.required],
@@ -282,7 +285,81 @@ export class ReliagretravelproposalComponent implements OnInit {
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         return year_age;
     }
+// dob insurer
+    addEventInsurer(event,  i, type) {
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            this.getAge = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                } else {
+                    this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    this.getAge = this.ageCalculateInsurer(dob);
+                }
 
+            } else if (typeof event.value._i == 'object') {
+
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob, 'dob11');
+
+                if (dob.length == 10) {
+                    this.getAge = this.ageCalculateInsurer(dob);
+                }
+
+            }
+            // if (this.getAge) {
+            console.log(this.getAge, 'newwagee11');
+            console.log(dob, 'dob2');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerReligareDob.patchValue(dob);
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+            this.ageValidationInsurer(i, type);
+            // }
+
+        }
+        sessionStorage.InsurerAgeReligareTravel = this.getAge;
+
+
+    }
+    ageCalculateInsurer(dob) {
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring(8, 10), 10);
+        let monthThen = parseInt(mdate.substring(5, 7), 10);
+        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let todays = new Date();
+        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
+        let month_age = Math.floor(day_age/30);
+        console.log(month_age, 'month_agepppp');
+        return month_age;
+    }
+    ageValidationInsurer(i, type) {
+        if(this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.value < 5) {
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
+        } else {
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        }
+    }
+    //
+    public dobkeyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9/\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     // postal code in religareproposal
     getPostal(pin, title) {
         this.pin = pin;
@@ -344,7 +421,9 @@ export class ReliagretravelproposalComponent implements OnInit {
     }
 
     getPostalInsurer(pin, i, title) {
+        alert();
         this.pin = pin;
+        console.log(this.pin, 'this.pin');
         this.title = title;
         this.index = i;
         console.log(this.title, 'kjhjkghkhk');
@@ -353,7 +432,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             'user_id': '0',
             'role_id': '4',
             'pincode': this.pin
-        };
+        }
+        console.log(data, 'datadata');
         if (this.pin.length == 6) {
             this.proposalservice.getPostalReligare(data).subscribe(
                 (successData) => {
@@ -467,8 +547,6 @@ export class ReliagretravelproposalComponent implements OnInit {
 
     public religareTravelQuestionsSuccess(successData) {
         if (successData.IsSuccess) {
-
-            // if (sessionStorage.proposal3Detail == '' && sessionStorage.proposal3Detail == undefined) {
             this.religareTravelQuestionsList = successData.ResponseObject;
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
                 // this.religareTravelQuestionsList[i].main_qustion = '0';
@@ -553,7 +631,11 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'prop_gender': this.proposerInsureData[i].insurerReligareGender,
                 });
             }
-            stepper.next();
+            if (sessionStorage.InsurerAgeReligareTravel >= 5) {
+                stepper.next();
+            } else {
+                this.toastr.error('Insured age should be 5 Month or above');
+            }
 
         }
     }
@@ -563,7 +645,8 @@ export class ReliagretravelproposalComponent implements OnInit {
 // Medical Details
     medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.ReligareTravelDetails3 = '';
-        sessionStorage.ReligareTravelDetails3 = JSON.stringify('this.religareTravelQuestionsList');
+        sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
+        console.log( sessionStorage.ReligareTravelDetails3 , ' sessionStorage.ReligareTravelDetails3 ');
         this.partyQuestionDOList = [];
         stepper.next();
 
@@ -579,10 +662,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             }
         }
         console.log(count, 'countcount');
-        if (count == 5) {
-        } else {
-            this.toastr.error('All the Question are mandatory')
+
+        for (let i = 0; i < this.totalReligareData.length; i++) {
+            this.totalReligareData[i].medical_status =  this.partyQuestionDOList.response ? 'Yes' : 'No'
         }
+
         console.log(this.partyQuestionDOList, ' this.getFilterData ');
 
     }
@@ -617,12 +701,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
-            'medical_status': this.tripStatus.includes('Yes') ? 'Yes' : 'No'
+            'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
+            'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
+            'medical_status': this.partyQuestionDOList.includes('Yes') ? 'Yes' : 'No'
         };
         console.log(data, 'fghj');
-        this.stepback();
 
 
         // this.settings.loadingSpinner = true;
@@ -686,11 +769,11 @@ export class ReliagretravelproposalComponent implements OnInit {
         if (sessionStorage.ReligareTravelDetails2 != '' && sessionStorage.ReligareTravelDetails2 != undefined) {
             console.log(JSON.parse(sessionStorage.ReligareTravelDetails2), 'sessionStorage');
             this.religareTravel2 = JSON.parse(sessionStorage.ReligareTravelDetails2);
-            this.religareTravel2 = JSON.parse(sessionStorage.ReligareTravelDetails2);
-            if (this.religareTravel2.religarePersonalPincode != '') {
-                this.getPostalInsurer(this.religareTravel2.insurerReligarePincode,'i', 'insurer');
-
-            }
+            console.log( this.religareTravel2, 'this.religareTravel2');
+            // if (this.religareTravel2.religarePersonalPincode != '') {
+            //     this.getPostalInsurer(this.religareTravel2.insurerReligarePincode,'i', 'insurer');
+            //
+            // }
             for (let i = 0; i < this.religareTravel2.items.length; i++) {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerReligareTitle.patchValue(this.religareTravel2.items[i].insurerReligareTitle);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerReligareFirstName.patchValue(this.religareTravel2.items[i].insurerReligareFirstName);
@@ -709,12 +792,11 @@ export class ReliagretravelproposalComponent implements OnInit {
 
             if (sessionStorage.ReligareTravelDetails3 != '' && sessionStorage.ReligareTravelDetails3 != undefined) {
                 console.log(JSON.parse(sessionStorage.ReligareTravelDetails3), 'sessionStorage.proposal3Detail');
-                // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
                 this.religareTravelQuestionsList = JSON.parse(sessionStorage.ReligareTravelDetails3);
                 console.log(this.religareTravelQuestionsList, 'sessionStorage.this.personalAccidentQuestionsList');
 
             } else {
-                // this. religareQuestions();
+                this.religareTravelQuestions();
             }
             if (sessionStorage.ReligareTravelNomineeDetails != '' && sessionStorage.ReligareTravelNomineeDetails != undefined) {
                 console.log(JSON.parse(sessionStorage.ReligareTravelNomineeDetails), 'sessionStorage.ReligareTravelNomineeDetails');
