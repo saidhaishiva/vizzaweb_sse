@@ -1166,6 +1166,7 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
+        console.log(this.auth.getPosStatus(), 'lll');
         if (this.auth.getPosStatus() == '0') {
             let dialogRef = this.dialog.open(PosstatusAlert, {
                 width: '700px',
@@ -1175,11 +1176,17 @@ export class HealthInsuranceComponent implements OnInit {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
-                    if (value.product_id <= 5 ) {
+                    if (value.product_id <= 5) {
                         this.router.navigate(['/religare']);
-                    } else if(value.product_id == 11){
+                    }  else if(value.product_id == 11){
                         this.router.navigate(['/reliance']);
-                    } else {
+                    } else if(value.product_id == 12 || value.product_id == 13 ){
+                        this.router.navigate(['/appollo-munich']);
+                    } else if(value.product_id >= 17 && value.product_id <= 20){
+                        this.router.navigate(['/hdfc-insurance']);
+                    } else if(value.product_id == 21){
+                        this.router.navigate(['/bajaj']);
+                    }else {
                         this.router.navigate(['/proposal']);
                     }
                 } else {
@@ -1194,7 +1201,9 @@ export class HealthInsuranceComponent implements OnInit {
                 this.router.navigate(['/reliance']);
             } else if(value.product_id == 12 || value.product_id == 13 ){
                 this.router.navigate(['/appollo-munich']);
-            }else if(value.product_id == 21){
+            } else if(value.product_id >= 17 && value.product_id <= 20){
+                this.router.navigate(['/hdfc-insurance']);
+            } else if(value.product_id == 21){
                 this.router.navigate(['/bajaj']);
             }else {
                 this.router.navigate(['/proposal']);

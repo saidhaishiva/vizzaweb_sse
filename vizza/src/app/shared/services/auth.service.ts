@@ -50,7 +50,7 @@ export class AuthService {
         return (sessionStorage.getItem('vizza-pos-roleid')!= null) ? sessionStorage.getItem('vizza-pos-roleid') : 0;
     }
     getPosStatus() {
-        return sessionStorage.getItem('vizza-pos-status');
+        return (sessionStorage.getItem('vizza-pos-status')!= null) ? sessionStorage.getItem('vizza-pos-status') : 0;
     }
     getAccessToken() {
         return sessionStorage.getItem('vizza-pos-accesstoken');
