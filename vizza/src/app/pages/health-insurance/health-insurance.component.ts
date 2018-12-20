@@ -1184,7 +1184,9 @@ export class HealthInsuranceComponent implements OnInit {
                         this.router.navigate(['/appollo-munich']);
                     } else if(value.product_id >= 17 && value.product_id <= 20){
                         this.router.navigate(['/hdfc-insurance']);
-                    } else {
+                    } else if(value.product_id == 21){
+                        this.router.navigate(['/bajaj']);
+                    }else {
                         this.router.navigate(['/proposal']);
                     }
                 } else {
@@ -1201,7 +1203,9 @@ export class HealthInsuranceComponent implements OnInit {
                 this.router.navigate(['/appollo-munich']);
             } else if(value.product_id >= 17 && value.product_id <= 20){
                 this.router.navigate(['/hdfc-insurance']);
-            } else {
+            } else if(value.product_id == 21){
+                this.router.navigate(['/bajaj']);
+            }else {
                 this.router.navigate(['/proposal']);
             }
         }
