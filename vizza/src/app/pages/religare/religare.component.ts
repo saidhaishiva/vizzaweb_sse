@@ -526,10 +526,11 @@ array: any;
              for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                       if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
+                           statusChecked.push(1);
                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
-
                            statusChecked.push(0);
-                       } else {
+                       }} else {
                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
                                    statusChecked.push(0);
@@ -557,6 +558,7 @@ array: any;
 
          }
          console.log(this.medicalStatus, 'this.medicalStatus');
+         console.log(statusChecked, 'this.statusChecked');
 
         }
 
