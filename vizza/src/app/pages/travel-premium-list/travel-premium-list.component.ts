@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TravelService} from '../../shared/services/travel.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {AppSettings} from '../../app.settings';
-import {MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DatePipe} from '@angular/common';
 import {Settings} from '../../app.settings.model';
@@ -701,11 +701,35 @@ export class TravelPremiumListComponent implements OnInit {
     public getTravelPremiumCalFailure(error) {
         this.settings.loadingSpinner = false;
     }
-    booking(value) {
+    booking(value, enqId, gname) {
         console.log(value, 'vlitss');
         sessionStorage.travelPremiumList = JSON.stringify(value);
-        this.router.navigate(['/travelproposal']);
+        if (this.auth.getPosStatus() == '0') {
+            let dialogRef = this.dialog.open(PosstatusAlertTravel, {
+                width: '700px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    sessionStorage.buyProductdetails = JSON.stringify(value);
+                    if (value.product_id == 16) {
+                        this.router.navigate(['/travelproposal']);
+                    } else if (value.product_id == 22) {
+                        this.router.navigate(['/religaretravel']);
+                    } else{
+                    }
+                }
+            });
+        }  else {
+            sessionStorage.buyProductdetails = JSON.stringify(value);
+            if (value.product_id == 16) {
+                this.router.navigate(['/travelproposal']);
+            } else if (value.product_id == 22) {
+                this.router.navigate(['/religaretravel']);
+            }
+        }
     }
+
 
     dyasCalculation() {
         let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -804,6 +828,30 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
+
+}
+ @Component({
+    selector: 'posstatusalert',
+    template: `
+        <div mat-dialog-content class="text-center">
+            <label>You're not verified. Do you want to continue?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
+        </div>
+    `
+
+})
+export class PosstatusAlertTravel {
+
+    constructor(
+        public dialogRef: MatDialogRef<PosstatusAlertTravel>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
 

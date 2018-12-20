@@ -50,7 +50,7 @@
           </td>
           <td *ngIf="plists.policy_available">
             <p></p>
-            <p><button mat-raised-button color="accent" (click)="booking(plists)">{{plists.total_premium | currency: 'INR'}}</button></p>
+            <p><button mat-raised-button color="accent" (click)="booking(plists,plists.enquiry_id,plists.name)">{{plists.total_premium | currency: 'INR'}}</button></p>
             <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
           </td>
         </tr>
