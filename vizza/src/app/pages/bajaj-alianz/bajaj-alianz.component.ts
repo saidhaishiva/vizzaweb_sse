@@ -54,14 +54,13 @@ export class BajajAlianzComponent implements OnInit {
     public groupName: any;
     public occupationList: any;
     public relationshipList: any;
-    public nomineeRelation: any;
     public insureRelation: any;
     public nomeeRelation: any;
+    public summaryData: any;
 
     public getStepper2: any;
     public getStepper1: any;
     public proposerData: any;
-    public mobileNumber: any;
     public lastStepper: any;
 
     public setDate: any;
@@ -74,6 +73,7 @@ export class BajajAlianzComponent implements OnInit {
     public insurePersons: any;
     public insurerData: any;
     public totalInsureDetails: any;
+    public RediretUrlLink: any;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -90,7 +90,6 @@ export class BajajAlianzComponent implements OnInit {
       this.selectDate = '';
       this.proposalId = 0;
       this.step = 0;
-      this.mobileNumber = true;
       this.totalInsureDetails = [];
 
       this.proposer = this.fb.group({
@@ -103,8 +102,8 @@ export class BajajAlianzComponent implements OnInit {
           proposerDob: ['', Validators.compose([Validators.required])],
           proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          aadharnumber: ['', Validators.compose([Validators.required])],
-          proposerPan: ['', Validators.compose([ Validators.minLength(10), Validators.required])],
+          // aadharnumber: ['', Validators.compose([Validators.required])],
+          // proposerPan: ['', Validators.compose([ Validators.minLength(10), Validators.required])],
           proposerPhone: '',
           proposerAddress: ['',Validators.required],
           proposerAddress2:'',
@@ -178,14 +177,14 @@ export class BajajAlianzComponent implements OnInit {
                 insureGMIncome: ['', Validators.required],
                 bajajNomineeName: ['', Validators.required],
                 bajajRelationship: ['', Validators.required],
-                insurePEDisease: 0,
-                insureAsthma: 0,
-                insureDisordr: 0,
-                insureHeartDisease: 0,
-                insureHypertension: 0,
-                insureDiabetes: 0,
-                insureObesity: 0,
-                insureSmoking: 0,
+                insurePEDisease: '0',
+                insureAsthma: '0',
+                insureDisordr: '0',
+                insureHeartDisease: '0',
+                insureHypertension: '0',
+                insureDiabetes: '0',
+                insureObesity: '0',
+                insureSmoking: '0',
                 insureCName:'',
                 insurePItDate:'',
                 insurePINumber:'',
@@ -206,10 +205,7 @@ export class BajajAlianzComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
             if (sessionStorage.proposerAge >= 18) {
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
-                }
-
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -240,14 +236,14 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'mempreexistdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? 'true' : 'false',
-                    'memsmkertbco': this.insurerData[i].insureSmoking == 'Yes' ? 'true' : 'false',
-                    'memasthma': this.insurerData[i].insureAsthma == 'Yes' ? 'true' : 'false',
-                    'memcholstrldisordr': this.insurerData[i].insureDisordr == 'Yes' ? 'true' : 'false',
-                    'memheartdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? 'true' : 'false',
-                    'memhypertension': this.insurerData[i].insureHypertension == 'Yes' ? 'true' : 'false',
-                    'memdiabetes': this.insurerData[i].insureDiabetes == 'Yes' ? 'true' : 'false',
-                    'memobesity': this.insurerData[i].insureObesity == 'Yes' ? 'true' : 'false',
+                    'mempreexistdisease': this.insurerData[i].insureHeartDisease,
+                    'memsmkertbco': this.insurerData[i].insureSmoking,
+                    'memasthma': this.insurerData[i].insureAsthma,
+                    'memcholstrldisordr': this.insurerData[i].insureDisordr,
+                    'memheartdisease': this.insurerData[i].insureHeartDisease,
+                    'memhypertension': this.insurerData[i].insureHypertension,
+                    'memdiabetes': this.insurerData[i].insureDiabetes,
+                    'memobesity': this.insurerData[i].insureObesity,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y'
@@ -263,13 +259,10 @@ export class BajajAlianzComponent implements OnInit {
                 }
             }
             if(!ageValidate.includes(1)){
-                stepper.next();
+                this.lastStepper = stepper;
+                this.proposal();
             }
 
-        }
-        if (this.insureArray.valid) {
-            this.insureArray = value;
-            this.proposal();
         }
     }
 
@@ -295,7 +288,8 @@ export class BajajAlianzComponent implements OnInit {
         } else if(title == 'insurer') {
             sessionStorage.setItem('insureAge', this.insureAge);
             this.insureArray['controls'].items['controls'][index]['controls'].insureAge.patchValue(sessionStorage.insureAge);
-            this.insureArray['controls'].items['controls'][index]['controls'].proposerPItDate.patchValue(sessionStorage.proposerPItDate);
+            // this.insureArray['controls'].items['controls'][index]['controls'].proposerPItDate.patchValue(sessionStorage.proposerPItDate);
+            // this.insureArray['controls'].items['controls'][index]['controls'].insurePItDate.patchValue(sessionStorage.insurePItDate);
         }
         if (event.value != null) {
             let selectedDate = '';
@@ -447,8 +441,8 @@ export class BajajAlianzComponent implements OnInit {
                 proposerDob: this.getStepper1.proposerDob,
                 proposerEmail: this.getStepper1.proposerEmail,
                 proposerMobile: this.getStepper1.proposerMobile,
-                aadharnumber: this.getStepper1.aadharnumber,
-                proposerPan: this.getStepper1.proposerPan,
+                // aadharnumber: this.getStepper1.aadharnumber,
+                // proposerPan: this.getStepper1.proposerPan,
                 proposerPhone: this.getStepper1.proposerPhone,
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
@@ -494,11 +488,108 @@ export class BajajAlianzComponent implements OnInit {
             }
         }
     }
+    boolenHide(change: any, id, key){
+        if(key == 'insurePEDisease' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insurePEDisease.patchValue('');
+        }
+        if(key == 'insureAsthma' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureAsthma.patchValue('');
+        }
+        if(key == 'insureDisordr' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureDisordr.patchValue('');
+        }
+        if(key == 'insureHeartDisease' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureHeartDisease.patchValue('');
+        }
+        if(key == 'insureHypertension' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureHypertension.patchValue('');
+        }
+        if(key == 'insureDiabetes' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureDiabetes.patchValue('');
+        }
+        if(key == 'insureObesity' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureObesity.patchValue('');
+        }
+        if(key == 'insureSmoking' && change.value == '0') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insureSmoking.patchValue('');
+        }
+    }
 
     //create poposal
     proposal(){
-
+        this.settings.loadingSpinner = true;
+        const data  = {
+            'platform': 'web',
+                'product_id': this.buyProductdetails.product_id,
+                'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
+                'enquiry_id': this.enquiryId,
+                'company_name': 'bajajalianz',
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                'transactionid': '',
+                'tycpdetails': {
+                'beforetitle': this.proposerData.proposerTitle,
+                    'contact1': this.proposerData.proposerMobile,
+                    'dateofbirth': this.proposerData.proposerDob,
+                    'sex': this.proposerData.proposerGender,
+                    'telephone': this.proposerData.proposerPhone,
+                    'email': this.proposerData.proposerEmail,
+                    'firstname': this.proposerData.proposerFirstname,
+                    'surname': this.proposerData.proposerLastname,
+                    'middlename': this.proposerData.proposerMidname
+            },
+            'tycpaddrlist': [{
+                'postcode': this.proposerData.proposerPincode,
+                'addressline1': this.proposerData.proposerAddress,
+                'addressline2': this.proposerData.proposerAddress2,
+                'areaname': this.proposerData.proposerArea,
+                'cityname': this.proposerData.proposerCity,
+                'countryname': this.proposerData.proposerNationality,
+                'state': this.proposerData.proposerState
+            }],
+                'previnsdtls': {
+                'previnsname': this.proposerData.proposerPIName,
+                    'previnsaddress': this.proposerData.proposerPIAddress,
+                    'previnspolicyno': this.proposerData.proposerPINumber,
+                    'prevpolicyexpirydate': this.proposerData.proposerPItDate,
+                    'noofclaims': this.proposerData.proposerPIClaims
+            },
+            'hcpdtmemlist': this.totalInsureDetails,
+                'hcpdtmemcovlist': [{
+                'memiptreatsi': this.buyProductdetails.suminsured_amount
+            }]
+        };
+        this.proposalservice.getbajajProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            });
     }
+    proposalSuccess(successData){
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+                this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'summaryDatasummaryData');
+            let getdata=[];
+            this.RediretUrlLink = this.summaryData.payment_url;
+            console.log(this.RediretUrlLink);
+            this.proposalId = this.summaryData.proposal_id;
+            sessionStorage.proposalID = this.proposalId;
+            this.lastStepper.next();
+        } else{
+            this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
+        }
+    }
+
+    proposalFailure(error){
+        this.settings.loadingSpinner = false;
+        console.log(error);
+    }
+
     add(event){
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;

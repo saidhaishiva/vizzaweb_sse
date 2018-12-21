@@ -73,20 +73,22 @@
                                                     <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="proposerPhone" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100" >
-                                                    <input matInput placeholder="PAN Number" class="text-uppercase" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
-                                                    <mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
-                                                    <mat-error *ngIf="proposer.controls.proposerPan.errors?.required">Pan Number is required</mat-error>
-                                                </mat-form-field>
-                                            </div>
-                                            <mat-form-field class="col-md-3">
-                                                <input matInput required placeholder="Aadhaar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off" required>
-                                                <mat-error *ngIf="proposer.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>
-                                                <mat-error *ngIf="proposer.controls.aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>
-                                                <mat-error *ngIf="proposer.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
-                                            </mat-form-field>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100" >-->
+                                                    <!--<input matInput placeholder="PAN Number" class="text-uppercase" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off" required>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.proposerPan.errors?.required">Pan Number is required</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput required placeholder="Aadhaar Number" maxlength="12" minlength="12" (keypress)="keyPress($event)" formControlName="aadharnumber" autocomplete="off" required>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.aadharnumber.hasError('minlength')">Aadhaar Number should be Minimum 12 digits</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.aadharnumber.hasError('maxlength')">Aadhaar Number should be MAximum 12 digits</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                             <div class="col-md-12 box-card pt-3">
@@ -140,9 +142,6 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <!--<mat-select  placeholder="Land Mark" formControlName="proposerArea" required>-->
-                                                                <!--<mat-option></mat-option>-->
-                                                            <!--</mat-select>-->
                                                             <input matInput placeholder="Land Mark" formControlName="proposerArea" autocomplete="off" required >
                                                             <mat-error *ngIf="proposer.controls.proposerArea.errors?.required">Land Mark is required</mat-error>
                                                         </mat-form-field>
@@ -172,9 +171,9 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput [matDatepicker]="picker2"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="proposerPItDate" (dateInput)="addEvent( $event, 'proposer', 'i')" (dateChange)="addEvent( $event, 'proposer', 'i')" (keypress)="add($event)" [max]="minDate" maxlength="10" autocomplete="off" required>
-                                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                                            <mat-datepicker #picker2></mat-datepicker>
+                                                            <input matInput [matDatepicker]="picker1" [max]="minDate" placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="proposerPItDate"  (keypress)="add($event)" autocomplete="off"   required>
+                                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                            <mat-datepicker #picker1></mat-datepicker>
                                                             <mat-error *ngIf="proposer.controls.proposerPItDate.errors?.required">Previous Policy Expiry Date is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
@@ -187,8 +186,8 @@
                                                 </div>
                                             </div>
                                     <div class="proposal-buttom mt-3 text-right w-100">
-                                        <button mat-button matStepperNext >Next</button>
-                                        <!--<button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)">Next</button>-->
+                                        <!--<button mat-button matStepperNext >Next</button>-->
+                                        <button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)">Next</button>
                                     </div>
                                 </div>
                             </mat-expansion-panel>
@@ -221,15 +220,15 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Full Name" formControlName="insureName"  (keypress)="onCharacter($event)" autocomplete="off" required >
+                                                        <input matInput placeholder="Insurer Name" formControlName="insureName"  (keypress)="onCharacter($event)" autocomplete="off" required >
                                                         <mat-error *ngIf="insureArray.invalid">Full Name is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="insureDob" (dateInput)="addEvent($event)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event, 'insurer', i)" [max]="minDate" autocomplete="off" required>
-                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker></mat-datepicker>
+                                                <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)"   formControlName="insureDob" (dateInput)="addEvent($event)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event, 'insurer', i)" [max]="minDate" autocomplete="off" required>
+                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker2></mat-datepicker>
                                                 <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                                                 </mat-form-field>
                                                 </div>
@@ -287,58 +286,58 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <p>previous Establishing Disease</p>
-                                                    <mat-radio-group formControlName="insurePEDisease">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insurePEDisease" (change)="boolenHide($event, 'i', 'insurePEDisease')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Asthma</p>
-                                                    <mat-radio-group formControlName="insureAsthma">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureAsthma" (change)="boolenHide($event, 'i', 'insureAsthma')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Cholesterol Disordr</p>
-                                                    <mat-radio-group formControlName="insureDisordr">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureDisordr" (change)="boolenHide($event, 'i', 'insureDisordr')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Heartburn Disease</p>
-                                                    <mat-radio-group formControlName="insureHeartDisease">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureHeartDisease" (change)="boolenHide($event, 'i', 'insureHeartDisease')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Hypertension</p>
-                                                    <mat-radio-group formControlName="insureHypertension">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureHypertension" (change)="boolenHide($event, 'i', 'insureHypertension')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Diabetes</p>
-                                                    <mat-radio-group formControlName="insureDiabetes">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureDiabetes" (change)="boolenHide($event, 'i', 'insureDiabetes')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Obesity</p>
-                                                    <mat-radio-group formControlName="insureObesity">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureObesity" (change)="boolenHide($event, 'i', 'insureObesity')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <p>Smoking</p>
-                                                    <mat-radio-group formControlName="insureSmoking">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                    <mat-radio-group formControlName="insureSmoking" (change)="boolenHide($event, 'i', 'insureSmoking')">
+                                                        <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="0" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                             </div>
@@ -360,9 +359,9 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="insurePItDate" (dateInput)="addEvent( $event, 'insurer', 'i')" (dateChange)="addEvent( $event, 'proposer', 'i')" (keypress)="add($event)" [max]="minDate" maxlength="10" autocomplete="off">
-                                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                        <input matInput [matDatepicker]="picker3" [max]="minDate" placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="insurePItDate"  (keypress)="add($event)"  autocomplete="off" autocomplete="off">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker3></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -395,8 +394,8 @@
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                                             <button mat-button matStepperPrevious>Back</button>
-                                            <!--<button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>-->
-                                            <button mat-button matStepperNext >Next</button>
+                                            <button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
+                                            <!--<button mat-button matStepperNext >Next</button>-->
                                         </div>
                                     </div>
                                 </mat-expansion-panel>
@@ -405,46 +404,145 @@
                     </mat-accordion>
                 </mat-step>
 
-                <!--<mat-step [stepControl]="">-->
-                    <!--<ng-template matStepLabel>NOMINEE DETAILS</ng-template>-->
-                    <!--<mat-accordion class="mt-4 w-100 float-left">-->
-                        <!--<mat-expansion-panel expanded>-->
-                            <!--<mat-expansion-panel-header>-->
-                                <!--<mat-panel-title>-->
-                                    <!--&lt;!&ndash;{{groupName}}&ndash;&gt;-->
-                                <!--</mat-panel-title>-->
-                            <!--</mat-expansion-panel-header>-->
-                            <!--<div class="row mt-3">-->
-                                <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
-                                    <!--<h6 class="color-green mb-3" >NOMINEE DETAILS </h6>-->
-                                    <!--<form [formGroup]="nomineeDetails">-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-4">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" autocomplete="off">-->
-                                                    <!--<mat-error *ngIf="nomineeDetails.controls.bajajNomineeName.errors?.required">Name of Nominee is required</mat-error>-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-md-4">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Relationship with Proposer" formControlName="bajajRelationship" autocomplete="off" >-->
-                                                    <!--<mat-error *ngIf="nomineeDetails.controls.bajajRelationship.errors?.required">Relationship with Proposer is required</mat-error>-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-md-4">-->
-                                                <!--<div class="proposal-buttom mb-3 text-right w-100">-->
-                                                    <!--<button mat-button matStepperPrevious  (click)="quesback()">Back</button>-->
-                                                    <!--<button mat-raised-button color="primary"   (click)="bajajNomineeDetails(stepper, nomineeDetails.value)">Next</button>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</form>-->
-                                <!--</div>-->
+                <mat-step [stepControl]="">
+                    <ng-template matStepLabel>SUMMARY</ng-template>
+                    <section class="summary-details" *ngIf="summaryData">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="summary-head">
+                                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_netpremium}}</span> /<small>Tax Includ</small></li>
+                                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_finalpremium}}</span> /<small>Tax Includ</small></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <section>
+                            <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+                            <div class="row box-card">
+                                <div class="col-md-12">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_title}} {{summaryData.proposer_firstname}} {{summaryData.proposer_middlename}} {{summaryData.proposer_lastname}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.proposer_dob}}</li>
+                                            <li class="list-group-item"><strong>Personal Email Id:</strong> {{summaryData.proposer_email}}</li>
+                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
+                                            <li class="list-group-item"><strong>Phone Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong> {{summaryData.proposer_gender}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h6>PROPOSER COMMUNICATION DETAILS</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_address1}}</li>
+                                            <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_address2}}</li>
+                                            <!--<li class="list-group-item"><strong>Nationality:</strong> {{summaryData.}}</li>-->
+                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_state}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.prop_city}}</li>
+                                            <li class="list-group-item"><strong>Area:</strong> {{summaryData.prop_area}}</li>
+                                            <!--<li class="list-group-item"><strong>Nearest Landmark:</strong> {{summaryData.}}</li>-->
+                                            <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.prop_postcode}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h6>PREVIOUS INSURANCE DETAILS</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Previous Insurer Name:</strong> {{summaryData.prop_previnsname}}</li>
+                                            <li class="list-group-item"><strong>Previous Insurer Address:</strong> {{summaryData.prop_previnsaddress}}</li>
+                                            <li class="list-group-item"><strong>Previous Policy Number:</strong> {{summaryData.prop_previnspolicyno}}</li>
+                                            <li class="list-group-item"><strong>Previous Policy Expiry Date:</strong> {{summaryData.prop_prevpolicyexpirydate}}</li>
+                                            <li class="list-group-item"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                            <!--</div>-->
-                        <!--</mat-expansion-panel>-->
-                    <!--</mat-accordion>-->
-                <!--</mat-step>-->
+                        <section *ngFor="let item of summaryData.insured_details">
+                            <h5 class="mt-3 sub-title">{{item.ins_relationship}} DETAILS </h5>
+                            <div class="row box-card">
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Insurer Name:</strong> {{item.ins_name}}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong> {{item.ins_gender}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.ins_dob}}</li>
+                                            <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
+                                            <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
+                                            <li class="list-group-item"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="item.ins_mempreexistdisease == '0'"><strong >previous Establishing Disease:  </strong> No </li>
+                                            <li class="list-group-item"  *ngIf="item.ins_mempreexistdisease == '1'"><strong >previous Establishing Disease:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="ins_memasthma == '0'"><strong >Asthma:  </strong> No </li>
+                                            <li class="list-group-item"  *ngIf="item.ins_memasthma == '1'"><strong >Asthma:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memcholstrldisordr == '0'"><strong>Cholesterol Disordr:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memcholstrldisordr == '1'"><strong>Cholesterol Disordr:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memheartdisease == '0'"><strong>Heartburn Disease:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memheartdisease == '1'"><strong>Heartburn Disease:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memhypertension == '0'"><strong>Hypertension:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memhypertension == '1'"><strong>Hypertension:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memdiabetes == '0'"><strong>Diabetes:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memdiabetes == '1'"><strong>Diabetes:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memobesity == '0'"><strong>Obesity:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memobesity == '1'"><strong>Obesity:  </strong> Yes </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memsmkertbco == '0'"><strong>Smoking:  </strong> No </li>
+                                            <li class="list-group-item" *ngIf="item.ins_memsmkertbco == '1'"><strong>Smoking:  </strong> Yes </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h6>PREVIOUS INSURANCE DETAILS</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Company Name is required:</strong> {{item.ins_memcompname}}</li>
+                                            <li class="list-group-item"><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
+                                            <li class="list-group-item"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h6>NAMINEE DETAILS</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.ins_memnomineename}}</li>
+                                            <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{item.ins_memnomineerelation}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <p class="mt-2 pl-3">
+                            <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
+                        </p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <form action={{RediretUrlLink}} method='post' #form>
+                                    <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="proposal-buttom mt-3 text-right w-100">
+                        <button mat-button matStepperPrevious>Back</button>
+                    </div>
+                </mat-step>
             </mat-horizontal-stepper>
         </div>
     </div>
