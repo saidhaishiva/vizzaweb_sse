@@ -574,7 +574,6 @@ public RediretUrlLink: any;
     addEvent(event, index, type, title) {
         let dd = event.value;
         this.selectDate = event.value;
-        console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         let age = this.ageCalculate(this.setDateAge);
@@ -585,14 +584,14 @@ public RediretUrlLink: any;
         if(title == 'proposer'){
             sessionStorage.setItem('proposerAge', this.personalAge);
         } else if(title == 'insurer') {
-            // alert('hai age');
+            //alert('hai age');
             sessionStorage.setItem('insurerAge', this.personalAge);
             this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
             this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
             this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
-            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daugther' )) {
+            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daughter')) {
                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
-            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daugther' ))  {
+            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daughter' ))  {
                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
             } else{
                 if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
@@ -601,8 +600,6 @@ public RediretUrlLink: any;
                     this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
                 }
             }
-
-
         }
         if (event.value != null) {
             let selectedDate = '';

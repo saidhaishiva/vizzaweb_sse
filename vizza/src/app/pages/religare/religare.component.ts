@@ -116,6 +116,7 @@ export class ReligareComponent implements OnInit {
     public arr : any;
     public insureRelationList : any;
     public insureSingle : any;
+    public selectMr : any;
     religareListQuestions: any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -140,6 +141,7 @@ array: any;
         this.isDisable = false;
         this.insureCity = false;
         this.insureSingle = true;
+        this.selectMr = true;
         this.proposerInsureData = [];
         //this.totalReligareData = [];
         this.questions_list = [];
@@ -183,6 +185,46 @@ array: any;
 
     }
     changeGender() {
+        if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
+            if (this.getFamilyDetails.family_members.length < 2) {
+                if(this. personal['controls'].personalTitle.value == 'MR'){
+                    this.insureSingle = false;
+                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
+                    this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
+                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+                } else if(this. personal['controls'].personalTitle.value == 'MS'){
+                    this.insureSingle = true;
+                }
+            }
+        }
+
         if (this.personal.controls['personalTitle'].value == 'MR'){
             this.personal.controls['personalGender'].patchValue('Male');
         } else {
@@ -234,9 +276,14 @@ array: any;
         }
 
         if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
-        if(this.getFamilyDetails.family_members.length < 2) {
-           this.insureSingle = false;
-        }
+                if (this.getFamilyDetails.family_members.length < 2) {
+                    if (this.personal['controls'].personalTitle.value == 'MR') {
+                        this.insureSingle = false;
+
+                    } else if(this.personal['controls'].personalTitle.value == 'MS'){
+                        this.insureSingle = true;
+                    }
+                }
         }
 
         this.previousinsurance = [
@@ -682,7 +729,7 @@ array: any;
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
+            const pattern = /[0-9/\\]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -896,6 +943,9 @@ array: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
             }
         }
+
+
+
 
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
