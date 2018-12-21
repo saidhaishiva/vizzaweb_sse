@@ -153,10 +153,9 @@ export class ReliagretravelproposalComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+        this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
-        this.insureReligarePerson = [{'type': 'self', 'age': '27'},
-            {'type': 'Spouse', 'age': '30'}];
+        this.insureReligarePerson =  this.getTravelPremiumList.family_details;
         console.log(this.insureReligarePerson, 'this.insureReligarePerson');
         this.insureReligareArray = this.fb.group({
             items: this.fb.array([])

@@ -324,26 +324,26 @@
 
                       <div class="col-md-3" *ngIf="pannumberP">
                         <mat-form-field class="w-100"  >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (keypress)="panType('insurer')" autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="keyEvent($event)" autocomplete="off">
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="drivinglicenseP" >
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="panType('insurer')">
+                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="keyEvent($event)" (input)="panType('insurer')">
                           <mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="passportP">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="insuredPaPassport"  minlength="8"  maxlength="8" (keypress)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="keyEvent($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="voterP" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" (keypress)="panType('insurer')" >
+                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" (keypress)="keyEvent($event)" (input)="panType('insurer')" >
                         </mat-form-field>
                       </div>
 

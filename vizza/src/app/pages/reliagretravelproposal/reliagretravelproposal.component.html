@@ -49,7 +49,7 @@
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="religarePersonal.controls.religarePersonalDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
-                        <div class="error" *ngIf="personaldateError !=''">{{personaldateError}}</div>
+                        <!--<div class="error" *ngIf="personaldateError !=''">{{personaldateError}}</div>-->
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="religarePersonalEmail"  autocomplete="off" required>

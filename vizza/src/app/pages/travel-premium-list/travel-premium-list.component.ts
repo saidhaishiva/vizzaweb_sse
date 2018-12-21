@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TravelService} from '../../shared/services/travel.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {AppSettings} from '../../app.settings';
-import {MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DatePipe} from '@angular/common';
 import {Settings} from '../../app.settings.model';
@@ -89,6 +89,7 @@ export class TravelPremiumListComponent implements OnInit {
     productLists: any;
     equiryId: any;
     daysBookingCount: any;
+    viewList: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -168,6 +169,7 @@ export class TravelPremiumListComponent implements OnInit {
         this.Student10BTn = true;
         this.count = 0;
         this.sumInsuredAmonut();
+        this.viewPlanList();
     }
     selectedSumAmount(){
 
@@ -184,6 +186,7 @@ export class TravelPremiumListComponent implements OnInit {
                     this.selfArray[i].age = this.getArray[i].age;
                 }
         }
+
     }
     familyDetails() {
         this.familyArray = [
@@ -233,6 +236,46 @@ export class TravelPremiumListComponent implements OnInit {
             }
         }
     }
+    // view plan
+    viewPlanList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': '0'
+        }
+        this.travel.viewPlan(data).subscribe(
+            (successData) => {
+                this.viewPlanSuccess(successData);
+            },
+            (error) => {
+                this.viewPlanFailure(error);
+            }
+        );
+
+    }
+
+    public viewPlanSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            // this.occupationFirst = true;
+            // this.occupationSecond = true;
+            this.viewList = successData.ResponseObject;
+            // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
+
+            console.log(this.viewList, 'occupationdescription');
+        } else {
+            // this.occupationFirst = true;
+            // this.occupationSecond = false;
+            //  this.personal.get('personalDescriptionCode').setValidators(null);
+            // this.toastr.error(successData.ErrorObject);
+        }
+
+    }
+    public viewPlanFailure(error) {
+        console.log(error);
+    }
+
 
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
@@ -701,11 +744,35 @@ export class TravelPremiumListComponent implements OnInit {
     public getTravelPremiumCalFailure(error) {
         this.settings.loadingSpinner = false;
     }
-    booking(value) {
+    booking(value, enqId, gname) {
         console.log(value, 'vlitss');
         sessionStorage.travelPremiumList = JSON.stringify(value);
-        this.router.navigate(['/travelproposal']);
+        if (this.auth.getPosStatus() == '0') {
+            let dialogRef = this.dialog.open(PosstatusAlertTravel, {
+                width: '700px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    sessionStorage.buyProductdetails = JSON.stringify(value);
+                    if (value.product_id == 16) {
+                        this.router.navigate(['/travelproposal']);
+                    } else if (value.product_id == 22) {
+                        this.router.navigate(['/religaretravel']);
+                    } else{
+                    }
+                }
+            });
+        }  else {
+            sessionStorage.buyProductdetails = JSON.stringify(value);
+            if (value.product_id == 16) {
+                this.router.navigate(['/travelproposal']);
+            } else if (value.product_id == 22) {
+                this.router.navigate(['/religaretravel']);
+            }
+        }
     }
+
 
     dyasCalculation() {
         let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
@@ -804,6 +871,30 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
+
+}
+ @Component({
+    selector: 'posstatusalert',
+    template: `
+        <div mat-dialog-content class="text-center">
+            <label>You're not verified. Do you want to continue?</label>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="true" >Ok</button>
+        </div>
+    `
+
+})
+export class PosstatusAlertTravel {
+
+    constructor(
+        public dialogRef: MatDialogRef<PosstatusAlertTravel>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
 

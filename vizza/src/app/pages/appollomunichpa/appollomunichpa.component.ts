@@ -1189,7 +1189,7 @@ preInsureList() {
             this.onChangeState();
             this.onChangecityListPa();
         } else if (successData.IsSuccess != true){
-            this.toastr.error('Fill Valid Pincode');
+            this.toastr.error('Invalid Pincode');
             this.ProposerPa.controls['proposerPaState'].patchValue('');
             this.ProposerPa.controls['proposerPaStateIdP'].patchValue('');
             this.ProposerPa.controls['proposerPaDistrict'].patchValue('');
@@ -1349,7 +1349,7 @@ preInsureList() {
                     }
                 },
                 "Age": "26",
-                "AnnualIncome": '200000',
+                "AnnualIncome": this.insured.controls['insuredAnnual'].value,
                 "BirthDate":  this.insured.controls['insuredPaDob'].value,
                 "ClientCode": "PolicyHolder",
                 "ContactInformation": {

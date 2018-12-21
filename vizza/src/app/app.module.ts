@@ -164,11 +164,11 @@ import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-succes
 import { PersonalaccidentformComponent } from './pages/personalaccidentform/personalaccidentform.component';
 import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
+import { PosstatusAlertTravel } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
-
 import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
 import{AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
@@ -274,6 +274,7 @@ import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc
      PersonalaccidentComponent,
       TravelComponent,
       TravelInsurer,
+      PosstatusAlertTravel,
       //PersonalAccidentProposalComponent,
       PosCertificateComponent,
       TrainingComponent,
@@ -389,7 +390,7 @@ import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,
     ]
 })
 export class AppModule { }

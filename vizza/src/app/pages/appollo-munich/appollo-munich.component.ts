@@ -158,7 +158,7 @@ export class AppolloMunichComponent implements OnInit {
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       let today  = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      this.minDate = this.selectDate;
+      // this.minDate = this.selectDate;
       this.stopNext = false;
       this.hideQuestion = false;
       this.declaration = false;
@@ -825,7 +825,7 @@ export class AppolloMunichComponent implements OnInit {
 
             }
         } else if (successData.IsSuccess != true) {
-            this.toastr.error('Fill Valid Pincode');
+            this.toastr.error('Invalid Pincode');
             if (this.title == 'proposer') {
                 this.proposer.controls['proposerState'].patchValue('');
                 this.proposer.controls['proposerStateIdP'].patchValue('');

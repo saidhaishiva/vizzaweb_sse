@@ -153,7 +153,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="OnNumber($event)" minlength="6" (input)="getPincode($event.target.value, 'proposer', 'i')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="keyPress($event)"  minlength="6" (input)="getPincode($event.target.value, 'proposer', 'i')"  maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -377,13 +377,13 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Height(cm)" formControlName="proposerHeight" required (keypress)="OnNumber($event)" maxlength="3" autocomplete="off">
+                            <input matInput placeholder="Height(cm)" formControlName="proposerHeight" required  (keypress)="keyPress($event)"  maxlength="3" autocomplete="off">
                             <mat-error *ngIf="insureArray.invalid">Height is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Weight" formControlName="proposerWeight" (keypress)="OnNumber($event)"  maxlength="3" required  autocomplete="off">
+                            <input matInput placeholder="Weight" formControlName="proposerWeight"  (keypress)="keyPress($event)"  maxlength="3" required  autocomplete="off">
                             <mat-error *ngIf="insureArray.invalid">Weight is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -411,7 +411,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="OnNumber($event)" (input)="getPincode($event.target.value, 'insure', i)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                                  <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="keyPress($event)"  (input)="getPincode($event.target.value, 'insure', i)" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
                                   <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
                               </mat-form-field>
                           </div>
@@ -572,7 +572,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Previous Insurer"  formControlName="PreviousInsurer" [required]="validateprvious" >
+                            <mat-select placeholder="Previous Insurer"    formControlName="PreviousInsurer" [required]="validateprvious" >
                               <mat-option *ngFor="let previousInsure of previousInsureList" value="{{previousInsure.insure_code}}" > {{previousInsure.insure_name}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Previous Insurer is required</mat-error>
@@ -580,24 +580,24 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Previous Policy No" formControlName="PreviousPolicyNumber"  [required]="validateprvious" (keypress)="OnNumber($event)" autocomplete="off">
+                            <input matInput placeholder="Previous Policy No" formControlName="PreviousPolicyNumber"  [required]="validateprvious"  (keypress)="keyPress($event)" autocomplete="off">
                               <mat-error *ngIf="insureArray.invalid">Previous policy n0 is required</mat-error>
                           </mat-form-field>
                         </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"  [required]="validateprvious"  (keypress)="OnNumber($event)" autocomplete="off">
+                                  <input matInput placeholder="Sum Insured" formControlName="SumInsured"  [required]="validateprvious"   (keypress)="keyPress($event)"  autocomplete="off">
                                   <mat-error *ngIf="insureArray.invalid">Sum insured is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Qualifying Amount" formControlName="QualifyingAmount"   (keypress)="OnNumber($event)" autocomplete="off">
+                                  <input matInput placeholder="Qualifying Amount" formControlName="QualifyingAmount"    (keypress)="keyPress($event)"  autocomplete="off">
                               </mat-form-field>
                           </div>
                           <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Waive Period" formControlName="WaivePeriod"   (keypress)="OnNumber($event)" autocomplete="off">
+                                  <input matInput placeholder="Waive Period" formControlName="WaivePeriod"   (keypress)="keyPress($event)"  autocomplete="off">
                               </mat-form-field>
                           </div>
                           <div class="col-md-6">
@@ -663,7 +663,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="OnNumber($event)" minlength="6"   maxlength="6" (input)="getPincode($event.target.value, 'nominee', 'i')"  formControlName="nomineePincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincode($event.target.value, 'nominee', 'i')"  formControlName="nomineePincode" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -752,7 +752,7 @@
                                       <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.p_towncode}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{summaryData.ProposalDetails.p_district}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.state}}</li>
-                                      <li class="list-group-item"><strong>Country:</strong> {{summaryData.ProposalDetails.p_country}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_country "><strong>Country:</strong>INDIA</li>
                                   </ul>
                               </div>
                           </div>
@@ -776,8 +776,8 @@
                                       <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                       <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                                       <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_idproofno != ''"><strong>Select ID Proof:</strong> {{item.i_idprooftype}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_idprooftype != ''"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
+                                      <li class="list-group-item" *ngIf="item.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{item.p_idproof_code}}</li>
+                                      <li class="list-group-item" *ngIf="item.p_idproff_no != ''"><strong>ID Proof Number:</strong> {{item.p_idproff_no}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -791,7 +791,7 @@
                             <li class="list-group-item"><strong>City:</strong> {{item.i_towncode}}</li>
                             <li class="list-group-item"  *ngIf="item.i_district != ''"><strong>District:</strong> {{item.i_district}}</li>
                             <li class="list-group-item"><strong>State:</strong> {{item.i_statecode}}</li>
-                            <li class="list-group-item"><strong>Country:</strong> {{item.i_country}}</li>
+                            <li class="list-group-item" *ngIf="item.i_country"><strong>Country:</strong> INDIA</li>
                               <li class="list-group-item"><strong>PIN code:</strong> {{item.i_pincode}}</li>
                             </ul>
                           </div>

@@ -30,6 +30,18 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // view travel
+    viewPlan(data) {
+        const json = JSON.stringify(data);
+        console.log(json);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'religaretravel/get_place_of_vist_details';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getTravelPremiumCal(data) {
         console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
