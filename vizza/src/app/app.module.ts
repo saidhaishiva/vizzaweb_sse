@@ -193,6 +193,7 @@ import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
 import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
+import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 
 @NgModule({
   imports: [
@@ -363,7 +364,8 @@ import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc
       ReliagretravelproposalComponent,
       LifeInsuranceComponent,
       LifeInsurer,
-      HdfcHealthInsuranceComponent
+      HdfcHealthInsuranceComponent,
+      BajajalianzPaymentSuccessComponent
   ],
   providers: [
       AppSettings,
