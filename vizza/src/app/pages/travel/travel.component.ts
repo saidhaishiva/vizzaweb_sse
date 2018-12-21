@@ -86,7 +86,7 @@ export class TravelComponent implements OnInit {
     showFamily: boolean;
     daysBookingCount: any
     public settings: Settings;
-
+    viewList: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.showSelf = true;
@@ -122,6 +122,7 @@ export class TravelComponent implements OnInit {
         this.count = 0;
         this.sumInsuredAmonut();
         this.sessionData();
+        this. viewPlanList();
     }
     selfDetails() {
         this.selfArray = [
@@ -240,10 +241,46 @@ export class TravelComponent implements OnInit {
         sessionStorage.stepper2DetailsForTravel = '';
         sessionStorage.proposerAgeForTravel = '';
         sessionStorage.mobileNumberForTravel = '';
-
+    }
+    viewPlanList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': '0'
+        }
+        this.travel.viewPlan(data).subscribe(
+            (successData) => {
+                this.viewPlanSuccess(successData);
+            },
+            (error) => {
+                this.viewPlanFailure(error);
+            }
+        );
 
     }
 
+    public viewPlanSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            // this.occupationFirst = true;
+            // this.occupationSecond = true;
+            this.viewList = successData.ResponseObject;
+            // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
+
+            console.log(this.viewList, 'occupationdescription');
+        } else {
+            // this.occupationFirst = true;
+            // this.occupationSecond = false;
+            //  this.personal.get('personalDescriptionCode').setValidators(null);
+            // this.toastr.error(successData.ErrorObject);
+        }
+
+    }
+
+    public viewPlanFailure(error) {
+        console.log(error);
+    }
     onSelectedIndexChange(event){
         console.log(event, 'value');
         this.currentTab = '';
@@ -670,7 +707,7 @@ export class TravelComponent implements OnInit {
                     'sum_amount': sum_amount,
                     'family_members': this.finalData,
                     'travel_plan': this.travelPlan,
-                    'hidden_type': (this.travelPlan == 3 || this.travelPlan == 4 || this.travelPlan == 5) ? 1 : (this.travelPlan == 1 ? 6 : 0),
+                    'hidden_type': (this.travelPlan == 3 || this.travelPlan == 4 || this.travelPlan == 5) ? 1 : (this.travelPlan == 1 ? 6 : '0'),
                     'travel_time_type': this.travelType,
                     'enquiry_id': '',
                     'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
@@ -702,6 +739,7 @@ export class TravelComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
+            console.log(sessionStorage.allTravelPremiumLists, 'sessionStorage.allTravelPremiumLists');
             this.router.navigate(['/travelpremium']);
         } else {
             this.toast.error(successData.ErrorObject);

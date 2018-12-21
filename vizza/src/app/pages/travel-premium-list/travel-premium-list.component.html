@@ -134,28 +134,26 @@
               <div class="row mt-2">
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()">
-                      <mat-option value="1">
-                        Include USA and/or Canada
-                      </mat-option>
-                      <mat-option value="2">
-                        Exclude USA and/or Canada
-                      </mat-option>
+                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="viewPlanList()">
+                      <mat-option *ngFor="let list of viewList" value="{{list.place_id}}">{{list.place_name}}</mat-option>
+
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">
-                      <mat-option value="1">
-                        Business
-                      </mat-option>
-                      <mat-option value="2">
-                        Holiday
-                      </mat-option>
-                      <mat-option value="3">
-                        Multiple trips in a year
-                      </mat-option>
+                    <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="viewPlanList()">
+                      <!--<mat-option value="1">-->
+                        <!--Business-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="2">-->
+                        <!--Holiday-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="3">-->
+                        <!--Multiple trips in a year-->
+                      <!--</mat-option>-->
+                      <mat-option *ngFor="let list of viewList" value="{{list.place_id}}">{{list.place_name}}</mat-option>
+
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -275,13 +273,15 @@
               <div class="row mt-2">
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()">
-                      <mat-option value="1">
-                        Include USA and/or Canada
-                      </mat-option>
-                      <mat-option value="2">
-                        Exclude USA and/or Canada
-                      </mat-option>
+                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="viewPlanList()">
+                      <mat-option *ngFor="let list of viewList" value="{{list.place_id}}">{{list.place_name}}</mat-option>
+
+                      <!--<mat-option value="1">-->
+                        <!--Include USA and/or Canada-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="2">-->
+                        <!--Exclude USA and/or Canada-->
+                      <!--</mat-option>-->
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -419,12 +419,14 @@
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan">
-                      <mat-option value="1">
-                        Include USA and/or Canada
-                      </mat-option>
-                      <mat-option value="2">
-                        Exclude USA and/or Canada
-                      </mat-option>
+                      <mat-option *ngFor="let list of viewList" value="{{list.place_id}}">{{list.place_name}}</mat-option>
+
+                      <!--<mat-option value="1">-->
+                        <!--Include USA and/or Canada-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="2">-->
+                        <!--Exclude USA and/or Canada-->
+                      <!--</mat-option>-->
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -562,12 +564,14 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan">
-                      <mat-option value="1">
-                        Include USA and/or Canada
-                      </mat-option>
-                      <mat-option value="2">
-                        Exclude USA and/or Canada
-                      </mat-option>
+                      <mat-option *ngFor="let list of viewList" value="{{list.place_id}}">{{list.place_name}}</mat-option>
+
+                      <!--<mat-option value="1">-->
+                        <!--Include USA and/or Canada-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="2">-->
+                        <!--Exclude USA and/or Canada-->
+                      <!--</mat-option>-->
                     </mat-select>
                   </mat-form-field>
                 </div>

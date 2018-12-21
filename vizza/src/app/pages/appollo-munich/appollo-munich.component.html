@@ -752,7 +752,7 @@
                                       <li class="list-group-item"><strong>City:</strong> {{summaryData.ProposalDetails.p_towncode}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{summaryData.ProposalDetails.p_district}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{summaryData.ProposalDetails.state}}</li>
-                                      <li class="list-group-item"><strong>Country:</strong> {{summaryData.ProposalDetails.p_country}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_country "><strong>Country:</strong>INDIA</li>
                                   </ul>
                               </div>
                           </div>
@@ -791,7 +791,7 @@
                             <li class="list-group-item"><strong>City:</strong> {{item.i_towncode}}</li>
                             <li class="list-group-item"  *ngIf="item.i_district != ''"><strong>District:</strong> {{item.i_district}}</li>
                             <li class="list-group-item"><strong>State:</strong> {{item.i_statecode}}</li>
-                            <li class="list-group-item"><strong>Country:</strong> {{item.i_country}}</li>
+                            <li class="list-group-item" *ngIf="item.i_country"><strong>Country:</strong> INDIA</li>
                               <li class="list-group-item"><strong>PIN code:</strong> {{item.i_pincode}}</li>
                             </ul>
                           </div>

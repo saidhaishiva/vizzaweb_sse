@@ -116,6 +116,7 @@ export class ReligareComponent implements OnInit {
     public arr : any;
     public insureRelationList : any;
     public insureSingle : any;
+    religareListQuestions: any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -479,9 +480,9 @@ array: any;
 
 
     medicalHistoryDetails(stepper: MatStepper) {
-
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
+        console.log( sessionStorage.stepper3Details, ' sessionStorage.stepper3Details');
         this.questions_list = [];
         this.getFilterData = [];
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
@@ -963,6 +964,15 @@ array: any;
                         }
                 }
             }
+        if (sessionStorage.proposal3Detail != '' && sessionStorage.proposal3Detail != undefined) {
+            console.log(JSON.parse(sessionStorage.proposal3Detail), 'sessionStorage.proposal3Detail');
+            // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
+            this.religareListQuestions = JSON.parse(sessionStorage.proposal3Detail);
+            console.log(this.religareListQuestions, 'sessionStorage.this.personalAccidentQuestionsList');
+
+        } else {
+            this.religareQuestions();
+        }
     }
 
 

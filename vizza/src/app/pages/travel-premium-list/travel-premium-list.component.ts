@@ -89,6 +89,7 @@ export class TravelPremiumListComponent implements OnInit {
     productLists: any;
     equiryId: any;
     daysBookingCount: any;
+    viewList: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -168,6 +169,7 @@ export class TravelPremiumListComponent implements OnInit {
         this.Student10BTn = true;
         this.count = 0;
         this.sumInsuredAmonut();
+        this.viewPlanList();
     }
     selectedSumAmount(){
 
@@ -184,6 +186,7 @@ export class TravelPremiumListComponent implements OnInit {
                     this.selfArray[i].age = this.getArray[i].age;
                 }
         }
+
     }
     familyDetails() {
         this.familyArray = [
@@ -233,6 +236,46 @@ export class TravelPremiumListComponent implements OnInit {
             }
         }
     }
+    // view plan
+    viewPlanList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': '0'
+        }
+        this.travel.viewPlan(data).subscribe(
+            (successData) => {
+                this.viewPlanSuccess(successData);
+            },
+            (error) => {
+                this.viewPlanFailure(error);
+            }
+        );
+
+    }
+
+    public viewPlanSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            // this.occupationFirst = true;
+            // this.occupationSecond = true;
+            this.viewList = successData.ResponseObject;
+            // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
+
+            console.log(this.viewList, 'occupationdescription');
+        } else {
+            // this.occupationFirst = true;
+            // this.occupationSecond = false;
+            //  this.personal.get('personalDescriptionCode').setValidators(null);
+            // this.toastr.error(successData.ErrorObject);
+        }
+
+    }
+    public viewPlanFailure(error) {
+        console.log(error);
+    }
+
 
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
