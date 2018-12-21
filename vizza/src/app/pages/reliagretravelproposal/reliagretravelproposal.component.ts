@@ -89,19 +89,21 @@ export class ReliagretravelproposalComponent implements OnInit {
         this.arr = [];
 
         this.religarePersonal = this.fb.group({
-            religarePersonalTitle: ['', Validators.required],
-            religarePersonalFirstname: new FormControl(''),
-            religarePersonalLastname: new FormControl(''),
-            religarePersonalGender: ['', Validators.compose([Validators.required])],
-            religarePersonalDob: ['', Validators.compose([Validators.required])],
-            religarePersonalGst: ['', Validators.compose([Validators.minLength(15)])],
-            religarePersonalAddress: ['', Validators.required],
-            religarePersonalAddress2: '',
-            religarePersonalPincode: ['', Validators.required],
-            religarePersonalCity: ['', Validators.required],
-            religarePersonalState: ['', Validators.required],
-            religarePersonalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            religarePersonalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            title: ['', Validators.required],
+            firstname: new FormControl(''),
+            lastname: new FormControl(''),
+            gender: ['', Validators.compose([Validators.required])],
+            dob: ['', Validators.compose([Validators.required])],
+            gst: ['', Validators.compose([Validators.minLength(15)])],
+            address1: ['', Validators.required],
+            address2: '',
+            pincode: ['', Validators.required],
+            city: ['', Validators.required],
+            state: ['', Validators.required],
+            email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            type: 'PROPOSER',
+
 
         });
         this.nomineeDetails = this.fb.group({
@@ -193,22 +195,22 @@ export class ReliagretravelproposalComponent implements OnInit {
     initItemRows() {
         return this.fb.group(
             {
-                insurerReligareTitle: ['', Validators.required],
-                insurerReligareFirstName: new FormControl(''),
-                insurerReligareLastName: new FormControl(''),
-                insurerReligareDob: ['', Validators.required],
-                insurerReligareGender: ['', Validators.compose([Validators.required])],
-                insurerRelationship: ['', Validators.required],
+                title: ['', Validators.required],
+                firstname: new FormControl(''),
+                lastname: new FormControl(''),
+                dob: ['', Validators.required],
+                gender: ['', Validators.compose([Validators.required])],
+                relationship: ['', Validators.required],
                 insurerDobError: '',
                 insurerDobValidError: '',
-                insurerReligareGst: ['', Validators.compose([Validators.minLength(15)])],
-                insurerReligareAddress: ['', Validators.required],
-                insurerReligareAddress2: '',
-                insurerReligarePincode: ['', Validators.required],
-                insurerReligareCity: ['', Validators.required],
-                insurerReligareState: ['', Validators.required],
-                insurerReligareEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-                insurerReligareMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+                gst: ['', Validators.compose([Validators.minLength(15)])],
+                address1: ['', Validators.required],
+                address2: '',
+                pincode: ['', Validators.required],
+                city: ['', Validators.required],
+                state: ['', Validators.required],
+                email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+                mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 type: '',
                 ins_age: ''
             }
@@ -582,7 +584,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         sessionStorage.ReligareTravelDetails2 = '';
         sessionStorage.ReligareTravelDetails2 = JSON.stringify(value);
         this.insurerData = value;
-        console.log(value, 'ffffflll');
+        console.log(this.insurerData, 'this.insurerData');
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personalReligareTravelData);
@@ -594,40 +596,45 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.proposerInsureData.push(this.insurerData.items[i]);
             }
 
+            console.log(this.proposerInsureData, 'this.proposerInsureData9');
+
+
+
             for (let i = 0; i < this.proposerInsureData.length; i++) {
                 this.totalReligareData.push({
-                    'title': this.proposerInsureData[i].insurerReligareTitle,
-                    'proposer_fname': this.proposerInsureData[i].insurerReligareFirstName,
-                    'proposer_lname': this.proposerInsureData[i].insurerReligareLastName,
+                    'title': this.proposerInsureData[i].religarePersonalTitle,
+                    'proposer_fname': this.proposerInsureData[i].religarePersonalFirstName,
+                    'proposer_lname': this.proposerInsureData[i].religarePersonalLastname,
                     'prop_email_list': [{
-                        'email': this.proposerInsureData[i].insurerReligareEmail,
+                        'email': this.proposerInsureData[i].religarePersonalEmail,
                         'email_type': 'PERSONAL'
                     }],
                     'prop_contact_list': [{
-                        'contact_no': this.proposerInsureData[i].insurerReligareMobile,
+                        'contact_no': this.proposerInsureData[i].religarePersonalMobile,
                         'contact_type': 'MOBILE',
                         'std_code': '91'
                     }],
                     'prop_identity_list': [
                         {
-                            'identity_number': this.proposerInsureData[i].insurerReligareGst,
-                            'identity_type': this.proposerInsureData[i].insurerReligareGst != '' ? 'GST' : ''
+                            'identity_number': this.proposerInsureData[i].religarePersonalGst,
+                            'identity_type': this.proposerInsureData[i].religarePersonalGst != '' ? 'GST' : ''
                         }
                     ],
-                    'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
-                    'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
-                    'proposer_res_area': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_city': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_state': this.proposerInsureData[i].residenceState,
-                    'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
-                    'proposer_comm_address1': this.proposerInsureData[i].insurerReligareAddress,
-                    'proposer_comm_address2': this.proposerInsureData[i].insurerReligareAddress2,
-                    'proposer_comm_area': this.proposerInsureData[i].insurerReligareCity,
-                    'proposer_comm_city': this.proposerInsureData[i].insurerReligareCity,
-                    'proposer_comm_state': this.proposerInsureData[i].insurerReligareState,
-                    'proposer_comm_pincode': this.proposerInsureData[i].insurerReligarePincode,
-                    'prop_dob': this.proposerInsureData[i].insurerReligareDob,
-                    'prop_gender': this.proposerInsureData[i].insurerReligareGender,
+                    'proposer_res_address1': this.proposerInsureData[i].religarePersonalAddress,
+                    'proposer_res_address2': this.proposerInsureData[i].religarePersonalAddress2,
+                    'proposer_res_area': this.proposerInsureData[i].religarePersonalCity,
+                    'proposer_res_city': this.proposerInsureData[i].religarePersonalCity,
+                    'proposer_res_state': this.proposerInsureData[i].religarePersonalState,
+                    'proposer_res_pincode': this.proposerInsureData[i].religarePersonalPincode,
+                    'proposer_comm_address1': this.proposerInsureData[i].religarePersonalAddress,
+                    'proposer_comm_address2': this.proposerInsureData[i].religarePersonalAddress2,
+                    'proposer_comm_area': this.proposerInsureData[i].religarePersonalCity,
+                    'proposer_comm_city': this.proposerInsureData[i].religarePersonalCity,
+                    'proposer_comm_state': this.proposerInsureData[i].religarePersonalState,
+                    'proposer_comm_pincode': this.proposerInsureData[i].religarePersonalPincode,
+                    'prop_dob': this.proposerInsureData[i].religarePersonalDob,
+                    'prop_gender': this.proposerInsureData[i].religarePersonalGender,
+                    'role_cd': 'PROPOSER'
                 });
             }
             if (sessionStorage.InsurerAgeReligareTravel >= 5) {
