@@ -387,7 +387,7 @@ export class ProposalComponent implements OnInit {
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
-            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details)
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
@@ -876,7 +876,7 @@ console.log(value,'fgh');
 
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -886,7 +886,7 @@ console.log(value,'fgh');
     public dobkeyPress(event: any) {
 
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern = /[0-9/ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

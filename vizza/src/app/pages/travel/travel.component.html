@@ -201,7 +201,7 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip Start Date </mat-label>
-                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
+                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today" maxlength="10" minlength="10" [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
@@ -210,7 +210,7 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip End Date</mat-label>
-                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
+                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate"  maxlength="10" minlength="10"  [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2 color="primary"></mat-datepicker>
                         </mat-form-field>
@@ -487,7 +487,7 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip Start Date</mat-label>
-                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
+                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  maxlength="10" minlength="10"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
@@ -496,7 +496,7 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip End Date</mat-label>
-                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
+                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate"  maxlength="10" minlength="10"  (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2 color="primary"></mat-datepicker>
                         </mat-form-field>
