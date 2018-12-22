@@ -177,14 +177,14 @@ export class BajajAlianzComponent implements OnInit {
                 insureGMIncome: ['', Validators.required],
                 bajajNomineeName: ['', Validators.required],
                 bajajRelationship: ['', Validators.required],
-                insurePEDisease: '0',
-                insureAsthma: '0',
-                insureDisordr: '0',
-                insureHeartDisease: '0',
-                insureHypertension: '0',
-                insureDiabetes: '0',
-                insureObesity: '0',
-                insureSmoking: '0',
+                insurePEDisease: 'No',
+                insureAsthma: 'No',
+                insureDisordr: 'No',
+                insureHeartDisease: 'No',
+                insureHypertension: 'No',
+                insureDiabetes: 'No',
+                insureObesity: 'No',
+                insureSmoking: 'No',
                 insureCName:'',
                 insurePItDate:'',
                 insurePINumber:'',
@@ -489,28 +489,28 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     boolenHide(change: any, id, key){
-        if(key == 'insurePEDisease' && change.value == '0') {
+        if(key == 'insurePEDisease' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insurePEDisease.patchValue('');
         }
-        if(key == 'insureAsthma' && change.value == '0') {
+        if(key == 'insureAsthma' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureAsthma.patchValue('');
         }
-        if(key == 'insureDisordr' && change.value == '0') {
+        if(key == 'insureDisordr' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureDisordr.patchValue('');
         }
-        if(key == 'insureHeartDisease' && change.value == '0') {
+        if(key == 'insureHeartDisease' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureHeartDisease.patchValue('');
         }
-        if(key == 'insureHypertension' && change.value == '0') {
+        if(key == 'insureHypertension' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureHypertension.patchValue('');
         }
-        if(key == 'insureDiabetes' && change.value == '0') {
+        if(key == 'insureDiabetes' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureDiabetes.patchValue('');
         }
-        if(key == 'insureObesity' && change.value == '0') {
+        if(key == 'insureObesity' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureObesity.patchValue('');
         }
-        if(key == 'insureSmoking' && change.value == '0') {
+        if(key == 'insureSmoking' && change.value == 'No') {
             this.insureArray['controls'].items['controls'][id]['controls'].insureSmoking.patchValue('');
         }
     }
