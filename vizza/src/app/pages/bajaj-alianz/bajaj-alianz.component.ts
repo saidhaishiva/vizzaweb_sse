@@ -581,7 +581,7 @@ export class BajajAlianzComponent implements OnInit {
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
         } else{
-            this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
+            this.toastr.error(successData.ResponseObject.ErrorObject);
         }
     }
 
