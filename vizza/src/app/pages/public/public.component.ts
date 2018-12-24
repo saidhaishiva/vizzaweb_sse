@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
@@ -19,7 +21,7 @@ export class PublicComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog) {
       this.pubapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -130,6 +132,43 @@ export class PublicComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+
+    PublicInsurer(){
+        const dialogRef = this.dialog.open(PublicInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'publicinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #EF9A9A"> About Public Liability Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>Public Liability Insurance Policy covers the insured as per stipulation in The Public Liability Insurance Act 1991.The  Act states the responsibility ofthe owner who has control over the hazardous substance at the time of accident whetherhe is involved in manufacturing, processing, treatment, packaging, transporting by vehicleother than railways, storage, sale, collection, use, conversion, destruction of hazardoussubstance, is compulsorily required to take insurance policy to pay compensation to thepersons handling or affected by the accidents caused due to handling of hazardoussubstances.</p>
+                <p>The claim for the relief is enquired and awarded by theDistrict Collector. The sum insured should not be less than the amount of paid capital of the institution handling hazardous substances.</p>
+                <p>The premium is charged on the sum insured and the insured should alsopay an equal amount to the insurer to be credited to the Environment Relief Fund in addition to the premium. This amount is remitted by the insurer to the concerned authority.</p>
+         </div>
+        </div>`,
+})
+export class PublicInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<PublicInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }
