@@ -73,7 +73,6 @@ export class ViewProductDetailsComponent implements OnInit {
         if (type == 1){
             this.bgColor = 'true';
         } else {
-            console.log('inn');
             this.bgColor = 'false';
 
         }
@@ -83,13 +82,11 @@ export class ViewProductDetailsComponent implements OnInit {
         if (type == 1){
             this.bgColor = 'true';
         } else {
-            console.log('inn');
             this.bgColor = 'false';
 
         }
     }
     onSelectedIndexChange(index) {
-        console.log(index, 'ind');
         if (index == 0) {
             const getIndex = this.getKeyList.findIndex( list => list.type == 1);
             this.id = getIndex;
@@ -142,7 +139,6 @@ export class ViewProductDetailsComponent implements OnInit {
             //     }
             // }
         }
-        // console.log(this.id, 'this.id');
     }
     public viewKeyFailure(error) {
         this.settings.loadingSpinner = false;
@@ -153,7 +149,6 @@ export class ViewProductDetailsComponent implements OnInit {
 
     readUrl(event: any) {
         this.size = event.srcElement.files[0].size;
-        console.log(this.size);
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -176,7 +171,6 @@ export class ViewProductDetailsComponent implements OnInit {
             'uploadtype': 'single',
             'images': this.getUrl,
         };
-        console.log(data1, 'dfdfdsfdsfdsfds');
         this.common.fileUpload(data1).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -196,7 +190,6 @@ export class ViewProductDetailsComponent implements OnInit {
         }
     }
     public fileUploadFailure(error) {
-        console.log(error);
     }
     public contactDetails(): void {
         if (this.form.valid) {
@@ -210,7 +203,6 @@ export class ViewProductDetailsComponent implements OnInit {
                 'platform': 'web',
                 'uploaded_doc': this.fileUploadPath
             };
-            console.log(data1);
             this.common.contactDetails(data1).subscribe(
                 (successData) => {
                     this.getDetailsSuccess(successData);
@@ -224,7 +216,6 @@ export class ViewProductDetailsComponent implements OnInit {
     public getDetailsSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            console.log(successData.ResponseObject, 'successData.ResponseObject');
             this.data1 = successData.ResponseObject;
         } else {
             this.toastr.success('Contact details added successfully');
@@ -234,7 +225,6 @@ export class ViewProductDetailsComponent implements OnInit {
     // handle error data
 
     public getDetailsFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
 }

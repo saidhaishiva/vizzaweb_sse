@@ -77,7 +77,6 @@ export class DmLoginComponent implements OnInit {
             this.authService.setSessionData('loginStatus', 'dm');
             this.settings.myprofile = 'dm';
             // training_status
-            console.log(this.settings.myprofile, 'f');
 
             this.settings.userId = this.authService.getDmUserId();
             this.settings.username = this.authService.getDmFirstName() +' '+ this.authService.getDmLastName();
@@ -88,7 +87,6 @@ export class DmLoginComponent implements OnInit {
     }
 
     public loginFailure(error) {
-        console.log(error);
     }
     public changeTheme(theme) {
         this.settings.theme = theme;

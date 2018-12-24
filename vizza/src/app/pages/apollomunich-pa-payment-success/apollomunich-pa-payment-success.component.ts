@@ -25,11 +25,8 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
         this.settings = this.appSettings.settings;
 
         this.route.params.forEach((params) => {
-            // console.log(params.id);
             this.paymentStatus = params.status;
-            console.log(this.paymentStatus, 'this.paymentStatus');
             this.proposalId = params.proId;
-            console.log(this.proposalId, 'this.proposalId');
         });
     }
     ngOnInit() {
@@ -65,20 +62,16 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
         );
     }
     public downloadPdfSuccess(successData) {
-        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;
         this.settings.loadingSpinner = false;
 
         if (successData.IsSuccess == true) {
-            console.log(this.type, 'ww22');
 
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
-                console.log(successData.ResponseObject, 'www333');
                 window.open(this.currenturl + '/' +  this.path,'_blank');
             } else if (this.type === 'pdf') {
-                console.log(successData.ResponseObject, 'www3444');
                 window.open(this.currenturl + '/' +  this.path,'_blank');
             } else {
                 this.downloadMessage();
@@ -89,7 +82,6 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
 
     }
     public downloadPdfFailure(error) {
-        console.log(error);
     }
     downloadMessage() {
         const dialogRef = this.dialog.open(DownloadAppolloPersonalAccident, {
@@ -99,7 +91,6 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
         });
     }
 

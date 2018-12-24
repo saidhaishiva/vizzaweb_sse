@@ -573,10 +573,8 @@ export class BajajAlianzComponent implements OnInit {
             this.settings.loadingSpinner = false;
                 this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, 'summaryDatasummaryData');
             let getdata=[];
             this.RediretUrlLink = this.summaryData.payment_url;
-            console.log(this.RediretUrlLink);
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
@@ -587,7 +585,6 @@ export class BajajAlianzComponent implements OnInit {
 
     proposalFailure(error){
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
     add(event){

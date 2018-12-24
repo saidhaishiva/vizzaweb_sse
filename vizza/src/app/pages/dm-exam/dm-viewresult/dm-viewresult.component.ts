@@ -36,12 +36,10 @@ export class DmViewresultComponent implements OnInit {
         this.correctAns = sessionStorage.dmCorrectAns;
         this.examPercentage = sessionStorage.dmExamPercentage;
         this.examStatus = sessionStorage.dmExamStatus;
-        console.log(this.examStatus, 'examStatus');
         let perQuestionMark = 2;
     }
 
     public onSelect(event) {
-        console.log(event);
     }
 
     ngOnInit() {

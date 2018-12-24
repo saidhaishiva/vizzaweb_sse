@@ -367,7 +367,6 @@ export class DmProfileComponent implements OnInit {
     }
 
     getDmProfileFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
 
     }
@@ -409,7 +408,6 @@ export class DmProfileComponent implements OnInit {
         }
     }
     getTrainingDetailFailure(error) {
-        console.log(error);
     }
     public getDmExamDetails() {
         const data = {
@@ -436,7 +434,6 @@ export class DmProfileComponent implements OnInit {
         }
     }
     getExamDetailFailure(error) {
-        console.log(error);
     }
     // print the Appointment letter
     printAppointment () {
@@ -1150,7 +1147,6 @@ export class DmProfileComponent implements OnInit {
         }
     }
     updateDmProfileFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
     updateDocuments(data) {

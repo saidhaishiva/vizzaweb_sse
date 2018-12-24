@@ -54,7 +54,6 @@ export class ForgotPasswordComponent implements OnInit {
                 (successData) => {
                     this.forgotSuccess(successData);
 
-                    console.log(successData,'successData');
                 },
                 (error) => {
                     this.forgotFailure(error);
@@ -63,8 +62,6 @@ export class ForgotPasswordComponent implements OnInit {
         }
     }
     public forgotSuccess(successData) {
-
-        console.log(successData);
         this.settings.loadingSpinner = false;
         this.response = successData;
         if(successData.IsSuccess) {
@@ -78,7 +75,6 @@ export class ForgotPasswordComponent implements OnInit {
 
     public forgotFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error.status);
         if (error.status === 401) {
             this.status = error.status;
             this.authService.clearToken();

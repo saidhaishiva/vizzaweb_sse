@@ -260,7 +260,6 @@ export class HealthInsuranceComponent implements OnInit {
         }
     }
     public getSumInsuredAmountFailure(error) {
-        console.log(error, 'error');
     }
     // checkNetwork() {
     //     if (this.sumInsuredAmountLists == 0) {
@@ -275,10 +274,8 @@ export class HealthInsuranceComponent implements OnInit {
             if (name == 'Son' || name == 'Daughter') {
                 this.count++;
             }
-        console.log(this.count, 'this.count');
 
             if (this.count >= 2) {
-                console.log(this.setArray, 'arr');
                 this.sonBTn = true;
                 this.daughterBTn = true;
                 sessionStorage.sonBTn = true;
@@ -587,7 +584,6 @@ export class HealthInsuranceComponent implements OnInit {
             dialogRef.disableClose = true;
 
             dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
             });
             this.firstPage = false;
             this.secondPage = true;
@@ -1104,12 +1100,10 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     public updatePolicyQuotationFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
     // view key features details
     viewKeyList(value) {
-        console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(ViewdetailsComponent, {
             width: '1500px', data: {productId : value.product_id, productName: value.product_name}
         });
@@ -1166,7 +1160,6 @@ export class HealthInsuranceComponent implements OnInit {
 
 
     buyProduct(value, enqId, gname) {
-        console.log(this.auth.getPosStatus(), 'lll');
         if (this.auth.getPosStatus() == '0') {
             let dialogRef = this.dialog.open(PosstatusAlert, {
                 width: '700px',

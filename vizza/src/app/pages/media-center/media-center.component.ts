@@ -30,7 +30,6 @@ export class MediaCenterComponent implements OnInit {
         const data = {
             "platform": "web",
         };
-        console.log(data, 'dattatta');
         this.common.mediaCenter(data).subscribe(
             (successData) => {
                 this.updateSuccess(successData);
@@ -41,16 +40,13 @@ export class MediaCenterComponent implements OnInit {
         );
     }
     updateSuccess(successData) {
-        console.log(successData);
         if (successData.IsSuccess) {
            this.response= successData.ResponseObject;
         } else {
         }
-        console.log(this.response , 'this.response ');
     }
 
     updateFailure(error) {
-        console.log(error);
     }
     redirect(val){
         sessionStorage.newsLetterContent = JSON.stringify(val);

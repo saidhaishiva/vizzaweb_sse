@@ -154,9 +154,7 @@ export class EditposComponent implements OnInit {
     }
 
     public getPosProfile() {
-        console.log(this.settings.loadingSpinner);
         this.settings.loadingSpinner = true;
-        console.log(this.settings, 'settings');
         const data = {
             'platform': 'web',
             'roleid': this.authService.getPosRoleId(),
@@ -174,12 +172,10 @@ export class EditposComponent implements OnInit {
         );
     }
     getPosProfileSuccess(successData) {
-        console.log(successData);
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
             this. profileedit = successData.ResponseObject;
             this.posDataAvailable = true;
-            console.log(this.profile);
            // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
             let date;
             date = this. profileedit.pos_dob.split('/');
@@ -187,7 +183,6 @@ export class EditposComponent implements OnInit {
             date = this.datepipe.transform(date, 'y-MM-dd');
           //  let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
 
-          console.log(date, 'dateee');
 
 
           this.personal = this.fb.group({
@@ -234,7 +229,6 @@ export class EditposComponent implements OnInit {
         }
     }
     getPosProfileFailure(error) {
-        console.log(error);
     }
 
     // public getPostal(value) {
@@ -257,7 +251,6 @@ export class EditposComponent implements OnInit {
     public getpostalSuccess(successData) {
         if (successData.IsSuccess) {
             this.response = successData.ResponseObject;
-            console.log(this.response);
             this.contacts.controls['city'].setValue(this.response.city);
             this.contacts.controls['state'].setValue(this.response.state);
             this.contacts.controls['country'].setValue(this.response.country);
@@ -318,7 +311,6 @@ export class EditposComponent implements OnInit {
     readUrl(event: any, type) {
         this.type = type;
         this.size = event.srcElement.files[0].size;
-        console.log(this.size);
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -342,7 +334,6 @@ export class EditposComponent implements OnInit {
             'uploadtype': 'single',
             'images': this.getUrl,
         };
-        console.log(data, 'dattattatata');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -370,7 +361,6 @@ export class EditposComponent implements OnInit {
             if (this.type == 'profile'){
                 this.profile = this.fileUploadPath;
             }
-            console.log(this.profile, 'hiiiiiiiiiiiiiiiiiiiiii');
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -378,13 +368,11 @@ export class EditposComponent implements OnInit {
 
     }
     public fileUploadFailure(error) {
-        console.log(error);
     }
 
     // handle error data
 
     public labFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
 
@@ -459,7 +447,6 @@ export class EditposComponent implements OnInit {
         );
     }
     updatePosProfileSuccess(successData) {
-        console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
@@ -501,11 +488,9 @@ export class EditposComponent implements OnInit {
         }
     }
     updatePosProfileFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
     updateDocuments(data) {
-        console.log(data);
         this.common.updateDocDetails(data).subscribe(
             (successData) => {
                 this.updateDocumentsSuccess(successData);
@@ -518,7 +503,6 @@ export class EditposComponent implements OnInit {
     public updateDocumentsSuccess(successData) {
         if (successData.IsSuccess) {
             this.router.navigate(['/pos-profile']);
-            console.log(successData, 'in');
         }
     }
     public updateDocumentsProfileFailure(error) {
@@ -529,7 +513,6 @@ export class EditposComponent implements OnInit {
 
     addEvent(event) {
         if (event.value != null) {
-            console.log(event.value._i,  'kjfhasdjfh');
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -542,7 +525,6 @@ export class EditposComponent implements OnInit {
                 selectedDate = event.value._i;
                 this.dob = event.value._i;
             } else if (typeof event.value._i == 'object') {
-                console.log(event.value._i.date, 'objectttttt');
                 this.dobError = '';
                 let date = event.value._i.date;
                 if (date.toString().length == 1) {

@@ -245,7 +245,6 @@ export class DmRegisterComponent implements OnInit {
     }
 
     public fileUploadFailure(error) {
-        console.log(error);
     }
     getReferral(event) {
         this.getUrl = event[1];
@@ -274,7 +273,6 @@ export class DmRegisterComponent implements OnInit {
     }
 
     public referralFailure(error) {
-        console.log(error);
     }
 
 
@@ -343,7 +341,6 @@ export class DmRegisterComponent implements OnInit {
 
     signUpFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
     checkGender() {
@@ -388,7 +385,6 @@ export class DmRegisterComponent implements OnInit {
 
 
     public eventHandler(event) {
-        console.log(event, event.keyCode, event.keyIdentifier);
     }
 
     ageCalculate(dob) {

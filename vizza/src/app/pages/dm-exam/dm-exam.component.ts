@@ -111,7 +111,6 @@ export class DmExamComponent implements OnInit {
         }
     }
     public getQuestionListsError(error) {
-        console.log(error);
     }
     selectOption(value, pi) {
     }
@@ -168,7 +167,6 @@ export class DmExamComponent implements OnInit {
 
     }
     public submitExamError(error) {
-        console.log(error, 'error');
         this.settings.loadingSpinner = false;
     }
 

@@ -101,7 +101,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
         }
     }
     public purchaseStatusFailure(error) {
-        console.log(error);
     }
 
     DownloadPdf() {
@@ -124,7 +123,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
-        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         // if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
         //     this.downloadMessage();
         // }
@@ -139,7 +137,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
         }
     }
     public downloadPdfFailure(error) {
-        console.log(error);
     }
 
     downloadMessage() {
@@ -150,7 +147,6 @@ export class PaymentSuccessTravelComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
         });
     }
 

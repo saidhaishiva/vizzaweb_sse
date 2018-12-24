@@ -28,6 +28,7 @@ webhost: any;
         'fathername': ['', Validators.required],
         'dob': ['', Validators.compose([Validators.required])],
         'age': '',
+        'upload': '',
         'address': ['', Validators.required],
         'gender': '',
         'educationhsc':['', Validators.required],
@@ -48,9 +49,8 @@ update() {
         'applied_type': '1',
         'applicant_name': this.form.controls['name'].value,
         'applicant_email': this.form.controls['email'].value,
-        'applicant_resume': "uploads/careers/raj.txt",
+        'applicant_resume':this.form.controls['upload'].value,
     };
-    console.log(data, 'dattatta');
     this.settings.loadingSpinner = true;
     this.common.careerupdate(data).subscribe(
         (successData) => {
@@ -63,7 +63,6 @@ update() {
 }
     updateSuccess(successData) {
         this.settings.loadingSpinner = false;
-        console.log(successData);
         if (successData.IsSuccess) {
             alert();
         } else {
@@ -73,12 +72,10 @@ update() {
 
     updateFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 // upload file
     readUrl(event: any) {
         this.size = event.srcElement.files[0].size;
-        console.log(this.size);
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -101,7 +98,6 @@ update() {
             'uploadtype': 'single',
             'images': this.getUrl,
         };
-        console.log(data, 'dfdfdsfdsfdsfds');
         this.common.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -122,7 +118,6 @@ update() {
     }
 
     public fileUploadFailure(error) {
-        console.log(error);
     }
     onsubmit() {
         const data = {
@@ -145,7 +140,6 @@ update() {
             'experience3': '',
             'applicant_skills':  this.form.controls['applicantskills'].value,
         };
-        console.log(data, 'dattatta');
         this.settings.loadingSpinner = true;
         this.common.careerupdate(data).subscribe(
             (successData) => {
@@ -158,7 +152,6 @@ update() {
     }
     updatedSuccess(successData) {
         this.settings.loadingSpinner = false;
-        console.log(successData);
         if (successData.IsSuccess) {
         } else {
             // this.toastr.error(successData.ErrorObject, 'Failed');
@@ -167,7 +160,6 @@ update() {
 
     updatedFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 }
 

@@ -140,7 +140,6 @@ export class DmTrainingComponent implements OnInit {
                 // let stayTime = timeLeft - remainingTime;
                 if (sendMinutes) {
                     let remainingTime = parseInt(h) + parseInt(m);
-                    console.log(remainingTime, 'remainingTime');
                     sendMinutes = timeLeft - remainingTime;
                 } else {
                     sendMinutes = timeLeft;
@@ -239,7 +238,6 @@ export class DmTrainingComponent implements OnInit {
             let m = time % 60;
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
-            console.log( h + ':' + m + ':' + seconds, 'pppp');
             if (this.trainingStatus !=1) {
                 if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
                     document.getElementById('timer').innerHTML = sessionStorage.dmCheckoutTime;
@@ -290,7 +288,6 @@ export class DmTrainingComponent implements OnInit {
         }
     }
     public sendTimeTimingError(error) {
-        console.log(error);
     }
 
 

@@ -108,7 +108,6 @@ export class ExamComponent implements OnInit {
         }
     }
     public getQuestionListsError(error) {
-        console.log(error);
     }
     selectOption(value, pi) {
     }
@@ -166,7 +165,6 @@ export class ExamComponent implements OnInit {
 
     }
     public submitExamError(error) {
-        console.log(error, 'error');
         this.settings.loadingSpinner = false;
     }
 

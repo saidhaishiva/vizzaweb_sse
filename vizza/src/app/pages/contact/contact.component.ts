@@ -23,7 +23,6 @@ export class ContactComponent implements OnInit {
     fileUploadPath: any;
   constructor(public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
-      console.log(this.settings);
       this.fileUploadPath = '';
 
       this.form = this.fb.group({
@@ -40,7 +39,6 @@ export class ContactComponent implements OnInit {
   }
     readUrl(event: any) {
         this.size = event.srcElement.files[0].size;
-        console.log(this.size);
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
@@ -63,7 +61,6 @@ export class ContactComponent implements OnInit {
             'uploadtype': 'single',
             'images': this.getUrl,
         };
-        console.log(data, 'dfdfdsfdsfdsfds');
         this.commonService.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
@@ -84,7 +81,6 @@ export class ContactComponent implements OnInit {
     }
 
     public fileUploadFailure(error) {
-        console.log(error);
     }
     public contactDetails(): void {
         if (this.form.valid) {
@@ -98,7 +94,6 @@ export class ContactComponent implements OnInit {
                 'platform': 'web',
                 'uploaded_doc': this.fileUploadPath
             };
-            console.log(data);
             this.commonService.contactDetails(data).subscribe(
                 (successData) => {
                     this.getDetailsSuccess(successData);

@@ -120,6 +120,5 @@ export class DmConfirmpasswordComponent implements OnInit {
 
     public resendRequestFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 }

@@ -66,7 +66,6 @@ export class ChangepasswordComponent implements OnInit {
     }
     updatePasswordFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
     checkPassword() {
         if (this.form.controls['password'].value === this.form.controls['confirmpassword'].value) {
