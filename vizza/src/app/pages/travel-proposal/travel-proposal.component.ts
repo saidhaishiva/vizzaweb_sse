@@ -176,7 +176,6 @@ export class TravelProposalComponent implements OnInit {
             physicianContactNumber: ['', Validators.required],
             travelDeclaration: ['', Validators.required]
         });
-        console.log(this.totalData);
     }
     changeGender() {
         if (this.personal.controls['personalTitle'].value == 'MR'){
@@ -203,7 +202,6 @@ export class TravelProposalComponent implements OnInit {
 
       //  this.enquiryId = sessionStorage.enquiryId;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
         this.insurePersons = this.getTravelPremiumList.family_details;
         this.insureArray = this.fb.group({
             items: this.fb.array([])
@@ -213,8 +211,6 @@ export class TravelProposalComponent implements OnInit {
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
         }
-        console.log(this.insureArray, 'insureArray');
-        console.log(this.items, 'items');
         this.sessionData();
     }
     setStep(index: number) {
@@ -297,7 +293,6 @@ export class TravelProposalComponent implements OnInit {
         }
     }
     acceptDeclaration() {
-        console.log(this.personal.controls['travelDeclaration'].value, 'value');
         if (this.personal.controls['travelDeclaration'].value) {
             this.AcceptDeclaration = true;
         } else {
@@ -330,7 +325,6 @@ export class TravelProposalComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     this.proposerAge = this.ageCalculate(dob);
                 }
@@ -345,7 +339,6 @@ export class TravelProposalComponent implements OnInit {
             }
 
             if (this.proposerAge && type == 'insurer') {
-                console.log(dob, 'dobdob');
                 this.insureArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
             } else {
@@ -376,7 +369,6 @@ export class TravelProposalComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
 
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'dob11');
 
                 if (dob.length == 10) {
                     this.getAge = this.ageCalculateInsurer(dob);
@@ -384,8 +376,6 @@ export class TravelProposalComponent implements OnInit {
 
             }
             // if (this.getAge) {
-                console.log(this.getAge, 'newwagee11');
-                console.log(dob, 'dob2');
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
@@ -406,7 +396,6 @@ export class TravelProposalComponent implements OnInit {
         let year_age = Math.floor(differenceInMilisecond / 31536000000);
         let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
         let month_age = Math.floor(day_age/30);
-        console.log(month_age, 'month_agepppp');
         return month_age;
     }
     ageValidationInsurer(i, type) {
@@ -488,7 +477,6 @@ export class TravelProposalComponent implements OnInit {
         //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         // }
 
-        console.log(smallest, 'smallest');
     }
     ageCalculate(dob) {
         let mdate = dob.toString();
@@ -503,16 +491,13 @@ export class TravelProposalComponent implements OnInit {
     }
     stepback() {
         this.back = true;
-        console.log(this.back);
     }
     quesback() {
         this.back = false;
-        console.log(this.back);
     }
 
     sessionData() {
         if (sessionStorage.stepper1DetailsForTravel != '' && sessionStorage.stepper1DetailsForTravel != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper1DetailsForTravel), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1DetailsForTravel);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
@@ -573,7 +558,6 @@ export class TravelProposalComponent implements OnInit {
 
 
         if (sessionStorage.stepper2DetailsForTravel != '' && sessionStorage.stepper2DetailsForTravel != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2DetailsForTravel), 'sessionStorage');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2DetailsForTravel);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerTitle.patchValue(this.getStepper2.items[i].insurerTitle);
@@ -607,7 +591,6 @@ export class TravelProposalComponent implements OnInit {
         sessionStorage.stepper1DetailsForTravel = JSON.stringify(value);
         this.personalData = value;
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
-        console.log(this.personalData, 'first');
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
@@ -618,8 +601,6 @@ export class TravelProposalComponent implements OnInit {
     }
     //Create Proposal
     createProposal(stepper: MatStepper, value, key) {
-        console.log(value);
-        console.log(this.personalData, 'fft');
         sessionStorage.stepper2DetailsForTravel = '';
         sessionStorage.stepper2DetailsForTravel = JSON.stringify(value);
         this.insurerData = value;
@@ -639,7 +620,6 @@ export class TravelProposalComponent implements OnInit {
                 'illness': value.items[i].illness
             });
 
-            console.log(this.allInsuredData, 'this.allInsuredData1');
 
         }
 
@@ -678,7 +658,6 @@ export class TravelProposalComponent implements OnInit {
                 'insureds': this.allInsuredData
 
             }
-            console.log(data, 'data');
             let ageValidate = [];
             for(let i=0;i<this.insurerData.items.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
@@ -718,7 +697,6 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             stepper.next();
             this.summaryData = successData.ResponseObject.proposal_details;
-            console.log(this.summaryData);
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
             this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
             this.proposalDtails = this.summaryData.proposal_details[0];
@@ -731,7 +709,6 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
             let placeArray = this.summaryData.place_of_visit.split(',');
-            console.log(placeArray, 'placeArray');
             this.placeOfVisitNames = [];
             for (let i =0; i < this.placeOfVisiLists.length; i++) {
                 for (let j =0; j < placeArray.length; j++) {
@@ -753,7 +730,6 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
 
-            console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -768,7 +744,6 @@ export class TravelProposalComponent implements OnInit {
     getPostal(pin, title) {
         this.pin = pin;
         this.title = title;
-        console.log(this.title, 'kjhjkghkhk')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -821,7 +796,6 @@ export class TravelProposalComponent implements OnInit {
         }
     }
     public getpostalFailure(error) {
-        console.log(error);
     }
     //insurer city detail
     getPostalInsurer(pin, index, title) {
@@ -870,7 +844,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public getpostalInsurerFailure(error) {
-        console.log(error);
     }
 
 
@@ -885,8 +858,6 @@ export class TravelProposalComponent implements OnInit {
     getPostalSummary(pin, title) {
         this.sumPin = pin;
         this.sumTitle = title;
-        console.log(this.sumPin, 'pin');
-        console.log(this.title, 'sumTitle1');
         const data = {
             'platform': 'web',
             'pincode': this.sumPin
@@ -921,7 +892,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public PostalSummaryFailure(error) {
-        console.log(error);
     }
 
     placeOfVisits() {
@@ -945,7 +915,6 @@ export class TravelProposalComponent implements OnInit {
     public placeOfVisitSuccess(successData) {
         if (successData.IsSuccess) {
             this.placeOfVisiLists = successData.ResponseObject;
-            console.log(this.placeOfVisiLists, 'vvv');
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1004,7 +973,6 @@ export class TravelProposalComponent implements OnInit {
     public travelPurposeListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.travelPurposeLists = successData.ResponseObject;
-            console.log(this.placeOfVisiLists, 'vvv');
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1034,7 +1002,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.insureRelationList = successData.ResponseObject;
         } else {
@@ -1043,7 +1010,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public setRelationshipFailure(error) {
-        console.log(error);
     }
 
     assigneeRelationship() {
@@ -1065,17 +1031,14 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public assigneeRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.assigneeRelationList = successData.ResponseObject;
-            console.log(this.assigneeRelationList, 'assigneeRelationList');
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
 
     public assigneeRelationshipFailure(error) {
-        console.log(error);
     }
 
     getIlnessDetails() {
@@ -1097,7 +1060,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public getIlnessDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.preExistingDisease = successData.ResponseObject;
         } else {
@@ -1106,7 +1068,6 @@ export class TravelProposalComponent implements OnInit {
     }
 
     public getIlnessDetailFailure(error) {
-        console.log(error);
     }
 
 
@@ -1139,7 +1100,6 @@ export class TravelProposalComponent implements OnInit {
         }
     }
     alternateChange(event) {
-        console.log(event,'ghj');
         if (event.target.value.length == 10) {
             if(event.target.value == this.personal.get('personalMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
@@ -1179,7 +1139,6 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
-            console.log(this.paymentGatewayData);
             window.location.href = this.paymentGatewayData.payment_gateway_url;
            // this.lastStepper.next();
 
@@ -1190,7 +1149,6 @@ export class TravelProposalComponent implements OnInit {
 
     public getPolicyTokenFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
 }
