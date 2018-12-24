@@ -631,7 +631,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     public PolicyQuotationFailure(error) {
     this.settings.loadingSpinner = false;
-        this.toast.error('Network is unreachable', 'Failed');
+       // this.toast.error('Network is unreachable', 'Failed');
     }
     onSelectedIndexChange(index) {
         if (this.insuranceLists.length == index) {
