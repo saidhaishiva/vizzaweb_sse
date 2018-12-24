@@ -399,7 +399,6 @@ export class AppolloMunichComponent implements OnInit {
                 }
             }
             this.totalInsureDetails = [];
-            console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                     'Address': {
@@ -467,7 +466,6 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
-            console.log(this.insureArray);
             let ageValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -550,7 +548,6 @@ export class AppolloMunichComponent implements OnInit {
         this.lastStepper = stepper;
         sessionStorage.nomineeData = '';
         sessionStorage.nomineeData = JSON.stringify(value);
-        console.log(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal();
@@ -568,7 +565,6 @@ export class AppolloMunichComponent implements OnInit {
 
     //proposer Details
     proposerDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
         this.proposerData = value;
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
@@ -693,7 +689,6 @@ export class AppolloMunichComponent implements OnInit {
     addEvent(event, index, type, title) {
         let dd = event.value;
         this.selectDate = event.value;
-        console.log(this.selectDate);
         this.minDate = this.selectDate;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
@@ -777,7 +772,6 @@ export class AppolloMunichComponent implements OnInit {
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
             }
-            console.log( this.dob, 'ghjkl');
         }
 
     }
@@ -847,7 +841,6 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
     public pincodeFailure(error) {
-        console.log(error);
     }
 
 
@@ -873,7 +866,6 @@ export class AppolloMunichComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        console.log(yearAge, 'console.log(yearAge)');
         return yearAge;
     }
 
@@ -927,7 +919,6 @@ export class AppolloMunichComponent implements OnInit {
 
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);
@@ -1020,7 +1011,6 @@ export class AppolloMunichComponent implements OnInit {
            // if ( this.titleValidation == false){}
         }
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
                 nomineeName: this.getNomineeData.nomineeName,
@@ -1083,7 +1073,6 @@ export class AppolloMunichComponent implements OnInit {
     proposal() {
 
       let clientData = this.totalInsureDetails.slice(1);
-      console.log(clientData, 'clientDataclientDataclientDataclientData');
 
         const data  = {
             'enquiry_id': this.enquiryId,
@@ -1221,7 +1210,6 @@ export class AppolloMunichComponent implements OnInit {
             delete data.ProposalCaptureServiceRequest.Prospect.Client.Dependants.Client
         }
 
-        console.log(data, 'datadata');
 
         this.settings.loadingSpinner = true;
         this.proposalservice.apollomunichProposal(data).subscribe(
@@ -1240,7 +1228,6 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, 'summaryDatasummaryData');
             // let getdata=[];
 
             for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
@@ -1298,7 +1285,6 @@ export class AppolloMunichComponent implements OnInit {
 //Summary residence detail
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
 //Marital Status
@@ -1322,13 +1308,11 @@ export class AppolloMunichComponent implements OnInit {
     public setMaritalStatusSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.maritalDetail = successData.ResponseObject;
-            console.log( this.maritalDetail , 'maritalDetailmaritalDetail');
 
         }
     }
 
     public setMaritalStatusFailure(error) {
-        console.log(error);
     }//TitleCode Status
     TitleCodeStatus() {
         const data = {
@@ -1350,13 +1334,11 @@ export class AppolloMunichComponent implements OnInit {
     public setTitleCodeSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.titleCodeList = successData.ResponseObject;
-            console.log( this.titleCodeList , 'titleCodeeeeeee');
 
         }
     }
 
     public setTitleCodeFailure(error) {
-        console.log(error);
     }
 
     //proffession list
@@ -1385,7 +1367,6 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public getProffessionFailure(error) {
-        console.log(error);
     }
 
 
@@ -1415,7 +1396,6 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public getPreviousInsureFailure(error) {
-        console.log(error);
     }
 
     //Nationality List
@@ -1439,11 +1419,9 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.nationalityList = successData.ResponseObject;
         }
-        console.log(this.nationalityList,'this.nationalityListthis.nationalityList');
     }
 
     public getNationalityStatusFailure(error) {
-        console.log(error);
     }
 
     //IdProoofList
@@ -1465,12 +1443,9 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setIdProofListStatusSuccess(successData){
-        console.log(successData.ResponseObject);
         this.IdProofList = successData.ResponseObject;
-        console.log( this.IdProofList, 'IdProofList');
     }
     public setIdProofListStatusFailure(error){
-    console.log(error);
     }
 
     //Appollo state
@@ -1492,12 +1467,9 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setAppolloStateSuccess(successData){
-        console.log(successData.ResponseObject);
         this.AppolloStateList = successData.ResponseObject;
-        console.log( this.AppolloStateList, 'AppolloStateList');
     }
     public setAppolloStateFailure(error){
-        console.log(error);
     }
 
 
@@ -1505,8 +1477,6 @@ export class AppolloMunichComponent implements OnInit {
     stateChange(stateId, title){
             this.stateTitle = title;
             this.stateCode = stateId;
-            console.log(this.stateCode);
-            console.log(this.stateTitle, 'this.stateTitle');
             const data = {
                 'platform': 'web',
                 'product_id': '11',
@@ -1542,7 +1512,6 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     public setAppolloDistrictFailure(error){
-        console.log(error);
     }
 
     //Appollo City
@@ -1551,7 +1520,6 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     public setAppolloCityFailure(error){
-        console.log(error);
     }
 
 
@@ -1594,7 +1562,6 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     public setAppolloDistrictNFailure(error){
-        console.log(error);
     }
 
     //Appollo City
@@ -1604,7 +1571,6 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     public setAppolloCityNFailure(error){
-        console.log(error);
     }
 
 
@@ -1643,11 +1609,9 @@ export class AppolloMunichComponent implements OnInit {
 //Appollo District
     public setInsureAppolloDistrictSuccess(successData){
         this.iAppolloDistrictList = successData.ResponseObject;
-        console.log( this.iAppolloDistrictList, 'AppolloDistrictList');
         this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].stateHide.patchValue(false);
     }
     public setInsureAppolloDistrictFailure(error){
-        console.log(error);
     }
 
     //Appollo City
@@ -1655,10 +1619,8 @@ export class AppolloMunichComponent implements OnInit {
         this.iAppolloCityList = successData.ResponseObject;
         this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].cityHide.patchValue(false);
 
-        console.log( this.iAppolloCityList, 'AppolloCityList');
     }
     public setInsureAppolloCityFailure(error){
-        console.log(error);
     }
 
 
@@ -1701,13 +1663,10 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject,'relationship');
         this.relationshipList = successData.ResponseObject;
-        console.log( this.relationshipList, 'sdfghsdfghszdfgh');
 
     }
     public setRelationshipFailure(error) {
-        console.log(error);
     }
 
     setOccupationList() {
@@ -1732,11 +1691,9 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.occupationList = successData.ResponseObject;
         }
-        console.log(this.occupationList, 'occupationList');
     }
 
     public occupationListFailure(error) {
-        console.log(error);
     }
     OnNumber(event){
         if (event.charCode !== 0) {
@@ -1771,7 +1728,6 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
     alternateChange(event) {
-        console.log(event,'ghj');
         if (event.target.value.length == 10) {
             if(event.target.value == this.proposer.get('proposerMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
