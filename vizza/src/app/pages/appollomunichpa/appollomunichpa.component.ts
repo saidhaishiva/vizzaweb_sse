@@ -252,8 +252,6 @@ public minDate: any;
       this.paMaritalStatusList();
       this.preInsureList();
       this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-      console.log(this.getAllPremiumDetails, 'this.getAllPremiumDetails');
-      console.log(this.getAllPremiumDetails.enquiry_id.toString(),'this.getAllPremiumDetails.enquiry_id.toString(),');
       this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
       this.sessionData();
   }
@@ -294,13 +292,10 @@ public minDate: any;
     }
 
     public appolloRelationshipPaSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.relationshipListPa = successData.ResponseObject;
-        console.log( this.relationshipListPa, 'sdfghsdfghszdfgh');
 
     }
     public appolloRelationshipPaFailure(error) {
-        console.log(error);
     }
      // Id proof
     paIdList(){
@@ -320,12 +315,9 @@ public minDate: any;
     }
 
     public paIdProofListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paIdProofList = successData.ResponseObject;
-        console.log( this.paIdProofList, 'IdProofList');
     }
     public paIdProofListFailure(error){
-        console.log(error);
     }
     // Marital Status
    paMaritalStatusList(){
@@ -345,12 +337,9 @@ public minDate: any;
     }
 
     public paMaritalListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paMaritalList = successData.ResponseObject;
-        console.log( this.paMaritalList, 'paMaritalList');
     }
     public paMaritalListFailure(error){
-        console.log(error);
     }
     // State List Pa
     stateListPa(){
@@ -370,12 +359,9 @@ public minDate: any;
     }
 
     public pastateListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paStateList = successData.ResponseObject;
-        console.log( this.paStateList, 'paStateList');
     }
     public pastateListFailure(error){
-        console.log(error);
     }
 // accept Only Number
     public onNumber(event: any) {
@@ -425,12 +411,9 @@ public minDate: any;
     }
 
     public padistrictPaListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.padistrictList = successData.ResponseObject;
-        console.log( this.padistrictList, 'padistrictList');
     }
     public padistrictPaListFailure(error){
-        console.log(error);
     }
 
     // City List
@@ -452,13 +435,10 @@ public minDate: any;
     }
 
     public paCityPaListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paCityList = successData.ResponseObject;
-        console.log( this.paCityList, 'paCityList');
 
     }
     public paCityPaListFailure(error){
-        console.log(error);
     }
     // insured district list
     onChangeStateInsured(){
@@ -479,12 +459,9 @@ public minDate: any;
     }
 
     public insureddistrictPaListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paInsureddistrictList = successData.ResponseObject;
-        console.log( this.paInsureddistrictList, 'paInsureddistrictList');
     }
     public insureddistrictPaListFailure(error){
-        console.log(error);
     }
      // insured City
     onChangecityListInsuredPa(){
@@ -505,13 +482,10 @@ public minDate: any;
     }
 
     public insuredCityPaListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paCityInsuredList = successData.ResponseObject;
-        console.log( this.paCityInsuredList, 'paCityInsuredList');
 
     }
     public insuredCityPaListFailure(error){
-        console.log(error);
     }
 
     // nominee district list
@@ -533,12 +507,9 @@ public minDate: any;
     }
 
     public nomineedistrictPaListSuccess(successData){
-        console.log(successData.ResponseObject);
         this.paNomineedistrictList = successData.ResponseObject;
-        console.log( this.paNomineedistrictList, 'paNomineedistrictList');
     }
     public nomineedistrictPaListFailure(error){
-        console.log(error);
     }
     // nominee City
     onChangecityListNomineePa(){
@@ -559,18 +530,13 @@ public minDate: any;
     }
 
     public nomineeCityPaListSuccess(successData){
-      console.log(successData, 'iuoiuoiuoiuoiuoiuoiuiouio');
         this.paCityNomineeList = successData.ResponseObject;
-        console.log( this.paCityNomineeList, 'paCityNomineeList');
 
     }
     public nomineeCityPaListFailure(error){
-        console.log(error);
     }
     // Proposal details first Page
     proposerDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
-        console.log(sessionStorage.proposerAgeP, 'sessionStorage.proposerAgeP');
         this.proposerPaData = value;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
@@ -595,13 +561,11 @@ public minDate: any;
                 this.toastr.error('Insured age should be 18 or above');
 
             }
-            console.log(value, 'ffffflll');
 
         }
     }
     // date input
     addEvent(event, type) {
-      console.log(type, 'type');
 
         if (event.value != null) {
             let selectedDate = '';
@@ -631,7 +595,6 @@ public minDate: any;
             }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob,'dob');
 
                 if (selectedDate.length == 10) {
                     if(type == 'personal'){
@@ -697,7 +660,6 @@ public minDate: any;
 
 // nomineee details
     religareNomineeDetails(stepper: MatStepper, value) {
-        console.log(value);
         // if (this.nomineeDetail.valid) {
             sessionStorage.panomineeData = '';
             sessionStorage.panomineeData = JSON.stringify(value);
@@ -724,13 +686,10 @@ preInsureList() {
     }
 
     public preinsureSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.preinsure = successData.ResponseObject;
-        console.log( this.preinsure, 'preinsure');
 
     }
     public preinsureFailure(error) {
-        console.log(error);
     }
     // checkbox
     checkHabits(value, type) {
@@ -862,11 +821,9 @@ preInsureList() {
     // previous radio
     previousinsureList(value){
 
-      console.log(this.insured.controls['previousradio'].value , 'kjjkk');
       if(this.insured.controls['previousradio'].value == 1){
           this.prevList = true;
           this.insuredSmoke = true;
-          console.log('in');
           this.insured.controls['PolicyStartDate'].setValidators([Validators.required]);
           this.insured.controls['PolicyEndDate'].setValidators([Validators.required]);
           this.insured.controls['insuredPrevList'].setValidators([Validators.required]);
@@ -878,7 +835,6 @@ preInsureList() {
       } else{
           this.prevList = false;
           this.insuredSmoke = false;
-          console.log('out');
           this.insured.controls['PolicyStartDate'].setValidators(null);
           this.insured.controls['PolicyEndDate'].setValidators(null);
           this.insured.controls['insuredPrevList'].setValidators(null);
@@ -910,13 +866,11 @@ preInsureList() {
 
 
     public occupationCodeSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationCode = successData.ResponseObject;
 
     }
 
     public occupationCodeFailure(error) {
-        console.log(error);
     }
 
     // profession List
@@ -939,13 +893,11 @@ preInsureList() {
 
 
     public professionListSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.professionList = successData.ResponseObject;
 
     }
 
     public professionListFailure(error) {
-        console.log(error);
     }
 // session Data
     sessionData() {
@@ -954,9 +906,6 @@ preInsureList() {
             if (this.appollo1.proposerPaPincode != '') {
                 this.getPostalCode(this.appollo1.proposerPaPincode);
             }
-            // if (this.appollo1.proposerPaIdProof != '') {
-            //     this.panType( this.appollo1.proposerPaIdProof);
-            // }
             this.ProposerPa = this.proposerpa.group({
                 proposerPaTitle: this.appollo1.proposerPaTitle,
                 proposerPaFirstname: this.appollo1.proposerPaFirstname,
@@ -998,7 +947,6 @@ preInsureList() {
 
 
         if (sessionStorage.appollo2Detail != '' && sessionStorage.appollo2Detail != undefined) {
-            console.log(JSON.parse(sessionStorage.appollo2Detail), 'sessionStorage.stepper1Details');
             this.appollo2 = JSON.parse(sessionStorage.appollo2Detail);
             if (this.appollo2.insuredPaPincode != '') {
                 this.getinsuredPostalCode(this.appollo2.insuredPaPincode);
@@ -1063,7 +1011,6 @@ preInsureList() {
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
             });
-            console.log(this.appollo2, 'this.appollo2');
 
             if (this.appollo2.insuredSmoke) {
                 this.insured.controls['insuredSmoke'].patchValue(this.appollo2.insuredSmoke);
@@ -1141,7 +1088,6 @@ preInsureList() {
         }
 
         if (sessionStorage.panomineeData != '' && sessionStorage.panomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.panomineeData), 'sessionStorage.stepper1Details');
             this.getpanomineeData = JSON.parse(sessionStorage.panomineeData);
             if (this.getpanomineeData.paNomineePincode != '') {
                 this.getnomineePostalCode(this.getpanomineeData.paNomineePincode);
@@ -1166,12 +1112,10 @@ preInsureList() {
         }
         if (sessionStorage.appolloPAproposalID != '' && sessionStorage.appolloPAproposalID != undefined) {
             this.appolloPA = sessionStorage.appolloPAproposalID;
-            console.log(this.appolloPA, 'this.appolloPAproposalID');
         }
     }
 // Pin validate
     getPostalCode(pin) {
-        console.log(pin, 'pinpin');
         this.pin = pin;
         const data = {
             'platform': 'web',
@@ -1189,10 +1133,8 @@ preInsureList() {
         }
     }
     public pinPaListSuccess(successData){
-        console.log(successData);
         if (successData.IsSuccess) {
             this.paPinList = successData.ResponseObject;
-            console.log(this.paPinList.state, 'paPinList');
             this.ProposerPa.controls['proposerPaState'].patchValue(this.paPinList.state);
             this.ProposerPa.controls['proposerPaStateIdP'].patchValue(this.paPinList.state_code);
             this.onChangeState();
@@ -1207,11 +1149,9 @@ preInsureList() {
     }
 
     public pinPaListFailure(error){
-        console.log(error);
     }
 // insured pin validate
     getinsuredPostalCode(pin) {
-        console.log(pin, 'pinpin');
         this.pin = pin;
         const data = {
             'platform': 'web',
@@ -1229,10 +1169,8 @@ preInsureList() {
         }
     }
     public pinPaInsuredListSuccess(successData){
-        console.log(successData);
         if (successData.IsSuccess) {
             this.paPinInsuredList = successData.ResponseObject;
-            console.log(this.paPinInsuredList.state, 'paPinInsuredList');
             this.insured.controls['insuredPaState'].patchValue(this.paPinInsuredList.state);
             this.insured.controls['insuredPaStateIdP'].patchValue(this.paPinInsuredList.state_code);
             this.onChangecityListInsuredPa();
@@ -1247,11 +1185,9 @@ preInsureList() {
     }
 
     public pinPaInsuredListFailure(error){
-        console.log(error);
     }
     // nomineee pin validate
     getnomineePostalCode(pin) {
-        console.log(pin, 'pinpin');
         this.pin = pin;
         const data = {
             'platform': 'web',
@@ -1286,7 +1222,6 @@ preInsureList() {
     }
 
     public pinPanomineeListFailure(error){
-        console.log(error);
     }
     // proposal creation
     createrPoposal(){
@@ -1433,9 +1368,7 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
-            console.log(this.appollosummaryData, 'this.summaryData');
             this.appolloPA = this.appollosummaryData.ProposalId;
-            console.log( this.appolloPA, ' this.appolloPA');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
             // Proposer state
             if(this.appollosummaryData.ProposalDetails.p_statecode == this.paPinList.state_code) {
@@ -1549,7 +1482,6 @@ preInsureList() {
 
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
     public keyEvent(event: any) {
         if (event.charCode !== 0) {
