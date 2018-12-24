@@ -338,13 +338,11 @@ public RediretUrlLink: any;
 
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
-        console.log(value, 'insurerDobErrorinsurerDobError')
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
-            console.log(this.insurerData, 'this.insurerData this.insurerData');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                         'RelationshipWithProposerID': this.insurerData[i].personalrelationship,
@@ -397,7 +395,6 @@ public RediretUrlLink: any;
         this.lastStepper = stepper;
         sessionStorage.nomineeData = '';
         sessionStorage.nomineeData = JSON.stringify(value);
-        console.log(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal();
@@ -453,7 +450,6 @@ public RediretUrlLink: any;
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
         this.personalData = value;
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
@@ -579,7 +575,6 @@ public RediretUrlLink: any;
         let age = this.ageCalculate(this.setDateAge);
         let days = this.DobDaysCalculate(this.setDateAge);
         this.personalAge = age;
-        console.log(this.personalAge, 'this.personalAge');
 
         if(title == 'proposer'){
             sessionStorage.setItem('proposerAge', this.personalAge);
@@ -616,7 +611,6 @@ public RediretUrlLink: any;
 
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -644,7 +638,6 @@ public RediretUrlLink: any;
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
             }
-            console.log( this.dob, 'ghjkl');
         }
 
     }
@@ -675,7 +668,6 @@ public RediretUrlLink: any;
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        console.log(yearAge, 'console.log(yearAge)');
         return yearAge;
     }
 
@@ -750,7 +742,6 @@ public RediretUrlLink: any;
         }
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
@@ -789,7 +780,6 @@ public RediretUrlLink: any;
         }
         if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
 
-            console.log(JSON.parse(sessionStorage.stepper3Details), 'sessionStorage.stepper3Details');
             this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
             this.riskDetails = this.fb.group({
                 serviceTax: this.getStepper3.serviceTax,
@@ -805,7 +795,6 @@ public RediretUrlLink: any;
 
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
                 nomineeFirstName: this.getNomineeData.nomineeFirstName,
@@ -997,7 +986,6 @@ public RediretUrlLink: any;
     }
 
     public commonPincodeFailure(error) {
-        console.log(error);
     }
 
     //Create Proposal
@@ -1125,7 +1113,6 @@ public RediretUrlLink: any;
                 this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
             }
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, 'summaryDatasummaryData');
             let getdata=[];
 
             for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
@@ -1148,7 +1135,6 @@ public RediretUrlLink: any;
                     }
                 }
 
-            console.log(this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID, 'fdghjkwesdrfghjtr');
 
             for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
                 for (let j = 0; j < this.maritalDetail.length; j++) {
@@ -1181,7 +1167,6 @@ public RediretUrlLink: any;
                     this.summaryData.ClientDetails.nationality = this.nationalityList[j].nationality;
                 }
             }
-            console.log(this.setPincode, 'pinn');
              if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
                  this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
              }
@@ -1196,7 +1181,6 @@ public RediretUrlLink: any;
             }
 
             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                console.log(this.setPincode.area_details[0], 'jhfsajhdg');
                 if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.setPincode.area_details[i].area_id) {
                     this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.setPincode.area_details[i].area_name;
 
@@ -1212,14 +1196,11 @@ public RediretUrlLink: any;
               if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
                 this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
               }
-              console.log(this. summaryData.NomineeDetails.NomineeAddress, 'sedrtfgyhuj');
               if(this.summaryData.NomineeDetails.NomineeAddress.StateID == this.setPincode.state_id) {
                 this.summaryData.NomineeDetails.NomineeAddress.state_name =  this.setPincode.state_name;
               }
              for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                console.log(this.setPincode.area_details[0], 'seeee');
                 if (this.summaryData.NomineeDetails.NomineeAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    console.log(this.summaryData.NomineeDetails.NomineeAddress.AreaID, 'nomiee');
                     this. summaryData.NomineeDetails.NomineeAddress.area_name = this.setPincode.area_details[i].area_name;
 
                 }
@@ -1271,14 +1252,12 @@ public RediretUrlLink: any;
     }
 
     public serviceTaxFailure(error) {
-        console.log(error);
     }
 
 
 //Summary residence detail
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
     getCityIdF2(title, cid, pincode) {
@@ -1312,7 +1291,6 @@ public RediretUrlLink: any;
     }
 
     public getCityResistFailure(error) {
-        console.log(error);
     }
 
 //Marital Status
@@ -1336,13 +1314,11 @@ public RediretUrlLink: any;
     public getMaritalStatusSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.maritalDetail = successData.ResponseObject;
-            console.log( this.maritalDetail , 'maritalDetailmaritalDetail');
 
         }
     }
 
     public getMaritalStatusFailure(error) {
-        console.log(error);
     }
 
 
@@ -1372,7 +1348,6 @@ public RediretUrlLink: any;
     }
 
     public getDiseaseListFailure(error) {
-        console.log(error);
     }
 
 
@@ -1401,7 +1376,6 @@ public RediretUrlLink: any;
     }
 
     public getCoverTypeFailure(error) {
-        console.log(error);
     }
 
 
@@ -1428,11 +1402,9 @@ public RediretUrlLink: any;
         if (successData.IsSuccess == true) {
             this.nationalityList = successData.ResponseObject;
         }
-        console.log(this.nationalityList,'this.nationalityListthis.nationalityList');
     }
 
     public getNationalityStatusFailure(error) {
-        console.log(error);
     }
 
 
@@ -1461,7 +1433,6 @@ public RediretUrlLink: any;
     }
 
     public occupationListFailure(error) {
-        console.log(error);
     }
 
 
@@ -1484,13 +1455,10 @@ public RediretUrlLink: any;
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
-        console.log( this.relationshipList, 'sdfghsdfghszdfgh');
 
     }
     public setRelationshipFailure(error) {
-        console.log(error);
     }
 
     setNomineeRelationship() {
@@ -1511,13 +1479,10 @@ public RediretUrlLink: any;
     }
 
     public setNomineeRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.nomineeRelationshipList = successData.ResponseObject;
-        console.log(this.nomineeRelationshipList, 'this.nomineeRelationshipList');
     }
 
     public setNomineeRelationshipFailure(error) {
-        console.log(error);
     }
     add(event){
         if (event.charCode !== 0) {
@@ -1549,7 +1514,6 @@ public RediretUrlLink: any;
         }
     }
     alternateChange(event) {
-        console.log(event,'ghj');
         if (event.target.value.length == 10) {
             if(event.target.value == this.personal.get('personalMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
