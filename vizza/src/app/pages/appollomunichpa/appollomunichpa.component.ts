@@ -387,6 +387,15 @@ public minDate: any;
             }
         }
     }
+    public onlyNumber(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     // Accept Only Character
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
