@@ -81,7 +81,6 @@ export class LoginComponent implements OnInit {
         }
     }
     public loginSuccess(successData) {
-        console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.data = successData.ResponseObject.pos_details;
@@ -92,7 +91,6 @@ export class LoginComponent implements OnInit {
 
     public loginFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
     public changeTheme(theme) {
         this.settings.theme = theme;

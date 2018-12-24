@@ -40,7 +40,6 @@ export class MarinecargoComponent implements OnInit {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
-          console.log(params.id);
           this.productName = params.id;
 
       });
@@ -52,7 +51,6 @@ export class MarinecargoComponent implements OnInit {
     marineKeeper(values) {
 
         if (this.marineapp.valid) {
-            console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
@@ -79,10 +77,8 @@ export class MarinecargoComponent implements OnInit {
         }
     }
     fixAppointmentSuccess(successData) {
-        console.log(successData);
     }
     fixAppointmentFailure(error) {
-        console.log(error);
     }
     getPincodeDetails(pin, title) {
         this.pin = pin;
@@ -112,7 +108,6 @@ export class MarinecargoComponent implements OnInit {
     }
 
     public getPincodeDetailsFailure(error) {
-        console.log(error);
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -126,7 +121,7 @@ export class MarinecargoComponent implements OnInit {
     }
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

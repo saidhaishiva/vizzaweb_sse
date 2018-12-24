@@ -116,7 +116,6 @@ export class MailboxComponent implements OnInit {
   }
 
   public onSubmit(mail){
-    console.log(mail)
     if (this.form.valid) {
       this.snackBar.open('Mail sent to ' + mail.to + ' successfully!', null, {
         duration: 2000,

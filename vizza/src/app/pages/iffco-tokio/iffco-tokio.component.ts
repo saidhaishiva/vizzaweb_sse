@@ -301,7 +301,6 @@ export class IffcoTokioComponent implements OnInit {
         this.lastStepper = stepper;
         sessionStorage.nomineeData = '';
         sessionStorage.nomineeData = JSON.stringify(value);
-        console.log(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal();
@@ -321,7 +320,6 @@ export class IffcoTokioComponent implements OnInit {
 
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
-        console.log(value, 'value');
         this.personalData = value;
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
@@ -391,7 +389,6 @@ export class IffcoTokioComponent implements OnInit {
     addEvent(event, title, index) {
         let dd = event.value;
         this.selectDate = event.value;
-        console.log(this.selectDate);
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.personalAge = this.ageCalculate(this.setDateAge);
@@ -416,7 +413,6 @@ export class IffcoTokioComponent implements OnInit {
 
                 let dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.dob = dob;
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
                 } else {
@@ -444,7 +440,6 @@ export class IffcoTokioComponent implements OnInit {
                 let year = event.value._i.year;
                 this.dob = date + '-' + month + '-' + year;
             }
-            console.log( this.dob, 'ghjkl');
         }
 
     }
@@ -458,7 +453,6 @@ export class IffcoTokioComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        console.log(yearAge, 'console.log(yearAge)');
         return yearAge;
     }
 
@@ -512,7 +506,6 @@ export class IffcoTokioComponent implements OnInit {
         }
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
@@ -548,7 +541,6 @@ export class IffcoTokioComponent implements OnInit {
             }
         }
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
                 nomineeFirstName: this.getNomineeData.nomineeFirstName,
@@ -723,7 +715,6 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     public commonPincodeFailure(error) {
-        console.log(error);
     }
 
     //Create IffcoTokio proposal
@@ -754,7 +745,6 @@ export class IffcoTokioComponent implements OnInit {
         }
     }
     alternateChange(event) {
-        console.log(event,'ghj');
         if (event.target.value.length == 10) {
             if(event.target.value == this.personal.get('personalMobile').value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';

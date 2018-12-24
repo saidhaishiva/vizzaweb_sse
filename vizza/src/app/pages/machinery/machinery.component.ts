@@ -37,7 +37,6 @@ export class MachineryComponent implements OnInit {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
-          console.log(params.id);
           this.productName = params.id;
 
       });
@@ -49,7 +48,6 @@ export class MachineryComponent implements OnInit {
     machKeeper(values) {
 
         if (this.machapp.valid) {
-            console.log(values,'sasdasd');
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
@@ -76,10 +74,8 @@ export class MachineryComponent implements OnInit {
         }
     }
     fixAppointmentSuccess(successData) {
-        console.log(successData);
     }
     fixAppointmentFailure(error) {
-        console.log(error);
     }
     getPincodeDetails(pin, title) {
         this.pin = pin;
@@ -109,7 +105,6 @@ export class MachineryComponent implements OnInit {
     }
 
     public getPincodeDetailsFailure(error) {
-        console.log(error);
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {

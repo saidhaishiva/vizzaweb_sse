@@ -236,7 +236,6 @@ export class HealthinsurancelistComponent implements OnInit {
             ]
         }
       this.allLists = this.lists.ResponseObject;
-    console.log(this.allLists);
 
   }
 
