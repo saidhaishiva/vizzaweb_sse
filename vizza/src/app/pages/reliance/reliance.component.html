@@ -847,6 +847,27 @@
                                 </div>
                             </div>
                         </section>
+                        <h5 class="mt-3 sub-title">RISK DETAILS </h5>
+                        <div class="row box-card">
+                            <div class="col-md-6">
+                                <div class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsAnyEmployeeOfRelianceADAGroup == 'false'">IsAnyEmployeeOfRelianceADAGroup: <b>NO</b></li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsAnyEmployeeOfRelianceADAGroup == 'true'">IsAnyEmployeeOfRelianceADAGroup: <b>YES</b></li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsServiceTaxExemptionApplicable == 'false'">IsServiceTaxExemptionApplicable: <b>NO</b></li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsServiceTaxExemptionApplicable == 'true'">IsServiceTaxExemptionApplicable: <b>YES</b></li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.Iscrosssell == 'false'">Is crosssell:<b>NO</b> </li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.Iscrosssell == 'true'">Is crosssell:<b>YES</b> </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
                         <div class="row box-card">
                             <div class="col-md-6">
