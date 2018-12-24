@@ -10,12 +10,10 @@ export class PersonalAccidentService {
 // presonal accident
     getPersonalAccidentReligareProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'personalaccident_religare/proposal_creation';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -24,7 +22,6 @@ export class PersonalAccidentService {
 
        getPersonalOccupationCode(data) {
          const json = JSON.stringify(data);
-         console.log(json);
          const httpOptions = {
              headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -37,7 +34,6 @@ export class PersonalAccidentService {
 
     classOccupationCode(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -51,7 +47,6 @@ export class PersonalAccidentService {
 
     persosnalAccidentReligareQuestions(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -65,7 +60,6 @@ export class PersonalAccidentService {
 
     personalAccident(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -77,7 +71,6 @@ export class PersonalAccidentService {
     // update personal Accident
 
     updatePersonalAccident(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -90,7 +83,6 @@ export class PersonalAccidentService {
     }
     // this function will get the personal accident sum insured lists
     getpersonalSumInsuredAmount(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -105,7 +97,6 @@ export class PersonalAccidentService {
 
     getDownloadPdfReligarepa(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -118,7 +109,6 @@ export class PersonalAccidentService {
 
     getPostalReligare(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -158,7 +148,6 @@ export class PersonalAccidentService {
 
     getOccupationList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -170,7 +159,6 @@ export class PersonalAccidentService {
 // occupation
     getOccupationCode(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -181,7 +169,6 @@ export class PersonalAccidentService {
     }
     getOccupationCodeList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -193,7 +180,6 @@ export class PersonalAccidentService {
     //
     getAppolloOccupationCodeList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -205,7 +191,6 @@ export class PersonalAccidentService {
     // Profession List
     getProfessionList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -217,7 +202,6 @@ export class PersonalAccidentService {
 // RelationShip List
     getRelationshipList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -228,7 +212,6 @@ export class PersonalAccidentService {
     }
     //   // this function will compare the product lists
         addtoCompare(data) {
-            console.log(data, 'ssssssssssss');
             const json = JSON.stringify(data);
             const token = this.authService.getAccessToken();
             const httpOptions = {
@@ -241,7 +224,6 @@ export class PersonalAccidentService {
         }
         // product Details Key features
     viewKeyFeatureList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -256,7 +238,6 @@ export class PersonalAccidentService {
     // Relation with Proposer
     appolloRelationshipPa(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -268,7 +249,6 @@ export class PersonalAccidentService {
     // Id Proof
    paIdProofList(data){
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -280,7 +260,6 @@ export class PersonalAccidentService {
     // Marital Status
    paMaritalStatus(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -292,7 +271,6 @@ export class PersonalAccidentService {
     // pre insure List
     preInsure(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -304,7 +282,6 @@ export class PersonalAccidentService {
     // State List in Appollo Munich List Personal Accident
    stateListPa(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -320,7 +297,6 @@ export class PersonalAccidentService {
 // District List in Appollo Munich List Personal Accident
     districtPaList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -332,7 +308,6 @@ export class PersonalAccidentService {
     // City List in Appollo Munich List Persoanl Accident
    cityPaList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -344,7 +319,6 @@ export class PersonalAccidentService {
     // Pin validate
     pinPaList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -356,12 +330,10 @@ export class PersonalAccidentService {
     // Appollo munich Proposal successs
     getPersonalAccidentAppolloProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'personalaccident_apollomunich/create_proposal_details';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -370,7 +342,6 @@ export class PersonalAccidentService {
     // Download Pdf
     getAppolloPersonalAccidentDownloadPdf(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
