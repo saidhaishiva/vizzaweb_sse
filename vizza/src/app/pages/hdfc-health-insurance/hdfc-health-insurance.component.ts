@@ -76,6 +76,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public sameAsinsure: any;
     public fullName: any;
     public IsCustomerAcceptedPPCPED: boolean;
+    public pincodeValid: boolean;
 
     constructor( public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -84,6 +85,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.IsCustomerAcceptedPPCPED = false;
+        this.pincodeValid = true;
         this.arr = [];
         this.webhost = this.config.getimgUrl();
 
@@ -99,7 +101,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             address1: ['', Validators.required],
             address2: '',
             address3: '',
-            pincode: ['', Validators.required],
+            pincode: '',
             city: ['', Validators.required],
             state: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -527,6 +529,40 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public relationShipFailure(error) {
         console.log(error);
     }
+    pincodevalidationHdfc(pin) {
+        this.pin = pin;
+        console.log( this.pin, ' this.pin this.pin');
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'Pincode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.proposalservice.getHdfcPincodeLists(data).subscribe(
+                (successData) => {
+                    this.pincodeSuccess(successData);
+                },
+                (error) => {
+                    this.pincodeFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.pincodeValid = true;
+        } else {
+            this.pincodeValid = false;
+            this.toastr.error(successData.ErrorObject);
+            // this.hdfcPersonal.controls['pincode'].setValue('');
+        }
+        sessionStorage.pincodeValid = this.pincodeValid;
+
+    }
+    public pincodeFailure(successData) {
+    }
+
     // Nominee RelationShip List
     nomineeRelationShipListHdfc() {
         const data = {
@@ -560,7 +596,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
-                stepper.next();
+                if (this.pincodeValid) {
+                    stepper.next();
+                } else {
+                    this.toastr.error('Enter valid pincode');
+                }
             } else {
               this.toastr.error('Proposer age should be 18 or above');
             }
@@ -733,8 +773,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     this.checkAccepted();
                 }
             }
-
-
+            if (sessionStorage.pincodeValid != '' && sessionStorage.pincodeValid != undefined) {
+                this.pincodeValid =  sessionStorage.pincodeValid;
+            }
 
         }
         if (sessionStorage.hdfcStep2 != '' && sessionStorage.hdfcStep2 != undefined) {

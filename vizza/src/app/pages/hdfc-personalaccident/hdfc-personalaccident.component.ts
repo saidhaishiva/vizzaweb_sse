@@ -45,8 +45,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public items: any;
     public step: any;
     public insurerData: any;
-    public hdfcStep1: any;
-    public hdfcStep2: any;
+    public hdfcPAStep1: any;
+    public hdfcPAStep2: any;
     public lastStepper: any;
     public back: any;
     public hdfcHealthNomineeDetails: any;
@@ -107,30 +107,31 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         });
     }
     ngOnInit() {
-        this.sameAsinsure = true;
-        this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
-        console.log(this.getHdfcHealthPremiumList, 'this.getHdfcHealthPremiumListbuyProductdetails');
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        console.log(this.getFamilyDetails, 'getFamilyDetails');
-
-        this.insurePersons = this.getFamilyDetails.family_members;
-
-        console.log(this.insurePersons, 'this.insurePersons');
-        this.hdfcInsureArray = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.insurePersons.length; i++) {
-            this.items = this.hdfcInsureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
-        }
-        console.log(this.hdfcInsureArray, 'hdfcInsureArray');
-        console.log(this.items, 'items');
         this.titleLists();
         this.getStateList();
         this.RelationShipListHdfc();
         this.nomineeRelationShipListHdfc();
         this.sessionData();
+        // this.sameAsinsure = true;
+        // this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
+        // console.log(this.getHdfcHealthPremiumList, 'this.getHdfcHealthPremiumListbuyProductdetails');
+        // this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        // console.log(this.getFamilyDetails, 'getFamilyDetails');
+        //
+        // this.insurePersons = this.getFamilyDetails.family_members;
+        //
+        // console.log(this.insurePersons, 'this.insurePersons');
+        // this.hdfcInsureArray = this.fb.group({
+        //     items: this.fb.array([])
+        // });
+        // for (let i = 0; i < this.insurePersons.length; i++) {
+        //     this.items = this.hdfcInsureArray.get('items') as FormArray;
+        //     this.items.push(this.initItemRows());
+        //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
+        // }
+        // console.log(this.hdfcInsureArray, 'hdfcInsureArray');
+        // console.log(this.items, 'items');
+
     }
 
     // title change function
@@ -546,8 +547,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         console.log(error);
     }
     personalDetails(stepper: MatStepper, value) {
-        sessionStorage.hdfcStep1 = '';
-        sessionStorage.hdfcStep1 = JSON.stringify(value);
+        sessionStorage.hdfcPAStep1 = '';
+        sessionStorage.hdfcPAStep1 = JSON.stringify(value);
         this.hdfcpersonalValues = value;
         console.log(this.hdfcpersonalValues, 'first');
         console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
@@ -694,32 +695,32 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     }
 // sessionData
     sessionData() {
-        if (sessionStorage.hdfcStep1 != '' && sessionStorage.hdfcStep1 != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcStep1), 'sessionStorage.hdfcStep1');
-            this.hdfcStep1 = JSON.parse(sessionStorage.hdfcStep1);
+        if (sessionStorage.hdfcPAStep1 != '' && sessionStorage.hdfcPAStep1 != undefined) {
+            console.log(JSON.parse(sessionStorage.hdfcPAStep1), 'sessionStorage.hdfcPAStep1');
+            this.hdfcPAStep1 = JSON.parse(sessionStorage.hdfcPAStep1);
             this.hdfcPersonal = this.fb.group({
-                title: this.hdfcStep1.title,
-                firstname: this.hdfcStep1.firstname,
-                lastname: this.hdfcStep1.lastname,
-                dob: new FormControl(new Date(this.hdfcStep1.dob)),
-                gender: this.hdfcStep1.gender,
-                address1: this.hdfcStep1.address1,
-                address2: this.hdfcStep1.address2,
-                address3: this.hdfcStep1.address3,
-                pincode: this.hdfcStep1.pincode,
-                state: this.hdfcStep1.state,
-                city: this.hdfcStep1.city,
-                email: this.hdfcStep1.email,
-                mobile: this.hdfcStep1.mobile,
-                accepted: this.hdfcStep1.accepted,
-                paymentmode: this.hdfcStep1.paymentmode
+                title: this.hdfcPAStep1.title,
+                firstname: this.hdfcPAStep1.firstname,
+                lastname: this.hdfcPAStep1.lastname,
+                dob: new FormControl(new Date(this.hdfcPAStep1.dob)),
+                gender: this.hdfcPAStep1.gender,
+                address1: this.hdfcPAStep1.address1,
+                address2: this.hdfcPAStep1.address2,
+                address3: this.hdfcPAStep1.address3,
+                pincode: this.hdfcPAStep1.pincode,
+                state: this.hdfcPAStep1.state,
+                city: this.hdfcPAStep1.city,
+                email: this.hdfcPAStep1.email,
+                mobile: this.hdfcPAStep1.mobile,
+                accepted: this.hdfcPAStep1.accepted,
+                paymentmode: this.hdfcPAStep1.paymentmode
             });
-            if (this.hdfcStep1.state != '') {
+            if (this.hdfcPAStep1.state != '') {
                 this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
-                this.hdfcPersonal.controls['city'].patchValue(this.hdfcStep1.city);
+                this.hdfcPersonal.controls['city'].patchValue(this.hdfcPAStep1.city);
             }
-            if (this.hdfcStep1.dob != '') {
-                let dob = this.datepipe.transform(this.hdfcStep1.dob, 'y-MM-dd');
+            if (this.hdfcPAStep1.dob != '') {
+                let dob = this.datepipe.transform(this.hdfcPAStep1.dob, 'y-MM-dd');
                 this.hdfcHealthProposerAge = this.ageCalculate(dob);
                 this.ageData(this.hdfcHealthProposerAge, 'personal');
                 if (this.hdfcHealthProposerAge > 45) {
@@ -732,18 +733,18 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         }
         if (sessionStorage.hdfcStep2 != '' && sessionStorage.hdfcStep2 != undefined) {
             console.log(JSON.parse(sessionStorage.hdfcStep2), 'sessionStoragehdfcStep2');
-            this.hdfcStep2 = JSON.parse(sessionStorage.hdfcStep2);
-            for (let i = 0; i < this.hdfcStep2.items.length; i++) {
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue(this.hdfcStep2.items[i].title);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.hdfcStep2.items[i].firstname);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].lastname.patchValue(this.hdfcStep2.items[i].lastname);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue(this.hdfcStep2.items[i].gender);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.hdfcStep2.items[i].dob);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.hdfcStep2.items[i].relationship);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.hdfcStep2.items[i].ins_age);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].preexdisease.patchValue(this.hdfcStep2.items[i].preexdisease);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.hdfcStep2.items[i].insurerDobError);
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcStep2.items[i].insurerDobValidError);
+            this.hdfcPAStep2 = JSON.parse(sessionStorage.hdfcStep2);
+            for (let i = 0; i < this.hdfcPAStep2.items.length; i++) {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue(this.hdfcPAStep2.items[i].title);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.hdfcPAStep2.items[i].firstname);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].lastname.patchValue(this.hdfcPAStep2.items[i].lastname);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue(this.hdfcPAStep2.items[i].gender);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.hdfcPAStep2.items[i].dob);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.hdfcPAStep2.items[i].relationship);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.hdfcPAStep2.items[i].ins_age);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].preexdisease.patchValue(this.hdfcPAStep2.items[i].preexdisease);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.hdfcPAStep2.items[i].insurerDobError);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcPAStep2.items[i].insurerDobValidError);
             }
 
         }
