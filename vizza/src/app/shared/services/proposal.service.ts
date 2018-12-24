@@ -475,6 +475,16 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getHdfcPincodeLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'hdfc/checkValidPincode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getHdfcStateLists(data) {
         const json = JSON.stringify(data);
         const httpOptions = {

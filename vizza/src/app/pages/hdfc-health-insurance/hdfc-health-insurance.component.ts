@@ -76,6 +76,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public sameAsinsure: any;
     public fullName: any;
     public IsCustomerAcceptedPPCPED: boolean;
+    public pincodeList: boolean;
 
     constructor( public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -527,6 +528,38 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public relationShipFailure(error) {
         console.log(error);
     }
+    pincodevalidationHdfc(pin) {
+        this.pin = pin;
+        console.log( this.pin, ' this.pin this.pin');
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'Pincode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.proposalservice.getHdfcPincodeLists(data).subscribe(
+                (successData) => {
+                    this.pincodeSuccess(successData);
+                },
+                (error) => {
+                    this.pincodeFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.pincodeList = successData.ResponseObject;
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+
+        }
+    }
+    public pincodeFailure(successData) {
+    }
+
     // Nominee RelationShip List
     nomineeRelationShipListHdfc() {
         const data = {
