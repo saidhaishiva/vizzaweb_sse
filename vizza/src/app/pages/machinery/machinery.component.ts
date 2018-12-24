@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 @Component({
   selector: 'app-machinery',
   templateUrl: './machinery.component.html',
@@ -19,7 +21,7 @@ export class MachineryComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
     this.machapp = this.fb.group({
       'appdate': ['', Validators.required],
       'apptime': null,
@@ -124,6 +126,42 @@ export class MachineryComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    MachineryInsurer(){
+        const dialogRef = this.dialog.open(MachineryInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'machineryinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #FFCC80;"> About Machinery Breakdown Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>Machinery Breakdown Insurance policy covers the sudden and unforeseen loss and damage to the machinery. The most important component to be borne in mind at the time of insuring machinery under a machinery breakdown policy is that the sum insured should be the cost of replacement of new machinery of same make, same capacity and with the same features. If the same make is not available in the market the replacement cost of a similar machinery and similar capacity should be taken.</p>
+                <p>The machinery is insured under the policy for damages due to short circuit other electrical causes, negligence, human error, lack of skill except the exclusions mentioned in the policy. Unlike the fire insurance policyloss anddamage to the machinery due to fire originating from within the machinery is covered inmachinery breakdown insurance. It is essential that the machinery should also be insured under a Fire Policy to avoid disputes at the time of a claim.</p>
+                <p>The schedule for the machinery breakdown insurance should be done with extra care and the backup documents for arriving at the sum insured for a machine should be preserved as a precaution.</p>
+         </div>
+        </div>`,
+})
+export class MachineryInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<MachineryInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }
