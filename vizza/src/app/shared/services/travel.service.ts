@@ -19,7 +19,6 @@ export class TravelService {
     }
     // this function will get the travel sum insured amount lists
     getTravelSumInsuredAmount(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -33,7 +32,6 @@ export class TravelService {
     // view travel
     viewPlan(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -43,7 +41,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     getTravelPremiumCal(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -55,7 +52,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     getplaceOfVisit(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -67,7 +63,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     getVisaTypeList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -80,7 +75,6 @@ export class TravelService {
     }
 
     getInsurerRelationshipList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -93,7 +87,6 @@ export class TravelService {
     }
 
     getAssigneeRelationshipList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -105,7 +98,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     createProposal(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -117,7 +109,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     gettravelPurposeLists(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -140,7 +131,6 @@ export class TravelService {
             .catch(this.handleError);
     }
     createTravelProposal(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -154,19 +144,16 @@ export class TravelService {
 
     getPolicyToken(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_proposaltoken';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
     }
     getPurchaceStatus(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -177,7 +164,6 @@ export class TravelService {
     }
     getDownloadPdf(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -188,7 +174,6 @@ export class TravelService {
     }
     // this function will get the key feature lists
     viewKeyFeatureList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -201,7 +186,6 @@ export class TravelService {
     }
     // this function will compare the product lists
     addtoCompare(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -215,7 +199,6 @@ export class TravelService {
 // religare travel
     // Religare RelationShipList
     religareTravelRelationshipList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -228,7 +211,6 @@ export class TravelService {
     }
     // OuestionListReligareTravel
     religareTravelQuestionList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -246,7 +228,6 @@ export class TravelService {
         return body || {};
     }
     private handleError(error: Response | any) {
-        console.log(error);
         let errMsg: string;
         if (error instanceof Response) {
             // const body = error.json() || '';

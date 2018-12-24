@@ -15,12 +15,10 @@ export class ProposalService {
 
     getProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/create_proposal';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -28,24 +26,20 @@ export class ProposalService {
 
     getReligareProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/create_proposal_religare';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
     }
     getPolicyToken(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHost() + 'quote/get_policy_proposaltoken';
-        console.log(url);
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -55,7 +49,6 @@ export class ProposalService {
             headers: new HttpHeaders({'Content-Type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*'})
         };
         const url = action;
-        console.log(url);
         return this.http.post(url , data, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -63,7 +56,6 @@ export class ProposalService {
 
     getShortlistedProduct(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -74,7 +66,6 @@ export class ProposalService {
     }
     getQuestionList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -85,7 +76,6 @@ export class ProposalService {
     }
     getOccupationList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -97,7 +87,6 @@ export class ProposalService {
 
     getOccupationCode(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -108,7 +97,6 @@ export class ProposalService {
     }
     getOccupationClass(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -120,7 +108,6 @@ export class ProposalService {
 
     getReligareQuestions(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -133,7 +120,6 @@ export class ProposalService {
 
     getRelationshipList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -144,7 +130,6 @@ export class ProposalService {
     }
     getPurchaceStatus(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -156,7 +141,6 @@ export class ProposalService {
 
     getDownloadPdf(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -167,7 +151,6 @@ export class ProposalService {
     }
     getDownloadPdfReligare(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -180,7 +163,6 @@ export class ProposalService {
 
     getPostalReligare(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -193,7 +175,6 @@ export class ProposalService {
     //Appollo-Munich
     getTitleCode(data){
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -203,7 +184,6 @@ export class ProposalService {
             .catch(this.handleError);
     }  getIdProofList(data){
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -214,7 +194,6 @@ export class ProposalService {
     }
     getAppolloMaritalStatus(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -225,7 +204,6 @@ export class ProposalService {
     }
     getAppolloOccupation(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -236,7 +214,6 @@ export class ProposalService {
     }
     getAppolloPreviousInsure(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -247,7 +224,6 @@ export class ProposalService {
     }
     getAppolloProffession(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -258,7 +234,6 @@ export class ProposalService {
     }
     getAppolloRelationship(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -269,7 +244,6 @@ export class ProposalService {
     }
     getAppolloState(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -280,7 +254,6 @@ export class ProposalService {
     }
     getAppolloDistrict(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -291,7 +264,6 @@ export class ProposalService {
     }
     getAppolloCity(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -305,7 +277,6 @@ export class ProposalService {
     ///Reliance///
     getMaritalStatus(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -316,7 +287,6 @@ export class ProposalService {
     }
     relianceProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -328,7 +298,6 @@ export class ProposalService {
 
     apollomunichProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -340,7 +309,6 @@ export class ProposalService {
 
     apollomunichProffession(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -353,7 +321,6 @@ export class ProposalService {
 
     apollomunichPreviousInsure(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -366,7 +333,6 @@ export class ProposalService {
 
     getRelianceOccupation(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -378,7 +344,6 @@ export class ProposalService {
 
     getRelianceNationality(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -389,7 +354,6 @@ export class ProposalService {
     }
     getRelatioshipProposerList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -400,7 +364,6 @@ export class ProposalService {
     }
     getNomineeRelatioshipList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -411,7 +374,6 @@ export class ProposalService {
     }
     getServiceTax(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -422,7 +384,6 @@ export class ProposalService {
     }
     getCheckpincode(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -434,7 +395,6 @@ export class ProposalService {
 
     getApollomunichPincode(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -445,7 +405,6 @@ export class ProposalService {
     }
     getDiseaseList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -456,7 +415,6 @@ export class ProposalService {
     }
     getCoverType(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -467,7 +425,6 @@ export class ProposalService {
     }
     getDownloadPdfReliance(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -480,7 +437,6 @@ export class ProposalService {
     //HDFC Insurance Services
     getTitleLists(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -491,7 +447,6 @@ export class ProposalService {
     }
     hdfcRelationshipList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -502,7 +457,6 @@ export class ProposalService {
     }
     hdfcNomineeRelationshipList(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -513,7 +467,6 @@ export class ProposalService {
     }
     getHdfcCityLists(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -524,7 +477,6 @@ export class ProposalService {
     }
     getHdfcStateLists(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -535,7 +487,6 @@ export class ProposalService {
     }
     createHdfcHealthProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -568,7 +519,6 @@ export class ProposalService {
     //Bajaj Services
     getbajajProposal(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -580,7 +530,6 @@ export class ProposalService {
 
     getBajajOccupation(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -592,7 +541,6 @@ export class ProposalService {
 
     getBajajRelationship(data) {
         const json = JSON.stringify(data);
-        console.log(json);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
