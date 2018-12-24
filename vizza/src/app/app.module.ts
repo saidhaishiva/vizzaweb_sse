@@ -120,15 +120,18 @@ import {MarineCargoInsurer} from './pages/marinecargo/marinecargo.component';
 import {MarinehullComponent} from './pages/marinehull/marinehull.component';
 import {AviationComponent} from './pages/aviation/aviation.component';
 import {MoneyComponent} from './pages/money/money.component';
+import {MoneyInsurer} from './pages/money/money.component';
 import {FireComponent} from './pages/fire/fire.component';
 import {BurglaryComponent} from './pages/burglary/burglary.component';
 import {MachineryComponent} from './pages/machinery/machinery.component';
 import {ElectronicsComponent} from './pages/electronics/electronics.component';
 import {ContractorsComponent} from './pages/contractors/contractors.component';
+import {ContractorsInsurer} from './pages/contractors/contractors.component';
 import {HouseholdComponent} from './pages/household/household.component';
 import {HouseholdInsurer} from './pages/household/household.component';
 import {PublicComponent} from './pages/public/public.component';
 import {ProfessionalComponent} from './pages/professional/professional.component';
+import {ProfessionalInsurer} from './pages/professional/professional.component';
 import {WorkmenComponent} from './pages/workmen/workmen.component';
 import {WorkmenInsurer} from './pages/workmen/workmen.component';
 import {GroupmedicalComponent} from './pages/groupmedical/groupmedical.component';
@@ -290,15 +293,18 @@ import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-
       MarinehullComponent,
       AviationComponent,
       MoneyComponent,
+      MoneyInsurer,
       FireComponent,
       BurglaryComponent,
       MachineryComponent,
       ElectronicsComponent,
       ContractorsComponent,
+      ContractorsInsurer,
       HouseholdComponent,
       HouseholdInsurer,
       PublicComponent,
       ProfessionalComponent,
+      ProfessionalInsurer,
       WorkmenComponent,
       WorkmenInsurer,
       GroupmedicalComponent,
@@ -392,7 +398,7 @@ import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,
     ]
 })
 export class AppModule { }

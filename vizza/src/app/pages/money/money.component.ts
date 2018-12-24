@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-money',
@@ -20,7 +21,7 @@ export class MoneyComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
       this.moneyapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -131,6 +132,43 @@ export class MoneyComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    MoneyInsurer(){
+        const dialogRef = this.dialog.open(MoneyInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
+}
+@Component({
+    selector: 'moneyinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #DCE775"> About Money Insurance</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>Money insurance has three important sections (i) Money in Transit, (ii) Money in counter & (iii) Money in safe. </p>
+                <p>Money in Transit : This policy is essential for covering the cash in transit from the insured’s premises to the bank and vice-versa. Every transit has to be accounted for and the estimated total amount of money in transit for the year is to be taken as the sum insured and premium is to be calculated on this amount. The other limit which has to be mentioned is the maximum amount of money which will be in transit and the insurer will be on risk for this amount only in every single transit. The annual amount of money in transit mentioned at the type of policy issuance is only an estimated amount and at the end of the policy period the insured has to declare the actual amount which was in transit during the policy period. The insurer issues an endorsement based on this declaration and if the sum insured declared earlier is exceeded the additional premium is collected and if it is lesser than the amount declared originally the excess premium collected is refunded. </p>
+                <p>Single transits can also be covered. Mode of transit, accompaniment of armed guards and other security features play a vital role in the rating structure.</p>
+                <p>Money in counter and money in safe have to be covered separately with a separate sum insured. Infidelity of persons and authorised employees carrying cash has to be specifically covered under the policy.</p>
+         </div>
+        </div>`,
+})
+export class MoneyInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<MoneyInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }
