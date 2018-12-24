@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'app-professional',
   templateUrl: './professional.component.html',
@@ -19,7 +20,7 @@ export class ProfessionalComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog) {
       this.proffapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -131,6 +132,42 @@ export class ProfessionalComponent implements OnInit {
             }
         }
     }
+    ProfessionalInsurer(){
+        const dialogRef = this.dialog.open(ProfessionalInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
 
+}
+@Component({
+    selector: 'professionalinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #B2E1FD"> About Professional Indemnity Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>Professional Indemnity Insurance Policies are available for Doctors,Engineers, Chartered Accountants, Architects, Advocates which covers their legal liabilities for loss arising due to errors or omissions whilst discharging their professional duties. The most important point is that the policy covers only civil liability and Criminal liability is not covered. Insurer has to authorise all payments and without the written consent of the insurer no payment should be made by the insured.</p>
+                <p>The professional indemnity policy has standard exclusions such aswillful neglect, payment on account of any penalty, fine, third party public liability,payment on account of any agreement, pure financial loss due to loss of goodwill or lossof market etc. Professional indemnity policies are available for medical establishments like hospitals, nursing homes and also firms of professionals.</p>
+                <p>The premium depends on the limit of liability desired and also the ratio of any one incident in any one year required. The ratio of any one incident in any one year is normally accepted by the insurers as 1;1, 1:2 and 1:3. The insured has to state the limit of liability and the ratio at the time of procurement.</p>
+         </div>
+        </div>`,
+})
+export class ProfessionalInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<ProfessionalInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
