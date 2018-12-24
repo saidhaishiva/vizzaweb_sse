@@ -130,6 +130,7 @@ import {ContractorsInsurer} from './pages/contractors/contractors.component';
 import {HouseholdComponent} from './pages/household/household.component';
 import {HouseholdInsurer} from './pages/household/household.component';
 import {PublicComponent} from './pages/public/public.component';
+import {PublicInsurer} from './pages/public/public.component';
 import {ProfessionalComponent} from './pages/professional/professional.component';
 import {ProfessionalInsurer} from './pages/professional/professional.component';
 import {WorkmenComponent} from './pages/workmen/workmen.component';
@@ -304,6 +305,7 @@ import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdf
       HouseholdComponent,
       HouseholdInsurer,
       PublicComponent,
+      PublicInsurer,
       ProfessionalComponent,
       ProfessionalInsurer,
       WorkmenComponent,
@@ -400,7 +402,7 @@ import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdf
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,
     ]
 })
 export class AppModule { }
