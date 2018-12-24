@@ -98,7 +98,6 @@ export class PersonalaccidentComponent implements OnInit {
             this.firstPage = false;
             this.secondPage = true;
         }
-    console.log(this.compareArray,'compareArraycompareArray');
     }
 
 reset(){
@@ -183,12 +182,10 @@ reset(){
     public getSumInsuredAmountSuccess(successData) {
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
-            console.log(this.sumInsuredAmountLists, 'this.sumInsuredAmountLists');
         }
     }
 
     public getSumInsuredAmountFailure(error) {
-        console.log(error, 'error');
     }
 
     checkNetwork() {
@@ -216,13 +213,11 @@ reset(){
 
 
     public occupationCodeSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationCode = successData.ResponseObject;
 
     }
 
     public occupationCodeFailure(error) {
-        console.log(error);
     }
 
     changeAmount() {
@@ -298,11 +293,9 @@ reset(){
 
 
     public personalAccidentSuccess(successData, index) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.personalPremiumLists = successData.ResponseObject;
             sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
-            console.log(this.personalPremiumLists, 'jhghfhjfhgfhgfjhyf');
             this.firstPage = false;
             this.secondPage = true;
             this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
@@ -327,7 +320,6 @@ reset(){
     }
 
     public personalAccidentFailure(error) {
-        console.log(error);
     }
 
 // update
@@ -369,12 +361,10 @@ reset(){
 
 
     public updateFailure(error) {
-        console.log(error);
     }
 
     //// compare Details
     compareDetails(value, index, equiryId, name) {
-       console.log(value, 'valuevalue');
         const data = {
             index: index,
             product_id: value.product_id,
@@ -388,7 +378,6 @@ reset(){
             company_name: value.company_name,
             key_features: value.key_features
         };
-        console.log(data, 'data');
         this.enquiryIdP = equiryId;
         this.personalPremiumLists.product_lists[index].compare = true;
         this.compareArray.push(data);
@@ -471,7 +460,6 @@ reset(){
 
     // buy details
     buyDetails(value){
-        console.log(value, 'kljkjjkjkjk');
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15){
             this.router.navigate(['/appollopa']);
@@ -485,7 +473,6 @@ reset(){
     }
     // view key features details
     viewKeyList(value) {
-        console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(ViewProductDetailsComponent, {
             width: '1500px', data: {productId : value.product_id, productName: value.product_name}
         });
