@@ -62,6 +62,11 @@ export class BajajAlianzComponent implements OnInit {
     public getStepper1: any;
     public proposerData: any;
     public lastStepper: any;
+    public nationalityList: any;
+    public pin: any;
+    public title: any;
+    public setPincode: any;
+    public proposerPArea: any;
 
     public setDate: any;
     public setDateAge: any;
@@ -141,6 +146,7 @@ export class BajajAlianzComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.NationalityList();
         this.setOccupationList();
         this.setrelationshipList();
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
@@ -569,8 +575,8 @@ export class BajajAlianzComponent implements OnInit {
             });
     }
     proposalSuccess(successData){
-        if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess == true) {
                 this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             let getdata=[];
@@ -579,7 +585,7 @@ export class BajajAlianzComponent implements OnInit {
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
         } else{
-            this.toastr.error(successData.ResponseObject.ErrorObject);
+            this.toastr.error(successData.ErrorObject);
         }
     }
 
@@ -597,5 +603,70 @@ export class BajajAlianzComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+
+    //Nationality List
+    NationalityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelianceNationality(data).subscribe(
+            (successData) => {
+                this.getNationalityStatusSuccess(successData);
+            },
+            (error) => {
+                this.getNationalityStatusFailure(error);
+            }
+        );
+    }
+
+    public getNationalityStatusSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.nationalityList = successData.ResponseObject;
+        }
+    }
+
+    public getNationalityStatusFailure(error) {
+    }
+
+    commonPincode(pin, title){
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'pincode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.proposalservice.getCheckpincode(data).subscribe(
+                (successData) => {
+                    this.commonPincodeSuccess(successData);
+                },
+                (error) => {
+                    this.commonPincodeFailure(error);
+                }
+            );
+        }
+    }
+    commonPincodeSuccess(successData){
+        this.setPincode = successData.ResponseObject;
+        if (this.title == 'proposer') {
+            if (successData.IsSuccess) {
+                this.proposer['controls'].proposerState.patchValue(this.setPincode.state_name);
+                this.proposer['controls'].proposerDistrict.patchValue(this.setPincode.district_name);
+                this.proposer['controls'].proposerCity.patchValue(this.setPincode.city_village_name);
+                this.proposerPArea = this.setPincode.area_details;
+            } else {
+                this.toastr.error('In valid Pincode');
+                this.proposer['controls'].proposerState.patchValue('');
+                this.proposer['controls'].proposerDistrict.patchValue('');
+                this.proposer['controls'].proposerCity.patchValue('');
+                this.proposerPArea = [];
+            }
+        }
+    }
+    commonPincodeFailure(error){
     }
 }

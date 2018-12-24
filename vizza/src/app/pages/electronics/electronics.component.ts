@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
+
 @Component({
   selector: 'app-electronics',
   templateUrl: './electronics.component.html',
@@ -19,7 +21,7 @@ export class ElectronicsComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog ) {
       this.electapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -125,6 +127,43 @@ export class ElectronicsComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    ElectronicInsurer(){
+        const dialogRef = this.dialog.open(ElectronicInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+
+    }
+}
+@Component({
+    selector: 'electronicinsurer',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #BCAAA4;"> About Electronics Equiptment Policy</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <p>All electronic equipments such as medical, computers, audio visual equipments including stabiliser, key board, monitors, printers, UPS, and system software can be covered under the policy.  The policy also has a provision to cover the loss or damage to the external data media and also can provide for the increased cost of working in the event of use of alternate equipments if there is a damage to the equipment insured under the EEP.</p>
+                <p>If the electronic equipment is covered under a standard fire and special perils policy many of the insurers offer a discount in the premium.</p>
+                <p>The policy specifically does not cover war and nuclear perils, wilful act or negligence, wear and tear, gradual deterioration due to atmospheric conditions, aesthetic effects and consequential losses.</p>
+         </div>
+        </div>`,
+})
+export class ElectronicInsurer {
+
+    constructor(
+        public dialogRef: MatDialogRef<ElectronicInsurer>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }
