@@ -267,7 +267,6 @@ export class PersonalaccidentformComponent implements OnInit {
         });
 
 
-        console.log(this.totalData);
 
     }
 
@@ -294,7 +293,6 @@ export class PersonalaccidentformComponent implements OnInit {
         this.setinsureOccupationListCode();
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
         this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-        console.log(this.getBuyDetails, 'this.getBuyDetails');
         if(this.getAllPremiumDetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
             this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
@@ -325,7 +323,6 @@ export class PersonalaccidentformComponent implements OnInit {
     sessionData() {
         if (sessionStorage.proposal1Detail != '' && sessionStorage.proposal1Detail != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.proposal1Detail);
-            console.log(this.getStepper1, 'uoiii');
             if (this.getStepper1.personalPincode != '') {
                 this.getPostal(this.getStepper1.personalPincode, 'personal');
             }
@@ -383,7 +380,6 @@ export class PersonalaccidentformComponent implements OnInit {
         }
 
         if (sessionStorage.proposal2Detail != '' && sessionStorage.proposal2Detail != undefined) {
-            console.log(JSON.parse(sessionStorage.proposal2Detail), 'sessionStorage.proposal2Detail');
             this.getStepper2= JSON.parse(sessionStorage.proposal2Detail);
 
 
@@ -449,10 +445,7 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insuremobileNumber = 'true';
         }
         if (sessionStorage.proposal3Detail != '' && sessionStorage.proposal3Detail != undefined) {
-            console.log(JSON.parse(sessionStorage.proposal3Detail), 'sessionStorage.proposal3Detail');
-           // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
             this.personalAccidentQuestionsList = JSON.parse(sessionStorage.proposal3Detail);
-            console.log(this.personalAccidentQuestionsList, 'sessionStorage.this.personalAccidentQuestionsList');
 
         } else {
             this. religareQuestions();
@@ -460,7 +453,6 @@ export class PersonalaccidentformComponent implements OnInit {
 
 // nominee
         if (sessionStorage.personalnomineeData != '' && sessionStorage.personalnomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.personalnomineeData), 'sessionStorage.stepper1Details');
             this.getpersonalNomineeData = JSON.parse(sessionStorage.personalnomineeData);
             this.nomineeDetails = this.fb.group({
                 religareNomineeName: this.getpersonalNomineeData.religareNomineeName,
@@ -469,7 +461,6 @@ export class PersonalaccidentformComponent implements OnInit {
         }
         if (sessionStorage.paProposalID != '' && sessionStorage.paProposalID != undefined) {
             this.religarePAProposal = sessionStorage.paProposalID;
-            console.log(this.religarePAProposal, 'this.religarePAProposal');
         }
     }
 
@@ -478,16 +469,11 @@ export class PersonalaccidentformComponent implements OnInit {
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
         this.personalData = value;
-        console.log(this.personalData, 'dfgdfg');
         this.personalData.rolecd = 'PROPOSER';
         this.personalData.type = 'SELF';
         sessionStorage.proposal1Detail = '';
         sessionStorage.proposal1Detail = JSON.stringify(value);
-        console.log(value.personalDob, 'value');
         if (this.personal.valid) {
-            console.log(this.mobileNumber, 'this.mobileNumber');
-            console.log(sessionStorage.proposerAgePA, 'this.sessionStorage.proposerAgePA');
-
             this.proposerInsureData = [];
             if (sessionStorage.proposerAgePA>= 18) {
                 this.proposerInsureData.push(this.personalData);
@@ -506,7 +492,6 @@ export class PersonalaccidentformComponent implements OnInit {
         sessionStorage.proposal2Detail = JSON.stringify(value);
         this.insurerData = value;
         if (this.insured.valid) {
-            console.log(value, 'ffffflll');
             if (sessionStorage.insuredAgePA>= 18) {
 
                 stepper.next();
@@ -527,7 +512,6 @@ export class PersonalaccidentformComponent implements OnInit {
         this.sameField = values.checked;
         if (values.checked) {
             this.inputReadonly = true;
-            console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
@@ -549,7 +533,6 @@ export class PersonalaccidentformComponent implements OnInit {
         this.sameinsure = values.checked;
         if (values.checked) {
             this.inputReadonly = true;
-            console.log(values.checked);
             this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
             this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
             this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
@@ -570,7 +553,6 @@ export class PersonalaccidentformComponent implements OnInit {
     sameProposer(value: any) {
         if (value.checked) {
             sessionStorage.insuredAgePA = '';
-            console.log(this.personal.controls['personalDescriptionCode'].value, 'this.personal.controls[\'personalDescriptionCode\'].value');
             sessionStorage.sameas = this.readonlyproposer;
             this.getInsurePostal(this.personal.controls['personalPincode'].value, 'personal');
             setTimeout(() => {
@@ -580,7 +562,6 @@ export class PersonalaccidentformComponent implements OnInit {
 
             this.setinsureDescriptionListCode();
 
-            console.log( this.insured.controls['insuredDescriptionCode'].value, 'klllopppppp');
             this.readonlyproposer = true;
             this.insured.controls['sameasInsuredAddress'].disable();
             this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
@@ -612,9 +593,7 @@ export class PersonalaccidentformComponent implements OnInit {
             this.insured.controls['insuredrState'].patchValue(this.personal.controls['residenceState'].value);
 
             let idob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
-            console.log(idob, 'ageeeeee');
             this.insuredAgePA = this.ageCalculate(idob);
-            console.log( this.insuredAgePA, ' this.insuredAgePA');
             sessionStorage.insuredAgePA = this.insuredAgePA;
 
         }
@@ -684,7 +663,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     addEvent(event, type) {
-        console.log(type, 'type');
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAgePA = '';
@@ -707,7 +685,6 @@ export class PersonalaccidentformComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob,'dob');
                 if (selectedDate.length == 10) {
                     if(type == 'personal'){
                        this.personaldateError = '';
@@ -764,12 +741,10 @@ export class PersonalaccidentformComponent implements OnInit {
 
     stepback() {
         this.back = true;
-        console.log(this.back);
     }
 
     quesback() {
         this.back = false;
-        console.log(this.back);
     }
 
     //Summary residence detail
@@ -806,7 +781,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public getCityResistFailure(error) {
-        console.log(error);
     }
 
 
@@ -814,7 +788,6 @@ export class PersonalaccidentformComponent implements OnInit {
     getPostal(pin, title) {
         this.pin = pin;
         this.title = title;
-        console.log(this.title, 'kjhjkghkhk')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -876,7 +849,6 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
     public getpostalFailure(error) {
-        console.log(error);
     }
     // insured postal details
     getInsurePostal(pin, title) {
@@ -913,7 +885,6 @@ export class PersonalaccidentformComponent implements OnInit {
                 for (let i = 0; i < this.iresponse.length; i++) {
                     this.insurepersonalCitys.push({city: this.iresponse[i].city});
                 }
-                console.log( this.insurepersonalCitys,  'this.insurepersonalCitys');
             } else if (successData.IsSuccess != true) {
 
                 this.insured.controls['insuredState'].setValue('');
@@ -958,7 +929,6 @@ export class PersonalaccidentformComponent implements OnInit {
 
     }
     public getinsurepostalFailure(error) {
-        console.log(error);
     }
 
 
@@ -967,8 +937,6 @@ export class PersonalaccidentformComponent implements OnInit {
     getPostalSummary(pin, title) {
         this.sumPin = pin;
         this.sumTitle = title;
-        console.log(this.sumPin, 'pin');
-        console.log(this.title, 'sumTitle1');
         const data = {
             'platform': 'web',
             'pincode': this.sumPin
@@ -1003,7 +971,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public PostalSummaryFailure(error) {
-        console.log(error);
     }
 
     setOccupationList() {
@@ -1025,12 +992,10 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public occupationListSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationList = successData.ResponseObject;
     }
 
     public occupationListFailure(error) {
-        console.log(error);
     }
 
     setOccupationListCode() {
@@ -1051,12 +1016,10 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public occupationCodeSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationCode = successData.ResponseObject;
     }
 
     public occupationCodeFailure(error) {
-        console.log(error);
     }
     setpersonalOccupationListCode() {
         const data = {
@@ -1077,14 +1040,12 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public occupationdescriptionSuccess(successData) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             // this.occupationFirst = true;
             // this.occupationSecond = true;
             this.occupationdescriptionList = successData.ResponseObject;
            // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
 
-            console.log(this.occupationdescriptionList, 'occupationdescription');
         } else {
             // this.occupationFirst = true;
             // this.occupationSecond = false;
@@ -1095,11 +1056,8 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public occupationdescriptionFailure(error) {
-        console.log(error);
     }
     setpersonalDescriptionListCode(type) {
-        console.log(this.personal.controls['personalDescriptionCode'].value, 'ooooooo');
-
         if (this.personal.controls['personalDescriptionCode'].value == 'C5') {
             this.occupationDescription = true;
             if(this.occupationDescription = true) {
@@ -1131,7 +1089,6 @@ export class PersonalaccidentformComponent implements OnInit {
 
     }
     public classSuccess(successData, type) {
-        console.log(successData.ResponseObject);
         if (type != 'session' ) {
             this.personal.controls['personalClassDescriptionCode'].patchValue('');
         }
@@ -1141,13 +1098,11 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public classFailure(error) {
-        console.log(error);
     }
 
 
     // insured occupation list
     setinsureOccupationListCode() {
-        console.log(this.insured.controls['insuredOccupationCode'].value, 'ppppp');
         const data = {
             'platform': 'web',
             'occupationCode':this.insured.controls['insuredOccupationCode'].value,
@@ -1166,7 +1121,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public insureoccupationdescriptionSuccess(successData) {
-        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.insureoccupationFirst = true;
             this.insureoccupationSecond = true;
@@ -1181,7 +1135,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public insureoccupationdescriptionFailure(error) {
-        console.log(error);
     }
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
@@ -1219,14 +1172,12 @@ export class PersonalaccidentformComponent implements OnInit {
 
     }
     public classoccupationSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.insureClassDescription = successData.ResponseObject;
 
 
     }
 
     public classoccupationFailure(error) {
-        console.log(error);
     }
 
 
@@ -1248,36 +1199,11 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
-
-        // this.insureRelationList = [];
-        // if (this.insurePersons.length >= 1) {
-        //     for (let i = 0; i < this.relationshipList.length; i++) {
-        //         if (this.relationshipList[i].status == 1) {
-        //             this.insureRelationList.push({
-        //                 'relationship_code': this.relationshipList[i].relationship_code,
-        //                 'relationship_name': this.relationshipList[i].relationship_name,
-        //                 'status': this.relationshipList[i].status
-        //             });
-        //         }
-        //     }
-        // } else {
-        //     for (let i = 0; i < this.relationshipList.length; i++) {
-        //         this.insureRelationList.push({
-        //             'relationship_code': this.relationshipList[i].relationship_code,
-        //             'relationship_name': this.relationshipList[i].relationship_name,
-        //             'status': this.relationshipList[i].status
-        //         });
-        //     }
-        // }
-
-        console.log(this.insureRelationList, 'insureRelationListinsureRelationListinsureRelationList');
 
     }
 
     public setRelationshipFailure(error) {
-        console.log(error);
     }
 
 
@@ -1293,7 +1219,7 @@ export class PersonalaccidentformComponent implements OnInit {
 
     public typeValidate(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -1302,7 +1228,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     alternateChange(event, type) {
-        console.log(event, 'ghj');
         if (type == 'personal') {
                 if (event.target.value == this.personal.get('personalMobile').value) {
                     this.mobileNumber = 'Alternate number should be different from mobile number';
@@ -1353,11 +1278,9 @@ export class PersonalaccidentformComponent implements OnInit {
             }
      //   }
 
-        console.log(this.personalAccidentQuestionsList, 'this.personalAccidentQuestionsList');
 
     }
     public religareQuestionsFailure(error) {
-        console.log(error);
     }
 
 // Medical
@@ -1372,19 +1295,16 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.partyQuestionDOList.push({'questionCd':this.personalAccidentQuestionsList[i].question_code, 'questionSetCd':this.personalAccidentQuestionsList[i].question_set_code, 'response': this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO' });
           //  }
         }
-        console.log(count, 'countcount');
         if (count == 5) {
             stepper.next();
         } else {
             this.toastr.error('All the Question are mandatory')
         }
-        console.log( this.partyQuestionDOList , ' this.getFilterData ');
 
     }
 
     // nominee details
     religareNomineeDetails(stepper: MatStepper, value) {
-        console.log(value);
         if (this.nomineeDetails.valid) {
                 sessionStorage.personalnomineeData = '';
                 sessionStorage.personalnomineeData = JSON.stringify(value);
@@ -1572,9 +1492,7 @@ export class PersonalaccidentformComponent implements OnInit {
             this.lastStepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, 'this.summaryData');
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
-            console.log(this.religarePAProposal, 'this.religarePAProposal');
             sessionStorage.paProposalID = this.religarePAProposal;
             // get religare proposer occupation code
             for( let i=0; i < this.occupationCode.length; i++) {
@@ -1621,6 +1539,5 @@ export class PersonalaccidentformComponent implements OnInit {
 
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
     }
