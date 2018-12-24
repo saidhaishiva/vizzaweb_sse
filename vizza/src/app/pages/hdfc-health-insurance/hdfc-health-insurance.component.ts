@@ -554,6 +554,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
         } else {
             this.toastr.error(successData.ErrorObject);
+            this.hdfcPersonal.controls['pincode'].setValue('');
 
         }
     }
