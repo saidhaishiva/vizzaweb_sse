@@ -124,20 +124,20 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="State" formControlName="proposerState" autocomplete="off" required >
+                                                            <input matInput placeholder="State" formControlName="proposerState" autocomplete="off" required readonly>
                                                             <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
 
                                                     <div class="col-md-3">
                                                         <mat-form-field  class="w-100">
-                                                            <input matInput placeholder="District" formControlName="proposerDistrict" autocomplete="off" required >
+                                                            <input matInput placeholder="District" formControlName="proposerDistrict" autocomplete="off" required readonly>
                                                             <mat-error *ngIf="proposer.controls.proposerDistrict.errors?.required">District is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field  class="w-100">
-                                                            <input matInput placeholder="City" formControlName="proposerCity" autocomplete="off" required >
+                                                            <input matInput placeholder="City" formControlName="proposerCity" autocomplete="off" required readonly>
                                                             <mat-error *ngIf="proposer.controls.proposerCity.errors?.required">City is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
