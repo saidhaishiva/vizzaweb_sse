@@ -531,6 +531,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
     pincodevalidationHdfc(pin) {
         this.pin = pin;
+        if(pin == '') {
+            this.pincodeValid = true;
+        }
         console.log( this.pin, ' this.pin this.pin');
         const data = {
             'platform': 'web',
