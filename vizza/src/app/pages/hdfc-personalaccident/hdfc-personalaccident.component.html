@@ -18,18 +18,14 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required >
-                            <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
-                              {{lists.tittle}}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="hdfcPersonal.controls.title.errors?.required">Title is required</mat-error>
+                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <mat-error *ngIf="hdfcPersonal.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
-                          <mat-error *ngIf="hdfcPersonal.controls.firstname.errors?.required"> First Name is required</mat-error>
+                          <input matInput placeholder="Middle Name" formControlName="midname"  (keypress)="typeValidate($event)"  autocomplete="off"  >
+                          <!--<mat-error *ngIf="hdfcPersonal.controls.midname.errors?.required"> Middle Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -84,15 +80,15 @@
                             <mat-option value="Both">Both</mat-option>
                             <mat-option value="None">None</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="hdfcPersonal.controls.dependant.errors?.required">Dependant Parent Mode is required</mat-error>
+                          <!--<mat-error *ngIf="hdfcPersonal.controls.dependant.errors?.required">Dependant Parent Mode is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="OCCUPATION" name="occupation" formControlName="OccupationList" required>
-                            <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation}}</mat-option>
+                            <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="hdfcPersonal.controls.OccupationList.errors?.required">OCCUPATION is required</mat-error>
+                          <!--<mat-error *ngIf="hdfcPersonal.controls.OccupationList.errors?.required">OCCUPATION is required</mat-error>-->
                         </mat-form-field>
                       </div>
 

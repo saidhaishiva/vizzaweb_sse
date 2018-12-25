@@ -84,9 +84,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.hdfcPersonal = this.fb.group({
-            title: ['', Validators.required],
             firstname: new FormControl(''),
             lastname: new FormControl(''),
+            midname: '',
             gender: ['', Validators.compose([Validators.required])],
             dob: ['', Validators.compose([Validators.required])],
             address1: ['', Validators.required],
@@ -766,6 +766,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 title: this.hdfcPAStep1.title,
                 firstname: this.hdfcPAStep1.firstname,
                 lastname: this.hdfcPAStep1.lastname,
+                midname: this.hdfcPAStep1.midname,
                 dob: new FormControl(new Date(this.hdfcPAStep1.dob)),
                 gender: this.hdfcPAStep1.gender,
                 address1: this.hdfcPAStep1.address1,
@@ -777,7 +778,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 email: this.hdfcPAStep1.email,
                 mobile: this.hdfcPAStep1.mobile,
                 accepted: this.hdfcPAStep1.accepted,
-                paymentmode: this.hdfcPAStep1.paymentmode
+                paymentmode: this.hdfcPAStep1.paymentmode,
+                dependant: this.hdfcPAStep1.dependant,
+                OccupationList: this.hdfcPAStep1.OccupationList,
+                medicalcondition: this.hdfcPAStep1.medicalcondition,
+                nationality: this.hdfcPAStep1.nationality
             });
             if (this.hdfcPAStep1.state != '') {
                 this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
