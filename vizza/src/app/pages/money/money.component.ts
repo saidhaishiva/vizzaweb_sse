@@ -144,7 +144,7 @@ export class MoneyComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #DCE775"> About Money Insurance</h3>
+                <h3 class="text-center" style="color: #DCE775;"> About Money Insurance</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

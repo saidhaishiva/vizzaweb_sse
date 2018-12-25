@@ -68,7 +68,7 @@
                                                     <mat-select  placeholder="Nationality" formControlName="nationality" required  class="w-100">
                                                         <mat-option *ngFor="let list of nationalityList" [value]= 'list.nationality_id'> {{list.nationality}} </mat-option>
                                                     </mat-select>
-                                                    <mat-error *ngIf="personal.controls.nationality.errors?.required">Occupation is required</mat-error>
+                                                    <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
@@ -171,8 +171,6 @@
                                                     <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-
-
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Area" formControlName="personalArea" required  class="w-100">
@@ -297,7 +295,7 @@
                     <mat-accordion class="mt-4 w-100 float-left">
                         <form [formGroup]="insureArray">
                             <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">F
                                     <mat-expansion-panel-header>
                                         <mat-panel-title> {{insureArray['controls'].items['controls'][i]['controls'].type.value}} </mat-panel-title>
                                     </mat-expansion-panel-header>

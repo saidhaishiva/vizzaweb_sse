@@ -16,7 +16,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Tittle" formControlName="proposerTitle" (change)="changeGender()">
+                                                    <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()">
                                                         <mat-option value="MR">Mr</mat-option>
                                                         <mat-option value="MRS">Ms</mat-option>
                                                     </mat-select>
@@ -108,19 +108,20 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6"  formControlName="proposerPincode" autocomplete="off" required>
+                                                            <mat-select  placeholder="Nationality" formControlName="proposerNationality" required  class="w-100">
+                                                                <mat-option *ngFor="let list of nationalityList" [value]= 'list.nationality'> {{list.nationality}} </mat-option>
+                                                            </mat-select>
+                                                            <mat-error *ngIf="proposer.controls.proposerNationality.errors?.required">Nationality is required</mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <mat-form-field class="w-100">
+                                                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6"  formControlName="proposerPincode" (input)="commonPincode($event.target.value, 'proposer')" autocomplete="off" required>
                                                             <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                             <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode required</mat-error>
                                                             <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                                         </mat-form-field>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Nationality" formControlName="proposerNationality" autocomplete="off" required >
-                                                            <mat-error *ngIf="proposer.controls.proposerNationality.errors?.required">Nationality is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
-
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
                                                             <input matInput placeholder="State" formControlName="proposerState" autocomplete="off" required >
@@ -142,8 +143,10 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Land Mark" formControlName="proposerArea" autocomplete="off" required >
-                                                            <mat-error *ngIf="proposer.controls.proposerArea.errors?.required">Land Mark is required</mat-error>
+                                                            <mat-select  placeholder="Area" formControlName="proposerArea" required  class="w-100">
+                                                                <mat-option *ngFor="let list of proposerPArea" [value]= 'list.area_name'> {{list.area_name}} </mat-option>
+                                                            </mat-select>
+                                                            <mat-error *ngIf="proposer.controls.proposerArea.errors?.required">Area is required</mat-error>
                                                         </mat-form-field>
                                                     </div>
                                                 </div>
@@ -211,7 +214,7 @@
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Tittle" formControlName="insureTitle" (change)="insureChangeGender(i)">
+                                                        <mat-select placeholder="Title" formControlName="insureTitle" (change)="insureChangeGender(i)">
                                                             <mat-option value="MR">Mr</mat-option>
                                                             <mat-option value="MRS">Ms</mat-option>
                                                         </mat-select>

@@ -600,6 +600,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 if (this.pincodeValid) {
+                    this.sameasInsurer('event');
                     stepper.next();
                 } else {
                     this.toastr.error('Enter valid pincode');
