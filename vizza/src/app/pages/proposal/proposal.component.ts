@@ -108,6 +108,7 @@ export class ProposalComponent implements OnInit {
     public socialAnswer4: any;
     public inputReadonly: any;
     public previousInsurence: any;
+    public socialcheck: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -298,11 +299,11 @@ export class ProposalComponent implements OnInit {
     }
     changeSocialStatus(result) {
         this.socialStatus = this.personal.controls['socialStatus'].value;
+        console.log(this.socialStatus, 'this.socialStatusthis.socialStatuspppp');
         let btn = this.personal.controls['socialStatus'].value;
         console.log(btn, 'this.result');
 
         if (btn == 'true') {
-
             this.personal.controls['socialAnswer1'].setValue('0');
             this.personal.controls['socialAnswer2'].setValue('0');
             this.personal.controls['socialAnswer3'].setValue('0');
@@ -310,8 +311,8 @@ export class ProposalComponent implements OnInit {
             this.socialNo = '';
 
         } else {
-
             this.socialNo = false;
+
         }
     }
     groupList() {
@@ -560,7 +561,11 @@ console.log(value,'fgh');
                     }
 
                 } else {
-                    stepper.next();
+                    if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
+                        console.log( value.socialAnswer2, ' value.socialAnswer2 value.socialAnswer2');
+                        stepper.next();
+
+                    }
                 }
 
 
@@ -1173,7 +1178,7 @@ console.log(value,'fgh');
             'eia_no': '',
             'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
             'critical_illness': 'NO   ',
-            'social_status': this.personalData.socialStatus ? 1 : 0,
+            'social_status': this.personalData.socialStatus ? 0 : 1,
             'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? 0 : this.personalData. socialAnswer1,
             'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? 0 : this.personalData. socialAnswer2,
             'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? 0 : this.personalData. socialAnswer3 ,
@@ -1196,6 +1201,7 @@ console.log(value,'fgh');
             'created_by': '0',
             'insured_details': this.familyMembers
         }];
+        console.log(data, 'social_statussocial_status');
         this.settings.loadingSpinner = true;
         this.proposalservice.getProposal(data).subscribe(
             (successData) => {
