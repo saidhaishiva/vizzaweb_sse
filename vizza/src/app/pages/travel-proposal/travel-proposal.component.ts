@@ -386,20 +386,29 @@ export class TravelProposalComponent implements OnInit {
 
     }
     ageCalculateInsurer(dob) {
+        // let mdate = dob.toString();
+        // let yearThen = parseInt(mdate.substring(8, 10), 10);
+        // let monthThen = parseInt(mdate.substring(5, 7), 10);
+        // let dayThen = parseInt(mdate.substring(0, 4), 10);
+        // let todays = new Date();
+        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        // let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
+        // let month_age = Math.floor(day_age/30);
+        // return month_age;
         let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
         let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
-        let month_age = Math.floor(day_age/30);
-        return month_age;
+        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        return Bob_days;
     }
     ageValidationInsurer(i, type) {
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 5) {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 150) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
         } else {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
