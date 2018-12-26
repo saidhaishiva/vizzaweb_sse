@@ -321,12 +321,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 smallest = this.arr[i];
             }
         }
-        if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Son') {
+        if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 || this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 25 && type == 'Son') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 1');
         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Son')  {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Daughter') {
+        if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 25 || this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91  && type == 'Daughter') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Daughter age should be above 1');
         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Daughter')  {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
