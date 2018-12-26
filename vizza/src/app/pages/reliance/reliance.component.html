@@ -75,7 +75,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)"
-                                                           autocomplete="off"   required>
+                                                           autocomplete="off" maxlength="10" minlength="10"  required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker></mat-datepicker>
                                                     <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -350,7 +350,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>
+                                                        <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off" maxlength="10" minlength="10" required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -458,7 +458,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEventInsurer( $event, i, item.type)" (dateChange)="addEventInsurer( $event, i, item.type)" (keypress)="add($event)" maxlength="10" autocomplete="off">
+                                                        <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"  maxlength="10" minlength="10" formControlName="PolicyStartDate" (dateInput)="addEventInsurer( $event, i, item.type)" (dateChange)="addEventInsurer( $event, i, item.type)" (keypress)="add($event)" maxlength="10" autocomplete="off">
                                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker2></mat-datepicker>
                                                     </mat-form-field>
@@ -466,7 +466,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker3"  max="maxDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
+                                                        <input matInput [matDatepicker]="picker3"  max="maxDate" placeholder="Policy End Date"  maxlength="10" minlength="10"  formControlName="PolicyEndDate"  (keypress)="add($event)" maxlength="10"  autocomplete="off">
                                                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker3></mat-datepicker>
                                                     </mat-form-field>
