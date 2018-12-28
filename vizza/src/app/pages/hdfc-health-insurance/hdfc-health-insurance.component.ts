@@ -507,6 +507,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public titleListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.titleList = successData.ResponseObject;
+            console.log(this.titleList, 'this.titleList');
+            for (let i=0; i < this.titleList.length; i++) {
+                this.titleList[i].last = 'last';
+
+            }
         }
     }
     public titleListsFailure(error) {
