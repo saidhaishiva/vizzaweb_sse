@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required >
+                        <mat-select placeholder="Title" formControlName="title"  required >
                           <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
                             {{lists.tittle}}
                           </mat-option>
@@ -189,7 +189,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" required (change)="insureChangeGender(i)">
+                            <mat-select placeholder="Title" formControlName="title" required>
                               <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
                                 {{lists.tittle}}
                               </mat-option>
@@ -372,7 +372,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{item.fname}} {{item.lname}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yyyy'}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yyyy'}}{{item.dob}}</li>
                       <li class="list-group-item"><strong>Relationship:</strong> {{item.Relation_code}}</li>
                       <li class="list-group-item" *ngIf="item.preDisease !=''"><strong>Pre Existing Disease:</strong> {{item.preDisease}}</li>
                     </ul>

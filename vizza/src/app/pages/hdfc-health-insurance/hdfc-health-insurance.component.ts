@@ -143,21 +143,21 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     // title change function
-    changeGender() {
-        if (this.hdfcPersonal.controls['title'].value == 'MR') {
-            this.hdfcPersonal.controls['gender'].patchValue('Male');
-        } else {
-            this.hdfcPersonal.controls['gender'].patchValue('Female');
-        }
-    }
-    //  Title change Function in insured
-    insureChangeGender(index) {
-        if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
-            this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Male');
-        } else {
-            this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Female');
-        }
-    }
+    // changeGender() {
+    //     if (this.hdfcPersonal.controls['title'].value == 'MR') {
+    //         this.hdfcPersonal.controls['gender'].patchValue('Male');
+    //     } else {
+    //         this.hdfcPersonal.controls['gender'].patchValue('Female');
+    //     }
+    // }
+    // //  Title change Function in insured
+    // insureChangeGender(index) {
+    //     if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
+    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Male');
+    //     } else {
+    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Female');
+    //     }
+    // }
     sameasInsurer(event){
         console.log(this.sameAsinsure, 'event.sameAsinsure.checked');
         sessionStorage.sameAsinsure = this.sameAsinsure;
