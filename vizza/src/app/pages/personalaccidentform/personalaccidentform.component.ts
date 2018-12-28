@@ -509,7 +509,6 @@ export class PersonalaccidentformComponent implements OnInit {
     }
 
     topScroll() {
-        alert();
         document.getElementById('scrollTop').scrollTop = 0;
     }
 
