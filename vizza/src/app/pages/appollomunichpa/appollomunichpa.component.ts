@@ -274,6 +274,9 @@ public minDate: any;
             this.insured.controls['insuredPaGender'].patchValue('FEMALE');
         }
     }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
     // RelationShip with Proposer
     relationshipPaProposer() {
         const data = {
@@ -543,6 +546,7 @@ public minDate: any;
         if (this.ProposerPa.valid) {
             if (sessionStorage.proposerAgeP >= 18) {
                     stepper.next();
+                    this.topScroll();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -557,6 +561,8 @@ public minDate: any;
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18){
                 stepper.next();
+                this.topScroll();
+
             } else {
                 this.toastr.error('Insured age should be 18 or above');
 

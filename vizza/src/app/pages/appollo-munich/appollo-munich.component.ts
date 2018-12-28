@@ -479,11 +479,14 @@ export class AppolloMunichComponent implements OnInit {
                 if (this.titleValidation) {
                     if (sessionStorage.proposerAge >= 18) {
                         stepper.next();
+                        this.topScroll();
                     } else {
                         this.toastr.error('Insurer age should be 18 or above');
                     }
                 } else if (this.titleValidation == false) {
                     stepper.next();
+                    this.topScroll();
+
                 }
 
 
@@ -588,6 +591,7 @@ export class AppolloMunichComponent implements OnInit {
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
+                    this.topScroll();
                 }
 
             } else {
@@ -868,7 +872,9 @@ export class AppolloMunichComponent implements OnInit {
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
         return yearAge;
     }
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
