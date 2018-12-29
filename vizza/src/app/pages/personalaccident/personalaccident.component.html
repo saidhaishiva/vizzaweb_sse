@@ -102,16 +102,16 @@
                     <td>
                       <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
                     </td>
-                    <td style="width: 43%">
+                    <td style="width: 50%">
 
                       <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
-                        <div class="col-md-5">
+                        <div class="col-md-8">
                           <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>
                         </div>
                         <div class="col-md-1">
                           <span *ngIf="keys.key_features_name !='Room Rent'">:</span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                           <!--<a style="color: #777272f0" *ngIf="keys.key_features_value == ''">-</a>-->
                           <a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>
                         </div>

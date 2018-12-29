@@ -79,7 +79,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public medicalStatus: any;
     public rPersonalCitys: any;
     public responseres: any;
-
+public productid: any;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
@@ -169,7 +169,6 @@ export class ReliagretravelproposalComponent implements OnInit {
         this.insureReligareArray = this.fb.group({
             items: this.fb.array([])
         });
-        this.enquiryId = sessionStorage.enquiryId;
 
         for (let i = 0; i < this.insureReligarePerson.length; i++) {
             this.items = this.insureReligareArray.get('items') as FormArray;
@@ -663,6 +662,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'proposer_comm_pincode': this.proposerInsureData[i].rpincode,
                     'prop_dob': this.datepipe.transform(this.proposerInsureData[i].dob, 'MMM d, y'),
                     'prop_gender': this.proposerInsureData[i].gender,
+                    'relationship_cd': this.proposerInsureData[i].type,
                     'role_cd': 'PROPOSER'
                 });
             }
@@ -729,40 +729,55 @@ export class ReliagretravelproposalComponent implements OnInit {
 
 // proposal Creation Page
     religareTravelproposal() {
-        const data = {
-            'platform': 'web',
-            'proposal_id': '0',
-            'enquiry_id': this.enquiryId,
-            'group_name': 'Group A',
-            'company_name': 'Religare',
-            'suminsured_amount': '',
-            'proposer_insurer_details': this.totalReligareData,
-            'plan_id': '',
-            'policy_term': '',
-            'scheme_id': '',
-            'terms_condition': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
-            'medical_status': this.partyQuestionDOList.includes('Yes') ? 'Yes' : 'No'
-        };
-        console.log(data, 'fghj');
+
+            const data = {
+                'platform': 'web',
+                'proposal_id': '0',
+                'product_id': this.getTravelPremiumList.product_id,
+                'enquiry_id': this.getTravelPremiumList.enquiry_id,
+                'trip_start_on': this.getTravelPremiumList.start_date,
+                'trip_end_on': this.getTravelPremiumList.end_date,
+                'group_name': 'Group A',
+                'coverType': 'INDIVIDUAL',
+                'businessTypeCd': 'NEWBUSINESS',
+                'baseAgentId': '40001007',
+                'trip_type': '40001007',
+                'company_name': this.getTravelPremiumList.company_name,
+                'suminsured_amount': this.getTravelPremiumList.suminsured_amount,
+                'proposer_insurer_details': this.totalReligareData,
+                'fieldAgree': 'YES',
+                'fieldAlerts': 'YES',
+                'fieldTc': 'YES',
+                'field20': '10',
+                'tripStart': 'YES',
+               'travel_geography_code': '',
+                'plan_id': this.getTravelPremiumList.plan_id,
+                'policy_term':this.getTravelPremiumList.policy_term,
+                'scheme_id': '',
+                'terms_condition': '1',
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+                'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
+                'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
+                'medical_status': this.partyQuestionDOList.includes('Yes') ? 'Yes' : 'No'
+            };
+
+            console.log(data, 'fghj');
 
 
-        // this.settings.loadingSpinner = true;
-        this.proposalservice.getReligareProposal(data).subscribe(
-            (successData) => {
-                this.proposalSuccess(successData);
-            },
-            (error) => {
-                this.proposalFailure(error);
-            }
-        );
+            // this.settings.loadingSpinner = true;
+            this.travelservice.createReligareTravelProposal(data).subscribe(
+                (successData) => {
+                    this.proposalSuccess(successData);
+                },
+                (error) => {
+                    this.proposalFailure(error);
+                }
+            );
+
 
     }
-
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {

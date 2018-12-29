@@ -156,9 +156,12 @@ export class TravelProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        let nameFormat = "[a-zA-Z\s]+$";
+
+        // this.name = new FormControl("", Validators.compose([Validators.required, Validators.pattern(nameFormat)]));
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
-            personalFirstname: new FormControl(''),
+            personalFirstname: new FormControl("", Validators.compose([Validators.required, Validators.pattern(nameFormat)])),
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
@@ -583,14 +586,14 @@ export class TravelProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].illness.patchValue(this.getStepper2.items[i].illness);
             }
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
-                if (this.getStepper2.items[i].personalPincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-                }
-            }
+            // for (let i = 0; i < this.getStepper2.items.length; i++) {
+            //     if (this.getStepper2.items[i].personalPincode != '') {
+            //         // this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+            //     }
+            // }
         }
     }
 
@@ -636,7 +639,6 @@ export class TravelProposalComponent implements OnInit {
             let valid = false;
             const data = {
                 'platform': 'web',
-                'product_id': '1',
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -839,13 +841,13 @@ export class TravelProposalComponent implements OnInit {
                     this.iPersonalCitys.push({city: this.response[i].city});
                 }
                 this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+                // this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
             } else if(successData.IsSuccess != true && this.title == 'personal') {
                 for (let i = 0; i < this.response.length; i++) {
                     this.iPersonalCitys.push({city: this.response[i].city = ''});
                 }
                 this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
+                // this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
                 this.toastr.error('In valid Pincode');
             }
         }
@@ -906,7 +908,6 @@ export class TravelProposalComponent implements OnInit {
     placeOfVisits() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
@@ -934,7 +935,6 @@ export class TravelProposalComponent implements OnInit {
     visaTypeList() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
@@ -964,7 +964,6 @@ export class TravelProposalComponent implements OnInit {
     travelPurposeList() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
@@ -994,7 +993,6 @@ export class TravelProposalComponent implements OnInit {
     insurerRelationship() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
@@ -1024,7 +1022,6 @@ export class TravelProposalComponent implements OnInit {
     assigneeRelationship() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
@@ -1053,7 +1050,6 @@ export class TravelProposalComponent implements OnInit {
     getIlnessDetails() {
         const data = {
             'platform': 'web',
-            'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'

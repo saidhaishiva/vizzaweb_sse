@@ -295,7 +295,14 @@ reset(){
     public personalAccidentSuccess(successData, index) {
         if (successData.IsSuccess) {
             this.personalPremiumLists = successData.ResponseObject;
-            sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
+               // let id = 1;
+                for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
+                    this.personalPremiumLists.product_lists[j].compare_id = j+1;
+                }
+
+            console.log(this.personalPremiumLists, 'pppp099882211qq');
+
+            sessionStorage.personalPremiumLists = JSON.stringify(this.personalPremiumLists);
             this.firstPage = false;
             this.secondPage = true;
             this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
@@ -365,9 +372,11 @@ reset(){
 
     //// compare Details
     compareDetails(value, index, equiryId, name) {
+        console.log(value, 'valuevalue1');
         const data = {
             index: index,
             product_id: value.product_id,
+            compare_id: value.compare_id,
             product_name: value.product_name,
             premium_id: value.premium_id,
             premium_amount: value.premium_amount,
@@ -390,12 +399,16 @@ reset(){
     }
     // remove compare
     removeCompare(index , pindex) {
+        console.log(index, 'indexindex');
         this.compareArray.splice(index, 1);
+        console.log(this.compareArray, 'this.compareArray');
+        console.log(this.personalPremiumLists.product_lists, 'this.this.personalPremiumLists.product_lists');
+
         let getCount;
         for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].premium_id == this.personalPremiumLists.product_lists[i].premium_id) {
+                if (this.compareArray[j].compare_id == this.personalPremiumLists.product_lists[i].compare_id) {
                     getCount = true;
                     this.personalPremiumLists.product_lists[i].compare = true;
                 }
