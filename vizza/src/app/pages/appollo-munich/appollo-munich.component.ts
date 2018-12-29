@@ -1046,7 +1046,8 @@ export class AppolloMunichComponent implements OnInit {
     }
 
 
-    sameProposer(value: any) {
+    sameProposer(value: any, i) {
+
         if (value.checked) {
             this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', i);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
