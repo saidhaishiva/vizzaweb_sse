@@ -100,26 +100,26 @@
 
                       <div class="col-md-3" *ngIf="pannumber">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="keyEvent($event)"  (keypress)="panType('personal')"maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPaPan"  autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   (keypress)="keyEvent($event)" (input)="panType('personal')" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPaPan"  autocomplete="off">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="drivinglicense">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Driving License" formControlName="proposerPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" maxlength="15" (keypress)="panType('personal')">
+                          <input matInput placeholder="Driving License" formControlName="proposerPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" maxlength="15" (input)="panType('personal')" (keypress)="keyEvent($event)">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"  *ngIf="passport">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="proposerPaPassport"  minlength="8" (keypress)="panType('personal')" maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport" formControlName="proposerPaPassport"  minlength="8" (keypress)= "keyEvent($event)" (input)="panType('personal')" maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="ProposerPa.controls.proposerPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="voter" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="proposerPaVoter" (keypress)="panType('personal')">
+                          <input matInput placeholder="Voter Id" formControlName="proposerPaVoter" (keypress)="keyEvent($event)" (input)="panType('personal')">
                         </mat-form-field>
                       </div>
 
@@ -557,7 +557,7 @@
                    </div>
                    </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primary"  (click)="InsureDetails(stepper, insured.value)" >Next</button>
                     </div>
                     </div>
@@ -658,7 +658,7 @@
                       </div>
                       <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-right w-100">
-                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                           <button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetail.value)">Next</button>
                         </div></div>
                   </form>

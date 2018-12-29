@@ -479,6 +479,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
+                    this.topScroll();
+
                 }
 
             } else {
@@ -493,8 +495,9 @@ export class PersonalaccidentformComponent implements OnInit {
         this.insurerData = value;
         if (this.insured.valid) {
             if (sessionStorage.insuredAgePA>= 18) {
-
                 stepper.next();
+                this.topScroll();
+
             } else {
                 this.toastr.error('Insured age should be 18 or above');
 
@@ -506,7 +509,9 @@ export class PersonalaccidentformComponent implements OnInit {
         }
     }
 
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
 
     sameAddress(values: any) {
         this.sameField = values.checked;

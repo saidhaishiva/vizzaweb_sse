@@ -1019,6 +1019,7 @@ public RediretUrlLink: any;
                         'NearestLandmark': this.personalData.personalNearestLandMark,
                         'PanNo': this.personalData.personalPan,
                         'PhoneNo':this.personalData.personalPhone2,
+                        'Alternative':this.personalData.personalAltnumber,
                         'Pincode': this.personalData.personalPincode,
                         'AreaID': this.personalData.personalArea,
                         'StateID': this.personalData.personalStateIdP,
@@ -1497,7 +1498,7 @@ public RediretUrlLink: any;
     }
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

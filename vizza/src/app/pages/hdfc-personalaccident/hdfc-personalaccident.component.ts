@@ -69,7 +69,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public sameAsinsure: any;
     public fullName: any;
     public IsCustomerAcceptedPPCPED: boolean;
-
+    public occupationCode: any;
     constructor( public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                  public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
@@ -84,9 +84,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.hdfcPersonal = this.fb.group({
-            title: ['', Validators.required],
             firstname: new FormControl(''),
             lastname: new FormControl(''),
+            midname: '',
             gender: ['', Validators.compose([Validators.required])],
             dob: ['', Validators.compose([Validators.required])],
             address1: ['', Validators.required],
@@ -98,8 +98,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             accepted: '',
-            paymentmode: ['', Validators.required]
-
+            paymentmode: ['', Validators.required],
+            dependant:['', Validators.required],
+            medicalcondition:['', Validators.required],
+            nationality:['', Validators.required],
+            OccupationList: ['', Validators.required]
         });
         this.nomineeDetails = this.fb.group({
             'nomineeName': ['', Validators.required],
@@ -112,6 +115,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.RelationShipListHdfc();
         this.nomineeRelationShipListHdfc();
         this.sessionData();
+        this.setOccupationList();
         // this.sameAsinsure = true;
         // this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
         // console.log(this.getHdfcHealthPremiumList, 'this.getHdfcHealthPremiumListbuyProductdetails');
@@ -546,6 +550,66 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public hdfcNomineeRelationshipFailure(error) {
         console.log(error);
     }
+    pincodevalidationHdfc(pin) {
+        this.pin = pin;
+        console.log( this.pin, ' this.pin this.pin');
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'Pincode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.proposalservice.getHdfcPincodeLists(data).subscribe(
+                (successData) => {
+                    this.pincodeSuccess(successData);
+                },
+                (error) => {
+                    this.pincodeFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeSuccess(successData) {
+        if (successData.IsSuccess) {
+        } else {
+            this.toastr.error(successData.ErrorObject);
+            this.hdfcPersonal.controls['pincode'].setValue('');
+        }
+        // sessionStorage.pincodeValid = this.pincodeValid;
+
+    }
+    public pincodeFailure(successData) {
+    }
+    // occupation List
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        }
+        this.proposalservice.hdfcOccupationList(data).subscribe(
+            (successData) => {
+                this.occupationCodeSuccess(successData);
+            },
+            (error) => {
+                this.occupationCodeFailure(error);
+            }
+        );
+
+    }
+
+
+    public occupationCodeSuccess(successData) {
+        this.occupationCode = successData.ResponseObject;
+        console.log(  this.occupationCode, '  this.occupationCode');
+
+    }
+
+    public occupationCodeFailure(error) {
+    }
+
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcPAStep1 = '';
         sessionStorage.hdfcPAStep1 = JSON.stringify(value);
@@ -702,6 +766,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 title: this.hdfcPAStep1.title,
                 firstname: this.hdfcPAStep1.firstname,
                 lastname: this.hdfcPAStep1.lastname,
+                midname: this.hdfcPAStep1.midname,
                 dob: new FormControl(new Date(this.hdfcPAStep1.dob)),
                 gender: this.hdfcPAStep1.gender,
                 address1: this.hdfcPAStep1.address1,
@@ -713,7 +778,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 email: this.hdfcPAStep1.email,
                 mobile: this.hdfcPAStep1.mobile,
                 accepted: this.hdfcPAStep1.accepted,
-                paymentmode: this.hdfcPAStep1.paymentmode
+                paymentmode: this.hdfcPAStep1.paymentmode,
+                dependant: this.hdfcPAStep1.dependant,
+                OccupationList: this.hdfcPAStep1.OccupationList,
+                medicalcondition: this.hdfcPAStep1.medicalcondition,
+                nationality: this.hdfcPAStep1.nationality
             });
             if (this.hdfcPAStep1.state != '') {
                 this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
