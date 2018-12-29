@@ -38,6 +38,7 @@ export const MY_FORMATS = {
   ]
 })
 export class TravelComponent implements OnInit {
+    @ViewChild('typedValueCountry') typedValueHistoryVariable;
 
     selfArray: any;
     familyArray: any;
@@ -86,7 +87,7 @@ export class TravelComponent implements OnInit {
     showFamily: boolean;
     daysBookingCount: any
     public settings: Settings;
-    viewList: any;
+    getAllcountryList: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.showSelf = true;
@@ -122,7 +123,7 @@ export class TravelComponent implements OnInit {
         this.count = 0;
         this.sumInsuredAmonut();
         this.sessionData();
-        this. viewPlanList();
+        this.getAllcountryLists();
     }
     selfDetails() {
         this.selfArray = [
@@ -242,14 +243,14 @@ export class TravelComponent implements OnInit {
         sessionStorage.proposerAgeForTravel = '';
         sessionStorage.mobileNumberForTravel = '';
     }
-    viewPlanList() {
+    getAllcountryLists() {
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': '0'
         }
-        this.travel.viewPlan(data).subscribe(
+        this.travel.getAllcountry(data).subscribe(
             (successData) => {
                 this.viewPlanSuccess(successData);
             },
@@ -259,28 +260,26 @@ export class TravelComponent implements OnInit {
         );
 
     }
-
     public viewPlanSuccess(successData) {
         console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             // this.occupationFirst = true;
             // this.occupationSecond = true;
-            this.viewList = successData.ResponseObject;
+            this.getAllcountryList = successData.ResponseObject;
             // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
 
-            console.log(this.viewList, 'occupationdescription');
+            console.log(this.getAllcountryList, 'occupationdescription');
         } else {
             // this.occupationFirst = true;
             // this.occupationSecond = false;
             //  this.personal.get('personalDescriptionCode').setValidators(null);
             // this.toastr.error(successData.ErrorObject);
         }
-
     }
-
     public viewPlanFailure(error) {
         console.log(error);
     }
+
     onSelectedIndexChange(event){
         console.log(event, 'value');
         this.currentTab = '';
@@ -505,7 +504,7 @@ export class TravelComponent implements OnInit {
         sessionStorage.travelType = this.travelType;
     }
     changeTravelPlan() {
-        sessionStorage.travelPlan = this.travelPlan;
+        sessionStorage.travelPlan = JSON.stringify(this.travelPlan);
     }
     changeTravelDuration() {
         sessionStorage.duration = this.duration;
@@ -829,7 +828,7 @@ export class TravelComponent implements OnInit {
             this.travelType = sessionStorage.travelType;
         }
         if (sessionStorage.travelPlan != undefined && sessionStorage.travelPlan != '') {
-            this.travelPlan = sessionStorage.travelPlan;
+            this.travelPlan = JSON.parse(sessionStorage.travelPlan);
         }
         if (sessionStorage.duration != undefined && sessionStorage.duration != '') {
             this.duration = sessionStorage.duration;

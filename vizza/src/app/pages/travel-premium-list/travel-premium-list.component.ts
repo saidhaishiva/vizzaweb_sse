@@ -151,6 +151,7 @@ export class TravelPremiumListComponent implements OnInit {
 
     }
     ngOnInit() {
+        this.settings.loadingSpinner = false;
         this.Child3BTn = true;
         this.FatherBTn = true;
         this.MotherBTn = true;
@@ -172,6 +173,9 @@ export class TravelPremiumListComponent implements OnInit {
         this.viewPlanList();
     }
     selectedSumAmount(){
+
+    }
+    changeTravelType() {
 
     }
     selfDetails() {
@@ -244,7 +248,7 @@ export class TravelPremiumListComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': '0'
         }
-        this.travel.viewPlan(data).subscribe(
+        this.travel.getAllcountry(data).subscribe(
             (successData) => {
                 this.viewPlanSuccess(successData);
             },
@@ -755,9 +759,9 @@ export class TravelPremiumListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
-                    if (value.product_id == 16) {
+                    if (value.product_id <= 37 && value.product_id >=32) {
                         this.router.navigate(['/travelproposal']);
-                    } else if (value.product_id == 22) {
+                    } else if (value.product_id <= 50 && value.product_id >=38) {
                         this.router.navigate(['/religaretravel']);
                     } else{
                     }
@@ -784,7 +788,7 @@ export class TravelPremiumListComponent implements OnInit {
     viewKeyList(value, type) {
         console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
-            width: '1500px', data: {planId : value.plan_id, planName: value.plan_name, type: type}
+            width: '1500px', data: {planId : value.product_id, planName: value.plan_name, type: type}
         });
         dialogRef.disableClose = true;
 
@@ -796,7 +800,7 @@ export class TravelPremiumListComponent implements OnInit {
 
     addCompare(value, index) {
         console.log(value, 'valuepp');
-        const data  = { index: index, plan_id: value.plan_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
+        const data  = { index: index, plan_id: value.product_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.equiryId = value.enquiry_id;
         this.premiumLists.product_lists[index].compare = true;
         this.compareArray.push(data);
