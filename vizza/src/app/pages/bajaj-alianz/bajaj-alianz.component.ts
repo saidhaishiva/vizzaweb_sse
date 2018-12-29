@@ -27,9 +27,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-bajaj-alianz',
-  templateUrl: './bajaj-alianz.component.html',
-  styleUrls: ['./bajaj-alianz.component.scss'],
+    selector: 'app-bajaj-alianz',
+    templateUrl: './bajaj-alianz.component.html',
+    styleUrls: ['./bajaj-alianz.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -38,7 +38,7 @@ export const MY_FORMATS = {
     ],
 })
 export class BajajAlianzComponent implements OnInit {
-    public proposer: FormGroup;
+    public medicalArray: FormGroup;
     public insureArray: FormGroup;
     public minDate: any;
     public stopNext: any;
@@ -66,7 +66,11 @@ export class BajajAlianzComponent implements OnInit {
     public pin: any;
     public title: any;
     public setPincode: any;
-    public proposerPArea: any;
+    public insureMArea: any;
+    public mitems: any;
+    public medicalData: any;
+    public totalMedicalDetails: any;
+
 
     public setDate: any;
     public setDateAge: any;
@@ -80,63 +84,32 @@ export class BajajAlianzComponent implements OnInit {
     public totalInsureDetails: any;
     public RediretUrlLink: any;
 
-  constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-              public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-      const minDate = new Date();
-      this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-      this.stopNext = false;
-      this.hideQuestion = false;
-      this.declaration = false;
-      this.settings = this.appSettings.settings;
-      this.settings.HomeSidenavUserBlock = false;
-      this.settings.sidenavIsOpened = false;
-      this.settings.sidenavIsPinned = false;
-      this.webhost = this.config.getimgUrl();
-      this.selectDate = '';
-      this.proposalId = 0;
-      this.step = 0;
-      this.totalInsureDetails = [];
+    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+        const minDate = new Date();
+        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        this.stopNext = false;
+        this.hideQuestion = false;
+        this.declaration = false;
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
+        this.webhost = this.config.getimgUrl();
+        this.selectDate = '';
+        this.proposalId = 0;
+        this.step = 0;
+        this.totalInsureDetails = [];
+        this.totalMedicalDetails = [];
 
-      this.proposer = this.fb.group({
-          rolecd: 'PROPOSER',
-          proposerTitle: ['',Validators.required],
-          proposerFirstname: ['',Validators.required],
-          proposerMidname: '',
-          proposerLastname: ['',Validators.required],
-          proposerGender: ['', Validators.compose([Validators.required])],
-          proposerDob: ['', Validators.compose([Validators.required])],
-          proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-          proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          // aadharnumber: ['', Validators.compose([Validators.required])],
-          // proposerPan: ['', Validators.compose([ Validators.minLength(10), Validators.required])],
-          proposerPhone: '',
-          proposerAddress: ['',Validators.required],
-          proposerAddress2:'',
-          proposerPincode: ['', Validators.required],
-          proposerNationality: ['', Validators.required],
-          proposerState: ['', Validators.required],
-          proposerDistrict: ['', Validators.required],
-          proposerCity: ['', Validators.required],
-          proposerArea: ['', Validators.required],
-          proposerPIName:['', Validators.required],
-          proposerPIAddress:['', Validators.required],
-          proposerPItDate: ['', Validators.compose([Validators.required])],
-          proposerPINumber: ['', Validators.required],
-          proposerPIClaims: ['', Validators.required],
-          sameas: false,
-          type: ''
-      });
-      this.insureArray = this.fb.group({
+        this.insureArray = this.fb.group({
 
-      });
-  }
-    changeGender() {
-        if (this.proposer.controls['proposerTitle'].value == 'MR'){
-            this.proposer.controls['proposerGender'].patchValue('Male');
-        } else {
-            this.proposer.controls['proposerGender'].patchValue('Female');
-        }
+        });
+        this.medicalArray = this.fb.group({
+
+        });
     }
+
     insureChangeGender(index) {
         if (this.insureArray['controls'].items['controls'][index]['controls'].insureTitle.value == 'MR') {
             this.insureArray['controls'].items['controls'][index]['controls'].insureGender.patchValue('Male');
@@ -157,22 +130,33 @@ export class BajajAlianzComponent implements OnInit {
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
+        this.medicalArray = this.fb.group({
+            mitems: this.fb.array([])
+        });
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
+            this.mitems = this.medicalArray.get('mitems') as FormArray;
             this.items.push(this.initItemRows());
+            this.mitems.push(this.medicalItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            this.medicalArray['controls'].mitems['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
         this.sessionData();
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-  }
+
+
+    }
 
     initItemRows() {
         return this.fb.group(
             {
                 rolecd: 'PRIMARY',
                 insureTitle: ['', Validators.required],
-                insureName: ['', Validators.required],
+                insureFirstname: '',
+                insureMidname: '',
+                insureLastname: '',
+                insureName: '',
                 insureDob: ['', Validators.compose([Validators.required])],
                 insureGender: ['', Validators.compose([Validators.required])],
                 insureAge: ['', Validators.compose([Validators.required])],
@@ -181,20 +165,26 @@ export class BajajAlianzComponent implements OnInit {
                 insureoccupation: ['', Validators.required],
                 insurerelationship: ['', Validators.required],
                 insureGMIncome: ['', Validators.required],
+                insureEmail: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+                insureMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+                insurePhone: '',
+                insureAddress: '',
+                insureAddress2:'',
+                insurePincode: '',
+                insureNationality: '',
+                insureState: '',
+                insureDistrict: '',
+                insureCity: '',
+                insureArea: '',
+                insurePIName:'',
+                insurePIAddress:'',
+                insureCName:'',
+                insurePINumber:'',
+                insurePItDate:'',
+                insureSInsurance:'',
+                insurePIClaims:'',
                 bajajNomineeName: ['', Validators.required],
                 bajajRelationship: ['', Validators.required],
-                insurePEDisease: 'No',
-                insureAsthma: 'No',
-                insureDisordr: 'No',
-                insureHeartDisease: 'No',
-                insureHypertension: 'No',
-                insureDiabetes: 'No',
-                insureObesity: 'No',
-                insureSmoking: 'No',
-                insureCName:'',
-                insurePItDate:'',
-                insurePINumber:'',
-                insureSInsurance:'',
                 type: '',
                 insureDobError: '',
                 ins_days: '',
@@ -204,24 +194,25 @@ export class BajajAlianzComponent implements OnInit {
         );
     }
 
-    //Personal Details
-    proposerDetails(stepper: MatStepper, value) {
-        this.proposerData = value;
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        if (this.proposer.valid) {
-            if (sessionStorage.proposerAge >= 18) {
-                    stepper.next();
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
-        }
+    medicalItemRows(){
+        return this.fb.group({
+            rolecd: 'MEDICAL',
+            medicalPEDisease: 'No',
+            medicalAsthma: 'No',
+            medicalDisordr: 'No',
+            medicalHeartDisease: 'No',
+            medicalHypertension: 'No',
+            medicalDiabetes: 'No',
+            medicalObesity: 'No',
+            medicalSmoking: 'No',
+            type: '',
+        })
     }
 
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper2Details = JSON.stringify(value);
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
@@ -242,14 +233,6 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'mempreexistdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? '1' : '0',
-                    'memsmkertbco': this.insurerData[i].insureSmoking == 'Yes' ? '1' : '0',
-                    'memasthma': this.insurerData[i].insureAsthma == 'Yes' ? '1' : '0',
-                    'memcholstrldisordr': this.insurerData[i].insureDisordr == 'Yes' ? '1' : '0',
-                    'memheartdisease': this.insurerData[i].insureHeartDisease == 'Yes' ? '1' : '0',
-                    'memhypertension': this.insurerData[i].insureHypertension == 'Yes' ? '1' : '0',
-                    'memdiabetes': this.insurerData[i].insureDiabetes == 'Yes' ? '1' : '0',
-                    'memobesity': this.insurerData[i].insureObesity == 'Yes' ? '1' : '0',
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y'
@@ -265,10 +248,33 @@ export class BajajAlianzComponent implements OnInit {
                 }
             }
             if(!ageValidate.includes(1)){
-                this.lastStepper = stepper;
-                this.proposal();
+                stepper.next();
             }
 
+        }
+    }
+
+    //Medical History
+    bajajMedicalDetails(stepper: MatStepper, id, value, key) {
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper2Details = JSON.stringify(value);
+        if (this.medicalArray.valid) {
+            this.medicalData = value.items;
+            this.totalMedicalDetails = [];
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.totalMedicalDetails.push({
+                    'mempreexistdisease': this.medicalData[i].medicalHeartDisease == 'Yes' ? '1' : '0',
+                    'memsmkertbco': this.medicalData[i].medicalSmoking == 'Yes' ? '1' : '0',
+                    'memasthma': this.medicalData[i].medicalAsthma == 'Yes' ? '1' : '0',
+                    'memcholstrldisordr': this.medicalData[i].medicalDisordr == 'Yes' ? '1' : '0',
+                    'memheartdisease': this.medicalData[i].medicalHeartDisease == 'Yes' ? '1' : '0',
+                    'memhypertension': this.medicalData[i].medicalHypertension == 'Yes' ? '1' : '0',
+                    'memdiabetes': this.medicalData[i].medicalDiabetes == 'Yes' ? '1' : '0',
+                    'memobesity': this.medicalData[i].medicalObesity == 'Yes' ? '1' : '0',
+                });
+            }
+            this.lastStepper = stepper;
+            this.proposal();
         }
     }
 
@@ -410,22 +416,22 @@ export class BajajAlianzComponent implements OnInit {
 
     public relationListSuccess(successData) {
         this.relationshipList = successData.ResponseObject;
-             this.insureRelation = [];
-            this.nomeeRelation = [];
+        this.insureRelation = [];
+        this.nomeeRelation = [];
         for (let i = 0; i < this.relationshipList.length; i++) {
             if(this.relationshipList[i].show_prop_relationship == 1) {
                 this.insureRelation.push(
                     {
-                    'relationship_name': this.relationshipList[i].relationship_name,
-                    'relationship_id': this.relationshipList[i].relationship_id
+                        'relationship_name': this.relationshipList[i].relationship_name,
+                        'relationship_id': this.relationshipList[i].relationship_id
                     });
             }
             if(this.relationshipList[i].show_nominee_relationship == 1) {
                 this.nomeeRelation.push(
                     {
-                    'relationship_name': this.relationshipList[i].relationship_name,
-                    'relationship_id': this.relationshipList[i].relationship_id
-                });
+                        'relationship_name': this.relationshipList[i].relationship_name,
+                        'relationship_id': this.relationshipList[i].relationship_id
+                    });
             }
 
         }
@@ -437,87 +443,79 @@ export class BajajAlianzComponent implements OnInit {
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-            this.proposer = this.fb.group({
-                rolecd: this.getStepper1.rolecd,
-                proposerTitle: this.getStepper1.proposerTitle,
-                proposerFirstname: this.getStepper1.proposerFirstname,
-                proposerMidname: this.getStepper1.proposerMidname,
-                proposerLastname: this.getStepper1.proposerLastname,
-                proposerGender: this.getStepper1.proposerGender,
-                proposerDob: this.getStepper1.proposerDob,
-                proposerEmail: this.getStepper1.proposerEmail,
-                proposerMobile: this.getStepper1.proposerMobile,
-                // aadharnumber: this.getStepper1.aadharnumber,
-                // proposerPan: this.getStepper1.proposerPan,
-                proposerPhone: this.getStepper1.proposerPhone,
-                proposerAddress: this.getStepper1.proposerAddress,
-                proposerAddress2: this.getStepper1.proposerAddress2,
-                proposerPincode: this.getStepper1.proposerPincode,
-                proposerNationality: this.getStepper1.proposerNationality,
-                proposerState: this.getStepper1.proposerState,
-                proposerDistrict: this.getStepper1.proposerDistrict,
-                proposerCity: this.getStepper1.proposerCity,
-                proposerArea: this.getStepper1.proposerArea,
-                proposerPIName: this.getStepper1.proposerPIName,
-                proposerPIAddress: this.getStepper1.proposerPIAddress,
-                proposerPItDate: this.getStepper1.proposerPItDate,
-                proposerPINumber: this.getStepper1.proposerPINumber,
-                proposerPIClaims: this.getStepper1.proposerPIClaims,
-            })
-        }
-        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
-                this.insureArray['controls'].items['controls'][i]['controls'].insureTitle.patchValue(this.getStepper2.items[i].insureTitle);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureName.patchValue(this.getStepper2.items[i].insureName);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.getStepper2.items[i].insureDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureGender.patchValue(this.getStepper2.items[i].insureGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getStepper2.items[i].insureAge);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureHeight.patchValue(this.getStepper2.items[i].insureHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureWeight.patchValue(this.getStepper2.items[i].insureWeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureoccupation.patchValue(this.getStepper2.items[i].insureoccupation);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.patchValue(this.getStepper2.items[i].insurerelationship);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue(this.getStepper2.items[i].insureGMIncome);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurePEDisease.patchValue(this.getStepper2.items[i].insurePEDisease);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureDisordr.patchValue(this.getStepper2.items[i].insureDisordr);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureHeartDisease.patchValue(this.getStepper2.items[i].insureHeartDisease);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureHypertension.patchValue(this.getStepper2.items[i].insureHypertension);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureDiabetes.patchValue(this.getStepper2.items[i].insureDiabetes);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureObesity.patchValue(this.getStepper2.items[i].insureObesity);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureSmoking.patchValue(this.getStepper2.items[i].insureSmoking);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureCName.patchValue(this.getStepper2.items[i].insureCName);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.getStepper2.items[i].insurePItDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurePINumber.patchValue(this.getStepper2.items[i].insurePINumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureSInsurance.patchValue(this.getStepper2.items[i].insureSInsurance);
-                this.insureArray['controls'].items['controls'][i]['controls'].bajajNomineeName.patchValue(this.getStepper2.items[i].bajajNomineeName);
-                this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue(this.getStepper2.items[i].bajajRelationship);
+            for (let i = 0; i < this.getStepper1.items.length; i++) {
+                this.insureArray['controls'].items['controls'][i]['controls'].insureTitle.patchValue(this.getStepper1.items[i].insureTitle);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureFirstname.patchValue(this.getStepper1.items[i].insureFirstname);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureMidname.patchValue(this.getStepper1.items[i].insureMidname);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureLastname.patchValue(this.getStepper1.items[i].insureLastname);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureName.patchValue(this.getStepper1.items[i].insureName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.getStepper1.items[i].insureDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureGender.patchValue(this.getStepper1.items[i].insureGender);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getStepper1.items[i].insureAge);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureHeight.patchValue(this.getStepper1.items[i].insureHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureWeight.patchValue(this.getStepper1.items[i].insureWeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureEmail.patchValue(this.getStepper1.items[i].insureEmail);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureMobile.patchValue(this.getStepper1.items[i].insureMobile);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePhone.patchValue(this.getStepper1.items[i].insurePhone);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureAddress.patchValue(this.getStepper1.items[i].insureAddress);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureAddress2.patchValue(this.getStepper1.items[i].insureAddress2);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePincode.patchValue(this.getStepper1.items[i].insurePincode);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureNationality.patchValue(this.getStepper1.items[i].insureNationality);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureState.patchValue(this.getStepper1.items[i].insureState);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDistrict.patchValue(this.getStepper1.items[i].insureDistrict);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureCity.patchValue(this.getStepper1.items[i].insureCity);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureArea.patchValue(this.getStepper1.items[i].insureArea);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureoccupation.patchValue(this.getStepper1.items[i].insureoccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.patchValue(this.getStepper1.items[i].insurerelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue(this.getStepper1.items[i].insureGMIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePIName.patchValue(this.getStepper1.items[i].insurePIName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePIAddress.patchValue(this.getStepper1.items[i].insurePIAddress);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureCName.patchValue(this.getStepper1.items[i].insureCName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.getStepper1.items[i].insurePItDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePINumber.patchValue(this.getStepper1.items[i].insurePINumber);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureSInsurance.patchValue(this.getStepper1.items[i].insureSInsurance);
+                this.insureArray['controls'].items['controls'][i]['controls'].bajajNomineeName.patchValue(this.getStepper1.items[i].bajajNomineeName);
+                this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue(this.getStepper1.items[i].bajajRelationship);
             }
         }
+    if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+    this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+    for (let i = 0; i < this.getStepper2.mitems.length; i++) {
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalPEDisease.patchValue(this.getStepper2.mitems[i].medicalPEDisease);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalAsthma.patchValue(this.getStepper2.mitems[i].medicalAsthma);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalDisordr.patchValue(this.getStepper2.mitems[i].medicalDisordr);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalHeartDisease.patchValue(this.getStepper2.mitems[i].medicalHeartDisease);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalHypertension.patchValue(this.getStepper2.mitems[i].medicalHypertension);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalDiabetes.patchValue(this.getStepper2.mitems[i].medicalDiabetes);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalObesity.patchValue(this.getStepper2.mitems[i].medicalObesity);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper2.mitems[i].medicalSmoking);
+        }
+    }
     }
     boolenHide(change: any, id, key){
-        if(key == 'insurePEDisease' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insurePEDisease.patchValue('');
+        if(key == 'PEDisease' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalPEDisease.patchValue('');
         }
-        if(key == 'insureAsthma' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureAsthma.patchValue('');
+        if(key == 'Asthma' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalAsthma.patchValue('');
         }
-        if(key == 'insureDisordr' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureDisordr.patchValue('');
+        if(key == 'Disordr' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalDisordr.patchValue('');
         }
-        if(key == 'insureHeartDisease' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureHeartDisease.patchValue('');
+        if(key == 'HeartDisease' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalHeartDisease.patchValue('');
         }
-        if(key == 'insureHypertension' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureHypertension.patchValue('');
+        if(key == 'Hypertension' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalHypertension.patchValue('');
         }
-        if(key == 'insureDiabetes' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureDiabetes.patchValue('');
+        if(key == 'Diabetes' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalDiabetes.patchValue('');
         }
-        if(key == 'insureObesity' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureObesity.patchValue('');
+        if(key == 'Obesity' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalObesity.patchValue('');
         }
-        if(key == 'insureSmoking' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insureSmoking.patchValue('');
+        if(key == 'Smoking' && change.value == 'No') {
+            this.medicalArray['controls'].mitems['controls'][id]['controls'].medicalSmoking.patchValue('');
         }
     }
 
@@ -526,43 +524,43 @@ export class BajajAlianzComponent implements OnInit {
         this.settings.loadingSpinner = true;
         const data  = {
             'platform': 'web',
-                'product_id': this.buyProductdetails.product_id,
-                'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
-                'enquiry_id': this.enquiryId,
-                'company_name': 'bajajalianz',
-                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'transactionid': '',
-                'tycpdetails': {
-                'beforetitle': this.proposerData.proposerTitle,
-                    'contact1': this.proposerData.proposerMobile,
-                    'dateofbirth': this.proposerData.proposerDob,
-                    'sex': this.proposerData.proposerGender,
-                    'telephone': this.proposerData.proposerPhone,
-                    'email': this.proposerData.proposerEmail,
-                    'firstname': this.proposerData.proposerFirstname,
-                    'surname': this.proposerData.proposerLastname,
-                    'middlename': this.proposerData.proposerMidname
+            'product_id': this.buyProductdetails.product_id,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
+            'enquiry_id': this.enquiryId,
+            'company_name': 'bajajalianz',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'transactionid': '',
+            'tycpdetails': {
+                'beforetitle': this.insureArray['controls'].items['controls'][0]['controls'].insureTitle,
+                'contact1': this.insureArray['controls'].items['controls'][0]['controls'].insureMobile,
+                'dateofbirth': this.insureArray['controls'].items['controls'][0]['controls'].insureDob,
+                'sex': this.insureArray['controls'].items['controls'][0]['controls'].insureGender,
+                'telephone': this.insureArray['controls'].items['controls'][0]['controls'].insurePhone,
+                'email': this.insureArray['controls'].items['controls'][0]['controls'].insureEmail,
+                'firstname': this.insureArray['controls'].items['controls'][0]['controls'].insureFirstname,
+                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insurename,
+                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insureMidname
             },
             'tycpaddrlist': [{
-                'postcode': this.proposerData.proposerPincode,
-                'addressline1': this.proposerData.proposerAddress,
-                'addressline2': this.proposerData.proposerAddress2,
-                'areaname': this.proposerData.proposerArea,
-                'cityname': this.proposerData.proposerCity,
-                'countryname': this.proposerData.proposerNationality,
-                'state': this.proposerData.proposerState
+                'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode,
+                'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress,
+                'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2,
+                'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea,
+                'cityname': this.insureArray['controls'].items['controls'][0]['controls'].insureCity,
+                'countryname': this.insureArray['controls'].items['controls'][0]['controls'].insureNationality,
+                'state': this.insureArray['controls'].items['controls'][0]['controls'].insureState
             }],
-                'previnsdtls': {
-                'previnsname': this.proposerData.proposerPIName,
-                    'previnsaddress': this.proposerData.proposerPIAddress,
-                    'previnspolicyno': this.proposerData.proposerPINumber,
-                    'prevpolicyexpirydate': this.proposerData.proposerPItDate,
-                    'noofclaims': this.proposerData.proposerPIClaims
+            'previnsdtls': {
+                'previnsname': this.insureArray['controls'].items['controls'][0]['controls'].insurePIName,
+                'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress,
+                'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber,
+                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate,
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims
             },
             'hcpdtmemlist': this.totalInsureDetails,
-                'hcpdtmemcovlist': [{
+            'hcpdtmemcovlist': [{
                 'memiptreatsi': this.buyProductdetails.suminsured_amount
             }]
         };
@@ -577,7 +575,7 @@ export class BajajAlianzComponent implements OnInit {
     proposalSuccess(successData){
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-                this.toastr.success('Proposal created successfully!!');
+            this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             let getdata=[];
             this.RediretUrlLink = this.summaryData.payment_url;
@@ -652,21 +650,22 @@ export class BajajAlianzComponent implements OnInit {
     }
     commonPincodeSuccess(successData){
         this.setPincode = successData.ResponseObject;
-        if (this.title == 'proposer') {
+        if (this.title == 'insurer') {
             if (successData.IsSuccess) {
-                this.proposer['controls'].proposerState.patchValue(this.setPincode.state_name);
-                this.proposer['controls'].proposerDistrict.patchValue(this.setPincode.district_name);
-                this.proposer['controls'].proposerCity.patchValue(this.setPincode.city_village_name);
-                this.proposerPArea = this.setPincode.area_details;
+                this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue(this.setPincode.state_name);
+                this.insureArray['controls'].items['controls'][0]['controls'].insureDistrict.patchValue(this.setPincode.district_name);
+                this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue(this.setPincode.city_village_name);
+                this.insureMArea = this.setPincode.area_details;
             } else {
                 this.toastr.error('In valid Pincode');
-                this.proposer['controls'].proposerState.patchValue('');
-                this.proposer['controls'].proposerDistrict.patchValue('');
-                this.proposer['controls'].proposerCity.patchValue('');
-                this.proposerPArea = [];
+                this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue('');
+                this.insureArray['controls'].items['controls'][0]['controls'].insureDistrict.patchValue('');
+                this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue('');
+                this.insureMArea = [];
             }
         }
     }
     commonPincodeFailure(error){
     }
 }
+
