@@ -229,8 +229,7 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-green">INSURED DETAILS</h6>
                       <div class="row">
-                        <!--*ngIf="i == 0"-->
-                        <div class="col-md-12 mb-3" >
+                        <div class="col-md-12 mb-3" *ngIf="i == 0" >
                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event, i)"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <div class="col-md-3">
