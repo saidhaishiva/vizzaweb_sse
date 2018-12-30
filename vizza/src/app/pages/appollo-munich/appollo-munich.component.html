@@ -90,7 +90,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Select ID Proof" (change)="changeIdproof('proposer')"  formControlName="proposerIdProof"  >
-                            <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                            <mat-option *ngFor="let IdProof of IdProofListss" value="{{IdProof.proof_code}}"> {{IdProof.proof_name}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="proposer.controls.proposerIdProof.errors?.required">Id Proof is required</mat-error>-->
                         </mat-form-field>
@@ -229,8 +229,9 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-green">INSURED DETAILS</h6>
                       <div class="row">
-                        <div class="col-md-12 mb-3" *ngIf="i == 0">
-                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                        <!--*ngIf="i == 0"-->
+                        <div class="col-md-12 mb-3" >
+                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event, i)"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -339,7 +340,7 @@
                         <div class="col-md-4">
                         <mat-form-field class="w-100">
                         <mat-select placeholder="Select ID Proof" (change)="changeIdproof('insurer')"  formControlName="proposerIdProof"  >
-                        <mat-option *ngFor="let IdProof of IdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                        <mat-option *ngFor="let IdProof of IdProofListss" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Id Proof is required</mat-error>
                         </mat-form-field>
