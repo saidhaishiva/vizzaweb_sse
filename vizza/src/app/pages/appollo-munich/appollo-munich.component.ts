@@ -153,6 +153,9 @@ export class AppolloMunichComponent implements OnInit {
     public validateprvious: boolean;
     public titleValidation: boolean;
     public IdProofListss: any;
+    public agecal: any;
+    public agevalidation: any;
+
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
@@ -388,8 +391,10 @@ export class AppolloMunichComponent implements OnInit {
     AppolloInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
+        console.log(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log( this.insurerData, ' this.insurerData');
             for(let i = 0; i < this.insurerData.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
@@ -700,6 +705,8 @@ export class AppolloMunichComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         let age = this.ageCalculate(this.setDateAge);
+        this.agevalidation = age;
+        console.log(  this.agevalidation ,'  this.agevalidation   this.agevalidation ');
         let days = this.DobDaysCalculate(this.setDateAge);
         this.proposerAge = age;
         if(title == 'proposer'){
@@ -873,6 +880,8 @@ export class AppolloMunichComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        this.agecal = yearAge;
+        console.log(this.agecal, '  this.agecal  this.agecal');
         return yearAge;
     }
     topScroll() {
@@ -1072,6 +1081,8 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(this.proposer.controls['proposerrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue(this.proposer.controls['proposerGst'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(this.agevalidation);
+
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
@@ -1091,6 +1102,7 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue('');
 
 
         }
