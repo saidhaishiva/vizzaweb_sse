@@ -292,9 +292,10 @@ export class AppolloMunichComponent implements OnInit {
         }
 
         this.sessionData();
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+        this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
 
+        // this.setDate = Date.now();
+        // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
     }
 
     setStep(index: number) {
@@ -309,16 +310,16 @@ export class AppolloMunichComponent implements OnInit {
         return this.fb.group(
             {
                 rolecd: 'PRIMARY',
-                proposerTitle: ['', Validators.required],
-                proposerFirstname: ['', Validators.compose([Validators.required])],
-                proposerLastname: ['', Validators.required],
+                proposerTitle: '',
+                proposerFirstname: '',
+                proposerLastname: '',
                 proposerMidname: '',
-                proposerDob: ['', Validators.compose([Validators.required])],
-                proposerGender: ['', Validators.compose([Validators.required])],
-                proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+                proposerDob: '',
+                proposerGender: '',
+                proposerEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 proposerMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-                proposerAge: ['', Validators.compose([Validators.required])],
-                maritalStatus: ['', Validators.compose([Validators.required])],
+                proposerAge: '',
+                maritalStatus: '',
                 proposerIdProof: '',
                 proposerIdProofIdP: '',
                 proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
@@ -326,23 +327,23 @@ export class AppolloMunichComponent implements OnInit {
                 proposerPassport: '',
                 proposerVoter: ['', Validators.compose([ Validators.minLength(10)])],
                 proposerGst: ['', Validators.compose([Validators.minLength(15)])],
-                proposerAddress: ['', Validators.required],
+                proposerAddress: '',
                 proposerAddress2: '',
                 proposerAddress3: '',
                 nationality: 'IN',
-                proposerPincode: ['', Validators.required],
-                proposerCity: ['', Validators.required],
+                proposerPincode: '',
+                proposerCity: '',
                 proposerCountry: 'IN',
-                proposerState: ['', Validators.required],
+                proposerState: '',
                 proposerDistrict: '',
                 proposerCityIdP: '',
                 proposerStateIdP: '',
                 proposerCountryIdP: '',
                 proposerDistrictIdP: '',
-                proposerAnnualIncome: ['', Validators.required],
+                proposerAnnualIncome: '',
                 proposerFamilySize: ['', Validators.compose([Validators.maxLength(2)])],
-                proposerHeight: ['', Validators.required],
-                proposerWeight: ['', Validators.required],
+                proposerHeight: '',
+                proposerWeight: '',
                 LiquorPeg: 0,
                 LiquorPegStatus: '',
                 Smoking: 0,
@@ -356,15 +357,15 @@ export class AppolloMunichComponent implements OnInit {
                 PolicyStartDate: '',
                 PolicyEndDate: '',
                 previousInsurerStatus: 'No',
-                PreviousInsurer: ['', Validators.required],
-                PreviousPolicyNumber: ['', Validators.required],
-                SumInsured: ['', Validators.required],
+                PreviousInsurer: '',
+                PreviousPolicyNumber: '',
+                SumInsured: '',
                 QualifyingAmount: '',
                 ProffessionList: '',
                 WaivePeriod: '',
                 Remarks: '',
-                Proposeroccupation: ['', Validators.required],
-                proposerrelationship: ['', Validators.required],
+                Proposeroccupation: '',
+                proposerrelationship: '',
                 sameAsProposer: false,
                 sameas: false,
                 type: '',
@@ -373,7 +374,8 @@ export class AppolloMunichComponent implements OnInit {
                 pCityHide: '',
                 insurerDobError: '',
                 ins_days: '',
-                ins_age: ''
+                ins_age: '',
+                set_validator: false
             }
         );
     }
@@ -927,6 +929,8 @@ export class AppolloMunichComponent implements OnInit {
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+            this.getPincode(this.getStepper2.items[0].proposerPincode, 'insure', 0);
+
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerFirstname.patchValue(this.getStepper2.items[i].proposerFirstname);
@@ -1050,54 +1054,48 @@ export class AppolloMunichComponent implements OnInit {
     sameProposer(value: any, i) {
 
         if (value.checked) {
-            alert('in');
-            console.log(value);
-            // this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', i);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(this.proposer.controls['proposerDob'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.proposer.controls['maritalStatus'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerEmail.patchValue(this.proposer.controls['proposerEmail'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerMobile.patchValue(this.proposer.controls['proposerMobile'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress.patchValue(this.proposer.controls['proposerAddress'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress2.patchValue(this.proposer.controls['proposerAddress2'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress3.patchValue(this.proposer.controls['proposerAddress3'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue(this.proposer.controls['proposerPincode'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue(this.proposer.controls['proposerCity'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(this.proposer.controls['proposerrelationship'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue(this.proposer.controls['proposerGst'].value);
-
-
-
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.proposer.controls['maritalStatus'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerEmail.patchValue(this.proposer.controls['proposerEmail'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerMobile.patchValue(this.proposer.controls['proposerMobile'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress.patchValue(this.proposer.controls['proposerAddress'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress2.patchValue(this.proposer.controls['proposerAddress2'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress3.patchValue(this.proposer.controls['proposerAddress3'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue(this.proposer.controls['proposerPincode'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue(this.proposer.controls['proposerCity'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(this.proposer.controls['proposerrelationship'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue(this.proposer.controls['proposerGst'].value);
         } else {
-            alert('out');
-            console.log(value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerEmail.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerMobile.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress2.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress3.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerEmail.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerMobile.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress2.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAddress3.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue('');
 
 
         }
+
+        console.log(this.insureArray, 'this.insureArray1');
 
 
     }
