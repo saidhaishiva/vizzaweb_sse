@@ -758,21 +758,26 @@ export class TravelPremiumListComponent implements OnInit {
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    sessionStorage.buyProductdetails = JSON.stringify(value);
                     if (value.product_id <= 37 && value.product_id >=32) {
                         this.router.navigate(['/travelproposal']);
                     } else if (value.product_id <= 50 && value.product_id >=38) {
                         this.router.navigate(['/religaretravel']);
+                    } else if (value.product_id <= 31 && value.product_id >=27) {
+                        this.router.navigate(['/religaretravel']);
+                    } else if (value.product_id <= 26 && value.product_id >=24) {
+                        this.router.navigate(['/shriram-travel']);
                     } else{
                     }
                 }
             });
         }  else {
-            sessionStorage.buyProductdetails = JSON.stringify(value);
-            if (value.product_id == 16) {
+            if (value.product_id <= 37 && value.product_id >=32) {
                 this.router.navigate(['/travelproposal']);
-            } else if (value.product_id == 22) {
+            } else if (value.product_id <= 31 && value.product_id >=27) {
                 this.router.navigate(['/religaretravel']);
+            } else if (value.product_id <= 26 && value.product_id >=24) {
+                this.router.navigate(['/shriram-travel']);
+            } else{
             }
         }
     }

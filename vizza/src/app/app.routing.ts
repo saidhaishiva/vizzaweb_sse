@@ -95,6 +95,7 @@ import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import {ReliagretravelproposalComponent} from './pages/reliagretravelproposal/reliagretravelproposal.component';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
+import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -196,7 +197,8 @@ export const routes: Routes = [
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
-            { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}}
+            { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
+            { path: 'shriram-travel', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

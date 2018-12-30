@@ -161,7 +161,7 @@ export class TravelProposalComponent implements OnInit {
         // this.name = new FormControl("", Validators.compose([Validators.required, Validators.pattern(nameFormat)]));
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
-            personalFirstname: new FormControl("", Validators.compose([Validators.required, Validators.pattern(nameFormat)])),
+            personalFirstname: ['', Validators.required],
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
             personalrelationship: 'SELF',
