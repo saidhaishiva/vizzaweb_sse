@@ -938,7 +938,8 @@ export class AppolloMunichComponent implements OnInit {
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-            this.getPincode(this.getStepper2.items[0].proposerPincode, 'insure', 0);
+            console.log( this.getStepper2, ' this.getStepper2');
+            // this.getPincode(this.getStepper2.items[0].proposerPincode, 'insure', 0);
 
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);

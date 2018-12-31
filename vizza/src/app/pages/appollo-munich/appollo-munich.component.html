@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required>
                             <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
@@ -281,7 +281,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" required readonly>
+                            <input matInput placeholder="Age" formControlName="proposerAge"     autocomplete="off" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" readonly>
                             <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
                           </mat-form-field>
                         </div>
