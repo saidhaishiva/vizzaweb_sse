@@ -515,29 +515,9 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
-
-
-
-    private extractData(res: Response) {
-        const body = res;
-        return body || {};
-    }
-
-    private handleError(error: Response | any) {
-        let errMsg: string;
-        if (error instanceof Response) {
-            // const body = error.json() || '';
-            const err = error || JSON.stringify(error);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        return Observable.throw(error);
-    }
-
     //Bajaj Services
     getbajajProposal(data) {
+        console.log('bajajjjjjjjjjjj');
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
@@ -569,4 +549,22 @@ export class ProposalService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    private extractData(res: Response) {
+        const body = res;
+        return body || {};
+    }
+
+    private handleError(error: Response | any) {
+        let errMsg: string;
+        if (error instanceof Response) {
+            // const body = error.json() || '';
+            const err = error || JSON.stringify(error);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        return Observable.throw(error);
+    }
+
+
 }

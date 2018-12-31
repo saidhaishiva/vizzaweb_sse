@@ -70,6 +70,8 @@ export class BajajAlianzComponent implements OnInit {
     public mitems: any;
     public medicalData: any;
     public totalMedicalDetails: any;
+    public medicalPersons: any;
+    public totalInsurer: any;
 
 
     public setDate: any;
@@ -127,6 +129,7 @@ export class BajajAlianzComponent implements OnInit {
         this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
+        this.medicalPersons = this.getFamilyDetails.family_members;
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -195,7 +198,8 @@ export class BajajAlianzComponent implements OnInit {
     }
 
     medicalItemRows(){
-        return this.fb.group({
+        return this.fb.group(
+            {
             rolecd: 'MEDICAL',
             medicalPEDisease: 'No',
             medicalAsthma: 'No',
@@ -218,7 +222,7 @@ export class BajajAlianzComponent implements OnInit {
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
-                    'membername': this.insurerData[i].insureName,
+                    'membername': i == 0 ? this.insurerData[i].insureFirstname : this.insurerData[i].insureName,
                     'memrelation': this.insurerData[i].insurerelationship,
                     'memdob': this.insurerData[i].insureDob,
                     'memage': this.insurerData[i].insureAge,
@@ -233,6 +237,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
+                    'noofclaims':this.insurerData[i].insurePIClaims,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y'
@@ -250,7 +255,6 @@ export class BajajAlianzComponent implements OnInit {
             if(!ageValidate.includes(1)){
                 stepper.next();
             }
-
         }
     }
 
@@ -259,20 +263,29 @@ export class BajajAlianzComponent implements OnInit {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.medicalArray.valid) {
-            this.medicalData = value.items;
+            this.medicalData = value.mitems;
             this.totalMedicalDetails = [];
+            console.log(this.totalInsureDetails,'totalInsureDetailstotalInsureDetails');
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalMedicalDetails.push({
                     'mempreexistdisease': this.medicalData[i].medicalHeartDisease == 'Yes' ? '1' : '0',
-                    'memsmkertbco': this.medicalData[i].medicalSmoking == 'Yes' ? '1' : '0',
                     'memasthma': this.medicalData[i].medicalAsthma == 'Yes' ? '1' : '0',
                     'memcholstrldisordr': this.medicalData[i].medicalDisordr == 'Yes' ? '1' : '0',
                     'memheartdisease': this.medicalData[i].medicalHeartDisease == 'Yes' ? '1' : '0',
                     'memhypertension': this.medicalData[i].medicalHypertension == 'Yes' ? '1' : '0',
                     'memdiabetes': this.medicalData[i].medicalDiabetes == 'Yes' ? '1' : '0',
                     'memobesity': this.medicalData[i].medicalObesity == 'Yes' ? '1' : '0',
+                    'memsmkertbco': this.medicalData[i].medicalSmoking == 'Yes' ? '1' : '0',
                 });
+
+
             }
+            this.totalInsurer = [];
+            this.totalInsureDetails.forEach((itm, i) => {
+                this.totalInsurer.push(Object.assign({}, itm, this.totalMedicalDetails[i]));
+            });
+
+            console.log(this.totalInsurer,'ResultResultResultResult');
             this.lastStepper = stepper;
             this.proposal();
         }
@@ -474,8 +487,10 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.getStepper1.items[i].insurePItDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePINumber.patchValue(this.getStepper1.items[i].insurePINumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureSInsurance.patchValue(this.getStepper1.items[i].insureSInsurance);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePIClaims.patchValue(this.getStepper1.items[i].insurePIClaims);
                 this.insureArray['controls'].items['controls'][i]['controls'].bajajNomineeName.patchValue(this.getStepper1.items[i].bajajNomineeName);
                 this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue(this.getStepper1.items[i].bajajRelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper1.items[i].rolecd);
             }
         }
     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
@@ -489,6 +504,7 @@ export class BajajAlianzComponent implements OnInit {
         this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalDiabetes.patchValue(this.getStepper2.mitems[i].medicalDiabetes);
         this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalObesity.patchValue(this.getStepper2.mitems[i].medicalObesity);
         this.medicalArray['controls'].mitems['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper2.mitems[i].medicalSmoking);
+        this.medicalArray['controls'].mitems['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.mitems[i].rolecd);
         }
     }
     }
@@ -521,6 +537,7 @@ export class BajajAlianzComponent implements OnInit {
 
     //create poposal
     proposal(){
+        console.log(this.insureArray,'insureArrayinsureArrayinsureArrayinsureArrayinsureArray')
         this.settings.loadingSpinner = true;
         const data  = {
             'platform': 'web',
@@ -533,37 +550,38 @@ export class BajajAlianzComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'transactionid': '',
             'tycpdetails': {
-                'beforetitle': this.insureArray['controls'].items['controls'][0]['controls'].insureTitle,
-                'contact1': this.insureArray['controls'].items['controls'][0]['controls'].insureMobile,
-                'dateofbirth': this.insureArray['controls'].items['controls'][0]['controls'].insureDob,
-                'sex': this.insureArray['controls'].items['controls'][0]['controls'].insureGender,
-                'telephone': this.insureArray['controls'].items['controls'][0]['controls'].insurePhone,
-                'email': this.insureArray['controls'].items['controls'][0]['controls'].insureEmail,
-                'firstname': this.insureArray['controls'].items['controls'][0]['controls'].insureFirstname,
-                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insurename,
-                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insureMidname
+                'beforetitle': this.insureArray['controls'].items['controls'][0]['controls'].insureTitle.value,
+                'contact1': this.insureArray['controls'].items['controls'][0]['controls'].insureMobile.value,
+                'dateofbirth': this.insureArray['controls'].items['controls'][0]['controls'].insureDob.value,
+                'sex': this.insureArray['controls'].items['controls'][0]['controls'].insureGender.value,
+                'telephone': this.insureArray['controls'].items['controls'][0]['controls'].insurePhone.value,
+                'email': this.insureArray['controls'].items['controls'][0]['controls'].insureEmail.value,
+                'firstname': this.insureArray['controls'].items['controls'][0]['controls'].insureFirstname.value,
+                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insureLastname.value,
+                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insureMidname.value
             },
             'tycpaddrlist': [{
-                'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode,
-                'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress,
-                'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2,
-                'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea,
-                'cityname': this.insureArray['controls'].items['controls'][0]['controls'].insureCity,
-                'countryname': this.insureArray['controls'].items['controls'][0]['controls'].insureNationality,
-                'state': this.insureArray['controls'].items['controls'][0]['controls'].insureState
+                'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode.value,
+                'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress.value,
+                'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2.value,
+                'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea.value,
+                'cityname': this.insureArray['controls'].items['controls'][0]['controls'].insureCity.value,
+                'countryname': this.insureArray['controls'].items['controls'][0]['controls'].insureNationality.value,
+                'state': this.insureArray['controls'].items['controls'][0]['controls'].insureState.value
             }],
             'previnsdtls': {
-                'previnsname': this.insureArray['controls'].items['controls'][0]['controls'].insurePIName,
-                'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress,
-                'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber,
-                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate,
-                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims
+                'previnsname': this.insureArray['controls'].items['controls'][0]['controls'].insurePIName.value,
+                'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
+                'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
+                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
             },
-            'hcpdtmemlist': this.totalInsureDetails,
+            'hcpdtmemlist': this.totalInsurer,
             'hcpdtmemcovlist': [{
                 'memiptreatsi': this.buyProductdetails.suminsured_amount
             }]
         };
+        console.log(data,'bajajjjjjjjjjsdddddd')
         this.proposalservice.getbajajProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
