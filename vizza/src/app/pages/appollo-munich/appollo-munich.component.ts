@@ -1005,6 +1005,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
                 this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
                 this.insureArray['controls'].items['controls'][i]['controls'].stateHide.patchValue(true);
+                this.getPincode(this.getStepper2.items[i].value, 'insure', i);
 
             }
 
@@ -1033,6 +1034,7 @@ export class AppolloMunichComponent implements OnInit {
         }
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
+            console.log(this.getNomineeData, 'this.getNomineeData');
             this.nomineeDetails = this.fb.group({
                 nomineeName: this.getNomineeData.nomineeName,
                 nomineeRelationship: this.getNomineeData.nomineeRelationship,
@@ -1064,6 +1066,7 @@ export class AppolloMunichComponent implements OnInit {
     sameProposer(value: any, i) {
 
         if (value.checked) {
+            this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', i);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
