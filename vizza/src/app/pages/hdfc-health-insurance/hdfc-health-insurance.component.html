@@ -346,7 +346,7 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposalDtails.dob | date: 'dd-MMM-yyyy'}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposalDtails.emailid}}</li>
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.mobile}}</li>
-                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="proposalDtails.paymentMode == 'CC'">Credit Card</span> <span *ngIf="proposalDtails.paymentMode == 'DC'">Debit Card</span></li>
+                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="proposalDtails.paymentMode == 'CC'">Credit Card</span> <span *ngIf="proposalDtails.paymentMode == 'DD'">Debit Card</span></li>
                       <li class="list-group-item"><strong>Same As Insurer:</strong> <span *ngIf="proposalDtails.sameAsInsurer == 'Y'">Yes</span><span *ngIf="proposalDtails.sameAsInsurer == 'N'">No</span></li>
                       <li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !=''"><strong>Is Customer Accepted:</strong> {{proposalDtails.isCustomerAccepted}}</li>
                     </ul>
@@ -381,7 +381,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{item.fname}} {{item.lname}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yyyy'}}{{item.dob}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yyyy'}}</li>
                       <li class="list-group-item"><strong>Relationship:</strong> {{item.Relation_code}}</li>
                       <li class="list-group-item" *ngIf="item.preDisease !=''"><strong>Pre Existing Disease:</strong> {{item.preDisease}}</li>
                     </ul>
