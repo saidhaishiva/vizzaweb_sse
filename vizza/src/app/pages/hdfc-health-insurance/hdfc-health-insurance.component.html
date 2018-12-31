@@ -187,7 +187,7 @@
                     <div class="col-md-12 box-card pt-3">
                       <h4 class="color-blue">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value}} Details</h4>
                       <div class="row">
-                        <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">
+                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="title" required>
                               <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
@@ -197,15 +197,27 @@
                             <mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
-                          <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" required>
-                              <mat-option value="Mr">Mr</mat-option>
-                              <mat-option value="Ms">Ms</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select placeholder="Title" formControlName="title" required>-->
+                              <!--<mat-option value="Mr">Mr</mat-option>-->
+                              <!--<mat-option value="Ms">Ms</mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                          <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Title" formControlName="title" value="Mr" required readonly>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Title" formControlName="title" value="Ms" required readonly>
+                              </mat-form-field>
+                          </div>
+
+
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required >
@@ -218,7 +230,7 @@
                             <mat-error *ngIf="hdfcInsureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="gender" required>
                               <mat-option value="M">Male</mat-option>
@@ -227,6 +239,16 @@
                             <mat-error *ngIf="hdfcInsureArray.invalid">Gender is required</mat-error>
                           </mat-form-field>
                         </div>
+                          <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Gender" formControlName="gender" value="M" required readonly>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Gender" formControlName="gender" value="F" required readonly>
+                              </mat-form-field>
+                          </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
