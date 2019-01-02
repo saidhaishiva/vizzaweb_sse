@@ -185,7 +185,7 @@ export class BajajAlianzComponent implements OnInit {
                 insurePINumber:'',
                 insurePItDate:'',
                 insureSInsurance:'',
-                insurePIClaims:'',
+                insurePIClaims:'0',
                 bajajNomineeName: ['', Validators.required],
                 bajajRelationship: ['', Validators.required],
                 type: '',
