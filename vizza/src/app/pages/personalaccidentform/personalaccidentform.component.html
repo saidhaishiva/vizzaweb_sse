@@ -133,6 +133,7 @@
                         <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
 
                       </div>
+
                     </div>
                   </div>
 
@@ -357,6 +358,18 @@
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
 
                       </div>
+                       <div class="col-md-3">
+                         <mat-form-field class="w-100" >
+                           <input matInput placeholder="Height"  formControlName="insuredHeight" required autocomplete="off">
+                           <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
+                         </mat-form-field>
+                       </div>
+                       <div class="col-md-3">
+                         <mat-form-field class="w-100" >
+                           <input matInput placeholder="Weight"  formControlName="insuredWeight" required autocomplete="off">
+                           <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
+                         </mat-form-field>
+                       </div>
                     </div>
                   </div>
 

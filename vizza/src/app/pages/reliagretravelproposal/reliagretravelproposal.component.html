@@ -63,9 +63,9 @@
                         <mat-error *ngIf="religarePersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">
-                      <input matInput placeholder="GST"  minlength="15" maxlength="15" formControlName="gst" autocomplete="off" required>
-                      <mat-error *ngIf="religarePersonal.controls.gst.errors?.required">GST is required</mat-error>
-                      <mat-error *ngIf="religarePersonal.controls.gst.hasError('pattern')">Enter Valid  GST</mat-error>
+                      <input matInput placeholder="PASSPORT"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required>
+                      <mat-error *ngIf="religarePersonal.controls.passport.errors?.required">passport is required</mat-error>
+                      <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  passport</mat-error>
                     </mat-form-field></div>
                   </div>
                   </div>
@@ -234,8 +234,8 @@
                         </mat-form-field></div>
 
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="GST"  minlength="15" maxlength="15" formControlName="gst" autocomplete="off" required>
-                          <mat-error *ngIf="insureReligareArray.invalid">GST is required</mat-error>
+                          <input matInput placeholder="passport"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required>
+                          <mat-error *ngIf="insureReligareArray.invalid">passport is required</mat-error>
                         </mat-form-field></div>
                       </div>
                       </div>
