@@ -279,6 +279,36 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getShriramStateLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/stateList' ;
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getShriramCityLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/cityList' ;
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getPostalShriram(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/checkValidPincode' ;
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
 
 

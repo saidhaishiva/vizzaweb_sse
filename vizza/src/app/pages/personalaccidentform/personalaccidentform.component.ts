@@ -256,6 +256,8 @@ export class PersonalaccidentformComponent implements OnInit {
             insuredrState: ['', Validators.required],
             sameAsinsureProposer: false,
             sameasInsuredAddress: false,
+            insuredHeight:['', Validators.required],
+            insuredWeight:['', Validators.required],
             insuredrolecd: 'PRIMARY',
             type: '',
             medical_status: 'No'
@@ -407,6 +409,8 @@ export class PersonalaccidentformComponent implements OnInit {
                 insuredState: this.getStepper2.insuredState,
                 insuredEmail: this.getStepper2.insuredEmail,
                 insuredEmail2: this.getStepper2.insuredEmail2,
+                insuredHeight: this.getStepper2.insuredHeight,
+                insuredWeight: this.getStepper2.insuredWeight,
                 insuredMobile: this.getStepper2.insuredMobile,
                 insuredAltnumber: this.getStepper2.insuredAltnumber,
                 insuredrAddress: this.getStepper2.insuredrAddress,
@@ -1412,6 +1416,8 @@ export class PersonalaccidentformComponent implements OnInit {
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
                     'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
                     'lastName':  this.insured.controls['insuredLastname'].value,
+                    'height': this.insured.controls['insuredHeight'].value,
+                    'weight': this.insured.controls['insuredWeight'].value,
                     "partyAddressDOList": [{
                         'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
                         'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,

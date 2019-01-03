@@ -118,7 +118,7 @@ export class ProposalComponent implements OnInit {
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.illnessCheck = false;
-        this.socialStatus = true;
+        this.socialStatus = false;
         this.stopNext = false;
         this.nomineeAdd = true;
         this.nomineeRemove = true;
@@ -146,7 +146,7 @@ export class ProposalComponent implements OnInit {
             personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
-            socialStatus: '',
+            socialStatus: 'true',
             socialAnswer1: '',
             socialAnswer2: '',
             socialAnswer3: '',
@@ -276,7 +276,11 @@ export class ProposalComponent implements OnInit {
             'CIGNA TTK Health Insurance Co. Ltd.',
             'Aditya Birla Health Insurance Co. Ltd.'
         ];
+        // this.personal.controls['socialStatus'].patchValue('true');
+        // this.socialStatus = false;
         this.sessionData();
+        this.changeSocialStatus('re');
+
     }
 
     canDeactivate() {
@@ -908,7 +912,7 @@ console.log(value,'fgh');
         }
     }
 
-    addEventInsurer(event, i, type) {
+    ntInsurer(event, i, type) {
         console.log(this.datepipe.transform(event.value, 'dd-MM-y'), 'iii');
         if (this.datepipe.transform(event.value, 'dd-MM-y') == null) {
             this.insurerDobError = '';

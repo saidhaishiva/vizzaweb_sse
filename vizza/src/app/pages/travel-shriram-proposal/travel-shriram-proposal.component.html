@@ -104,7 +104,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="Receipt Date (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="personal.controls.medicalRepDate.errors?.required">DOB is required</mat-error>
@@ -114,21 +114,21 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Pre Existing Ailments" formControlName="preExistingAilments"  (keypress)="typeValidate($event)"  autocomplete="off" >
-                          <mat-error *ngIf="personal.controls.preExistingAilments.errors?.required">First Name is required</mat-error>
+                          <mat-error *ngIf="personal.controls.preExistingAilments.errors?.required">Pre Existing Ailments is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <p>Handicapped</p>
                         <mat-radio-group formControlName="handicapped">
-                          <mat-radio-button value="Yes" class="mr-3">Yes</mat-radio-button>
-                          <mat-radio-button value="No" >No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-3">Yes</mat-radio-button>
+                          <mat-radio-button value="N" >No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                       <div class="col-md-4">
                         <p>Whether engaged in winter sports/mountaineering Yes / No</p>
                         <mat-radio-group formControlName="engagedSports">
-                          <mat-radio-button value="Yes" class="mr-3">Yes</mat-radio-button>
-                          <mat-radio-button value="No" >No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-3">Yes</mat-radio-button>
+                          <mat-radio-button value="N" >No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                     </div>
@@ -168,30 +168,38 @@
                         <mat-error *ngIf="personal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
 
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="City" formControlName="city" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="personal.controls.city.errors?.required">City is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="State" formControlName="state" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="personal.controls.state.errors?.required">State is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="City" formControlName="city" autocomplete="off" required>
-                          <mat-error *ngIf="personal.controls.city.errors?.required">City is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="state" autocomplete="off" required>
+                          <mat-select placeholder="State" formControlName="state" autocomplete="off" (change)="selectedSate()" required>
+                            <mat-option *ngFor="let state of shriramStates" value='{{state.state_id}}'>
+                              {{state.state}}
+                            </mat-option>
+                          </mat-select>
                           <mat-error *ngIf="personal.controls.state.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <!--<div class="col-md-4"><mat-form-field class="w-100" >-->
-                        <!--<mat-select placeholder="City" formControlName="personalCity" autocomplete="off" required>-->
-                          <!--<mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>-->
-                            <!--{{city.city}}-->
-                          <!--</mat-option>-->
-                        <!--</mat-select>-->
-                        <!--<mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>-->
-                      <!--</mat-form-field></div>-->
-                      <!--<div class="col-md-4"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>-->
-                        <!--<mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>-->
-                      <!--</mat-form-field></div>-->
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100" >
+                          <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
+                            <mat-option *ngFor="let city of shriramCitys" [value]= 'city.city'>
+                              {{city.city}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="personal.controls.city.errors?.required">City is required</mat-error>
+                        </mat-form-field>
+                      </div>
 
 
                     </div>
@@ -267,8 +275,8 @@
               </div>
               <div class="col-md-6">
                 <ul class="summary-head">
-                  <li><span>Start Date:</span> &nbsp;{{summaryData.travel_start_on | date: 'dd-MMM-yy' }} </li>
-                  <li><span>End Date:</span> &nbsp; {{summaryData.travel_end_on | date: 'dd-MMM-yy'}} </li>
+                  <li><span>Start Date:</span> &nbsp;{{summaryData.policyFromDate | date: 'dd-MMM-yy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{summaryData.policyToDate | date: 'dd-MMM-yy'}} </li>
                   <li></li>
                 </ul>
               </div>
@@ -289,9 +297,9 @@
                   <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
                 </td>
                 <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{proposalDtails.premium}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{proposalDtails.serviceTax}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{proposalDtails.totalPremium}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.coverBasePremium}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.coverIgst}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.coverTotalAmount}}</td>
               </tr>
 
               </tbody>
@@ -309,11 +317,18 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong>{{summaryData.p_name}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.p_dob}}</li>
-                      <li class="list-group-item"><strong>Email:</strong> {{summaryData.p_email}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.p_phone}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.gst_id_number != '' && summaryData.gst_id_number != 0"><strong>GST:</strong> {{summaryData.gst_id_number}}</li>
+                      <li class="list-group-item"><strong>Name:</strong>{{summaryData.insuredName}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong><span *ngIf="summaryData.gender == 'M'">Male</span><span *ngIf="summaryData.gender == 'F'">Female</span></li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.dob}}</li>
+                      <li class="list-group-item"><strong>Email:</strong> {{summaryData.emailId}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.mobileNumber}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.telephoneNo != '' && summaryData.telephoneNo != 0"><strong>Phone:</strong> {{summaryData.telephoneNo}}</li>
+                      <li class="list-group-item"><strong>Passport Number:</strong> {{summaryData.passportNumber}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.faxNo != '' && summaryData.faxNo != 0"><strong>Fax No:</strong> {{summaryData.faxNo}}</li>
+                      <li class="list-group-item"><strong>Purpose of Visit:</strong> {{summaryData.purposeofVisit}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.occupation}}</li>
+                      <li class="list-group-item"><strong>Travel Type:</strong> Individual</li>
+
 
                     </ul>
                   </div>
@@ -321,10 +336,14 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Travel Purpose:</strong> {{travelPurposeName}}</li>
-                      <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.physician_name}}</li>
-                      <li class="list-group-item"><strong>Physician Contact:</strong> {{summaryData.phy_contact_number}}</li>
-                      <li class="list-group-item"><strong>Address:</strong> {{summaryData.p_address1}} <span *ngIf="summaryData.p_address2 !=''">, {{summaryData.p_address2}}</span><span *ngIf="summaryData.p_area_id !=''">, {{summaryData.p_area_id}}</span></li>
+                      <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.nameofDoctor}}</li>
+                      <li class="list-group-item"><strong>Physician Address:</strong> {{summaryData.doctorAddress}}</li>
+                      <li class="list-group-item"><strong>Medical Report Attachment:</strong> {{summaryData.medicalReportAttachment}}</li>
+                      <li class="list-group-item"><strong>Medical Report Date:</strong> {{summaryData.medicalReportDate}}</li>
+                      <li class="list-group-item"><strong>Handicapped:</strong> {{summaryData.handicapped}}</li>
+                      <li class="list-group-item"><strong>Engaged Sports:</strong> {{summaryData.engagedSports}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.preExistingDisease != '' && summaryData.preExistingDisease != 0"><strong>Pre Existing Disease:</strong> {{summaryData.preExistingDisease}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.orgAttachment != '' && summaryData.orgAttachment != 0"><strong>Org Attachment:</strong> {{summaryData.orgAttachment}}</li>
                       <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->
                     </ul>
                   </div>
