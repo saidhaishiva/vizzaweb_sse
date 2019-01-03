@@ -52,7 +52,7 @@ export class TravelShriramProposalComponent implements OnInit {
     public enquiryId: any;
     public personalData: any;
     public relationshipList: any;
-    public relationshipLists: any;
+    public shriramCitys: any;
     public today: any;
     public declaration: boolean;
     public acceptSummaryDeclaration: boolean;
@@ -75,7 +75,7 @@ export class TravelShriramProposalComponent implements OnInit {
     public rResponse: any;
     public summaryCity: any;
     public rSummaryCity: any;
-    public summaryRelationship : any;
+    public shriramStates : any;
     public sumTitle: any;
     public sumPin: any;
     public code: any;
@@ -157,7 +157,6 @@ export class TravelShriramProposalComponent implements OnInit {
         this.questions_list = [];
         this.arr = [];
         this.personal = this.fb.group({
-            title: ['', Validators.required],
             firstname: ['', Validators.required],
             gender: ['', Validators.compose([Validators.required])],
             dob: ['', Validators.compose([Validators.required])],
@@ -186,12 +185,15 @@ export class TravelShriramProposalComponent implements OnInit {
             'nomineeName': ['', Validators.required],
             'nomineeRelationship': ['', Validators.required]
         });
+        this.personal.controls['handicapped'].patchValue('N');
+        this.personal.controls['handicapped'].patchValue('N');
     }
 
     ngOnInit() {
         this.nomineeRelationshipList();
         this.travelPurposeOfVisit();
         this.occupationList();
+        this.getStateList();
         // this.getIlnessDetails();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         this.allPremiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -321,6 +323,8 @@ export class TravelShriramProposalComponent implements OnInit {
     sessionData() {
         if (sessionStorage.stepper1ShriramTravel != '' && sessionStorage.stepper1ShriramTravel != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1ShriramTravel);
+            this.personal.controls['state'].patchValue(this.getStepper1.state);
+            this.selectedSate();
             this.personal = this.fb.group({
                 firstname: this.getStepper1.firstname,
                 gender: this.getStepper1.gender,
@@ -363,12 +367,13 @@ export class TravelShriramProposalComponent implements OnInit {
         this.title = title;
         const data = {
             'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
+            'user_id': this.auth.getPosUserId(),
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'pincode': this.pin
         }
         if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
+            this.travelservice.getPostalShriram(data).subscribe(
                 (successData) => {
                     this.getpostalSuccess(successData);
                 },
@@ -380,23 +385,68 @@ export class TravelShriramProposalComponent implements OnInit {
     }
     public getpostalSuccess(successData) {
         if (this.title == 'personal') {
-            this.personalCitys = [];
-            this.response = successData.ResponseObject;
             if (successData.IsSuccess) {
-                this.personal.controls['state'].setValue(this.response[0].state);
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city});
-                }
+
             } else if(successData.IsSuccess != true) {
-                this.personal.controls['state'].setValue('');
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city = ''});
-                }
                 this.toastr.error('In valid Pincode');
             }
         }
     }
     public getpostalFailure(error) {
+    }
+
+    // city lists
+    selectedSate() {
+        console.log(event, 'pppp');
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId(),
+            'state_id': '',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+        }
+        data.state_id = this.personal.controls['state'].value;
+        this.travelservice.getShriramCityLists(data).subscribe(
+            (successData) => {
+                this.getCitySuccess(successData);
+            },
+            (error) => {
+                this.getCityFailure(error);
+            }
+        );
+    }
+    public getCitySuccess(successData) {
+        if (successData.IsSuccess) {
+            this.shriramCitys = successData.ResponseObject;
+        }
+    }
+    public getCityFailure(error) {
+        console.log(error);
+    }
+    // state lists
+    getStateList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId(),
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+        }
+        this.travelservice.getShriramStateLists(data).subscribe(
+            (successData) => {
+                this.getStateSuccess(successData);
+            },
+            (error) => {
+                this.getStateFailure(error);
+            }
+        );
+    }
+    public getStateSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.shriramStates = successData.ResponseObject;
+        }
+    }
+    public getStateFailure(error) {
+        console.log(error);
     }
 
     travelPurposeOfVisit() {
@@ -611,18 +661,18 @@ export class TravelShriramProposalComponent implements OnInit {
                 'objTravelProposalEntryETT': {
                     'PolicyFromDt': this.datepipe.transform(this.getTravelPremiumList.start_date, 'dd-MM-yyy'),
                     'PolicyToDt': this.datepipe.transform(this.getTravelPremiumList.end_date, 'dd-MM-yyy'),
-                    'DurationOfTrip': this.getTravelPremiumList.trip_duration,
+                    'DurationOfTrip': this.getTravelPremiumList.trip_duration.toString(),
                     'InsuredName': this.personalData.firstname,
                     'Address1':  this.personalData.address,
                     'Address2': this.personalData.address2,
                     'Address3': this.personalData.address3,
-                    'State': "KA",
-                    'City': "Dharmapuri",
-                    'PinCode': "636808",
+                    'State': this.personalData.state,
+                    'City': this.personalData.city,
+                    'PinCode': this.personalData.pincode,
                     'TelephoneNo':  this.personalData.phone,
                     'FaxNo':  this.personalData.faxNo,
                     'EmailID':  this.personalData.email,
-                    'MobileNumber':  this.personalData.mobile,
+                    'MobileNumber': this.personalData.mobile,
                     'DateOfBirth': this.datepipe.transform(this.personalData.dob, 'dd-MM-yyy'),
                     'Gender': this.personalData.gender,
                     "PassportNumber": this.personalData.passportNumber,
@@ -670,7 +720,7 @@ export class TravelShriramProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
-            this.summaryData = successData.ResponseObject.proposal_details;
+            this.summaryData = successData.ResponseObject.ProposalDetails;
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
             this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
             this.proposalDtails = this.summaryData.proposal_details[0];

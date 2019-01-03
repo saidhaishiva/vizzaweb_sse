@@ -8,7 +8,7 @@
             <form [formGroup]="proposer" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
-                  <mat-panel-title> Group A </mat-panel-title>
+                  <mat-panel-title> Health </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
@@ -17,7 +17,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required>
-                            <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
+                            <mat-option *ngFor="let list of titleCodeList" [value]="list.tittle_code">{{list.tittle}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -235,7 +235,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" required>
-                              <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
+                              <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}">{{titleCode.tittle}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
@@ -428,7 +428,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname($event, i, 'district')">
+                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district')" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                                       <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList" value="{{AppolloDistrict.district_code}}" > {{AppolloDistrict.district_name}} </mat-option>
                                   </mat-select>
                                   <!--<mat-error *ngIf="insureArray.invalid">District is required</mat-error>-->
@@ -436,13 +436,13 @@
                           </div>
                           <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].stateHide.value">
                               <mat-form-field class="w-100" >
-                                  <input matInput placeholder="District" formControlName="proposerDistrictIdP" readonly required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                                  <input matInput placeholder="District" formControlName="proposerDistrictIdP" readonly >
                                   <mat-error *ngIf="insureArray.invalid">District is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname($event, i, 'city')" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                                  <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname(i, 'city')" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                                       <mat-option *ngFor="let AppolloCity of iAppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
@@ -450,7 +450,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].cityHide.value">
                               <mat-form-field class="w-100" >
-                                  <input matInput placeholder="City" formControlName="proposerCityIdP" readonly required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                                  <input matInput placeholder="City" formControlName="proposerCityIdP" readonly >
                                   <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                               </mat-form-field>
                           </div>
@@ -637,7 +637,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="nomineeTitle">
+                          <mat-select placeholder="Title" formControlName="nomineeTitle" required>
                             <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
