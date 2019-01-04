@@ -384,6 +384,7 @@ export class AppolloMunichComponent implements OnInit {
                 pCityHide: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
+                dobErrorStartDate: '',
                 ins_days: '',
                 ins_age: '',
                 set_validator: false
@@ -515,7 +516,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     pInsureStatus(title: any, id){
-
+console.log(this.insureArray, 'pppp');
       if(title.value == 'Yes') {
         this.previousDetails = true;
         this.validateprvious = true;
