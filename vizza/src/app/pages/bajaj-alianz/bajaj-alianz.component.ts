@@ -147,7 +147,7 @@ export class BajajAlianzComponent implements OnInit {
                 rolecd: 'PRIMARY',
                 insureTitle: ['', Validators.required],
                 insureName: '',
-                insureDob: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+                insureDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 insureGender: ['', Validators.compose([Validators.required])],
                 insureAge: ['', Validators.compose([Validators.required])],
                 insureHeight: ['', Validators.compose([Validators.required])],
@@ -170,7 +170,7 @@ export class BajajAlianzComponent implements OnInit {
                 insurePIAddress:'',
                 insureCName:'',
                 insurePINumber:'',
-                insurePItDate: ['', Validators.compose([Validators.minLength(10),  Validators.maxLength(10)])],
+                insurePItDate: ['', Validators.compose([Validators.minLength(10)])],
                 insureSInsurance:'',
                 insurePIClaims:'0',
                 bajajNomineeName: ['', Validators.required],
@@ -466,36 +466,10 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper1.items[i].medicalSmoking);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.patchValue(this.getStepper1.items[i].insureDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper1.items[i].rolecd);
+                this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer')
             }
         }
     }
-    boolenHide(change: any, id, key){
-        if(key == 'PEDisease' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalPEDisease.patchValue('Yes');
-        }
-        if(key == 'Asthma' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalAsthma.patchValue('Yes');
-        }
-        if(key == 'Disordr' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalDisordr.patchValue('Yes');
-        }
-        if(key == 'HeartDisease' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalHeartDisease.patchValue('Yes');
-        }
-        if(key == 'Hypertension' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalHypertension.patchValue('Yes');
-        }
-        if(key == 'Diabetes' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalDiabetes.patchValue('Yes');
-        }
-        if(key == 'Obesity' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalObesity.patchValue('Yes');
-        }
-        if(key == 'Smoking' && change.checked == 'true') {
-            this.insureArray['controls'].items['controls'][id]['controls'].medicalSmoking.patchValue('Yes');
-        }
-    }
-
 
     //create poposal
     proposal(){
