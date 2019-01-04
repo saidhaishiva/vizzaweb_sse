@@ -8,7 +8,7 @@
             <form [formGroup]="proposer" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
-                  <mat-panel-title> Health </mat-panel-title>
+                  <mat-panel-title> PROPOSER </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
@@ -217,9 +217,12 @@
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="insureArray">
               <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
+                <!--; let  first = Firs-->
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <mat-panel-title> {{insureArray['controls'].items['controls'][i]['controls'].type.value}} </mat-panel-title>
+                    <mat-panel-title> {{insureArray['controls'].items['controls'][i]['controls'].type.value}}
+                      <span *ngIf="i == 0">(Policy Holder) </span>
+                    </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
                   <div class="row mt-3">
@@ -631,7 +634,7 @@
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
-                <mat-panel-title> {{groupName}} </mat-panel-title>
+                <mat-panel-title> NOMINEE </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
@@ -785,6 +788,7 @@
                                       <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
                                       <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null"><strong>Select ID Proof:</strong> {{item.i_idprooftype}}</li>
                                       <li class="list-group-item" *ngIf="item.i_idproofno != '' && item.i_idproofno != null"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
+                                      <li class="list-group-item" *ngIf="item.GstinNumber != '' && item.GstinNumber != null"><strong>ID Proof Number:</strong> {{item.GstinNumber}}</li>
                                   </ul>
                               </div>
                           </div>

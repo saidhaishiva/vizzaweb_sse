@@ -276,7 +276,10 @@ export class AppolloMunichComponent implements OnInit {
 
         this.sessionData();
         this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
-        this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
+        if ( this.insureArray['controls'].items['controls'][1]['controls'].type == 'Spouse') {
+            this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
+        }
+
 
         // this.setDate = Date.now();
         // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
@@ -589,6 +592,7 @@ console.log(this.insureArray, 'pppp');
     //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         this.proposerData = value;
+        console.log(this.proposerData,   this.proposerData);
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
             this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
@@ -937,6 +941,7 @@ console.log(this.insureArray, 'pppp');
     ageValidation(i, type) {
       console.log(type);
       console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
+      console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
 
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
@@ -956,16 +961,25 @@ console.log(this.insureArray, 'pppp');
                 smallest = this.arr[i];
             }
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 91  && this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 25 && type == 'Son')  {
+
+
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Daughter') {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 25 && type == 'Daughter')  {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Son')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && type == 'Daughter')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Daughter')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Son')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        }
+
+
+
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {

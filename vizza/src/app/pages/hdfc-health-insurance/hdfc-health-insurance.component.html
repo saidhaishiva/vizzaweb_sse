@@ -63,9 +63,13 @@
                         <mat-error *ngIf="hdfcPersonal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" autocomplete="off" required>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                      </mat-form-field></div>
+                      <div class="col-md-4"><mat-form-field class="w-100">
+                        <input matInput placeholder="OTP"  (keypress)="keyPress($event)"  minlength="6" maxlength="6" formControlName="otp" (input)="checkotpValidate($event.target.value)" autocomplete="off" required>
+                        <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">OTP is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -179,7 +183,7 @@
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURER DETAILS </ng-template>
                   <div class="row">
-                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurer($event)"><strong>Same as proposer</strong></mat-checkbox></div>
+                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event)"><strong>Same as proposer</strong></mat-checkbox></div>
                   </div>
                   <form [formGroup]="hdfcInsureArray">
                     <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
@@ -187,7 +191,7 @@
                     <div class="col-md-12 box-card pt-3">
                       <h4 class="color-blue">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value}} Details</h4>
                       <div class="row">
-                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': sameAsinsure ? 'none' : 'block'}">
+                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : 'block'}">
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title" formControlName="title" required >
                               <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
@@ -220,18 +224,18 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{sameAsinsure}}">
+                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
                             <mat-error *ngIf="hdfcInsureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{sameAsinsure}}">
+                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
                             <mat-error *ngIf="hdfcInsureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')">
-                          <mat-form-field class="w-100" [ngStyle]="{'pointer-events': sameAsinsure ? 'none' : 'block'}">
+                          <mat-form-field class="w-100" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : 'block'}">
                             <mat-select placeholder="Gender" formControlName="gender" required >
                               <mat-option value="M">Male</mat-option>
                               <mat-option value="F">Female</mat-option>
@@ -250,7 +254,7 @@
                               </mat-form-field>
                           </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{sameAsinsure}}">
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer}}">
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcInsureArray.invalid">DOB is required</mat-error>
@@ -272,7 +276,7 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="typeValidate($event)" autocomplete="off"  >
-                            <mat-error *ngIf="hdfcInsureArray.invalid">First Name is required</mat-error>
+                            <mat-error *ngIf="hdfcInsureArray.invalid">Pre Existing Disease is required</mat-error>
                           </mat-form-field>
                         </div>
 
