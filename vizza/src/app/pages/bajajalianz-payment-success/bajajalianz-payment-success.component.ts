@@ -38,7 +38,6 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
   }
     DownloadPdf() {
         const data = {
-            'mail_status': this.mailstatus,
             'proposal_id' : this.proposalId,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
