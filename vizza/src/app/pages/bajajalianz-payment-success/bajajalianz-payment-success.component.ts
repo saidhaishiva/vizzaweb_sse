@@ -36,5 +36,41 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
 
   ngOnInit() {
   }
+    DownloadPdf() {
+        const data = {
+            'mail_status': this.mailstatus,
+            'proposal_id' : this.proposalId,
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        }
+        this.settings.loadingSpinner = true;
+        this.proposalservice.getDownloadPdfBajaj(data).subscribe(
+            (successData) => {
+                this.downloadPdfSuccess(successData);
+            },
+            (error) => {
+                this.downloadPdfFailure(error);
+            }
+        );
+
+    }
+    public downloadPdfSuccess(successData) {
+        this.type = successData.ResponseObject.type;
+        this.path = successData.ResponseObject.path;
+        this.settings.loadingSpinner = false;
+        console.log(this.path, 'this.paththis.paththis.path');
+
+        if (successData.IsSuccess == true) {
+            if (this.type == 'pdf') {
+                window.open(this.path, '_self' );
+            }
+        } else {
+            this.toast.error(successData.ErrorObject);
+        }
+    }
+    public downloadPdfFailure(error) {
+        console.log(error);
+    }
 
 }

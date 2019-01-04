@@ -1177,7 +1177,7 @@ export class HealthInsuranceComponent implements OnInit {
                         this.router.navigate(['/appollo-munich']);
                     } else if(value.product_id >= 17 && value.product_id <= 20){
                         this.router.navigate(['/hdfc-insurance']);
-                    } else if(value.product_id == 21){
+                    } else if(value.product_id == 51){
                         this.router.navigate(['/bajaj']);
                     }else {
                         this.router.navigate(['/proposal']);
