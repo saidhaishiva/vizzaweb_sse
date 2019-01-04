@@ -72,6 +72,7 @@ export class BajajAlianzComponent implements OnInit {
     public totalMedicalDetails: any;
     public medicalPersons: any;
     public totalInsurer: any;
+    public relationshipSameError: any;
 
 
     public setDate: any;
@@ -186,7 +187,8 @@ export class BajajAlianzComponent implements OnInit {
                 insureDisease: 0,
                 type: '',
                 insureDobError: '',
-                ins_age: ''
+                ins_age: '',
+                relationshipSameError: ''
 
             }
         );
@@ -248,6 +250,7 @@ export class BajajAlianzComponent implements OnInit {
             }
             if(!ageValidate.includes(1)){
                 if(!diseaseValidate.includes('No')) {
+
                     this.lastStepper = stepper;
                     this.proposal();
                 } else{
@@ -417,9 +420,20 @@ export class BajajAlianzComponent implements OnInit {
             }
 
         }
+        console.log(this.insureRelation, 'this.insureRelationthis.insureRelation');
     }
 
     public relationListFailure(error) {
+    }
+
+    relationshipSame(i){
+        if(this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value == this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.value){
+
+            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('Insurer and Nominee relationship should be different');
+        } else{
+
+            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('');
+        }
     }
 
     sessionData() {
@@ -466,6 +480,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper1.items[i].medicalSmoking);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.patchValue(this.getStepper1.items[i].insureDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper1.items[i].rolecd);
+                this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue(this.getStepper1.items[i].relationshipSameError);
                 this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer')
             }
         }
