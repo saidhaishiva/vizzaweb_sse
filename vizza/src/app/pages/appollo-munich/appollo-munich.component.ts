@@ -858,7 +858,9 @@ console.log(this.insureArray, 'pppp');
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
                 if (selectedDate.length == 10) {
+
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
@@ -892,9 +894,10 @@ console.log(this.insureArray, 'pppp');
                 }
 
             }
-            console.log(this.getAge, 'this.getAge');
-
-            if (dob.length == 10) {
+            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'this.getAge22332'));
+            // let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob, 'y-MM-dd');
+            let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
+            if (length.length == 10) {
                 if (type == 'startDate') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
