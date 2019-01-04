@@ -202,7 +202,7 @@ export class AppolloMunichComponent implements OnInit {
           proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           proposerMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
-          proposerrelationship: 'SELF',
+          proposerrelationship: '1',
           proposerIdProof: '',
           proposerIdProofIdP: '',
           proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
@@ -276,6 +276,7 @@ export class AppolloMunichComponent implements OnInit {
 
         this.sessionData();
         this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
+        this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
 
         // this.setDate = Date.now();
         // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
@@ -868,6 +869,8 @@ console.log(this.insureArray, 'pppp');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
+
                     }
 
                 } else {
@@ -889,19 +892,20 @@ console.log(this.insureArray, 'pppp');
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
                     }
 
                 }
 
             }
-            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'this.getAge22332'));
-            // let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob, 'y-MM-dd');
-            let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
+            console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'opopp1');
+            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd'), 'opopp23');
+            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
+            // let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
             if (length.length == 10) {
                 if (type == 'startDate') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
@@ -1315,7 +1319,7 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue(this.proposer.controls['proposerPincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue(this.proposer.controls['proposerCity'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(this.proposer.controls['proposerrelationship'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(1);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue(this.proposer.controls['proposerGst'].value);
             let age = this.ageCalculate(this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd'));
