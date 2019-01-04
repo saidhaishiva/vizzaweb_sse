@@ -72,7 +72,7 @@ export class ReligareComponent implements OnInit {
     public rAreaNames: any;
     public rAreaName: any;
     public rResponse: any;
-    public summaryCity: any;
+    public addonDetails: any;
     public rSummaryCity: any;
     public summaryRelationship : any;
     public sumTitle: any;
@@ -117,6 +117,9 @@ export class ReligareComponent implements OnInit {
     public insureRelationList : any;
     public insureSingle : any;
     public selectMr : any;
+    public addon : any;
+    public objectKeys : any;
+    public setAddonDefault : any;
     religareListQuestions: any;
 array: any;
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -127,6 +130,7 @@ array: any;
         this.back = false;
         this.hideQuestion = false;
         this.declaration = false;
+        this.setAddonDefault = true;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -143,7 +147,6 @@ array: any;
         this.insureSingle = true;
         this.selectMr = true;
         this.proposerInsureData = [];
-        //this.totalReligareData = [];
         this.questions_list = [];
         this.arr = [];
         this.personal = this.fb.group({
@@ -237,9 +240,7 @@ array: any;
       } else {
           this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
       }
-      // this. array = [
-      //
-      // ]
+
     }
 
 
@@ -266,6 +267,12 @@ array: any;
         this.religareQuestions();
         this.setOccupationList();
         this.setRelationship();
+        if(this.buyProductdetails.product_id == 1) {
+            this.getAddon();
+            if(this.buyProductdetails.suminsured_amount == 300000.00){
+                this.setAddonDefault = false;
+            }
+        }
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -630,7 +637,16 @@ array: any;
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         console.log(value.personalDob, 'value');
+        this.addonDetails = [];
         if (this.personal.valid) {
+
+            for (let i=0; i < this.objectKeys.length; i++) {
+                if (this.objectKeys[i].checked) {
+                    this.addonDetails.push(this.objectKeys[i].key);
+                }
+            }
+            sessionStorage.addonDetails = '';
+            sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
 
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
@@ -642,9 +658,18 @@ array: any;
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
+            console.log( this.addonDetails, ' this.addonDetails');
         }
     }
+    addonItem(event: any, i){
+        if (event.checked) {
+            this.objectKeys[i].checked = true;
 
+        } else {
+            this.objectKeys[i].checked = false;
+
+        }
+    }
     religareQuestion(stepper: MatStepper) {
         this.questionEmpty = false;
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
@@ -871,7 +896,43 @@ array: any;
         console.log(this.back);
     }
 
+    getAddon() {
+
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'prod_id': this.buyProductdetails.product_id
+
+        }
+
+        this.proposalservice.getReligareAddon(data).subscribe(
+            (successData) => {
+                this.AddonSuccess(successData);
+            },
+            (error) => {
+                this.AddonFailure(error);
+            }
+        );
+    }
+
+    public AddonSuccess(successData) {
+        if (successData.IsSuccess) {
+            console.log(successData, 'successData');
+            this.addon = successData.ResponseObject.addons_list[0];
+            this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
+            for (let i=0; i < this.objectKeys.length; i++) {
+                this.objectKeys[i].checked = false;
+            }
+        }
+    }
+
+    public AddonFailure(error) {
+        console.log(error);
+    }
+
     sessionData() {
+        console.log(sessionStorage.stepper1Details, 'stepper1Details');
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -909,6 +970,18 @@ array: any;
             });
 
         }
+        if (sessionStorage.addonDetails != '' && sessionStorage.addonDetails != undefined) {
+            let getAddon = JSON.parse(sessionStorage.addonDetails);
+            setTimeout(() => {
+            for(let i = 0; i < getAddon.length; i++){
+                if(getAddon[i].checked == true){
+                    this.objectKeys[i].checked = getAddon[i].checked;
+                }
+            }
+            },2000);
+
+        }
+
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
@@ -1026,6 +1099,10 @@ array: any;
     }
 
 
+
+
+
+
     sameProposer(value: any) {
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
@@ -1102,6 +1179,7 @@ array: any;
             'enquiry_id': this.enquiryId,
             'group_name': 'Group A',
             'company_name': 'Religare',
+            'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
             'suminsured_amount': this.buyProductdetails.suminsured_amount,
             'proposer_insurer_details': this.totalReligareData,
             'product_id': this.buyProductdetails.product_id,
@@ -1264,6 +1342,9 @@ array: any;
     public getCityResistFailure(error) {
         console.log(error);
     }
+
+
+
 
 
 //personal city detail

@@ -172,6 +172,16 @@ export class ProposalService {
             .catch(this.handleError);
     }
 
+    getReligareAddon(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'quote/display_addons_careplan';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     //Appollo-Munich
     getTitleCode(data){
         const json = JSON.stringify(data);

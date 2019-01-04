@@ -126,6 +126,7 @@ export class HomeComponent implements OnInit {
         sessionStorage.proposalId = '';
         sessionStorage.mobileNumber = '';
         sessionStorage.ageRestriction = '';
+        sessionStorage.addonDetails = '';
         this.testimonialList();
         this.getPolicyTypes();
     }
