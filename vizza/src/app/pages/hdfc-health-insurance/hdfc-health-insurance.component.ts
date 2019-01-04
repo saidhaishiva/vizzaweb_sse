@@ -170,7 +170,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         console.log(this.sameAsinsure, 'event.sameAsinsure.checked');
         sessionStorage.sameAsinsure = this.sameAsinsure;
         if (this.sameAsinsure) {
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
+            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
@@ -179,7 +179,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
 
         } else {
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(false);
+            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(false);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue('');
