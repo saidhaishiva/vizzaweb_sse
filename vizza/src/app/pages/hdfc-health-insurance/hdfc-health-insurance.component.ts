@@ -237,7 +237,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 preexdisease: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
-                sameasInsurer: '',
+                sameasInsurer: false,
                 type: '',
                 ins_age: ''
             }
@@ -695,7 +695,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
     public mobileotpSuccess(successData) {
         if (successData.IsSuccess == true) {
+            this.toastr.success(successData.ResponseObject);
             this.otpvalidation = successData.ResponseObject;
+
         }
 
     }
