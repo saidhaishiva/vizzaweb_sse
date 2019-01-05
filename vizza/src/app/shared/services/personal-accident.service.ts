@@ -350,6 +350,75 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    // hdfc personal accident
+    // occupation
+    hdfcOccupationList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/occupation_lists';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // pin code
+    getHdfcPincodeLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHost() + 'Personalaccident_hdfc/checkValidPincode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // cityList
+    getHdfcCityLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/cityeList';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    // stateList
+    getHdfcStateLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/stateList';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // nominee Relationship
+    getHdfcNomineeRelationLists(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/NomineeRelationshipList';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // hdfc proposal creation
+
+    getHdfcProposalCreation(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/create_proposal_details';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     private handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
