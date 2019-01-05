@@ -276,7 +276,7 @@ export class AppolloMunichComponent implements OnInit {
 
         this.sessionData();
         this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
-        if ( this.insureArray['controls'].items['controls'][1]['controls'].type == 'Spouse') {
+        if (this.insureArray['controls'].items['controls'][1]['controls'].type.value == 'Spouse') {
             this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
         }
 
@@ -404,7 +404,6 @@ export class AppolloMunichComponent implements OnInit {
     AppolloInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
-        console.log(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             console.log( this.insurerData, ' this.insurerData');
@@ -419,6 +418,8 @@ export class AppolloMunichComponent implements OnInit {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
                 }
             }
+            console.log(this.insurerData, 'pppp');
+
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
@@ -1336,6 +1337,10 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(1);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPan.patchValue(this.proposer.controls['proposerPan'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue(this.proposer.controls['proposerDriving'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPassport.patchValue(this.proposer.controls['proposerPassport'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue(this.proposer.controls['proposerVoter'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue(this.proposer.controls['proposerGst'].value);
             let age = this.ageCalculate(this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd'));
             this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(age);
@@ -1371,6 +1376,10 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGst.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPan.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerPassport.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue('');
         }
 
         console.log(this.insureArray, 'this.insureArray1');

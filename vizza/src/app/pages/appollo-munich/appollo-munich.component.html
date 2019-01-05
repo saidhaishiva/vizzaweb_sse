@@ -786,9 +786,11 @@
                                       <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                                       <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                                       <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
+                                      <li class="list-group-item"  *ngIf="item.i_mobilenumber != '' && item.i_mobilenumber != null"><strong>Mobilenumber:</strong> {{item.i_mobilenumber}}</li>
+                                      <li class="list-group-item"  *ngIf="item.i_email != '' && item.i_email != null"><strong>Email:</strong> {{item.i_email}}</li>
                                       <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null"><strong>Select ID Proof:</strong> {{item.i_idprooftype}}</li>
                                       <li class="list-group-item" *ngIf="item.i_idproofno != '' && item.i_idproofno != null"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
-                                      <li class="list-group-item" *ngIf="item.GstinNumber != '' && item.GstinNumber != null"><strong>ID Proof Number:</strong> {{item.GstinNumber}}</li>
+                                      <li class="list-group-item" *ngIf="item.GstinNumber != '' && item.GstinNumber != null"><strong>GST:</strong> {{item.GstinNumber}}</li>
                                   </ul>
                               </div>
                           </div>
