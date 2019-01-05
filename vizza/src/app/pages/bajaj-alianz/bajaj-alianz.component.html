@@ -41,7 +41,6 @@
                                                     <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                                                     <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                                                 </div>
-                                                <!--(dateInput)="addEvent($event, 'insurer', i)" (dateChange)="addEvent( $event, 'insurer', i)"-->
                                                 <div class="col-md-3" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Email ID"   formControlName="insureEmail"   autocomplete="off" [required]="i == '0'">
