@@ -456,6 +456,7 @@ export class AppolloMunichComponent implements OnInit {
                     'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
                     'IDProofTypeCode': this.insurerData[i].proposerIdProof,
                     'LastName': this.insurerData[i].proposerLastname,
+                    'AnnualIncome': this.insurerData[i].proposerAnnualIncome,
                     'LifeStyleHabits': {
                         'BeerBottle': this.insurerData[i].BeerBottle,
                         'LiquorPeg': this.insurerData[i].LiquorPeg,
@@ -1392,6 +1393,7 @@ console.log(this.insureArray, 'pppp');
     proposal() {
 
       let clientData = this.totalInsureDetails.slice(1);
+      console.log(clientData, 'clientData');
 
         const data  = {
             'enquiry_id': this.enquiryId,
@@ -1462,7 +1464,7 @@ console.log(this.insureArray, 'pppp');
                             }
                         },
                         'Age': this.totalInsureDetails[0].Age,
-                        'AnnualIncome': this.totalInsureDetails[0].AnnualIncome,
+                        'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome ?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
                         'BirthDate': this.totalInsureDetails[0].BirthDate,
                         'ClientCode': 'PolicyHolder',
                         'ContactInformation': {
@@ -1487,6 +1489,7 @@ console.log(this.insureArray, 'pppp');
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
                         'MiddleName': this.totalInsureDetails[0].MiddleName,
                         'NationalityCode': this.totalInsureDetails[0].NationalityCode,
+                        // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                             'PreviousInsurer': {
                                 'InceptionDate': this.totalInsureDetails[0].PreviousInsurer.InceptionDate,
@@ -1525,6 +1528,7 @@ console.log(this.insureArray, 'pppp');
 
 
         };
+
         if (clientData == ''){
             delete data.ProposalCaptureServiceRequest.Prospect.Client.Dependants.Client
         }
