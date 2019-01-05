@@ -746,6 +746,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep2 = '';
         sessionStorage.hdfcStep2 = JSON.stringify(value);
         this.insurerData = value;
+        console.log(this.insurerData, '  this.insurerData  this.insurerData');
         if (this.hdfcInsureArray.valid) {
             console.log(value, 'ffffflll');
             let validData = false;
