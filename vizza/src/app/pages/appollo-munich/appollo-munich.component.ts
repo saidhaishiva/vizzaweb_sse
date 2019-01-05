@@ -456,7 +456,7 @@ export class AppolloMunichComponent implements OnInit {
                     'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
                     'IDProofTypeCode': this.insurerData[i].proposerIdProof,
                     'LastName': this.insurerData[i].proposerLastname,
-                    'AnnualIncome': this.insurerData[i].proposerAnnualIncome,
+                    'AnnualIncome': this.insurerData[i].proposerAnnualIncome == undefined ? 0 : (this.insurerData[i].proposerAnnualIncome ? this.insurerData[i].proposerAnnualIncome : 0) ,
                     'LifeStyleHabits': {
                         'BeerBottle': this.insurerData[i].BeerBottle,
                         'LiquorPeg': this.insurerData[i].LiquorPeg,
@@ -1464,7 +1464,7 @@ console.log(this.insureArray, 'pppp');
                             }
                         },
                         'Age': this.totalInsureDetails[0].Age,
-                        'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome ?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
+                        'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome == undefined?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
                         'BirthDate': this.totalInsureDetails[0].BirthDate,
                         'ClientCode': 'PolicyHolder',
                         'ContactInformation': {
