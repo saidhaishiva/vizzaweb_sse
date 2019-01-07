@@ -127,9 +127,9 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" >
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" required>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                        <!--<mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('required')">Pincode required</mat-error>-->
+                        <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('required')">Pincode required</mat-error>
                         <!--<mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
                       </mat-form-field></div>
                       <div class="col-md-4">
@@ -212,12 +212,12 @@
                         <!--</div>-->
                           <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Title" formControlName="title" value="Mr" required readonly>
+                                  <input matInput placeholder="Title" formControlName="title"  required readonly>
                               </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Title" formControlName="title" value="Ms" required readonly>
+                                  <input matInput placeholder="Title" formControlName="title"  required readonly>
                               </mat-form-field>
                           </div>
 
@@ -245,12 +245,12 @@
                         </div>
                           <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Gender" formControlName="gender" value="M" required readonly>
+                                  <input matInput placeholder="Gender" formControlName="gender"  required readonly>
                               </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Gender" formControlName="gender" value="F" required readonly>
+                                  <input matInput placeholder="Gender" formControlName="gender"  required readonly>
                               </mat-form-field>
                           </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
