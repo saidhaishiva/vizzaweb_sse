@@ -235,10 +235,9 @@
                         <div class="col-md-12 mb-3" *ngIf="i == 0" >
                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
-                        <!--<p>{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}</p>kkk gg-->
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
-                            <mat-select placeholder="Title" style="color: black !important;" formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
+                            <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
                               <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}">{{titleCode.tittle}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>

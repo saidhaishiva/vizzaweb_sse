@@ -482,9 +482,9 @@ export class AppolloMunichComponent implements OnInit {
                         'Remarks': this.insurerData[i].Remarks
                     },
                     'Product': {
-                    'Product': {
+                    'Product': [{
 
-                    }
+                    }]
                 },
                     'ProfessionCode': this.insurerData[i].ProffessionList,
                     'RelationshipCode': this.insurerData[i].proposerrelationship,
@@ -1539,12 +1539,12 @@ console.log(this.insureArray, 'pppp');
                             'WineGlass': this.totalInsureDetails[0].LifeStyleHabits.WineGlass
                         },
                         'Product': {
-                            'Product': {
+                            'Product': [{
                                 'ClientCode': 'PolicyHolder',
                                 'ProductCode': this.buyProductdetails.product_code,
                                 'SumAssured': this.buyProductdetails.suminsured_amount
 
-                            }
+                            }]
                         },
                         'ProfessionCode': this.totalInsureDetails[0].ProfessionCode,
                         'RelationshipCode': this.totalInsureDetails[0].RelationshipCode,
