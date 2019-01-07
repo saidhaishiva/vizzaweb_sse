@@ -113,7 +113,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.getStateList();
         this.nomineeRelationShipListHdfc();
         this.sessionData();
-        this.setOccupationList();
+        this.getStateList();
 
     }
 

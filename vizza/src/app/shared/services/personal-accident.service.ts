@@ -357,7 +357,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/occupation_lists';
+        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/occupation_lists';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -368,7 +368,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'Personalaccident_hdfc/checkValidPincode';
+        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/checkValidPincode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -379,7 +379,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/cityeList';
+        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/cityeList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -391,7 +391,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/stateList';
+        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/stateList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -402,7 +402,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/NomineeRelationshipList';
+        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/NomineeRelationshipList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -414,7 +414,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/personalaccident/Personalaccident_hdfc/create_proposal_details';
+        const url =this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/create_proposal_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

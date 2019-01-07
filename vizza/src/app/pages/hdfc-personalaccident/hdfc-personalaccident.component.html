@@ -83,14 +83,6 @@
                           <!--<mat-error *ngIf="hdfcPersonal.controls.dependant.errors?.required">Dependant Parent Mode is required</mat-error>-->
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="OCCUPATION" name="occupation" formControlName="OccupationList" required>
-                            <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
-                          </mat-select>
-                          <!--<mat-error *ngIf="hdfcPersonal.controls.OccupationList.errors?.required">OCCUPATION is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
 
                       <div class="col-md-12">
                         <b class="mt-3">Medical Condition:</b>
