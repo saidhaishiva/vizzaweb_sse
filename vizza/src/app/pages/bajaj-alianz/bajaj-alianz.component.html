@@ -33,11 +33,13 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i)" (dateChange)="addEvent( $event, 'insurer', i)" (keypress)="add($event)" [max]="minDate" autocomplete="off" required>
+                                                        <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent( $event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (keypress)="add($event)" [max]="minDate" autocomplete="off" required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker2></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                                                     </mat-form-field>
+                                                    <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
+                                                    <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                                                 </div>
                                                 <div class="col-md-3" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">

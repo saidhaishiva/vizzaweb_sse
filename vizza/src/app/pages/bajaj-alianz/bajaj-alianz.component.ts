@@ -87,6 +87,10 @@ export class BajajAlianzComponent implements OnInit {
     public totalInsureDetails: any;
     public RediretUrlLink: any;
     public Diseases: any;
+    public getDays: any;
+    public getAge: any;
+    public agecal: any;
+    public arr: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -104,6 +108,7 @@ export class BajajAlianzComponent implements OnInit {
         this.proposalId = 0;
         this.step = 0;
         this.totalInsureDetails = [];
+        this.arr = [];
         this.insureArray = this.fb.group({
 
         });
@@ -186,8 +191,10 @@ export class BajajAlianzComponent implements OnInit {
                 medicalSmoking: 'No',
                 insureDisease: 0,
                 type: '',
-                insureDobError: '',
+                insurerDobError: '',
+                insurerDobValidError: '',
                 ins_age: '',
+                ins_days: '',
                 relationshipSameError: ''
 
             }
@@ -235,8 +242,9 @@ export class BajajAlianzComponent implements OnInit {
             console.log(this.totalInsureDetails);
             let ageValidate = [];
             let diseaseValidate = [];
+            let relationshipValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
-                if ( this.insureArray['controls'].items['controls'][i]['controls'].insureDobError.value  != '') {
+                if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
                     ageValidate.push(1);
 
                 } else{
@@ -247,12 +255,20 @@ export class BajajAlianzComponent implements OnInit {
                 } else if(this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.value == 0){
                     diseaseValidate.push('Yes');
                 }
+                if(this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value == this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.value){
+                    relationshipValidate.push('No')
+                }else{
+                    relationshipValidate.push('Yes')
+                }
             }
             if(!ageValidate.includes(1)){
                 if(!diseaseValidate.includes('No')) {
-
-                    this.lastStepper = stepper;
-                    this.proposal();
+                    if(!relationshipValidate.includes('No')) {
+                        this.lastStepper = stepper;
+                        this.proposal();
+                    }  else{
+                        this.toastr.error('Insurer and Nominee relationship should be different');
+                    }
                 } else{
                     this.toastr.error('Sorry you are selected Pre-Existing Diseases. so you are not allowed to perchase product');
                 }
@@ -280,15 +296,32 @@ export class BajajAlianzComponent implements OnInit {
             }
         }
     }
-    addEvent(event, title, index) {
+
+    addEvent(event, title, index, type) {
         let dd = event.value;
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.insureAge = this.ageCalculate(this.setDateAge);
+        let age = this.ageCalculate(this.setDateAge);
+        let days = this.DobDaysCalculate(this.setDateAge);
+        this.insureAge = age;
+
         if(title == 'insurer') {
             sessionStorage.setItem('insureAge', this.insureAge);
             this.insureArray['controls'].items['controls'][index]['controls'].insureAge.patchValue(sessionStorage.insureAge);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
+            this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
+            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daughter')) {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
+            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daughter' ))  {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+            } else{
+                if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 18 above');
+                } else if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 18)  {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
+                }
+            }
         }
         if (event.value != null) {
             let selectedDate = '';
@@ -344,8 +377,27 @@ export class BajajAlianzComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        this.agecal = yearAge;
+        console.log(this.agecal, '  this.agecal  this.agecal');
         return yearAge;
     }
+
+    DobDaysCalculate(dobDays) {
+        let mdate = dobDays.toString();
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
+        let todays = new Date();
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        return Bob_days;
+
+    }
+
+
+
+
 
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
@@ -481,6 +533,10 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.patchValue(this.getStepper1.items[i].insureDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper1.items[i].rolecd);
                 this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue(this.getStepper1.items[i].relationshipSameError);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper1.items[i].insurerDobValidError);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper1.items[i].insurerDobError);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper1.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper1.items[i].ins_age);
                 this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer')
             }
         }
@@ -544,7 +600,7 @@ export class BajajAlianzComponent implements OnInit {
     proposalSuccess(successData){
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-            this.toastr.success('Proposal created successfully!!');
+            this.toastr.success('Insurer created successfully!!');
             this.summaryData = successData.ResponseObject;
             let getdata=[];
             this.RediretUrlLink = this.summaryData.payment_url;

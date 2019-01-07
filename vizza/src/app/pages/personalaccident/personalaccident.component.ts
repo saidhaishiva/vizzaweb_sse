@@ -476,9 +476,11 @@ reset(){
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15){
             this.router.navigate(['/appollopa']);
-        } else {
-            if(value.product_id == 3){
+        } else if(value.product_id == 3){
                 this.router.navigate(['/personalaccidentform']);
+            } else {
+            if (value.product_id == 23) {
+                this.router.navigate(['/hdfc-personalAccident']);
             }
         }
 
