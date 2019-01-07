@@ -176,6 +176,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].gender.patchValue(this.hdfcPersonal.controls['gender'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.hdfcPersonal.controls['dob'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
 
 
         } else {
@@ -185,6 +186,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].gender.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('');
+
         }
 
     }
@@ -570,6 +573,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
             this.insuredHdfcRelationList = successData.ResponseObject;
+            console.log(this.insuredHdfcRelationList, '  this.insuredHdfcRelationList');
 
         }
     }
