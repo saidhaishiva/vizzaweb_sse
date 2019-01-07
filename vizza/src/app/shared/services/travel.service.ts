@@ -241,7 +241,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/PurposeList' ;
+        const url = this.configurationService.getHostTravel() +'travel_shriram/PurposeList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -252,7 +252,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/OccupationList' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/OccupationList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -263,7 +263,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/RelationshipList' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/RelationshipList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -274,7 +274,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/create_proposal_details' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/create_proposal_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -284,7 +284,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/stateList' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/stateList' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -294,7 +294,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/cityList' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/cityList' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -304,7 +304,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://localhost/vizza/api/index.php/travel/travel_shriram/checkValidPincode' ;
+        const url = this.configurationService.getHostTravel() + 'travel_shriram/checkValidPincode' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

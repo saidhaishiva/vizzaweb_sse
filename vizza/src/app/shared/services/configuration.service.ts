@@ -7,6 +7,9 @@ declare let numeral: any;
 export class ConfigurationService {
 
   apiHost: string = environment.apiHost;
+  apiHostTravel: string = environment.apiHostTravel;
+  apiHostPersonalaccident: string = environment.apiHostPersonalaccident;
+
   webHost: string = environment.webHost;
   imgUrl: string = environment.imgUrl;
   host: string;
@@ -22,9 +25,17 @@ export class ConfigurationService {
     this.webhost = this.webHost;
     this.imgurl = this.imgUrl;
     this.apihost = this.apiHost;
+    this.apiHostTravel = this.apiHostTravel;
+    this.apiHostPersonalaccident = this.apiHostPersonalaccident;
   }
     getHost() {
         return this.apiHost;
+    }
+    getHostTravel() {
+        return this.apiHostTravel;
+    }
+    getHostPersonalaccident() {
+        return this.apiHostPersonalaccident;
     }
     getwebHost() {
         return this.webHost;

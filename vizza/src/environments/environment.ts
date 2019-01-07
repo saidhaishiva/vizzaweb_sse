@@ -6,6 +6,8 @@
 export const environment = {
     production: false,
     apiHost: 'http://13.127.24.123/vizza/api/index.php/v1/',
+    apiHostTravel: 'http://13.127.24.123/vizza/api/index.php/travel/',
+    apiHostPersonalaccident: 'http://13.127.24.123/vizza/api/index.php/personalaccident/',
     webHost: 'http://13.127.24.123',
     imgUrl:  'http://13.127.24.123/vizza'
 };
