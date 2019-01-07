@@ -787,6 +787,9 @@ a:hover {
     position: relative;
     text-transform: capitalize;
   }
+  .mat-select-disabled .mat-select-value{
+    color:black !important;
+  }
 }
 
 
@@ -2134,4 +2137,3 @@ fieldset {
     text-transform: capitalize;
   }
 }
-

@@ -152,7 +152,7 @@ export class BajajAlianzComponent implements OnInit {
             {
                 rolecd: 'PRIMARY',
                 insureTitle: ['', Validators.required],
-                insureName: '',
+                insureName: ['', Validators.required],
                 insureDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 insureGender: ['', Validators.compose([Validators.required])],
                 insureAge: ['', Validators.compose([Validators.required])],
@@ -270,7 +270,7 @@ export class BajajAlianzComponent implements OnInit {
                         this.toastr.error('Insurer and Nominee relationship should be different');
                     }
                 } else{
-                    this.toastr.error('Sorry you are selected Pre-Existing Diseases. so you are not allowed to perchase product');
+                    this.toastr.error('Sorry you are selected Pre-Existing Diseases. so you are not allowed to purchase product');
                 }
             }
         }
@@ -704,7 +704,7 @@ export class BajajAlianzComponent implements OnInit {
                     <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
                 </div>
                 <div class="col-sm-12">
-                    <p>Sorry you are selected Pre-Existing Diseases, so you are not allowed to perchase product.<strong>Please Contact <a class="color-blue"> click here</a></strong></p>
+                    <p>Sorry you are selected Pre-Existing Diseases, so you are not allowed to purchase product.<strong>Please Contact <a class="color-blue"> click here</a></strong></p>
                 </div>
             </div>
         </div>`,
