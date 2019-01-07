@@ -1362,12 +1362,12 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerCountryIdP.patchValue(this.proposer.controls['proposerCountryIdP'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrictIdP.patchValue(this.proposer.controls['proposerDistrictIdP'].value);
 
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.disable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.disable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.disable();
 
 
             // setTimeout(() => {
@@ -1379,12 +1379,12 @@ console.log(this.insureArray, 'pppp');
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.enable();
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.enable();
             // this.insureArray['controls'].items['controls'][0]['controls'].Proposeroccupation.enable();
             // this.insureArray['controls'].items['controls'][0]['controls'].ProffessionList.enable();
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');

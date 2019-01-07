@@ -236,7 +236,7 @@
                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <!--<p>{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}</p>kkk gg-->
-                        <div class="col-md-3">
+                        <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title" style="color: black !important;" formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
                               <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}">{{titleCode.tittle}}</mat-option>
@@ -297,7 +297,7 @@
                             <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100" autocomplete="off" required >
                               <mat-option *ngFor="let status of maritalDetail" [value]= 'status.marital_code'> {{status.marital_status}} </mat-option>
@@ -318,7 +318,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-form-field class="w-100">
+                          <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="proposerrelationship"   required >
                               <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                             </mat-select>
@@ -342,9 +342,9 @@
                         </mat-form-field>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                         <mat-form-field class="w-100" >
-                        <mat-select placeholder="Select ID Proof" (change)="changeIdproof('insurer')"  formControlName="proposerIdProof"  >
+                        <mat-select placeholder="Select ID Proof" (change)="changeIdproof('insurer')"  formControlName="proposerIdProof">
                         <mat-option *ngFor="let IdProof of IdProofListss" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Id Proof is required</mat-error>
@@ -399,7 +399,7 @@
                           <div class="col-md-12">
                               <h6 class="color-green mt-3">Insured Details Address:</h6>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" >
                               <mat-form-field class="w-100">
                                   <textarea matInput placeholder="Address 1" rows="2" formControlName="proposerAddress" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></textarea>
                                   <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
@@ -443,7 +443,7 @@
                                   <mat-error *ngIf="insureArray.invalid">District is required</mat-error>
                               </mat-form-field>
                           </div>
-                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value">
+                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname(i, 'city')" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" >
                                       <mat-option *ngFor="let AppolloCity of iAppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
