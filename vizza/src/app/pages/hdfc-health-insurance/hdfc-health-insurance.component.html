@@ -191,7 +191,7 @@
                     <div class="col-md-12 box-card pt-3">
                       <h4 class="color-blue">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value}} Details</h4>
                       <div class="row">
-                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : 'block'}">
+                        <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title" formControlName="title" required >
                               <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
@@ -235,7 +235,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')">
-                          <mat-form-field class="w-100" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : 'block'}">
+                          <mat-form-field class="w-100" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                             <mat-select placeholder="Gender" formControlName="gender" required >
                               <mat-option value="M">Male</mat-option>
                               <mat-option value="F">Female</mat-option>
