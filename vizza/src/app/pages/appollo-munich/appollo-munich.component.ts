@@ -158,6 +158,8 @@ export class AppolloMunichComponent implements OnInit {
     public arr: any;
     public getDays: any;
     public getAge: any;
+    public readonly: any;
+    public readonlyproposer: any;
 
   constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -391,6 +393,7 @@ export class AppolloMunichComponent implements OnInit {
                 dobErrorStartDate: '',
                 ins_days: '',
                 ins_age: '',
+                sameasreadonly:false,
                 set_validator: false
             }
         );
@@ -1258,11 +1261,16 @@ console.log(this.insureArray, 'pppp');
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
                 this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
                 this.insureArray['controls'].items['controls'][i]['controls'].stateHide.patchValue(true);
 
             }
 
+
+            if (this.getStepper2.items[0].sameAsProposer != '' && this.getStepper2.items[0].sameAsProposer != undefined) {
+                this.sameProposer();
+            }
 
         }
 
@@ -1316,11 +1324,14 @@ console.log(this.insureArray, 'pppp');
     }
 
 
-    sameProposer(value: any, i) {
+    sameProposer() {
 
-        if (value.checked) {
-            this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', i);
+        console.log(this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value,'valueuu');
 
+        if (this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value) {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+
+            this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', 0);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
@@ -1336,8 +1347,9 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPincode.patchValue(this.proposer.controls['proposerPincode'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.patchValue(this.proposer.controls['proposerCity'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue(1);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('1');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.patchValue(this.proposer.controls['proposerDistrict'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPan.patchValue(this.proposer.controls['proposerPan'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue(this.proposer.controls['proposerDriving'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPassport.patchValue(this.proposer.controls['proposerPassport'].value);
@@ -1350,6 +1362,14 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerCountryIdP.patchValue(this.proposer.controls['proposerCountryIdP'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrictIdP.patchValue(this.proposer.controls['proposerDistrictIdP'].value);
 
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.disable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.disable();
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.disable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.disable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.disable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.disable();
+
+
             // setTimeout(() => {
             //     this.storeDname(0, 'district');
             // },200);
@@ -1358,6 +1378,15 @@ console.log(this.insureArray, 'pppp');
             // },600);
 
         } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.enable();
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.enable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.enable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerCity.enable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.enable();
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].Proposeroccupation.enable();
+            // this.insureArray['controls'].items['controls'][0]['controls'].ProffessionList.enable();
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue('');
@@ -1383,7 +1412,7 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue('');
         }
 
-        console.log(this.insureArray, 'this.insureArray1');
+        console.log(this.insureArray.value, 'this.insureArray111');
 
 
     }
