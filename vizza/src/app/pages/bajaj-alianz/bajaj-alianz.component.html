@@ -204,7 +204,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Previous Policy Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="insurePINumber" autocomplete="off">
+                                                        <input matInput placeholder="Previous Policy Number"  (keypress)="keyPress($event)"  maxlength="10" maxlength="10" formControlName="insurePINumber" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-3">
@@ -250,7 +250,7 @@
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                                             <button mat-button matStepperPrevious>Back</button>
-                                            <button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)" [disable]!="insureArray.valid">Next</button>
+                                            <button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
                                             <!--<button mat-button matStepperNext >Next</button>-->
                                         </div>
                                     </div>
