@@ -138,9 +138,28 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.items = this.hdfcInsureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
+            if(this.insurePersons[i].type == 'Son') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Male');
+            } else if(this.insurePersons[i].type == 'Daughter') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Female');
+            }
+
         }
-        console.log(this.hdfcInsureArray, 'hdfcInsureArray');
-        console.log(this.items, 'items');
+        console.log(this.hdfcInsureArray, 'hdfcInsureArray111');
+        // for (let i = 0; i < this.items.length; i++) {
+        //
+        //     if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
+        //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
+        //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Male');
+        //     } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
+        //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
+        //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Female');
+        //     }
+        // }
+
+
         this.titleLists();
         this.getStateList();
         this.RelationShipListHdfc();
