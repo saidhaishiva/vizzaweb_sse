@@ -50,6 +50,7 @@
                           <mat-error *ngIf="religarePersonal.controls.dob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="personaldateError !=''">{{personaldateError}}</div>-->
+                        <div class="error" *ngIf="personalDobError !=''">{{personalDobError}}</div>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
@@ -67,7 +68,6 @@
                       <mat-error *ngIf="religarePersonal.controls.passport.errors?.required">passport is required</mat-error>
                       <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  passport</mat-error>
                     </mat-form-field></div>
-                  </div>
                   </div>
 
                   <div class="col-md-12 box-card pt-3">
@@ -109,10 +109,13 @@
                         <mat-error *ngIf="religarePersonal.controls.state.errors?.required">State is required</mat-error>
                       </mat-form-field></div>
                     </div>
-                  </div>
                     <div class="col-md-12 box-card pt-3">
                         <h6 class="color-blue"> PROPOSER PERMENENT ADDRESS</h6>
                         <div class="row">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
+                            </div>
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                     <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required></textarea>
@@ -150,16 +153,17 @@
                             </mat-form-field></div>
                         </div>
                     </div>
-
-
-                    <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, religarePersonal.value)">Next</button>
+                    </div>
                   </div>
+                      <div class="proposal-buttom mt-3 text-right w-100">
+                    <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, religarePersonal.value)">Next</button>
+                      </div>
+                    </div>
                 </div>
+
               </mat-expansion-panel>
             </form>
           </mat-accordion>
-
         </mat-step>
 
         <mat-step [stepControl]="">
@@ -179,7 +183,10 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-blue">INSURED DETAILS</h6>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12 mb-3" *ngIf="i == 0" >
+                          <mat-checkbox formControlName="sameAsInsuredProposer" (change)="sameInsuredProposer()"><strong>Same as proposer</strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="title" (change)="insureChangeGender(i)" >
                               <mat-option value="MR" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
@@ -191,22 +198,22 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required >
+                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="insureReligareArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)" autocomplete="off" required >
+                          <mat-form-field class="w-100" >
+                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >
                             <mat-error *ngIf="insureReligareArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4"><mat-form-field class="w-100">
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
                           <input matInput placeholder="Gender" formControlName="gender" required readonly>
                           <mat-error *ngIf="insureReligareArray.invalid">Gender is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i, insureReligareArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="insureReligareArray.invalid">DOB is required</mat-error>
@@ -215,37 +222,36 @@
                           <p class="error mb-0" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                         </div>
 
-                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required >
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required>
                             <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
                               {{lists.relation_name}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureReligareArray.invalid">Relationship is required</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
+                        <div class="col-md-4" ><mat-form-field class="w-100">
+                          <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">Email Id is required</mat-error>
                         </mat-form-field></div>
 
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">Mobile Number is required</mat-error>
                         </mat-form-field></div>
 
-                        <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="passport"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required>
+                        <div class="col-md-4" ><mat-form-field class="w-100">
+                          <input matInput placeholder="passport"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">passport is required</mat-error>
                         </mat-form-field></div>
                       </div>
                       </div>
-                    </div>
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-blue"> INSURED COMMUNICATION ADDRESS</h6>
                       <div class="row">
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="address1"  autocomplete="off" required></textarea>
+                            <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="address1"  autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></textarea>
                             <mat-hint align="start"></mat-hint>
                             <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
                             <mat-error *ngIf="insureReligareArray.invalid">Address is required</mat-error>
@@ -253,7 +259,7 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field class="w-100">
-                            <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="address2" autocomplete="off"></textarea>
+                            <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="address2" autocomplete="off" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></textarea>
                             <mat-hint align="start"></mat-hint>
                             <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                             <mat-error *ngIf="insureReligareArray.invalid">Address2 is required</mat-error>
@@ -261,10 +267,10 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'insurer')" formControlName="pincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'insurer')" formControlName="pincode" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
 
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100" >
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
                             <mat-option *ngFor="let city of iPersonalCitys" [value]= 'city.city'>
                               {{city.city}}
@@ -272,7 +278,7 @@
                           </mat-select>
                           <mat-error *ngIf="insureReligareArray.invalid">City is required</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100">
+                        <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
                           <input matInput placeholder="State" formControlName="state" autocomplete="off" required readonly>
                           <mat-error *ngIf="insureReligareArray.invalid">State is required</mat-error>
                         </mat-form-field></div>
@@ -281,9 +287,12 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-blue"> INSURED PERMENENT ADDRESS</h6>
                     <div class="row">
+                      <div class="col-md-12">
+                        <mat-checkbox formControlName="sameAsInsurer" (change)="sameInsureAddress($event, i)"><strong>Same as Communication Address</strong></mat-checkbox>
+                      </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required></textarea>
+                          <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></textarea>
                           <mat-hint align="start"></mat-hint>
                           <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="insureReligareArray.invalid">Address is required</mat-error>
@@ -291,7 +300,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="raddress2" autocomplete="off"></textarea>
+                          <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="raddress2" autocomplete="off" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></textarea>
                           <mat-hint align="start"></mat-hint>
                           <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                           <mat-error *ngIf="insureReligareArray.invalid">Address2 is required</mat-error>
@@ -299,7 +308,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'permment')" formControlName="rpincode" autocomplete="off" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"  maxlength="6" (input)="getPostalInsurer($event.target.value, i, 'permment')" formControlName="rpincode" autocomplete="off" required>
 
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100" >
@@ -320,6 +329,7 @@
                       <button mat-button matStepperPrevious >Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, insureReligareArray.value)">Next</button>
                     </div>
+                  </div>
                 </mat-expansion-panel>
               </div>
             </form>
