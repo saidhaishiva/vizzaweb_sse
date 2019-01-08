@@ -124,13 +124,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     ngOnInit() {
         this.sameAsinsure = true;
         this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
-        console.log(this.getHdfcHealthPremiumList, 'this.getHdfcHealthPremiumListbuyProductdetails');
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        console.log(this.getFamilyDetails, 'getFamilyDetails');
-
         this.insurePersons = this.getFamilyDetails.family_members;
-
-        console.log(this.insurePersons, 'this.insurePersons');
         this.hdfcInsureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -147,7 +142,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             }
 
         }
-        console.log(this.hdfcInsureArray, 'hdfcInsureArray111');
         // for (let i = 0; i < this.items.length; i++) {
         //
         //     if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
@@ -186,7 +180,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     //     }
     // }
     sameasInsurerDetails(event) {
-        console.log(this.sameAsinsure, 'event.sameAsinsure.checked');
         sessionStorage.sameAsinsure = this.sameAsinsure;
         if (this.sameAsinsure) {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
@@ -239,7 +232,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     quesback() {
         this.back = false;
-        console.log(this.back);
     }
 
     prevStep() {
@@ -273,7 +265,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcHealthProposerAge = '';
             let dob = '';
             let insurerAge;
-            console.log(event.value, 'event.value._i');
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -283,7 +274,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         this.personalDobError = '';
                     }
                 } else {
-                    console.log(event.value._i.length, 'length');
                     if (formtype == 'insurer') {
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                     } else if (formtype == 'personal') {
@@ -293,7 +283,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
@@ -306,14 +295,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         this.ageValidationInsurer(i, type);
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
                     }
-                    console.log(this.hdfcHealthProposerAge, ' this.hdfcHealthProposerAge');
-                    console.log(insurerAge, ' this.insurerAgeinsurerAgeinsurerAge');
 
                 }
 
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob.length, 'dob.length');
                 if (dob.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
@@ -322,7 +308,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     } else if (formtype == 'insurer') {
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         insurerAge = this.DobDaysCalculate(dob);
-                        console.log(insurerAge, 'insurerAge');
                         sessionStorage.hdfcHealthInsurerAge = insurerAge;
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
                         this.ageValidationInsurer(i, type);
@@ -419,11 +404,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
 
     ageData(age, type) {
-        console.log(age, 'ageageage');
         if (age && type == 'personal') {
             sessionStorage.hdfcHealthProposerAge = age;
             if (age > 45) {
-                console.log(age, ' this.age ');
                 this.IsCustomerAcceptedPPCPED = true;
                 this.hdfcPersonal.controls['accepted'].setValidators([Validators.required]);
             } else {
@@ -435,7 +418,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     checkAccepted() {
-        console.log(this.hdfcPersonal.controls['accepted'].value, 'pp');
         if (this.hdfcPersonal.controls['accepted'].value) {
             // this.IsCustomerAcceptedPPCPED = true;
             this.IsCustomerAccepted = false;
@@ -477,7 +459,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     // city lists
     selectedSate(event, type, i) {
-        console.log(event, 'pppp');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -507,7 +488,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     public getCityFailure(error) {
-        console.log(error);
     }
 
     // state lists
@@ -535,7 +515,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     public getStateFailure(error) {
-        console.log(error);
     }
 
     // Title List
@@ -559,7 +538,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public titleListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.titleList = successData.ResponseObject;
-            console.log(this.titleList, 'this.titleList');
             for (let i = 0; i < this.titleList.length; i++) {
                 this.titleList[i].last = 'last';
 
@@ -568,7 +546,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     public titleListsFailure(error) {
-        console.log(error);
     }
 
 // RelationShip List
@@ -592,13 +569,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
             this.insuredHdfcRelationList = successData.ResponseObject;
-            console.log(this.insuredHdfcRelationList, '  this.insuredHdfcRelationList');
 
         }
     }
 
     public relationShipFailure(error) {
-        console.log(error);
     }
 
     pincodevalidationHdfc(pin) {
@@ -606,7 +581,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         if (pin == '') {
             this.pincodeValid = true;
         }
-        console.log(this.pin, ' this.pin this.pin');
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -665,15 +639,13 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     public hdfcNomineeRelationshipFailure(error) {
-        console.log(error);
     }
 
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcStep1 = '';
         sessionStorage.hdfcStep1 = JSON.stringify(value);
         this.hdfcpersonalValues = value;
-        console.log(this.hdfcpersonalValues, 'first');
-        console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
+
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 if (this.pincodeValid) {
@@ -697,9 +669,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     // otp validate
     otpValidate(value) {
-        console.log(value,'valuevalue');
         this.mobileotpgenerate = value;
-        console.log( this.mobileotpgenerate,' this.mobileotpgenerate');
 
         const data = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
@@ -731,7 +701,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 // check otp
     checkotpValidate(value) {
         this.checkotp = value;
-        console.log(  this.checkotp,'  this.checkotp');
         const data = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'otp': this.hdfcPersonal.controls['otp'].value,
@@ -769,20 +738,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep2 = '';
         sessionStorage.hdfcStep2 = JSON.stringify(value);
         this.insurerData = value;
-        console.log(this.insurerData, '  this.insurerData  this.insurerData');
         for(let i=0; i<this.insurerData.items.length; i++ ){
             if(this.insurerData.items[i].gender == 'Male'){
                 this.insurerData.items[i].gender = 'M';
-                console.log(this.insurerData.items[i].gender, 'mmmmm');
             } else if (this.insurerData.items[i].gender == 'Female'){
                 this.insurerData.items[i].gender = 'F';
-                console.log(this.insurerData.items[i].gender, 'yyyy');
 
             }
         }
-        console.log(this.insurerData,'psdkfpdsofds');
         if (this.hdfcInsureArray.valid) {
-            console.log(value, 'ffffflll');
             let validData = false;
             for (let i = 0; i < value.items.length; i++) {
                 if (value.items[i].insurerDobError != '') {
@@ -792,7 +756,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     validData = true;
                 }
             }
-            console.log(validData, 'validDatavalidData');
 
             if (validData) {
               stepper.next();
@@ -804,7 +767,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
     // Nominee Details
     addNomineeDetails(stepper: MatStepper, value) {
-        console.log(value);
         sessionStorage.hdfcHealthNomineeDetails = '';
         sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
@@ -858,7 +820,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
 
             }
-            console.log(data, 'data22');
 
             this.settings.loadingSpinner = true;
             this.proposalservice.createHdfcHealthProposal(data).subscribe(
@@ -878,21 +839,18 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
 
     public proposalSuccess(successData, stepper) {
-            console.log(successData,'successData');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
             this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
             this.proposalDtails = successData.ResponseObject.ProposalDetails;
             this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
             this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
-            console.log(this.proposalDtails, 'proposalDtails');
-            console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
+
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -904,7 +862,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 // sessionData
     sessionData() {
         if (sessionStorage.hdfcStep1 != '' && sessionStorage.hdfcStep1 != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcStep1), 'sessionStorage.hdfcStep1');
             this.hdfcStep1 = JSON.parse(sessionStorage.hdfcStep1);
             this.hdfcPersonal = this.fb.group({
                 title: this.hdfcStep1.title,
@@ -942,7 +899,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
         }
         if (sessionStorage.hdfcStep2 != '' && sessionStorage.hdfcStep2 != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcStep2), 'sessionStoragehdfcStep2');
             this.hdfcStep2 = JSON.parse(sessionStorage.hdfcStep2);
             for (let i = 0; i < this.hdfcStep2.items.length; i++) {
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue(this.hdfcStep2.items[i].title);
@@ -969,7 +925,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         //     // this. religareQuestions();
         // }
         if (sessionStorage.hdfcHealthNomineeDetails != '' && sessionStorage.hdfcHealthNomineeDetails != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcHealthNomineeDetails), 'sessionStorage.hdfcHealthNomineeDetails');
             this.hdfcHealthNomineeDetails = JSON.parse(sessionStorage.hdfcHealthNomineeDetails);
             this.nomineeDetails = this.fb.group({
                 nomineeName: this.hdfcHealthNomineeDetails.nomineeName,
