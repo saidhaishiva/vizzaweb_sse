@@ -83,6 +83,8 @@ public productid: any;
 public getallTravelPremiumList: any;
 public questions_list: any;
 public questionsListTravel: any;
+public inputReadonly: boolean;
+public isDisable: boolean;
     constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
@@ -92,7 +94,8 @@ public questionsListTravel: any;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.arr = [];
-
+    this.inputReadonly = false;
+    this.isDisable = false;
         this.religarePersonal = this.fb.group({
             title: ['', Validators.required],
             firstname: new FormControl(''),
@@ -107,6 +110,7 @@ public questionsListTravel: any;
             state: ['', Validators.required],
             raddress1: ['', Validators.required],
             raddress2: '',
+            sameAsProposer:false,
             rpincode: ['', Validators.required],
             rcity: ['', Validators.required],
              rstate: ['', Validators.required],
@@ -222,12 +226,15 @@ public questionsListTravel: any;
                 state: ['', Validators.required],
                 raddress1: ['', Validators.required],
                 raddress2: '',
+                sameAsInsurer: false,
+                sameAsInsuredProposer: false,
                 rpincode: ['', Validators.required],
                 rcity: ['', Validators.required],
                 rstate: ['', Validators.required],
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 type: '',
+                sameasreadonly:false,
                 rolecd: 'PRIMARY',
                 ins_age: ''
             }
@@ -244,21 +251,12 @@ public questionsListTravel: any;
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    if (type == 'insurer') {
-                        //  this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
-                    } else {
-                        console.log('dsdfdfsddsf');
-                        this.personalDobError = '';
-                    }
+                    this.personalDobError = '';
 
                 } else {
-                    if (type == 'insurer') {
-                        //  this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('Enter Valid Date');
-                    } else {
-                        this.personalDobError = 'Enter Valid Date';
-                    }
-
+                    this.personalDobError = 'Enter Valid Date';
                 }
+
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 console.log(dob, 'dob');
@@ -270,7 +268,6 @@ public questionsListTravel: any;
                 }
 
             } else if (typeof event.value._i == 'object') {
-                // dob = this.datepipe.transform(event.value, 'MMM d, y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     this.religareTravelproposerAge = this.ageCalculate(dob);
@@ -279,15 +276,7 @@ public questionsListTravel: any;
             }
             console.log(this.religareTravelproposerAge, ' this.religareTravelproposerAge ');
 
-
-            if (this.religareTravelproposerAge && type == 'insurer') {
-                console.log(dob, 'dobdob');
-                //  this.insureReligareArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(dob);
-                //  this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.patchValue('');
-            } else {
-                sessionStorage.proposerAgeReligareTravel = this.religareTravelproposerAge;
-            }
-
+            sessionStorage.proposerAgeReligareTravel = this.religareTravelproposerAge;
         }
     }
 
@@ -332,14 +321,14 @@ public questionsListTravel: any;
                 }
 
             }
-            // if (this.getAge) {
+            if (this.getAge) {
             console.log(this.getAge, 'newwagee11');
             console.log(dob, 'dob2');
             this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
             this.insureReligareArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
             this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
             this.ageValidationInsurer(i, type);
-            // }
+            }
 
         }
         sessionStorage.InsurerAgeReligareTravel = this.getAge;
@@ -544,9 +533,10 @@ public questionsListTravel: any;
         console.log(index, 'index');
         if (index == 0) {
             if (value.checked) {
+
+
                 for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
                     if (this.religareTravelQuestionsList[i].main_qustion == 1) {
-                        console.log('in');
                         this.religareTravelQuestionsList[i].showQuesion = true;
                     }
                 }
@@ -557,6 +547,12 @@ public questionsListTravel: any;
                     }
                 }
             }
+        }
+        if(value.checked){
+            this.religareTravelQuestionsList[index].status = 'Yes';
+        } else {
+            this.religareTravelQuestionsList[index].status = 'No';
+
         }
         console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsLis');
 
@@ -586,6 +582,7 @@ public questionsListTravel: any;
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
                 // this.religareTravelQuestionsList[i].main_qustion = '0';
                 this.religareTravelQuestionsList[i].checked = false;
+                this.religareTravelQuestionsList[i].status = 'No';
                 if (this.religareTravelQuestionsList[i].main_qustion == 0) {
                     this.religareTravelQuestionsList[i].showQuesion = true;
                 }
@@ -696,6 +693,94 @@ public questionsListTravel: any;
 
         }
     }
+    sameAddress(values){
+    if ( this.religarePersonal.controls['sameAsProposer'].value) {
+        this.inputReadonly = true;
+        this.religarePersonal.controls['raddress1'].patchValue(this.religarePersonal.controls['address1'].value);
+        this.religarePersonal.controls['raddress2'].patchValue(this.religarePersonal.controls['address2'].value);
+        this.religarePersonal.controls['rcity'].patchValue(this.religarePersonal.controls['city'].value);
+        this.religarePersonal.controls['rpincode'].patchValue(this.religarePersonal.controls['pincode'].value);
+        this.religarePersonal.controls['rstate'].patchValue(this.religarePersonal.controls['state'].value);
+
+    } else {
+        this.inputReadonly = false;
+        this.religarePersonal.controls['raddress1'].patchValue('');
+        this.religarePersonal.controls['raddress2'].patchValue('');
+        this.religarePersonal.controls['rcity'].patchValue('');
+        this.religarePersonal.controls['rpincode'].patchValue('');
+        this.religarePersonal.controls['rstate'].patchValue('');
+
+    }
+
+}
+    sameInsureAddress(values,i){
+        if( this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsurer.value){
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress1.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].address1.value);
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress2.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].address2.value);
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rpincode.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].pincode.value);
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rcity.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].city.value);
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rstate.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].state.value);
+
+        } else {
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress1.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress2.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rpincode.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rcity.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][i]['controls'].rstate.patchValue('');
+        }
+    }
+    sameInsuredProposer(){
+
+        if (this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsuredProposer.value) {
+            console.log(this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsuredProposer.value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsurer.disable();
+
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].title.patchValue(this.religarePersonal.controls['title'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.religarePersonal.controls['firstname'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.religarePersonal.controls['lastname'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.religarePersonal.controls['dob'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].gender.patchValue(this.religarePersonal.controls['gender'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationship.patchValue('21');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].email.patchValue(this.religarePersonal.controls['email'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].mobile.patchValue(this.religarePersonal.controls['mobile'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].passport.patchValue(this.religarePersonal.controls['passport'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].raddress1.patchValue(this.religarePersonal.controls['raddress1'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].raddress2.patchValue(this.religarePersonal.controls['raddress2'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rpincode.patchValue(this.religarePersonal.controls['rpincode'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rcity.patchValue(this.religarePersonal.controls['rcity'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rstate.patchValue(this.religarePersonal.controls['rstate'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].address1.patchValue(this.religarePersonal.controls['address1'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].address2.patchValue(this.religarePersonal.controls['address2'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].pincode.patchValue(this.religarePersonal.controls['pincode'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].city.patchValue(this.religarePersonal.controls['city'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].state.patchValue(this.religarePersonal.controls['state'].value);
+        } else {
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsurer.enable();
+
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].title.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].firstname.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].lastname.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].dob.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].gender.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationship.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].email.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].mobile.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].passport.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].raddress1.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].raddress2.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rpincode.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rcity.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].rstate.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].address1.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].address2.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].pincode.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].city.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].state.patchValue('');
+
+        }
+    }
 
 
 // Medical Details
@@ -753,7 +838,7 @@ public questionsListTravel: any;
 
 // proposal Creation Page
     religareTravelproposal() {
-
+            let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {
                 'platform': 'web',
                 'proposal_id': '0',
@@ -786,7 +871,8 @@ public questionsListTravel: any;
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                 'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
-                'medical_status': this.partyQuestionDOList.includes('Yes') ? 'Yes' : 'No'
+                'medical_status': mcondition != '' ? 'Yes' : 'No',
+
             };
 
             console.log(data, 'fghj');
@@ -850,6 +936,7 @@ public questionsListTravel: any;
                 rcity: this.religareTravel1.rcity,
                 rstate: this.religareTravel1.rstate,
                 email: this.religareTravel1.email,
+                sameAsProposer: this.religareTravel1.sameAsProposer,
                 mobile: this.religareTravel1.mobile,
                 passport: this.religareTravel1.passport,
                 rolecd: this.religareTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER'
@@ -882,6 +969,9 @@ public questionsListTravel: any;
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].rstate.patchValue(this.religareTravel2.items[i].rstate);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].email.patchValue(this.religareTravel2.items[i].email);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].mobile.patchValue(this.religareTravel2.items[i].mobile);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsurer.patchValue(this.religareTravel2.items[i].sameAsInsurer);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsuredProposer.patchValue(this.religareTravel2.items[i].sameAsInsuredProposer);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.religareTravel2.items[i].sameasreadonly);
             }
 
             if (sessionStorage.ReligareTravelDetails3 != '' && sessionStorage.ReligareTravelDetails3 != undefined) {
