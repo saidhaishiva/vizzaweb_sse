@@ -770,6 +770,19 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep2 = JSON.stringify(value);
         this.insurerData = value;
         console.log(this.insurerData, '  this.insurerData  this.insurerData');
+        for(let i=0; i<this.insurerData.items.length; i++ ){
+            alert('in');
+            if(this.insurerData.items[i].gender == 'Male'){
+                alert('inoi');
+                this.insurerData.items[i].gender = 'M';
+                console.log(this.insurerData.items[i].gender, 'mmmmm');
+            } else if (this.insurerData.items[i].gender == 'Female'){
+                this.insurerData.items[i].gender = 'F';
+                console.log(this.insurerData.items[i].gender, 'yyyy');
+
+            }
+        }
+        console.log(this.insurerData,'psdkfpdsofds');
         if (this.hdfcInsureArray.valid) {
             console.log(value, 'ffffflll');
             let validData = false;
