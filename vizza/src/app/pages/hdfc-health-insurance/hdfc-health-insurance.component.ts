@@ -771,9 +771,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.insurerData = value;
         console.log(this.insurerData, '  this.insurerData  this.insurerData');
         for(let i=0; i<this.insurerData.items.length; i++ ){
-            alert('in');
             if(this.insurerData.items[i].gender == 'Male'){
-                alert('inoi');
                 this.insurerData.items[i].gender = 'M';
                 console.log(this.insurerData.items[i].gender, 'mmmmm');
             } else if (this.insurerData.items[i].gender == 'Female'){
