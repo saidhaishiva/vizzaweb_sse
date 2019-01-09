@@ -639,15 +639,16 @@ array: any;
         console.log(value.personalDob, 'value');
         this.addonDetails = [];
         if (this.personal.valid) {
-
-            for (let i=0; i < this.objectKeys.length; i++) {
-                if (this.objectKeys[i].checked) {
-                    this.addonDetails.push(this.objectKeys[i].key);
+            if(this.buyProductdetails.product_id == 1) {
+                for (let i = 0; i < this.objectKeys.length; i++) {
+                    if (this.objectKeys[i].checked) {
+                        this.addonDetails.push(this.objectKeys[i].key);
+                    }
                 }
-            }
-            sessionStorage.addonDetails = '';
-            sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
+                sessionStorage.addonDetails = '';
+                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
 
+            }
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);
