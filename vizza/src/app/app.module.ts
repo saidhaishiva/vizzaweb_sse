@@ -63,7 +63,6 @@ import { ApplicationsComponent } from './theme/components/applications/applicati
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 
-import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -205,6 +204,7 @@ import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdf
 import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
 import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
+import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 
 @NgModule({
   imports: [
@@ -249,7 +249,6 @@ import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-s
     ApplicationsComponent,
     MessagesComponent,
     UserMenuComponent,
-      HealthinsurancelistComponent,
       ComparelistComponent,
       HomeComponent,
       ContactComponent,
@@ -387,7 +386,8 @@ import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-s
       TravelShriramProposalComponent,
       TravelHdfcProposalComponent,
       previousDisease,
-      HdfcHealthPaymentSuccessComponent
+      HdfcHealthPaymentSuccessComponent,
+      DownloadMessageHdfcHealth
   ],
   providers: [
       AppSettings,
@@ -414,7 +414,7 @@ import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-s
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth
     ]
 })
 export class AppModule { }

@@ -6,7 +6,6 @@ import { SearchComponent } from './pages/search/search.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent} from './pages/home/home.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
@@ -96,6 +95,7 @@ import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-p
 import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
+import {HdfcHealthPaymentSuccessComponent} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -104,7 +104,6 @@ export const routes: Routes = [
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
-            { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
             { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },
@@ -199,6 +198,7 @@ export const routes: Routes = [
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
+            { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
