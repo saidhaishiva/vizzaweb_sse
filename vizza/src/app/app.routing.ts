@@ -37,7 +37,7 @@ import {ExamactivateGuard} from './shared/activate-guard';
 import {ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
-import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
+import {PersonalaccidentComponent} from './pages/personal-accident-home/personal-accident-home.component';
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';

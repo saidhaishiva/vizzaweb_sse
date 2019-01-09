@@ -98,8 +98,8 @@ import { ResultpageComponent } from './pages/exam/resultpage/resultpage.componen
 import { ConfrimAlert} from './pages/exam/exam.component';
 import { ViewresultComponent } from './pages/viewresult/viewresult.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
-import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
-import { PersonalInsurer} from './pages/personalaccident/personalaccident.component';
+import { PersonalaccidentComponent } from './pages/personal-accident-home/personal-accident-home.component';
+import { PersonalInsurer} from './pages/personal-accident-home/personal-accident-home.component';
 import { TravelComponent } from './pages/travel/travel.component';
 import { TravelInsurer} from './pages/travel/travel.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
@@ -172,7 +172,7 @@ import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { PosstatusAlertTravel } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
-import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import { CompareDetailsComponent } from './pages/personal-accident-home/compare-details/compare-details.component';
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
 import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
@@ -182,7 +182,7 @@ import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-succ
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
-import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
+import { ViewProductDetailsComponent} from './pages/personal-accident-home/view-product-details/view-product-details.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
 import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
 import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';

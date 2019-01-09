@@ -17,9 +17,9 @@ import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 
 @Component({
-  selector: 'app-personalaccident',
-  templateUrl: './personalaccident.component.html',
-  styleUrls: ['./personalaccident.component.scss']
+  selector: 'app-personal-accident-home',
+  templateUrl: './personal-accident-home.component.html',
+  styleUrls: ['./personal-accident-home.component.scss']
 })
 export class PersonalaccidentComponent implements OnInit {
 

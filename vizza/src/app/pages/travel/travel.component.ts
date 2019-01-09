@@ -13,7 +13,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
 import {TravelService} from '../../shared/services/travel.service';
-import {PersonalInsurer} from '../personalaccident/personalaccident.component';
+import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
 
 
 export const MY_FORMATS = {
