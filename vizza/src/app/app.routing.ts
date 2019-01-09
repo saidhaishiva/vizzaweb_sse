@@ -93,7 +93,7 @@ import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component'
 import {BajajalianzPaymentSuccessComponent} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
-import {ReliagretravelproposalComponent} from './pages/reliagretravelproposal/reliagretravelproposal.component';
+import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 

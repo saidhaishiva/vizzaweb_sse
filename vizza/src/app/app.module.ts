@@ -194,7 +194,7 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
 import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
-import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/reliagretravelproposal.component';
+import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal';
 import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
