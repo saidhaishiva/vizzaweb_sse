@@ -75,7 +75,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)"
-                                                           autocomplete="off" maxlength="10" minlength="10"  required>
+                                                           autocomplete="off" minlength="10"  required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker></mat-datepicker>
                                                     <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -295,7 +295,7 @@
                     <mat-accordion class="mt-4 w-100 float-left">
                         <form [formGroup]="insureArray">
                             <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">F
+                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title> {{insureArray['controls'].items['controls'][i]['controls'].type.value}} </mat-panel-title>
                                     </mat-expansion-panel-header>
@@ -350,7 +350,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off" maxlength="10" minlength="10" required>
+                                                        <input matInput [matDatepicker]="picker"  placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="add($event, 'insurer', i)" autocomplete="off"  minlength="10" required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -380,6 +380,7 @@
                                                         <mat-error *ngIf="personal.controls.personalrelationship.errors?.required">Relationship is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
+                                                <div class="col-md-6"></div>
                                                 <!--<div class="col-md-6">-->
                                                     <!--<mat-form-field class="w-100">-->
                                                         <!--<input matInput placeholder="Height(cm)" formControlName="personalHeight" required (keypress)="add($event)" maxlength="3" autocomplete="off">-->
@@ -392,40 +393,40 @@
                                                         <!--<mat-error *ngIf="insureArray.invalid">Weight is required</mat-error>-->
                                                     <!--</mat-form-field>-->
                                                 <!--</div>-->
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <p>Is Existing Illness</p>
                                                     <mat-radio-group formControlName="IsExistingIllness" (change)="boolenHide($event, i, 'IsExistingIllness')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <mat-form-field class="w-100" [hidden]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'No'">
-                                                        <mat-select  placeholder="Disease" formControlName="DiseaseID"   class="w-100" autocomplete="off" [required]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'" >
-                                                            <mat-option *ngFor="let list of diseaseList" [value]= 'list.pre_existing_disease_id'> {{list.pre_existing_disease_name}} </mat-option>
-                                                        </mat-select>
-                                                        <mat-error *ngIf="insureArray.invalid">Disease is required</mat-error>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="col-md-4">
+                                                <!--<div class="col-md-12">-->
+                                                    <!--<mat-form-field class="w-100" [hidden]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'No'">-->
+                                                        <!--<mat-select  placeholder="Disease" formControlName="DiseaseID"  (change)="boolenHide($event, i, 'DiseaseID')"  class="w-100" autocomplete="off" [required]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'" >-->
+                                                            <!--<mat-option *ngFor="let list of diseaseList" [value]= 'list.pre_existing_disease_id'> {{list.pre_existing_disease_name}} </mat-option>-->
+                                                        <!--</mat-select>-->
+                                                        <!--<mat-error *ngIf="insureArray.invalid">Disease is required</mat-error>-->
+                                                    <!--</mat-form-field>-->
+                                                <!--</div>-->
+                                                <div class="col-md-3">
                                                     <p>Is Insured Consume Tobacco</p>
-                                                    <mat-radio-group formControlName="IsInsuredConsumetobacco">
+                                                    <mat-radio-group  formControlName="IsInsuredConsumetobacco" (change)="boolenHide($event, i, 'IsInsuredConsumetobacco')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <p>Has Any Pre Claim On Insured</p>
-                                                    <mat-radio-group formControlName="HasAnyPreClaimOnInsured">
+                                                    <mat-radio-group formControlName="HasAnyPreClaimOnInsured" (change)="boolenHide($event, i, 'HasAnyPreClaimOnInsured')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <p>Has Any Pre Health Insurance Cancelled</p>
-                                                    <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled">
+                                                    <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled" (change)="boolenHide($event, i, 'HasAnyPreHealthInsuranceCancelled')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-6">
@@ -520,7 +521,7 @@
                                                     <p>Is service tax Applicable <span class="error">*</span></p>
                                                     <mat-radio-group formControlName="serviceTax" (change)="boolenHide($event, 'i', 'serviceTax')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-12  mb-3" *ngIf="riskDetails['controls'].serviceTax.value == 'Yes'">
@@ -536,7 +537,7 @@
                                                         <p>Is cross Sell  <span class="error">*</span></p>
                                                         <mat-radio-group formControlName="crossSell" (change)="boolenHide($event, 'i', 'crossSell')">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                            <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                         </mat-radio-group>
                                                     </div>
                                                     <div class="col-md-12 mb-3"  *ngIf="riskDetails['controls'].crossSell.value == 'Yes'">
@@ -553,7 +554,7 @@
                                                 <p>Is any employee of reliance ADAGroup <span class="error">*</span></p>
                                                 <mat-radio-group formControlName="relianceAda" (change)="boolenHide($event, 'i', 'relianceAda')">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
+                                                    <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
                                             <div class="col-md-12" *ngIf="riskDetails['controls'].relianceAda.value == 'Yes'">

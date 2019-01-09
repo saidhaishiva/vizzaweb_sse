@@ -76,13 +76,9 @@ export class HealthInsuranceComponent implements OnInit {
     nonEditable: boolean;
     sbtn: boolean;
     hideChild : any;
-
+    checkAge : any;
     private keyUp = new Subject<string>();
-
-
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
-
-
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
@@ -115,17 +111,6 @@ export class HealthInsuranceComponent implements OnInit {
         ];
         this.compareArray = [];
         this.sumInsuredAmountLists = 0;
-
-        // const observable = this.keyUp
-        //     .map(value => event)
-        //     .debounceTime(400)
-        //     .distinctUntilChanged()
-        //     .flatMap((search) => {
-        //         return Observable.of(search).delay(400);
-        //     })
-        //     .subscribe((data) => {
-        //         this.typeAge(data.target);
-        //     });
     }
 
     ngOnInit() {
@@ -261,13 +246,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
     public getSumInsuredAmountFailure(error) {
     }
-    // checkNetwork() {
-    //     if (this.sumInsuredAmountLists == 0) {
-    //         this.toast.error("Unable to connect to the network");
-    //
-    //     }
-    // }
-    // selected members
     ckeckedUser(value, index, name) {
 
         if (value) {
@@ -281,14 +259,6 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.sonBTn = true;
                 sessionStorage.daughterBTn = true;
                 let size= '';
-              //  console.log(this.setArray[index].name +'/' + this.setArray[4].name);
-                // for (let i = 0; i < this.setArray.length; i++) {
-                //         if (this.setArray[length].name == 'Son') {
-                //             this.setArray[3].disabled = true;
-                //         } else if (this.setArray[length].name == 'Daughter') {
-                //             this.setArray[2].disabled = true;
-                //         }
-                // }
                 if (this.setArray.length > 4) {
                     if (this.setArray[index].name == 'Son' && (this.setArray[4].checked && this.setArray[4].name == 'Son')) {
                         this.setArray[3].disabled = true;
@@ -385,16 +355,6 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.sonBTn = false;
             sessionStorage.daughterBTn = false;
         }
-        // for (let i = 0; i < this.setArray.length; i++) {
-        //     let length = this.setArray.length -1;
-        //     if (this.setArray.length > 4) {
-        //         if (this.setArray[length].name == 'Son') {
-        //             this.setArray[3].disabled = true;
-        //         } else if (this.setArray[length].name == 'Daughter') {
-        //             this.setArray[2].disabled = true;
-        //         }
-        //     }
-        // }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
 
@@ -415,41 +375,6 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
     }
-
-
-    // // typeAge(checked, name, index, value) {
-    // typeAge(value) {
-    //     console.log(value, 'vklllll');
-    //     console.log(value.value, 'value');
-    //     console.log(value.max, 'indx');
-    //     // if (this.setArray[2].age == '' || this.setArray[2].checked == false) {
-    //     //     this.count = 0;
-    //     // }
-    //     let checkTrue = true;
-    //     let checkFalse = false;
-    //     if (value.max == 'Son' || value.max == 'Daughter') {
-    //     // else if (value.length == 0) {
-    //         if (value.value != '') {
-    //             console.log('in');
-    //             this.ckeckedUser(checkTrue, value.alt, value.max);
-    //         } else if (value.value == '') {
-    //             console.log('out');
-    //
-    //             this.ckeckedUser(checkFalse, value.alt, value.max);
-    //         }
-    //     }
-    //
-    //
-    //     if (value.value != '') {
-    //         this.setArray[value.alt].checked = true;
-    //     } else {
-    //         this.setArray[value.alt].checked = false;
-    //     }
-    //     sessionStorage.setFamilyDetails = JSON.stringify(this.setArray);
-    //     console.log(this.hideChild, 'hideChild')
-    // }
-
-
 
     addOthers(value) {
         this.setArray.push({name: value, age: '', disabled: false, checked: true, auto: false, error: ''});
@@ -492,28 +417,8 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         this.finalData = [];
-        // let validArray=[];
-        // for (let i = 0; i < this.setArray.length; i++) {
-        //     if (this.setArray[i].checked) {
-        //         validArray.push(1);
-        //         if (this.setArray[i].age == '') {
-        //             this.setArray[i].error = 'Required';
-        //
-        //             } else {
-        //             this.setArray[i].error = '';
-        //             this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-        //         }
-        //     }
-        // }
-        // if(!validArray.includes(1)){
-        //     this.toast.error("Please select atleast one member");
-        //
-        // }
         let memberValid = false;
-        // if (!this.setArray[0].checked) {
-        //     this.setArray[0].error = 'Required';
-        //     memberValid = true;
-        // } else {
+
             for (let i = 0; i < this.setArray.length; i++) {
                 if (this.setArray[i].checked) {
                     if (this.setArray[i].age == '') {
@@ -527,21 +432,12 @@ export class HealthInsuranceComponent implements OnInit {
                     }
                 }
             }
-        // }
 
 
 
         if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
             if (!memberValid) {
                 if (this.finalData != '') {
-                    // if (this.setArray[index].age.length > 1) {
-                    // if (this.setArray[0].age < 18) {
-                    //     this.toast.error("Self age should not be less than 18");
-                    // } else if (this.setArray[1].age != '') {
-                    //     if (this.setArray[1].age < 18) {
-                    //         this.toast.error("Spouse age should not be less than 18");
-                    //     }
-                    // } else {
                     const data = {
                         'platform': 'web',
                         'postalcode': this.pincoce ? this.pincoce : '',
@@ -562,15 +458,10 @@ export class HealthInsuranceComponent implements OnInit {
                         },
                         (error) => {
                             this.PolicyQuotationFailure(error);
-                            // if(this.setArray[i].type == ''){
-
                         }
                     );
-                    // }
-                    // }
 
                 } else {
-                    // this.toast.error("Please select atleast one member");
                 }
             }
         }
@@ -1158,50 +1049,80 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
-
     buyProduct(value, enqId, gname) {
-        if (this.auth.getPosStatus() == '0') {
-            let dialogRef = this.dialog.open(PosstatusAlert, {
-                width: '700px',
-            });
-            dialogRef.disableClose = true;
-            dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    sessionStorage.buyProductdetails = JSON.stringify(value);
-                    sessionStorage.groupName = gname;
-                    if (value.product_id <= 5) {
-                        this.router.navigate(['/religare']);
-                    }  else if(value.product_id == 11){
-                        this.router.navigate(['/reliance']);
-                    } else if(value.product_id == 12 || value.product_id == 13 ){
-                        this.router.navigate(['/appollo-munich']);
-                    } else if(value.product_id >= 17 && value.product_id <= 20){
-                        this.router.navigate(['/hdfc-insurance']);
-                    } else if(value.product_id == 51 || value.product_id == 21){
-                        this.router.navigate(['/bajaj']);
-                    }else {
-                        this.router.navigate(['/proposal']);
-                    }
-                } else {
-                }
-            });
-        } else {
-            sessionStorage.buyProductdetails = JSON.stringify(value);
-            sessionStorage.groupName = gname;
-            if (value.product_id <= 5) {
-                this.router.navigate(['/religare']);
-            }  else if(value.product_id == 11){
-                this.router.navigate(['/reliance']);
-            } else if(value.product_id == 12 || value.product_id == 13 ){
-                this.router.navigate(['/appollo-munich']);
-            } else if(value.product_id >= 17 && value.product_id <= 20){
-                this.router.navigate(['/hdfc-insurance']);
-            } else if(value.product_id == 51 || value.product_id == 21){
-                this.router.navigate(['/bajaj']);
-            }else {
-                this.router.navigate(['/proposal']);
+        let ages = [];
+        for (let i = 0; i < this.insuranceLists.length; i++) {
+            for (let j = 0; j < this.insuranceLists[i].family_members.length; j++) {
+                ages.push(this.insuranceLists[i].family_members[j].age);
             }
+            console.log(this.insuranceLists[i], 'valuuuuuuuuuuueeeww');
         }
+        console.log(ages, 'agesagesages');
+        this.checkAge = Math.max.apply(null, ages);
+        console.log(this.checkAge, 'thisthis.checkAgemax.checkAgemax');
+            if (this.auth.getPosStatus() == '0') {
+                let dialogRef = this.dialog.open(PosstatusAlert, {
+                    width: '700px',
+                });
+                dialogRef.disableClose = true;
+                dialogRef.afterClosed().subscribe(result => {
+                    if (result) {
+                        sessionStorage.buyProductdetails = JSON.stringify(value);
+                        sessionStorage.groupName = gname;
+                        if (value.product_id <= 5) {
+                            this.router.navigate(['/religare']);
+                        } else if (value.product_id == 11) {
+                            if (this.checkAge <= 45) {
+                                if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
+                                    this.router.navigate(['/reliance']);
+                                } else if (this.checkAge < 18) {
+                                    this.router.navigate(['/reliance']);
+                                } else {
+                                    let dialogRef = this.dialog.open(RelainceAgeMin, {
+                                        width: '1600px',
+                                    });
+                                    dialogRef.disableClose = true;
+                                    dialogRef.afterClosed()
+                                    // this.toast.error('Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
+                                }
+                            } else {
+                                // this.toast.error('Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
+                                let dialogRef = this.dialog.open(RelainceAgeMax, {
+                                    width: '1600px',
+                                });
+                                dialogRef.disableClose = true;
+                                dialogRef.afterClosed()
+                            }
+
+                        } else if (value.product_id == 12 || value.product_id == 13) {
+                            this.router.navigate(['/appollo-munich']);
+                        } else if (value.product_id >= 17 && value.product_id <= 20) {
+                            this.router.navigate(['/hdfc-insurance']);
+                        } else if (value.product_id == 51 || value.product_id == 21) {
+                            this.router.navigate(['/bajaj']);
+                        } else {
+                            this.router.navigate(['/proposal']);
+                        }
+                    } else {
+                    }
+                });
+            } else {
+                sessionStorage.buyProductdetails = JSON.stringify(value);
+                sessionStorage.groupName = gname;
+                if (value.product_id <= 5) {
+                    this.router.navigate(['/religare']);
+                } else if (value.product_id == 11) {
+                    this.router.navigate(['/reliance']);
+                } else if (value.product_id == 12 || value.product_id == 13) {
+                    this.router.navigate(['/appollo-munich']);
+                } else if (value.product_id >= 17 && value.product_id <= 20) {
+                    this.router.navigate(['/hdfc-insurance']);
+                } else if (value.product_id == 51 || value.product_id == 21) {
+                    this.router.navigate(['/bajaj']);
+                } else {
+                    this.router.navigate(['/proposal']);
+                }
+            }
     }
 
     healthInsurer(){
@@ -1424,4 +1345,53 @@ export class PosstatusAlert {
     }
 
 }
+@Component({
+    selector: 'relainceagemin',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                <h3 class="text-center">Health Check Up</h3>
+                <p>Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Ok</button>
+        </div>
+    `
+})
+export class RelainceAgeMin {
+    constructor(
+        public dialogRef: MatDialogRef<RelainceAgeMin>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
 
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+}
+@Component({
+    selector: 'relainceagemax',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                <h3 class="text-center">Health Check Up</h3>
+                <p>Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Ok</button>
+        </div>
+    `
+})
+export class RelainceAgeMax {
+    constructor(
+        public dialogRef: MatDialogRef<RelainceAgeMax>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+}

@@ -91,6 +91,7 @@ export class BajajAlianzComponent implements OnInit {
     public getAge: any;
     public agecal: any;
     public arr: any;
+    public insuremobileNumber: any;
 
     constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -103,6 +104,7 @@ export class BajajAlianzComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
+        this.insuremobileNumber = 'true';
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
         this.proposalId = 0;
@@ -195,7 +197,8 @@ export class BajajAlianzComponent implements OnInit {
                 insurerDobValidError: '',
                 ins_age: '',
                 ins_days: '',
-                relationshipSameError: ''
+                relationshipSameError: '',
+                insuremobileNumber: ''
 
             }
         );
@@ -432,6 +435,18 @@ export class BajajAlianzComponent implements OnInit {
 
     public occupationListFailure(error) {
     }
+    alternateChange(event,i){
+        if (event.target.value.length == 10) {
+            if(event.target.value == this.insureArray['controls'].items['controls'][i]['controls'].insureMobile.value) {
+                this.insuremobileNumber = 'Alternate number should be different from mobile number';
+            } else {
+                this.insuremobileNumber = '';
+            }
+        } else {
+            // this.mobileNumber = 'false';
+        }
+        sessionStorage.insuremobileNumber = this.insuremobileNumber;
+    }
 
     setrelationshipList() {
         const data = {
@@ -537,8 +552,13 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper1.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper1.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper1.items[i].ins_age);
-                this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer')
+                this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer');
             }
+        }
+        if (sessionStorage.insuremobileNumber != '' ) {
+            this.insuremobileNumber = sessionStorage.insuremobileNumber;
+        } else {
+            this.insuremobileNumber = 'true';
         }
     }
 
@@ -600,7 +620,7 @@ export class BajajAlianzComponent implements OnInit {
     proposalSuccess(successData){
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-            this.toastr.success('Insurer created successfully!!');
+            this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             let getdata=[];
             this.RediretUrlLink = this.summaryData.payment_url;

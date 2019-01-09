@@ -61,13 +61,13 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Height(cm)" formControlName="insureHeight" required (keypress)="add($event)" maxlength="3" autocomplete="off">
+                                                        <input matInput placeholder="Height(cm)" formControlName="insureHeight" required (keypress)="keyPress($event)" maxlength="3" autocomplete="off">
                                                         <mat-error *ngIf="insureArray.invalid">Height is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Weight" formControlName="insureWeight" (keypress)="add($event)"  maxlength="3" required  autocomplete="off">
+                                                        <input matInput placeholder="Weight" formControlName="insureWeight" (keypress)="keyPress($event)"  maxlength="3" required  autocomplete="off">
                                                         <mat-error *ngIf="insureArray.invalid">Weight is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -80,8 +80,9 @@
                                                 </div>
                                                 <div class="col-md-3" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insurePhone" autocomplete="off" >
+                                                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)" (keyup)="alternateChange($event,i)"   maxlength="10" formControlName="insurePhone" autocomplete="off" >
                                                     </mat-form-field>
+                                                    <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
@@ -91,9 +92,14 @@
                                                         <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" *ngIf="i != '0'">
+                                                <div class="col-md-3" *ngIf="i==0">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="insurerelationship" required>
+                                                        <input matInput placeholder="Relationship with Insurer" value="SELF" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3" *ngIf="i!=0">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Relationship with Insurer"  formControlName="insurerelationship" required >
                                                             <mat-option *ngFor="let relation of insureRelation" value="{{relation.relationship_name}}" >{{relation.relationship_name}}</mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -114,13 +120,13 @@
                                         <div class="col-md-12 box-card pt-3" *ngIf="i == '0'">
                                             <h6 class="color-green"> INSURED ADDRESS</h6>
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-6">
                                                     <mat-form-field class="w-100">
                                                         <textarea matInput placeholder="Address 1" rows="2" formControlName="insureAddress" autocomplete="off" [required]="i == '0'"></textarea>
                                                         <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-6">
                                                     <mat-form-field class="w-100">
                                                         <textarea matInput placeholder="Address 2" rows="2" formControlName="insureAddress2" autocomplete="off"></textarea>
                                                         <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
@@ -136,7 +142,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer')" autocomplete="off" [required]="i == '0'">
+                                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="keyPress($event)" maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer')" autocomplete="off" [required]="i == '0'">
                                                         <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -171,7 +177,7 @@
                                         </div>
 
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green">Pre-Existing Diseases<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
+                                            <h6 class="color-green">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
                                             <div class="row">
                                                 <div class="col-md-3"><h6>previous Establishing Disease</h6></div>
                                                 <div class="col-md-3"><h6>Asthma</h6></div>
@@ -185,29 +191,29 @@
                                         </div>
 
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green"> Previous Insurance Details</h6>
+                                            <h6 class="color-green"> PREVIOUS INSURANCE DETAILS</h6>
                                             <div class="row">
-                                                <div class="col-md-3" *ngIf="i == '0'">
+                                                <div class="col-md-4" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Previous Insurer Name" formControlName="insurePIName"  (keypress)="onCharacter($event)"  autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" *ngIf="i == '0'">
-                                                    <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Previous Insurer Address" rows="2" formControlName="insurePIAddress" autocomplete="off"></textarea>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="onCharacter($event)" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Previous Policy Number"  (keypress)="keyPress($event)"  maxlength="10" maxlength="10" formControlName="insurePINumber" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-12" *ngIf="i == '0'">
+                                                    <mat-form-field class="w-100">
+                                                        <textarea matInput placeholder="Previous Insurer Address" rows="2" formControlName="insurePIAddress" autocomplete="off"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput [matDatepicker]="picker3" [max]="minDate" placeholder="Previous Policy Expiry Date(DD/MM/YYYY)"   formControlName="insurePItDate"  (keypress)="add($event)"  autocomplete="off" autocomplete="off">
                                                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -215,12 +221,12 @@
                                                         <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Previous Sum Insurance"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" *ngIf="i == '0'">
+                                                <div class="col-md-4" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Number Of Claims"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insurePIClaims" autocomplete="off">
                                                     </mat-form-field>
@@ -228,7 +234,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green">Nominee DETAILS</h6>
+                                            <h6 class="color-green">NOMINEE DETAILS</h6>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
@@ -249,7 +255,6 @@
                                             </div>
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                                            <button mat-button matStepperPrevious>Back</button>
                                             <button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
                                             <!--<button mat-button matStepperNext >Next</button>-->
                                         </div>
@@ -277,7 +282,7 @@
                             </div>
                         </div>
                         <section *ngFor="let item of summaryData.insured_details">
-                            <h5 class="mt-3 sub-title">{{item.ins_relationship}} DETAILS </h5>
+                            <h5 class="mt-3 sub-title">{{item.ins_relationship | uppercase}} DETAILS </h5>
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">
@@ -296,7 +301,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="p-3">
-                                        <h6>NAMINEE DETAILS</h6>
+                                        <h6>NOMINEE DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.ins_memnomineename}}</li>
                                             <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{item.ins_memnomineerelation}}</li>

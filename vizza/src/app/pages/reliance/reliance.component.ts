@@ -302,17 +302,17 @@ public RediretUrlLink: any;
                 personalFirstname: new FormControl(''),
                 personalLastname: ['', Validators.required],
                 personalMidname: '',
-                personalDob: ['', Validators.compose([Validators.required])],
+                personalDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalAge: ['', Validators.compose([Validators.required])],
                 maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
                 IsExistingIllness: 'No',
-                DiseaseID: '',
-                IsInsuredConsumetobacco: '',
-                HasAnyPreClaimOnInsured: '',
-                HasAnyPreHealthInsuranceCancelled: '',
+                DiseaseID: 'No',
+                IsInsuredConsumetobacco: 'No',
+                HasAnyPreClaimOnInsured: 'No',
+                HasAnyPreHealthInsuranceCancelled: 'No',
                 DetailsOfPreClaimOnInsured: '',
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
@@ -331,7 +331,8 @@ public RediretUrlLink: any;
                 altmobileNumber:'',
                 ins_age: '',
                 ins_days: '',
-                insurerDobError: ''
+                insurerDobError: '',
+                insurerIllness: ''
             }
         );
     }
@@ -377,8 +378,11 @@ public RediretUrlLink: any;
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
                     ageValidate.push(1);
 
+                }else if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == ''){
+                    this.toastr.error(this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.value);
+                    ageValidate.push(1)
                 } else{
-                    ageValidate.push(0);
+                        ageValidate.push(0);
                 }
             }
             if(!ageValidate.includes(1)){
@@ -776,6 +780,7 @@ public RediretUrlLink: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.patchValue(this.getStepper2.items[i].insurerIllness);
             }
         }
         if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -820,10 +825,7 @@ public RediretUrlLink: any;
                 nomineeDob: this.getNomineeData.nomineeDob
             });
         }
-
-
         for (let i = 0; i < this.getStepper2.items.length; i++) {
-
             if (this.getStepper2.items[i].personalPincode != '') {
                 this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
@@ -849,8 +851,6 @@ public RediretUrlLink: any;
             }
         }
     }
-
-
     sameProposer(value: any) {
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
@@ -883,18 +883,20 @@ public RediretUrlLink: any;
     }
 
     boolenHide(change: any, id, key){
-        if(key == 'IsExistingIllness' && change.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].DiseaseID.patchValue('');
+        if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
+            // this.insureArray['controls'].items['controls'][id]['controls'][key].patchValue('');
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
+            this.toastr.error(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value);
         }
 
         if (key == 'serviceTax' && change.value == 'No') {
             this.riskDetails['controls'].ServicesTaxId.patchValue('');
         }
-
         if (key == 'crossSell' && change.value == 'No') {
             this.riskDetails['controls'].crossSellPolicyNo.patchValue('');
         }
-
         if (key == 'relianceAda' && change.value == 'No') {
             this.riskDetails['controls'].companyname.patchValue('');
             this.riskDetails['controls'].employeeCode.patchValue('');
