@@ -84,7 +84,7 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
+                                                    <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="keyEvent($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
                                                     <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                                                     <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
@@ -616,19 +616,19 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="First Name"  formControlName="nomineeFirstName" autocomplete="off" required>
+                                                    <input matInput placeholder="First Name"  formControlName="nomineeFirstName" autocomplete="off" (keypress)="onCharacter($event)" required>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeFirstName.errors?.required">First Name of Nominee is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Mid Name"  formControlName="nomineeMidName" autocomplete="off">
+                                                    <input matInput placeholder="Mid Name"  formControlName="nomineeMidName" (keypress)="onCharacter($event)"  autocomplete="off">
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeMidName.errors?.required">Mid Name of Nominee is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Last Name"  formControlName="nomineeLastName" autocomplete="off" required>
+                                                    <input matInput placeholder="Last Name"  formControlName="nomineeLastName" (keypress)="onCharacter($event)"  autocomplete="off" required>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeLastName.errors?.required"> Last Name of Nominee is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -651,7 +651,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Relationship Other" formControlName="nomineeOtherRelationship" autocomplete="off" >
+                                                    <input matInput placeholder="Relationship Other" formControlName="nomineeOtherRelationship" (keypress)="onCharacter($event)"  autocomplete="off" >
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeOtherRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -675,7 +675,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'Nominee')" formControlName="nomineePincode" autocomplete="off" required>
+                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'Nominee')" formControlName="nomineePincode" autocomplete="off" required>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>

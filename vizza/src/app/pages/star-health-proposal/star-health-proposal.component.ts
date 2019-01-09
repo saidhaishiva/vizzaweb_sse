@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn, FormControl} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -31,9 +31,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-    selector: 'app-proposal',
-    templateUrl: './proposal.component.html',
-    styleUrls: ['./proposal.component.scss'],
+    selector: 'app-star-health-proposal',
+    templateUrl: './star-health-proposal.component.html',
+    styleUrls: ['./star-health-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -41,7 +41,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class ProposalComponent implements OnInit {
+export class StarHealthProposalComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public checked: boolean;
@@ -110,7 +110,7 @@ export class ProposalComponent implements OnInit {
     public previousInsurence: any;
     public socialcheck: any;
 
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
 
 

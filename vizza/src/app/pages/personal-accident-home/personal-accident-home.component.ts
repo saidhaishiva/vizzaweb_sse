@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
@@ -17,9 +17,9 @@ import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 
 @Component({
-  selector: 'app-personalaccident',
-  templateUrl: './personalaccident.component.html',
-  styleUrls: ['./personalaccident.component.scss']
+  selector: 'app-personal-accident-home',
+  templateUrl: './personal-accident-home.component.html',
+  styleUrls: ['./personal-accident-home.component.scss']
 })
 export class PersonalaccidentComponent implements OnInit {
 
@@ -477,7 +477,7 @@ reset(){
         if (value.product_id == 14 || value.product_id == 15){
             this.router.navigate(['/appollopa']);
         } else if(value.product_id == 3){
-                this.router.navigate(['/personalaccidentform']);
+                this.router.navigate(['/personal-accident-religare-health-proposal-star-health-proposal']);
             } else {
             if (value.product_id == 23) {
                 this.router.navigate(['/hdfc-personalAccident']);

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
@@ -27,7 +27,7 @@ export class PaymentSuccessComponent implements OnInit {
  path: any;
  currenturl: any;
 
-  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;

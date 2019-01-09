@@ -1,6 +1,6 @@
  import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
@@ -25,9 +25,9 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-personalaccidentform',
-  templateUrl: './personalaccidentform.component.html',
-  styleUrls: ['./personalaccidentform.component.scss'],
+  selector: 'app-personal-accident-religare-proposal',
+  templateUrl: './personal-accident-religare-proposal.component.html',
+  styleUrls: ['./personal-accident-religare-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -36,7 +36,7 @@ export const MY_FORMATS = {
     ],
 })
 
-export class PersonalaccidentformComponent implements OnInit {
+export class PersonalAccidentReligareProposalComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public insured: FormGroup;
@@ -152,7 +152,7 @@ export class PersonalaccidentformComponent implements OnInit {
     addressPr: boolean;
     addressPC: boolean;
     insuredDescriptionValidator: boolean;
-    constructor(private fb: FormBuilder, public proposalservice: ProposalService,public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(private fb: FormBuilder, public proposalservice: HealthService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -1505,7 +1505,7 @@ export class PersonalaccidentformComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
             sessionStorage.paProposalID = this.religarePAProposal;
-            // get religare proposer occupation code
+            // get religare-health-proposal proposer occupation code
             for( let i=0; i < this.occupationCode.length; i++) {
                 if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {
                     this.summaryData.proposer_details.occupation_description =  this.occupationCode[i].occupation_description;

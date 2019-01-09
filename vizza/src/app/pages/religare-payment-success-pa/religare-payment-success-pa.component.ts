@@ -5,7 +5,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';

@@ -1,6 +1,6 @@
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
@@ -70,6 +70,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public fullName: any;
     public IsCustomerAcceptedPPCPED: boolean;
     public occupationCode: any;
+    public getBuyDetails: any;
+    public getAllPremiumDetails: any;
     constructor( public personalacccidentservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                  public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
@@ -102,7 +104,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             dependant:['', Validators.required],
             medicalcondition:['', Validators.required],
             nationality:['', Validators.required],
-            OccupationList: ['', Validators.required]
         });
         this.nomineeDetails = this.fb.group({
             'nomineeName': ['', Validators.required],
@@ -110,6 +111,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         });
     }
     ngOnInit() {
+        this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+        this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
         this.getStateList();
         this.nomineeRelationShipListHdfc();
         this.sessionData();
@@ -506,13 +509,13 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.lastStepper = stepper;
     }
 
-// proposal Creation
+// star-health-proposal Creation
     createProposal(stepper){
-
-        for(let i=0; i < this.insurerData.items.length; i++) {
-            this.insurerData.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
-            this.insurerData.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;
-        }
+        //
+        // for(let i=0; i < this.insurerData.items.length; i++) {
+        //     this.insurerData.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
+        //     this.insurerData.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;
+        // }
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',

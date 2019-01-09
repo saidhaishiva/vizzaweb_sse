@@ -1,7 +1,7 @@
 
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
@@ -82,7 +82,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public checkotpvalidation: any;
     public checkotp: any;
 
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -775,7 +775,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.lastStepper = stepper;
     }
 
-// proposal Creation
+// star-health-proposal Creation
     createProposal(stepper){
 
         for(let i=0; i < this.insurerData.items.length; i++) {

@@ -25,8 +25,8 @@ export const MY_FORMATS = {
 
 @Component({
   selector: 'app-appollomunichpa',
-  templateUrl: './appollomunichpa.component.html',
-  styleUrls: ['./appollomunichpa.component.scss'],
+  templateUrl: './appollo-munich-pa.component.html',
+  styleUrls: ['./appollo-munich-pa.component.scss'],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
@@ -1229,7 +1229,7 @@ preInsureList() {
 
     public pinPanomineeListFailure(error){
     }
-    // proposal creation
+    // star-health-proposal creation
     createrPoposal(){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
    const data = {
@@ -1442,7 +1442,7 @@ preInsureList() {
                     this.appollosummaryData.InsurePolicyholderDetails.relationship =  this.relationshipListPa[i].relationship;
                 }
             }
-            // relationship list in proposal
+            // relationship list in star-health-proposal
             for( let i=0; i < this.relationshipListPa.length; i++) {
                 if(this.appollosummaryData.ProposalDetails.p_relation == this.relationshipListPa[i].relationship_code) {
                     this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;

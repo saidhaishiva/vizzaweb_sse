@@ -2098,10 +2098,10 @@ fieldset {
   }
 
   .mat-primaryBlue {
-    background-color: #bd4b43 !important;
+    background-color: #e40000 !important;
   }
   .mat-raised-button.mat-primaryBlue {
-    background-color: #bd4b43 !important;
+    background-color: #e40000 !important;
     color: #ffff;
   }
 
@@ -2109,24 +2109,24 @@ fieldset {
     pointer-events: none !important;
   }
   mat-expansion-panel-header{
-    background: #bd4b43 !important;
+    background: #e40000 !important;
     mat-panel-title, .mat-expansion-indicator::after{
       color: white !important;
     }
   }
   .color-blue{
-    color:  #bd4b43 !important;
+    color:  #e40000 !important;
     font-size: 12px;
   }
 
   .mat-expansion-panel-body{
-    border: 1px solid #bd4b43;
+    border: 1px solid #e40000;
   }
   .mat-step-header .mat-step-icon{
-    background-color: #bd4b43 !important;
+    background-color: #e40000 !important;
   }
   .mat-step-label.mat-step-label-active.mat-step-label-selected{
-    color: #bd4b43 !important;
+    color: #e40000 !important;
 
   }
   .box-card{
@@ -2137,3 +2137,94 @@ fieldset {
     text-transform: capitalize;
   }
 }
+.shriramProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #212020 !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #212020 !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #212020 !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #212020 !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #212020;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #212020 !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #212020 !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+}
+.religareTavelProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #2d6833 !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #2d6833 !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #2d6833 !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #2d6833 !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #2d6833;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #2d6833 !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #2d6833 !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+}
+

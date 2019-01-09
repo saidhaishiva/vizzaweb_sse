@@ -1,0 +1,22 @@
+
+<div class="success-message">
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+    <mat-card class="text-center">
+      <div *ngIf="paymentStatus == 'success'">
+        <img src="assets/img/success.gif" alt="">
+        <h2>Payment Successfully</h2>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
+        <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
+        <button mat-raised-button color="primary" routerLink="/home"> Done</button>
+      </div>
+      <div *ngIf="paymentStatus == 'failure'">
+        <img src="assets/img/error-icon.png" alt="">
+        <h2 style="color:#f44336">Payment Failure</h2>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
+        <button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+

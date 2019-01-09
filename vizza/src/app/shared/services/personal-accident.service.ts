@@ -407,7 +407,7 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    // hdfc proposal creation
+    // hdfc star-health-proposal creation
 
     getHdfcProposalCreation(data) {
         const json = JSON.stringify(data);

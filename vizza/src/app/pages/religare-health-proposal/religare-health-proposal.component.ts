@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import { MatStepper } from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -27,9 +27,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-religare',
-  templateUrl: './religare.component.html',
-  styleUrls: ['./religare.component.scss'],
+  selector: 'app-religare-health-proposal',
+  templateUrl: './religare-health-proposal.component.html',
+  styleUrls: ['./religare-health-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -37,7 +37,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class ReligareComponent implements OnInit {
+export class ReligareHealthProposalComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public insureArray: FormGroup;
@@ -122,7 +122,7 @@ export class ReligareComponent implements OnInit {
     public setAddonDefault : any;
     religareListQuestions: any;
 array: any;
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -639,15 +639,16 @@ array: any;
         console.log(value.personalDob, 'value');
         this.addonDetails = [];
         if (this.personal.valid) {
-
-            for (let i=0; i < this.objectKeys.length; i++) {
-                if (this.objectKeys[i].checked) {
-                    this.addonDetails.push(this.objectKeys[i].key);
+            if(this.buyProductdetails.product_id == 1) {
+                for (let i = 0; i < this.objectKeys.length; i++) {
+                    if (this.objectKeys[i].checked) {
+                        this.addonDetails.push(this.objectKeys[i].key);
+                    }
                 }
-            }
-            sessionStorage.addonDetails = '';
-            sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
+                sessionStorage.addonDetails = '';
+                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
 
+            }
             this.proposerInsureData = [];
             if (sessionStorage.proposerAge >= 18) {
                 this.proposerInsureData.push(this.personalData);

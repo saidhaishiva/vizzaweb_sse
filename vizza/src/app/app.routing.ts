@@ -6,7 +6,6 @@ import { SearchComponent } from './pages/search/search.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { HealthinsurancelistComponent} from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent} from './pages/home/home.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
@@ -21,7 +20,7 @@ import { ContractorsComponent} from './pages/contractors/contractors.component';
 import { ProfessionalComponent} from './pages/professional/professional.component';
 import {PosComponent} from './pages/pos/pos.component';
 import {RegisterComponent} from './pages/register/register.component';
-import {ProposalComponent} from './pages/proposal/proposal.component';
+import {StarHealthProposalComponent} from './pages/star-health-proposal/star-health-proposal.component';
 import {HealthInsuranceComponent} from './pages/health-insurance/health-insurance.component';
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
 import { PosprofileComponent } from './pages/posprofile/posprofile.component';
@@ -29,19 +28,19 @@ import { EditposComponent } from './pages/editpos/editpos.component';
 import {PaymentSuccessComponent} from './pages/payment-success/payment-success.component';
 import {DownloadPolicyComponent} from './pages/download-policy/download-policy.component';
 import {DeactivateGuard} from './shared/deactivate-guard';
-import {ReligareComponent} from './pages/religare/religare.component';
-import {RelianceComponent} from './pages/reliance/reliance.component';
+import {ReligareHealthProposalComponent} from './pages/religare-health-proposal/religare-health-proposal.component';
+import {RelianceHeathProposalComponent} from './pages/reliance-heath-proposal/reliance-heath-proposal.component';
 import {DeactivatetimeGuard} from './shared/deactivatetime-guard';
 import {ExamComponent} from './pages/exam/exam.component';
 import {ExamactivateGuard} from './shared/activate-guard';
 import {ExamdeactivatetimeGuard} from './shared/examdeactivatetime-guard';
 import { ViewresultComponent} from './pages/viewresult/viewresult.component';
 import { EntranceexamComponent} from './pages/entranceexam/entranceexam.component';
-import {PersonalaccidentComponent} from './pages/personalaccident/personalaccident.component';
-import {TravelComponent} from './pages/travel/travel.component';
+import {PersonalaccidentComponent} from './pages/personal-accident-home/personal-accident-home.component';
+import {TravelHomeComponent} from './pages/travel-home/travel-home.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';
-import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
 import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
@@ -50,7 +49,7 @@ import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-
 import {LifeInsuranceComponent} from './pages/life-insurance/life-insurance.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 
-//import {PersonalAccidentProposalComponent} from './pages/personal-accident-proposal/personal-accident-proposal.component';
+//import {PersonalAccidentProposalComponent} from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
 import {HouseholdComponent} from './pages/household/household.component';
@@ -84,18 +83,19 @@ import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
-import {PersonalaccidentformComponent} from './pages/personalaccidentform/personalaccidentform.component';
+import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
-import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
+import {TravelProposalComponent} from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component';
 import {BajajalianzPaymentSuccessComponent} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
-import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
+import {AppollomunichpaComponent} from './pages/appollo-munich-pa/appollo-munich-pa.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
-import {ReliagretravelproposalComponent} from './pages/reliagretravelproposal/reliagretravelproposal.component';
+import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
+import {HdfcHealthPaymentSuccessComponent} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -104,7 +104,6 @@ export const routes: Routes = [
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
-            { path: 'insurancelist', component: HealthinsurancelistComponent, data: { breadcrumb: 'List' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
             { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },
@@ -154,39 +153,39 @@ export const routes: Routes = [
             { path: 'bankers', component: BankersComponent, data: {breadcrumb: 'Bankers Identity Policy'}},
             { path: 'erection', component: ErectionComponent, data: {breadcrumb: 'Erection All rick Policy'}},
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
-            { path: 'proposal', component: ProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
+            { path: 'proposal', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
-            { path: 'religare', component: ReligareComponent, data: { breadcrumb: 'Religare' } },
+            { path: 'religare-health-proposal', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' } },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' } },
             { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
             { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
             { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
             { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
-            { path: 'travel', component: TravelComponent, data: {breadcrumb: 'Travel' } },
-            //{ path: 'Personal-accident-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
+            { path: 'travel', component: TravelHomeComponent, data: {breadcrumb: 'Travel' } },
+            //{ path: 'Personal-accident-star-health-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
-            { path: 'reliance', component: RelianceComponent, data: { breadcrumb: 'Reliance'} },
-            { path: 'religare-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
-            { path: 'reliance-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'reliance-heath-proposal', component: RelianceHeathProposalComponent, data: { breadcrumb: 'Reliance'} },
+            { path: 'religare-health-proposal-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'reliance-heath-proposal-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'apollomunich-payment-success/:status/:proId', component: ApollomunichPaymentSuccessComponent, data: { breadcrumb: 'Apollo munich payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
-            { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
+            { path: 'personal-accident-religare-health-proposal-star-health-proposal', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
-            { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
+            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
             { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
-            { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
+            { path: 'religare-health-proposal-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
@@ -198,7 +197,8 @@ export const routes: Routes = [
             { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
-            { path: 'shriram-travel', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
+            { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
+            { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

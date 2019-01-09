@@ -22,7 +22,7 @@ import { ConfigurationService } from './shared/services/configuration.service';
 import { AuthService } from './shared/services/auth.service';
 import { TravelService} from './shared/services/travel.service';
 import { CommonService } from './shared/services/common.service';
-import { ProposalService} from './shared/services/proposal.service';
+import { HealthService} from './shared/services/health.service';
 import { LearningcenterService} from './shared/services/learningcenter.service';
 import { DeactivateGuard} from './shared/deactivate-guard';
 import { DeactivatetimeGuard} from './shared/deactivatetime-guard';
@@ -63,7 +63,6 @@ import { ApplicationsComponent } from './theme/components/applications/applicati
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 
-import { HealthinsurancelistComponent } from './pages/healthinsurancelist/healthinsurancelist.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -72,8 +71,8 @@ import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
 
-import { ProposalComponent } from './pages/proposal/proposal.component';
-import { ProposalmessageComponent } from './pages/proposal/proposalmessage/proposalmessage.component';
+import { StarHealthProposalComponent } from './pages/star-health-proposal/star-health-proposal.component';
+import { ProposalmessageComponent } from './pages/star-health-proposal/proposalmessage/proposalmessage.component';
 import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
 import { HealthInsurer} from './pages/health-insurance/health-insurance.component';
@@ -89,7 +88,7 @@ import {DownloadMessage} from './pages/payment-success/payment-success.component
 import {DownloadMessageReligare} from './pages/religare-payment-success/religare-payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
-import { ReligareComponent } from './pages/religare/religare.component';
+import { ReligareHealthProposalComponent } from './pages/religare-health-proposal/religare-health-proposal.component';
 import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 import { SplitLastPipe} from '../splitpipe';
 import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
@@ -98,20 +97,21 @@ import { ResultpageComponent } from './pages/exam/resultpage/resultpage.componen
 import { ConfrimAlert} from './pages/exam/exam.component';
 import { ViewresultComponent } from './pages/viewresult/viewresult.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
-import { PersonalaccidentComponent } from './pages/personalaccident/personalaccident.component';
-import { PersonalInsurer} from './pages/personalaccident/personalaccident.component';
-import { TravelComponent } from './pages/travel/travel.component';
-import { TravelInsurer} from './pages/travel/travel.component';
+import { PersonalaccidentComponent } from './pages/personal-accident-home/personal-accident-home.component';
+import { PersonalInsurer} from './pages/personal-accident-home/personal-accident-home.component';
+import { TravelHomeComponent } from './pages/travel-home/travel-home.component';
+import { TravelInsurer} from './pages/travel-home/travel-home.component';
 import { EntranceexamComponent } from './pages/entranceexam/entranceexam.component';
 import { ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import { RegisterComponent} from './pages/register/register.component';
 import { FireInsurer} from './pages/fire/fire.component';
-//import { PersonalAccidentProposalComponent } from './pages/personal-accident-proposal/personal-accident-proposal.component';
+//import { PersonalAccidentProposalComponent } from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
 import { RelianceComponent } from './pages/reliance/reliance.component';
 import { RelainceAgeMin} from './pages/health-insurance/health-insurance.component';
 import {RelainceAgeMax} from './pages/health-insurance/health-insurance.component';
+import { RelianceHeathProposalComponent } from './pages/reliance-heath-proposal/reliance-heath-proposal.component';
 import { DocumentViewComponent } from './pages/posprofile/document-view/document-view.component';
 import { TrainingcompletedAlert} from './pages/training/training.component';
 import { DmTrainingcompletedAlert} from './pages/dm-training/dm-training.component';
@@ -169,22 +169,22 @@ import { DmChangepasswordComponent } from './pages/dm-changepassword/dm-changepa
 import { MediaCenterComponent } from './pages/media-center/media-center.component';
 import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
-import { PersonalaccidentformComponent } from './pages/personalaccidentform/personalaccidentform.component';
+import { PersonalAccidentReligareProposalComponent } from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { PosstatusAlertTravel } from './pages/travel-premium-list/travel-premium-list.component';
-import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
-import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
+import { TravelProposalComponent } from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
+import { CompareDetailsComponent } from './pages/personal-accident-home/compare-details/compare-details.component';
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
-import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
-import{AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
+import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
+import{AppollomunichpaComponent} from './pages/appollo-munich-pa/appollo-munich-pa.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {PersonalAccidentService} from './shared/services/personal-accident.service';
 import { ApollomunichPaymentSuccessComponent } from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
-import { ViewProductDetailsComponent} from './pages/personalaccident/view-product-details/view-product-details.component';
+import { ViewProductDetailsComponent} from './pages/personal-accident-home/view-product-details/view-product-details.component';
 import { TravelCompareComponent } from './pages/travel-premium-list/travel-compare/travel-compare.component';
 import { TravelViewKeyFeaturesComponent } from './pages/travel-premium-list/travel-view-key-features/travel-view-key-features.component';
 import { BajajAlianzComponent } from './pages/bajaj-alianz/bajaj-alianz.component';
@@ -196,7 +196,7 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
 import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
-import { ReliagretravelproposalComponent } from './pages/reliagretravelproposal/reliagretravelproposal.component';
+import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
@@ -206,6 +206,8 @@ import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-
 import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
+import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
+import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 
 @NgModule({
   imports: [
@@ -250,7 +252,6 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
     ApplicationsComponent,
     MessagesComponent,
     UserMenuComponent,
-      HealthinsurancelistComponent,
       ComparelistComponent,
       HomeComponent,
       ContactComponent,
@@ -260,7 +261,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       RegisterComponent,
       FixappointmentComponent,
       PosComponent,
-      ProposalComponent,
+      StarHealthProposalComponent,
       ProposalmessageComponent,
       GroupmembersAlert,
       HealthInsuranceComponent,
@@ -275,7 +276,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       DownloadMessageReligare,
       PosstatusAlert,
       TruncatePipe,
-      ReligareComponent,
+      ReligareHealthProposalComponent,
       ViewdetailsComponent,
       SplitLastPipe,
       TestimonialComponent,
@@ -285,7 +286,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       ViewresultComponent,
       EntranceexamComponent,
      PersonalaccidentComponent,
-      TravelComponent,
+      TravelHomeComponent,
       TravelInsurer,
       PosstatusAlertTravel,
       //PersonalAccidentProposalComponent,
@@ -294,6 +295,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       RelianceComponent,
       RelainceAgeMin,
       RelainceAgeMax,
+      RelianceHeathProposalComponent,
       DocumentViewComponent,
       TrainingcompletedAlert,
       DmTrainingcompletedAlert,
@@ -354,7 +356,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       ViewmediaComponent,
       SafePipe,
       ReliancePaymentSuccessComponent,
-      PersonalaccidentformComponent,
+      PersonalAccidentReligareProposalComponent,
       PreligareComponent,
       TravelPremiumListComponent,
       TravelProposalComponent,
@@ -389,7 +391,9 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       HdfcPersonalaccidentComponent,
       TravelShriramProposalComponent,
       TravelHdfcProposalComponent,
-      previousDisease
+      previousDisease,
+      HdfcHealthPaymentSuccessComponent,
+      DownloadMessageHdfcHealth
   ],
   providers: [
       AppSettings,
@@ -399,7 +403,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       CommonService,
       TravelService,
       LearningcenterService,
-      ProposalService,
+      HealthService,
       PersonalAccidentService,
       DeactivateGuard,
       DeactivatetimeGuard,
@@ -416,6 +420,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax
     ]
 })

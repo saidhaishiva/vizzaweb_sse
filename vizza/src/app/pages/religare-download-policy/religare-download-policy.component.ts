@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
@@ -18,7 +18,7 @@ export class ReligareDownloadPolicyComponent implements OnInit {
     type: any;
     currenturl: any;
     path: any;
-    constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+    constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
         this.route.params.forEach((params) => {
             console.log(params.id);
             this.paymentStatus = params.status;

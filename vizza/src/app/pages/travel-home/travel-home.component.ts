@@ -13,7 +13,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
 import {TravelService} from '../../shared/services/travel.service';
-import {PersonalInsurer} from '../personalaccident/personalaccident.component';
+import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
 
 
 export const MY_FORMATS = {
@@ -29,15 +29,15 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-travel',
-  templateUrl: './travel.component.html',
-  styleUrls: ['./travel.component.scss'],
+  selector: 'app-travel-home',
+  templateUrl: './travel-home.component.html',
+  styleUrls: ['./travel-home.component.scss'],
   providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class TravelComponent implements OnInit {
+export class TravelHomeComponent implements OnInit {
     @ViewChild('typedValueCountry') typedValueHistoryVariable;
 
     selfArray: any;
