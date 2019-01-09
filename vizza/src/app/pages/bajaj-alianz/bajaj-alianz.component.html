@@ -136,7 +136,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer')" autocomplete="off" [required]="i == '0'">
+                                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="keyPress($event)"  maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer')" autocomplete="off" [required]="i == '0'">
                                                         <mat-error *ngIf="insureArray.invalid">Enter Valid  Pin</mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -175,7 +175,7 @@
                                             <div class="row">
                                                 <div class="col-md-3"><h6>previous Establishing Disease</h6></div>
                                                 <div class="col-md-3"><h6>Asthma</h6></div>
-                                                <div class="col-md-3"><h6>Cholesterol Disordr</h6></div>
+                                                <div class="col-md-3"><h6>Cholesterol Disorder</h6></div>
                                                 <div class="col-md-3"><h6>Heartburn Disease</h6></div>
                                                 <div class="col-md-3"><h6>Hypertension</h6></div>
                                                 <div class="col-md-3"><h6>Diabetes</h6></div>
