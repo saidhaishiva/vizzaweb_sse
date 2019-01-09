@@ -29,9 +29,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-    selector: 'app-travel-proposal',
-    templateUrl: './travel-proposal.component.html',
-    styleUrls: ['./travel-proposal.component.scss'],
+    selector: 'app-travel-starhealth-proposal',
+    templateUrl: './travel-starthealth-proposal.component.html',
+    styleUrls: ['./travel-starthealth-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

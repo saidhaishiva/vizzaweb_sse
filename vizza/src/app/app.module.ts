@@ -171,7 +171,7 @@ import { PersonalaccidentformComponent } from './pages/personalaccidentform/pers
 import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { PosstatusAlertTravel } from './pages/travel-premium-list/travel-premium-list.component';
-import { TravelProposalComponent } from './pages/travel-proposal/travel-proposal.component';
+import { TravelProposalComponent } from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
@@ -194,7 +194,7 @@ import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.compo
 import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
-import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal';
+import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
