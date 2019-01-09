@@ -1170,9 +1170,9 @@ export class HealthInsuranceComponent implements OnInit {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     sessionStorage.groupName = gname;
                     if (value.product_id <= 5) {
-                        this.router.navigate(['/religare']);
+                        this.router.navigate(['/religare-health-proposal']);
                     }  else if(value.product_id == 11){
-                        this.router.navigate(['/reliance']);
+                        this.router.navigate(['/reliance-heath-proposal']);
                     } else if(value.product_id == 12 || value.product_id == 13 ){
                         this.router.navigate(['/appollo-munich-health']);
                     } else if(value.product_id >= 17 && value.product_id <= 20){
@@ -1180,7 +1180,7 @@ export class HealthInsuranceComponent implements OnInit {
                     } else if(value.product_id == 51 || value.product_id == 21){
                         this.router.navigate(['/bajaj']);
                     }else {
-                        this.router.navigate(['/proposal']);
+                        this.router.navigate(['/star-health-proposal']);
                     }
                 } else {
                 }
@@ -1189,9 +1189,9 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.buyProductdetails = JSON.stringify(value);
             sessionStorage.groupName = gname;
             if (value.product_id <= 5) {
-                this.router.navigate(['/religare']);
+                this.router.navigate(['/religare-health-proposal']);
             }  else if(value.product_id == 11){
-                this.router.navigate(['/reliance']);
+                this.router.navigate(['/reliance-heath-proposal']);
             } else if(value.product_id == 12 || value.product_id == 13 ){
                 this.router.navigate(['/appollo-munich-health']);
             } else if(value.product_id >= 17 && value.product_id <= 20){
@@ -1199,7 +1199,7 @@ export class HealthInsuranceComponent implements OnInit {
             } else if(value.product_id == 51 || value.product_id == 21){
                 this.router.navigate(['/bajaj']);
             }else {
-                this.router.navigate(['/proposal']);
+                this.router.navigate(['/star-health-proposal']);
             }
         }
     }

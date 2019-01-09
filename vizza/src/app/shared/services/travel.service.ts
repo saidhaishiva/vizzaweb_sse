@@ -17,7 +17,7 @@ export class TravelService {
         }
         return formBody.join('&');
     }
-    // this function will get the travel sum insured amount lists
+    // this function will get the travel-home sum insured amount lists
     getTravelSumInsuredAmount(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -29,7 +29,7 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // view travel
+    // view travel-home
     getAllcountry(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -196,7 +196,7 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-// religare travel
+// religare-health-proposal travel-home
     // Religare RelationShipList
     religareTravelRelationshipList(data) {
         const json = JSON.stringify(data);

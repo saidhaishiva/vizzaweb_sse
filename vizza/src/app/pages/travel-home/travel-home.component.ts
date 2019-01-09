@@ -29,15 +29,15 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-travel',
-  templateUrl: './travel.component.html',
-  styleUrls: ['./travel.component.scss'],
+  selector: 'app-travel-home',
+  templateUrl: './travel-home.component.html',
+  styleUrls: ['./travel-home.component.scss'],
   providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class TravelComponent implements OnInit {
+export class TravelHomeComponent implements OnInit {
     @ViewChild('typedValueCountry') typedValueHistoryVariable;
 
     selfArray: any;

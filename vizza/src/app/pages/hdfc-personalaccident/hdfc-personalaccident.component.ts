@@ -1,6 +1,6 @@
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
@@ -509,7 +509,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.lastStepper = stepper;
     }
 
-// proposal Creation
+// star-health-proposal Creation
     createProposal(stepper){
         //
         // for(let i=0; i < this.insurerData.items.length; i++) {

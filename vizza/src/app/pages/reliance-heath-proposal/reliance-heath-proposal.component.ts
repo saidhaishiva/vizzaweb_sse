@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -27,9 +27,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-    selector: 'app-reliance',
-    templateUrl: './reliance.component.html',
-    styleUrls: ['./reliance.component.scss'],
+    selector: 'app-reliance-heath-proposal',
+    templateUrl: './reliance-heath-proposal.component.html',
+    styleUrls: ['./reliance-heath-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -37,7 +37,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class RelianceComponent implements OnInit {
+export class RelianceHeathProposalComponent implements OnInit {
     public personal: FormGroup;
     public summary: FormGroup;
     public insureArray: FormGroup;
@@ -126,7 +126,7 @@ export class RelianceComponent implements OnInit {
 public minDate: any;
 public maxDate: any;
 public RediretUrlLink: any;
-    constructor(public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
          const minDate = new Date();
          this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());

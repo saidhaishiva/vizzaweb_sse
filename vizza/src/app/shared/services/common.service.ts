@@ -43,7 +43,7 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // this function will get the travel sum insured amount lists
+    // this function will get the travel-home sum insured amount lists
     getTravelSumInsuredAmount(data) {
         console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);

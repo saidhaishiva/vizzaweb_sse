@@ -1229,7 +1229,7 @@ preInsureList() {
 
     public pinPanomineeListFailure(error){
     }
-    // proposal creation
+    // star-health-proposal creation
     createrPoposal(){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
    const data = {
@@ -1442,7 +1442,7 @@ preInsureList() {
                     this.appollosummaryData.InsurePolicyholderDetails.relationship =  this.relationshipListPa[i].relationship;
                 }
             }
-            // relationship list in proposal
+            // relationship list in star-health-proposal
             for( let i=0; i < this.relationshipListPa.length; i++) {
                 if(this.appollosummaryData.ProposalDetails.p_relation == this.relationshipListPa[i].relationship_code) {
                     this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;

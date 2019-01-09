@@ -1,6 +1,6 @@
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
@@ -85,7 +85,7 @@ public questions_list: any;
 public questionsListTravel: any;
 public inputReadonly: boolean;
 public isDisable: boolean;
-    constructor(public travelservice: TravelService, public proposalservice: ProposalService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -594,7 +594,7 @@ public isDisable: boolean;
         console.log(error);
     }
 
-// proposal 1 page
+// star-health-proposal 1 page
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.ReligareTravelDetails1 = '';
         sessionStorage.ReligareTravelDetails1 = JSON.stringify(value);
@@ -836,7 +836,7 @@ public isDisable: boolean;
 
     }
 
-// proposal Creation Page
+// star-health-proposal Creation Page
     religareTravelproposal() {
             let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {

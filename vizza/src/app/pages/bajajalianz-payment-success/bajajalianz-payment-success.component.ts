@@ -4,7 +4,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
-import {ProposalService} from '../../shared/services/proposal.service';
+import {HealthService} from '../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 
@@ -22,7 +22,7 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     public mailstatus: any
 
     public settings: Settings;
-  constructor(public config: ConfigurationService, public proposalservice: ProposalService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       this.route.params.forEach((params) => {
           console.log(params.id);
