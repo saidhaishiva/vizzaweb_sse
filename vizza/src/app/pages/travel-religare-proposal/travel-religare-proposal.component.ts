@@ -24,9 +24,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-reliagretravelproposal',
-  templateUrl: './travel-religare-proposal.html',
-  styleUrls: ['./travel-religare-proposal.scss'],
+  selector: 'app-travel-reliagre-proposal',
+  templateUrl: './travel-religare-proposal.component.html',
+  styleUrls: ['./travel-religare-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

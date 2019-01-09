@@ -87,13 +87,13 @@ import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/
 import {PersonalaccidentformComponent} from './pages/personalaccidentform/personalaccidentform.component';
 import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
-import {TravelProposalComponent} from './pages/travel-proposal/travel-proposal.component';
+import {TravelProposalComponent} from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component';
 import {BajajalianzPaymentSuccessComponent} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
-import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal';
+import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 
