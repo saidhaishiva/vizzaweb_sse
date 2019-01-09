@@ -1174,7 +1174,7 @@ export class HealthInsuranceComponent implements OnInit {
                     }  else if(value.product_id == 11){
                         this.router.navigate(['/reliance']);
                     } else if(value.product_id == 12 || value.product_id == 13 ){
-                        this.router.navigate(['/appollo-munich']);
+                        this.router.navigate(['/appollo-munich-health']);
                     } else if(value.product_id >= 17 && value.product_id <= 20){
                         this.router.navigate(['/hdfc-insurance']);
                     } else if(value.product_id == 51 || value.product_id == 21){
@@ -1193,7 +1193,7 @@ export class HealthInsuranceComponent implements OnInit {
             }  else if(value.product_id == 11){
                 this.router.navigate(['/reliance']);
             } else if(value.product_id == 12 || value.product_id == 13 ){
-                this.router.navigate(['/appollo-munich']);
+                this.router.navigate(['/appollo-munich-health']);
             } else if(value.product_id >= 17 && value.product_id <= 20){
                 this.router.navigate(['/hdfc-insurance']);
             } else if(value.product_id == 51 || value.product_id == 21){

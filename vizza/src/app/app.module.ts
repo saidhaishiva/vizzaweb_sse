@@ -175,8 +175,8 @@ import { TravelProposalComponent } from './pages/travel-starthealth-proposal/tra
 import { CompareDetailsComponent } from './pages/personalaccident/compare-details/compare-details.component';
 import { PaymentSuccessTravelComponent } from './pages/payment-success-travel/payment-success-travel.component';
 import { DownloadtravelMessage} from './pages/payment-success-travel/payment-success-travel.component';
-import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
-import{AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
+import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
+import{AppollomunichpaComponent} from './pages/appollo-munich-pa/appollo-munich-pa.component';
 import { IffcoTokioComponent } from './pages/iffco-tokio/iffco-tokio.component';
 import { ReligarePaymentSuccessPaComponent } from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {DownloadMessageReligarePersonal} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
@@ -204,6 +204,7 @@ import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-
 import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
+import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 
 @NgModule({
   imports: [
@@ -385,7 +386,8 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
       HdfcPersonalaccidentComponent,
       TravelShriramProposalComponent,
       TravelHdfcProposalComponent,
-      previousDisease
+      previousDisease,
+      HdfcHealthPaymentSuccessComponent
   ],
   providers: [
       AppSettings,

@@ -30,8 +30,8 @@ export const MY_FORMATS = {
 
 @Component({
   selector: 'app-appollo-munich',
-  templateUrl: './appollo-munich.component.html',
-  styleUrls: ['./appollo-munich.component.scss'],
+  templateUrl: './appollo-munich-health.component.html',
+  styleUrls: ['./appollo-munich-health.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

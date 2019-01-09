@@ -25,8 +25,8 @@ export const MY_FORMATS = {
 
 @Component({
   selector: 'app-appollomunichpa',
-  templateUrl: './appollomunichpa.component.html',
-  styleUrls: ['./appollomunichpa.component.scss'],
+  templateUrl: './appollo-munich-pa.component.html',
+  styleUrls: ['./appollo-munich-pa.component.scss'],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},

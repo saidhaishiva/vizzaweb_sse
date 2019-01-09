@@ -41,7 +41,7 @@ import {PersonalaccidentComponent} from './pages/personalaccident/personalaccide
 import {TravelComponent} from './pages/travel/travel.component';
 import {DmViewresultComponent} from './pages/dm-exam/dm-viewresult/dm-viewresult.component';
 import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/payment-success-travel.component';
-import {AppolloMunichComponent} from './pages/appollo-munich/appollo-munich.component';
+import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
 import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
@@ -91,7 +91,7 @@ import {TravelProposalComponent} from './pages/travel-starthealth-proposal/trave
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
 import {BajajAlianzComponent} from './pages/bajaj-alianz/bajaj-alianz.component';
 import {BajajalianzPaymentSuccessComponent} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
-import {AppollomunichpaComponent} from './pages/appollomunichpa/appollomunichpa.component';
+import {AppollomunichpaComponent} from './pages/appollo-munich-pa/appollo-munich-pa.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import {ReliagretravelproposalComponent} from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
@@ -181,7 +181,7 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personalaccidentform', component:PersonalaccidentformComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
-            { path: 'appollo-munich', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
+            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
