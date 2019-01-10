@@ -187,7 +187,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.hdfcPersonal.controls['dob'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
 
         } else {
