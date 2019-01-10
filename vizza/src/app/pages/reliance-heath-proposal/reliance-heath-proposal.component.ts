@@ -123,9 +123,9 @@ export class RelianceHeathProposalComponent implements OnInit {
     public diseaseList: any;
     public coverTypeList: any;
     public dob: any;
-public minDate: any;
-public maxDate: any;
-public RediretUrlLink: any;
+    public minDate: any;
+    public maxDate: any;
+    public RediretUrlLink: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
          const minDate = new Date();
@@ -152,7 +152,7 @@ public RediretUrlLink: any;
         this.questions_list = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
-            personalFirstname: new FormControl(''),
+            personalFirstname: ['', Validators.required],
             personalLastname: ['', Validators.required],
             maritalStatus: ['', Validators.required],
             occupation: ['', Validators.required],
@@ -299,7 +299,7 @@ public RediretUrlLink: any;
             {
                 rolecd: 'PRIMARY',
                 personalTitle: ['', Validators.required],
-                personalFirstname: new FormControl(''),
+                personalFirstname: ['', Validators.required],
                 personalLastname: ['', Validators.required],
                 personalMidname: '',
                 personalDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -332,8 +332,9 @@ public RediretUrlLink: any;
                 ins_age: '',
                 ins_days: '',
                 insurerDobError: '',
+                insurerDobValidError: '',
                 insurerIllness: '',
-                insurerIllnessCheck:''
+                // insurerIllnessCheck:''
             }
         );
     }
@@ -378,16 +379,29 @@ public RediretUrlLink: any;
             for (let i = 0; i< this.insurerData.length; i++){
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
                     ageValidate.push(1);
-
-                }else if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllnessCheck.value == ''){
-                    this.toastr.error(this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.value);
-                    ageValidate.push(1)
                 } else{
                         ageValidate.push(0);
                 }
             }
+            let diseases = [];
+            console.log(this.insureArray, 'this.insureArray2222');
+            for (let i = 0; i< this.insurerData.length; i++){
+               if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
+                   diseases.push(0);
+               } else{
+                   diseases.push(1);
+               }
+            }
+
+            console.log(diseases, 'this.diseases');
+
             if(!ageValidate.includes(1)){
-                stepper.next();
+                if(!diseases.includes(1)){
+                    stepper.next();
+                } else {
+                    this.toastr.error('Sorry, you are not allowed to purchase policy ');
+
+                }
             }
 
         }
@@ -605,7 +619,11 @@ public RediretUrlLink: any;
             let selectedDate = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
+                } else {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                }
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
                 } else {
@@ -618,6 +636,7 @@ public RediretUrlLink: any;
                 this.dob = dob;
                 if (selectedDate.length == 10) {
                     this.ageCalculate(dob);
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
                 } else {
                 }
 
@@ -780,6 +799,7 @@ public RediretUrlLink: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].AccumulatedCumulativeBonus.patchValue(this.getStepper2.items[i].AccumulatedCumulativeBonus);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.patchValue(this.getStepper2.items[i].insurerIllness);
             }
@@ -826,36 +846,9 @@ public RediretUrlLink: any;
                 nomineeDob: this.getNomineeData.nomineeDob
             });
         }
-        for (let i = 0; i < this.getStepper2.items.length; i++) {
-            if (this.getStepper2.items[i].personalPincode != '') {
-                this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-
-                if (this.getStepper2.items[0].sameAsProposer) {
-                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-                }
-                if (this.getStepper2.items[i].sameas) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
-                }
-                if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                    this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                }
-            }
-        }
     }
     sameProposer(value: any) {
         if (value.checked) {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
@@ -867,8 +860,6 @@ public RediretUrlLink: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
         } else {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue('');
@@ -886,7 +877,7 @@ public RediretUrlLink: any;
     boolenHide(change: any, id, key){
         if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
             // this.insureArray['controls'].items['controls'][id]['controls'][key].patchValue('');
-            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllnessCheck.patchValue('');
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
             this.toastr.error(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value);
@@ -1502,15 +1493,6 @@ public RediretUrlLink: any;
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public keyEvent(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
