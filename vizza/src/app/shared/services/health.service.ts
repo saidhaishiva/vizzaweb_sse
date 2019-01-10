@@ -418,7 +418,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/pre_existing_disease_list';
+        const url = this.configurationService.getHost() + 'reliance/pre_existing_disease_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -428,7 +428,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliancel/cover_type_list';
+        const url = this.configurationService.getHost() + 'reliance/cover_type_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
