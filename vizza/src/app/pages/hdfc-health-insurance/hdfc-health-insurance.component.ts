@@ -135,10 +135,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
             if(this.insurePersons[i].type == 'Son') {
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Male');
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Male');
             } else if(this.insurePersons[i].type == 'Daughter') {
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
-                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Female');
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Female');
             }
 
         }
@@ -186,7 +186,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].gender.patchValue(this.hdfcPersonal.controls['gender'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.hdfcPersonal.controls['dob'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
 
@@ -196,14 +196,16 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue('');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].gender.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue('');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('');
 
         }
 
     }
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
     // accept only character
     public typeValidate(event: any) {
         if (event.charCode !== 0) {
@@ -246,7 +248,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 firstname: new FormControl(''),
                 lastname: new FormControl(''),
                 dob: ['', Validators.required],
-                gender: ['', Validators.required],
+                genderStatus: ['', Validators.required],
+                gender: '',
                 relationship: ['', Validators.required],
                 preexdisease: '',
                 insurerDobError: '',
@@ -651,6 +654,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 if (this.pincodeValid) {
                     this.sameasInsurerDetails('event');
                     stepper.next();
+                    this.topScroll();
                 } else {
                     this.toastr.error('Enter valid pincode');
                 }
@@ -738,10 +742,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep2 = '';
         sessionStorage.hdfcStep2 = JSON.stringify(value);
         this.insurerData = value;
+        console.log(this.insurerData,'  this.insurerData ' );
         for(let i=0; i<this.insurerData.items.length; i++ ){
-            if(this.insurerData.items[i].gender == 'Male'){
+            if(this.insurerData.items[i].genderStatus == 'Male'){
                 this.insurerData.items[i].gender = 'M';
-            } else if (this.insurerData.items[i].gender == 'Female'){
+            } else if (this.insurerData.items[i].genderStatus == 'Female'){
                 this.insurerData.items[i].gender = 'F';
 
             }
@@ -759,6 +764,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
             if (validData) {
               stepper.next();
+              this.topScroll();
             } else {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
@@ -905,6 +911,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.hdfcStep2.items[i].firstname);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].lastname.patchValue(this.hdfcStep2.items[i].lastname);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue(this.hdfcStep2.items[i].gender);
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.hdfcStep2.items[i].genderStatus);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.hdfcStep2.items[i].dob);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.hdfcStep2.items[i].relationship);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.hdfcStep2.items[i].ins_age);
@@ -912,6 +919,14 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.hdfcStep2.items[i].insurerDobError);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcStep2.items[i].insurerDobValidError);
                 this.hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.patchValue(this.hdfcStep2.items[i].sameasInsurer);
+
+                // if( this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type == 'Son') {
+                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
+                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Male');
+                // } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type == 'Daughter') {
+                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
+                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Female');
+                // }
             }
 
         }
