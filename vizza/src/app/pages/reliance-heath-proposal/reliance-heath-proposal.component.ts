@@ -332,7 +332,8 @@ public RediretUrlLink: any;
                 ins_age: '',
                 ins_days: '',
                 insurerDobError: '',
-                insurerIllness: ''
+                insurerIllness: '',
+                insurerIllnessCheck:''
             }
         );
     }
@@ -378,7 +379,7 @@ public RediretUrlLink: any;
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
                     ageValidate.push(1);
 
-                }else if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == ''){
+                }else if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllnessCheck.value == ''){
                     this.toastr.error(this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.value);
                     ageValidate.push(1)
                 } else{
@@ -885,7 +886,7 @@ public RediretUrlLink: any;
     boolenHide(change: any, id, key){
         if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
             // this.insureArray['controls'].items['controls'][id]['controls'][key].patchValue('');
-            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllnessCheck.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
             this.toastr.error(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value);

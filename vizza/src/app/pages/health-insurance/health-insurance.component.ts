@@ -1070,13 +1070,13 @@ export class HealthInsuranceComponent implements OnInit {
                         sessionStorage.buyProductdetails = JSON.stringify(value);
                         sessionStorage.groupName = gname;
                         if (value.product_id <= 5) {
-                            this.router.navigate(['/religare']);
+                            this.router.navigate(['/religare-health-proposal']);
                         } else if (value.product_id == 11) {
                             if (this.checkAge <= 45) {
                                 if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                                    this.router.navigate(['/reliance']);
+                                    this.router.navigate(['/reliance-heath-proposal']);
                                 } else if (this.checkAge < 18) {
-                                    this.router.navigate(['/reliance']);
+                                    this.router.navigate(['/reliance-heath-proposal']);
                                 } else {
                                     let dialogRef = this.dialog.open(RelainceAgeMin, {
                                         width: '1600px',
@@ -1095,7 +1095,7 @@ export class HealthInsuranceComponent implements OnInit {
                             }
 
                         } else if (value.product_id == 12 || value.product_id == 13) {
-                            this.router.navigate(['/appollo-munich']);
+                            this.router.navigate(['/appollo-munich-health']);
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
                             this.router.navigate(['/hdfc-insurance']);
                         } else if (value.product_id == 51 || value.product_id == 21) {
@@ -1110,11 +1110,34 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
                 sessionStorage.groupName = gname;
                 if (value.product_id <= 5) {
-                    this.router.navigate(['/religare']);
+                    this.router.navigate(['/religare-health-proposal']);
                 } else if (value.product_id == 11) {
-                    this.router.navigate(['/reliance']);
+
+                    if (this.checkAge <= 45) {
+                        if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
+                            this.router.navigate(['/reliance-heath-proposal']);
+                        } else if (this.checkAge < 18) {
+                            this.router.navigate(['/reliance-heath-proposal']);
+                        } else {
+                            let dialogRef = this.dialog.open(RelainceAgeMin, {
+                                width: '1600px',
+                            });
+                            dialogRef.disableClose = true;
+                            dialogRef.afterClosed()
+                            // this.toast.error('Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
+                        }
+                    } else {
+                        // this.toast.error('Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
+                        let dialogRef = this.dialog.open(RelainceAgeMax, {
+                            width: '1600px',
+                        });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed()
+                    }
+
+
                 } else if (value.product_id == 12 || value.product_id == 13) {
-                    this.router.navigate(['/appollo-munich']);
+                    this.router.navigate(['//appollo-munich-health']);
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
                     this.router.navigate(['/hdfc-insurance']);
                 } else if (value.product_id == 51 || value.product_id == 21) {
