@@ -896,6 +896,9 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
             this.riskDetails['controls'].emailId.patchValue('');
         }
     }
+    keyEvent(evnt){
+
+    }
     commonPincode(pin, title){
         this.pin = pin;
         this.title = title;

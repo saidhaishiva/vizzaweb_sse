@@ -534,6 +534,7 @@ array: any;
 
 
     medicalHistoryDetails(stepper: MatStepper) {
+
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
         console.log( sessionStorage.stepper3Details, ' sessionStorage.stepper3Details');
