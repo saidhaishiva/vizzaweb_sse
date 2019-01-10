@@ -290,7 +290,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/marital_status_list';
+        const url = this.configurationService.getHost() + 'reliance/marital_status_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -300,7 +300,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/create_proposal_details';
+        const url = this.configurationService.getHost() + 'reliance/create_proposal_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -346,7 +346,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/occupation_list';
+        const url = this.configurationService.getHost() + 'reliance/occupation_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -357,7 +357,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/nationality_list';
+        const url = this.configurationService.getHost() + 'reliance/nationality_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -367,7 +367,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/relatioship_proposer_list';
+        const url = this.configurationService.getHost() + 'reliance/relatioship_proposer_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -377,7 +377,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/nominee_relation_insured_list';
+        const url = this.configurationService.getHost() + 'reliance/nominee_relation_insured_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -387,7 +387,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/service_tax_exemp_master_list';
+        const url = this.configurationService.getHost() + 'reliance/service_tax_exemp_master_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -397,7 +397,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/get_pincode_details';
+        const url = this.configurationService.getHost() + 'reliance/get_pincode_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -428,7 +428,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/cover_type_list';
+        const url = this.configurationService.getHost() + 'reliancel/cover_type_list';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -438,7 +438,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'reliance-heath-proposal/schedule_policy_pdf';
+        const url = this.configurationService.getHost() + 'reliance/schedule_policy_pdf';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
