@@ -384,19 +384,21 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
             }
             let diseases = [];
+            let valiDisease = false;
             console.log(this.insureArray, 'this.insureArray2222');
             for (let i = 0; i< this.insurerData.length; i++){
                if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
-                   diseases.push(0);
-               } else{
-                   diseases.push(1);
+                   valiDisease = true;
+               } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
+                   valiDisease = false;
+                   break;
                }
             }
 
-            console.log(diseases, 'this.diseases');
+            console.log(valiDisease, 'this.valiDiseasevaliDiseasevaliDisease');
 
             if(!ageValidate.includes(1)){
-                if(!diseases.includes(1)){
+                if(valiDisease){
                     stepper.next();
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
@@ -876,13 +878,12 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     boolenHide(change: any, id, key){
         if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
-            // this.insureArray['controls'].items['controls'][id]['controls'][key].patchValue('');
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
-            this.toastr.error(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value);
+            this.toastr.error('Sorry, you are not allowed to purchase policy');
         }
-
+console.log(this.insureArray, 'this.insureArraythis.insureArray');
         if (key == 'serviceTax' && change.value == 'No') {
             this.riskDetails['controls'].ServicesTaxId.patchValue('');
         }
