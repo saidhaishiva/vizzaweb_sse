@@ -187,9 +187,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.hdfcPersonal.controls['dob'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-
 
         } else {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(false);
@@ -648,7 +647,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep1 = '';
         sessionStorage.hdfcStep1 = JSON.stringify(value);
         this.hdfcpersonalValues = value;
-
+        console.log(this.hdfcpersonalValues, 'this.hdfcpersonalValues');
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 if (this.pincodeValid) {
@@ -812,7 +811,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         'MobileNo': this.hdfcpersonalValues.mobile,
                         'IsCustomerAcceptedPPCPED': this.hdfcpersonalValues.accepted ? 1 : '',
                         'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
-                        'UIDNo': "" //OTP Value
+                        'UIDNo': this.hdfcpersonalValues.otp //OTP Value
                     },
                     'PlanDetails': {
                         'PlanCd': this.getHdfcHealthPremiumList.plan_code,
