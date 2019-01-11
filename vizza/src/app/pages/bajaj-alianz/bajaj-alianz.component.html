@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row proposal">
+    <div class="row bajajHealthProposal">
         <div class="col-md-12">
             <mat-horizontal-stepper  #stepper>
                 <mat-step [stepControl]="">
@@ -14,7 +14,7 @@
                                     <ng-template matStepLabel>INSURED DETAILS </ng-template>
                                     <div class="row mt-3">
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green">INSURED DETAILS</h6>
+                                            <h6 class="color-blue">INSURED DETAILS</h6>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
@@ -118,7 +118,7 @@
                                         </div>
 
                                         <div class="col-md-12 box-card pt-3" *ngIf="i == '0'">
-                                            <h6 class="color-green"> INSURED ADDRESS</h6>
+                                            <h6 class="color-blue"> INSURED ADDRESS</h6>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
@@ -177,7 +177,7 @@
                                         </div>
 
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
+                                            <h6 class="color-blue">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
                                             <div class="row">
                                                 <div class="col-md-3"><h6>previous Establishing Disease</h6></div>
                                                 <div class="col-md-3"><h6>Asthma</h6></div>
@@ -191,7 +191,7 @@
                                         </div>
 
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green"> PREVIOUS INSURANCE DETAILS</h6>
+                                            <h6 class="color-blue"> PREVIOUS INSURANCE DETAILS</h6>
                                             <div class="row">
                                                 <div class="col-md-4" *ngIf="i == '0'">
                                                     <mat-form-field class="w-100">
@@ -234,7 +234,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 box-card pt-3">
-                                            <h6 class="color-green">NOMINEE DETAILS</h6>
+                                            <h6 class="color-blue">NOMINEE DETAILS</h6>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
@@ -255,7 +255,7 @@
                                             </div>
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                                            <button mat-raised-button color="primary"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
+                                            <button mat-raised-button color="primaryBlue"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
                                             <!--<button mat-button matStepperNext >Next</button>-->
                                         </div>
                                     </div>
@@ -317,7 +317,7 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <form action={{RediretUrlLink}} method='post' #form>
-                                    <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>
                             </div>
                         </div>

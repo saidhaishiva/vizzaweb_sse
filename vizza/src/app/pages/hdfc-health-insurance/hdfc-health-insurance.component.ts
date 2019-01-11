@@ -181,6 +181,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     // }
     sameasInsurerDetails(event) {
         sessionStorage.sameAsinsure = this.sameAsinsure;
+        console.log(this.hdfcPersonal.controls['gender'].value , 'uiiitttt');
+        console.log(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female', 'loppp');
         if (this.sameAsinsure) {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);

@@ -1,5 +1,5 @@
 <div class="container-fluid" id="apollo">
-  <div class="row proposal">
+  <div class="row apolloMunichHealthProposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="">
@@ -12,7 +12,7 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">PROPOSER DETAILS</h6>
+                    <h6 class="color-blue">PROPOSER DETAILS</h6>
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -205,7 +205,7 @@
 
                 </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
-                        <button mat-raised-button color="primary"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
                     </div>
                 </div>
               </mat-expansion-panel>
@@ -230,7 +230,7 @@
                       <!--<div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>-->
                     <!--</div>-->
                     <div class="col-md-12 box-card pt-3">
-                      <h6 class="color-green">INSURED DETAILS</h6>
+                      <h6 class="color-blue">INSURED DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12 mb-3" *ngIf="i == 0" >
                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>
@@ -396,7 +396,7 @@
                         </div>
                           <div class="col-md-12"><hr></div>
                           <div class="col-md-12">
-                              <h6 class="color-green mt-3">Insured Details Address:</h6>
+                              <h6 class="color-blue mt-3">Insured Details Address:</h6>
                           </div>
                           <div class="col-md-4" >
                               <mat-form-field class="w-100">
@@ -458,7 +458,7 @@
                           </div>
 
                           <div class="col-md-12">
-                              <h6 class="mt-3 color-green">Personal habits </h6>
+                              <h6 class="mt-3 color-blue">Personal habits </h6>
                           </div>
                         <div class="col-md-6">
                           <mat-checkbox formControlName="SmokingStatus" (change)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
@@ -481,7 +481,7 @@
                         </div>
                           <div class="col-md-12"><hr></div>
                         <div class="col-md-12">
-                          <h6 class="color-green mt-3">Drinking habits (per week)</h6>
+                          <h6 class="color-blue mt-3">Drinking habits (per week)</h6>
                         </div>
                         <div class="col-md-4">
                             <mat-checkbox formControlName="LiquorPegStatus" (change)="selectHabitat($event, i, 'Liquor')">Liquor Peg</mat-checkbox>
@@ -553,7 +553,7 @@
 
                           <!--<div class="col-md-12"><hr></div>-->
                         <div class="col-md-12">
-                          <h6 class="mt-3 color-green">Previous Insurer Details:</h6>
+                          <h6 class="mt-3 color-blue">Previous Insurer Details:</h6>
                           <mat-radio-group formControlName="previousInsurerStatus" (change)="pInsureStatus($event, i)">
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
@@ -618,7 +618,7 @@
                     </div>
                     <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                       <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                      <button mat-raised-button color="primary"  (click)="AppolloInsureDetails(stepper, i, insureArray.value)">Next</button>
+                      <button mat-raised-button color="primaryBlue"  (click)="AppolloInsureDetails(stepper, i, insureArray.value)">Next</button>
                     </div>
                   </div>
                 </mat-expansion-panel>
@@ -636,7 +636,7 @@
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <h6 class="color-green mb-3" >NOMINEE DETAILS </h6>
+                  <h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
                       <div class="col-md-3">
@@ -702,7 +702,7 @@
                     </div>
                     <div class="proposal-buttom mb-3 text-right w-100">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetails.value)">Next</button>
+                      <button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetails.value)">Next</button>
                     </div>
                   </form>
                 </div>
@@ -878,7 +878,7 @@
                   <div class="row">
                       <div class="col-md-12 text-center">
                           <form action='{{RediretUrlLink}}' method='post' #form>
-                              <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                              <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                           </form>
                       </div>
                   </div>
