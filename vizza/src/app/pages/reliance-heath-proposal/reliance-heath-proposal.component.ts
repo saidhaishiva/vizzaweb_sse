@@ -227,13 +227,13 @@ export class RelianceHeathProposalComponent implements OnInit {
             nomineeDob: ['', Validators.compose([Validators.required])]
         });
         this.riskDetails = this.fb.group({
-            serviceTax: ['', Validators.required],
+            serviceTax: '',
             ServicesTaxId: '',
-            relianceAda: ['', Validators.required],
+            relianceAda: '',
             companyname: '',
             employeeCode: '',
-            emailId:['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            crossSell: ['', Validators.required],
+            emailId:'',
+            crossSell: '',
             crossSellPolicyNo: '',
         });
 
@@ -282,7 +282,7 @@ export class RelianceHeathProposalComponent implements OnInit {
 
         this.sessionData();
         this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+        this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
     }
 
 
@@ -309,10 +309,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
                 IsExistingIllness: 'No',
-                DiseaseID: 'No',
-                IsInsuredConsumetobacco: 'No',
-                HasAnyPreClaimOnInsured: 'No',
-                HasAnyPreHealthInsuranceCancelled: 'No',
+                DiseaseID: '',
+                IsInsuredConsumetobacco: '',
+                HasAnyPreClaimOnInsured: '',
+                HasAnyPreHealthInsuranceCancelled: '',
                 DetailsOfPreClaimOnInsured: '',
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
@@ -367,10 +367,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                                 }
                             },
 
-                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco == 'Yes' ? 'true' : 'false',
-                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured == 'Yes' ? 'true' : 'false',
+                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco,
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured,
                             'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
-                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled == 'Yes' ? 'true' : 'false'
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled
                         },
                         'OtherInsuranceList': this.insurerData[i].personalTitle
                 });
@@ -591,7 +591,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     addEvent(event, index, type, title) {
         let dd = event.value;
         this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
+        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
         let age = this.ageCalculate(this.setDateAge);
         let days = this.DobDaysCalculate(this.setDateAge);
