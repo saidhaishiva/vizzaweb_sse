@@ -146,7 +146,7 @@ export class StarHealthProposalComponent implements OnInit {
             personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
-            socialStatus: 'true',
+            socialStatus: '',
             socialAnswer1: '',
             socialAnswer2: '',
             socialAnswer3: '',
@@ -276,8 +276,8 @@ export class StarHealthProposalComponent implements OnInit {
             'CIGNA TTK Health Insurance Co. Ltd.',
             'Aditya Birla Health Insurance Co. Ltd.'
         ];
-        // this.personal.controls['socialStatus'].patchValue('true');
-        // this.socialStatus = false;
+        this.personal.controls['socialStatus'].patchValue(true);
+        this.socialStatus = true;
         this.sessionData();
         this.changeSocialStatus('re');
 
@@ -443,9 +443,9 @@ export class StarHealthProposalComponent implements OnInit {
 
             console.log(this.getStepper1.socialStatus, 'socialStatus');
             if (this.getStepper1.socialStatus == false) {
-                this.socialStatus = true;
-            } else {
                 this.socialStatus = false;
+            } else {
+                this.socialStatus = true;
             }
             if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
                 this.proposalId = sessionStorage.proposalID;
