@@ -308,7 +308,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 maritalStatus: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
                 occupation: ['', Validators.required],
-                IsExistingIllness: '',
+                IsExistingIllness: 'No',
                 DiseaseID: '',
                 IsInsuredConsumetobacco: '',
                 HasAnyPreClaimOnInsured: '',
@@ -354,11 +354,11 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'LastName': this.insurerData[i].personalLastname,
                         'Gender': this.insurerData[i].personalGender,
                         'Age': this.insurerData[i].personalAge,
-                        'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
+                        'DOB': this.insurerData[i].personalDob,
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
-                            'IsExistingIllness': this.insurerData[i].IsExistingIllness,
+                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'Yes' ? 'true' : 'false',
                             'DiseaseList': {
                                 'DiseaseDetail': {
                                     'DiseaseID': this.insurerData[i].DiseaseID,
@@ -991,7 +991,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
         const data  = {
             'ClientDetails': {
                 'ClientTypeID' : '0',
-                'DOB': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
+                'DOB': this.personalData.personalDob,
                 'Email': this.personalData.personalEmail,
                 'ForeName': this.personalData.personalFirstname,
                 'Gender': this.personalData.personalGender,
@@ -1060,7 +1060,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
                 'Salutation': this.nomineeData.nomineeTitle,
                 'MiddleName': this.nomineeData.nomineeMidName,
                 'LastName': this.nomineeData.nomineeLastName,
-                'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
+                'DOB': this.nomineeData.nomineeDob,
                 'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
                 'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
                 'NomineeAddress': {

@@ -1083,10 +1083,8 @@ export class HealthInsuranceComponent implements OnInit {
                                     });
                                     dialogRef.disableClose = true;
                                     dialogRef.afterClosed()
-                                    // this.toast.error('Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
                                 }
                             } else {
-                                // this.toast.error('Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
                                 let dialogRef = this.dialog.open(RelainceAgeMax, {
                                     width: '1600px',
                                 });
@@ -1375,7 +1373,7 @@ export class PosstatusAlert {
             <div class="row">
                 <div class="col-sm-12">
                 <h3 class="text-center">Health Check Up</h3>
-                <p>Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+                <p>Any Eligible Person above the age of 18 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
                 </div>
             </div>
         </div>

@@ -114,19 +114,6 @@
                                                         <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-sm-12" *ngIf="i == 0">
-                                                    <div class="col-sm-6">
-                                                        <mat-checkbox formControlName="insureCheckCopay" (change)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
-                                                    </div>
-                                                    <div class ="col-sm-6" *ngIf="copaymentShow">
-                                                        <mat-form-field class="w-100">
-                                                            <mat-select placeholder="Co-Payment" formControlName="insureCoPayment"  required="{{copaymentShow}}">
-                                                                <mat-option value="10">10%</mat-option>
-                                                                <mat-option value="20">20%</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -262,6 +249,19 @@
                                                     </mat-form-field>
                                                     <span class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value}}</span>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 box-card pt-3" *ngIf ="i == 0">
+                                            <div class="col-sm-6">
+                                                <mat-checkbox formControlName="insureCheckCopay"  (change)="changeCoPayment($event)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
+                                            </div>
+                                            <div class ="col-sm-6" *ngIf="copaymentShow">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Co-Payment" formControlName="insureCoPayment"  required="{{copaymentShow}}">
+                                                        <mat-option value="10">10%</mat-option>
+                                                        <mat-option value="20">20%</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
                                             </div>
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">

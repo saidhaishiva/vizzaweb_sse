@@ -283,18 +283,14 @@ export class BajajAlianzComponent implements OnInit {
             }
         }
     }
-    changeCoPayment(event:any,item){
+
+    changeCoPayment(event:any, item){
         if(event.checked){
-            this.insureArray['controls'].items['controls'][item]['controls'].insureCheckCopay.patchValue(this.insureArray['controls'].items['controls'][item]['controls'].insureCheckCopay.value);
             this.copaymentShow = true;
         } else {
             this.copaymentShow = false;
-            this.insureArray['controls'].items['controls'][item]['controls'].insureCoPayment.patchValue('');
-            this.insureArray['controls'].items['controls'][item]['controls'].insureCheckCopay.patchValue('');
-
         }
         sessionStorage.copaymentShow = this.copaymentShow;
-
     }
     previousDisease(status: any, index){
         if(status.checked){
@@ -407,7 +403,6 @@ export class BajajAlianzComponent implements OnInit {
                 if (selectedDate.length == 10) {
                     this.getAge = this.ageCalculate(dob);
                     this.insureArray['controls'].items['controls'][index]['controls'].insureDob.patchValue(dob);
-
                 }
 
             } else if (typeof event.value._i == 'object') {
@@ -417,6 +412,8 @@ export class BajajAlianzComponent implements OnInit {
                 if (dob.length == 10) {
                     this.getAge = this.ageCalculate(dob);
                     this.insureArray['controls'].items['controls'][index]['controls'].insureDob.patchValue(dob);
+                }else{
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                 }
 
             }
@@ -640,7 +637,9 @@ export class BajajAlianzComponent implements OnInit {
         }
         if (sessionStorage.copaymentShow != '' && sessionStorage.copaymentShow != undefined) {
             this.copaymentShow = sessionStorage.copaymentShow;
+            this.insureArray['controls'].items['controls'][0]['controls'].insureCheckCopay.patchValue(this.copaymentShow);
         }
+        console.log(this.insureArray, 'this.insureArraythis.insureArray555');
     }
 
     //create poposal
