@@ -397,8 +397,8 @@
                                                 <div class="col-md-3">
                                                     <p>Is Existing Illness</p>
                                                     <mat-radio-group formControlName="IsExistingIllness" (change)="boolenHide($event, i, 'IsExistingIllness')">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="Yes" [checked]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'No'">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <!--<div class="col-md-12">-->
@@ -413,21 +413,21 @@
                                                     <p>Is Insured Consume Tobacco</p>
                                                     <mat-radio-group  formControlName="IsInsuredConsumetobacco" (change)="boolenHide($event, i, 'IsInsuredConsumetobacco')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Claim On Insured</p>
                                                     <mat-radio-group formControlName="HasAnyPreClaimOnInsured" (change)="boolenHide($event, i, 'HasAnyPreClaimOnInsured')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Health Insurance Cancelled</p>
                                                     <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled" (change)="boolenHide($event, i, 'HasAnyPreHealthInsuranceCancelled')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-6">

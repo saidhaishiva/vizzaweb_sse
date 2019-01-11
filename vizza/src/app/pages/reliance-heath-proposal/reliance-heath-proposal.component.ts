@@ -236,7 +236,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             crossSell: '',
             crossSellPolicyNo: '',
         });
-
     }
 
     changeGender() {
@@ -310,9 +309,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                 occupation: ['', Validators.required],
                 IsExistingIllness: 'No',
                 DiseaseID: '',
-                IsInsuredConsumetobacco: '',
-                HasAnyPreClaimOnInsured: '',
-                HasAnyPreHealthInsuranceCancelled: '',
+                IsInsuredConsumetobacco: 'No',
+                HasAnyPreClaimOnInsured: 'No',
+                HasAnyPreHealthInsuranceCancelled: 'No',
                 DetailsOfPreClaimOnInsured: '',
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
@@ -345,11 +344,26 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log(this.insurerData, 'this.insurerData2222');
+            let diseases = [];
+
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.value);
+            }
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                         'RelationshipWithProposerID': this.insurerData[i].personalrelationship,
-                        'Salutation': this.insurerData[i].personalTitle,
+                        'Salutation': this.insurerData[i].personalTitle == 'MR' ? "Mr." : "Ms.",
                         'FirstName': this.insurerData[i].personalFirstname,
                         'LastName': this.insurerData[i].personalLastname,
                         'Gender': this.insurerData[i].personalGender,
@@ -358,7 +372,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
-                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'Yes' ? 'true' : 'false',
+                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
                             'DiseaseList': {
                                 'DiseaseDetail': {
                                     'DiseaseID': this.insurerData[i].DiseaseID,
@@ -367,12 +381,12 @@ export class RelianceHeathProposalComponent implements OnInit {
                                 }
                             },
 
-                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco,
-                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured,
+                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco == 'No' ? '' : 'Yes',
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured == 'No' ? '' : 'Yes',
                             'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
-                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled == 'No' ? '' : 'Yes',
                         },
-                        'OtherInsuranceList': this.insurerData[i].personalTitle
+                        'OtherInsuranceList': ''
                 });
             }
             let ageValidate = [];
@@ -383,22 +397,22 @@ export class RelianceHeathProposalComponent implements OnInit {
                         ageValidate.push(0);
                 }
             }
-            let diseases = [];
-            let valiDisease = false;
-            console.log(this.insureArray, 'this.insureArray2222');
-            for (let i = 0; i< this.insurerData.length; i++){
-               if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
-                   valiDisease = true;
-               } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
-                   valiDisease = false;
-                   break;
-               }
-            }
 
-            console.log(valiDisease, 'this.valiDiseasevaliDiseasevaliDisease');
+            //     let valiDisease = false;
+            // console.log(this.insureArray, 'this.insureArray2222');
+            // for (let i = 0; i< this.insurerData.length; i++){
+            //    if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
+            //        valiDisease = true;
+            //    } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
+            //        valiDisease = false;
+            //        break;
+            //    }
+            // }
+
+            console.log(diseases, 'this.diseasesdiseasesdiseasesdiseases');
 
             if(!ageValidate.includes(1)){
-                if(valiDisease){
+                if(!diseases.includes('Yes')){
                     stepper.next();
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
@@ -877,13 +891,25 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     boolenHide(change: any, id, key){
+        let valid = false;
         if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
+            valid = false;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
+            valid = true;
+        }
+        if(valid){
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
             this.toastr.error('Sorry, you are not allowed to purchase policy');
+        } else {
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
         }
-console.log(this.insureArray, 'this.insureArraythis.insureArray');
+console.log(this.insureArray, 'this.insureArraythis.insureArray11');
         if (key == 'serviceTax' && change.value == 'No') {
             this.riskDetails['controls'].ServicesTaxId.patchValue('');
         }
@@ -1002,7 +1028,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
                 'Nationality': this.personalData.nationality,
                 'OccupationID': this.personalData.occupation,
                 'PhoneNo': this.personalData.personalPhone,
-                'Salutation': this.personalData.personalTitle,
+                'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
                 'ClientAddress': {
                     'CommunicationAddress': {
                         'Address1': this.personalData.personalAddress,
@@ -1057,7 +1083,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
             },
             'NomineeDetails': {
                 'FirstName': this.nomineeData.nomineeFirstName,
-                'Salutation': this.nomineeData.nomineeTitle,
+                'Salutation': this.nomineeData.nomineeTitle == 'MR' ? "Mr." : "Ms.",
                 'MiddleName': this.nomineeData.nomineeMidName,
                 'LastName': this.nomineeData.nomineeLastName,
                 'DOB': this.nomineeData.nomineeDob,
