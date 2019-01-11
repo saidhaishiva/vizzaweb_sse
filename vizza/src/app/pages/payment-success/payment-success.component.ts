@@ -37,6 +37,7 @@ export class PaymentSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log(this.purchasetoken, ' this.purchasetoken');
       this.proposalid = sessionStorage.proposalID;
       if ( this.purchasetoken != undefined) {
           this.setPurchaseStatus();
@@ -93,6 +94,7 @@ export class PaymentSuccessComponent implements OnInit {
        } else {
            this.purchaseStatus = successData.ResponseObject;
        }
+       console.log(this.purchaseStatus, 'this.purchaseStatusthis.purchaseStatus');
     }
     public purchaseStatusFailure(error) {
     }

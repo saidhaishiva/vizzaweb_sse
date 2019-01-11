@@ -8,6 +8,7 @@ import {AppSettings} from '../../../app.settings';
 import {AuthService} from '../../../shared/services/auth.service';
 import { ToastrService} from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {HealthService} from '../../../shared/services/health.service';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class ViewdetailsComponent implements OnInit {
     productName: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public toastr: ToastrService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.productId = data.productId;
         this.productName = data.productName;
