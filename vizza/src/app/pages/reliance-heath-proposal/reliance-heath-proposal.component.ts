@@ -127,7 +127,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public maxDate: any;
     public RediretUrlLink: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+                public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
          const minDate = new Date();
          this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;

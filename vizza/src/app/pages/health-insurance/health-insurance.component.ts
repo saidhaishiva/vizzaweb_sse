@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {ViewdetailsComponent} from './viewdetails/viewdetails.component';
 import { Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
+import {HealthService} from '../../shared/services/health.service';
 
 
 
@@ -78,7 +79,7 @@ export class HealthInsuranceComponent implements OnInit {
     hideChild : any;
     checkAge : any;
     private keyUp = new Subject<string>();
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: CommonService, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
