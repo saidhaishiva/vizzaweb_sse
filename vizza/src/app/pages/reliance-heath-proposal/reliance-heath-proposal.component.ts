@@ -354,7 +354,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'LastName': this.insurerData[i].personalLastname,
                         'Gender': this.insurerData[i].personalGender,
                         'Age': this.insurerData[i].personalAge,
-                        'DOB': this.insurerData[i].personalDob,
+                        'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
@@ -991,7 +991,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
         const data  = {
             'ClientDetails': {
                 'ClientTypeID' : '0',
-                'DOB': this.personalData.personalDob,
+                'DOB': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
                 'Email': this.personalData.personalEmail,
                 'ForeName': this.personalData.personalFirstname,
                 'Gender': this.personalData.personalGender,
@@ -1060,7 +1060,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
                 'Salutation': this.nomineeData.nomineeTitle,
                 'MiddleName': this.nomineeData.nomineeMidName,
                 'LastName': this.nomineeData.nomineeLastName,
-                'DOB': this.nomineeData.nomineeDob,
+                'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
                 'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
                 'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
                 'NomineeAddress': {
