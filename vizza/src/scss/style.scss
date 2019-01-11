@@ -1022,10 +1022,10 @@ a:hover {
   }
 
   .mat-primaryBlue {
-    background-color: #e3754c !important;
+    background-color: #3378bd !important;
   }
   .mat-raised-button.mat-primaryBlue {
-    background-color: #e3754c !important;
+    background-color: #3378bd !important;
     color: #ffff;
   }
 
@@ -1033,24 +1033,24 @@ a:hover {
     pointer-events: none !important;
   }
   mat-expansion-panel-header{
-    background: #e3754c !important;
+    background: #3378bd !important;
     mat-panel-title, .mat-expansion-indicator::after{
       color: white !important;
     }
   }
   .color-blue{
-    color:  #e3754c !important;
+    color:  #3378bd !important;
     font-size: 12px;
   }
 
   .mat-expansion-panel-body{
-    border: 1px solid #e3754c;
+    border: 1px solid #3378bd;
   }
   .mat-step-header .mat-step-icon{
-    background-color: #e3754c !important;
+    background-color: #3378bd !important;
   }
   .mat-step-label.mat-step-label-active.mat-step-label-selected{
-    color: #e3754c !important;
+    color: #3378bd !important;
 
   }
   .box-card{
@@ -1069,10 +1069,83 @@ a:hover {
     }
     h6 {
       text-align: center;
-      color: #e3754c;
+      color: #3378bd;
     }
     h5 {
-      background: #e3754c;
+      background: #3378bd;
+      color: #fff;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+    li{
+      padding-bottom: 8px;
+      margin-right: 10px;
+
+      strong{
+        width: 180px;
+        float: left;
+      }
+    }
+  }
+}
+.relianceHealthProposal{
+
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #083896 !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #083896 !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #083896 !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #083896 !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #083896;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #083896 !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #083896 !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .summary-details {
+    .sub-title {
+      font-size: 14px;
+    }
+    .box-card {
+      border: none;
+    }
+    h6 {
+      text-align: center;
+      color: #083896;
+    }
+    h5 {
+      background: #083896;
       color: #fff;
       padding: 8px;
       margin-bottom: 0;
