@@ -87,7 +87,7 @@
                           </div>
                           <div class="col-md-11 text-left">
                             <strong>
-                              need to handle .<br>
+                              Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>
                             </strong>
                           </div>
                           <div class="error" *ngIf="IsCustomerAccepted">Please Check the field before next button</div>
@@ -237,8 +237,8 @@
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')">
                           <mat-form-field class="w-100" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                             <mat-select placeholder="Gender" formControlName="genderStatus" required >
-                              <mat-option value="M">Male</mat-option>
-                              <mat-option value="F">Female</mat-option>
+                              <mat-option value="Male">Male</mat-option>
+                              <mat-option value="Female">Female</mat-option>
                             </mat-select>
                             <mat-error *ngIf="hdfcInsureArray.invalid">Gender is required</mat-error>
                           </mat-form-field>
@@ -407,7 +407,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{item.fname}} {{item.lname}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yy'}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yy'}}</li>
                       <li class="list-group-item"><strong>Relationship:</strong> {{item.Relation_code}}</li>
                       <li class="list-group-item" *ngIf="item.preDisease !=''"><strong>Pre Existing Disease:</strong> {{item.preDisease}}</li>
                     </ul>

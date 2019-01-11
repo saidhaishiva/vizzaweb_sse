@@ -76,10 +76,12 @@ public downloadPdfSuccess(successData) {
         }
     } else {
         this.toast.error(successData.ErrorObject);
+
     }
 
 }
 public downloadPdfFailure(error) {
+    this.settings.loadingSpinner = false;
     console.log(error);
 }
 
