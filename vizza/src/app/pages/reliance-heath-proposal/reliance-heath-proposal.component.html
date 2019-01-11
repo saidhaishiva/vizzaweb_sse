@@ -74,8 +74,8 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)"
-                                                           autocomplete="off" minlength="10"  required>
+                                                    <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="personalDob" (dateInput)="addEvent( $event, 'i', 'item.type', 'proposer')" (dateChange)="addEvent( $event, 'i', 'item.type', 'proposer')"  (keypress)="add($event)"
+                                                           autocomplete="off" maxlength="10" minlength="10"  required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker></mat-datepicker>
                                                     <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -85,7 +85,7 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="keyEvent($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
+                                                    <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="keyPress($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off">
                                                     <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                                                     <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
@@ -398,7 +398,7 @@
                                                     <p>Is Existing Illness</p>
                                                     <mat-radio-group formControlName="IsExistingIllness" (change)="boolenHide($event, i, 'IsExistingIllness')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <!--<div class="col-md-12">-->
@@ -413,36 +413,36 @@
                                                     <p>Is Insured Consume Tobacco</p>
                                                     <mat-radio-group  formControlName="IsInsuredConsumetobacco" (change)="boolenHide($event, i, 'IsInsuredConsumetobacco')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Claim On Insured</p>
                                                     <mat-radio-group formControlName="HasAnyPreClaimOnInsured" (change)="boolenHide($event, i, 'HasAnyPreClaimOnInsured')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Health Insurance Cancelled</p>
                                                     <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled" (change)="boolenHide($event, i, 'HasAnyPreHealthInsuranceCancelled')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                        <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Details Of Pre Claim On Insured" formControlName="DetailsOfPreClaimOnInsured"  (keypress)="keyEvent($event)" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Details Of Pre Claim On Insured" formControlName="DetailsOfPreClaimOnInsured"  (keypress)="keyPress($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Details Of Prev Insurance Cancelled" formControlName="DetailsOfPrevInsuranceCancelled" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Details Of Prev Insurance Cancelled" formControlName="DetailsOfPrevInsuranceCancelled" (keypress)="keyPress($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Other Disease" formControlName="OtherDisease" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Other Disease" formControlName="OtherDisease" (keypress)="keyPress($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-12">
@@ -450,7 +450,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" (keypress)="keyEvent($event)" autocomplete="off"></textarea>
+                                                        <textarea matInput placeholder="Insurance Company Name" formControlName="InsuranceCompName" (keypress)="keyPress($event)" autocomplete="off"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">

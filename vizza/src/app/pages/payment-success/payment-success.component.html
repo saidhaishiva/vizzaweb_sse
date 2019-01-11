@@ -3,8 +3,8 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <mat-card class="text-center">
       <img src="assets/img/success.gif" alt="">
-      <h2>Payment Successfully</h2>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
+      <h2 style="color:#298126">Payment Successfully</h2>
+      <p>Thank you! Your payment was processed successfully.</p>
       <p><strong>Reference ID: {{purchaseStatus.purchase_reference_id}}</strong></p>
         <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
       <button mat-raised-button color="primary" routerLink="/home"> Done</button>
@@ -15,7 +15,13 @@
 <div class="error-message" *ngIf="purchaseStatus.IsSuccess == false">
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <mat-card class="text-center">
-      <h2>Payment Failer</h2>
+      <h2 style="color:#f44336">Oh no, Your payment failed</h2>
+      <p>The transaction has failed due to one of the following reasons:</p>
+      <ul><li>Payment was declined by your bank or credit card provider</li>
+        <li>Credit/Debit card provided has expired</li>
+        <li>Credit/Debit card has insufficient funds</li>
+        <li>Credit/Debit card number provided is invalid</li>
+        <li>Credit/Debit card provided has not been approved for recurring payments</li></ul>
       <p>{{purchaseStatus}}</p>
     </mat-card>
   </div>
