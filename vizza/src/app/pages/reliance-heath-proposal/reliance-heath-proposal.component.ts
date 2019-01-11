@@ -129,7 +129,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public getAge: any;
     public arr: any;
     public getDays: any;
-    public proposerAge: any;
+    // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -495,7 +495,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.personal.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.personalAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                 }
@@ -611,7 +611,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
-            this.proposerAge = '';
+            this.personalAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -623,8 +623,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    this.proposerAge = this.ageCalculate(dob);
-                    sessionStorage.proposerAge = this.proposerAge;
+                    this.personalAge = this.ageCalculate(dob);
+                    sessionStorage.personalAge = this.personalAge;
 
                 }
 
@@ -632,8 +632,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                 // dob = this.datepipe.transform(event.value, 'MMM d, y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    this.proposerAge = this.ageCalculate(dob);
-                    sessionStorage.proposerAge = this.proposerAge;
+                    this.personalAge = this.ageCalculate(dob);
+                    sessionStorage.personalAge = this.personalAge;
 
                 }
                 this.dobError = '';
@@ -670,7 +670,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
-                        this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
 
                     }
@@ -679,7 +679,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
-                        this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
                     }
 
                 }
@@ -709,7 +709,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
+                    this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                     this.ageValidation(i, type);
                 }
@@ -717,7 +717,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             } else {
                 if (type == 'startDate') {
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
+                    this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
                 }
             }
 
@@ -994,7 +994,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.proposerAge);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.personalAge);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
@@ -1358,7 +1358,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             if (this.nomineeDetails.valid) {
-                if (sessionStorage.proposerAge >= 18) {
+                if (sessionStorage.personalAge >= 18) {
                     if (this.mobileNumber == '' || this.mobileNumber == 'true'){
             this.lastStepper.next();
                     }
