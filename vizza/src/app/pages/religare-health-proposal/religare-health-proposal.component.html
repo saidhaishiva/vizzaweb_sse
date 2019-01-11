@@ -365,7 +365,7 @@
 
                     </mat-form-field></div>
                     <div class="col-md-4" *ngIf="this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.value"><mat-form-field class="w-100">
-                      <input matInput placeholder="City" maxlength="10"  formControlName="personalCity" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                      <input matInput placeholder="City"  formControlName="personalCity" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">
@@ -413,7 +413,7 @@
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-4" *ngIf="insureArray['controls'].items['controls'][i]['controls'].cityHide.value"><mat-form-field class="w-100">
-                      <input matInput placeholder="City" maxlength="10"  formControlName="residenceCity" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value">
+                      <input matInput placeholder="City" formControlName="residenceCity" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameas.value">
                       <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">

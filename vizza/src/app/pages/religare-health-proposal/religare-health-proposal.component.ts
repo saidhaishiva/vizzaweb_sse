@@ -449,7 +449,7 @@ array: any;
                     'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
-                    'relationship_cd': this.proposerInsureData[i].personalrelationship,
+                    'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
                     'role_cd': this.proposerInsureData[i].rolecd,
                     'height': this.proposerInsureData[i].personalHeight,
                     'weight': this.proposerInsureData[i].personalWeight,
@@ -1126,7 +1126,6 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
@@ -1157,7 +1156,6 @@ array: any;
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
