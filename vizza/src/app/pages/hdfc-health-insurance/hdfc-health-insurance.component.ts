@@ -886,7 +886,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 mobile: this.hdfcStep1.mobile,
                 accepted: this.hdfcStep1.accepted,
                 paymentmode: this.hdfcStep1.paymentmode,
-                otp: this.hdfcStep1.otp
+                otp: ''
             });
             if (this.hdfcStep1.state != '') {
                 this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
