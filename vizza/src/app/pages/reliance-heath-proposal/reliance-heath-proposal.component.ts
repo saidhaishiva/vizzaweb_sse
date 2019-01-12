@@ -126,6 +126,11 @@ export class RelianceHeathProposalComponent implements OnInit {
     public minDate: any;
     public maxDate: any;
     public RediretUrlLink: any;
+    public getAge: any;
+    public arr: any;
+    public getDays: any;
+    // public personalAge: any;
+    public agecal: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
          const minDate = new Date();
@@ -150,6 +155,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.totalInsureDetails = [];
         this.questions_list = [];
+        this.arr = [];
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: ['', Validators.required],
@@ -236,7 +242,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             crossSell: '',
             crossSellPolicyNo: '',
         });
-
     }
 
     changeGender() {
@@ -310,9 +315,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                 occupation: ['', Validators.required],
                 IsExistingIllness: 'No',
                 DiseaseID: '',
-                IsInsuredConsumetobacco: '',
-                HasAnyPreClaimOnInsured: '',
-                HasAnyPreHealthInsuranceCancelled: '',
+                IsInsuredConsumetobacco: 'No',
+                HasAnyPreClaimOnInsured: 'No',
+                HasAnyPreHealthInsuranceCancelled: 'No',
                 DetailsOfPreClaimOnInsured: '',
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
@@ -345,11 +350,26 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log(this.insurerData, 'this.insurerData2222');
+            let diseases = [];
+
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.value);
+            }
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                         'RelationshipWithProposerID': this.insurerData[i].personalrelationship,
-                        'Salutation': this.insurerData[i].personalTitle,
+                        'Salutation': this.insurerData[i].personalTitle == 'MR' ? "Mr." : "Ms.",
                         'FirstName': this.insurerData[i].personalFirstname,
                         'LastName': this.insurerData[i].personalLastname,
                         'Gender': this.insurerData[i].personalGender,
@@ -358,7 +378,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
-                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'Yes' ? 'true' : 'false',
+                            'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
                             'DiseaseList': {
                                 'DiseaseDetail': {
                                     'DiseaseID': this.insurerData[i].DiseaseID,
@@ -367,12 +387,12 @@ export class RelianceHeathProposalComponent implements OnInit {
                                 }
                             },
 
-                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco,
-                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured,
+                            'IsInsuredConsumetobacco': this.insurerData[i].IsInsuredConsumetobacco == 'No' ? '' : 'Yes',
+                            'HasAnyPreClaimOnInsured': this.insurerData[i].HasAnyPreClaimOnInsured == 'No' ? '' : 'Yes',
                             'DetailsOfPreClaimOnInsured': this.insurerData[i].DetailsOfPreClaimOnInsured,
-                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled
+                            'HasAnyPreHealthInsuranceCancelled': this.insurerData[i].HasAnyPreHealthInsuranceCancelled == 'No' ? '' : 'Yes',
                         },
-                        'OtherInsuranceList': this.insurerData[i].personalTitle
+                        'OtherInsuranceList': ''
                 });
             }
             let ageValidate = [];
@@ -383,22 +403,22 @@ export class RelianceHeathProposalComponent implements OnInit {
                         ageValidate.push(0);
                 }
             }
-            let diseases = [];
-            let valiDisease = false;
-            console.log(this.insureArray, 'this.insureArray2222');
-            for (let i = 0; i< this.insurerData.length; i++){
-               if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
-                   valiDisease = true;
-               } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
-                   valiDisease = false;
-                   break;
-               }
-            }
 
-            console.log(valiDisease, 'this.valiDiseasevaliDiseasevaliDisease');
+            //     let valiDisease = false;
+            // console.log(this.insureArray, 'this.insureArray2222');
+            // for (let i = 0; i< this.insurerData.length; i++){
+            //    if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
+            //        valiDisease = true;
+            //    } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
+            //        valiDisease = false;
+            //        break;
+            //    }
+            // }
+
+            console.log(diseases, 'this.diseasesdiseasesdiseasesdiseases');
 
             if(!ageValidate.includes(1)){
-                if(valiDisease){
+                if(!diseases.includes('Yes')){
                     stepper.next();
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
@@ -475,7 +495,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.personal.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.personalAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                 }
@@ -588,92 +608,125 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
 
-    addEvent(event, index, type, title) {
-        let dd = event.value;
-        this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-        let age = this.ageCalculate(this.setDateAge);
-        let days = this.DobDaysCalculate(this.setDateAge);
-        this.personalAge = age;
-
-        if(title == 'proposer'){
-            sessionStorage.setItem('proposerAge', this.personalAge);
-        } else if(title == 'insurer') {
-            //alert('hai age');
-            sessionStorage.setItem('insurerAge', this.personalAge);
-            this.insureArray['controls'].items['controls'][index]['controls'].personalAge.patchValue(sessionStorage.insurerAge);
-            this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
-            this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
-            if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daughter')) {
-                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
-            } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daughter' ))  {
-                this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
-            } else{
-                if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
-                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 18 above');
-                } else if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 18)  {
-                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
-                }
-            }
-        }
+    addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
+            this.personalAge = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
-                } else {
-                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
-                }
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
                 } else {
                     this.dobError = 'Enter Valid Date';
                 }
                 selectedDate = event.value._i;
-                // this.dob = event.value._i;
-
-                let dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.dob = dob;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    this.ageCalculate(dob);
-                    this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
-                } else {
+                    this.personalAge = this.ageCalculate(dob);
+                    sessionStorage.personalAge = this.personalAge;
+
                 }
 
             } else if (typeof event.value._i == 'object') {
-
-                this.dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (this.dob.length == 10) {
-                    this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
-                } else {
+                // dob = this.datepipe.transform(event.value, 'MMM d, y');
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.personalAge = this.ageCalculate(dob);
+                    sessionStorage.personalAge = this.personalAge;
 
                 }
-
                 this.dobError = '';
-                let date = event.value._i.date;
-                if (date.toString().length == 1) {
-                    date = '0' + date;
-                }
-                let month = (parseInt(event.value._i.month) + 1).toString();
-
-                if (month.length == 1) {
-                    month = '0' + month;
-                }
-                let year = event.value._i.year;
-                this.dob = date + '-' + month + '-' + year;
             }
-        }
 
+        }
     }
 
 
 
 
+    addEventInsurer(event,  i, type) {
 
-    DobDaysCalculate(dobDays) {
-        let mdate = dobDays.toString();
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            this.getAge = '';
+            this.getDays;
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                } else {
+                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
+                if (selectedDate.length == 10) {
+
+                    if (type == 'startDate') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                        this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
+                    } else {
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculateInsurer(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
+
+                    }
+
+                } else {
+                    if (type == 'startDate') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
+                    } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
+                    }
+
+                }
+            }else if (typeof event.value._i == 'object') {
+
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
+                if (dob.length == 10) {
+                    if (type == 'startDate') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                    } else {
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculateInsurer(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
+                    }
+
+                }
+
+            }
+            console.log(this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value, 'opopp1');
+            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value, 'y-MM-dd'), 'opopp23');
+            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value, 'y-MM-dd');
+            // let length =  this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value;
+            if (length.length == 10) {
+                if (type == 'startDate') {
+                } else {
+                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                    this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+                    this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue(this.getAge);
+                    this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
+                    this.ageValidation(i, type);
+                }
+
+            } else {
+                if (type == 'startDate') {
+                } else {
+                    this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
+                }
+            }
+
+        }
+
+    }
+    ageCalculateInsurer(dob) {
+
+        let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring( 8,10), 10);
         let monthThen = parseInt(mdate.substring(5,7), 10);
         let dayThen = parseInt(mdate.substring(0,4), 10);
@@ -682,9 +735,93 @@ export class RelianceHeathProposalComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
         return Bob_days;
+    }
+    ageValidation(i, type) {
+        console.log(type);
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
+
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+        }
+        let smallest = this.arr[0];
+        for(let i = 1; i<this.arr.length; i++){
+            if(this.arr[i] < smallest){
+                smallest = this.arr[i];
+            }
+        }
+
+
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9131 && type == 'Son')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Son')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        }
+
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9131 && type == 'Daughter')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Daughter')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Daughter')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        }
+
+
+
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        }
+
+        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
+        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        // }
+        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
+        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        // }
 
     }
-
     ageCalculate(dob) {
         const mdate = dob.toString();
         const yearThen = parseInt(mdate.substring(8, 10), 10);
@@ -694,9 +831,10 @@ export class RelianceHeathProposalComponent implements OnInit {
         const birthday = new Date(dayThen, monthThen - 1, yearThen);
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        this.agecal = yearAge;
+        console.log(this.agecal, '  this.agecal  this.agecal');
         return yearAge;
     }
-
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -856,7 +994,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.proposerAge);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.personalAge);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
@@ -877,13 +1015,25 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     boolenHide(change: any, id, key){
+        let valid = false;
         if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'No' &&  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'No' && this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'No') {
-            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes' ||  this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes' || this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
+            valid = false;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsExistingIllness.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].IsInsuredConsumetobacco.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreClaimOnInsured.value == 'Yes') {
+            valid = true;
+        } else if(this.insureArray['controls'].items['controls'][id]['controls'].HasAnyPreHealthInsuranceCancelled.value == 'Yes') {
+            valid = true;
+        }
+        if(valid){
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('Sorry, you are not allowed to purchase policy');
             this.toastr.error('Sorry, you are not allowed to purchase policy');
+        } else {
+            this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
         }
-console.log(this.insureArray, 'this.insureArraythis.insureArray');
+console.log(this.insureArray, 'this.insureArraythis.insureArray11');
         if (key == 'serviceTax' && change.value == 'No') {
             this.riskDetails['controls'].ServicesTaxId.patchValue('');
         }
@@ -1002,7 +1152,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
                 'Nationality': this.personalData.nationality,
                 'OccupationID': this.personalData.occupation,
                 'PhoneNo': this.personalData.personalPhone,
-                'Salutation': this.personalData.personalTitle,
+                'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
                 'ClientAddress': {
                     'CommunicationAddress': {
                         'Address1': this.personalData.personalAddress,
@@ -1057,7 +1207,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
             },
             'NomineeDetails': {
                 'FirstName': this.nomineeData.nomineeFirstName,
-                'Salutation': this.nomineeData.nomineeTitle,
+                'Salutation': this.nomineeData.nomineeTitle == 'MR' ? "Mr." : "Ms.",
                 'MiddleName': this.nomineeData.nomineeMidName,
                 'LastName': this.nomineeData.nomineeLastName,
                 'DOB': this.nomineeData.nomineeDob,
@@ -1208,7 +1358,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray');
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             if (this.nomineeDetails.valid) {
-                if (sessionStorage.proposerAge >= 18) {
+                if (sessionStorage.personalAge >= 18) {
                     if (this.mobileNumber == '' || this.mobileNumber == 'true'){
             this.lastStepper.next();
                     }
