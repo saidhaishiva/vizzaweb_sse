@@ -579,10 +579,10 @@
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
-                    <li class="list-group-item"><strong>PAN Number:</strong> {{item.pan_no}}</li>
-                    <li class="list-group-item"><strong>GST Number:</strong> {{item.gst_no}}</li>
-                    <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                    <li class="list-group-item" *ngIf="item.aadhar_no"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
+                    <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no}}</li>
+                    <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no}}</li>
+                    <li class="list-group-item" *ngIf="item.mobile_no"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
                   </ul>
                 </div>
               </div>
@@ -590,11 +590,11 @@
                 <div class="p-3">
                   <h6>{{item.role_cd}} COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{item.comm_address_line1}}</li>
-                    <li class="list-group-item"><strong>Address 2:</strong> {{item.comm_address_line2}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong>  {{item.comm_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{item.comm_city}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{item.comm_state}}</li>
+                    <li class="list-group-item" *ngIf="item.comm_address_line1"><strong>Address 1:</strong> {{item.comm_address_line1}}</li>
+                    <li class="list-group-item" *ngIf="item.comm_address_line2"><strong>Address 2:</strong> {{item.comm_address_line2}}</li>
+                    <li class="list-group-item" *ngIf="item.comm_pincode"><strong>PIN code:</strong>  {{item.comm_pincode}}</li>
+                    <li class="list-group-item" *ngIf="item.comm_city"><strong>City:</strong> {{item.comm_city}}</li>
+                    <li class="list-group-item" *ngIf="item.comm_state"><strong>State:</strong> {{item.comm_state}}</li>
 
 
                   </ul>
@@ -604,11 +604,11 @@
                 <div class=" p-3">
                   <h6>{{item.role_cd}} RESIDENCE DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{item.res_address_line1}}</li>
-                    <li class="list-group-item"><strong>Address 2:</strong> {{item.res_address_line2}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong>  {{item.res_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{item.res_city}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{item.res_state}}</li>
+                    <li class="list-group-item" *ngIf="item.res_address_line1"><strong>Address 1:</strong> {{item.res_address_line1}}</li>
+                    <li class="list-group-item" *ngIf="item.res_address_line2"><strong>Address 2:</strong> {{item.res_address_line2}}</li>
+                    <li class="list-group-item" *ngIf="item.res_pincode"><strong>PIN code:</strong>  {{item.res_pincode}}</li>
+                    <li class="list-group-item" *ngIf="item.res_city"><strong>City:</strong> {{item.res_city}}</li>
+                    <li class="list-group-item" *ngIf="item.res_state"><strong>State:</strong> {{item.res_state}}</li>
                   </ul>
                 </div>
               </div>
@@ -616,31 +616,45 @@
 
             </section>
 
-            <!--<h5 class="mt-3 sub-title">MEDICAL DETAILS </h5>-->
+            <h5 class="mt-3 sub-title">MEDICAL DETAILS </h5>
 
-            <!--<div class="row box-card">-->
-              <!--<div class="col-md-12">-->
-                <!--<div class="p-3">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-12">-->
-                      <!--<ul class="m-0 list-group">-->
-                        <!--<li class="list-group-item">1.Does any person(s) to be insured has any Pre-existing diseases:-->
-                          <!--<b>{{items.question_set_cd}}</b></li>-->
-                        <!--<li class="list-group-item">2.Have any of the above mentioned person(s) to be in…r any illness / injury during the last 48 months:-->
-                          <!--<b>{{items.question_set_cd}}</b></li>-->
-                        <!--<li class="list-group-item">3.Have any of the person(s) to be insured ever filed a claim with their current / previous insurer:-->
-                          <!--<b>{{items.response}}</b></li>-->
-                        <!--<li class="list-group-item">4.Has any proposal for Health insurance been declined, cancelled or charged a higher premium:-->
-                          <!--<b>{{items.response}}</b></li>-->
-                        <!--<li class="list-group-item">5.Is any of the person(s) to be insured, already cov…th insurance policy of Religare Health Insurance :-->
-                          <!--<b>{{items.response}}</b></li>-->
-                      <!--</ul>-->
-                    <!--</div>-->
+            <div class="row box-card">
+              <div class="col-md-12">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item">1.Does any person(s) to be insured has any Pre-existing diseases:
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+                        </li>
+                        <li class="list-group-item">2.Have any of the above mentioned person(s) to be in…r any illness / injury during the last 48 months:
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
 
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+                        </li>
+                        <li class="list-group-item">3.Have any of the person(s) to be insured ever filed a claim with their current / previous insurer:
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item">4.Has any proposal for Health insurance been declined, cancelled or charged a higher premium:
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item">5.Is any of the person(s) to be insured, already cov…th insurance policy of Religare Health Insurance :
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">

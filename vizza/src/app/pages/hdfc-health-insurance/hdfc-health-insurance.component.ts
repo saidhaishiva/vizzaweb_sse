@@ -811,7 +811,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         'Pincode': this.hdfcpersonalValues.pincode,
                         'EmailId': this.hdfcpersonalValues.email,
                         'MobileNo': this.hdfcpersonalValues.mobile,
-                        'IsCustomerAcceptedPPCPED': this.hdfcpersonalValues.accepted ? 1 : '',
+                        'IsCustomerAcceptedPPCPED': this.hdfcpersonalValues.accepted ? '1' : '',
                         'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
                         'UIDNo': this.hdfcpersonalValues.otp //OTP Value
                     },
