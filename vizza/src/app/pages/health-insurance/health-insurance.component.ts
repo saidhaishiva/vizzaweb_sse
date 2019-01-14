@@ -1347,7 +1347,7 @@ export class GroupmembersAlert {
     selector: 'posstatusalert',
     template: `
         <div mat-dialog-content class="text-center">
-            <label>You're not verified. Do you want to continue?</label>
+            <label>You're not verified POS. Do you want to continue?</label>
         </div>
         <div mat-dialog-actions style="justify-content: center">
             <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Cancel</button>

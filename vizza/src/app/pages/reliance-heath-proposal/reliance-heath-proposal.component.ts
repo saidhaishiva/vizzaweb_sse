@@ -43,6 +43,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public insureArray: FormGroup;
     public nomineeDetails: FormGroup;
     public riskDetails: FormGroup;
+    public previousInsuranceFrom: FormGroup;
     public setDate: any;
     public selectDate: any;
     public stopNext: boolean;
@@ -129,6 +130,13 @@ export class RelianceHeathProposalComponent implements OnInit {
     public getAge: any;
     public arr: any;
     public getDays: any;
+    public nomineeAge: any;
+    public nomineeDateError: any;
+    public previousStartDateError: any;
+    public previousEndtDateError: any;
+    public previousInsuranceData: any;
+    public getResAddressList: any;
+    public getComAddressList: any;
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -190,9 +198,9 @@ export class RelianceHeathProposalComponent implements OnInit {
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalEmail2: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            personalMobile2: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
-            personalPhone: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
-            personalPhone2: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+            personalMobile2: '',
+            personalPhone: '',
+            personalPhone2: '',
             personalAltnumber: '',
             residenceAddress: ['', Validators.required],
             residenceAddress2: ['', Validators.required],
@@ -208,6 +216,15 @@ export class RelianceHeathProposalComponent implements OnInit {
             rolecd: 'PROPOSER',
             type: ''
 
+        });
+        this.previousInsuranceFrom = this.fb.group({
+            InsuranceCompName: '',
+            PreviousPolNo: '',
+            PolicyStartDate: '',
+            PolicyEndDate: '',
+            CoverTypeID: '',
+            SumInsured:'',
+            AccumulatedCumulativeBonus: ''
         });
         this.nomineeDetails = this.fb.group({
             nomineeFirstName: ['', Validators.required],
@@ -321,9 +338,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 DetailsOfPreClaimOnInsured: '',
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
-                InsuranceCompName: '',
-                PreviousPolNo: '',
-                PolicyStartDate: '',
+                dobErrorStartDate: '',
                 PolicyEndDate: '',
                 CoverTypeID: '',
                 SumInsured: '',
@@ -373,8 +388,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'FirstName': this.insurerData[i].personalFirstname,
                         'LastName': this.insurerData[i].personalLastname,
                         'Gender': this.insurerData[i].personalGender,
-                        'Age': this.insurerData[i].personalAge,
-                        'DOB': this.insurerData[i].personalDob,
+                        'Age': this.insurerData[i].personalAge.toString(),
+                        'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                         'MaritalStatusID': this.insurerData[i].maritalStatus,
                         'OccupationID': this.insurerData[i].occupation,
                         'PreExistingDisease': {
@@ -505,45 +520,52 @@ export class RelianceHeathProposalComponent implements OnInit {
             }
         }
     }
-
-    religareQuestion(stepper: MatStepper) {
-        this.questionEmpty = false;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if (this.religareQuestionsList[i].answer == '') {
-                this.questionEmpty = false;
-                break;
-            } else {
-                this.questionEmpty = true;
-            }
-        }
-        if (this.questionEmpty ) {
-            stepper.next();
-
-        } else {
-            this.toastr.error('Please fill the all Answers');
-
-        }
+    previousInsureDetails(stepper: MatStepper, value) {
+        console.log(value, 'loppp');
+        this.previousInsuranceData = value;
+        sessionStorage.prevviousInsuranceStepperDetails = '';
+        sessionStorage.prevviousInsuranceStepperDetails = JSON.stringify(value);
+        stepper.next();
     }
+    //
+    // religareQuestion(stepper: MatStepper) {
+    //     this.questionEmpty = false;
+    //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
+    //         if (this.religareQuestionsList[i].answer == '') {
+    //             this.questionEmpty = false;
+    //             break;
+    //         } else {
+    //             this.questionEmpty = true;
+    //         }
+    //     }
+    //     if (this.questionEmpty ) {
+    //         stepper.next();
+    //
+    //     } else {
+    //         this.toastr.error('Please fill the all Answers');
+    //
+    //     }
+    // }
 
-    PreviousInsure(value) {
-        if (value.value == 'true') {
-            this.personal.controls['previousinsurance'].setValue('');
-            this.previousInsuranceStatus = true;
-        } else {
-            this.previousInsuranceStatus = false;
-            this.personal.controls['previousinsurance'].setValue('No');
-        }
-    }
+    // PreviousInsure(value) {
+    //     if (value.value == 'true') {
+    //         this.personal.controls['previousinsurance'].setValue('');
+    //         this.previousInsuranceStatus = true;
+    //     } else {
+    //         this.previousInsuranceStatus = false;
+    //         this.personal.controls['previousinsurance'].setValue('No');
+    //     }
+    // }
 
-    PreviousInsuredDetail(value, i) {
-        if (value.value == 'true') {
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-        } else {
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
-        }
-    }
+    // PreviousInsuredDetail(value, i) {
+    //     if (value.value == 'true') {
+    //         this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
+    //         this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
+    //     } else {
+    //         this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
+    //         this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
+    //     }
+    // }
 
     sameAddress(values: any) {
         this.sameField = values.checked;
@@ -606,6 +628,16 @@ export class RelianceHeathProposalComponent implements OnInit {
             }
         }
     }
+    public keyEvent(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9a-zA-Z ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
 
 
     addEvent(event, type) {
@@ -616,15 +648,40 @@ export class RelianceHeathProposalComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
+                    if(type == 'nominee') {
+                        this.nomineeDateError = '';
+                    } else if(type == 'previousStartDate'){
+                        this.previousStartDateError = '';
+                    } else if(type == 'previousEndStartDate'){
+                        this.previousEndtDateError = '';
+                    }
+                    else {
+                        this.dobError = '';
+                    }
                 } else {
-                    this.dobError = 'Enter Valid Date';
+                    if(type == 'nominee') {
+                        this.nomineeDateError = 'Enter Valid Date';
+                    } else if(type == 'previousStartDate'){
+                        this.previousStartDateError = 'Enter Valid Date';
+                    } else if(type == 'previousEndStartDate'){
+                        this.previousEndtDateError = 'Enter Valid Date';
+                    }else {
+                        this.dobError = 'Enter Valid Date';
+                    }
+
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                    sessionStorage.personalAge = this.personalAge;
+                    if(type == 'nominee') {
+                        this.nomineeAge = this.ageCalculate(dob);
+                        sessionStorage.nomineeAge = this.nomineeAge;
+                    } else if(type == 'previousStartDate'){
+                    }else {
+                        this.personalAge = this.ageCalculate(dob);
+                        sessionStorage.personalAge = this.personalAge;
+                    }
+
 
                 }
 
@@ -632,11 +689,21 @@ export class RelianceHeathProposalComponent implements OnInit {
                 // dob = this.datepipe.transform(event.value, 'MMM d, y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                    sessionStorage.personalAge = this.personalAge;
+                    if(type == 'nominee') {
+                        this.nomineeAge = this.ageCalculate(dob);
+                        sessionStorage.nomineeAge = this.nomineeAge;
+                    } else if(type == 'previousStartDate'){
+                    } else {
+                        this.personalAge = this.ageCalculate(dob);
+                        sessionStorage.personalAge = this.personalAge;
+                    }
+
 
                 }
                 this.dobError = '';
+                this.nomineeDateError = '';
+                this.previousStartDateError = '';
+                this.previousEndtDateError = '';
             }
 
         }
@@ -645,7 +712,7 @@ export class RelianceHeathProposalComponent implements OnInit {
 
 
 
-    addEventInsurer(event,  i, type) {
+    addEventInsurer(event, name, i, type) {
 
         if (event.value != null) {
             let selectedDate = '';
@@ -664,9 +731,10 @@ export class RelianceHeathProposalComponent implements OnInit {
 
                 if (selectedDate.length == 10) {
 
-                    if (type == 'startDate') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                        this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
+                    if (name == 'startDate') {
+                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                        // this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
+                        // this.maxDate = dob;
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
@@ -676,8 +744,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                     }
 
                 } else {
-                    if (type == 'startDate') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
+                    if (name == 'startDate') {
+                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
                         this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
                     }
@@ -688,9 +756,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
                 if (dob.length == 10) {
-                    if (type == 'startDate') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
-                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                    if (name == 'startDate') {
+                        // this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
+                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                        // this.maxDate = dob;
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
@@ -705,7 +774,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value, 'y-MM-dd');
             // let length =  this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value;
             if (length.length == 10) {
-                if (type == 'startDate') {
+                if (name == 'startDate') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
@@ -715,7 +784,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
 
             } else {
-                if (type == 'startDate') {
+                if (name == 'startDate') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].personalAge.patchValue('');
                 }
@@ -882,6 +951,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 residenceAddress3: this.getStepper1.residenceAddress3,
                 residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
                 residencePincode: this.getStepper1.residencePincode,
+                personalNationality: this.getStepper1.personalNationality,
                 residenceCity: this.getStepper1.residenceCity,
                 residenceArea: this.getStepper1.residenceArea,
                 residenceCountry: this.getStepper1.residenceCountry,
@@ -891,6 +961,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
             });
+
             if (this.getStepper1.personalPincode != '') {
                 this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
                 setTimeout(() =>{
@@ -902,6 +973,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
                 },2000);
             };
+
+            let getPerDob = this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd');
+            this.personal['controls'].personalDob.patchValue(getPerDob);
 
         }
 
@@ -930,9 +1004,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPreClaimOnInsured.patchValue(this.getStepper2.items[i].DetailsOfPreClaimOnInsured);
                 this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPrevInsuranceCancelled.patchValue(this.getStepper2.items[i].DetailsOfPrevInsuranceCancelled);
                 this.insureArray['controls'].items['controls'][i]['controls'].OtherDisease.patchValue(this.getStepper2.items[i].OtherDisease);
-                this.insureArray['controls'].items['controls'][i]['controls'].InsuranceCompName.patchValue(this.getStepper2.items[i].InsuranceCompName);
-                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolNo.patchValue(this.getStepper2.items[i].PreviousPolNo);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].CoverTypeID.patchValue(this.getStepper2.items[i].CoverTypeID);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
@@ -958,6 +1030,11 @@ export class RelianceHeathProposalComponent implements OnInit {
                 crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
             });
             }
+
+        if (sessionStorage.nomineeAreaList != '' && sessionStorage.nomineeAreaList != undefined) {
+            let nomineeRelations = JSON.parse(sessionStorage.nomineeAreaList);
+            this.nomineeAreaList = nomineeRelations;
+        }
 
 
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
@@ -985,6 +1062,22 @@ export class RelianceHeathProposalComponent implements OnInit {
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob
             });
+            let getNomineeDob = this.datepipe.transform(this.getNomineeData.nomineeDob, 'y-MM-dd');
+            this.nomineeDetails['controls'].nomineeDob.patchValue(getNomineeDob);
+        }
+        if (sessionStorage.prevviousInsuranceStepperDetails != '' && sessionStorage.prevviousInsuranceStepperDetails != undefined) {
+            console.log(sessionStorage.prevviousInsuranceStepperDetails, 'uii');
+            let prevviousInsuranceDetails = JSON.parse(sessionStorage.prevviousInsuranceStepperDetails);
+            console.log(prevviousInsuranceDetails, 'prevviousInsuranceDetails');
+            this.previousInsuranceFrom = this.fb.group({
+                InsuranceCompName: prevviousInsuranceDetails.InsuranceCompName,
+                PreviousPolNo: prevviousInsuranceDetails.PreviousPolNo,
+                PolicyStartDate: this.datepipe.transform(prevviousInsuranceDetails.PolicyStartDate, 'y-MM-dd'),
+                PolicyEndDate: this.datepipe.transform(prevviousInsuranceDetails.PolicyEndDate, 'y-MM-dd'),
+                CoverTypeID: prevviousInsuranceDetails.CoverTypeID,
+                SumInsured: prevviousInsuranceDetails.SumInsured,
+                AccumulatedCumulativeBonus: prevviousInsuranceDetails.AccumulatedCumulativeBonus
+            });
         }
     }
     sameProposer(value: any) {
@@ -993,12 +1086,16 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.personalAge);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
+
+            let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(getDob);
+
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
@@ -1009,6 +1106,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
 
@@ -1046,9 +1144,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
             this.riskDetails['controls'].emailId.patchValue('');
         }
     }
-    keyEvent(evnt){
 
-    }
     commonPincode(pin, title){
         this.pin = pin;
         this.title = title;
@@ -1079,6 +1175,9 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
                 this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
                 this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
+
+                this.getComAddressList = successData.ResponseObject;
+
             } else {
                 this.toastr.error('In valid Pincode');
                 this.personal['controls'].personalState.patchValue('');
@@ -1088,6 +1187,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 this.personal['controls'].personalDistrictIdP.patchValue('');
                 this.personal['controls'].personalCityIdP.patchValue('');
                 this.personal['controls'].personalStateIdP.patchValue('');
+                this.getComAddressList = '';
             }
         }
         if (this.title == 'proposalR') {
@@ -1099,6 +1199,8 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 this.personal['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
                 this.personal['controls'].personalCityIdR.patchValue(this.setPincode.city_village_id);
                 this.personal['controls'].personalStateIdR.patchValue(this.setPincode.state_id);
+                this.getResAddressList = successData.ResponseObject;
+
             } else {
                 this.toastr.error('In valid Pincode');
                 this.personal['controls'].residenceState.patchValue('');
@@ -1108,6 +1210,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 this.personal['controls'].residenceDistrictIdR.patchValue('');
                 this.personal['controls'].personalCityIdR.patchValue('');
                 this.personal['controls'].personalStateIdR.patchValue('');
+                this.getResAddressList = '';
             }
         }
 
@@ -1130,6 +1233,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 this.nomineeDetails['controls'].nomineeCityId.patchValue('');
                 this.nomineeDetails['controls'].nomineeStateId.patchValue('');
             }
+            sessionStorage.nomineeAreaList = JSON.stringify(this.nomineeAreaList);
         }
     }
 
@@ -1138,118 +1242,122 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
 
     //Create Proposal
     proposal() {
-        const data  = {
-            'ClientDetails': {
-                'ClientTypeID' : '0',
-                'DOB': this.personalData.personalDob,
-                'Email': this.personalData.personalEmail,
-                'ForeName': this.personalData.personalFirstname,
-                'Gender': this.personalData.personalGender,
-                'LastName': this.personalData.personalLastname,
-                'MaritalStatusID': this.personalData.maritalStatus,
-                'MidName': this.personalData.personalMidname,
-                'MobileNo': this.personalData.personalMobile,
-                'Nationality': this.personalData.nationality,
-                'OccupationID': this.personalData.occupation,
-                'PhoneNo': this.personalData.personalPhone,
-                'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
-                'ClientAddress': {
-                    'CommunicationAddress': {
-                        'Address1': this.personalData.personalAddress,
-                        'Address2': this.personalData.personalAddress2,
-                        'Address3': this.personalData.personalAddress3,
-                        'CityID': this.personalData.personalCityIdP,
-                        'Country': this.personalData.personalCountry,
-                        'DistrictID': this.personalData.personalDistrictIdP,
-                        'Email': this.personalData.personalEmail2,
-                        'Fax': this.personalData.personalFax,
-                        'MobileNo': this.personalData.personalMobile2,
-                        'NearestLandmark': this.personalData.personalNearestLandMark,
-                        'PanNo': this.personalData.personalPan,
-                        'PhoneNo':this.personalData.personalPhone2,
-                        'Alternative':this.personalData.personalAltnumber,
-                        'Pincode': this.personalData.personalPincode,
-                        'AreaID': this.personalData.personalArea,
-                        'StateID': this.personalData.personalStateIdP,
-                    },
-                    'PermanentAddress': {
-                        'Address': {
-                            'Address1': this.personalData.residenceAddress,
-                            'Address2': this.personalData.residenceAddress2,
-                            'Address3': this.personalData.residenceAddress3,
-                            'CityID': this.personalData.personalCityIdR,
+        if (sessionStorage.nomineeAge >= 18) {
+            const data = {
+                'ClientDetails': {
+                    'ClientTypeID': '0',
+                    'DOB': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
+                    'Email': this.personalData.personalEmail,
+                    'ForeName': this.personalData.personalFirstname,
+                    'Gender': this.personalData.personalGender,
+                    'LastName': this.personalData.personalLastname,
+                    'MaritalStatusID': this.personalData.maritalStatus,
+                    'MidName': this.personalData.personalMidname,
+                    'MobileNo': this.personalData.personalMobile,
+                    'Nationality': this.personalData.nationality,
+                    'OccupationID': this.personalData.occupation,
+                    'PhoneNo': this.personalData.personalPhone,
+                    'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
+                    'ClientAddress': {
+                        'CommunicationAddress': {
+                            'Address1': this.personalData.personalAddress,
+                            'Address2': this.personalData.personalAddress2,
+                            'Address3': this.personalData.personalAddress3,
+                            'CityID': this.personalData.personalCityIdP,
                             'Country': this.personalData.personalCountry,
-                            'DistrictID': this.personalData.residenceDistrictIdR,
-                            'NearestLandmark': this.personalData.residenceNearestLandMark,
-                            'Pincode': this.personalData.residencePincode,
-                            'AreaID': this.personalData.residenceArea,
-                            'StateID': this.personalData.personalStateIdR
+                            'DistrictID': this.personalData.personalDistrictIdP,
+                            'Email': this.personalData.personalEmail,
+                            'Fax': this.personalData.personalFax,
+                            'MobileNo': this.personalData.personalMobile,
+                            'NearestLandmark': this.personalData.personalNearestLandMark,
+                            'PanNo': this.personalData.personalPan,
+                            'PhoneNo': this.personalData.personalPhone,
+                            'Alternative': this.personalData.personalAltnumber,
+                            'Pincode': this.personalData.personalPincode,
+                            'AreaID': this.personalData.personalArea,
+                            'StateID': this.personalData.personalStateIdP,
+                        },
+                        'PermanentAddress': {
+                            'Address': {
+                                'Address1': this.personalData.residenceAddress,
+                                'Address2': this.personalData.residenceAddress2,
+                                'Address3': this.personalData.residenceAddress3,
+                                'CityID': this.personalData.personalCityIdR,
+                                'Country': this.personalData.personalCountry,
+                                'DistrictID': this.personalData.residenceDistrictIdR,
+                                'NearestLandmark': this.personalData.residenceNearestLandMark,
+                                'Pincode': this.personalData.residencePincode,
+                                'AreaID': this.personalData.residenceArea,
+                                'StateID': this.personalData.personalStateIdR
+                            }
                         }
                     }
-                }
-            },
-            'InsuredDetailsList': {
-                'InsuredDetail': this.totalInsureDetails
-            },
-            'Policy': {
-                'Tenure': '1'
-            },
-            'RiskDetails': {
-                'SumInsured':  this.buyProductdetails.suminsured_amount,
-                'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
-                'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
-                'IsAnyEmployeeOfRelianceADAGroup': this.riskData.relianceAda == 'Yes' ? 'true' : 'false',
-                'CompanyNameID': this.riskData.companyname,
-                'EmployeeCode': this.riskData.employeeCode,
-                'EmailID': this.riskData.emailId,
-                'Iscrosssell': this.riskData.crossSell == 'Yes' ? 'true' : 'false',
-                'CrossSellPolicyNo': this.riskData.crossSellPolicyNo,
-            },
-            'NomineeDetails': {
-                'FirstName': this.nomineeData.nomineeFirstName,
-                'Salutation': this.nomineeData.nomineeTitle == 'MR' ? "Mr." : "Ms.",
-                'MiddleName': this.nomineeData.nomineeMidName,
-                'LastName': this.nomineeData.nomineeLastName,
-                'DOB': this.nomineeData.nomineeDob,
-                'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
-                'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
-                'NomineeAddress': {
-                    'Address1': this.nomineeData.nomineeAddress,
-                    'Address2': this.nomineeData.nomineeAddress2,
-                    'Address3': this.nomineeData.nomineeAddress3,
-                    'CityID': this.nomineeData.nomineeCityId,
-                    'Country': this.nomineeData.nomineeCountry,
-                    'DistrictID': this.nomineeData.nomineeDistrictId,
-                    'NearestLandmark': this.nomineeData.nearestLandMark,
-                    'Pincode': this.nomineeData.nomineePincode,
-                    'AreaID': this.nomineeData.nomineeArea,
-                    'StateID': this.nomineeData.nomineeStateId
-                }
-            },
+                },
+                'InsuredDetailsList': {
+                    'InsuredDetail': this.totalInsureDetails
+                },
+                'Policy': {
+                    'Tenure': '1'
+                },
+                'RiskDetails': {
+                    'SumInsured': this.buyProductdetails.suminsured_amount,
+                    'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
+                    'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
+                    'IsAnyEmployeeOfRelianceADAGroup': this.riskData.relianceAda == 'Yes' ? 'true' : 'false',
+                    'CompanyNameID': this.riskData.companyname,
+                    'EmployeeCode': this.riskData.employeeCode,
+                    'EmailID': this.riskData.emailId,
+                    'Iscrosssell': this.riskData.crossSell == 'Yes' ? 'true' : 'false',
+                    'CrossSellPolicyNo': this.riskData.crossSellPolicyNo,
+                },
+                'NomineeDetails': {
+                    'FirstName': this.nomineeData.nomineeFirstName,
+                    'Salutation': this.nomineeData.nomineeTitle == 'MR' ? "Mr." : "Ms.",
+                    'MiddleName': this.nomineeData.nomineeMidName,
+                    'LastName': this.nomineeData.nomineeLastName,
+                    'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
+                    'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
+                    'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
+                    'NomineeAddress': {
+                        'Address1': this.nomineeData.nomineeAddress,
+                        'Address2': this.nomineeData.nomineeAddress2,
+                        'Address3': this.nomineeData.nomineeAddress3,
+                        'CityID': this.nomineeData.nomineeCityId,
+                        'Country': this.nomineeData.nomineeCountry,
+                        'DistrictID': this.nomineeData.nomineeDistrictId,
+                        'NearestLandmark': this.nomineeData.nearestLandMark,
+                        'Pincode': this.nomineeData.nomineePincode,
+                        'AreaID': this.nomineeData.nomineeArea,
+                        'StateID': this.nomineeData.nomineeStateId
+                    }
+                },
 
-            'LstHealthCoverDetails': '',
-            'PreviousInsuranceDetails': {
-                'PrevInsuranceID': '',
-                'PrevYearPolicyNo': '',
-                'PrevYearPolicyStartDate': '',
-                'PrevYearPolicyEndDate': ''
-            },
-            'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
-            'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        };
-
-        this.settings.loadingSpinner = true;
-        this.proposalservice.relianceProposal(data).subscribe(
-            (successData) => {
-                this.proposalSuccess(successData);
-            },
-            (error) => {
-                this.proposalFailure(error);
-            }
-        );
+                'LstHealthCoverDetails': '',
+                'PreviousInsuranceDetails': {
+                    'PrevInsuranceID': this.previousInsuranceFrom.controls['InsuranceCompName'].value,
+                    'PrevYearPolicyNo': this.previousInsuranceFrom.controls['PreviousPolNo'].value,
+                    'PrevYearPolicyStartDate': this.previousInsuranceFrom.controls['PolicyStartDate'].value,
+                    'PrevYearPolicyEndDate': this.previousInsuranceFrom.controls['PolicyEndDate'].value
+                },
+                'enquiry_id': this.enquiryId,
+                'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            };
+console.log(data, 'datadatadatadata');
+            this.settings.loadingSpinner = true;
+            this.proposalservice.relianceProposal(data).subscribe(
+                (successData) => {
+                    this.proposalSuccess(successData);
+                },
+                (error) => {
+                    this.proposalFailure(error);
+                }
+            );
+        } else {
+            this.toastr.error('Nominee age should be 18 or above');
+        }
 
     }
 
@@ -1316,6 +1424,8 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                     this.summaryData.ClientDetails.nationality = this.nationalityList[j].nationality;
                 }
             }
+
+
              if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
                  this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
              }
@@ -1335,12 +1445,15 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
 
                 }
             }
+            console.log(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress, 'areqq');
             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
                 if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.setPincode.area_details[i].area_id) {
                     this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.setPincode.area_details[i].area_name;
 
                 }
             }
+            console.log(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address, 'perrrrrareqq');
+
             // nominee
               if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
                 this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
@@ -1354,6 +1467,65 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
 
                 }
             }
+            console.log(this.summaryData.NomineeDetails.NomineeAddress, 'nomineerarea');
+
+
+
+              setTimeout(() => {
+                  this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalP');
+              },700);
+
+              this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalR');
+
+
+            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.getComAddressList.city_village_id) {
+                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.getComAddressList.city_village_name;
+            }
+            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID == this.getComAddressList.state_id) {
+                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name =  this.getComAddressList.state_name;
+            }
+            // comincation address
+            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
+                if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.getComAddressList.area_details[i].area_id) {
+                    this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.getComAddressList.area_details[i].area_name;
+
+                }
+            }
+            console.log(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress, 'commmareqq');
+
+            // resistance addresss
+            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID == this.getResAddressList.city_village_id) {
+                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name =  this.getResAddressList.city_village_name;
+            }
+            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.getResAddressList.state_id) {
+                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.getResAddressList.state_name;
+            }
+            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
+                if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.getResAddressList.area_details[i].area_id) {
+                    this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.getResAddressList.area_details[i].area_name;
+
+                }
+            }
+
+            console.log(this.summaryData.ClientDetails.ClientAddress.PermanentAddress, 'resiiiiiiimareqq');
+
+            // new
+
+
+            // if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
+            //     this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
+            // }
+            //
+            // this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
+            // this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
+            // this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
+            //
+            // this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
+            // this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
+            // this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
+            //
+            //
+
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
