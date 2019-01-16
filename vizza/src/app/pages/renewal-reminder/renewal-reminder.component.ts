@@ -18,6 +18,24 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 })
 export class RenewalReminderComponent implements OnInit {
   public form: FormGroup;
+  public setDate: any;
+  public selectDate: any;
+  public settings: Settings;
+  commentBox: boolean;
+  testimonialLists: any;
+  companyList: any;
+  comments: any;
+  webhost: any;
+  policyTypes: any;
+  paymentFrequency: any;
+  allImage: any;
+  fileDetails: any;
+  getUrl: any;
+  url: any;
+  fileUploadPath: any;
+  today: any;
+  maxDate: any;
+  dateError: any;
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
     this.form =  this.fb.group({
       'insurename': ['', Validators.compose([Validators.required])],
@@ -32,10 +50,63 @@ export class RenewalReminderComponent implements OnInit {
       'paymentfrequeny': ['',Validators.compose([Validators.required])]
     });
 
+    this.settings = this.appSettings.settings;
+    this.webhost = this.config.getimgUrl();
+    this.settings.HomeSidenavUserBlock = true;
+    this.settings.sidenavIsOpened = true;
+    this.settings.sidenavIsPinned = true;
+    this.commentBox = false;
+    this.selectDate = '';
+    this.fileUploadPath = '';
+    this.allImage = [];
+    this.today = new Date();
+
+
+    this.paymentFrequency = [
+      {'id': 1, 'name': 'Annually'},
+      {'id': 2, 'name': 'Half Yearly'},
+      {'id': 3, 'name': 'Quarterly'},
+      {'id': 4, 'name': 'Monthly'}
+    ];
+
   }
 
   ngOnInit() {
+    this.getPolicyTypes();
   }
+
+
+  addEvent(event) {
+    this.selectDate = event.value;
+    this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+  }
+  chooseDate(event, type) {
+    this.maxDate = '';
+    if (event.value != null) {
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.dateError = '';
+        } else {
+          this.dateError = 'Enter Valid Date';
+        }
+        let selectedDate;
+        selectedDate = event.value._i;
+
+        if (selectedDate.length == 10) {
+          if (type == 'sDate') {
+            this.maxDate = event.value;
+          }
+        }
+      } else if (typeof event.value._i == 'object') {
+        this.dateError = '';
+        if (type == 'sDate') {
+          this.maxDate = event.value;
+        }
+      }
+    }
+  }
+
 
 
   renewal(values){
@@ -89,6 +160,58 @@ export class RenewalReminderComponent implements OnInit {
   }
   policyRenewalFailure(error) {
   }
+
+
+
+  getcompanyList(cid) {
+    const data = {
+      'platform': 'web',
+      "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
+      "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
+      "insure_company_type_id": cid
+    };
+    this.common.getcompanyList(data).subscribe(
+        (successData) => {
+          this.setcompanyListSuccess(successData);
+        },
+        (error) => {
+          this.setcompanyListFailure(error);
+        }
+    );
+  }
+  public setcompanyListSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.companyList = successData.ResponseObject;
+
+    }
+  }
+  public setcompanyListFailure(error) {
+  }
+
+
+
+  getPolicyTypes() {
+    const data = {
+      'platform': 'web',
+      "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+      "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4'
+    }
+    this.common.policyTypes(data).subscribe(
+        (successData) => {
+          this.getpolicytypeSuccess(successData);
+        },
+        (error) => {
+          this.getpolicytypeFailure(error);
+        }
+    );
+  }
+  public getpolicytypeSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.policyTypes = successData.ResponseObject;
+    }
+  }
+  public getpolicytypeFailure(error) {
+  }
   public keyPress(event: any) {
     if (event.charCode !== 0) {
       const pattern = /[0-9]/;
@@ -98,6 +221,69 @@ export class RenewalReminderComponent implements OnInit {
         event.preventDefault();
       }
     }
+  }
+
+  public data(event: any) {
+    if (event.charCode !== 0) {
+      const pattern = /[a-zA-Z\\ ]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (!pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+  }
+
+  readUrl(event: any) {
+    this.getUrl = '';
+    let getUrlEdu = [];
+    this.fileDetails = [];
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+    }
+    for (let i = 0; i < event.target.files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+        getUrlEdu.push(this.url.split(','));
+        this.onUploadFinished(getUrlEdu);
+      };
+      reader.readAsDataURL(event.target.files[i]);
+    }
+
+  }
+  onUploadFinished(event) {
+    this.allImage.push(event);
+  }
+  onUpload() {
+    const data = {
+      'platform': 'web',
+      'image_path': ''
+    };
+    let length = this.allImage.length-1;
+    for (let k = 0; k < this.allImage[length].length; k++) {
+      this.fileDetails[k].image = this.allImage[length][k][1];
+    }
+    data.image_path = this.fileDetails;
+    this.common.fileUploadPolicy(data).subscribe(
+        (successData) => {
+          this.fileUploadSuccess(successData);
+        },
+        (error) => {
+          this.fileUploadFailure(error);
+        }
+    );
+  }
+
+  public fileUploadSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.fileUploadPath = successData.ResponseObject.imagePath;
+      this.toastr.success( successData.ResponseObject.message);
+    } else {
+      this.toastr.error(successData.ErrorObject, 'Failed');
+    }
+  }
+
+  public fileUploadFailure(error) {
   }
 
 }
