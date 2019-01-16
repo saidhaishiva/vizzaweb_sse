@@ -505,6 +505,10 @@ export class HealthInsuranceComponent implements OnInit {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                     this.insuranceLists[i].product_lists[j].compare = false;
                     this.insuranceLists[i].product_lists[j].shortlist = false;
+                    this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+                    this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
+
+                    console.log( this.insuranceLists[i].product_lists[j].premium_amount);
                 }
             }
             this.getArray = this.insuranceLists[index].family_members;
@@ -519,6 +523,10 @@ export class HealthInsuranceComponent implements OnInit {
         } else {
             this.toast.error(successData.ErrorObject);
         }
+    }
+
+    public  numberWithCommas(x) {
+        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
 
     public PolicyQuotationFailure(error) {

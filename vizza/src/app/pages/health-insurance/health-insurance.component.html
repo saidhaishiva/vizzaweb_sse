@@ -96,10 +96,10 @@
                   <thead>
                   <tr>
                     <th>INSURER</th>
-                    <th>SUM INSURED</th>
+                    <th>SUM INSURED ( &#8377; )</th>
                     <th>KEY FEATURES</th>
                     <th>COMPARE</th>
-                    <th>PREMIUM</th>
+                    <th>PREMIUM ( &#8377; )</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -112,7 +112,7 @@
                       <img  src="{{webhost + '/' + plists.company_logo}}" style="width: auto;" alt="5">
                     </td>
                     <td>
-                      <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
+                      <p>&#8377; {{plists.suminsured_amount_format}}</p>
                     </td>
                     <td style="width: 40%">
 
@@ -144,7 +144,7 @@
                       <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     </td>
                     <td>
-                      <p class="text-center"><strong>{{plists.premium_amount | currency: 'INR'}} / Yr</strong></p>
+                      <p class="text-center"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                       <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                       <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
 
