@@ -95,7 +95,7 @@ export const horizontalMenuItems = [
     // new Menu (30, 'Aviation Insurance', '/aviation', null, null, null, false, 22),
     // new Menu (31, 'Erection All risk Policy', '/erection', null, null, null, false, 22),
     // new Menu (32, 'Directors and Officers Liability Policy', '/directors', null, null, null, false, 22),
-    new Menu (67, 'Renewal', '/', null, null, null, true, 0),
+    new Menu (67, 'Renewal', '/renewal-reminder', null, null, null, true, 0),
     new Menu (68, 'Claim Assistance', '/', null, null, null, true, 0),
     new Menu (33, 'Blogs', '/fix-appointment/media', null, null, null, true, 0),
     new Menu (49, 'Media Library', '/', null, null, null, false, 33),

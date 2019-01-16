@@ -105,6 +105,7 @@ import { EntranceexamComponent } from './pages/entranceexam/entranceexam.compone
 import { ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import { RegisterComponent} from './pages/register/register.component';
 import { FireInsurer} from './pages/fire/fire.component';
+import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
 //import { PersonalAccidentProposalComponent } from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import { PosCertificateComponent } from './pages/pos-certificate/pos-certificate.component';
 import { TrainingComponent } from './pages/training/training.component';
@@ -320,6 +321,7 @@ import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdf
       PublicComponent,
       PublicInsurer,
       ProfessionalComponent,
+      RenewalReminderComponent,
       ProfessionalInsurer,
       WorkmenComponent,
       WorkmenInsurer,
