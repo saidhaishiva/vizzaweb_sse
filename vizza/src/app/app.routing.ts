@@ -173,7 +173,7 @@ export const routes: Routes = [
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance-heath-proposal', component: RelianceHeathProposalComponent, data: { breadcrumb: 'Reliance'} },
             { path: 'religare-health-proposal-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
-            { path: 'reliance-heath-proposal-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'reliance-heath-proposal-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Relaince payment Success'} },
             { path: 'apollomunich-payment-success/:status/:proId', component: ApollomunichPaymentSuccessComponent, data: { breadcrumb: 'Apollo munich payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },

@@ -339,6 +339,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 DetailsOfPrevInsuranceCancelled: '',
                 OtherDisease: '',
                 dobErrorStartDate: '',
+                PolicyStartDate: '',
                 PolicyEndDate: '',
                 CoverTypeID: '',
                 SumInsured: '',
@@ -654,6 +655,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.previousStartDateError = '';
                     } else if(type == 'previousEndStartDate'){
                         this.previousEndtDateError = '';
+                    }else if (type == 'proposer') {
+                        this.dobError = '';
                     }
                     else {
                         this.dobError = '';
@@ -665,6 +668,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.previousStartDateError = 'Enter Valid Date';
                     } else if(type == 'previousEndStartDate'){
                         this.previousEndtDateError = 'Enter Valid Date';
+                    } else if(type == 'proposer'){
+                        this.dobError = 'Enter Valid Date';
                     }else {
                         this.dobError = 'Enter Valid Date';
                     }
@@ -676,8 +681,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     if(type == 'nominee') {
                         this.nomineeAge = this.ageCalculate(dob);
                         sessionStorage.nomineeAge = this.nomineeAge;
-                    } else if(type == 'previousStartDate'){
-                    }else {
+                    }else if(type == 'proposer') {
                         this.personalAge = this.ageCalculate(dob);
                         sessionStorage.personalAge = this.personalAge;
                     }
@@ -686,14 +690,12 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
 
             } else if (typeof event.value._i == 'object') {
-                // dob = this.datepipe.transform(event.value, 'MMM d, y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     if(type == 'nominee') {
                         this.nomineeAge = this.ageCalculate(dob);
                         sessionStorage.nomineeAge = this.nomineeAge;
-                    } else if(type == 'previousStartDate'){
-                    } else {
+                    } else if(type == 'proposer') {
                         this.personalAge = this.ageCalculate(dob);
                         sessionStorage.personalAge = this.personalAge;
                     }
@@ -1005,6 +1007,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPrevInsuranceCancelled.patchValue(this.getStepper2.items[i].DetailsOfPrevInsuranceCancelled);
                 this.insureArray['controls'].items['controls'][i]['controls'].OtherDisease.patchValue(this.getStepper2.items[i].OtherDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
                 this.insureArray['controls'].items['controls'][i]['controls'].CoverTypeID.patchValue(this.getStepper2.items[i].CoverTypeID);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);

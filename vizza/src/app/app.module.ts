@@ -209,6 +209,7 @@ import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
 import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
+import { ClaimAssistanceComponent } from './pages/claim-assistance/claim-assistance.component';
 
 @NgModule({
   imports: [
@@ -395,7 +396,8 @@ import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdf
       TravelHdfcProposalComponent,
       previousDisease,
       HdfcHealthPaymentSuccessComponent,
-      DownloadMessageHdfcHealth
+      DownloadMessageHdfcHealth,
+      ClaimAssistanceComponent
   ],
   providers: [
       AppSettings,

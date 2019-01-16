@@ -476,7 +476,7 @@
 
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Previous Insurance Id" formControlName="InsuranceCompName" (keypress)="keyEvent($event)" autocomplete="off">
+                                            <input matInput placeholder="Previous Insurance Company Name" formControlName="InsuranceCompName" (keypress)="keyEvent($event)" autocomplete="off">
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4">
@@ -947,7 +947,7 @@
                                                 <!--<li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther !=''"><strong>Relationship Other:</strong> {{summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther}}</li>-->
                                                 <li class="list-group-item"><strong *ngIf="summaryData.NomineeDetails.NomineeAddress.area_name !=''">Area:</strong> {{summaryData.NomineeDetails.NomineeAddress.area_name}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NearestLandmark !=''"><strong>LandMark:</strong> {{summaryData.NomineeDetails.NomineeAddress.NearestLandmark}}</li>
-                                                <li class="list-group-item"><strong>City:</strong> {{summaryData.NomineeDetails.NomineeAddress.city_village_name}}</li>
+                                                <li class="list-group-item"><strong>City:</strong> {{summaryData.NomineeDetails.NomineeAddress.CityID}}</li>
                                                 <li class="list-group-item"><strong>State:</strong> {{summaryData.NomineeDetails.NomineeAddress.state_name}}</li>
                                                 <li class="list-group-item"><strong>Country:</strong> {{summaryData.NomineeDetails.NomineeAddress.Country}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Pincode !=''"><strong>PIN code:</strong> {{summaryData.NomineeDetails.NomineeAddress.Pincode}}</li>

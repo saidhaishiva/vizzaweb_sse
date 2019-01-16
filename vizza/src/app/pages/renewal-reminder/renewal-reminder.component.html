@@ -13,7 +13,7 @@
               <div class="container">
                 <div class="row" fxLayoutAlign="center center">
                   <div class="col-md-12 pr-4" >
-                    <div class="row" style="border-right: 2px solid #ababab;">
+                    <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Insured Name" formControlName="insurename" (keypress)="data($event)">
@@ -91,13 +91,15 @@
                         </mat-form-field>
                         <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
                       </div>
-                      <div class="col-md-12 text-center">
-                        <button mat-raised-button color="primary" (click)="renewal(form.value)">Submit</button>
-                      </div>
-
                     </div>
                   </div>
-                  <div class="col-md-12">
+                  <div style="width: 75%; height: 10px; border-bottom: 1px solid black; text-align: center">
+                    <span style="font-size: 12px; background-color: #D6D4ED; padding: 0 10px;">
+                      (or) <!--Padding is optional-->
+                    </span>
+                  </div>
+                  <div class="col-md-12 pt-4">
+                    <!--<div class="h-border-bottom text-center"></div>-->
                     <h4 class="text-center">Upload your policy here</h4>
                     <ul fxLayoutAlign="center center">
                       <li class="pull-left"> <label class="btn-bs-file btn mr-3">
@@ -115,14 +117,13 @@
                         <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="200" alt="Image preview...">
                       </li>
                     </ul>
-                    <div class="h-border-bottom"></div>
-
 
                     <div class="col-sm-12 whatsapp">
                       <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy<br> @ 86085 00088</span></p>
                     </div>
-
-
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <button mat-raised-button class="bg-danger text-white" (click)="renewal(form.value)">Set Remider</button>
                   </div>
                 </div>
               </div>

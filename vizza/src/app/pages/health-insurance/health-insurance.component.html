@@ -44,7 +44,7 @@
                 <button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
                 <button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
 
-                <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> OTHERS</button>
+                <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> RELATIVES</button>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
                   <button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>
