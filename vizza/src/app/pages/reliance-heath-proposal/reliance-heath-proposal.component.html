@@ -374,7 +374,7 @@
                                                         <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
+                                                <div class="col-md-3">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required >
                                                             <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>
