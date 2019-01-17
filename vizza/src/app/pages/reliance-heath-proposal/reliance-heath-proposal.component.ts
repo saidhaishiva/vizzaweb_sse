@@ -678,12 +678,12 @@ export class RelianceHeathProposalComponent implements OnInit {
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    if(type == 'nominee') {
-                        this.nomineeAge = this.ageCalculate(dob);
-                        sessionStorage.nomineeAge = this.nomineeAge;
-                    }else if(type == 'proposer') {
+                    if(type == 'proposer') {
                         this.personalAge = this.ageCalculate(dob);
                         sessionStorage.personalAge = this.personalAge;
+                    } else if(type == 'nominee') {
+                        this.nomineeAge = this.ageCalculate(dob);
+                        sessionStorage.nomineeAge = this.nomineeAge;
                     }
 
 
@@ -692,15 +692,14 @@ export class RelianceHeathProposalComponent implements OnInit {
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    if(type == 'nominee') {
-                        this.nomineeAge = this.ageCalculate(dob);
-                        sessionStorage.nomineeAge = this.nomineeAge;
-                    } else if(type == 'proposer') {
+                    if(type == 'proposer') {
                         this.personalAge = this.ageCalculate(dob);
                         sessionStorage.personalAge = this.personalAge;
                     }
-
-
+                    else if(type == 'nominee') {
+                        this.nomineeAge = this.ageCalculate(dob);
+                        sessionStorage.nomineeAge = this.nomineeAge;
+                    }
                 }
                 this.dobError = '';
                 this.nomineeDateError = '';
@@ -1093,7 +1092,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
 
             let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
@@ -1109,7 +1108,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
 
