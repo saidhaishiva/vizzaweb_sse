@@ -347,7 +347,9 @@ array: any;
 
     }
 
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
 
     setStep(index: number) {
         this.step = index;
@@ -505,6 +507,8 @@ array: any;
                 this.toastr.error('Alternative and personal number should be different');
             } else if(aterMobile.includes(2)){} else {
                 stepper.next();
+                this.topScroll();
+
             }
 
         }
@@ -624,6 +628,8 @@ array: any;
                 this.toastr.error('Please check atleast one checkbox!');
             } else {
                 stepper.next();
+                this.topScroll();
+
             }
 
     }
@@ -655,7 +661,9 @@ array: any;
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
-            }
+                    this.topScroll();
+
+                }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -684,6 +692,8 @@ array: any;
         }
         if (this.questionEmpty ) {
             stepper.next();
+            this.topScroll();
+
 
         } else {
             this.toastr.error('Please fill the all Answers');

@@ -559,6 +559,8 @@ console.log(value,'fgh');
                 if(this.socialStatus == 'false') {
                     if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
                         stepper.next();
+                        this.topScroll();
+
 
                     } else {
                         this.toastr.error('Select any one Social Status');
@@ -568,6 +570,8 @@ console.log(value,'fgh');
                     if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
                         console.log( value.socialAnswer2, ' value.socialAnswer2 value.socialAnswer2');
                         stepper.next();
+                        this.topScroll();
+
 
                     }
                 }
@@ -692,9 +696,13 @@ console.log(value,'fgh');
         if (this.insureStatus) {
             if (this.ageRestriction == '') {
                     stepper.next();
-                }
+                this.topScroll();
+
+            }
             if (this.ageRestriction == 'true') {
                     stepper.next();
+                this.topScroll();
+
             }
 
 
@@ -1174,7 +1182,7 @@ console.log(value,'fgh');
             'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
             'prop_occupation': this.personalData.personalOccupation,
             'prop_annual_income': this.personalData.personalIncome,
-            'prop_pan_no': this.personalData.personalPan,
+            'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
             'gst_id_no': this.personalData.personalGst,
             'exist_health_ins_covered_persons_details': '',
@@ -1533,7 +1541,9 @@ console.log(value,'fgh');
     public setRelationshipFailure(error) {
         console.log(error);
     }
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
 // add(event){
 //    // residencePincode = this.personal.controls.residencePincode.value;
 //   //  console.log(residencePincode,'fgh');
