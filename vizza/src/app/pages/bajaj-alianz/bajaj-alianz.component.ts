@@ -347,7 +347,7 @@ export class BajajAlianzComponent implements OnInit {
 
                     if (name == 'expiry') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                        // this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
@@ -370,7 +370,7 @@ export class BajajAlianzComponent implements OnInit {
 
                 if (dob.length == 10) {
                     if (name == 'expiry') {
-                        // this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else {
                         this.getAge = this.ageCalculate(dob);
