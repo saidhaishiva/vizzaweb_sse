@@ -24,7 +24,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_suminsured_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_suminsured_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -35,7 +35,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_countryLists';
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_countryLists';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -46,7 +46,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_premium_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_premium_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -57,7 +57,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_country_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_country_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -68,7 +68,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_vizza_type_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_vizza_type_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -80,7 +80,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_insure_relationship_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_insure_relationship_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -92,7 +92,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_assigned_relationship_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_assigned_relationship_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -103,7 +103,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_assigned_relationship_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealthtravel/get_assigned_relationship_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -114,7 +114,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_travel_insure_purpose_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_travel_insure_purpose_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -125,7 +125,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_pre_existing_disease' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_pre_existing_disease' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -136,7 +136,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/create_proposal_details' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/create_proposal_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -147,7 +147,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_proposaltoken';
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_policy_proposaltoken';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -157,7 +157,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_purchasetoken';
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_policy_purchasetoken';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -167,7 +167,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/get_policy_schedule';
+        const url = this.configurationService.getHostTravel() + 'starhealth/get_policy_schedule';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -179,7 +179,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/view_keyfeatures' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/view_keyfeatures' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -191,7 +191,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'starhealthtravel/compare_shkeyfeatures' ;
+        const url = this.configurationService.getHostTravel() + 'starhealth/compare_shkeyfeatures' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -204,7 +204,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'religaretravel/get_relationship_details' ;
+        const url = this.configurationService.getHostTravel() + 'religare/get_relationship_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -216,7 +216,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'religaretravel/get_question_details' ;
+        const url = this.configurationService.getHostTravel() + 'religare/get_question_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -227,7 +227,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'religaretravel/create_proposal_details' ;
+        const url = this.configurationService.getHostTravel() + 'religare/create_proposal_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -241,7 +241,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() +'travel_shriram/PurposeList' ;
+        const url = this.configurationService.getHostTravel() +'shriram/PurposeList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -252,7 +252,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/OccupationList' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/OccupationList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -263,7 +263,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/RelationshipList' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/RelationshipList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -274,7 +274,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/create_proposal_details' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/create_proposal_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -284,7 +284,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/stateList' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/stateList' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -294,7 +294,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/cityList' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/cityList' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -304,7 +304,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'travel_shriram/checkValidPincode' ;
+        const url = this.configurationService.getHostTravel() + 'shriram/checkValidPincode' ;
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
