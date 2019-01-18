@@ -183,7 +183,7 @@
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURER DETAILS </ng-template>
                   <div class="row">
-                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event)"><strong>Same as proposer</strong></mat-checkbox></div>
+                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event, '0')"><strong>Same as proposer</strong></mat-checkbox></div>
                   </div>
                   <form [formGroup]="hdfcInsureArray">
                     <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
@@ -255,7 +255,7 @@
                           </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
-                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker-toggle matSuffix [for]="picker" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcInsureArray.invalid">DOB is required</mat-error>
                         </mat-form-field>
@@ -366,7 +366,7 @@
               <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
-                    <ul class="m-0 list-group">
+                    <ul class="m-0 list-group"> {{proposalDtails.dob}}
                       <li class="list-group-item"><strong>Name:</strong> {{proposalDtails.tittle}}.{{proposalDtails.fname}} {{proposalDtails.lname}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{proposalDtails.gender}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposalDtails.dob | date: 'dd-MMM-yyyy'}}</li>
@@ -404,10 +404,10 @@
               <div class="row box-card">
                 <div class="col-md-12">
                   <div class="p-3">
-                    <ul class="m-0 list-group">
+                    <ul class="m-0 list-group">{{item.dob}}
                       <li class="list-group-item"><strong>Name:</strong> {{item.fname}} {{item.lname}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd-MMM-yy'}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob| date: 'dd-MMM-yy'}}</li>
                       <li class="list-group-item"><strong>Relationship:</strong> {{item.Relation_code}}</li>
                       <li class="list-group-item" *ngIf="item.preDisease !=''"><strong>Pre Existing Disease:</strong> {{item.preDisease}}</li>
                     </ul>
