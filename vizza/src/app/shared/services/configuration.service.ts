@@ -20,7 +20,7 @@ export class ConfigurationService {
   apihost: string;
   datasetPath: string;
   floatFormat = '0,0.000';
-  percentFormat = '0.000%'
+  percentFormat = '0.000%';
   intFormat = '0,0';
 
   constructor() {
