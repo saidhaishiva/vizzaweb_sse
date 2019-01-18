@@ -148,8 +148,6 @@ export class BajajAlianzComponent implements OnInit {
             }
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         };
-        console.log(this.getFamilyDetails.family_members, 'this.getFamilyDetails.family_members');
-        console.log(this.items, 'pppwqitems');
 
             this.sessionData();
             this.setDate = Date.now();
@@ -174,7 +172,7 @@ export class BajajAlianzComponent implements OnInit {
                 insurePhone: '',
                 insureAddress: '',
                 insureAddress2:'',
-                insurePincode: ['', Validators.required],
+                insurePincode: '',
                 insureNationality: '',
                 insureState: '',
                 insureCity: '',
@@ -214,12 +212,13 @@ export class BajajAlianzComponent implements OnInit {
 
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {
+        console.log(this.insureArray, 'value.itemsvalue.items');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
+            alert('ok');
             this.insurerData = value.items;
             this.totalInsureDetails = [];
-
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                     'membername': this.insurerData[i].insureName,
@@ -251,22 +250,24 @@ export class BajajAlianzComponent implements OnInit {
                     'memsmkertbco': '0',
                 });
             }
-            console.log(this.totalInsureDetails);
             let ageValidate = [];
             let diseaseValidate = [];
             let relationshipValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
                     ageValidate.push(1);
-
                 } else{
                     ageValidate.push(0);
                 }
+            }
+            for (let i = 0; i< this.insurerData.length; i++){
                 if(this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.value == 1){
                     diseaseValidate.push('No');
                 } else if(this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.value == 0){
                     diseaseValidate.push('Yes');
                 }
+            }
+            for (let i = 0; i< this.insurerData.length; i++){
                 if(this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value == this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.value){
                     relationshipValidate.push('No')
                 }else{
@@ -285,15 +286,24 @@ export class BajajAlianzComponent implements OnInit {
                     this.toastr.error('Sorry you are selected Pre-Existing Diseases. so you are not allowed to purchase product');
                 }
             }
+        }else{
+            this.toastr.error('Sorrrrrrrrrrrrrrrrrrry');
         }
     }
 
-    changeCoPayment(event:any, item){
+    changeCoPayment(event:any, index){
         if(event.checked){
+
+            alert("ok");
+            this.items.at(index).controls.insureCoPayment.setValidators([Validators.required]);
             this.copaymentShow = true;
         } else {
+            alert("no");
+            this.insureArray['controls'].items['controls'][index]['controls'].insureCoPayment.patchValue('');
+            this.items.at(index).controls.insureCoPayment.setValidators(null);
             this.copaymentShow = false;
         }
+        this.items.at(index).controls.insureCoPayment.updateValueAndValidity();
         sessionStorage.copaymentShow = this.copaymentShow;
     }
     previousDisease(status: any, index){
@@ -317,74 +327,7 @@ export class BajajAlianzComponent implements OnInit {
             }
         }
     }
-
-    // addEvent(event, type, index) {
-    //
-    //     if (event.value != null) {
-    //         let selectedDate = '';
-    //         let dob = '';
-    //
-    //         this.getAge = '';
-    //         if (typeof event.value._i == 'string') {
-    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    //             if (pattern.test(event.value._i) && event.value._i.length == 10) {
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
-    //             } else {
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
-    //             }
-    //             selectedDate = event.value._i;
-    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //             if (selectedDate.length == 10) {
-    //                 this.getAge = this.ageCalculate(dob);
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insureDob.patchValue(dob);
-    //             }
-    //
-    //         } else if (typeof event.value._i == 'object') {
-    //
-    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //
-    //             if (dob.length == 10) {
-    //                 this.getAge = this.ageCalculate(dob);
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insureDob.patchValue(dob);
-    //             }else{
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
-    //             }
-    //
-    //         }
-    //         if (this.getAge || this.getAge == 0) {
-    //             this.insureArray['controls'].items['controls'][index]['controls'].insureAge.patchValue(this.getAge);
-    //             this.insureArray['controls'].items['controls'][index]['controls'].insurerDobValidError.patchValue('');
-    //             this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(this.getAge);
-    //             this.ageValidationInsurer(index, type);
-    //
-    //         }
-    //
-    //     }
-    //
-    // }
-    // ageValidationInsurer(i, type) {
-    //     console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
-    //         if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daughter')) {
-    //             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
-    //         } else if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daughter' ))  {
-    //             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-    //         } else{
-    //             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18) {
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Age between 18 above');
-    //             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18)  {
-    //                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
-    //
-    //             }
-    //         }
-    // }
-
-
-
     addEvent(event, name, i, type ) {
-        console.log(type, 'typetypetype');
-
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
@@ -404,7 +347,7 @@ export class BajajAlianzComponent implements OnInit {
 
                     if (name == 'expiry') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                        this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
+                        // this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                     } else {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
@@ -427,7 +370,7 @@ export class BajajAlianzComponent implements OnInit {
 
                 if (dob.length == 10) {
                     if (name == 'expiry') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
+                        // this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else {
                         this.getAge = this.ageCalculate(dob);
@@ -440,8 +383,6 @@ export class BajajAlianzComponent implements OnInit {
                 }
 
             }
-            console.log(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'opopp1');
-            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'y-MM-dd'), 'opopp23');
             let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'y-MM-dd');
             // let length =  this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value;
             if (length.length == 10) {
@@ -476,7 +417,6 @@ export class BajajAlianzComponent implements OnInit {
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
         this.agecal = yearAge;
-        console.log(this.agecal, '  this.agecal  this.agecal');
         return yearAge;
     }
     ageCalculateInsurer(dob) {
@@ -492,10 +432,6 @@ export class BajajAlianzComponent implements OnInit {
         return Bob_days;
     }
     ageValidation(i, type) {
-        console.log(type);
-        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
-        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
-
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
@@ -577,14 +513,15 @@ export class BajajAlianzComponent implements OnInit {
         // }
 
     }
-
-
-
-
-
-
-
-
+    public keyEvent(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9a-zA-Z ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z ]/;
@@ -619,16 +556,16 @@ export class BajajAlianzComponent implements OnInit {
     public occupationListFailure(error) {
     }
     alternateChange(event,i){
-        if (event.target.value.length == 10) {
-            if(event.target.value == this.insureArray['controls'].items['controls'][i]['controls'].insureMobile.value) {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].insurePhone.value.length == 10) {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].insurePhone.value == this.insureArray['controls'].items['controls'][i]['controls'].insureMobile.value) {
                 this.insuremobileNumber = 'Alternate number should be different from mobile number';
             } else {
                 this.insuremobileNumber = '';
             }
-        } else {
-            // this.mobileNumber = 'false';
+        }else{
+            this.insuremobileNumber = '';
         }
-        sessionStorage.insuremobileNumber = this.insuremobileNumber;
+        // sessionStorage.insuremobileNumber = this.insuremobileNumber;
     }
 
     setrelationshipList() {
@@ -670,7 +607,6 @@ export class BajajAlianzComponent implements OnInit {
             }
 
         }
-        console.log(this.insureRelation, 'this.insureRelationthis.insureRelation');
     }
 
     public relationListFailure(error) {
@@ -700,6 +636,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureEmail.patchValue(this.getStepper1.items[i].insureEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureMobile.patchValue(this.getStepper1.items[i].insureMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePhone.patchValue(this.getStepper1.items[i].insurePhone);
+                this.insureArray['controls'].items['controls'][i]['controls'].insuremobileNumber.patchValue(this.getStepper1.items[i].insuremobileNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureAddress.patchValue(this.getStepper1.items[i].insureAddress);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureAddress2.patchValue(this.getStepper1.items[i].insureAddress2);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePincode.patchValue(this.getStepper1.items[i].insurePincode);
@@ -740,21 +677,19 @@ export class BajajAlianzComponent implements OnInit {
                 this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer');
             }
         }
-        if (sessionStorage.insuremobileNumber != '' ) {
-            this.insuremobileNumber = sessionStorage.insuremobileNumber;
-        } else {
-            this.insuremobileNumber = 'true';
-        }
+        // if (sessionStorage.insuremobileNumber != '' ) {
+        //     this.insuremobileNumber = sessionStorage.insuremobileNumber;
+        // } else {
+        //     this.insuremobileNumber = 'true';
+        // }
         if (sessionStorage.copaymentShow != '' && sessionStorage.copaymentShow != undefined) {
             this.copaymentShow = sessionStorage.copaymentShow;
             this.insureArray['controls'].items['controls'][0]['controls'].insureCheckCopay.patchValue(this.copaymentShow);
         }
-        console.log(this.insureArray, 'this.insureArraythis.insureArray555');
     }
 
     //create poposal
     proposal(){
-        console.log(this.insureArray,'insureArrayinsureArrayinsureArrayinsureArrayinsureArray')
         this.settings.loadingSpinner = true;
         const data  = {
             'platform': 'web',
@@ -793,7 +728,7 @@ export class BajajAlianzComponent implements OnInit {
                 'previnsname': this.insureArray['controls'].items['controls'][0]['controls'].insurePIName.value,
                 'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
                 'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
-                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
+                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value == null ? '' : this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
                 'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
             },
             'hcpdtmemlist': this.totalInsureDetails,
@@ -801,7 +736,6 @@ export class BajajAlianzComponent implements OnInit {
                 'memiptreatsi': this.buyProductdetails.suminsured_amount
             }]
         };
-        console.log(data,'bajajjjjjjjjjsdddddd')
         this.proposalservice.getbajajProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
@@ -843,7 +777,6 @@ export class BajajAlianzComponent implements OnInit {
 
 
     commonPincode(pin, title){
-        console.log(pin, 'pinpin');
         this.pin = pin;
         this.title = title;
         const data = {

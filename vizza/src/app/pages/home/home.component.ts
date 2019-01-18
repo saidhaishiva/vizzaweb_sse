@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper3Details = '';
         sessionStorage.nomineeData = '';
+        sessionStorage.copaymentShow = '';
 
         //personalaccident components
         sessionStorage.setOccupation = '';

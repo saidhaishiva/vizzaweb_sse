@@ -507,8 +507,6 @@ export class HealthInsuranceComponent implements OnInit {
                     this.insuranceLists[i].product_lists[j].shortlist = false;
                     this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
                     this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
-
-                    console.log( this.insuranceLists[i].product_lists[j].premium_amount);
                 }
             }
             this.getArray = this.insuranceLists[index].family_members;
@@ -1064,11 +1062,8 @@ export class HealthInsuranceComponent implements OnInit {
             for (let j = 0; j < this.insuranceLists[i].family_members.length; j++) {
                 ages.push(this.insuranceLists[i].family_members[j].age);
             }
-            console.log(this.insuranceLists[i], 'valuuuuuuuuuuueeeww');
         }
-        console.log(ages, 'agesagesages');
         this.checkAge = Math.max.apply(null, ages);
-        console.log(this.checkAge, 'thisthis.checkAgemax.checkAgemax');
             if (this.auth.getPosStatus() == '0') {
                 let dialogRef = this.dialog.open(PosstatusAlert, {
                     width: '700px',
@@ -1162,7 +1157,6 @@ export class HealthInsuranceComponent implements OnInit {
         });
         dialogRef.disableClose = true;
         // dialogRef.afterClosed().subscribe(result => {
-        //     console.log('The dialog was closed');
         // });
     }
     headinghealthinsurance(){
