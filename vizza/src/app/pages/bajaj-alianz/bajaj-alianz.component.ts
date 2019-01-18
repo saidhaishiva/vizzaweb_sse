@@ -183,7 +183,7 @@ export class BajajAlianzComponent implements OnInit {
                 insurePINumber:'',
                 insurePItDate: ['', Validators.compose([Validators.minLength(10)])],
                 insureSInsurance:'',
-                insurePIClaims:'0',
+                insurePIClaims:'',
                 bajajNomineeName: ['', Validators.required],
                 bajajRelationship: ['', Validators.required],
                 medicalPEDisease: 'No',
@@ -609,10 +609,10 @@ export class BajajAlianzComponent implements OnInit {
 
     relationshipSame(i){
         if(this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value == this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.value){
-
             this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('Insurer and Nominee relationship should be different');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value == ''){
+            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('');
         } else{
-
             this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('');
         }
     }

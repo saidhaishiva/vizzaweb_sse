@@ -33,7 +33,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2" [max]="minDate" maxlength="10" placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value  )" (keypress)="add($event)" autocomplete="off" required>
+                                                        <input matInput [matDatepicker]="picker2" [max]="minDate" maxlength="10" placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value  )" (keypress)="add($event, 'insurer', i)" autocomplete="off" required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker2></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -218,7 +218,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="i == 0">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Number Of Claims" (keypress)="keyPress($event)" maxlength="10" formControlName="insurePIClaims" autocomplete="off">
+                                                        <input matInput placeholder="Number Of Claims" type="number" min="0" (keypress)="keyPress($event)" maxlength="10" formControlName="insurePIClaims" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-4" *ngIf="i == 0">
@@ -296,9 +296,11 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Insured Name :</strong>{{item.ins_name}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Insured Name :</strong>Ms. {{item.ins_name}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Gender :</strong> Male</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Gender :</strong> Female</li>
+                                            <!--<li class="list-group-item" *ngIf="i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
                                             <!--<li class="list-group-item" *ngIf="i == 0"><strong>Name :</strong> {{summaryData.proposer_title}} {{summaryData.proposer_firstname}} {{summaryData.proposer_middlename}} {{summaryData.proposer_lastname}}</li>-->
                                             <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd-MMM-yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
