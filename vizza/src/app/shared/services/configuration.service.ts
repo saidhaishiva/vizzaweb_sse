@@ -8,7 +8,7 @@ export class ConfigurationService {
 
   apiHost: string = environment.apiHost;
   apiHostTravel: string = environment.apiHostTravel;
-  apiHostPersonalaccident: string = environment.apiHostPersonalaccident;
+  apiHostPa: string = environment.apiHostPa;
   apiHostHealth: string = environment.apiHostHealth;
   apiHostPos: string = environment.apiHostPos;
 
@@ -28,7 +28,7 @@ export class ConfigurationService {
     this.imgurl = this.imgUrl;
     this.apihost = this.apiHost;
     this.apiHostTravel = this.apiHostTravel;
-    this.apiHostPersonalaccident = this.apiHostPersonalaccident;
+    this.apiHostPa = this.apiHostPa;
     this.apiHostHealth = this.apiHostHealth;
     this.apiHostPos = this.apiHostPos;
   }
@@ -38,8 +38,8 @@ export class ConfigurationService {
     getHostTravel() {
         return this.apiHostTravel;
     }
-    getHostPersonalaccident() {
-        return this.apiHostPersonalaccident;
+    getHostPa() {
+        return this.apiHostPa;
     }
     getwebHost() {
         return this.webHost;

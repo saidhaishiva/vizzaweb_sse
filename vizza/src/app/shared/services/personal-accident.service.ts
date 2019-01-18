@@ -13,7 +13,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/proposal_creation';
+        const url = this.configurationService.getHostPa() + 'religare/proposal_creation';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -25,7 +25,7 @@ export class PersonalAccidentService {
          const httpOptions = {
              headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-         const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationcode';
+         const url = this.configurationService.getHostPa() + 'religare/get_occupationcode';
          return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -37,7 +37,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_occupationname';
+        const url = this.configurationService.getHostPa() + 'religare/get_occupationname';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -50,7 +50,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/proposalquestions';
+        const url = this.configurationService.getHostPa() + 'religare/proposalquestions';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -63,7 +63,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personal_accident/lists';
+        const url = this.configurationService.getHostPa() + 'productlist/lists';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -76,7 +76,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personal_accident/update_familygroup_suminsured' ;
+        const url = this.configurationService.getHostPa() + 'productlist/update_familygroup_suminsured' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -88,7 +88,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personal_accident/suminsured_amount' ;
+        const url = this.configurationService.getHostPa() + 'productlist/suminsured_amount' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -100,7 +100,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_religare_pa_policypdf';
+        const url = this.configurationService.getHostPa() + 'religare/get_religare_pa_policypdf';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -112,7 +112,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_religare_pincodes';
+        const url = this.configurationService.getHostPa() + 'religare/get_religare_pincodes';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -125,7 +125,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_area' ;
+        const url = this.configurationService.getHostPa() + 'religare/get_area' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -139,7 +139,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_city' ;
+        const url = this.configurationService.getHostPa() + 'religare/get_city' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -151,7 +151,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_occupationcode';
+        const url = this.configurationService.getHostPa() + 'religare/get_occupationcode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -162,7 +162,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'quote/get_religare_occupationcode';
+        const url = this.configurationService.getHostPa() + 'religare/get_religare_occupationcode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -172,7 +172,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personal_accident/occupationlist';
+        const url = this.configurationService.getHostPa() + 'productlist/occupationlist';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -183,7 +183,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_occupation_code';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_occupation_code';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -194,7 +194,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_proffession';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_proffession';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -205,7 +205,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_religare/get_relationof_proposer';
+        const url = this.configurationService.getHostPa() + 'religare/get_relationof_proposer';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -217,7 +217,7 @@ export class PersonalAccidentService {
             const httpOptions = {
                 headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
             };
-            const url = this.configurationService.getHost() + 'personal_accident/compare_shkeyfeatures' ;
+            const url = this.configurationService.getHostPa() + 'productlist/compare_shkeyfeatures' ;
             return this.http.post(url, json, httpOptions)
                 .map(this.extractData)
                 .catch(this.handleError);
@@ -229,7 +229,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personal_accident/view_keyfeatures' ;
+        const url = this.configurationService.getHostPa() + 'productlist/view_keyfeatures' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -241,7 +241,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_relationship';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_relationship';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -252,7 +252,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_id_proof';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_id_proof';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -263,7 +263,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_material_status';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_material_status';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -274,7 +274,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_previous_insure';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_previous_insure';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -285,7 +285,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_state';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_state';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -300,7 +300,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_district';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_district';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -311,7 +311,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_city';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_city';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -322,7 +322,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/get_pincode';
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_pincode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -333,7 +333,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'personalaccident_apollomunich/create_proposal_details';
+        const url = this.configurationService.getHostPa() + 'apollomunich/create_proposal_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -345,7 +345,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + '';
+        const url = this.configurationService.getHostPa() + '';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -357,7 +357,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/occupation_lists';
+        const url = this.configurationService.getHostPa() + 'hdfc/occupation_lists';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -368,7 +368,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/checkValidPincode';
+        const url = this.configurationService.getHostPa() + 'hdfc/checkValidPincode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -379,7 +379,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/cityeList';
+        const url = this.configurationService.getHostPa() + 'hdfc/cityeList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -391,7 +391,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/stateList';
+        const url = this.configurationService.getHostPa() + 'hdfc/stateList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -402,7 +402,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/NomineeRelationshipList';
+        const url = this.configurationService.getHostPa() + 'hdfc/NomineeRelationshipList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -414,7 +414,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url =this.configurationService.getHostPersonalaccident() + 'Personalaccident_hdfc/create_proposal_details';
+        const url =this.configurationService.getHostPa() + 'hdfc/create_proposal_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
