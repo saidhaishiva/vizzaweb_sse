@@ -1092,7 +1092,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
 
             let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
@@ -1108,7 +1108,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
 
@@ -1338,8 +1338,8 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 'PreviousInsuranceDetails': {
                     'PrevInsuranceID': this.previousInsuranceFrom.controls['InsuranceCompName'].value,
                     'PrevYearPolicyNo': this.previousInsuranceFrom.controls['PreviousPolNo'].value,
-                    'PrevYearPolicyStartDate': this.previousInsuranceFrom.controls['PolicyStartDate'].value,
-                    'PrevYearPolicyEndDate': this.previousInsuranceFrom.controls['PolicyEndDate'].value
+                    'PrevYearPolicyStartDate': this.previousInsuranceFrom.controls['PolicyStartDate'].value == null ? '' : this.previousInsuranceFrom.controls['PolicyStartDate'].value,
+                    'PrevYearPolicyEndDate': this.previousInsuranceFrom.controls['PolicyEndDate'].value == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
                 },
                 'enquiry_id': this.enquiryId,
                 'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
