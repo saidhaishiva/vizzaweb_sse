@@ -1346,6 +1346,7 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             };
+            console.log(this.proposalId.toString());
 console.log(data, 'datadatadatadata');
             this.settings.loadingSpinner = true;
             this.proposalservice.relianceProposal(data).subscribe(
@@ -1451,7 +1452,7 @@ console.log(data, 'datadatadatadata');
             console.log(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address, 'perrrrrareqq');
 
             //Risk Details
-            for( let j = 0; j <  this.summaryData.ServiceTaxId.length; j++) {
+            for( let j = 0; j <  this.ServiceTaxId.length; j++) {
                 if (this.summaryData.NomineeDetails.ServiceTaxExemptionID == this.ServiceTaxId[j].servicetax_exemp_id) {
                     this.summaryData.NomineeDetails.servicetax_exemp_name = this.ServiceTaxId[j].servicetax_exemp_name;
                 }

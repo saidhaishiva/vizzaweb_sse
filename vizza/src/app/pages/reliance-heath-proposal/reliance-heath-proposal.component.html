@@ -909,7 +909,7 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsServiceTaxExemptionApplicable == 'false'"><strong>Is ServiceTax Applicable: </strong> NO</li>
                                                 <li class="list-group-item" *ngIf="summaryData.RiskDetails.IsServiceTaxExemptionApplicable == 'true'"><strong>Is ServiceTax Applicable: </strong> YES</li>
-                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.servicetax_exemp_name != ''"><strong>Services Tax : </strong> {{summaryData.RiskDetails.servicetax_exemp_name}} </li>
+                                                <li class="list-group-item" *ngIf="summaryData.RiskDetails.servicetax_exemp_id != ''"><strong>Services Tax : </strong> {{summaryData.RiskDetails.servicetax_exemp_name}} </li>
                                                 <li class="list-group-item" *ngIf="summaryData.RiskDetails.Iscrosssell == 'false'"><strong>Is crosssell: </strong> NO </li>
                                                 <li class="list-group-item" *ngIf="summaryData.RiskDetails.Iscrosssell == 'true'"><strong>Is crosssell: </strong> YES </li>
                                                 <li class="list-group-item" *ngIf="summaryData.RiskDetails.CrossSellPolicyNo != ''"><strong>Cross Sell Policy No : </strong> {{summaryData.RiskDetails.CrossSellPolicyNo}} </li>
