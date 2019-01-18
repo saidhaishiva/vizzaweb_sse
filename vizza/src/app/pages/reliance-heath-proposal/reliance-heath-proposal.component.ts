@@ -250,13 +250,13 @@ export class RelianceHeathProposalComponent implements OnInit {
             nomineeDob: ['', Validators.compose([Validators.required])]
         });
         this.riskDetails = this.fb.group({
-            serviceTax: '',
+            serviceTax: 'No',
             ServicesTaxId: '',
-            relianceAda: '',
+            relianceAda: 'No',
             companyname: '',
             employeeCode: '',
             emailId:'',
-            crossSell: '',
+            crossSell: 'No',
             crossSellPolicyNo: '',
         });
     }
@@ -1097,7 +1097,6 @@ export class RelianceHeathProposalComponent implements OnInit {
 
             let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(getDob);
-
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
@@ -1338,8 +1337,8 @@ console.log(this.insureArray, 'this.insureArraythis.insureArray11');
                 'PreviousInsuranceDetails': {
                     'PrevInsuranceID': this.previousInsuranceFrom.controls['InsuranceCompName'].value,
                     'PrevYearPolicyNo': this.previousInsuranceFrom.controls['PreviousPolNo'].value,
-                    'PrevYearPolicyStartDate': this.previousInsuranceFrom.controls['PolicyStartDate'].value == null ? '' : this.previousInsuranceFrom.controls['PolicyStartDate'].value,
-                    'PrevYearPolicyEndDate': this.previousInsuranceFrom.controls['PolicyEndDate'].value == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
+                    'PrevYearPolicyStartDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyStartDate'].value, 'y-MM-dd')  == null ? '' : this.previousInsuranceFrom.controls['PolicyStartDate'].value,
+                    'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
                 },
                 'enquiry_id': this.enquiryId,
                 'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
@@ -1379,11 +1378,6 @@ console.log(data, 'datadatadatadata');
                     if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_proposer_id ) {
                         this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
                     }
-                }
-            }
-            for( let j=0; j < this.relationshipList.length; j++){
-                if(this.summaryData.NomineeDetails.NomineeRelationshipID == this.relationshipList[j].relationship_proposer_id ) {
-                    this.summaryData.NomineeDetails.relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
                 }
             }
             // disease name
@@ -1456,7 +1450,19 @@ console.log(data, 'datadatadatadata');
             }
             console.log(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address, 'perrrrrareqq');
 
+            //Risk Details
+            for( let j = 0; j <  this.summaryData.ServiceTaxId.length; j++) {
+                if (this.summaryData.NomineeDetails.ServiceTaxExemptionID == this.ServiceTaxId[j].servicetax_exemp_id) {
+                    this.summaryData.NomineeDetails.servicetax_exemp_name = this.ServiceTaxId[j].servicetax_exemp_name;
+                }
+            }
+
             // nominee
+                for (let j = 0; j < this.nomineeRelationshipList.length; j++) {
+                    if (this.summaryData.NomineeDetails.NomineeRelationshipID == this.nomineeRelationshipList[j].nominee_relation_id) {
+                        this.summaryData.NomineeDetails.nominee_relation_name = this.nomineeRelationshipList[j].nominee_relation_name;
+                    }
+                }
               if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
                 this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
               }

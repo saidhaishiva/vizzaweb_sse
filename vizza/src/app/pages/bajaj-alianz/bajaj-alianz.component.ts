@@ -285,8 +285,6 @@ export class BajajAlianzComponent implements OnInit {
                     this.toastr.error('Sorry you are selected Pre-Existing Diseases. so you are not allowed to purchase product');
                 }
             }
-        }else{
-            this.toastr.error('Sorrrrrrrrrrrrrrrrrrry');
         }
     }
 
