@@ -216,7 +216,6 @@ export class BajajAlianzComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
-            alert('ok');
             this.insurerData = value.items;
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
@@ -294,11 +293,9 @@ export class BajajAlianzComponent implements OnInit {
     changeCoPayment(event:any, index){
         if(event.checked){
 
-            alert("ok");
             this.items.at(index).controls.insureCoPayment.setValidators([Validators.required]);
             this.copaymentShow = true;
         } else {
-            alert("no");
             this.insureArray['controls'].items['controls'][index]['controls'].insureCoPayment.patchValue('');
             this.items.at(index).controls.insureCoPayment.setValidators(null);
             this.copaymentShow = false;
