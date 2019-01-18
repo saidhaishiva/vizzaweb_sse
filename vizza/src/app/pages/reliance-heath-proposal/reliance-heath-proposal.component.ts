@@ -1452,9 +1452,9 @@ console.log(data, 'datadatadatadata');
             console.log(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address, 'perrrrrareqq');
 
             //Risk Details
-            for( let j = 0; j <  this.ServiceTaxId.length; j++) {
-                if (this.summaryData.NomineeDetails.ServiceTaxExemptionID == this.ServiceTaxId[j].servicetax_exemp_id) {
-                    this.summaryData.NomineeDetails.servicetax_exemp_name = this.ServiceTaxId[j].servicetax_exemp_name;
+            for( let i = 0; i <  this.ServiceTaxId.length; i++) {
+                if (this.summaryData.RiskDetails.ServiceTaxExemptionID == this.ServiceTaxId[i].servicetax_exemp_id) {
+                    this.summaryData.RiskDetails.servicetax_exemp_name = this.ServiceTaxId[i].servicetax_exemp_name;
                 }
             }
 
