@@ -288,7 +288,7 @@
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposalDtails.dob | date: 'dd-MMM-yyyy'}}</li>
                         <li class="list-group-item"><strong>Email:</strong> {{proposalDtails.emailid}}</li>
                         <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.mobile}}</li>
-                        <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.phone}}</li>
+                        <li class="list-group-item" *ngIf="proposalDtails.phone != ''"><strong>Phone:</strong> {{proposalDtails.phone}}</li>
                      </ul>
                     </div>
                   </div>
@@ -296,8 +296,8 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposalDtails.address1}}</li>
-                        <li class="list-group-item" *ngIf ="proposalDtails.address2 != ''" ><strong>Address 2:</strong> {{proposalDtails.address2}}</li>
-                        <li class="list-group-item" *ngIf ="proposalDtails.address3 != ''"><strong>Address 3:</strong> {{proposalDtails.address3}}</li>
+                        <li class="list-group-item" *ngIf="proposalDtails.address2 != ''" ><strong>Address 2:</strong> {{proposalDtails.address2}}</li>
+                        <li class="list-group-item" *ngIf="proposalDtails.address3 != ''"><strong>Address 3:</strong> {{proposalDtails.address3}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong>  {{proposalDtails.pincode}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{proposalDtails.city}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{proposalDtails.state}}</li>
