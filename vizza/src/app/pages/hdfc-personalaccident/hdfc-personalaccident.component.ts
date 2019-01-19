@@ -529,7 +529,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
-            'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
+            'proposal_id': sessionStorage.hdfc_PA_proposal_id == '' || sessionStorage.hdfc_PA_proposal_id == undefined ? '' : sessionStorage.hdfc_PA_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
                     'ApplFirstName': this.hdfcpersonalValues.firstname,
@@ -600,7 +600,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             stepper.next();
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
-            sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
+            sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
             // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
             this.proposalDtails = successData.ResponseObject.ProposalDetails;
@@ -616,9 +616,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public proposalFailure(error) {
 
     }
-    redirect() {
-        this.route.navigate([this.summaryData.PaymentActionUrl]);
-    }
+    // redirect() {
+    //     this.route.navigate([this.summaryData.PaymentActionUrl]);
+    // }
 // sessionData
     sessionData() {
         if (sessionStorage.hdfcPAStep1 != '' && sessionStorage.hdfcPAStep1 != undefined) {
