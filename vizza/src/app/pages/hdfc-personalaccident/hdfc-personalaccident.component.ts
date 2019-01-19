@@ -81,6 +81,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.IsCustomerAcceptedPPCPED = false;
+        this.declaration = false;
         this.arr = [];
         this.webhost = this.config.getimgUrl();
 
