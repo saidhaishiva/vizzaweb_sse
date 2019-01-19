@@ -88,6 +88,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.hdfcPersonal = this.fb.group({
+            title:['', Validators.required],
             firstname: new FormControl(''),
             lastname: new FormControl(''),
             midname: '',
@@ -501,6 +502,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'proposal_id': sessionStorage.hdfc_PA_proposal_id == '' || sessionStorage.hdfc_PA_proposal_id == undefined ? '' : sessionStorage.hdfc_PA_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
+                    'TittleCode': this.hdfcpersonalValues.title,
                     'ApplFirstName': this.hdfcpersonalValues.firstname,
                     'ApplMiddleName': this.hdfcpersonalValues.midname,
                     'ApplLastName': this.hdfcpersonalValues.lastname,
