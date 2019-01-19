@@ -66,7 +66,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public arr: any;
     public insurerDtails: any;
     public proposalDtails: any;
-    public nomineeDtails: any;
     public webhost: any;
     public sameAsinsure: any;
     public fullName: any;
