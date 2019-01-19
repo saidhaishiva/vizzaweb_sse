@@ -73,6 +73,7 @@ export class BajajAlianzComponent implements OnInit {
     public medicalPersons: any;
     public zonemessage: any;
     public relationshipSameError: any;
+    // public grossAmountAge: any;
 
 
     public setDate: any;
@@ -166,7 +167,7 @@ export class BajajAlianzComponent implements OnInit {
                 insureWeight: ['', Validators.compose([Validators.required])],
                 insureoccupation: ['', Validators.required],
                 insurerelationship: ['', Validators.required],
-                insureGMIncome: ['', Validators.required],
+                insureGMIncome: '',
                 insureEmail: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 insureMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
                 insurePhone: '',
@@ -224,19 +225,19 @@ export class BajajAlianzComponent implements OnInit {
                     'membername': this.insurerData[i].insureName,
                     'memrelation': this.insurerData[i].insurerelationship,
                     'memdob': this.datepipe.transform(this.insurerData[i].insureDob, 'y-MM-dd'),
-                    'memage': this.insurerData[i].insureAge,
+                    'memage': this.insurerData[i].insureAge == 0 ? "0" : this.insurerData[i].insureAge,
                     'memgender': this.insurerData[i].insureGender == 'Male' ? 'M' : 'F',
                     'memheightcm': this.insurerData[i].insureHeight,
                     'memweightkg': this.insurerData[i].insureWeight,
                     'memoccupation': this.insurerData[i].insureoccupation,
-                    'memgrossmonthlyincome': this.insurerData[i].insureGMIncome,
+                    'memgrossmonthlyincome': this.insurerData[i].insureGMIncome == '' ? "0" : this.insurerData[i].insureGMIncome,
                     'memnomineename': this.insurerData[i].bajajNomineeName,
                     'memnomineerelation': this.insurerData[i].bajajRelationship,
                     'memcompname': this.insurerData[i].insureCName,
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? '0' : this.insurerData[i].insurePIClaims,
+                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y',
@@ -496,7 +497,13 @@ export class BajajAlianzComponent implements OnInit {
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-
+        // if(this.insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18) {
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value;
+        //     this.grossAmountAge = true;
+        // }else{
+        //     this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue('0');
+        //     this.grossAmountAge = false;
+        // }
         // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
         //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
         // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {

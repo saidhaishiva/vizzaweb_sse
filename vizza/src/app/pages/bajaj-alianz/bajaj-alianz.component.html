@@ -109,9 +109,9 @@
                                                     <span class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value}}</span>
 
                                                 </div>
-                                                <div>
+                                                <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Gross Monthly Income"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off" required>
+                                                        <input matInput placeholder="Gross Monthly Income"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off" [required] = "insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                         <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -203,7 +203,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker3" [max]="minDate" placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent( $event, 'expiry', i,insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="add($event)"  autocomplete="off" autocomplete="off">
+                                                        <input matInput [matDatepicker]="picker3" [max]="minDate" placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i)" (dateChange)="addEvent( $event, 'expiry',i)" (keypress)="add($event)"  autocomplete="off" autocomplete="off">
                                                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker3></mat-datepicker>
                                                         <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
@@ -295,6 +295,7 @@
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">
+                                        <h6>INSURED DETAIL</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Insured Name :</strong>Ms. {{item.ins_name}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
@@ -304,28 +305,19 @@
                                             <!--<li class="list-group-item" *ngIf="i == 0"><strong>Name :</strong> {{summaryData.proposer_title}} {{summaryData.proposer_firstname}} {{summaryData.proposer_middlename}} {{summaryData.proposer_lastname}}</li>-->
                                             <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd-MMM-yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob | date: 'dd-MMM-yyyy'}}</li>
-
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && i == 0"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
-
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}}</li>
+                                            <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
+                                            <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="p-3">
-                                        <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}}</li>
-                                        <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
-                                        <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
-                                        <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
-                                        <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
-                                        <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="i == 0">
                                     <div class="p-3">
                                         <h6>ADDRESS DETAILS</h6>
                                         <ul class="m-0 list-group">
