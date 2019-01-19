@@ -35,7 +35,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public nomineeDetails: FormGroup;
     public today: any;
     public personalDobError: any;
-    public hdfcHealthProposerAge: any;
+    public hdfcPAProposerAge: any;
     public pin: any;
     public title: any;
     public personalHdfcHealthCitys: any;
@@ -51,7 +51,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public hdfcPAStep1: any;
     public lastStepper: any;
     public back: any;
-    public hdfcHealthNomineeDetails: any;
+    public hdfcPANomineeDetails: any;
     public totalAmount: any;
     public settings: any;
     public insuredHdfcRelationList: any;
@@ -178,7 +178,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     addEvent(event,i, type, formtype) {
         if (event.value != null) {
             let selectedDate = '';
-            this.hdfcHealthProposerAge = '';
+            this.hdfcPAProposerAge = '';
             let dob = '';
             let insurerAge;
             console.log(event.value, 'event.value._i');
@@ -207,8 +207,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 if (selectedDate.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
-                        this.hdfcHealthProposerAge = this.ageCalculate(dob);
-                        this.ageData(this.hdfcHealthProposerAge, formtype);
+                        this.hdfcPAProposerAge = this.ageCalculate(dob);
+                        this.ageData(this.hdfcPAProposerAge, formtype);
                     }
                     // else if (formtype == 'insurer') {
                     //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
@@ -216,7 +216,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                     //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
                     //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
                     // }
-                    console.log(this.hdfcHealthProposerAge, ' this.hdfcHealthProposerAge');
+                    console.log(this.hdfcPAProposerAge, ' this.hdfcPAProposerAge');
                     console.log(insurerAge, ' this.insurerAgeinsurerAgeinsurerAge');
 
                 }
@@ -227,8 +227,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 if (dob.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
-                        this.hdfcHealthProposerAge = this.ageCalculate(dob);
-                        this.ageData(this.hdfcHealthProposerAge, formtype);
+                        this.hdfcPAProposerAge = this.ageCalculate(dob);
+                        this.ageData(this.hdfcPAProposerAge, formtype);
                     }
                 }
             }
@@ -254,7 +254,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     ageData(age, type) {
         console.log(age, 'ageageage');
         if (age && type == 'personal') {
-            sessionStorage.hdfcHealthProposerAge = age;
+            sessionStorage.hdfcPAProposerAge = age;
             if (age > 45) {
                 console.log(age ,' this.age ');
                 this.IsCustomerAcceptedPPCPED = true;
@@ -464,11 +464,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         console.log(this.hdfcpersonalValues, 'first');
         console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
         if (this.hdfcPersonal.valid) {
-            // if (sessionStorage.hdfcHealthProposerAge >= 18) {
+            if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 stepper.next();
-            // } else {
-            //     this.toastr.error('Proposer age should be 18 or above');
-            // }
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
 
         } else {
             if (value.accepted) {
@@ -508,8 +508,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     // Nominee Details
     addNomineeDetails(stepper: MatStepper, value) {
         console.log(value);
-        sessionStorage.hdfcHealthNomineeDetails = '';
-        sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
+        sessionStorage.hdfcPANomineeDetails = '';
+        sessionStorage.hdfcPANomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.createProposal(stepper);
         }
@@ -532,7 +532,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
-                    'Title': this.hdfcpersonalValues.title,
                     'ApplFirstName': this.hdfcpersonalValues.firstname,
                     'ApplMiddleName': this.hdfcpersonalValues.midname,
                     'ApplLastName': this.hdfcpersonalValues.lastname,
@@ -546,10 +545,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                     'Pincode': this.hdfcpersonalValues.pincode,
                     'EmailId': this.hdfcpersonalValues.email,
                     'MobileNo': this.hdfcpersonalValues.mobile,
-                    'PhoneNo': this.hdfcpersonalValues.phone,
-                    'IsCustomerAcceptedPPCPED': this.hdfcpersonalValues.accepted ? 1 : '',
-                    'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
-                    'UIDNo': "" //OTP Value
+                    'PhoneNo': this.hdfcpersonalValues.phone
                 },
                 'PlanDetails': {
                     // 'PlanCd': this.getBuyDetails.plan_code,
@@ -658,9 +654,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             }
             if (this.hdfcPAStep1.dob != '') {
                 let dob = this.datepipe.transform(this.hdfcPAStep1.dob, 'y-MM-dd');
-                this.hdfcHealthProposerAge = this.ageCalculate(dob);
-                this.ageData(this.hdfcHealthProposerAge, 'personal');
-                if (this.hdfcHealthProposerAge > 45) {
+                this.hdfcPAProposerAge = this.ageCalculate(dob);
+                this.ageData(this.hdfcPAProposerAge, 'personal');
+                if (this.hdfcPAProposerAge > 45) {
                     this.checkAccepted();
                 }
             }
@@ -668,12 +664,12 @@ export class HdfcPersonalaccidentComponent implements OnInit {
 
 
         }
-        if (sessionStorage.hdfcHealthNomineeDetails != '' && sessionStorage.hdfcHealthNomineeDetails != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcHealthNomineeDetails), 'sessionStorage.hdfcHealthNomineeDetails');
-            this.hdfcHealthNomineeDetails = JSON.parse(sessionStorage.hdfcHealthNomineeDetails);
+        if (sessionStorage.hdfcPANomineeDetails != '' && sessionStorage.hdfcPANomineeDetails != undefined) {
+            console.log(JSON.parse(sessionStorage.hdfcPANomineeDetails), 'sessionStorage.hdfcPANomineeDetails');
+            this.hdfcPANomineeDetails = JSON.parse(sessionStorage.hdfcPANomineeDetails);
             this.nomineeDetails = this.fb.group({
-                nomineeName: this.hdfcHealthNomineeDetails.nomineeName,
-                nomineeRelationship: this.hdfcHealthNomineeDetails.nomineeRelationship
+                nomineeName: this.hdfcPANomineeDetails.nomineeName,
+                nomineeRelationship: this.hdfcPANomineeDetails.nomineeRelationship
             });
         }
 
