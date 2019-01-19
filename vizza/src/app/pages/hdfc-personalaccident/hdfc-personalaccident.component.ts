@@ -566,18 +566,21 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public proposalSuccess(successData, stepper) {
         console.log(successData,'successData');
         this.settings.loadingSpinner = false;
-        if (successData.IsSuccess == true) {
+        if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData, '  this.summaryData');
-            console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
-            sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
-            this.insurerDtails = successData.ResponseObject.InsuredDetails;
-            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
             this.proposalDtails =this.summaryData.ProposalDetails;
             this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
             this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
+            this.insurerDtails = successData.ResponseObject.InsureDetails;
+            sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
+
+
+            console.log(this.summaryData, '  this.summaryData');
+            console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
+            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
+
             console.log(this.proposalDtails, 'proposalDtails');
             console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
 
