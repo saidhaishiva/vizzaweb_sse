@@ -337,34 +337,17 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public getStateFailure(error) {
         console.log(error);
     }
+    occupationChangeList(val) {
+        if(val == 0){
+            this.toastr.error('Personal Accident is not allowed this occupation');
 
-// // RelationShip List
-//     RelationShipListHdfc() {
-//         const data = {
-//             'platform': 'web',
-//             'user_id': this.auth.getPosUserId(),
-//             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-//             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
-//         };
-//         this.personalacccidentservice.getHdfcNomineeRelationLists(data).subscribe(
-//             (successData) => {
-//                 this.relationShipSuccess(successData);
-//             },
-//             (error) => {
-//                 this.relationShipFailure(error);
-//             }
-//         );
-//     }
-//
-//     public relationShipSuccess(successData) {
-//         if (successData.IsSuccess) {
-//             this.insuredHdfcRelationList = successData.ResponseObject;
-//
-//         }
-//     }
-//     public relationShipFailure(error) {
-//         console.log(error);
-//     }
+        } else {
+        }
+    }
+
+
+
+
     // Nominee RelationShip List
     nomineeRelationShipListHdfc() {
         const data = {
@@ -457,40 +440,40 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         console.log(this.hdfcpersonalValues, 'first');
         console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
         if (this.hdfcPersonal.valid) {
-            if (sessionStorage.hdfcPAProposerAge >= 18) {
+            // if (sessionStorage.hdfcPAProposerAge >= 18) {
                 stepper.next();
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
+            // } else {
+            //     this.toastr.error('Proposer age should be 18 or above');
+            // }
 
         }
     }
     // insured page
-    InsureDetails(stepper: MatStepper, value) {
-        sessionStorage.hdfcStep2 = '';
-        sessionStorage.hdfcStep2 = JSON.stringify(value);
-        this.insurerData = value;
-        if (this.hdfcInsureArray.valid) {
-            console.log(value, 'ffffflll');
-            let validData = false;
-            for (let i = 0; i < value.items.length; i++) {
-                if (value.items[i].insurerDobError != '') {
-                    validData = false;
-                    break;
-                } else if (value.items[i].insurerDobError == '') {
-                    validData = true;
-                }
-            }
-            console.log(validData, 'validDatavalidData');
-
-            if (validData) {
-                stepper.next();
-            } else {
-                //  this.toastr.error('Insured age should be 18 or above');
-            }
-
-        }
-    }
+    // InsureDetails(stepper: MatStepper, value) {
+    //     sessionStorage.hdfcStep2 = '';
+    //     sessionStorage.hdfcStep2 = JSON.stringify(value);
+    //     this.insurerData = value;
+    //     if (this.hdfcInsureArray.valid) {
+    //         console.log(value, 'ffffflll');
+    //         let validData = false;
+    //         for (let i = 0; i < value.items.length; i++) {
+    //             if (value.items[i].insurerDobError != '') {
+    //                 validData = false;
+    //                 break;
+    //             } else if (value.items[i].insurerDobError == '') {
+    //                 validData = true;
+    //             }
+    //         }
+    //         console.log(validData, 'validDatavalidData');
+    //
+    //         if (validData) {
+    //             stepper.next();
+    //         } else {
+    //             //  this.toastr.error('Insured age should be 18 or above');
+    //         }
+    //
+    //     }
+    // }
     // Nominee Details
     addNomineeDetails(stepper: MatStepper, value) {
         console.log(value);
@@ -585,11 +568,12 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, '  this.summaryData');
             console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
             sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
-            this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
+            this.insurerDtails = successData.ResponseObject.InsuredDetails;
             // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
-            this.proposalDtails = successData.ResponseObject.ProposalDetails;
+            // this.proposalDtails =this.summaryData.ProposalDetails;
             this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
             this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
             console.log(this.proposalDtails, 'proposalDtails');
