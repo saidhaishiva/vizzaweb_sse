@@ -571,7 +571,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
             this.setinsureDescriptionListCode();
 
-            this.readonlyproposer = true;
+            // this.readonlyproposer = true;
             this.insured.controls['sameasInsuredAddress'].disable();
             this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
             this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);

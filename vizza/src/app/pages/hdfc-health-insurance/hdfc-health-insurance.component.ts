@@ -823,7 +823,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         'UIDNo': this.hdfcpersonalValues.otp //OTP Value
                     },
                     'PlanDetails': {
-                        'PlanCd': this.getHdfcHealthPremiumList.plan_code,
+                        'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
+                        'product_id': this.getHdfcHealthPremiumList.product_id
                     },
                     'PaymentDetails': {
                         'PaymentMode': this.hdfcpersonalValues.paymentmode,
@@ -834,7 +835,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
 
             }
-
+    console.log(data,' hgh');
             this.settings.loadingSpinner = true;
             this.proposalservice.createHdfcHealthProposal(data).subscribe(
                 (successData) => {

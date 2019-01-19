@@ -303,15 +303,31 @@
                                             <!--<li class="list-group-item" *ngIf="i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
                                             <!--<li class="list-group-item" *ngIf="i == 0"><strong>Name :</strong> {{summaryData.proposer_title}} {{summaryData.proposer_firstname}} {{summaryData.proposer_middlename}} {{summaryData.proposer_lastname}}</li>-->
                                             <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob | date: 'dd-MMM-yyyy'}}</li>
+
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && i == 0"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
-                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob | date: 'dd-MMM-yyyy'}}</li>
+
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="p-3">
+                                        <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}}</li>
+                                        <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
+                                        <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
+                                        <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
+                                        <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
+                                        <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h6>ADDRESS DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Address1 :</strong> {{summaryData.prop_address1}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_address2 !='' && i == 0"><strong>Address2 :</strong> {{summaryData.prop_address2}}</li>
@@ -319,18 +335,12 @@
                                             <li class="list-group-item" *ngIf="summaryData.prop_city !='' && i == 0"><strong>City :</strong> {{summaryData.prop_city}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_state !='' && i == 0"><strong>State :</strong> {{summaryData.prop_state}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_postcode !='' && i == 0"><strong>Pincode :</strong> {{summaryData.prop_postcode}}</li>
-
-                                            <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
-                                            <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
-                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="p-3">
+                                        <h6>PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
