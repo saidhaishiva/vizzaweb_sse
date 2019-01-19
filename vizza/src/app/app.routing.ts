@@ -49,7 +49,7 @@ import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-
 import {LifeInsuranceComponent} from './pages/life-insurance/life-insurance.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
-
+import {HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -201,6 +201,7 @@ export const routes: Routes = [
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
             { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
