@@ -4,12 +4,13 @@ import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
-import {MatDialog, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog, MatStepper} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import { Router } from '@angular/router';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 export const MY_FORMATS = {
     parse: {
@@ -26,7 +27,13 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-hdfc-personalaccident',
   templateUrl: './hdfc-personalaccident.component.html',
-  styleUrls: ['./hdfc-personalaccident.component.scss']
+  styleUrls: ['./hdfc-personalaccident.component.scss'],
+    providers: [
+
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 
 export class HdfcPersonalaccidentComponent implements OnInit {
@@ -345,14 +352,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             this.proposerAgeHDFCPA = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
-                alert('val');
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    alert('yes');
                         this.personalDobError = '';
                 } else {
                         this.personalDobError = 'Enter Valid Date';
-                        alert('nolen');
                     }
                 }
                 selectedDate = event.value._i;
