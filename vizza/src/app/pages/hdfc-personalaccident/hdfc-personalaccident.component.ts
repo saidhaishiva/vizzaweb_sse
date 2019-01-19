@@ -144,13 +144,13 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         }
     }
     //  Title change Function in insured
-    insureChangeGender(index) {
-        if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
-            this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Male');
-        } else {
-            this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Female');
-        }
-    }
+    // insureChangeGender(index) {
+    //     if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
+    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Male');
+    //     } else {
+    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Female');
+    //     }
+    // }
     // accept only character
     public typeValidate(event: any) {
         if (event.charCode !== 0) {
@@ -531,7 +531,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 firstname: this.hdfcPAStep1.firstname,
                 lastname: this.hdfcPAStep1.lastname,
                 midname: this.hdfcPAStep1.midname,
-                dob: new FormControl(new Date(this.hdfcPAStep1.dob)),
+                dob: this.datepipe.transform(this.hdfcPAStep1.dob, 'y-MM-dd'),
                 gender: this.hdfcPAStep1.gender,
                 address1: this.hdfcPAStep1.address1,
                 address2: this.hdfcPAStep1.address2,
