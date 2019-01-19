@@ -573,7 +573,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsuredDetails;
             // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
-            // this.proposalDtails =this.summaryData.ProposalDetails;
+            this.proposalDtails =this.summaryData.ProposalDetails;
             this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
             this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
             console.log(this.proposalDtails, 'proposalDtails');
