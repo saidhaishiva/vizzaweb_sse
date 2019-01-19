@@ -109,7 +109,7 @@
                                                     <span class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value}}</span>
 
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div>
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Gross Monthly Income"  (keypress)="keyPress($event)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off" required>
                                                         <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
