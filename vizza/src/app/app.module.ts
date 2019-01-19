@@ -210,7 +210,7 @@ import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel
 import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import { ClaimAssistanceComponent } from './pages/claim-assistance/claim-assistance.component';
-
+import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -397,7 +397,8 @@ import { ClaimAssistanceComponent } from './pages/claim-assistance/claim-assista
       previousDisease,
       HdfcHealthPaymentSuccessComponent,
       DownloadMessageHdfcHealth,
-      ClaimAssistanceComponent
+      ClaimAssistanceComponent,
+      HdfcPaPaymentSuccessComponent
   ],
   providers: [
       AppSettings,
