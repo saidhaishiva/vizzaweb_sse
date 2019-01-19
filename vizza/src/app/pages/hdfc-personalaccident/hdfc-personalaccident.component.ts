@@ -136,13 +136,13 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     }
 
     // title change function
-    changeGender() {
-        if (this.hdfcPersonal.controls['title'].value == 'MR') {
-            this.hdfcPersonal.controls['gender'].patchValue('Male');
-        } else {
-            this.hdfcPersonal.controls['gender'].patchValue('Female');
-        }
-    }
+    // changeGender() {
+    //     if (this.hdfcPersonal.controls['title'].value == 'MR') {
+    //         this.hdfcPersonal.controls['gender'].patchValue('Male');
+    //     } else {
+    //         this.hdfcPersonal.controls['gender'].patchValue('Female');
+    //     }
+    // }
     //  Title change Function in insured
     // insureChangeGender(index) {
     //     if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
@@ -528,6 +528,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             this.setOccupationList();
             this.hdfcPAStep1 = JSON.parse(sessionStorage.hdfcPAStep1);
             this.hdfcPersonal = this.fb.group({
+                title: this.hdfcPAStep1.title,
                 firstname: this.hdfcPAStep1.firstname,
                 lastname: this.hdfcPAStep1.lastname,
                 midname: this.hdfcPAStep1.midname,
