@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="title">
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -56,7 +56,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcPersonal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -100,8 +100,8 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Occupation"  formControlName="occupation" (change)="occupationChangeList($event)" >
-                          <mat-option *ngFor="let IdProof of occupationCode" value="{{IdProof.occupation_code}}" > {{IdProof.occupation_description}} </mat-option>
+                        <mat-select placeholder="Occupation"  formControlName="occupation" >
+                          <mat-option *ngFor="let IdProof of occupationCode" value="{{IdProof.isAcceptable}}" > {{IdProof.occupation_description}} </mat-option>
                         </mat-select>
                         <!--<mat-error *ngIf="hdfcPersonal.controls.occupation.errors?.required">Occupation is required</mat-error>-->
                       </mat-form-field>
@@ -343,18 +343,18 @@
             <div class="col-md-12 text-center">
               <form action="{{summaryData.PaymentActionUrl}}"  method='POST' #form>
                 <!--<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">-->
-                <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
+                <input id="__EVENTVALIDATION" type="text" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
                        name="__EVENTVALIDATION">
                 <input id="CustomerId" type="hidden" value="{{summaryData.ProposalNumber}}" name="CustomerId"><br/>
                 <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
                 <input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1"><br/>
-                <input id="AdditionalInfo2" type="hidden" value="HSP" name="AdditionalInfo2"><br/>
+                <input id="AdditionalInfo2" type="hidden" value="IPA" name="AdditionalInfo2"><br/>
                 <input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3"><br/>
                 <input id="hdnPayMode" type="hidden" value="{{proposalDtails.paymentMode}}" name="hdnPayMode"><br/>
                 <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
                 <input id="UserMailId" type="hidden" value="{{proposalDtails.emailid}}" name="UserMailId"><br/>
-                <input id="ProductCd" type="hidden" value="PBZ0001" name="ProductCd"><br/>
-                <input id="ProducerCd" type="hidden" value="HSC00056" name="ProducerCd"><br/>
+                <input id="ProductCd" type="hidden" value="IPA" name="ProductCd"><br/>
+                <input id="ProducerCd" type="hidden" value="PBZ0001" name="ProducerCd"><br/>
 
                 <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
                 <button mat-button matStepperPrevious >Back</button>
