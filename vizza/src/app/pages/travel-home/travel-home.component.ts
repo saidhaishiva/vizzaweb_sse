@@ -99,8 +99,9 @@ export class TravelHomeComponent implements OnInit {
         this.studentDetails();
         this.groupDetails();
         this.currentTab = 'self';
-        this.today = new Date();
-
+        // this.today = new Date();
+        let today = new Date();
+        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
     }
 
     ngOnInit() {
@@ -154,7 +155,7 @@ export class TravelHomeComponent implements OnInit {
             {name: 'Student4', age: '', disabled: false, checked: false, required: true, error: ''}
         ];
     }
-    public onlyNumber(event: any) {
+    public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
