@@ -9,6 +9,8 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
+import { Router } from '@angular/router';
+
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -73,7 +75,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public getBuyDetails: any;
     public getAllPremiumDetails: any;
     constructor( public personalacccidentservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string, public route: Router) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -104,6 +106,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             dependant:['', Validators.required],
             medicalcondition:['', Validators.required],
             nationality:['', Validators.required],
+            occupation:['', Validators.required],
+            preexisting:''
         });
         this.nomineeDetails = this.fb.group({
             'nomineeName': ['', Validators.required],
@@ -117,6 +121,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.nomineeRelationShipListHdfc();
         this.sessionData();
         this.getStateList();
+        this.setOccupationList();
 
     }
 
@@ -156,7 +161,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             }
         }
     }
+    occupationDetails() {
 
+    }
     setStep(index: number) {
         this.step = index;
     }
@@ -457,11 +464,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         console.log(this.hdfcpersonalValues, 'first');
         console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
         if (this.hdfcPersonal.valid) {
-            if (sessionStorage.hdfcHealthProposerAge >= 18) {
+            // if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 stepper.next();
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
+            // } else {
+            //     this.toastr.error('Proposer age should be 18 or above');
+            // }
 
         } else {
             if (value.accepted) {
@@ -521,14 +528,15 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
                     'Title': this.hdfcpersonalValues.title,
                     'ApplFirstName': this.hdfcpersonalValues.firstname,
+                    'ApplMiddleName': this.hdfcpersonalValues.midname,
                     'ApplLastName': this.hdfcpersonalValues.lastname,
-                    'ApplDOB': this.datepipe.transform(this.hdfcpersonalValues.dob, 'y-MM-dd'),
+                    'ApplDOB': this.datepipe.transform(this.hdfcpersonalValues.dob, 'dd/MM/yyyy'),
                     'ApplGender': this.hdfcpersonalValues.gender,
                     'Address1': this.hdfcpersonalValues.address1,
                     'Address2': this.hdfcpersonalValues.address2,
@@ -538,18 +546,33 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                     'Pincode': this.hdfcpersonalValues.pincode,
                     'EmailId': this.hdfcpersonalValues.email,
                     'MobileNo': this.hdfcpersonalValues.mobile,
+                    'PhoneNo': this.hdfcpersonalValues.phone,
                     'IsCustomerAcceptedPPCPED': this.hdfcpersonalValues.accepted ? 1 : '',
                     'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
                     'UIDNo': "" //OTP Value
                 },
                 'PlanDetails': {
-                    'PlanCd': this.getHdfcHealthPremiumList.plan_code,
+                    // 'PlanCd': this.getBuyDetails.plan_code,
+                    'PlanCd': this.getBuyDetails.plan_code,//From Premium Calculaction
+                    'DependantParents': this.hdfcpersonalValues.dependant,
+                    'IndianNational': this.hdfcpersonalValues.nationality
                 },
                 'PaymentDetails': {
                     'PaymentMode': this.hdfcpersonalValues.paymentmode,
                 },
                 'Member': {
-                    'InsuredDetails': this.insurerData.items
+                    'InsuredDetails': {
+                        'FirstName':  this.hdfcpersonalValues.firstname,
+                        'MiddleName': this.hdfcpersonalValues.midname,
+                        'LastName': this.hdfcpersonalValues.lastname,
+                        'DOB':this.datepipe.transform(this.hdfcpersonalValues.dob, 'dd/MM/yyyy'),
+                        'RelationShip': "I",//Static
+                        'Gender': this.hdfcpersonalValues.gender,
+                        'NomineeName': this.nomineeDetails.controls['nomineeName'].value,
+                        'NomineeRelationship': this.nomineeDetails.controls['nomineeRelationship'].value,//Master
+                        'PreExistingDisease': this.hdfcpersonalValues.preexisting,
+                        'Occupation': 'None of the above'
+                    }
                 }
             }
 
@@ -580,10 +603,10 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData);
+            console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
-            this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
+            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
             this.proposalDtails = successData.ResponseObject.ProposalDetails;
             this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
             this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
@@ -597,10 +620,14 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public proposalFailure(error) {
 
     }
+    redirect() {
+        this.route.navigate([this.summaryData.PaymentActionUrl]);
+    }
 // sessionData
     sessionData() {
         if (sessionStorage.hdfcPAStep1 != '' && sessionStorage.hdfcPAStep1 != undefined) {
             console.log(JSON.parse(sessionStorage.hdfcPAStep1), 'sessionStorage.hdfcPAStep1');
+            this.setOccupationList();
             this.hdfcPAStep1 = JSON.parse(sessionStorage.hdfcPAStep1);
             this.hdfcPersonal = this.fb.group({
                 firstname: this.hdfcPAStep1.firstname,
@@ -621,7 +648,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 dependant: this.hdfcPAStep1.dependant,
                 OccupationList: this.hdfcPAStep1.OccupationList,
                 medicalcondition: this.hdfcPAStep1.medicalcondition,
-                nationality: this.hdfcPAStep1.nationality
+                nationality: this.hdfcPAStep1.nationality,
+                occupation: this.hdfcPAStep1.occupation,
+                preexisting: this.hdfcPAStep1.preexisting
             });
             if (this.hdfcPAStep1.state != '') {
                 this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
