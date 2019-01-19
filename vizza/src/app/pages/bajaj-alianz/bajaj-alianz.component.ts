@@ -219,6 +219,7 @@ export class BajajAlianzComponent implements OnInit {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
+                console.log(this.insurerData[i], 'helllllllllllllll');
                 this.totalInsureDetails.push({
                     'membername': this.insurerData[i].insureName,
                     'memrelation': this.insurerData[i].insurerelationship,
@@ -235,7 +236,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'noofclaims':this.insurerData[i].insurePIClaims,
+                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? '0' : this.insurerData[i].insurePIClaims,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y',
@@ -383,7 +384,7 @@ export class BajajAlianzComponent implements OnInit {
             if (length.length == 10) {
                 if (name == 'expiry') {
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                    // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
@@ -724,7 +725,7 @@ export class BajajAlianzComponent implements OnInit {
                 'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
                 'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
                 'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value == null ? '' : this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
-                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
             },
             'hcpdtmemlist': this.totalInsureDetails,
             'hcpdtmemcovlist': [{
