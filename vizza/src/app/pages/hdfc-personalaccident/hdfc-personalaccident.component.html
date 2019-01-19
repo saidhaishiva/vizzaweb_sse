@@ -100,8 +100,8 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Occupation"  formControlName="occupation" (change)="occupationChangeList($event)" >
-                          <mat-option *ngFor="let IdProof of occupationCode" value="{{IdProof.occupation_code}}" > {{IdProof.occupation_description}} </mat-option>
+                        <mat-select placeholder="Occupation"  formControlName="occupation" >
+                          <mat-option *ngFor="let IdProof of occupationCode" value="{{IdProof.isAcceptable}}" > {{IdProof.occupation_description}} </mat-option>
                         </mat-select>
                         <!--<mat-error *ngIf="hdfcPersonal.controls.occupation.errors?.required">Occupation is required</mat-error>-->
                       </mat-form-field>
@@ -345,16 +345,16 @@
                 <!--<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">-->
                 <input id="__EVENTVALIDATION" type="text" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
                        name="__EVENTVALIDATION">
-                <input id="CustomerId" type="text" value="{{summaryData.ProposalNumber}}" name="CustomerId"><br/>
-                <input id="TxnAmount" type="text" value="{{totalAmount}}" name="TxnAmount"><br/>
-                <input id="AdditionalInfo1" type="text" value="NB" name="AdditionalInfo1"><br/>
-                <input id="AdditionalInfo2" type="text" value="IPA" name="AdditionalInfo2"><br/>
-                <input id="AdditionalInfo3" type="text" value="1" name="AdditionalInfo3"><br/>
-                <input id="hdnPayMode" type="text" value="{{proposalDtails.paymentMode}}" name="hdnPayMode"><br/>
-                <input id="UserName" type="text" value="{{fullName}}" name="UserName"><br/>
-                <input id="UserMailId" type="text" value="{{proposalDtails.emailid}}" name="UserMailId"><br/>
-                <input id="ProductCd" type="text" value="IPA" name="ProductCd"><br/>
-                <input id="ProducerCd" type="text" value="PBZ0001" name="ProducerCd"><br/>
+                <input id="CustomerId" type="hidden" value="{{summaryData.ProposalNumber}}" name="CustomerId"><br/>
+                <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
+                <input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1"><br/>
+                <input id="AdditionalInfo2" type="hidden" value="IPA" name="AdditionalInfo2"><br/>
+                <input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3"><br/>
+                <input id="hdnPayMode" type="hidden" value="{{proposalDtails.paymentMode}}" name="hdnPayMode"><br/>
+                <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
+                <input id="UserMailId" type="hidden" value="{{proposalDtails.emailid}}" name="UserMailId"><br/>
+                <input id="ProductCd" type="hidden" value="IPA" name="ProductCd"><br/>
+                <input id="ProducerCd" type="hidden" value="PBZ0001" name="ProducerCd"><br/>
 
                 <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
                 <button mat-button matStepperPrevious >Back</button>

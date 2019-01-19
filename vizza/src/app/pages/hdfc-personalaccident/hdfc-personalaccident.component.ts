@@ -114,10 +114,10 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             phone: '',
             paymentmode: ['', Validators.required],
             dependant:['', Validators.required],
-            medicalcondition:['', Validators.required],
-            nationality:['', Validators.required],
+            medicalcondition:'N',
+            nationality:'Y',
             occupation:['', Validators.required],
-            preexisting:''
+            preexisting:'N'
         });
         this.nomineeDetails = this.fb.group({
             'nomineeName': ['', Validators.required],
@@ -249,13 +249,15 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public getStateFailure(error) {
         console.log(error);
     }
-    occupationChangeList(val) {
-        if(val == 0){
-            this.toastr.error('Personal Accident is not allowed this occupation');
-
-        } else {
-        }
-    }
+    // occupationChangeList(val) {
+    //     console.log(val);
+    //     alert(';opio');
+    //     if(val == '0'){
+    //         alert();
+    //         this.toastr.error('Personal Accident is not allowed this occupation');
+    //     } else {
+    //     }
+    // }
 
 
 
@@ -391,7 +393,11 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.proposerAgeHDFCPA >= 18) {
                 if (this.pincodePAValid) {
+                    if(this.hdfcpersonalValues.occupation == '1') {
                     stepper.next();
+                } else {
+                        this.toastr.error('Personal Accident is not allowed this occupation');
+                    }
                 } else {
                     this.toastr.error('Enter Valid Pincode');
                 }
