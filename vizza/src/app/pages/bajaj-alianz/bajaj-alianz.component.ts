@@ -344,6 +344,7 @@ export class BajajAlianzComponent implements OnInit {
 
                     if (name == 'expiry') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                     } else {
                         this.getAge = this.ageCalculate(dob);
