@@ -825,7 +825,7 @@ export class BajajAlianzComponent implements OnInit {
                     <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
                 </div>
                 <div class="col-sm-12">
-                    <p>Sorry, You are selected Pre-Existing Diseases, so you are not allowed to purchase product.<strong> Please Contact <a class="color-blue"> click here</a></strong></p>
+                    <p>Sorry, You are selected Pre-Existing Diseases, so you are not allowed to purchase product.<strong> Please Contact Email: <a href="mailto:info@bajajallianz.co.in">info@bajajallianz.co.in</a></strong></p>
                 </div>
             </div>
         </div>`,
