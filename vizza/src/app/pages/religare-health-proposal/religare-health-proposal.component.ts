@@ -190,7 +190,8 @@ array: any;
     changeGender() {
         if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
             if (this.getFamilyDetails.family_members.length < 2) {
-                if(this. personal['controls'].personalTitle.value == 'MR'){
+
+                if(this.personal['controls'].personalTitle.value == 'MR'){
                     this.insureSingle = false;
                     this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
                     this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
@@ -248,6 +249,12 @@ array: any;
 
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+
+        this.enquiryId = sessionStorage.enquiryId;
+        this.groupName = sessionStorage.groupName;
+        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        this.insurePersons = this.getFamilyDetails.family_members;
+
         if(this.buyProductdetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
             this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
@@ -259,10 +266,6 @@ array: any;
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
 
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.insurePersons = this.getFamilyDetails.family_members;
         this.setOccupationListCode();
         this.religareQuestions();
         this.setOccupationList();
@@ -344,6 +347,14 @@ array: any;
         }
         this.personal.get('personalPan').updateValueAndValidity();
 
+
+        if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
+            if (this.getFamilyDetails.family_members.length < 2) {
+                alert(this.buyProductdetails.product_id);
+
+                this.changeGender();
+            }
+        }
 
     }
 

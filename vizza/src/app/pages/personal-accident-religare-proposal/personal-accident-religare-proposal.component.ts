@@ -568,6 +568,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 this.getInsurePostal(this.personal.controls['residencePincode'].value, 'residence');
             },600);
             this.insured.controls['insuredDescriptionCode'].patchValue(this.personal.controls['personalDescriptionCode'].value);
+            this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['personalClassDescriptionCode'].value);
 
             this.setinsureDescriptionListCode();
 
@@ -580,7 +581,6 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredAnnualIncome'].patchValue(this.personal.controls['personalAnualIncome'].value);
             this.insured.controls['insuredOccupationCode'].patchValue(this.personal.controls['personalOccupationCode'].value);
             this.insured.controls['insuredDescription'].patchValue(this.personal.controls['personalDescription'].value);
-            this.insured.controls['insuredClassDescriptionCode'].patchValue(this.personal.controls['personalClassDescriptionCode'].value);
 
             this.insured.controls['insuredrelationship'].patchValue(this.personal.controls['personalrelationship'].value);
             this.insured.controls['insuredGender'].patchValue(this.personal.controls['personalGender'].value);

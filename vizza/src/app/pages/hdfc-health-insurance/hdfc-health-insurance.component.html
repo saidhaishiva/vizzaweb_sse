@@ -80,19 +80,19 @@
                           <mat-error *ngIf="hdfcPersonal.controls.paymentmode.errors?.required">Payment Mode is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED">
-                        <div class="row">
-                          <div class="col-md-1 text-left">
-                            <mat-checkbox formControlName="accepted" (change)="checkAccepted()" required="{{IsCustomerAcceptedPPCPED}}"></mat-checkbox>
-                          </div>
-                          <div class="col-md-11 text-left">
-                            <strong>
-                              Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>
-                            </strong>
-                          </div>
-                          <div class="error" *ngIf="IsCustomerAccepted">Please Check the field before next button</div>
-                        </div>
-                      </div>
+                      <!--<div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED">-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-1 text-left">-->
+                            <!--<mat-checkbox formControlName="accepted" (change)="checkAccepted()" required="{{IsCustomerAcceptedPPCPED}}"></mat-checkbox>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-11 text-left">-->
+                            <!--<strong>-->
+                              <!--Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>-->
+                            <!--</strong>-->
+                          <!--</div>-->
+                          <!--<div class="error" *ngIf="IsCustomerAccepted">Please Check the field before next button</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
 
 
                     </div>
@@ -183,7 +183,7 @@
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURER DETAILS </ng-template>
                   <div class="row">
-                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event, '0')"><strong>Same as proposer</strong></mat-checkbox></div>
+                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event)"><strong>Same as proposer</strong></mat-checkbox></div>
                   </div>
                   <form [formGroup]="hdfcInsureArray">
                     <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
@@ -273,6 +273,22 @@
                           <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
                         </mat-form-field>
                         </div>
+
+                        <div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED && i == 0">
+                          <div class="row">
+                            <div class="col-md-1 text-left">
+                              <mat-checkbox formControlName="accepted" (change)="checkAccepted()" ></mat-checkbox>
+                            </div>
+                            <div class="col-md-11 text-left">
+                              <strong>
+                                Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>
+                              </strong>
+                            </div>
+                            <div class="error" *ngIf="IsCustomerAccepted">Please Check the PED and PPC Condition ?</div>
+                          </div>
+                        </div>
+
+
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="typeValidate($event)" autocomplete="off"  >
@@ -374,7 +390,7 @@
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.mobile}}</li>
                       <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="proposalDtails.paymentMode == 'CC'">Credit Card</span> <span *ngIf="proposalDtails.paymentMode == 'DD'">Debit Card</span></li>
                       <li class="list-group-item"><strong>Same As Insurer:</strong> <span *ngIf="proposalDtails.sameAsInsurer == 'Y'">Yes</span><span *ngIf="proposalDtails.sameAsInsurer == 'N'">No</span></li>
-                      <li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !=''"><strong>Is Customer Accepted:</strong> {{proposalDtails.isCustomerAccepted}}</li>
+                      <li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !=''"><strong>Is Customer Accepted PED and PPC :</strong> Yes</li>
                     </ul>
                   </div>
                 </div>
