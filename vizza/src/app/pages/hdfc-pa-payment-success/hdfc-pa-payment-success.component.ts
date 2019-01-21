@@ -87,7 +87,7 @@ public downloadPdfFailure(error) {
 
 
 downloadMessage() {
-    const dialogRef = this.dialog.open(DownloadMessageHdfcHealth, {
+    const dialogRef = this.dialog.open(DownloadMessageHdfcPa, {
         width: '400px',
         data: this.path
 
@@ -101,7 +101,7 @@ downloadMessage() {
 
 }
 @Component({
-    selector: 'downloadmessagehdfchealth',
+    selector: 'downloadmessagehdfcpa',
     template: `<div mat-dialog-content class="text-center">
         <label> {{data}} </label>
     </div>
@@ -109,10 +109,10 @@ downloadMessage() {
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
     </div>`,
 })
-export class DownloadMessageHdfcHealth {
+export class DownloadMessageHdfcPa {
 
     constructor(
-        public dialogRef: MatDialogRef<DownloadMessageHdfcHealth>,
+        public dialogRef: MatDialogRef<DownloadMessageHdfcPa>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
