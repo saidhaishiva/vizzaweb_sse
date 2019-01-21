@@ -35,6 +35,12 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
+      sessionStorage.stepper1Details = '';
+      sessionStorage.copaymentShow = '';
+      sessionStorage.buyProductdetails = '';
+      sessionStorage.enquiryId = '';
+      sessionStorage.groupName = '';
+      sessionStorage.proposalID = '';
   }
     DownloadPdf() {
         const data = {
