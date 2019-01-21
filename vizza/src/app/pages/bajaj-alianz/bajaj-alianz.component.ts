@@ -332,11 +332,6 @@ export class BajajAlianzComponent implements OnInit {
             this.getDays;
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                // if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                // } else {
-                //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
-                // }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
