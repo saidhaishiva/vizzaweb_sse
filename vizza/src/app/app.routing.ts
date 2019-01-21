@@ -49,6 +49,7 @@ import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-
 import {LifeInsuranceComponent} from './pages/life-insurance/life-insurance.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
+import {RenewExistingPolicyComponent} from './pages/renew-existing-policy/renew-existing-policy.component';
 import {HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
@@ -106,7 +107,8 @@ export const routes: Routes = [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Contact us' } },
-            { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Renewal Reminder' } },
+            { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Contact us' } },
+            { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Renew Existing Policy' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
             { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },
             { path: 'tables', loadChildren: 'app/pages/tables/tables.module#TablesModule', data: { breadcrumb: 'Tables' } },

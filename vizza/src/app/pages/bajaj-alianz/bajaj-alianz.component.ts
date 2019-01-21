@@ -237,7 +237,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims,
+                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims || this.insurerData[i].insurePIClaims == null ? "0" : this.insurerData[i].insurePIClaims,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y',
@@ -730,7 +730,7 @@ export class BajajAlianzComponent implements OnInit {
                 'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
                 'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
                 'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value == null ? '' : this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
-                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value || this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == null ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
             },
             'hcpdtmemlist': this.totalInsureDetails,
             'hcpdtmemcovlist': [{

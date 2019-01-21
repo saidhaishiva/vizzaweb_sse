@@ -212,6 +212,7 @@ import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-s
 import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import { ClaimAssistanceComponent } from './pages/claim-assistance/claim-assistance.component';
 import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
+import { RenewExistingPolicyComponent } from './pages/renew-existing-policy/renew-existing-policy.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -400,7 +401,8 @@ import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hd
       HdfcHealthPaymentSuccessComponent,
       DownloadMessageHdfcHealth,
       ClaimAssistanceComponent,
-      HdfcPaPaymentSuccessComponent
+      HdfcPaPaymentSuccessComponent,
+      RenewExistingPolicyComponent
   ],
   providers: [
       AppSettings,
