@@ -204,6 +204,7 @@ import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.co
 import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
+import { DownloadMessageBajaj} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
@@ -211,6 +212,8 @@ import { HdfcHealthPaymentSuccessComponent } from './pages/hdfc-health-payment-s
 import {DownloadMessageHdfcHealth} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import { ClaimAssistanceComponent } from './pages/claim-assistance/claim-assistance.component';
 import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
+import { DownloadMessageHdfcPa} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
+import { RenewExistingPolicyComponent } from './pages/renew-existing-policy/renew-existing-policy.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -391,6 +394,7 @@ import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hd
       LifeInsurer,
       HdfcHealthInsuranceComponent,
       BajajalianzPaymentSuccessComponent,
+      DownloadMessageBajaj,
       HdfcPersonalaccidentComponent,
       TravelShriramProposalComponent,
       TravelHdfcProposalComponent,
@@ -398,7 +402,9 @@ import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hd
       HdfcHealthPaymentSuccessComponent,
       DownloadMessageHdfcHealth,
       ClaimAssistanceComponent,
-      HdfcPaPaymentSuccessComponent
+      HdfcPaPaymentSuccessComponent,
+      DownloadMessageHdfcPa,
+      RenewExistingPolicyComponent
   ],
   providers: [
       AppSettings,
@@ -426,7 +432,7 @@ import { HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hd
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth
-        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax
+        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,DownloadMessageBajaj,DownloadMessageHdfcPa
     ]
 })
 export class AppModule { }

@@ -237,7 +237,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memprvpolno': this.insurerData[i].insurePINumber,
                     'memprvexpdate': this.insurerData[i].insurePItDate,
                     'memprvsi': this.insurerData[i].insureSInsurance,
-                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims,
+                    'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims || this.insurerData[i].insurePIClaims == null ? "0" : this.insurerData[i].insurePIClaims,
                     'membmi': '',
                     'memspecialcondition': 'NA',
                     'memaddflag': 'Y',
@@ -332,11 +332,6 @@ export class BajajAlianzComponent implements OnInit {
             this.getDays;
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
-                }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
@@ -347,6 +342,7 @@ export class BajajAlianzComponent implements OnInit {
                         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
@@ -358,6 +354,7 @@ export class BajajAlianzComponent implements OnInit {
                     if (name == 'expiry') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
                     }
 
@@ -654,7 +651,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePIName.patchValue(this.getStepper1.items[i].insurePIName);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePIAddress.patchValue(this.getStepper1.items[i].insurePIAddress);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureCName.patchValue(this.getStepper1.items[i].insureCName);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.getStepper1.items[i].insurePItDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(this.datepipe.transform(this.getStepper1.items[i].insurePItDate, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePINumber.patchValue(this.getStepper1.items[i].insurePINumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureSInsurance.patchValue(this.getStepper1.items[i].insureSInsurance);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePIClaims.patchValue(this.getStepper1.items[i].insurePIClaims);
@@ -733,7 +730,7 @@ export class BajajAlianzComponent implements OnInit {
                 'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
                 'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
                 'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value == null ? '' : this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
-                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value || this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == null ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
             },
             'hcpdtmemlist': this.totalInsureDetails,
             'hcpdtmemcovlist': [{
@@ -828,7 +825,7 @@ export class BajajAlianzComponent implements OnInit {
                     <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
                 </div>
                 <div class="col-sm-12">
-                    <p>Sorry, You are selected Pre-Existing Diseases, so you are not allowed to purchase product.<strong> Please Contact <a class="color-blue"> click here</a></strong></p>
+                    <p>Sorry, You are selected Pre-Existing Diseases, so you are not allowed to purchase product.<strong> Please Contact Email: <a href="mailto:info@bajajallianz.co.in">info@bajajallianz.co.in</a></strong></p>
                 </div>
             </div>
         </div>`,

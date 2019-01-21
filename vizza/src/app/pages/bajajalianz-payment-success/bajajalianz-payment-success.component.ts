@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -35,13 +35,20 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
+      sessionStorage.stepper1Details = '';
+      sessionStorage.copaymentShow = '';
+      sessionStorage.buyProductdetails = '';
+      sessionStorage.enquiryId = '';
+      sessionStorage.groupName = '';
+      sessionStorage.proposalID = '';
   }
     DownloadPdf() {
         const data = {
-            'proposal_id' : this.proposalId,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'proposal_id' : this.proposalId,
+
         }
         this.settings.loadingSpinner = true;
         this.proposalservice.getDownloadPdfBajaj(data).subscribe(
@@ -61,8 +68,17 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
         console.log(this.path, 'this.paththis.paththis.path');
 
         if (successData.IsSuccess == true) {
+            console.log(this.type, 'ww22');
+
+            this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
-                window.open(this.path, '_self' );
+                console.log(successData.ResponseObject, 'www333');
+                window.open(this.currenturl + '/' +  this.path,'_blank');
+            } else if (this.type === 'pdf') {
+                console.log(successData.ResponseObject, 'www3444');
+                window.open(this.currenturl + '/' +  this.path,'_blank');
+            } else {
+                this.downloadMessage();
             }
         } else {
             this.toast.error(successData.ErrorObject);
@@ -72,4 +88,37 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
         console.log(error);
     }
 
+    downloadMessage() {
+        const dialogRef = this.dialog.open(DownloadMessageBajaj, {
+            width: '400px',
+            data: this.path
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
 }
+@Component({
+    selector: 'downloadmessagebajaj',
+    template: `<div mat-dialog-content class="text-center">
+        <label> {{data}} </label>
+    </div>
+    <div mat-dialog-actions style="justify-content: center">
+        <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
+    </div>`,
+})
+export class DownloadMessageBajaj {
+
+    constructor(
+        public dialogRef: MatDialogRef<DownloadMessageBajaj>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
+
+

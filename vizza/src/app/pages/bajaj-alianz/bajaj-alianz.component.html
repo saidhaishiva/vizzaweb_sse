@@ -218,7 +218,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="i == 0">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Number Of Claims" type="number" min="0"  (keypress)="keyPress($event)" maxlength="10" formControlName="insurePIClaims" autocomplete="off">
+                                                        <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="keyPress($event)"  formControlName="insurePIClaims" autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-4" *ngIf="i == 0">
@@ -284,8 +284,8 @@
                             <div class="col-md-8">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_netpremium}}</span> /<small>Tax Includ</small></li>
-                                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_finalpremium}}</span> /<small>Tax Includ</small></li>
+                                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_netpremium}}</span> /<small>Tax Excluded</small></li>
+                                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.resp_finalpremium}}</span> /<small>Tax Included</small></li>
                                     <li></li>
                                 </ul>
                             </div>
@@ -295,7 +295,7 @@
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">
-                                        <h6>INSURED DETAIL</h6>
+                                        <h6>INSURED DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Insured Name :</strong>Ms. {{item.ins_name}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
@@ -313,7 +313,7 @@
                                             <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
                                             <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !='' && item.ins_memgrossmonthlyincome != 0"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -330,16 +330,16 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !=''">
                                     <div class="p-3">
                                         <h6>PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvpolno !=''"><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !=''"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd-MMM-yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvsi !=''"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>
                                         </ul>
                                     </div>
