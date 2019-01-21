@@ -181,7 +181,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     // }
     sameasInsurerDetails(event) {
         console.log(this.sameAsinsure, 'inn');
-        if (this.sameAsinsure == 'true') {
+        if (this.sameAsinsure == 'true' || this.sameAsinsure == true) {
             console.log('innnn');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);
@@ -195,7 +195,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.ageData(dobAge, 'insurer');
 
-        } else if(this.sameAsinsure == 'false') {
+        } else if(this.sameAsinsure == 'false' || this.sameAsinsure == false) {
             console.log('outttttfalse');
 
 
@@ -264,7 +264,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 preexdisease: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
-                sameasInsurer: '',
+                sameasInsurer: false,
                 type: '',
                 ins_age: '',
                 accepted: '',
@@ -307,8 +307,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         this.ageData(this.hdfcHealthProposerAge, formtype);
                     } else if (formtype == 'insurer') {
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                        let getPage = this.ageCalculate(dob);
-                        this.ageData(getPage, formtype);
+                        if(i == 0){
+                            let getPage = this.ageCalculate(dob);
+                            this.ageData(getPage, formtype);
+                        }
                         insurerAge = this.DobDaysCalculate(dob);
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
                         this.ageValidationInsurer(i, type);
@@ -326,8 +328,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                         this.ageData(this.hdfcHealthProposerAge, formtype);
                     } else if (formtype == 'insurer') {
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                        let getPage = this.ageCalculate(dob);
-                        this.ageData(getPage, formtype);
+                        if(i == 0){
+                            let getPage = this.ageCalculate(dob);
+                            this.ageData(getPage, formtype);
+                        }
                         insurerAge = this.DobDaysCalculate(dob);
                         sessionStorage.hdfcHealthInsurerAge = insurerAge;
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
