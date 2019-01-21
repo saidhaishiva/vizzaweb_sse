@@ -332,11 +332,11 @@ export class BajajAlianzComponent implements OnInit {
             this.getDays;
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
-                }
+                // if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                // } else {
+                //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                // }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
@@ -347,6 +347,7 @@ export class BajajAlianzComponent implements OnInit {
                         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
@@ -358,6 +359,7 @@ export class BajajAlianzComponent implements OnInit {
                     if (name == 'expiry') {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
                     }
 
