@@ -330,9 +330,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !=''">
                                     <div class="p-3">
-                                        <h6 *ngIf="summaryData.prop_previnsname !=''">PREVIOUS INSURANCE DETAILS</h6>
+                                        <h6>PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
