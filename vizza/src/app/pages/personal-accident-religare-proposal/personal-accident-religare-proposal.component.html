@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row proposal">
+  <div class="row religarePaProposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="personal">
@@ -14,7 +14,7 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">PROPOSER DETAILS</h6>
+                    <h6 class="color-blue">PROPOSER DETAILS</h6>
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -136,7 +136,7 @@
                   </div>
 
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue"> PROPOSER COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -174,7 +174,7 @@
                     </div>
                   </div>
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">PROPOSER RESIDENCE ADDRESS</h6>
+                    <h6 class="color-blue">PROPOSER RESIDENCE ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-12"><mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-6">
@@ -220,7 +220,7 @@
                   </div>
 
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primary"  (click)="personalDetails(stepper, personal.value)" >Next</button>
+                    <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                   </div>
 
                </div>
@@ -243,7 +243,7 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">INSURED DETAILS</h6>
+                    <h6 class="color-blue">INSURED DETAILS</h6>
                     <div class="row">
                       <div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>
                     </div>
@@ -385,7 +385,7 @@
 
 
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green"> INSURE COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue"> INSURE COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -430,7 +430,7 @@
                   </div>
                   <div class="col-md-12 box-card pt-3">
                   <!--<div class="col-md-12 box-card pt-3" [ngClass]="{'disabledP':readonlyproposer == true}">-->
-                    <h6 class="color-green">INSURE RESIDENCE ADDRESS</h6>
+                    <h6 class="color-blue">INSURE RESIDENCE ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-12"><mat-checkbox formControlName="sameasInsuredAddress"   readonly="readonlyproposer" (change)="insuredsameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-6">
@@ -480,7 +480,7 @@
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                    <button mat-raised-button color="primary"  (click)="InsureDetails(stepper,insured.value)">Next</button>
+                    <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper,insured.value)">Next</button>
                   </div>
                 </div>
 
@@ -502,7 +502,7 @@
                       <ng-template matStepLabel>SECURE DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
-                              <h6 class="color-green mb-3" >SECURE DETAILS </h6>
+                              <h6 class="color-blue mb-3" >SECURE DETAILS </h6>
 
                               <mat-accordion class="question-panel">
                                   <mat-expansion-panel [expanded]="true">
@@ -523,7 +523,7 @@
                               </mat-accordion>
                               <div class="proposal-buttom mt-3 text-right w-100">
                                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                  <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
+                                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
                               </div>
 
                           </div>
@@ -546,7 +546,7 @@
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <h6 class="color-green mb-3" >NOMINEE DETAILS </h6>
+                  <h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
                       <div class="col-md-4">
@@ -563,7 +563,7 @@
                       <div class="col-md-4">
                         <div class="proposal-buttom mb-3 text-right w-100">
                           <button mat-button matStepperPrevious  (click)="quesback(); topScroll()">Back</button>
-                          <button mat-raised-button color="primary"   (click)="religareNomineeDetails(stepper, nomineeDetails.value) ">Next</button>
+                          <button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetails.value) ">Next</button>
                         </div></div>
                     </div>
                   </form>
@@ -803,7 +803,7 @@
                     <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-center w-100">
                             <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                            <button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                            <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                         </div>
                     </div>
                 </form>
