@@ -2637,3 +2637,49 @@ fieldset {
     text-transform: capitalize;
   }
 }
+.apolloMunichProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #e3754c !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #e3754c !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #e3754c !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #e3754c !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #e3754c;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #e3754c !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #e3754c !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+}
+
