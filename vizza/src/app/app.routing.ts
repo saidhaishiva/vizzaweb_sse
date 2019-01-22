@@ -182,7 +182,7 @@ export const routes: Routes = [
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
-            { path: 'personal-accident-religare-health-proposal-star-health-proposal', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
+            { path: 'personal-accident-religare', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
             { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },

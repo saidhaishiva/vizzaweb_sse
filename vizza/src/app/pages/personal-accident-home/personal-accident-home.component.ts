@@ -477,7 +477,7 @@ reset(){
         if (value.product_id == 14 || value.product_id == 15){
             this.router.navigate(['/appollopa']);
         } else if(value.product_id == 3){
-                this.router.navigate(['/personal-accident-religare-health-proposal-star-health-proposal']);
+                this.router.navigate(['/personal-accident-religare']);
             } else {
             if (value.product_id == 23) {
                 this.router.navigate(['/hdfc-personalAccident']);
