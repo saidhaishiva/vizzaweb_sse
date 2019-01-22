@@ -32,6 +32,7 @@ export class RenewExistingPolicyComponent implements OnInit {
     fileUploadPath: any;
     today: any;
     maxDate: any;
+    companyList : any;
     constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
         this.form =  this.fb.group({
             'Proposername': ['', Validators.compose([Validators.required])],
@@ -54,13 +55,78 @@ export class RenewExistingPolicyComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getPolicyTypes();
+        this.getcompanyList();
+    }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
 
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    getcompanyList() {
+        const data = {
+            'platform': 'web',
+            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
+            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
+            "insure_company_type_id": '2'
+        };
+        this.common.getcompanyList(data).subscribe(
+            (successData) => {
+                this.setcompanyListSuccess(successData);
+            },
+            (error) => {
+                this.setcompanyListFailure(error);
+            }
+        );
+    }
+    public setcompanyListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.companyList = successData.ResponseObject;
+        }
+    }
+    public setcompanyListFailure(error) {
     }
 
 
 
+    getPolicyTypes() {
+        const data = {
+            'platform': 'web',
+            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4'
+        }
+        this.common.policyTypes(data).subscribe(
+            (successData) => {
+                this.getpolicytypeSuccess(successData);
+            },
+            (error) => {
+                this.getpolicytypeFailure(error);
+            }
+        );
+    }
+    public getpolicytypeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.policyTypes = successData.ResponseObject;
+        }
+    }
 
-
+    public getpolicytypeFailure(error) {
+    }
     // renewal(values){
     //     if (this.form.valid) {
     //         let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
@@ -112,27 +178,6 @@ export class RenewExistingPolicyComponent implements OnInit {
     // }
     // policyRenewalFailure(error) {
     // }
-
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
     readUrl(event: any) {
         this.getUrl = '';
         let getUrlEdu = [];
