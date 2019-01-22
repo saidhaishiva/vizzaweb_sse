@@ -198,7 +198,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             personalLastname: ['', Validators.required],
             personalGender: ['', Validators.compose([Validators.required])],
             personalDob: ['', Validators.compose([Validators.required])],
-            personalrelationship: '',
+            personalrelationship: 'SELF',
             personalAnualIncome: ['', Validators.required],
             personalOccupationCode: '',
             personalDescription: '',
@@ -232,7 +232,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             insuredLastname: ['', Validators.required],
             insuredGender: ['', Validators.compose([Validators.required])],
             insuredDob: ['', Validators.compose([Validators.required])],
-            insuredrelationship: 'SELF',
+            insuredrelationship: '',
             insuredAnnualIncome: '',
             insuredOccupationCode: '',
             insuredDescription: '',
@@ -572,7 +572,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
             this.setinsureDescriptionListCode();
 
-            // this.readonlyproposer = true;
+            this.readonlyproposer = true;
             this.insured.controls['sameasInsuredAddress'].disable();
             this.insured.controls['insuredTitle'].patchValue(this.personal.controls['personalTitle'].value);
             this.insured.controls['insuredFirstname'].patchValue(this.personal.controls['personalFirstname'].value);
@@ -1469,7 +1469,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                         }
                     ],
                     "partyQuestionDOList": this.partyQuestionDOList,
-                    'relationCd': 'SELF',
+                    'relationCd': this.insured.controls['insuredrelationship'].value,
                     'roleCd': 'PRIMARY',
                     'titleCd': this.insured.controls['insuredTitle'].value,
                     'partyEmploymentDOList': {

@@ -52,13 +52,7 @@
                         </mat-form-field>
                         <div class="error" *ngIf="personaldateError !=''">{{personaldateError}}</div>
                       </div>
-                      <div class="col-md-6">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship With Insured"  formControlName="personalrelationship"  (change)="setRelationship()" required>
-                            <mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
+
                       <div class="col-md-6">
                           <mat-form-field class="w-100">
                               <input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off" required>
@@ -71,14 +65,18 @@
                         <mat-select placeholder="OCCUPATION" name="occupation" formControlName="personalOccupationCode" (change)="setpersonalOccupationListCode()" required>
                           <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation_description}}</mat-option>
                         </mat-select>
-                      </mat-form-field>
+                              <mat-error *ngIf="personal.controls.personalOccupationCode.errors?.required">Occupation is required</mat-error>
+
+                          </mat-form-field>
                       </div>
                         <div class="col-md-6" >
                             <mat-form-field class="w-100">
                             <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="personalDescriptionCode" (change)="setpersonalDescriptionListCode('current')" required>
                                 <mat-option *ngFor="let occupation of occupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                             </mat-select>
-                        </mat-form-field>
+                                <mat-error *ngIf="personal.controls.personalDescriptionCode.errors?.required">Occupation List is required</mat-error>
+
+                            </mat-form-field>
                         </div>
                         <div class="col-md-6" *ngIf="occupationDescription">
                             <mat-form-field class="w-100">
@@ -298,6 +296,8 @@
                                 <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
                                     <mat-option *ngFor="let occupation of occupationCode" value="{{occupation.occupation_code}}">{{occupation.occupation_description}}</mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>
+
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" >
@@ -307,6 +307,7 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
+
                         <div class="col-md-6" *ngIf="insureoccupationDescription">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Description"  formControlName="insuredDescription" autocomplete="off" [required]="insuredDescriptionValidator">
@@ -319,6 +320,15 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
+                         <div class="col-md-6">
+                             <mat-form-field class="w-100">
+                                 <mat-select placeholder="Relationship With Insured"  formControlName="insuredrelationship"  (change)="setRelationship()" required>
+                                     <mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>
+                                 </mat-select>
+                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
+
+                             </mat-form-field>
+                         </div>
                       <div class="col-md-6"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
@@ -563,7 +573,7 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4"> <h4>{{summaryData.group_name}} <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>

@@ -57,6 +57,8 @@ export class ReliagretravelproposalComponent implements OnInit {
     public lastStepper: any;
     public back: any;
     public getReligareTravelNomineeData: any;
+    public acceptSummaryDeclaration: boolean;
+
     public religareTravelProposalID: any;
     public settings: any;
     public insuretravelRelationList: any;
@@ -79,6 +81,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public medicalStatus: any;
     public rPersonalCitys: any;
     public responseres: any;
+    public webhost: any;
 public productid: any;
 public getallTravelPremiumList: any;
 public questions_list: any;
@@ -96,6 +99,9 @@ public isDisable: boolean;
         this.arr = [];
     this.inputReadonly = false;
     this.isDisable = false;
+        this.acceptSummaryDeclaration = false;
+        this.webhost = this.config.getimgUrl();
+
         this.religarePersonal = this.fb.group({
             title: ['', Validators.required],
             firstname: new FormControl(''),
@@ -110,6 +116,9 @@ public isDisable: boolean;
             state: ['', Validators.required],
             raddress1: ['', Validators.required],
             raddress2: '',
+            pannumber: '',
+            adharnumber: '',
+            phone: '',
             sameAsProposer:false,
             rpincode: ['', Validators.required],
             rcity: ['', Validators.required],
@@ -226,6 +235,8 @@ public isDisable: boolean;
                 state: ['', Validators.required],
                 raddress1: ['', Validators.required],
                 raddress2: '',
+                pannumber: '',
+                adharnumber: '',
                 sameAsInsurer: false,
                 sameAsInsuredProposer: false,
                 rpincode: ['', Validators.required],
@@ -234,6 +245,7 @@ public isDisable: boolean;
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
                 mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
                 type: '',
+                phone: '',
                 sameasreadonly:false,
                 rolecd: 'PRIMARY',
                 ins_age: ''
@@ -755,6 +767,9 @@ public isDisable: boolean;
             this.insureReligareArray['controls'].items['controls'][0]['controls'].pincode.patchValue(this.religarePersonal.controls['pincode'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].city.patchValue(this.religarePersonal.controls['city'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].state.patchValue(this.religarePersonal.controls['state'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].pannumber.patchValue(this.religarePersonal.controls['pannumber'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue(this.religarePersonal.controls['adharnumber'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue(this.religarePersonal.controls['phone'].value);
         } else {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsurer.enable();
@@ -778,6 +793,9 @@ public isDisable: boolean;
             this.insureReligareArray['controls'].items['controls'][0]['controls'].pincode.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].city.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].state.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].pannumber.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue('');
 
         }
     }
@@ -935,10 +953,13 @@ public isDisable: boolean;
                 rpincode: this.religareTravel1.rpincode,
                 rcity: this.religareTravel1.rcity,
                 rstate: this.religareTravel1.rstate,
+                pannumber: this.religareTravel1.pannumber,
+                adharnumber: this.religareTravel1.adharnumber,
                 email: this.religareTravel1.email,
                 sameAsProposer: this.religareTravel1.sameAsProposer,
                 mobile: this.religareTravel1.mobile,
                 passport: this.religareTravel1.passport,
+                phone: this.religareTravel1.phone,
                 rolecd: this.religareTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER'
             });
 
@@ -972,6 +993,9 @@ public isDisable: boolean;
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsurer.patchValue(this.religareTravel2.items[i].sameAsInsurer);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsuredProposer.patchValue(this.religareTravel2.items[i].sameAsInsuredProposer);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.religareTravel2.items[i].sameasreadonly);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].pannumber.patchValue(this.religareTravel2.items[i].pannumber);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].adharnumber.patchValue(this.religareTravel2.items[i].adharnumber);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].phone.patchValue(this.religareTravel2.items[i].phone);
             }
 
             if (sessionStorage.ReligareTravelDetails3 != '' && sessionStorage.ReligareTravelDetails3 != undefined) {
@@ -995,6 +1019,9 @@ public isDisable: boolean;
                 console.log(this.religareTravelProposalID, 'this.religarePAProposal');
             }
         }
+    }
+    paynow(){
+
     }
 }
 
