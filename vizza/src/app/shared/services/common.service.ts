@@ -215,7 +215,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'policyrenewal/policy_renewal_upload_details' ;
+        const url = this.configurationService.getHostHealth() + 'policyrenewal/policy_renewal_upload_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -423,7 +423,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'policyrenewal/get_insurance_company_details' ;
+        const url = this.configurationService.getHostHealth() + 'policyrenewal/get_insurance_company_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -435,7 +435,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'policyrenewal/get_insure_policy_type_details' ;
+        const url = this.configurationService.getHostHealth() + 'policyrenewal/get_insure_policy_type_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

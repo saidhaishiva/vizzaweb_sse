@@ -55,18 +55,18 @@ export class HomeComponent implements OnInit {
     dateError: any;
 
     constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
-        this.form =  this.fb.group({
-            'insurename': ['', Validators.compose([Validators.required])],
-            'startdate': ['', Validators.compose([Validators.required])],
-            'enddate': ['', Validators.compose([Validators.required])],
-            'insureemail': ['', Validators.compose([Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            'insurepolicytype':  ['', Validators.compose([Validators.required])],
-            'insuremobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-            'insurepolicyno': ['', Validators.compose([Validators.required])],
-            'insurepremiumamount': ['', Validators.compose([Validators.required])],
-            'insurecompanyname': ['',Validators.compose([Validators.required])],
-            'paymentfrequeny': ['',Validators.compose([Validators.required])]
-        });
+        // this.form =  this.fb.group({
+        //     'insurename': ['', Validators.compose([Validators.required])],
+        //     'startdate': ['', Validators.compose([Validators.required])],
+        //     'enddate': ['', Validators.compose([Validators.required])],
+        //     'insureemail': ['', Validators.compose([Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+        //     'insurepolicytype':  ['', Validators.compose([Validators.required])],
+        //     'insuremobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+        //     'insurepolicyno': ['', Validators.compose([Validators.required])],
+        //     'insurepremiumamount': ['', Validators.compose([Validators.required])],
+        //     'insurecompanyname': ['',Validators.compose([Validators.required])],
+        //     'paymentfrequeny': ['',Validators.compose([Validators.required])]
+        // });
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         this.settings.HomeSidenavUserBlock = true;
@@ -79,12 +79,12 @@ export class HomeComponent implements OnInit {
         this.today = new Date();
 
 
-        this.paymentFrequency = [
-            {'id': 1, 'name': 'Annually'},
-            {'id': 2, 'name': 'Half Yearly'},
-            {'id': 3, 'name': 'Quarterly'},
-            {'id': 4, 'name': 'Monthly'}
-        ];
+        // this.paymentFrequency = [
+        //     {'id': 1, 'name': 'Annually'},
+        //     {'id': 2, 'name': 'Half Yearly'},
+        //     {'id': 3, 'name': 'Quarterly'},
+        //     {'id': 4, 'name': 'Monthly'}
+        // ];
         sessionStorage.setPageP = 1;
         sessionStorage.sideMenuP = '';
     }
@@ -131,7 +131,7 @@ export class HomeComponent implements OnInit {
         sessionStorage.ageRestriction = '';
         sessionStorage.addonDetails = '';
         this.testimonialList();
-        this.getPolicyTypes();
+        // this.getPolicyTypes();
     }
 
 
@@ -262,109 +262,109 @@ export class HomeComponent implements OnInit {
     }
     public testimonialListFailure(error) {
     }
-    selectPolicyType(compId) {
-        this.getcompanyList(compId);
-    }
-    getPolicyTypes() {
-        const data = {
-            'platform': 'web',
-            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4'
-        }
-        this.common.policyTypes(data).subscribe(
-            (successData) => {
-                this.getpolicytypeSuccess(successData);
-            },
-            (error) => {
-                this.getpolicytypeFailure(error);
-            }
-        );
-    }
-    public getpolicytypeSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.policyTypes = successData.ResponseObject;
-        }
-    }
-    public getpolicytypeFailure(error) {
-    }
+    // selectPolicyType(compId) {
+    //     this.getcompanyList(compId);
+    // }
+    // getPolicyTypes() {
+    //     const data = {
+    //         'platform': 'web',
+    //         "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+    //         "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.common.policyTypes(data).subscribe(
+    //         (successData) => {
+    //             this.getpolicytypeSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.getpolicytypeFailure(error);
+    //         }
+    //     );
+    // }
+    // public getpolicytypeSuccess(successData) {
+    //     if (successData.IsSuccess) {
+    //         this.policyTypes = successData.ResponseObject;
+    //     }
+    // }
+    // public getpolicytypeFailure(error) {
+    // }
 
-    getcompanyList(cid) {
-        const data = {
-            'platform': 'web',
-            "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
-            "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
-            "insure_company_type_id": cid
-        };
-        this.common.getcompanyList(data).subscribe(
-            (successData) => {
-                this.setcompanyListSuccess(successData);
-            },
-            (error) => {
-                this.setcompanyListFailure(error);
-            }
-        );
-    }
-    public setcompanyListSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.companyList = successData.ResponseObject;
+    // getcompanyList(cid) {
+    //     const data = {
+    //         'platform': 'web',
+    //         "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
+    //         "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
+    //         "insure_company_type_id": cid
+    //     };
+    //     this.common.getcompanyList(data).subscribe(
+    //         (successData) => {
+    //             this.setcompanyListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.setcompanyListFailure(error);
+    //         }
+    //     );
+    // }
+    // public setcompanyListSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.companyList = successData.ResponseObject;
+    //
+    //     }
+    // }
+    // public setcompanyListFailure(error) {
+    // }
 
-        }
-    }
-    public setcompanyListFailure(error) {
-    }
 
-
-    renewal(values){
-        if (this.form.valid) {
-            let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
-            let edate = this.datepipe.transform(this.form.controls['enddate'].value, 'y-MM-dd');
-            const data = {
-                'platform': 'web',
-                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-                'role_id': this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4',
-                'insure_name': this.form.controls['insurename'].value,
-                'insure_start_date': sdate,
-                'insure_end_date': edate,
-                'insure_email': this.form.controls['insureemail'].value,
-                'insure_policy_type': this.form.controls['insurepolicytype'].value,
-                'insure_mobile': this.form.controls['insuremobile'].value,
-                'insure_policy_no': this.form.controls['insurepolicyno'].value,
-                'insure_premium_amount' : this.form.controls['insurepremiumamount'].value,
-                'insure_company_name': this.form.controls['insurecompanyname'].value,
-                'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
-            };
-
-            this.common.policyRenewal(data).subscribe(
-                (successData) => {
-                    this.policyRenewalSuccess(successData);
-                },
-                (error) => {
-                    this.policyRenewalFailure(error);
-                }
-            );
-        }
-    }
-    policyRenewalSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.toastr.success(successData.ResponseObject);
-            this.form =  this.fb.group({
-                'insurename': '',
-                'startdate': '',
-                'enddate': '',
-                'insureemail': '',
-                'insurepolicytype':  '',
-                'insuremobile': '',
-                'insurepolicyno': '',
-                'insurepremiumamount': '',
-                'insurecompanyname': '',
-                'paymentfrequeny': ''
-            });
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-    policyRenewalFailure(error) {
-    }
+    // renewal(values){
+    //     if (this.form.valid) {
+    //         let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
+    //         let edate = this.datepipe.transform(this.form.controls['enddate'].value, 'y-MM-dd');
+    //         const data = {
+    //             'platform': 'web',
+    //             'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+    //             'role_id': this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4',
+    //             'insure_name': this.form.controls['insurename'].value,
+    //             'insure_start_date': sdate,
+    //             'insure_end_date': edate,
+    //             'insure_email': this.form.controls['insureemail'].value,
+    //             'insure_policy_type': this.form.controls['insurepolicytype'].value,
+    //             'insure_mobile': this.form.controls['insuremobile'].value,
+    //             'insure_policy_no': this.form.controls['insurepolicyno'].value,
+    //             'insure_premium_amount' : this.form.controls['insurepremiumamount'].value,
+    //             'insure_company_name': this.form.controls['insurecompanyname'].value,
+    //             'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
+    //         };
+    //
+    //         this.common.policyRenewal(data).subscribe(
+    //             (successData) => {
+    //                 this.policyRenewalSuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.policyRenewalFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
+    // policyRenewalSuccess(successData) {
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success(successData.ResponseObject);
+    //         this.form =  this.fb.group({
+    //             'insurename': '',
+    //             'startdate': '',
+    //             'enddate': '',
+    //             'insureemail': '',
+    //             'insurepolicytype':  '',
+    //             'insuremobile': '',
+    //             'insurepolicyno': '',
+    //             'insurepremiumamount': '',
+    //             'insurecompanyname': '',
+    //             'paymentfrequeny': ''
+    //         });
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    // }
+    // policyRenewalFailure(error) {
+    // }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9]/;

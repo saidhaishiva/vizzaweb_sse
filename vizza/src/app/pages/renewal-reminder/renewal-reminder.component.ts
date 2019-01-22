@@ -73,6 +73,7 @@ export class RenewalReminderComponent implements OnInit {
 
   ngOnInit() {
     this.getPolicyTypes();
+    this.getcompanyList();
   }
 
 
@@ -163,12 +164,12 @@ export class RenewalReminderComponent implements OnInit {
 
 
 
-  getcompanyList(cid) {
+  getcompanyList() {
     const data = {
       'platform': 'web',
       "user_id": this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '4',
       "role_id": this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '0',
-      "insure_company_type_id": cid
+      "insure_company_type_id": '2'
     };
     this.common.getcompanyList(data).subscribe(
         (successData) => {
@@ -182,7 +183,6 @@ export class RenewalReminderComponent implements OnInit {
   public setcompanyListSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.companyList = successData.ResponseObject;
-
     }
   }
   public setcompanyListFailure(error) {
@@ -210,6 +210,7 @@ export class RenewalReminderComponent implements OnInit {
       this.policyTypes = successData.ResponseObject;
     }
   }
+
   public getpolicytypeFailure(error) {
   }
   public keyPress(event: any) {
