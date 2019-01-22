@@ -119,7 +119,7 @@ public minDate: any;
           proposerPaEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
           proposerPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
-          proposerParelationship: '',
+          proposerParelationship: 'SELF',
           proposerPaIdProof: '',
           proposerPaIdProofIdP: '',
           proposerPaPan: ['', Validators.compose([ Validators.minLength(10)])],
@@ -1282,7 +1282,7 @@ preInsureList() {
                     "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
                     "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
                     "MiddleName": this.ProposerPa.controls['proposerPaMidname'].value,
-                    "RelationshipCode": this.ProposerPa.controls['proposerParelationship'].value,
+                    "RelationshipCode": 'SELF',
                 }
             },
             "Client": {
