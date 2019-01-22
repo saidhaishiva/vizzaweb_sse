@@ -1370,8 +1370,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                         'addressLine2Lang1': this.personal.controls['residenceAddress2'].value,
                         'addressTypeCd': "COMMUNICATION",
                         'areaCd': this.personal.controls['residenceCity'].value,
-                        'cityCd':this.personal.controls['residencePincode'].value,
-                        'pinCode': this.personal.controls['residenceCity'].value,
+                        'cityCd':this.personal.controls['residenceCity'].value,
+                        'pinCode': this.personal.controls['residencePincode'].value,
                         'stateCd': this.personal.controls['residenceState'].value,
                         'countryCd': 'IND'
                     }

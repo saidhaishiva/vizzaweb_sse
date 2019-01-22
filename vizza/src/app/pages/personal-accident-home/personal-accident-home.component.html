@@ -27,7 +27,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <div *ngIf="annualerror" class="ngError">SumInsured Amount Required</div>
+            <div *ngIf="sumerror" class="ngError">SumInsured Amount Required</div>
             <mat-form-field class="w-100">
               <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncomeP" (keypress)="keyPress($event)" autocomplete="off">
             </mat-form-field>
