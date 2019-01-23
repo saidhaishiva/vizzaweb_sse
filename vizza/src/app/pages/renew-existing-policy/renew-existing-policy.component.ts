@@ -200,6 +200,7 @@ export class RenewExistingPolicyComponent implements OnInit {
         this.allImage.push(event);
     }
     onUpload() {
+        alert('haiiiii');
         const data = {
             'platform': 'web',
             'image_path': ''

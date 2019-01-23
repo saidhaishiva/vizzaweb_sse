@@ -102,7 +102,7 @@ export const horizontalMenuItems = [
     new Menu (67, 'Renew Existing Policy', '/renew-existing-policy', null, null, null, false, 67),
 
 
-    new Menu (68, 'Claim Assistance', '/', null, null, null, true, 0),
+    new Menu (68, 'Claim Assistance', '/claim-assistance', null, null, null, true, 0),
     new Menu (33, 'Blogs', '/fix-appointment/media', null, null, null, true, 0),
     new Menu (49, 'Media Library', '/', null, null, null, false, 33),
     new Menu (50, 'Learning Center', '/mediacenter', null, null, null, false, 33),
