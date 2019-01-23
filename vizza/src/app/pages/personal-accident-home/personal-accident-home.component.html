@@ -39,7 +39,7 @@
             <div *ngIf="ageerror" class="ngError">Age Required</div>
             <mat-form-field class="w-100">
             <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP" autocomplete="off" >
-              <mat-option *ngFor="let occupation of occupationCodoccerrore" [value]="occupation.class">{{occupation.occupation}}</mat-option>
+              <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
             </mat-select>
             </mat-form-field>
             <div *ngIf="occerror" class="ngError">Occupation Required</div>
