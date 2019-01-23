@@ -151,13 +151,13 @@
 
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100" >
+                      <div class="col-md-4"><mat-form-field class="w-100" >
                         <mat-select placeholder="City" formControlName="personalCity" autocomplete="off" required>
                           <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
                             {{city.city}}
@@ -165,7 +165,7 @@
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>
                         <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
 
@@ -190,7 +190,7 @@
 
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
@@ -198,7 +198,7 @@
 
 
                       </mat-form-field></div>
-                      <div class="col-md-3" *ngIf="sameField != true"><mat-form-field class="w-100">
+                      <div class="col-md-4" *ngIf="sameField != true"><mat-form-field class="w-100">
                         <mat-select placeholder="City" formControlName="residenceCity" autocomplete="off"  required>
                           <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city'>
                             {{citys.city}}
@@ -207,11 +207,11 @@
                         <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
 
-                      <div class="col-md-3" *ngIf="sameField"><mat-form-field class="w-100" >
+                      <div class="col-md-4" *ngIf="sameField"><mat-form-field class="w-100" >
                         <input matInput placeholder="City" formControlName="residenceCity" autocomplete="off" required [readonly]="inputReadonly">
                         <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="State" formControlName="residenceState" autocomplete="off" required readonly>
                       </mat-form-field></div>
 
