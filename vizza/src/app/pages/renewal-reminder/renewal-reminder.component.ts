@@ -117,7 +117,7 @@ export class RenewalReminderComponent implements OnInit {
       const data = {
         'platform': 'web',
         'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-        'role_id': this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4',
+        'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
         'insure_name': this.form.controls['insurename'].value,
         'insure_start_date': sdate,
         'insure_end_date': edate,
@@ -130,7 +130,7 @@ export class RenewalReminderComponent implements OnInit {
         'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
       };
 
-      this.common.policyRenewal(data).subscribe(
+      this.common.policyRenewalRemainder(data).subscribe(
           (successData) => {
             this.policyRenewalSuccess(successData);
           },
@@ -258,7 +258,8 @@ export class RenewalReminderComponent implements OnInit {
   onUpload() {
     const data = {
       'platform': 'web',
-      'image_path': ''
+      'image_path': '',
+        'file_type': '1'
     };
     let length = this.allImage.length-1;
     for (let k = 0; k < this.allImage[length].length; k++) {

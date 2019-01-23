@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-claim-assistance',
@@ -13,16 +14,21 @@ export class ClaimAssistanceComponent implements OnInit {
     public pincodeErrors: any;
     public pin:any;
     public title: any;
+    allImage: any;
+    fileDetails: any;
+    getUrl: any;
+    url: any;
+    fileUploadPath: any;
 
-    constructor(public fb: FormBuilder, public commonservices: CommonService, public toastr: ToastrService, public dialog: MatDialog) {
+    constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService) {
     }
-    claimAssitance = this.fb.group({
+    form = this.fb.group({
+        'insurance': ['', Validators.compose([Validators.required])],
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
         'contactperson': ['', Validators.compose([Validators.required])],
         'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
         'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         'pincode': ['', Validators.compose([Validators.required])],
-        'insurance': ['', Validators.compose([Validators.required])],
     });
 
   ngOnInit() {
@@ -35,7 +41,7 @@ export class ClaimAssistanceComponent implements OnInit {
             'postalcode': this.pin
         }
         if (this.pin.length == 6) {
-            this.commonservices.getPincodeDetails(data).subscribe(
+            this.common.getPincodeDetails(data).subscribe(
                 (successData) => {
                     this.getPincodeDetailsSuccess(successData);
                 },
@@ -75,11 +81,107 @@ export class ClaimAssistanceComponent implements OnInit {
             }
         }
     }
+    readUrl(event: any) {
+        this.getUrl = '';
+        let getUrlEdu = [];
+        this.fileDetails = [];
+        for (let i = 0; i < event.target.files.length; i++) {
+            this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+        }
+        for (let i = 0; i < event.target.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (event: any) => {
+                this.url = event.target.result;
+                getUrlEdu.push(this.url.split(','));
+                this.onUploadFinished(getUrlEdu);
+            };
+            reader.readAsDataURL(event.target.files[i]);
+        }
+
+    }
+    onUploadFinished(event) {
+        this.allImage.push(event);
+    }
+    onUpload() {
+        const data = {
+            'platform': 'web',
+            'image_path': '',
+            'file_type': '3'
+        };
+        let length = this.allImage.length-1;
+        for (let k = 0; k < this.allImage[length].length; k++) {
+            this.fileDetails[k].image = this.allImage[length][k][1];
+        }
+        data.image_path = this.fileDetails;
+        this.common.fileUploadPolicy(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.fileUploadPath = successData.ResponseObject.imagePath;
+            this.toastr.success( successData.ResponseObject.message);
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public fileUploadFailure(error) {
+    }
+
     ClaimAssistanceDialog(){
         const dialogRef = this.dialog.open(ClaimAssistanceDialog, {
             width: '1600px',
         });
         dialogRef.disableClose = true;
+    }
+
+    claimAssitance(values) {
+        if (this.form.valid) {
+            const data = {
+                'platform': 'web',
+                'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
+                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+                'insurence_type': this.form.controls['insurance'].value,
+                'company_name': this.form.controls['name'].value,
+                'contact_person' : this.form.controls['contactperson'].value,
+                'customer_mobile': this.form.controls['mobile'].value,
+                'customer_email': this.form.controls['email'].value,
+                'pincode': this.form.controls['pincode'].value,
+            };
+
+            this.common.claimAssistance(data).subscribe(
+                (successData) => {
+                    this.claimAssistanceSuccess(successData);
+                },
+                (error) => {
+                    this.claimAssistanceFailure(error);
+                }
+            );
+        }
+    }
+    claimAssistanceSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.form =  this.fb.group({
+                'insurence_type': '',
+                'company_name': '',
+                'contact_person' : '',
+                'customer_mobile': '',
+                'customer_email': '',
+                'pincode': '',
+            });
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    claimAssistanceFailure(error) {
     }
 }
 @Component({

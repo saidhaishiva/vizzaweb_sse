@@ -127,57 +127,45 @@ export class RenewExistingPolicyComponent implements OnInit {
 
     public getpolicytypeFailure(error) {
     }
-    // renewal(values){
-    //     if (this.form.valid) {
-    //         let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
-    //         let edate = this.datepipe.transform(this.form.controls['enddate'].value, 'y-MM-dd');
-    //         const data = {
-    //             'platform': 'web',
-    //             'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-    //             'role_id': this.auth.getPosRoleId() != null  ? this.auth.getPosRoleId() : '4',
-    //             'insure_name': this.form.controls['insurename'].value,
-    //             'insure_start_date': sdate,
-    //             'insure_end_date': edate,
-    //             'insure_email': this.form.controls['insureemail'].value,
-    //             'insure_policy_type': this.form.controls['insurepolicytype'].value,
-    //             'insure_mobile': this.form.controls['insuremobile'].value,
-    //             'insure_policy_no': this.form.controls['insurepolicyno'].value,
-    //             'insure_premium_amount' : this.form.controls['insurepremiumamount'].value,
-    //             'insure_company_name': this.form.controls['insurecompanyname'].value,
-    //             'insure_payment_frequency': this.form.controls['paymentfrequeny'].value
-    //         };
-    //
-    //         this.common.policyRenewal(data).subscribe(
-    //             (successData) => {
-    //                 this.policyRenewalSuccess(successData);
-    //             },
-    //             (error) => {
-    //                 this.policyRenewalFailure(error);
-    //             }
-    //         );
-    //     }
-    // }
-    // policyRenewalSuccess(successData) {
-    //     if (successData.IsSuccess) {
-    //         this.toastr.success(successData.ResponseObject);
-    //         this.form =  this.fb.group({
-    //             'insurename': '',
-    //             'startdate': '',
-    //             'enddate': '',
-    //             'insureemail': '',
-    //             'insurepolicytype':  '',
-    //             'insuremobile': '',
-    //             'insurepolicyno': '',
-    //             'insurepremiumamount': '',
-    //             'insurecompanyname': '',
-    //             'paymentfrequeny': ''
-    //         });
-    //     } else {
-    //         this.toastr.error(successData.ErrorObject);
-    //     }
-    // }
-    // policyRenewalFailure(error) {
-    // }
+    renewExixtingPolicy(values){
+            const data = {
+                'platform': 'web',
+                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
+                'proposal_name': this.form.controls['Proposername'].value,
+                'company_name': this.form.controls['insurecompanyname'].value,
+                'policy_type': this.form.controls['insurepolicytype'].value,
+                'mobile': this.form.controls['Proposermobile'].value,
+                'policy_number': this.form.controls['insurepolicyno'].value,
+                'premium_amount' : this.form.controls['insurepremiumamount'].value
+            };
+            this.common.policyRenewExixting(data).subscribe(
+                (successData) => {
+                    this.policyRenewalSuccess(successData);
+                },
+                (error) => {
+                    this.policyRenewalFailure(error);
+                }
+            );
+        }
+    policyRenewalSuccess(successData) {
+        console.log(successData,'dddddddd');
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.form =  this.fb.group({
+                'proposal_name': '',
+                'company_name': '',
+                'policy_type': '',
+                'mobile': '',
+                'policy_number': '',
+                'premium_amount' : ''
+            });
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    policyRenewalFailure(error) {
+    }
     readUrl(event: any) {
         this.getUrl = '';
         let getUrlEdu = [];
@@ -200,10 +188,10 @@ export class RenewExistingPolicyComponent implements OnInit {
         this.allImage.push(event);
     }
     onUpload() {
-        alert('haiiiii');
         const data = {
             'platform': 'web',
-            'image_path': ''
+            'image_path': '',
+            'file_type': '2'
         };
         let length = this.allImage.length-1;
         for (let k = 0; k < this.allImage[length].length; k++) {
