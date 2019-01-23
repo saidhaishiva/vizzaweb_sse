@@ -716,7 +716,7 @@
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_district != '' || appollosummaryData.ProposalDetails.p_district != null"><strong>District:</strong> {{appollosummaryData.ProposalDetails.p_district}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_district != '' && appollosummaryData.ProposalDetails.p_district != null"><strong>District:</strong> {{appollosummaryData.ProposalDetails.p_district}}</li>
                         <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
                       </ul>
                     </div>
@@ -740,8 +740,8 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !=''"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.marital_status}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' || appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.proof_name}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' || appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.proof_name}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno | uppercase}}</li>
                   </ul>
                 </div>
               </div>
@@ -754,7 +754,7 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_district !='' || appollosummaryData.InsurePolicyholderDetails.i_district != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_district !='' && appollosummaryData.InsurePolicyholderDetails.i_district != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
                   </ul>
                 </div>
@@ -768,9 +768,9 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 1"><strong>Pouches:</strong>Less than or equal to 10 per day</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != ''"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_wineglass != ''"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_beerbottle != ''"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != '' && appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != '0'"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_wineglass != '' && appollosummaryData.InsurePolicyholderDetails.i_wineglass != '0'"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_beerbottle != ''&& appollosummaryData.InsurePolicyholderDetails.i_wineglass != '0'"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
                   </ul>
                 </div>
               </div>
