@@ -230,18 +230,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="onCharacter($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="onCharacter($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="onCharacter($event)" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="onCharacter($event)" [readonly]="readonlyProposer" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="onCharacter($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="onCharacter($event)" [readonly]="readonlyProposer" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -253,7 +253,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)"  formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="onNumber($event)" [readonly]="readonlyProposer" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
                                autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -262,9 +262,16 @@
                         <div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>
 
                       </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Age" formControlName="insuredPaAge"     autocomplete="off" autocomplete="off" required readonly >
+                          <!--<mat-error *ngIf="insured.controls.insuredPaAge.errors?.required">DOB is required</mat-error>-->
+
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off" required>
+                          <input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off"[readonly]="readonlyProposer" required>
                           <mat-error *ngIf="insured.controls.insuredPaEmail.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
@@ -277,7 +284,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"   (keypress)="onNumber($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number"   (keypress)="onNumber($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" [readonly]="readonlyProposer" required>
                           <mat-error *ngIf="insured.controls.insuredPaMobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
@@ -327,31 +334,31 @@
 
                       <div class="col-md-3" *ngIf="pannumberP">
                         <mat-form-field class="w-100"  >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="keyEvent($event)" autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" [readonly]="readonlyProposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="keyEvent($event)" autocomplete="off">
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="drivinglicenseP" >
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="keyEvent($event)" (input)="panType('insurer')">
+                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving"[readonly]="readonlyProposer" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="keyEvent($event)" (input)="panType('insurer')">
                           <mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="passportP">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="keyEvent($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" [readonly]="readonlyProposer" (keypress)="keyEvent($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="voterP" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" (keypress)="keyEvent($event)" (input)="panType('insurer')" >
+                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter"  [readonly]="readonlyProposer" (keypress)="keyEvent($event)" (input)="panType('insurer')" >
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" [readonly]="readonlyProposer"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field>
@@ -362,25 +369,25 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off"  [readonly]="readonlyProposer"required></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2"  [readonly]="readonlyProposer" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress2.errors?.required">Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" [readonly]="readonlyProposer" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress3.errors?.required">Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="onlyNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6"  formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  (keypress)="onlyNumber($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6" [readonly]="readonlyProposer"  formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
