@@ -1512,8 +1512,8 @@ preInsureList() {
             }
             // nominee  City
             for( let i=0; i < this.paCityNomineeList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_towncode == this.paCityNomineeList[i].city_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.city_name =  this.paCityNomineeList[i].city_name;
+                if(this.appollosummaryData.ProposalDetails.i_towncode == this.paCityNomineeList[i].city_code) {
+                    this.appollosummaryData.ProposalDetails.city_name =  this.paCityNomineeList[i].city_name;
                 }
             }
 
@@ -1553,8 +1553,8 @@ preInsureList() {
                 }
             }
             for( let i=0; i < this.paMaritalList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.i_maritalstatus == this.paMaritalList[i].marital_code) {
-                    this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList[i].marital_status;
+                if(this.appollosummaryData.InsurePolicyholderDetails.i_maritalstatus == this.paMaritalList[i].marital_code) {
+                    this.appollosummaryData.InsurePolicyholderDetails.marital_status=  this.paMaritalList[i].marital_status;
                 }
             }
             // Id proof
