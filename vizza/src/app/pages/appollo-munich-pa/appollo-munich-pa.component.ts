@@ -1456,8 +1456,8 @@ preInsureList() {
             }
             // maritalstatus
             for( let i=0; i < this.paMaritalList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList[i].marital_code) {
-                    this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList[i].marital_status;
+                if(this.appollosummaryData.ProposalDetails.i_maritalstatus == this.paMaritalList[i].marital_code) {
+                    this.appollosummaryData.ProposalDetails.marital_statusi =  this.paMaritalList[i].marital_status;
                 }
             }
             // Id proof

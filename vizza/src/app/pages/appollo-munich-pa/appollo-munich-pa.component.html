@@ -17,7 +17,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerPaTitle" (change)="changeGender()">
+                          <mat-select placeholder="Title" formControlName="proposerPaTitle" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -81,14 +81,14 @@
                           <mat-error *ngIf="ProposerPa.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="proposerParelationship" required >
-                            <mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="ProposerPa.controls.proposerParelationship.errors?.required">Relationship is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Relationship with Proposer"  formControlName="proposerParelationship" required >-->
+                            <!--<mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="ProposerPa.controls.proposerParelationship.errors?.required">Relationship is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Select ID Proof"  formControlName="proposerPaIdProof" (change)="idList()" >
@@ -218,7 +218,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()">
+                          <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -583,7 +583,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="paNomineeTitle">
+                          <mat-select placeholder="Title" formControlName="paNomineeTitle" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -611,19 +611,18 @@
                           <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
-                        <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                                <textarea matInput placeholder="Address 2" rows="2" formControlName="paNomineeAddress2" autocomplete="off" ></textarea>
-                                <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress2.errors?.required">Address is required</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                                <textarea matInput placeholder="Address 3" rows="2" formControlName="paNomineeAddress3" autocomplete="off" ></textarea>
-                                <mat-error *ngIf="nomineeDetail.controls. paNomineeAddress3.errors?.required">Address is required</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-12"></div>
+                        <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<textarea matInput placeholder="Address 2" rows="2" formControlName="paNomineeAddress2" autocomplete="off" ></textarea>-->
+                                <!--<mat-error *ngIf="nomineeDetail.controls. paNomineeAddress2.errors?.required">Address is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<textarea matInput placeholder="Address 3" rows="2" formControlName="paNomineeAddress3" autocomplete="off" ></textarea>-->
+                                <!--<mat-error *ngIf="nomineeDetail.controls. paNomineeAddress3.errors?.required">Address is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="onlyNumber($event)" minlength="6"   maxlength="6"  formControlName="paNomineePincode" autocomplete="off" (input)=" getnomineePostalCode($event.target.value)" required>
@@ -693,11 +692,12 @@
                       <h6>PROPOSER DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob  | date: 'dd-MMM-yyyy'}}</li>
                         <li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
-                        <li class="list-group-item"><strong>RelationShip With Proposer:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.proof_name != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.proof_name}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != ''"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
@@ -727,13 +727,16 @@
                 <div class="p-3">
                   <h6>INSURED DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
+                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_fname}}{{appollosummaryData.InsurePolicyholderDetails.i_fname}}{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.i_gender == 1"><strong>Gender:</strong> MALE </li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd-MMM-yyyy'}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.occupation}}</li>
                     <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.relationship}}</li>
-                    <li class="list-group-item"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.profession !=''"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
+                    <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.marital_statusi}}</li>
                   </ul>
                 </div>
               </div>
@@ -746,7 +749,7 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.district_name != ''"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.district_name !='' || appollosummaryData.InsurePolicyholderDetails.district_name != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
                   </ul>
                 </div>
