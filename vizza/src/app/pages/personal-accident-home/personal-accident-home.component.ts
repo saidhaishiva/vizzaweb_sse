@@ -85,6 +85,7 @@ export class PersonalaccidentComponent implements OnInit {
         this.indexList = [];
         this.sumInsuredAmountLists = 0;
         this.compareArray = [];
+        this.annualerror = false;
     }
 
     ngOnInit() {
@@ -255,7 +256,7 @@ reset(){
         } else {
             this.occerror = false;
         }
-        if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP != '0') {
+        if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP == '0') {
             this.annualerror = true;
         } else {
             this.annualerror = false;

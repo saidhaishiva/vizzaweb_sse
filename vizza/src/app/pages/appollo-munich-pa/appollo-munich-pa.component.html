@@ -749,6 +749,8 @@
                     <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.marital_status}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.proof_name}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_anualincome != '' && appollosummaryData.InsurePolicyholderDetails.i_anualincome != null"><strong>Annual Income:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_anualincome}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gstno != '' && appollosummaryData.InsurePolicyholderDetails.i_gstno != null"><strong>Gst Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_gstno}</li>
                   </ul>
                 </div>
               </div>

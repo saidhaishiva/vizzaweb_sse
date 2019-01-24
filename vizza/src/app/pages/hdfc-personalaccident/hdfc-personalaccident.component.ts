@@ -394,7 +394,15 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             if (sessionStorage.proposerAgeHDFCPA >= 18) {
                 if (this.pincodePAValid) {
                     if(this.hdfcpersonalValues.occupation == '1') {
-                    stepper.next();
+                        if(this.hdfcpersonalValues.preexisting == 'N') {
+                            if(this.hdfcpersonalValues.nationality == 'Y') {
+                                stepper.next();
+                            } else {
+                                this.toastr.error('Policy cannot be issued online');
+                            }
+                        } else {
+                            this.toastr.error('Member PreExisting Disease :Policy cannot be issued online');
+                        }
                 } else {
                         this.toastr.error('Personal Accident is not allowed this occupation');
                     }
