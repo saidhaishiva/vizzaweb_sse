@@ -149,7 +149,7 @@ export class RenewExistingPolicyComponent implements OnInit {
             );
         }
     policyRenewalSuccess(successData) {
-        if (successData.IsSuccess == true) {
+        if (successData. IsSuccess== true) {
             this.toastr.success(successData.ResponseObject);
         } else {
             this.toastr.error(successData.ErrorObject);

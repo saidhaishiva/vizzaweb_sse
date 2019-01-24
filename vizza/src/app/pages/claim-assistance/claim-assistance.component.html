@@ -107,7 +107,7 @@
                   </ul>
                 </div>
                 <div class="col-md-12 text-center mt-3">
-                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!form.valid) || (!pincodeErrors)" onclick="claimAssitance(form.value)" >Submit</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" (onclick)="claimAssitance(form.value)" >Submit</button>
                 </div>
               </div>
             </form>

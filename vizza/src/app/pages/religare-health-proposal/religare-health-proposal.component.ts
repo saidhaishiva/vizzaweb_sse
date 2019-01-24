@@ -172,6 +172,7 @@ array: any;
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceState: ['', Validators.required],
+            mobileNumber: '',
             sameas: false,
             rolecd: 'PROPOSER',
             type: '',
@@ -350,8 +351,6 @@ array: any;
 
         if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
             if (this.getFamilyDetails.family_members.length < 2) {
-                alert(this.buyProductdetails.product_id);
-
                 this.changeGender();
             }
         }
@@ -980,6 +979,7 @@ array: any;
                 personalEmail: this.getStepper1.personalEmail,
                 personalMobile: this.getStepper1.personalMobile,
                 personalAltnumber: this.getStepper1.personalAltnumber,
+                mobileNumber: this.getStepper1.mobileNumber,
                 personalWeight: this.getStepper1.personalWeight,
                 personalHeight: this.getStepper1.personalHeight,
                 residenceAddress: this.getStepper1.residenceAddress,
@@ -1752,15 +1752,14 @@ array: any;
         }
     }
     alternateChange(event) {
-        console.log(event,'ghj');
-        if (event.target.value.length == 10) {
-            if(event.target.value == this.personal.get('personalMobile').value) {
+        if (this.personal['controls'].personalAltnumber.value == 10) {
+            if(this.personal['controls'].personalAltnumber.value == this.personal['controls'].personalMobile.value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
             } else {
                 this.mobileNumber = '';
             }
         } else {
-            // this.mobileNumber = 'false';
+            this.mobileNumber = '';
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }

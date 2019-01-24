@@ -53,7 +53,7 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     public getPincodeDetailsSuccess(successData) {
 
-        if (successData.ErrorObject = false) {
+        if (successData.IsSuccess == false) {
             this.toastr.error(successData.ErrorObject);
             this.pincodeErrors = false;
         }else {
