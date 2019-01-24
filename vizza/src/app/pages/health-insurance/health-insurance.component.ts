@@ -1153,11 +1153,8 @@ export class HealthInsuranceComponent implements OnInit {
     healthInsurer(){
         const dialogRef = this.dialog.open(HealthInsurer, {
             width: '1200px',
-            // height: '500px'
         });
         dialogRef.disableClose = true;
-        // dialogRef.afterClosed().subscribe(result => {
-        // });
     }
     headinghealthinsurance(){
         this.firstPage = true;
@@ -1182,7 +1179,7 @@ export class HealthInsuranceComponent implements OnInit {
         <div mat-dialog-content>
             <mat-accordion>
 
-            <mat-expansion-panel class="mb-3">
+            <mat-expansion-panel class="mb-3" [expanded]='true'>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     HEALTH INSURANCE- WHAT YOU SHOULD KNOW
