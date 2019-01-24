@@ -149,17 +149,8 @@ export class RenewExistingPolicyComponent implements OnInit {
             );
         }
     policyRenewalSuccess(successData) {
-        console.log(successData,'dddddddd');
-        if (successData.IsSuccess) {
+        if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject);
-            this.form =  this.fb.group({
-                'proposal_name': '',
-                'company_name': '',
-                'policy_type': '',
-                'mobile': '',
-                'policy_number': '',
-                'premium_amount' : ''
-            });
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -198,7 +189,7 @@ export class RenewExistingPolicyComponent implements OnInit {
             this.fileDetails[k].image = this.allImage[length][k][1];
         }
         data.image_path = this.fileDetails;
-        this.common.fileUploadPolicy(data).subscribe(
+        this.common.fileUploadPolicyHome(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
             },

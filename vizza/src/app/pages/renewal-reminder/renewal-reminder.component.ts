@@ -141,20 +141,8 @@ export class RenewalReminderComponent implements OnInit {
     }
   }
   policyRenewalSuccess(successData) {
-    if (successData.IsSuccess) {
+    if (successData.IsSuccess == true) {
       this.toastr.success(successData.ResponseObject);
-      this.form =  this.fb.group({
-        'insurename': '',
-        'startdate': '',
-        'enddate': '',
-        'insureemail': '',
-        'insurepolicytype':  '',
-        'insuremobile': '',
-        'insurepolicyno': '',
-        'insurepremiumamount': '',
-        'insurecompanyname': '',
-        'paymentfrequeny': ''
-      });
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -266,7 +254,7 @@ export class RenewalReminderComponent implements OnInit {
       this.fileDetails[k].image = this.allImage[length][k][1];
     }
     data.image_path = this.fileDetails;
-    this.common.fileUploadPolicy(data).subscribe(
+    this.common.fileUploadPolicyHome(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
         },
