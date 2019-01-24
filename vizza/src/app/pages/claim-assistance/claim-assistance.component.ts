@@ -52,7 +52,8 @@ export class ClaimAssistanceComponent implements OnInit {
         }
     }
     public getPincodeDetailsSuccess(successData) {
-        if (successData.ErrorObject) {
+
+        if (successData.ErrorObject = false) {
             this.toastr.error(successData.ErrorObject);
             this.pincodeErrors = false;
         }else {
@@ -113,7 +114,7 @@ export class ClaimAssistanceComponent implements OnInit {
             this.fileDetails[k].image = this.allImage[length][k][1];
         }
         data.image_path = this.fileDetails;
-        this.common.fileUploadPolicy(data).subscribe(
+        this.common.fileUploadPolicyHome(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
             },
@@ -167,16 +168,8 @@ export class ClaimAssistanceComponent implements OnInit {
         }
     }
     claimAssistanceSuccess(successData) {
-        if (successData.IsSuccess) {
+        if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject);
-            this.form =  this.fb.group({
-                'insurence_type': '',
-                'company_name': '',
-                'contact_person' : '',
-                'customer_mobile': '',
-                'customer_email': '',
-                'pincode': '',
-            });
         } else {
             this.toastr.error(successData.ErrorObject);
         }
