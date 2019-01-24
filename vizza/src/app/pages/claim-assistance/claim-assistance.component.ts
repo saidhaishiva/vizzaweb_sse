@@ -55,9 +55,6 @@ export class ClaimAssistanceComponent implements OnInit {
 
         if (successData.IsSuccess == false) {
             this.toastr.error(successData.ErrorObject);
-            this.pincodeErrors = false;
-        }else {
-            this.pincodeErrors = true;
         }
     }
 
