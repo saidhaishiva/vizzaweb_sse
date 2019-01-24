@@ -520,14 +520,14 @@ export class CommonService {
             .catch(this.handleError);
     }
     // Home page Claim Assistance
-    claimAssistance(data) {
+    claimAssistanceHome(data) {
         console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHome() + 'policyrenewal/add_renew_existing' ;
+        const url = this.configurationService.getHostHome() + 'policyrenewal/add_claim_assistance' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

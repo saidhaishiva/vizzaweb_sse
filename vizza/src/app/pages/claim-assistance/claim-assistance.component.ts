@@ -24,8 +24,8 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     form = this.fb.group({
         'insurance': ['', Validators.compose([Validators.required])],
-        'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-        'contactperson': ['', Validators.compose([Validators.required])],
+        'companyName': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+        'contactPerson': ['', Validators.compose([Validators.required])],
         'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
         'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         'pincode': ['', Validators.compose([Validators.required])],
@@ -141,20 +141,21 @@ export class ClaimAssistanceComponent implements OnInit {
     }
 
     claimAssitance(values) {
+      alert('dddddd');
         if (this.form.valid) {
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
                 'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
                 'insurence_type': this.form.controls['insurance'].value,
-                'company_name': this.form.controls['name'].value,
-                'contact_person' : this.form.controls['contactperson'].value,
-                'customer_mobile': this.form.controls['mobile'].value,
-                'customer_email': this.form.controls['email'].value,
+                'company_name': this.form.controls['companyName'].value,
+                'contact_person' : this.form.controls['contactPerson'].value,
+                'mobile': this.form.controls['mobile'].value,
+                'email': this.form.controls['email'].value,
                 'pincode': this.form.controls['pincode'].value,
             };
 
-            this.common.claimAssistance(data).subscribe(
+            this.common.claimAssistanceHome(data).subscribe(
                 (successData) => {
                     this.claimAssistanceSuccess(successData);
                 },
