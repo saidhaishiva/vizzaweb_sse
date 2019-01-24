@@ -226,10 +226,14 @@ reset(){
 
     getPersonalAccident() {
 
-        if (this.Age <= 18) {
+        if (this.Age < 17) {
             this.toast.error('Personal age should be 18 or above');
             return false;
         }
+        // if (this.AnnualIncomeP != 0) {
+        //     this.toast.error('Personal age should be 18 or above');
+        //     return false;
+        // }
 
         if (this.selectedAmountP == '' || this.selectedAmountP == undefined) {
             this.sumerror = true;
@@ -251,7 +255,7 @@ reset(){
         } else {
             this.occerror = false;
         }
-        if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined) {
+        if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP != 0) {
             this.annualerror = true;
         } else {
             this.annualerror = false;
@@ -261,7 +265,7 @@ reset(){
         } else {
             this.ageerror = false;
         }
-        if (this.selectedAmountP != '' && this.selectedAmountP != undefined && this.pincoceP != '' && this.pincoceP != undefined) {
+        if (this.selectedAmountP != '' && this.selectedAmountP != undefined && this.pincoceP != '' && this.pincoceP != undefined && this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP != 0) {
 
             const data = {
                 "platform": "web",
@@ -425,7 +429,15 @@ reset(){
         }
         this.compareArray = [];
     }
-
+    public onNumber(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     // comparelist
     compareList(value) {
             this.productData = [];

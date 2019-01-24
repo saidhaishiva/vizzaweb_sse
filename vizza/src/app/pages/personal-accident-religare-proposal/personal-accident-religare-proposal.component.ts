@@ -482,9 +482,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             if (sessionStorage.proposerAgePA>= 18) {
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                    this.topScroll();
-
+                    if(this.personal.controls['personalAnualIncome'].value != 0) {
+                        stepper.next();
+                        this.topScroll();
+                    }
                 }
 
             } else {
@@ -1197,7 +1198,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.personalservice.appolloRelationshipPa(data).subscribe(
+        this.personalservice.getRelationshipListreligare(data).subscribe(
             (successData) => {
                 this.setRelationshipSuccess(successData);
             },
@@ -1411,7 +1412,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
                     'firstName': this.insured.controls['insuredFirstname'].value,
                     'genderCd':  this.insured.controls['insuredGender'].value,
-                    'annualSalary': this.insured.controls['insuredAnnualIncome'].value,
+                    'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
                     'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
                     'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
@@ -1469,7 +1470,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                         }
                     ],
                     "partyQuestionDOList": this.partyQuestionDOList,
-                    'relationCd': this.insured.controls['insuredrelationship'].value,
+                    'relationCd': 'SELF',
                     'roleCd': 'PRIMARY',
                     'titleCd': this.insured.controls['insuredTitle'].value,
                     'partyEmploymentDOList': {

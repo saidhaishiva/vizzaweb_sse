@@ -599,7 +599,7 @@ console.log(value,'fgh');
 
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
-                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].insurerDobError != ''  && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
                     this.errorMessage = false;
                     if (this.familyMembers[i].ins_illness != 'No') {
                         if (this.familyMembers[i].ins_illness == '') {
@@ -692,18 +692,18 @@ console.log(value,'fgh');
             this.toastr.error('Please fill the empty fields', key);
         }
         console.log(this.ageRestriction, 'ageRestriction');
-
+        console.log(this.insurerDobError ,'this.insurerDobError');
         if (this.insureStatus) {
-            if (this.ageRestriction == '') {
-                    stepper.next();
+            if (this.insurerDobError == '') {
+                stepper.next();
                 this.topScroll();
 
             }
-            if (this.ageRestriction == 'true') {
-                    stepper.next();
-                this.topScroll();
-
-            }
+            // if (this.ageRestriction == 'true' ) {
+            //         stepper.next();
+            //     this.topScroll();
+            //
+            // }
 
 
         }
