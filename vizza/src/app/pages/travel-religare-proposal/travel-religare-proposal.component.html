@@ -536,10 +536,28 @@
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
           </section>
           <hr>
-          <div class="row">
+          <!--<div class="row">-->
+            <!--<div class="col-md-12 text-center">-->
+              <!--<button mat-button matStepperPrevious >Back</button>-->
+              <!--<button mat-raised-button color="primaryBlue" class="ml-2" [disabled]="!acceptSummaryDeclaration" (click)="paynow();">Pay Now</button>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="row"  *ngIf="summaryData">
             <div class="col-md-12 text-center">
-              <button mat-button matStepperPrevious >Back</button>
-              <button mat-raised-button color="primaryBlue" class="ml-2" [disabled]="!acceptSummaryDeclaration" (click)="paynow();">Pay Now</button>
+              <form action={{summaryData.action}}  method='post' #form>
+
+                <div>
+                  <input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>
+                  <input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>
+                </div>
+                <div class="col-md-12">
+                  <div class="proposal-buttom mb-3 text-center w-100">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
+                  </div>
+                </div>
+              </form>
+
             </div>
           </div>
 
