@@ -175,8 +175,8 @@ export class TravelProposalComponent implements OnInit {
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             placeOfVisit: ['', Validators.required],
             travelPurpose: ['', Validators.required],
-            physicianName: ['', Validators.required],
-            physicianContactNumber: ['', Validators.required],
+            physicianName:'',
+            physicianContactNumber: '',
             travelDeclaration: ['', Validators.required]
         });
     }
