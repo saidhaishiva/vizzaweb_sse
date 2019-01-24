@@ -323,15 +323,15 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                         <div class="col-md-3">
-                             <mat-form-field class="w-100">
-                                 <mat-select placeholder="Relationship With Insured"  formControlName="insuredrelationship"  (change)="setRelationship()" required  >
-                                     <mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>
-                                 </mat-select>
-                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
+                         <!--<div class="col-md-3">-->
+                             <!--<mat-form-field class="w-100">-->
+                                 <!--<mat-select placeholder="Relationship With Insured"  formControlName="insuredrelationship"  (change)="setRelationship()" required  >-->
+                                     <!--<mat-option *ngFor="let occupation of relationshipList" [value]="occupation.relation">{{occupation.relation_value}}</mat-option>-->
+                                 <!--</mat-select>-->
+                                 <!--<mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>-->
 
-                             </mat-form-field>
-                         </div>
+                             <!--</mat-form-field>-->
+                         <!--</div>-->
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  [readonly]="readonlyproposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
@@ -365,7 +365,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber"  [readonly]="readonlyproposer" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="10" minlength="10"  [readonly]="readonlyproposer" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
 
                       </mat-form-field>
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>

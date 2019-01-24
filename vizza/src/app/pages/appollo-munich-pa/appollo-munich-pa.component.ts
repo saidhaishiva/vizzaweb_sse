@@ -576,7 +576,7 @@ public insuredage: any;
         console.log(this.insuredData,'this.insuredData');
         console.log(this.insured.valid, 'jjkhfgjfjgfhg');
         if (this.insured.valid) {
-            if (sessionStorage.insuredAgeP >= 18){
+            if (sessionStorage.proposerAgeP >= 18){
                 stepper.next();
                 this.topScroll();
 

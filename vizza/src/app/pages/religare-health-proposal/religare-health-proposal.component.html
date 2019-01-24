@@ -628,29 +628,37 @@
                           <b *ngIf="items.response == false || items.response == ''"> No</b>
                           <b *ngIf="items.response != false && items.response != ''"> Yes</b>
                         </li>
-                        <li class="list-group-item">2.Have any of the above mentioned person(s) to be in…r any illness / injury during the last 48 months:
+                        <li class="list-group-item">2.Are you pregnant currently? If yes, please share ANC records", display_question:
                           <b *ngIf="items.response == false || items.response == ''"> No</b>
                           <b *ngIf="items.response != false && items.response != ''"> Yes</b>
 
                         </li>
-                        <li class="list-group-item">3.Have any of the person(s) to be insured ever filed a claim with their current / previous insurer:
+                        <li class="list-group-item">3.Any complications in past pregnancy? If yes, please share the premature delivery report:
                           <b *ngIf="items.response == false || items.response == ''"> No</b>
                           <b *ngIf="items.response != false && items.response != ''"> Yes</b>
 
                         </li>
-                        <li class="list-group-item">4.Has any proposal for Health insurance been declined, cancelled or charged a higher premium:
+                        <li class="list-group-item">4.Have any of the persons to be insured ever filed a claim with their current/ previous insurer :
                           <b *ngIf="items.response == false || items.response == ''"> No</b>
                           <b *ngIf="items.response != false && items.response != ''"> Yes</b>
 
                         </li>
-                        <li class="list-group-item">5.Is any of the person(s) to be insured, already cov…th insurance policy of Religare Health Insurance :
+                        <li class="list-group-item">5.Has any proposal for Health insurance been declined, cancelled or charged a higher premium:
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+                        </li>
+                        <li class="list-group-item">6.Is any of the persons proposed for insurance cover…y other health insurance policy with the Company :
+                          <b *ngIf="items.response == false || items.response == ''"> No</b>
+                          <b *ngIf="items.response != false && items.response != ''"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item">7.Does your existing Health insurance policy cover Maternity benefit :
                           <b *ngIf="items.response == false || items.response == ''"> No</b>
                           <b *ngIf="items.response != false && items.response != ''"> Yes</b>
 
                         </li>
                       </ul>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -684,8 +692,8 @@
 
 
             </div>
-
-            <h5 class="mt-3 sub-title" *ngIf="summaryData.add_ons !='' && buyProductdetails.product_id == 1">ADDONS</h5>
+          <div *ngIf="summaryData.add_ons !='' && buyProductdetails.product_id == 1">
+            <h5 class="mt-3 sub-title" >ADDONS</h5>
             <div class="row box-card">
               <div class="col-md-6">
                 <div class="p-3">
@@ -699,10 +707,8 @@
                   </div>
                 </div>
               </div>
-
-
-
             </div>
+          </div>
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row">

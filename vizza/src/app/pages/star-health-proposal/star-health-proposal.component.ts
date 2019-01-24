@@ -17,25 +17,24 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 
 
-
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
     },
     display: {
         dateInput: 'DD/MM/YYYY',
-        // monthYearLabel: 'MM YYYY',
+        monthYearLabel: 'MM YYYY',
         dateA11yLabel: 'DD/MM/YYYY',
 
-        // monthYearA11yLabel: 'MM YYYY',
+        monthYearA11yLabel: 'MM YYYY',
     },
 };
+
 @Component({
     selector: 'app-star-health-proposal',
     templateUrl: './star-health-proposal.component.html',
     styleUrls: ['./star-health-proposal.component.scss'],
     providers: [
-
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
 
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
@@ -118,7 +117,7 @@ export class StarHealthProposalComponent implements OnInit {
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.illnessCheck = false;
-        this.socialStatus = false;
+        this.socialStatus = true;
         this.stopNext = false;
         this.nomineeAdd = true;
         this.nomineeRemove = true;
@@ -397,7 +396,7 @@ export class StarHealthProposalComponent implements OnInit {
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalLastname: this.getStepper1.personalLastname,
-                personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
+                personalDob:new FormControl(new Date(this.getStepper1.personalDob)),
                 personalOccupation: this.getStepper1.personalOccupation,
                 personalIncome: this.getStepper1.personalIncome,
                 personalArea: this.getStepper1.personalArea,
@@ -599,7 +598,7 @@ console.log(value,'fgh');
 
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
-                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].insurerDobError != ''  && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined) {
                     this.errorMessage = false;
                     if (this.familyMembers[i].ins_illness != 'No') {
                         if (this.familyMembers[i].ins_illness == '') {
@@ -692,18 +691,18 @@ console.log(value,'fgh');
             this.toastr.error('Please fill the empty fields', key);
         }
         console.log(this.ageRestriction, 'ageRestriction');
-
+        console.log(this.insurerDobError ,'this.insurerDobError');
         if (this.insureStatus) {
-            if (this.ageRestriction == '') {
-                    stepper.next();
+            if (this.insurerDobError == '') {
+                stepper.next();
                 this.topScroll();
 
             }
-            if (this.ageRestriction == 'true') {
-                    stepper.next();
-                this.topScroll();
-
-            }
+            // if (this.ageRestriction == 'true' ) {
+            //         stepper.next();
+            //     this.topScroll();
+            //
+            // }
 
 
         }
@@ -1005,7 +1004,7 @@ console.log(value,'fgh');
             //Calculate Age
             this.ageCheck = this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
             let age = this.ageCalculate(this.ageCheck);
-
+             this.familyMembers[i].ins_dob = this.ageCheck;
 
             this.familyMembers[i].ins_age = age;
             if (this.buyProductdetails.company_name == 'Star Health') {
