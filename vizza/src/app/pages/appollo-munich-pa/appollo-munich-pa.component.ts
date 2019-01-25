@@ -685,12 +685,11 @@ public insuredage: any;
 
 // nomineee details
     religareNomineeDetails(stepper: MatStepper, value) {
-        // if (this.nomineeDetail.valid) {
+        if (this.nomineeDetail.valid) {
             sessionStorage.panomineeData = '';
             sessionStorage.panomineeData = JSON.stringify(value);
-            this.createrPoposal();
-        // }
-        this.lastPage = stepper;
+            this.createrPoposal(stepper);
+        }
 
     }
 // Pre Insure List
@@ -1336,7 +1335,7 @@ preInsureList() {
     }
 
     // star-health-proposal creation
-    createrPoposal(){
+    createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
    const data = {
     "enquiry_id": enq_id.toString(),
@@ -1466,7 +1465,7 @@ preInsureList() {
         this.settings.loadingSpinner = true;
         this.personalservice.getPersonalAccidentAppolloProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData, stepper);
             },
             (error) => {
                 this.proposalFailure(error);
@@ -1476,9 +1475,10 @@ preInsureList() {
     }
 
 
-    public proposalSuccess(successData) {
+    public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             this.appolloPA = this.appollosummaryData.ProposalId;
