@@ -1295,6 +1295,7 @@ preInsureList() {
           this.insured.controls['insuredPaAge'].patchValue(age);
             this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
           this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
+          this.insured.controls['insuredPaCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
 
 
         } else {
