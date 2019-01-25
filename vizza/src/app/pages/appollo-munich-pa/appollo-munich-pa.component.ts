@@ -944,6 +944,7 @@ preInsureList() {
             if (this.appollo1.proposerPaPincode != '') {
                 this.getPostalCode(this.appollo1.proposerPaPincode);
             }
+            this.idList();
             // this.ProposerPa.controls['proposerPaIdProof'].value;
 
             this.ProposerPa = this.proposerpa.group({
@@ -993,7 +994,7 @@ preInsureList() {
             if (this.appollo2.insuredPaPincode != '') {
                 this.getinsuredPostalCode(this.appollo2.insuredPaPincode);
             }
-
+            this.insureidList();
 
             this.insured = this.proposerpa.group({
                 insuredPaTitle: this.appollo2.insuredPaTitle,
@@ -1270,6 +1271,7 @@ preInsureList() {
 
       if (this.insured.controls['sameAsProposer'].value) {
           this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
+          this.insureidList();
             this.readonlyProposer = true;
             this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
             this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
@@ -1295,6 +1297,7 @@ preInsureList() {
           this.insured.controls['insuredPaAge'].patchValue(age);
             this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
           this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
+          this.insured.controls['insuredPaCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
 
 
         } else {

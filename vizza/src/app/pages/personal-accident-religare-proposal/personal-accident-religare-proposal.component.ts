@@ -367,11 +367,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 relationshipcd: this.getStepper1.relationshipcd
             });
             },700);
-            if (this.getStepper1.personalDescriptionCode != '') {
-                this.personal.controls['personalDescriptionCode'].patchValue(this.getStepper1.personalDescriptionCode);
-                this.setpersonalDescriptionListCode('session');
-                this.personal.controls['personalClassDescriptionCode'].patchValue(this.getStepper1.personalClassDescriptionCode);
-            }
+            // if (this.getStepper1.personalDescriptionCode != '') {
+            //     this.personal.controls['personalDescriptionCode'].patchValue(this.getStepper1.personalDescriptionCode);
+            //     this.setpersonalDescriptionListCode('session');
+            //     this.personal.controls['personalClassDescriptionCode'].patchValue(this.getStepper1.personalClassDescriptionCode);
+            // }
 
 
 
@@ -1352,68 +1352,67 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
         "policy": {
             "partyDOList": [{
-                'birthDt': this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
-                'firstName': this.personal.controls['personalFirstname'].value,
-                'genderCd':this.personal.controls['personalGender'].value,
+                'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
+                'firstName': this.insured.controls['insuredFirstname'].value,
+                'genderCd': this.insured.controls['insuredGender'].value,
                 'relationCd':'SELF',
                 'roleCd': "PROPOSER",
                 'titleCd': this.personal.controls['personalTitle'].value,
-                'annualSalary': this.personal.controls['personalAnualIncome'].value,
-                'occupationCode': this.personal.controls['personalOccupationCode'].value,
-                'occupationClass': this.personal.controls['personalDescriptionCode'].value,
-                'classDescription': this.occupationDescription ? this.personal.controls['personalDescription'].value : this.personal.controls['personalClassDescriptionCode'].value,
-                'lastName':this.personal.controls['personalLastname'].value,
-                'partyAddressDOList': [{
-                    'addressLine1Lang1': this.personal.controls['personalAddress'].value,
-                    'addressLine2Lang1': this.personal.controls['personalAddress2'].value,
+                'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
+                'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+                'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                'lastName':  this.insured.controls['insuredLastname'].value,
+                "partyAddressDOList": [{
+                    'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
+                    'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
                     'addressTypeCd': "PERMANENT",
-                    'areaCd': this.personal.controls['personalCity'].value,
-                    'cityCd': this.personal.controls['personalCity'].value,
-                    'pinCode': this.personal.controls['personalPincode'].value,
-                    'stateCd': this.personal.controls['personalState'].value,
+                    'areaCd':  this.insured.controls['insuredCity'].value,
+                    'cityCd': this.insured.controls['insuredCity'].value,
+                    'pinCode':  this.insured.controls['insuredPincode'].value,
+                    'stateCd':  this.insured.controls['insuredState'].value,
                     'countryCd': 'IND'
                 },
                     {
-                        'addressLine1Lang1': this.personal.controls['residenceAddress'].value,
-                        'addressLine2Lang1': this.personal.controls['residenceAddress2'].value,
-                        'addressTypeCd': "COMMUNICATION",
-                        'areaCd': this.personal.controls['residenceCity'].value,
-                        'cityCd':this.personal.controls['residenceCity'].value,
-                        'pinCode': this.personal.controls['residencePincode'].value,
-                        'stateCd': this.personal.controls['residenceState'].value,
+                        'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
+                        'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
+                        'addressTypeCd': 'COMMUNICATION',
+                        'areaCd':  this.insured.controls['insuredrCity'].value,
+                        'cityCd':  this.insured.controls['insuredrCity'].value,
+                        'pinCode':  this.insured.controls['insuredrPincode'].value,
+                        'stateCd':  this.insured.controls['insuredrState'].value,
                         'countryCd': 'IND'
                     }
                 ],
                 "partyContactDOList": [{
-                    'contactNum': this.personal.controls['personalMobile'].value,
+                    'contactNum':  this.insured.controls['insuredMobile'].value,
                     'contactTypeCd': 'MOBILE',
-                    'stdCode': '+91'
+                    'stdCode': "+91"
                 },
                     {
-                        'contactNum': this.personal.controls['personalAltnumber'].value,
+                        'contactNum': this.insured.controls['insuredAltnumber'].value,
                         'contactTypeCd': 'RESIDENTIAL',
                         'stdCode': "+91"
                     }
                 ],
                 "partyEmailDOList": [{
-                    'emailAddress': this.personal.controls['personalEmail'].value,
-                    'emailTypeCd': 'PERSONAL'
+                    'emailAddress':  this.insured.controls['insuredEmail'].value,
+                    'emailTypeCd': "PERSONAL"
                 },
                     {
-                        "emailAddress": this.personal.controls['personalEmail2'].value,
-                        "emailTypeCd": 'OFFICIAL'
+                        'emailAddress':  this.insured.controls['insuredEmail2'].value,
+                        'emailTypeCd': "OFFICIAL"
                     }
                 ],
                 "partyIdentityDOList": [{
-                    'identityNum': pan.toUpperCase(),
-                    'identityTypeCd': 'PAN'
+                    'identityNum': pan1.toUpperCase(),
+                    'identityTypeCd': "PAN"
                 },
                     {
-                        'identityNum': this.personal.controls['personalPassPort'].value,
+                        'identityNum':  this.insured.controls['insuredPassPort'].value,
                         'identityTypeCd': "PASSPORT"
                     }
                 ]
-
             },
                 {
                     'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
@@ -1537,18 +1536,18 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     this.summaryData.proposer_insurer_details.description =  this.occupationdescriptionList[i].description;
                 }
             }
-            // occupation class description in prorposer
-            for( let i=0; i < this.personalClassDescription.length; i++) {
-                if(this.summaryData.proposer_details.p_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
-                    this.summaryData.proposer_details.occ_name =  this.personalClassDescription[i].occ_name;
-                }
-            }
-            // occupation class description in insured
-            for( let i=0; i < this.personalClassDescription.length; i++) {
-                if(this.summaryData.proposer_insurer_details.i_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
-                    this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
-                }
-            }
+            // // occupation class description in prorposer
+            // for( let i=0; i < this.personalClassDescription.length; i++) {
+            //     if(this.summaryData.proposer_details.p_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
+            //         this.summaryData.proposer_details.occ_name =  this.personalClassDescription[i].occ_name;
+            //     }
+            // }
+            // // occupation class description in insured
+            // for( let i=0; i < this.personalClassDescription.length; i++) {
+            //     if(this.summaryData.proposer_insurer_details.i_occupation_class_description == this.personalClassDescription[i].occupation_class_description) {
+            //         this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
+            //     }
+            // }
 // nominee relationShip
             for( let i=0; i < this.relationshipList.length; i++) {
                 if(this.summaryData.proposer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
