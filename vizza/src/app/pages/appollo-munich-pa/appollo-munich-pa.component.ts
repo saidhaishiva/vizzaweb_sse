@@ -1270,6 +1270,7 @@ preInsureList() {
     sameProposer() {
 
       if (this.insured.controls['sameAsProposer'].value) {
+          this.getinsuredPostalCode('');
             this.readonlyProposer = true;
             this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
             this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);

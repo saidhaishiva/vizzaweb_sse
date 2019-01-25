@@ -485,6 +485,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     if(this.personal.controls['personalAnualIncome'].value != 0) {
                         stepper.next();
                         this.topScroll();
+                    } else {
+                        this.toastr.error('Invalid Annual Income');
+
                     }
                 }
 
@@ -500,9 +503,13 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.insurerData = value;
         if (this.insured.valid) {
             if (sessionStorage.insuredAgePA>= 18) {
-                stepper.next();
-                this.topScroll();
+                if(this.insured.controls['insuredAnnualIncome'].value != 0) {
+                    stepper.next();
+                    this.topScroll();
+                } else {
+                    this.toastr.error('Invalid Annual Income');
 
+                }
             } else {
                 this.toastr.error('Insured age should be 18 or above');
 
@@ -1542,7 +1549,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
                 }
             }
-
+// nominee relationShip
+            for( let i=0; i < this.relationshipList.length; i++) {
+                if(this.summaryData.proposer_insurer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
+                    this.summaryData.proposer_insurer_details.relationship_name =  this.relationshipList[i].relationship_name;
+                }
+            }
 
         } else {
             this.toastr.error(successData.ErrorObject);
