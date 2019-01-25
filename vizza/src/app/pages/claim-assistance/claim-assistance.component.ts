@@ -150,7 +150,8 @@ export class ClaimAssistanceComponent implements OnInit {
 
     ClaimAssistanceDialog(){
         const dialogRef = this.dialog.open(ClaimAssistanceDialog, {
-            width: '1600px',
+            width: '85%',
+            height:'85%'
         });
         dialogRef.disableClose = true;
     }
@@ -217,24 +218,32 @@ export class ClaimAssistanceComponent implements OnInit {
 
             <div class="row ca-claim">
                 <div class="col-md-3">
+                <div class="claim-box">
                     <h4>CONTACT VIZZA</h4>
                     <p>When it comes to your Insurance Policy, the first thing to do when a loss occurs is to contact Vizza Insurance Broker.Vizza will guide you in obtaining proper resolution of your claim.</p>
-                    <span>1</span>
+                    </div>
+                    <label><span>1</span></label>
                 </div>
                 <div class="col-md-3">
+                <div class="claim-box">
                     <h4>CLAIM INVESTIGATION</h4>
                     <p>After the claim has been reported, it will need to be investigated by an adjuster to determine the amount of loss or damages covered by your insurance policy. The adjuster will also identify any liable parties, and you can help the process by providing any witness information or other parties’ contact information.</p>
-                    <span>2</span>
+                    </div>
+                    <label><span>2</span></label>
                 </div>
                 <div class="col-md-3">
+                <div class="claim-box">
                     <h4>LOSS ASSESSMENT</h4>
                     <p>Loss Assessment process requires establishment of cause of loss to determine whether insurer is liable to indemnify the loss. The process also involves extensive investigation and documentation to establish the amount of loss and the amount that the insurer is liable to indemnify.</p>
-                    <span>3</span>
+                    </div>
+                    <label><span>3</span></label>
                 </div>
                 <div class="col-md-3">
+                <div class="claim-box">
                     <h4>DISPUTE</h4>
                     <p>In the event of insurer declining liability, cause of action arises to proceed legally against the insurer. In case, the insurer settles the amount which is not to the satisfaction of the insured, then the insured has the right to approach proper forum for redressal.</p>
-                    <span>4</span>
+                    </div>
+                    <label><span>4</span></label>
                 </div>
                 <!--<div class="col">-->
                 <!--<h4><span>5</span>Payment</h4>-->
