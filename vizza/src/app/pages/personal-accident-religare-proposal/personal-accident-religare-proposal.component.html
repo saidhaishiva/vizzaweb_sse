@@ -565,7 +565,7 @@
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
                                 <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship()" required  >
-                                    <mat-option *ngFor="let occupation of relationshipList" value="{{occupation.relationship_code}}">{{occupation.relationship}}</mat-option>
+                                    <mat-option *ngFor="let occupation of relationshipList" value="{{occupation.relationship_code}}">{{occupation.relationship_name}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
 
@@ -622,7 +622,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_details.description}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.occ_name != ''"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.proposer_details.occ_name != '' && summaryData.proposer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_pass_idnum != ''"><strong>Passport Number:</strong> {{summaryData.proposer_details.p_pass_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_details.p_annual_salary}} </li>
@@ -685,7 +685,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <!--<li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_insurer_details.description}}</li>-->
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.occ_name != ''"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.occ_name != '' && summaryData.proposer_insurer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
                       <li class="list-group-item"><strong>RelationShip with Proposer:</strong> {{summaryData.proposer_insurer_details.i_relationcd}}</li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_pass_idnum!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
@@ -786,7 +786,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.nominee_relationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.relationship_name}}</li>
                       </ul>
                     </div>
 

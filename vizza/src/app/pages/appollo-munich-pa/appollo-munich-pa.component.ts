@@ -685,12 +685,11 @@ public insuredage: any;
 
 // nomineee details
     religareNomineeDetails(stepper: MatStepper, value) {
-        // if (this.nomineeDetail.valid) {
+        if (this.nomineeDetail.valid) {
             sessionStorage.panomineeData = '';
             sessionStorage.panomineeData = JSON.stringify(value);
-            this.createrPoposal();
-        // }
-        this.lastPage = stepper;
+            this.createrPoposal(stepper);
+        }
 
     }
 // Pre Insure List
@@ -1270,6 +1269,7 @@ preInsureList() {
     sameProposer() {
 
       if (this.insured.controls['sameAsProposer'].value) {
+          this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
             this.readonlyProposer = true;
             this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
             this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
@@ -1294,6 +1294,7 @@ preInsureList() {
           let age = this.ageCalculate(this.datepipe.transform(this.ProposerPa.controls['proposerPaDob'].value, 'y-MM-dd'));
           this.insured.controls['insuredPaAge'].patchValue(age);
             this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
+          this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
 
 
         } else {
@@ -1326,6 +1327,7 @@ preInsureList() {
             this.insured.controls['insuredPaDistrict'].patchValue('');
             this.insured.controls['insuredPaGst'].patchValue('');
           this.insured.controls['insuredPaAge'].patchValue('');
+          this.insured.controls['insuredPaStateIdP'].patchValue('');
         }
 
 
@@ -1333,7 +1335,7 @@ preInsureList() {
     }
 
     // star-health-proposal creation
-    createrPoposal(){
+    createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
    const data = {
     "enquiry_id": enq_id.toString(),
@@ -1463,7 +1465,7 @@ preInsureList() {
         this.settings.loadingSpinner = true;
         this.personalservice.getPersonalAccidentAppolloProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData, stepper);
             },
             (error) => {
                 this.proposalFailure(error);
@@ -1473,9 +1475,10 @@ preInsureList() {
     }
 
 
-    public proposalSuccess(successData) {
+    public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             this.appolloPA = this.appollosummaryData.ProposalId;
