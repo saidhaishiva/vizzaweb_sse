@@ -864,7 +864,7 @@ a:hover {
       margin-right: 10px;
 
       strong{
-        width: 180px;
+        width: 210px;
         float: left;
       }
     }
@@ -1315,7 +1315,7 @@ a:hover {
     margin-right: 10px;
 
     strong{
-      width: 150px;
+      width: 200px;
       float: left;
     }
   }
@@ -2749,6 +2749,33 @@ fieldset {
     position: relative;
     text-transform: capitalize;
   }
+  .summary-details {
+    .sub-title {
+      font-size: 14px;
+    }
+    .box-card {
+      border: none;
+    }
+    h6 {
+      text-align: center;
+      color: #437044;
+    }
+    h5 {
+      background: #437044;
+      color: #fff;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+    li{
+      padding-bottom: 8px;
+      margin-right: 10px;
+
+      strong{
+        width: 190px;
+        float: left;
+      }
+    }
+  }
 }
 .apolloMunichProposal{
   .mat-checkbox-layout{
@@ -2794,5 +2821,33 @@ fieldset {
     position: relative;
     text-transform: capitalize;
   }
+  .summary-details {
+    .sub-title {
+      font-size: 14px;
+    }
+    .box-card {
+      border: none;
+    }
+    h6 {
+      text-align: center;
+      color: #e3754c;
+    }
+    h5 {
+      background: #e3754c;
+      color: #fff;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+    li{
+      padding-bottom: 8px;
+      margin-right: 10px;
+
+      strong{
+        width: 190px;
+        float: left;
+      }
+    }
+  }
+
 }
 
