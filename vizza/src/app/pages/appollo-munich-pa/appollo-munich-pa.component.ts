@@ -1483,115 +1483,123 @@ preInsureList() {
             this.appollosummaryData = successData.ResponseObject;
             this.appolloPA = this.appollosummaryData.ProposalId;
             sessionStorage.appolloPAproposalID = this.appolloPA ;
-            // Proposer state
-            if(this.appollosummaryData.ProposalDetails.p_statecode == this.paPinList.state_code) {
-                this.appollosummaryData.ProposalDetails.state =  this.paPinList.state;
-            }
-            // Insured state
-            if(this.appollosummaryData.InsurePolicyholderDetails.i_statecode == this.paPinInsuredList.state_code) {
-                this.appollosummaryData.InsurePolicyholderDetails.state =  this.paPinInsuredList.state;
-            }
-            // nominee state
-            if(this.appollosummaryData.ProposalDetails.n_stateCode == this.paPinnomineeList.state_code) {
-                this.appollosummaryData.ProposalDetails.state =  this.paPinnomineeList.state;
-            }
-            // proposer District
-                for( let i=0; i < this.padistrictList.length; i++) {
-                    if(this.appollosummaryData.ProposalDetails.p_district == this.padistrictList[i].district_code) {
-                        this.appollosummaryData.ProposalDetails.district_name =  this.padistrictList[i].district_name;
-                    }
-                }
-            // Insured District
-            for( let i=0; i < this.paInsureddistrictList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_district == this.paInsureddistrictList[i].district_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.district_name =  this.paInsureddistrictList[i].district_name;
-                }
-            }
-            // Nominee District
-            for( let i=0; i < this.paNomineedistrictList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.n_district == this.paNomineedistrictList[i].district_code) {
-                    this.appollosummaryData.ProposalDetails.district_name =  this.paNomineedistrictList[i].district_name;
-                }
-            }
-            // Proposer City
-            for( let i=0; i < this.paCityList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.p_towncode == this.paCityList[i].city_code) {
-                    this.appollosummaryData.ProposalDetails.city_name =  this.paCityList[i].city_name;
-                }
-            }
-            // Insured City
-            for( let i=0; i < this.paCityInsuredList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_towncode == this.paCityInsuredList[i].city_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.city_name =  this.paCityInsuredList[i].city_name;
-                }
-            }
-            // nominee  City
-            for( let i=0; i < this.paCityNomineeList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.i_towncode == this.paCityNomineeList[i].city_code) {
-                    this.appollosummaryData.ProposalDetails.city_name =  this.paCityNomineeList[i].city_name;
-                }
-            }
-
-            // Marital List
-            // if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList.marital_code) {
-            //     this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList.marital_status;
+            console.log(this.paPinList, 'state');
+            console.log(this.paPinInsuredList, 'insurestate');
+            console.log( this.paPinnomineeList, 'inomineeeerestate');
+            console.log(this.padistrictList, 'this.padistrictList');
+            console.log(this.paInsureddistrictList, 'this.paInsureddistrictList');
+            console.log(this.paNomineedistrictList, 'this.paNomineedistrictList');
+            console.log(this.paCityList, 'this.paCityList');
+            console.log(this.paCityInsuredList, 'this.paCityInsuredList');
+            console.log(this.paCityNomineeList, 'this.paCityInsuredList');
+            // // Proposer state
+            // if(this.appollosummaryData.ProposalDetails.p_statecode == this.paPinList.state_code) {
+            //     this.appollosummaryData.ProposalDetails.state =  this.paPinList.state;
             // }
-            // relationship list in nominee
-
-            for( let i=0; i < this.relationshipListPa.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.n_relation == this.relationshipListPa[i].relationship_code) {
-                    this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;
-                }
-            }
-            // relationship list in insured
-            for( let i=0; i < this.relationshipListPa.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_relation == this.relationshipListPa[i].relationship_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.relationship =  this.relationshipListPa[i].relationship;
-                }
-            }
-            // relationship list in star-health-proposal
-            for( let i=0; i < this.relationshipListPa.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.p_relation == this.relationshipListPa[i].relationship_code) {
-                    this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;
-                }
-            }
-            // occupationCode
-            for( let i=0; i < this.occupationCode.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_occuption == this.occupationCode[i].occupation_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.occupation =  this.occupationCode[i].occupation;
-                }
-            }
-            // maritalstatus
-            for( let i=0; i < this.paMaritalList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList[i].marital_code) {
-                    this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList[i].marital_status;
-                }
-            }
-            for( let i=0; i < this.paMaritalList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_maritalstatus == this.paMaritalList[i].marital_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.marital_status=  this.paMaritalList[i].marital_status;
-                }
-            }
-            // Id proof
-            for( let i=0; i < this.paIdProofList.length; i++) {
-                if(this.appollosummaryData.ProposalDetails.p_idproof_code == this.paIdProofList[i].proof_code) {
-                    this.appollosummaryData.ProposalDetails.proof_name =  this.paIdProofList[i].proof_name;
-                }
-            }
-            // id insure
-            for( let i=0; i < this.paIdProofList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_idprooftype == this.paIdProofList[i].proof_code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.proof_name =  this.paIdProofList[i].proof_name;
-                }
-            }
-            // profession  details
-
-            for( let i=0; i < this.professionList.length; i++) {
-                if(this.appollosummaryData.InsurePolicyholderDetails.i_procode == this.professionList[i].code) {
-                    this.appollosummaryData.InsurePolicyholderDetails.profession =  this.professionList[i].profession;
-                }
-            }
-            this.lastPage.next();
+            // // Insured state
+            // if(this.appollosummaryData.InsurePolicyholderDetails.i_statecode == this.paPinInsuredList.state_code) {
+            //     this.appollosummaryData.InsurePolicyholderDetails.state =  this.paPinInsuredList.state;
+            // }
+            // // nominee state
+            // if(this.appollosummaryData.ProposalDetails.n_stateCode == this.paPinnomineeList.state_code) {
+            //     this.appollosummaryData.ProposalDetails.state =  this.paPinnomineeList.state;
+            // }
+            // // proposer District
+            //     for( let i=0; i < this.padistrictList.length; i++) {
+            //         if(this.appollosummaryData.ProposalDetails.p_district == this.padistrictList[i].district_code) {
+            //             this.appollosummaryData.ProposalDetails.district_name =  this.padistrictList[i].district_name;
+            //         }
+            //     }
+            // // Insured District
+            // for( let i=0; i < this.paInsureddistrictList.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_district == this.paInsureddistrictList[i].district_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.district_name =  this.paInsureddistrictList[i].district_name;
+            //     }
+            // }
+            // // Nominee District
+            // for( let i=0; i < this.paNomineedistrictList.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.n_district == this.paNomineedistrictList[i].district_code) {
+            //         this.appollosummaryData.ProposalDetails.district_name =  this.paNomineedistrictList[i].district_name;
+            //     }
+            // }
+            // // Proposer City
+            // for( let i=0; i < this.paCityList.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.p_towncode == this.paCityList[i].city_code) {
+            //         this.appollosummaryData.ProposalDetails.city_name =  this.paCityList[i].city_name;
+            //     }
+            // }
+            // // Insured City
+            // for( let i=0; i < this.paCityInsuredList.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_towncode == this.paCityInsuredList[i].city_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.city_name =  this.paCityInsuredList[i].city_name;
+            //     }
+            // }
+            // // nominee  City
+            // for( let i=0; i < this.paCityNomineeList.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.i_towncode == this.paCityNomineeList[i].city_code) {
+            //         this.appollosummaryData.ProposalDetails.city_name =  this.paCityNomineeList[i].city_name;
+            //     }
+            // }
+            //
+            // // Marital List
+            // // if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList.marital_code) {
+            // //     this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList.marital_status;
+            // // }
+            // // relationship list in nominee
+            //
+            // for( let i=0; i < this.relationshipListPa.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.n_relation == this.relationshipListPa[i].relationship_code) {
+            //         this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;
+            //     }
+            // }
+            // // relationship list in insured
+            // for( let i=0; i < this.relationshipListPa.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_relation == this.relationshipListPa[i].relationship_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.relationship =  this.relationshipListPa[i].relationship;
+            //     }
+            // }
+            // // relationship list in star-health-proposal
+            // for( let i=0; i < this.relationshipListPa.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.p_relation == this.relationshipListPa[i].relationship_code) {
+            //         this.appollosummaryData.ProposalDetails.relationship =  this.relationshipListPa[i].relationship;
+            //     }
+            // }
+            // // occupationCode
+            // for( let i=0; i < this.occupationCode.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_occuption == this.occupationCode[i].occupation_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.occupation =  this.occupationCode[i].occupation;
+            //     }
+            // }
+            // // maritalstatus
+            // for( let i=0; i < this.paMaritalList.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.p_maritalstatus == this.paMaritalList[i].marital_code) {
+            //         this.appollosummaryData.ProposalDetails.marital_status =  this.paMaritalList[i].marital_status;
+            //     }
+            // }
+            // for( let i=0; i < this.paMaritalList.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_maritalstatus == this.paMaritalList[i].marital_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.marital_status=  this.paMaritalList[i].marital_status;
+            //     }
+            // }
+            // // Id proof
+            // for( let i=0; i < this.paIdProofList.length; i++) {
+            //     if(this.appollosummaryData.ProposalDetails.p_idproof_code == this.paIdProofList[i].proof_code) {
+            //         this.appollosummaryData.ProposalDetails.proof_name =  this.paIdProofList[i].proof_name;
+            //     }
+            // }''
+            // // id insure
+            // for( let i=0; i < this.paIdProofList.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_idprooftype == this.paIdProofList[i].proof_code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.proof_name =  this.paIdProofList[i].proof_name;
+            //     }
+            // }
+            // // profession  details
+            //
+            // for( let i=0; i < this.professionList.length; i++) {
+            //     if(this.appollosummaryData.InsurePolicyholderDetails.i_procode == this.professionList[i].code) {
+            //         this.appollosummaryData.InsurePolicyholderDetails.profession =  this.professionList[i].profession;
+            //     }
+            // }
 
         } else {
             this.toastr.error(successData.ErrorObject);

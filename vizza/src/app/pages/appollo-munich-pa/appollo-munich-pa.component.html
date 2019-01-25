@@ -704,8 +704,8 @@
                         <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob  | date: 'dd-MMM-yyyy'}}</li>
                         <li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
-                        <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.marital_status}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.proof_name}}</li>
+                        <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.p_maritalstatus}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.p_idproof_code}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != ''"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no | uppercase}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
                       </ul>
@@ -719,9 +719,9 @@
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
+                        <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.p_statecode}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_district != '' && appollosummaryData.ProposalDetails.p_district != null"><strong>District:</strong> {{appollosummaryData.ProposalDetails.p_district}}</li>
-                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.city_name}}</li>
+                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.p_towncode}}</li>
                       </ul>
                     </div>
                   </div>
@@ -739,12 +739,12 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd-MMM-yyyy'}}</li>
-                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.occupation}}</li>
-                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.relationship}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !=''"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.profession}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
+                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !=''"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_procode}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
-                    <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.marital_status}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.proof_name}}</li>
+                    <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idprooftype}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_anualincome != '' && appollosummaryData.InsurePolicyholderDetails.i_anualincome != null"><strong>Annual Income:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_anualincome}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gstno != '' && appollosummaryData.InsurePolicyholderDetails.i_gstno != null"><strong>Gst Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_gstno}}</li>
@@ -759,9 +759,9 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address2 !=''"><strong>Address 2:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.city_name}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_district !='' && appollosummaryData.InsurePolicyholderDetails.i_district != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.district_name}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.state}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_towncode}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_district !='' && appollosummaryData.InsurePolicyholderDetails.i_district != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_district}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_statecode}}</li>
                   </ul>
                 </div>
               </div>
@@ -817,7 +817,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.ProposalDetails.relationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.ProposalDetails.n_relation}}</li>
                       </ul>
                     </div>
 
@@ -853,9 +853,9 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.state}}</li>
-                        <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.city_name}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_district != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.district_name}}</li>
+                        <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.n_stateCode}}</li>
+                        <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.n_townCode}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_district != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.n_district}}</li>
                       </ul>
                     </div>
 
