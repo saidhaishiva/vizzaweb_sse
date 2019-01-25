@@ -855,7 +855,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.n_stateCode}}</li>
                         <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.n_townCode}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_district != ''"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.n_district}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_district != '' ||appollosummaryData.ProposalDetails.n_district != null"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.n_district}}</li>
                       </ul>
                     </div>
 
