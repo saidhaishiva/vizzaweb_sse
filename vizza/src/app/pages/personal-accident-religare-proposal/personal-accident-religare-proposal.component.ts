@@ -1551,8 +1551,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             }
 // nominee relationShip
             for( let i=0; i < this.relationshipList.length; i++) {
-                if(this.summaryData.proposer_insurer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
-                    this.summaryData.proposer_insurer_details.relationship_name =  this.relationshipList[i].relationship_name;
+                if(this.summaryData.proposer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
+                    this.summaryData.proposer_details.relationship_name =  this.relationshipList[i].relationship_name;
                 }
             }
 
