@@ -207,7 +207,7 @@ export class ClaimAssistanceComponent implements OnInit {
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
             <h4 class="col-md-12">“ Vizza has extensive capabilities and competence to handle claim of any nature and magnitude”</h4>
-            <h6 class="col-md-12"><small>Vizza can advise and assist you in,</small></h6>
+            <p class="col-md-12" style="font-size:20px;">Vizza can advise and assist you in,</p>
             <p class="col-md-12">Handling the initial crisis situation and coordinating with the Surveyor and Insurer to ensure evidence of loss is preserved and recorded.</p>
             <p class="col-md-12">Also, steps are recommended to prevent further loss.</p>
             <p class="col-md-12">Advising and Assisting you in investigation of cause of loss and damage.</p>
