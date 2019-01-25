@@ -629,7 +629,7 @@ export class TravelProposalComponent implements OnInit {
                 'passportExpiry': this.datepipe.transform(value.items[i].passportExpiry, 'MMM d, y'),
                 'assigneeName': value.items[i].assigneeName,
                 'assigneeRelationshipId': value.items[i].assigneeRelationship,
-                'illness': value.items[i].illness
+                'illness': value.items[i].illness.toString()
             });
 
 
