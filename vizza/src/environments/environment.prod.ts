@@ -4,6 +4,7 @@ export const environment = {
     apiHostTravel: 'http://13.127.24.123/vizza/api/index.php/travel/',
     apiHostPa: 'http://13.127.24.123/vizza/api/index.php/pa/',
     apiHostHealth: 'http://13.127.24.123/vizza/api/index.php/health/',
+    apiHostHome: 'http://13.127.24.123/vizza/api/index.php/home/',
     apiHostPos: 'http://13.127.24.123/vizza/api/index.php/pos/',
     webHost: 'http://13.127.24.123',
     imgUrl: 'http://13.127.24.123/vizza'

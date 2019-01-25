@@ -4,6 +4,9 @@ import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {AuthService} from '../../shared/services/auth.service';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-claim-assistance',
@@ -11,6 +14,7 @@ import {AuthService} from '../../shared/services/auth.service';
   styleUrls: ['./claim-assistance.component.scss']
 })
 export class ClaimAssistanceComponent implements OnInit {
+    public form: FormGroup;
     public pincodeErrors: any;
     public pin:any;
     public title: any;
@@ -19,17 +23,28 @@ export class ClaimAssistanceComponent implements OnInit {
     getUrl: any;
     url: any;
     fileUploadPath: any;
+    webhost: any;
+    public settings: Settings;
 
-    constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService) {
+    constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService,public appSettings: AppSettings,public config : ConfigurationService) {
+        this.form = this.fb.group({
+            'insurance': ['', Validators.compose([Validators.required])],
+            'companyName': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+            'contactPerson': ['', Validators.compose([Validators.required])],
+            'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            'pincode': ['', Validators.compose([Validators.required])],
+        });
+
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        this.settings.HomeSidenavUserBlock = true;
+        this.settings.sidenavIsOpened = true;
+        this.settings.sidenavIsPinned = true;
+        this.fileUploadPath = '';
+        this.allImage = [];
     }
-    form = this.fb.group({
-        'insurance': ['', Validators.compose([Validators.required])],
-        'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-        'contactperson': ['', Validators.compose([Validators.required])],
-        'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-        'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-        'pincode': ['', Validators.compose([Validators.required])],
-    });
+
 
   ngOnInit() {
   }
@@ -53,11 +68,8 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     public getPincodeDetailsSuccess(successData) {
 
-        if (successData.ErrorObject = false) {
+        if (successData.IsSuccess == false) {
             this.toastr.error(successData.ErrorObject);
-            this.pincodeErrors = false;
-        }else {
-            this.pincodeErrors = true;
         }
     }
 
@@ -144,20 +156,21 @@ export class ClaimAssistanceComponent implements OnInit {
     }
 
     claimAssitance(values) {
+      alert('dddddd');
         if (this.form.valid) {
             const data = {
                 'platform': 'web',
                 'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
                 'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
                 'insurence_type': this.form.controls['insurance'].value,
-                'company_name': this.form.controls['name'].value,
-                'contact_person' : this.form.controls['contactperson'].value,
-                'customer_mobile': this.form.controls['mobile'].value,
-                'customer_email': this.form.controls['email'].value,
+                'company_name': this.form.controls['companyName'].value,
+                'contact_person' : this.form.controls['contactPerson'].value,
+                'mobile': this.form.controls['mobile'].value,
+                'email': this.form.controls['email'].value,
                 'pincode': this.form.controls['pincode'].value,
             };
 
-            this.common.claimAssistance(data).subscribe(
+            this.common.claimAssistanceHome(data).subscribe(
                 (successData) => {
                     this.claimAssistanceSuccess(successData);
                 },
