@@ -1270,7 +1270,7 @@ preInsureList() {
     sameProposer() {
 
       if (this.insured.controls['sameAsProposer'].value) {
-          this.getinsuredPostalCode('');
+          this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
             this.readonlyProposer = true;
             this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
             this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
@@ -1295,6 +1295,7 @@ preInsureList() {
           let age = this.ageCalculate(this.datepipe.transform(this.ProposerPa.controls['proposerPaDob'].value, 'y-MM-dd'));
           this.insured.controls['insuredPaAge'].patchValue(age);
             this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
+          this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
 
 
         } else {
@@ -1327,6 +1328,7 @@ preInsureList() {
             this.insured.controls['insuredPaDistrict'].patchValue('');
             this.insured.controls['insuredPaGst'].patchValue('');
           this.insured.controls['insuredPaAge'].patchValue('');
+          this.insured.controls['insuredPaStateIdP'].patchValue('');
         }
 
 
