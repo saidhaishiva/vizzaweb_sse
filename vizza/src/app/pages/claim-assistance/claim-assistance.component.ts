@@ -216,25 +216,29 @@ export class ClaimAssistanceComponent implements OnInit {
             <section class="row">
 
             <div class="row ca-claim">
-                <div class="col-md-3 col-sm-6">
-                    <h4><span>1</span>CONTACT VIZZA</h4>
-                    <p>When it comes to your Insurance Policy, the first thing to do when a loss occurs is to contact Vizza Insurance Broker.Vizza will guide you in obtaining proper resolution of your claim. </p>
+                <div class="col-md-3">
+                    <h4>CONTACT VIZZA</h4>
+                    <p>When it comes to your Insurance Policy, the first thing to do when a loss occurs is to contact Vizza Insurance Broker.Vizza will guide you in obtaining proper resolution of your claim.</p>
+                    <span>1</span>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <h4><span>2</span>CLAIM INVESTIGATION</h4>
+                <div class="col-md-3">
+                    <h4>CLAIM INVESTIGATION</h4>
                     <p>After the claim has been reported, it will need to be investigated by an adjuster to determine the amount of loss or damages covered by your insurance policy. The adjuster will also identify any liable parties, and you can help the process by providing any witness information or other parties’ contact information.</p>
+                    <span>2</span>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <h4><span>3</span>LOSS ASSESSMENT</h4>
+                <div class="col-md-3">
+                    <h4>LOSS ASSESSMENT</h4>
                     <p>Loss Assessment process requires establishment of cause of loss to determine whether insurer is liable to indemnify the loss. The process also involves extensive investigation and documentation to establish the amount of loss and the amount that the insurer is liable to indemnify.</p>
+                    <span>3</span>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <h4><span>4</span>DISPUTE</h4>
+                <div class="col-md-3">
+                    <h4>DISPUTE</h4>
                     <p>In the event of insurer declining liability, cause of action arises to proceed legally against the insurer. In case, the insurer settles the amount which is not to the satisfaction of the insured, then the insured has the right to approach proper forum for redressal.</p>
+                    <span>4</span>
                 </div>
                 <!--<div class="col">-->
                 <!--<h4><span>5</span>Payment</h4>-->
-                <!--<p>Order to accurately evaluate the extent of the damage, your insurance adjuster may hire appraisers, engineers, or contractors to lend their expert advice. Once the evaluation is complete, your adjuster will provide you with a list of preferred vendors to help with repairs. You’re not obligated to hire these vendors, but it can save you a good deal of time-->
+                <!--<p>Order to accurately evaluate the extent of the damage, your insurance adjuster may hire appraisers, engineers, or contractors to lend their expert advice. Once the evaluation is complete, your adjuster will provide you with a list of preferred vendors to help with repairs. You’re not obligated to hire these vendors, but it can save you a good deal of time. <span>5</span>-->
                 <!--</div>-->
 
             </div>
