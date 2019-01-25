@@ -215,7 +215,7 @@ export class ClaimAssistanceComponent implements OnInit {
             <p class="col-md-12">Advising and Assisting you to take necessary steps should the Insurer decline the Liability.</p>
             <section class="row">
 
-            <div class="row h-claim">
+            <div class="row ca-claim">
                 <div class="col-md-3 col-sm-6">
                     <h4><span>1</span>CONTACT VIZZA</h4>
                     <p>When it comes to your Insurance Policy, the first thing to do when a loss occurs is to contact Vizza Insurance Broker.Vizza will guide you in obtaining proper resolution of your claim. </p>

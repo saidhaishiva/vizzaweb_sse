@@ -1898,19 +1898,17 @@ footer{
 .text-title-color {
   color: darkgreen;
 }
-.h-claim {
+
+// Renewal-reminder and renew-esisting-policy upload button
+btn-uploade{
   h3{
     color: #a9a4a4;
     padding: 0 10px;
   }
-  .bottomQoute{
-    font-size: 16px;
-    text-align: center;
-    margin-top: 15px;
-    color: #a9a4a4;
-    font-weight: bold;
-    font-style: italic;
-  }
+}
+
+//claim-assitance box color
+ca-claim{
   .col-md-3{
     h4 {
       padding: 13px;
@@ -1944,6 +1942,7 @@ footer{
       font-size: 12px;
     }
   }
+
   .col-md-3:nth-child(5){
     h4 {
       background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%);
@@ -2005,6 +2004,115 @@ footer{
     }
 
   }
+}
+
+.h-claim {
+  h3{
+    color: #a9a4a4;
+    padding: 0 10px;
+  }
+  //.bottomQoute{
+  //  font-size: 16px;
+  //  text-align: center;
+  //  margin-top: 15px;
+  //  color: #a9a4a4;
+  //  font-weight: bold;
+  //  font-style: italic;
+  //}
+  //.col-md-3{
+  //  h4 {
+  //    padding: 13px;
+  //    border-radius: 50px;
+  //    text-align: right;
+  //    color: #fff;
+  //    font-size: 16px;
+  //    position: relative;
+  //    span {
+  //      background: #fff;
+  //      width: 70px;
+  //      height: 70px;
+  //      border-radius: 100%;
+  //      position: absolute;
+  //      padding-top: 10px;
+  //      font-size: 30px;
+  //      color: #000;
+  //      border: 10px solid;
+  //      top: -13px;
+  //      left: 0;
+  //      text-align: center;
+  //    }
+  //  }
+  //  p {
+  //    padding: 15px;
+  //    text-align: justify;
+  //    border-radius: 15px;
+  //    margin-top: -32px;
+  //    padding-top: 45px;
+  //    min-height: 195px;
+  //    font-size: 12px;
+  //  }
+  //}
+  //.col-md-3:nth-child(5){
+  //  h4 {
+  //    background: linear-gradient(to bottom, #cc99ff 0%, #cc00cc 100%);
+  //  }
+  //  span {
+  //    border-color: #cc00cc;
+  //  }
+  //  p{
+  //    background:  #fdcbf4;
+  //  }
+  //
+  //}
+  //.col-md-3:nth-child(4){
+  //  h4 {
+  //    background: linear-gradient(to bottom, #66ccff 0%, #0066cc 100%);
+  //  }
+  //  span {
+  //    border-color: #0066cc;
+  //  }
+  //  p{
+  //    background:  #99edea;
+  //  }
+  //
+  //}
+  //.col-md-3:nth-child(3){
+  //  h4 {
+  //    background: linear-gradient(to bottom, #66ff99 0%, #006600 100%);
+  //  }
+  //  span {
+  //    border-color: #006600;
+  //  }
+  //  p{
+  //    background:  #99edaa;
+  //  }
+  //
+  //}
+  //.col-md-3:nth-child(2){
+  //  h4 {
+  //    background: linear-gradient(to bottom, #ff9999 0%, #ff9900 100%);
+  //  }
+  //  span {
+  //    border-color: #ff9900;
+  //  }
+  //  p{
+  //    background:  #f6c577;
+  //  }
+  //
+  //}
+  //
+  //.col-md-3:nth-child(1){
+  //  h4 {
+  //    background: linear-gradient(to bottom, #ff9999 0%, #ff0000 100%);
+  //  }
+  //  span {
+  //    border-color: #ff2525;
+  //  }
+  //  p{
+  //    background:  #ffa0b2;
+  //  }
+  //
+  //}
 }
 
 .compar-fix{
