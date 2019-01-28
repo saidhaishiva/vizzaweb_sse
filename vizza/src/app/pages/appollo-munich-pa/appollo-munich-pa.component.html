@@ -745,7 +745,7 @@
                 </div>
               </section>
           <section>
-            <h5 class="mt-3 sub-title">INSURE DETAILS </h5>
+            <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">
                 <div class="p-3">
@@ -756,8 +756,6 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd-MMM-yyyy'}}</li>
-                    <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
-                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
 
                   </ul>
                 </div>
@@ -766,7 +764,9 @@
                 <div class="p-3">
                   <h6 class="mb-4"></h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
+                      <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
+                      <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !='' && appollosummaryData.InsurePolicyholderDetails.i_procode != null"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_procode}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idprooftype}}</li>
@@ -808,7 +808,7 @@
               </div>
               <div class="col-md-6" *ngIf="prevList">
                 <div class="p-3">
-                  <h6>PREVIOUS INSURER DETAILS</h6>
+                  <h6>PREVIOUS INSURED DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Policy Start Date:</strong>{{appollosummaryData.InsurePolicyholderDetails.InceptionDate}}</li>
                     <li class="list-group-item"><strong>Policy End Date:</strong> {{appollosummaryData.InsurePolicyholderDetails.EndDate}}</li>

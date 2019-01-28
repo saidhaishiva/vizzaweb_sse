@@ -373,13 +373,13 @@
                       </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Height"  formControlName="insuredHeight" required autocomplete="off">
+                           <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="onNumber($event)" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
                          </mat-form-field>
                        </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Weight"  formControlName="insuredWeight" required autocomplete="off">
+                           <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="onNumber($event)" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
                          </mat-form-field>
                        </div>
@@ -482,7 +482,7 @@
 
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                    <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
                     <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper,insured.value)">Next</button>
                   </div>
                 </div>

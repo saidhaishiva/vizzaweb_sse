@@ -307,7 +307,7 @@
             <mat-expansion-panel   [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Proposer Details
+                  PROPOSER / INSURER DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
@@ -348,73 +348,111 @@
                     </ul>
                   </div>
                 </div>
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.address1}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.address2 != ''"><strong>Address 2:</strong> {{summaryData.address2}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.address3 != ''"><strong>Address 3:</strong> {{summaryData.address3}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.city != ''"><strong>City:</strong> {{summaryData.city}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.state != ''"><strong>Sate:</strong> {{summaryData.state}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.pincode}}</li>
+                    </ul>
+                  </div>
+                </div>
+
               </div>
 
             </mat-expansion-panel>
 
-            <div *ngFor="let item of insurerDtails; let i = index;">
-              <mat-expansion-panel   [expanded]="false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Insurer Details
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
+            <!--<div *ngFor="let item of insurerDtails; let i = index;">-->
+              <!--<mat-expansion-panel   [expanded]="false">-->
+                <!--<mat-expansion-panel-header>-->
+                  <!--<mat-panel-title>-->
+                    <!--Insurer Details-->
+                  <!--</mat-panel-title>-->
+                <!--</mat-expansion-panel-header>-->
 
-                <div class="row box-card">
-                  <div class="col-md-12">
-                    <!--<h6>{{item.role_cd}} DETAILS</h6>-->
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.name}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{item.sex}}</li>
-                        <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_name}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Passport Number:</strong> {{item.passportNumber}}</li>
-                        <li class="list-group-item"><strong>Passport Expiry Date:</strong> {{item.passportExpiry}}</li>
-                        <li class="list-group-item"><strong>Visa Type:</strong> {{item.visaTypeName}}</li>
-                        <li class="list-group-item"><strong>Assignee Name:</strong> {{item.assigneeName}}</li>
-                        <li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{item.illness}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                <!--<div class="row box-card">-->
+                  <!--<div class="col-md-12">-->
+                    <!--&lt;!&ndash;<h6>{{item.role_cd}} DETAILS</h6>&ndash;&gt;-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.name}}</li>-->
+                        <!--<li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>-->
+                        <!--<li class="list-group-item"><strong>Gender:</strong> {{item.sex}}</li>-->
+                        <!--<li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_name}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Passport Number:</strong> {{item.passportNumber}}</li>-->
+                        <!--<li class="list-group-item"><strong>Passport Expiry Date:</strong> {{item.passportExpiry}}</li>-->
+                        <!--<li class="list-group-item"><strong>Visa Type:</strong> {{item.visaTypeName}}</li>-->
+                        <!--<li class="list-group-item"><strong>Assignee Name:</strong> {{item.assigneeName}}</li>-->
+                        <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{item.illness}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
 
-              </mat-expansion-panel>
-            </div>
+              <!--</mat-expansion-panel>-->
+            <!--</div>-->
             <br>
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
           </section>
           <hr>
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button mat-button matStepperPrevious >Back</button>
-              <button mat-raised-button color="primaryBlue" class="ml-2" [disabled]="!acceptSummaryDeclaration" (click)="PaymentPage(stepper);">Pay Now</button>
-            </div>
+          <div *ngIf="paymentData">
+            {{paymentData.PaymentRedirect}}
+            <!--<form method="post" action=”{{paymentData.PaymentRedirect}}”  #form>-->
+              <!--<input name="PolicySysID" type="text" value="{{paymentData.PolicySisID}}" />-->
+              <!--<input name="ReturnURL" type="text" value="{{paymentData.PaymentReturn}}" />-->
+              <!--<div class="row">-->
+                <!--<div class="col-md-12 text-center">-->
+                  <!--<button mat-button matStepperPrevious >Back</button>-->
+                  <!--<button mat-raised-button color="primaryBlue" class="ml-2" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</form>-->
+
+
+
+            <form action={{paymentData.PaymentRedirect}}  method='post' #form>
+              <div>
+                <input name="PolicySysID" type="text" value={{paymentData.PolicySisID}}/>
+                <input name="ReturnURL" type="text" value={{paymentData.PaymentReturn}}/>
+              </div>
+              <div class="col-md-12">
+                <div class="proposal-buttom mb-3 text-center w-100">
+                  <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
+                </div>
+              </div>
+            </form>
+
           </div>
 
         </mat-step>
 
-        <mat-step [stepControl]="">
-          <ng-template matStepLabel>PAYMENT</ng-template>
-          <section class="summary-details" >
+        <!--<mat-step [stepControl]="">-->
+          <!--<ng-template matStepLabel>PAYMENT</ng-template>-->
+          <!--<section class="summary-details" >-->
 
-          </section>
-          <hr>
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button mat-button matStepperPrevious >Back</button>
-              <button mat-raised-button color="primaryBlue" class="ml-2"  (click)="payNow();">Pay Now</button>
-            </div>
-          </div>
-        </mat-step>
+          <!--</section>-->
+          <!--<hr>-->
+          <!--<div class="row">-->
+            <!--<div class="col-md-12 text-center">-->
+              <!--<button mat-button matStepperPrevious >Back</button>-->
+              <!--<button mat-raised-button color="primaryBlue" class="ml-2"  (click)="payNow();">Pay Now</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</mat-step>-->
       </mat-horizontal-stepper>
     </div>
   </div>
