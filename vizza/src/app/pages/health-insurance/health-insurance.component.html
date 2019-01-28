@@ -104,10 +104,10 @@
                   </thead>
                   <tbody>
                   <tr class="" *ngFor="let plists of lists.product_lists;let i = index">
-                    <td *ngIf="plists.error">
+                    <td *ngIf="plists.error" style="width: 20%">
                       {{plists.error}}
                     </td>
-                    <td>
+                    <td style="width: 10%">
                       <p class="color-green font-weight-bold" style="font-size: 15px;">{{plists.product_name | titlecase}}</p>
                       <img  src="{{webhost + '/' + plists.company_logo}}" style="width: auto;" alt="5">
                     </td>
@@ -134,7 +134,7 @@
                       </div>
 
                     </td>
-                    <td>
+                    <td style="width: 10%">
                       <!--<p><button mat-raised-button color="primary1" style="color:#fff;" [hidden]="plists.shortlist" (click)="addShortlist(plists, pi, i, lists.enquiry_id, lists.name)">Add to Shortlist</button></p>-->
                       <!--<p><button mat-raised-button color="accentRemove" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i, lists.enquiry_id, plists.shortlist_id)">Remove from Shortlist</button></p>-->
                       <!--<p><button mat-raised-button disabled *ngIf="plists.shortlist && plists.currentBtn">Add to Shortlist</button></p>-->
@@ -143,7 +143,7 @@
                       <p><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
                       <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     </td>
-                    <td>
+                    <td style="width: 10%">
                       <p class="text-center"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                       <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                       <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>

@@ -258,7 +258,10 @@ reset(){
         }
         if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP == '0') {
             this.annualerror = true;
-        } else {
+        }else if(this.AnnualIncomeP == this.AnnualIncomeP.value) {
+            this.annualerror = false;
+        }
+        else {
             this.annualerror = false;
         }
         if (this.Age == '' || this.Age == undefined) {

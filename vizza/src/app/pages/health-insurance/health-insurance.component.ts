@@ -838,6 +838,8 @@ export class HealthInsuranceComponent implements OnInit {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                     this.insuranceLists[i].product_lists[j].compare = false;
                     this.insuranceLists[i].product_lists[j].shortlist = false;
+                    this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+                    this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
                 }
             }
             for (let i = 0; i < this.setArray.length; i++) {
@@ -985,6 +987,8 @@ export class HealthInsuranceComponent implements OnInit {
                     for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                         this.insuranceLists[i].product_lists[j].compare = false;
                         this.insuranceLists[i].product_lists[j].shortlist = false;
+                        this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+                        this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
                     }
                 }
                 sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
