@@ -113,7 +113,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             phone: '',
             paymentmode: ['', Validators.required],
-            dependant:['', Validators.required],
+            // dependant:['', Validators.required],
             medicalcondition:'N',
             nationality:'Y',
             occupation:['', Validators.required],
@@ -462,7 +462,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 'PlanDetails': {
                     // 'PlanCd': this.getBuyDetails.plan_code,
                     'PlanCd': this.getBuyDetails.plan_code,//From Premium Calculaction
-                    'DependantParents': this.hdfcpersonalValues.dependant,
+                    // 'DependantParents': this.hdfcpersonalValues.dependant,
+                    'DependantParents': 'None',
                     'IndianNational': this.hdfcpersonalValues.nationality
                 },
                 'PaymentDetails': {
@@ -558,7 +559,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 mobile: this.hdfcPAStep1.mobile,
                 phone: this.hdfcPAStep1.phone,
                 paymentmode: this.hdfcPAStep1.paymentmode,
-                dependant: this.hdfcPAStep1.dependant,
+                // dependant: this.hdfcPAStep1.dependant,
                 OccupationList: this.hdfcPAStep1.OccupationList,
                 medicalcondition: this.hdfcPAStep1.medicalcondition,
                 nationality: this.hdfcPAStep1.nationality,

@@ -57,6 +57,7 @@ export class TravelShriramProposalComponent implements OnInit {
     public declaration: boolean;
     public acceptSummaryDeclaration: boolean;
     public summaryData: any;
+    public paymentData: any;
     public proposalDtails: any;
     public insurerDtails: any;
     public webhost: any;
@@ -657,7 +658,7 @@ export class TravelShriramProposalComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
-                'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
+                'proposal_id': sessionStorage.travel_shriram_proposal_id == '' || sessionStorage.travel_shriram_proposal_id == undefined ? '' : sessionStorage.travel_shriram_proposal_id,
                 'objTravelProposalEntryETT': {
                     'PolicyFromDt': this.datepipe.transform(this.getTravelPremiumList.start_date, 'dd-MM-yyy'),
                     'PolicyToDt': this.datepipe.transform(this.getTravelPremiumList.end_date, 'dd-MM-yyy'),
@@ -721,9 +722,10 @@ export class TravelShriramProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             stepper.next();
             this.summaryData = successData.ResponseObject.ProposalDetails;
-            sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
-            this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
-            this.proposalDtails = this.summaryData.proposal_details[0];
+            this.paymentData = successData.ResponseObject;
+            sessionStorage.travel_shriram_proposal_id = this.summaryData.proposal_id;
+            // this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
+           // this.proposalDtails = this.summaryData.proposal_details[0];
             this.toastr.success('Proposal created successfully!!');
 
 
@@ -744,7 +746,7 @@ export class TravelShriramProposalComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
             'reference_id' :  this.proposalDtails.referenceId,
-            'proposal_id': sessionStorage.travel_proposal_id,
+            'proposal_id': sessionStorage.travel_shriram_proposal_id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }

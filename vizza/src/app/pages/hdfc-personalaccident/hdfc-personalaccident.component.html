@@ -74,9 +74,8 @@
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="phone" autocomplete="off" required>
+                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"  minlength="12" maxlength="10" formControlName="phone" autocomplete="off" required>
                         <mat-error *ngIf="hdfcPersonal.controls.phone.errors?.required">Phone Number is required</mat-error>
-                        <mat-error *ngIf="hdfcPersonal.controls.phone.hasError('pattern')">Enter Valid  Phone Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -87,17 +86,17 @@
                           <mat-error *ngIf="hdfcPersonal.controls.paymentmode.errors?.required">Payment Mode is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Dependant Parent" formControlName="dependant" required>
-                            <mat-option value="Father">Father</mat-option>
-                            <mat-option value="Mother">Mother</mat-option>
-                            <mat-option value="Both">Both</mat-option>
-                            <mat-option value="None">None</mat-option>
-                          </mat-select>
-                          <!--<mat-error *ngIf="hdfcPersonal.controls.dependant.errors?.required">Dependant Parent Mode is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Dependant Parent" formControlName="dependant" required>-->
+                            <!--<mat-option value="Father">Father</mat-option>-->
+                            <!--<mat-option value="Mother">Mother</mat-option>-->
+                            <!--<mat-option value="Both">Both</mat-option>-->
+                            <!--<mat-option value="None">None</mat-option>-->
+                          <!--</mat-select>-->
+                          <!--&lt;!&ndash;<mat-error *ngIf="hdfcPersonal.controls.dependant.errors?.required">Dependant Parent Mode is required</mat-error>&ndash;&gt;-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                         <mat-select placeholder="Occupation"  formControlName="occupation" >

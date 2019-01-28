@@ -479,7 +479,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         sessionStorage.proposal1Detail = JSON.stringify(value);
         if (this.personal.valid) {
             this.proposerInsureData = [];
-            if (sessionStorage.proposerAgePA>= 18) {
+            if (sessionStorage.proposerAgePA >=18) {
                 this.proposerInsureData.push(this.personalData);
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     if(this.personal.controls['personalAnualIncome'].value != 0) {

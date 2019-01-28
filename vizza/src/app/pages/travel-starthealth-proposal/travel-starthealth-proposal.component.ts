@@ -380,7 +380,7 @@ export class TravelProposalComponent implements OnInit {
             }
             // if (this.getAge) {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(dob);
+                // this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(dob);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                 this.ageValidationInsurer(i, type);
            // }
@@ -540,7 +540,10 @@ export class TravelProposalComponent implements OnInit {
             } else {
                 this.AcceptDeclaration = false;
             }
-
+            if(this.getStepper1.personalDob !=''){
+                let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd'));
+                sessionStorage.proposerAgeForTravel = age;
+            }
 
             setTimeout(() => {
                 if (this.getStepper1.personalPincode != '') {
@@ -549,22 +552,7 @@ export class TravelProposalComponent implements OnInit {
                     this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
                     this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
 
-                    if (this.getStepper1.sameas) {
-                        this.sameField = this.getStepper1.sameas;
-                        this.inputReadonly = true;
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-                    }
-                    setTimeout(() => {
-                        if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                            this.getPostal(this.getStepper1.residencePincode, 'residence');
-                            this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                            this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                            this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                        } },2000);
-
-                } },4000);
+                } },1000);
         }
 
 
@@ -575,7 +563,7 @@ export class TravelProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerTitle.patchValue(this.getStepper2.items[i].insurerTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerName.patchValue(this.getStepper2.items[i].insurerName);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerGender.patchValue(this.getStepper2.items[i].insurerGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(this.getStepper2.items[i].insurerDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(this.datepipe.transform(this.getStepper2.items[i].insurerDob, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerRelationship.patchValue(this.getStepper2.items[i].insurerRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
