@@ -99,6 +99,7 @@ import {HdfcPersonalaccidentComponent} from './pages/hdfc-personalaccident/hdfc-
 import {TravelShriramProposalComponent} from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import {HdfcHealthPaymentSuccessComponent} from './pages/hdfc-health-payment-success/hdfc-health-payment-success.component';
 import {ClaimAssistanceComponent} from './pages/claim-assistance/claim-assistance.component';
+import {TravelHdfcProposalComponent} from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -206,6 +207,7 @@ export const routes: Routes = [
             { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
+            { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

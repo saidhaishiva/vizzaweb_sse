@@ -406,7 +406,7 @@ import { RenewExistingPolicyComponent } from './pages/renew-existing-policy/rene
       ClaimAssistanceDialog,
       HdfcPaPaymentSuccessComponent,
       DownloadMessageHdfcPa,
-      RenewExistingPolicyComponent
+      RenewExistingPolicyComponent,
   ],
   providers: [
       AppSettings,
