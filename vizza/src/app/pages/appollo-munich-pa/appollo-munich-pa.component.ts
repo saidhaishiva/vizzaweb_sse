@@ -98,6 +98,8 @@ public passportP: boolean;
 public drivinglicenseP: boolean;
 public minDate: any;
 public insuredage: any;
+public maxStartdate:any;
+
     CheckHabits : boolean;
     readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
@@ -110,6 +112,7 @@ public insuredage: any;
       this.idListDetailsProposal = '';
       this.proposerAgeP = '';
       this.insuredAgeP = '';
+      this.maxStartdate = '';
 
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -633,6 +636,7 @@ public insuredage: any;
                     } else {
                         if (type == 'startdate') {
                             this.insurestardate = '';
+                            this.maxStartdate = dob;
                             this.insured.controls['PolicyStartDate'].patchValue(dob);
                         }
                     }
@@ -652,6 +656,7 @@ public insuredage: any;
 
                     } else {
                         if (type == 'startdate') {
+                            this.maxStartdate = dob;
                             this.insurestardate = '';
                             this.insured.controls['PolicyStartDate'].patchValue(dob);
                         }
@@ -666,6 +671,7 @@ public insuredage: any;
             } else if (type == 'insure') {
                 sessionStorage.insuredAgeP = this.insuredAgeP;
             }
+            console.log(this.maxStartdate, 'this.maxStartdate');
 
         }
     }
@@ -944,7 +950,6 @@ preInsureList() {
             if (this.appollo1.proposerPaPincode != '') {
                 this.getPostalCode(this.appollo1.proposerPaPincode);
             }
-            this.idList();
             // this.ProposerPa.controls['proposerPaIdProof'].value;
 
             this.ProposerPa = this.proposerpa.group({
@@ -985,6 +990,11 @@ preInsureList() {
             });
             let age = this.ageCalculate(this.datepipe.transform(this.appollo1.proposerPaDob, 'y-MM-dd'));
             sessionStorage.insuredPaAge = age;
+            if(this.appollo1.proposerPaIdProof != ''){
+                this.panType('personal');
+            }
+            this.idList();
+
         }
 
 
@@ -994,7 +1004,6 @@ preInsureList() {
             if (this.appollo2.insuredPaPincode != '') {
                 this.getinsuredPostalCode(this.appollo2.insuredPaPincode);
             }
-            this.insureidList();
 
             this.insured = this.proposerpa.group({
                 insuredPaTitle: this.appollo2.insuredPaTitle,
@@ -1055,6 +1064,14 @@ preInsureList() {
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
             });
+            if(this.appollo2.insuredPaIdProof != ''){
+                this.panType('insurer');
+            }
+            if (this.appollo2.sameAsProposer == true || this.appollo2.sameAsProposer == 'true') {
+                this.readonlyProposer = true;
+            }
+            this.maxStartdate = this.appollo2.PolicyStartDate;
+            this.insureidList();
 
             if (this.appollo2.insuredSmoke) {
                 this.insured.controls['insuredSmoke'].patchValue(this.appollo2.insuredSmoke);
@@ -1270,9 +1287,12 @@ preInsureList() {
     sameProposer() {
 
       if (this.insured.controls['sameAsProposer'].value) {
+          this.readonlyProposer = true;
+          this.insured.controls['insuredPaPincode'].patchValue(this.ProposerPa.controls['proposerPaPincode'].value);
           this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
+          this.insured.controls['insuredPaIdProof'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
+          this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
           this.insureidList();
-            this.readonlyProposer = true;
             this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
             this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
             this.insured.controls['insuredPaMidname'].patchValue(this.ProposerPa.controls['proposerPaMidname'].value);
@@ -1290,7 +1310,6 @@ preInsureList() {
             this.insured.controls['insuredPaAddress2'].patchValue(this.ProposerPa.controls['proposerPaAddress2'].value);
             this.insured.controls['insuredPaAddress3'].patchValue(this.ProposerPa.controls['proposerPaAddress3'].value);
             this.insured.controls['insuredPaCity'].patchValue(this.ProposerPa.controls['proposerPaCity'].value);
-            this.insured.controls['insuredPaPincode'].patchValue(this.ProposerPa.controls['proposerPaPincode'].value);
             this.insured.controls['insuredPaState'].patchValue(this.ProposerPa.controls['proposerPaState'].value);
             this.insured.controls['insuredPaDistrict'].patchValue(this.ProposerPa.controls['proposerPaDistrict'].value);
           let age = this.ageCalculate(this.datepipe.transform(this.ProposerPa.controls['proposerPaDob'].value, 'y-MM-dd'));
@@ -1298,6 +1317,7 @@ preInsureList() {
             this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
           this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
           this.insured.controls['insuredPaCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
+          this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
 
 
         } else {
@@ -1309,8 +1329,8 @@ preInsureList() {
             this.insured.controls['insuredPaLastname'].patchValue('');
             this.insured.controls['insuredPaDob'].patchValue('');
 
-            // this.insured.controls['insuredPaIdProof'].patchValue('');
-            // this.insured.controls['insuredPaIdProofIdP'].patchValue('');
+            this.insured.controls['insuredPaIdProof'].patchValue('');
+            this.insured.controls['insuredPaIdProofIdP'].patchValue('');
 
             this.insured.controls['insuredParelationship'].patchValue('SELF');
             this.insured.controls['insuredPaGender'].patchValue('');
