@@ -103,12 +103,12 @@ export class TravelHdfcProposalComponent implements OnInit {
             paymentmode: '',
             physicianName: '',
             physicianMobile: '',
-            declineinsurance: 'No',
+            declineinsurance: 'False',
             declineReson: '',
-            restrictionbyinsurance: 'No',
+            restrictionbyinsurance: 'False',
             restrictionbyinsurancedetails: '',
             gst: '',
-            ped: '',
+            ped: 'None',
             IsCustomerAuthenticationDone: "1",
             AuthenticationType: "OTP",
             UIDNo: "",// otp value
@@ -316,59 +316,6 @@ export class TravelHdfcProposalComponent implements OnInit {
                 smallest = this.arr[i];
             }
         }
-
-
-      /*  if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Son')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Son')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        }
-
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Daughter')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Daughter')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        }
-
-
-
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }
-        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        }*/
-
-
-
     }
 
     ageCalculate(dob) {
@@ -612,11 +559,11 @@ export class TravelHdfcProposalComponent implements OnInit {
         sessionStorage.hdfcTravelDetails1 = JSON.stringify(value);
         if(this.hdfcTravel.valid){
             if (sessionStorage.proposerAgeHdfcTravel >= 18) {
-                if(this.hdfcTravel.controls['ped'].value != 'Cancer / Carcinoma / Malignancy'){
+                if(this.hdfcTravel.controls['ped'].value == 'None'){
                     stepper.next();
 
                 } else {
-                    this.toastr.error('Preexisting Disease should Not allow this diseases');
+                    this.toastr.error('Existing Disease should Not allow For this insurance');
                 }
 
             } else {
@@ -640,9 +587,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         console.log(value);
         sessionStorage.hdfcTravelDetails3 = '';
         sessionStorage.hdfcTravelDetails3 = JSON.stringify(value);
-        // if (this.nomineeTravelDetails.valid) {
             this.createProposal(stepper);
-        // }
         this.lastStepper = stepper;
     }
 
@@ -657,7 +602,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsDOB.patchValue(this.datepipe.transform(this.hdfcTravel.controls['dob'].value, 'y-MM-dd'));
             let age = this.ageCalculate(this.datepipe.transform(this.hdfcTravel.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredAge.patchValue(age);
-            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.patchValue('SELF');
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.patchValue('Self');
         } else {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
 
@@ -683,7 +628,11 @@ export class TravelHdfcProposalComponent implements OnInit {
             }
 
             this.getPedList();
-            this.hdfcTravel = this.fb.group({
+            this.declinereason();
+            this.restrictionReson();
+              this.hdfcTravel1.declineReson.value,
+                  this.hdfcTravel1.restrictionbyinsurancedetails.value,
+                this.hdfcTravel = this.fb.group({
                 title: this.hdfcTravel1.title,
                 firstname: this.hdfcTravel1.firstname,
                 middlename: this.hdfcTravel1.middlename,
