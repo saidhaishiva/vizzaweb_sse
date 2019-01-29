@@ -609,7 +609,12 @@ export class TravelHdfcProposalComponent implements OnInit {
         sessionStorage.hdfcTravelDetails1 = JSON.stringify(value);
         if(this.hdfcTravel.valid){
             if (sessionStorage.proposerAgeHdfcTravel >= 18) {
-                stepper.next();
+                if(this.hdfcTravel.controls['ped'].value != 'Cancer / Carcinoma / Malignancy'){
+                    stepper.next();
+
+                } else {
+                    this.toastr.error('Preexisting Disease should Not allow this diseases');
+                }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -799,7 +804,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'MobileNumber': this.hdfcTravel.controls['mobile'].value,
                     'OverseasNo': "",
                     'Email': this.hdfcTravel.controls['email'].value,
-                    'ExistingAliments': 'None',//Master
+                    'ExistingAliments': "" ,//Master
                     'PhysicianName': this.hdfcTravel.controls['physicianName'].value,
                     'PhysicianNo': this.hdfcTravel.controls['physicianMobile'].value,
                     'DeclineInsurance': this.hdfcTravel.controls['declineinsurance'].value,
@@ -810,8 +815,8 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'IsCustomerAuthenticationDone': "1",
                     'AuthenticationType': "OTP",
                     'UIDNo': "",
-                    'IsProposerSameAsInsured': this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameAsProposer.value,
-                    'IsCustomerAcceptedPED': "true"
+                    'IsProposerSameAsInsured': this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameAsProposer.value .toString(),
+                    'IsCustomerAcceptedPED': "false"
                 },
                 "Member": {
                     "InsuredDetails": this.insuredTravelData.items

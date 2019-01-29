@@ -77,19 +77,19 @@
                         <mat-error *ngIf="hdfcTravel.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="STD Code"  (keypress)="keyPress($event)"  minlength="5" maxlength="5" formControlName="stdcode" autocomplete="off" required>
+                        <input matInput placeholder="STD Code"  (keypress)="keyPress($event)"  minlength="5" maxlength="5" formControlName="stdcode" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">STD Code is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Telephone Number"  (keypress)="keyPress($event)"  minlength="8" maxlength="8" formControlName="telephoneNo" autocomplete="off" required>
+                        <input matInput placeholder="Telephone Number"  (keypress)="keyPress($event)"  minlength="8" maxlength="8" formControlName="telephoneNo" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">Telephpne Numberis required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                      <input matInput placeholder="STD Code(office)"  (keypress)="keyPress($event)"  minlength="5" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" required>
+                      <input matInput placeholder="STD Code(office)"  (keypress)="keyPress($event)"  minlength="5" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" >
                       <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required"> STD Code(office is required</mat-error>
                     </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Telephpne office Number"  (keypress)="keyPress($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" required>
+                        <input matInput placeholder="Telephpne office Number"  (keypress)="keyPress($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">Telephpne office Number is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
@@ -104,7 +104,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>
-                            <mat-option *ngFor="let item of getpedDetails" value= {{item.isAcceptable}}>
+                            <mat-option *ngFor="let item of getpedDetails" value= {{item.ped}}>
                               {{item.ped}}
                             </mat-option>
                           </mat-select>
@@ -280,7 +280,7 @@
                         <div class="col-md-3" [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" required >
-                              <mat-option *ngFor="let lists of insuredRelationshipDetails" value="{{lists.relation_code}}" >
+                              <mat-option *ngFor="let lists of insuredRelationshipDetails" value="{{lists.relation}}" >
                                 {{lists.relation}}
                               </mat-option>
                             </mat-select>
@@ -335,7 +335,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="NomineeRelation" required >
-                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation_code}}" >
+                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation}}" >
                               {{lists.relation}}
                             </mat-option>
                           </mat-select>
