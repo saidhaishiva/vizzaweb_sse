@@ -287,7 +287,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.insurePersons = this.getFamilyDetails.family_members;
         this.setOccupationList();
         this.setRelationship();
-        this.setNomineeRelationship()
+        this.setNomineeRelationship();
         this.maritalStatus();
         this.NationalityList();
         this.ServiceTax();
