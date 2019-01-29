@@ -626,13 +626,9 @@ export class TravelHdfcProposalComponent implements OnInit {
             if (this.hdfcTravel1.pincode != '') {
                 this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
             }
-
             this.getPedList();
-            this.declinereason();
-            this.restrictionReson();
-              this.hdfcTravel1.declineReson.value,
-                  this.hdfcTravel1.restrictionbyinsurancedetails.value,
-                this.hdfcTravel = this.fb.group({
+
+            this.hdfcTravel = this.fb.group({
                 title: this.hdfcTravel1.title,
                 firstname: this.hdfcTravel1.firstname,
                 middlename: this.hdfcTravel1.middlename,
@@ -665,6 +661,8 @@ export class TravelHdfcProposalComponent implements OnInit {
 
             });
             this.getCityList(this.hdfcTravel1.city);
+            this.declinereason();
+            this.restrictionReson();
 
 
         }
