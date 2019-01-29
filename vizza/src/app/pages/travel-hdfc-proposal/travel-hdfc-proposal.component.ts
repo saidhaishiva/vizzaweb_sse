@@ -768,7 +768,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': this.getTravelPremiumList.enquiry_id,
-            'proposal_id': sessionStorage.hdfc_Travel_proposal_id,
+            'proposal_id': sessionStorage.hdfc_Travel_proposal_id ? sessionStorage.hdfc_Travel_proposal_id : this.hdfc_Travel_proposal_id,
             "InsuranceDetails": {
                 "PlanDetails": {
                     'TotalSumInsured': this.getallTravelPremiumList.suminsured_amount,//From main page
