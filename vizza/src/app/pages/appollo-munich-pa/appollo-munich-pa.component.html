@@ -219,7 +219,7 @@
                       <div class="col-md-12 mb-3"  >
                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()" required>
                             <mat-option value="MR">Mr</mat-option>

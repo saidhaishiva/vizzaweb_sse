@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title">
+                          <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MRS">Ms</mat-option>
                           </mat-select>
@@ -43,17 +43,12 @@
                           <mat-error *ngIf="hdfcPersonal.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
-
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" required>
-                            <mat-option value="M">Male</mat-option>
-                            <mat-option value="F">Female</mat-option>
-                          </mat-select>
+                          <input matInput placeholder="Gender" formControlName="gender" required readonly>
                           <mat-error *ngIf="hdfcPersonal.controls.gender.errors?.required">Gender is required</mat-error>
                         </mat-form-field>
                       </div>
-
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
@@ -74,7 +69,7 @@
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"  minlength="12" maxlength="10" formControlName="phone" autocomplete="off" required>
+                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"  maxlength="12" formControlName="phone" autocomplete="off">
                         <mat-error *ngIf="hdfcPersonal.controls.phone.errors?.required">Phone Number is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3">
