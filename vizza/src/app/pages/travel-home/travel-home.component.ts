@@ -864,7 +864,8 @@ export class TravelHomeComponent implements OnInit {
         let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
         let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');
         let diff = Date.parse(tDate) - Date.parse(fDate);
-        return Math.floor(diff / 86400000);
+        let days = Math.floor(diff / 86400000);
+        return days+1;
     }
     travelInsurer(){
         const dialogRef = this.dialog.open(TravelInsurer, {
