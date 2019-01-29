@@ -110,7 +110,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             city: ['', Validators.required],
             state: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            mobile: '',
             phone: '',
             paymentmode: ['', Validators.required],
             // dependant:['', Validators.required],
@@ -136,21 +136,13 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     }
 
     // title change function
-    // changeGender() {
-    //     if (this.hdfcPersonal.controls['title'].value == 'MR') {
-    //         this.hdfcPersonal.controls['gender'].patchValue('Male');
-    //     } else {
-    //         this.hdfcPersonal.controls['gender'].patchValue('Female');
-    //     }
-    // }
-    //  Title change Function in insured
-    // insureChangeGender(index) {
-    //     if (this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value == 'MR') {
-    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Male');
-    //     } else {
-    //         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].gender.patchValue('Female');
-    //     }
-    // }
+    changeGender() {
+        if (this.hdfcPersonal.controls['title'].value == 'MR') {
+            this.hdfcPersonal.controls['gender'].patchValue('Male');
+        } else {
+            this.hdfcPersonal.controls['gender'].patchValue('Female');
+        }
+    }
     // accept only character
     public typeValidate(event: any) {
         if (event.charCode !== 0) {
@@ -460,9 +452,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                     'PhoneNo': this.hdfcpersonalValues.phone
                 },
                 'PlanDetails': {
-                    // 'PlanCd': this.getBuyDetails.plan_code,
-                    'PlanCd': this.getBuyDetails.plan_code,//From Premium Calculaction
-                    // 'DependantParents': this.hdfcpersonalValues.dependant,
+                    'PlanCd': this.getBuyDetails.plan_code,
                     'DependantParents': 'None',
                     'IndianNational': this.hdfcpersonalValues.nationality
                 },
