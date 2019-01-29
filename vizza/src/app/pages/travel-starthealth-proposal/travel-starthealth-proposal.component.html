@@ -18,7 +18,7 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-blue">PROPOSER DETAILS</h6>
                     <div class="row">
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
@@ -27,13 +27,13 @@
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-5"><mat-form-field class="w-100">
+                      <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
                         <mat-error *ngIf="personal.controls.personalGender.errors?.required">Gender is required</mat-error>
                       </mat-form-field></div>
@@ -132,16 +132,17 @@
                   </div>
                 <div class="col-md-12  box-card pt-3">
                     <div class="row">
-                        <div class="col-md-1 text-left">
+                        <div class="col-md-12 text-left">
                             <mat-checkbox formControlName="travelDeclaration" (change)="acceptDeclaration()"></mat-checkbox>
-                        </div>
-                        <div class="col-md-11 text-left">
                             <strong>
-                                I declare that the above mentioned information provided by me is true to my knowledge .<br>
-                                I hereby also confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category .<br>
-                                I authorize vizza Insurance Broking service pvt  Ltd. to represent on behalf of me for all my Insurance assistance.
+                                &nbsp; I hereby Confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category and my travel doesn`t include visit to any United Nation’s sanctioned Countries .<br>
                             </strong>
                         </div>
+                        <!--<div class="col-md-11 text-left">-->
+                            <!--<strong>-->
+                                <!--I hereby Confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category and my travel doesn`t include visit to any United Nation’s sanctioned Countries .<br>-->
+                            <!--</strong>-->
+                        <!--</div>-->
                     </div>
                 </div>
 
@@ -397,7 +398,7 @@
               </div>
 
             <br>
-            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">"I hereby Confirm that I/the person/s proposed Hold a valid Indian Passport which is non emigrant category and my travel doesn`t include visit to any United Nation’s sanctioned Countries"</mat-checkbox></p>
+            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all the details provided above is correct</mat-checkbox></p>
             </section>
             <hr>
             <div class="row">

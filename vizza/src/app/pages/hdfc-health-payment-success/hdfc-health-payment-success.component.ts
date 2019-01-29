@@ -22,6 +22,7 @@ public currenturl: any
 public type: any
 public path: any
 public proposalId: any
+public policyStatus: any
 public settings: Settings;
 
 constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -31,6 +32,7 @@ constructor(public config: ConfigurationService, public proposalservice: HealthS
         console.log(params.id);
         this.paymentStatus = params.status;
         this.proposalId = params.proId;
+        this.policyStatus = params.policyStatus;
     });
 }
 ngOnInit() {

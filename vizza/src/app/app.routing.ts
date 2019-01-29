@@ -206,7 +206,7 @@ export const routes: Routes = [
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
-            { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
