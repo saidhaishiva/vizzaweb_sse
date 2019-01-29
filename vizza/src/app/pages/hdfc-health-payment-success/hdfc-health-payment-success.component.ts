@@ -34,6 +34,17 @@ constructor(public config: ConfigurationService, public proposalservice: HealthS
     });
 }
 ngOnInit() {
+    sessionStorage.hdfc_health_proposal_id = '';
+    sessionStorage.hdfcStep1 = '';
+    sessionStorage.hdfcStep2 = '';
+    sessionStorage.hdfcHealthNomineeDetails = '';
+    sessionStorage.sameAsinsure = '';
+    sessionStorage.pincodeValid = '';
+    sessionStorage.hdfcHealthProposerAge = '';
+    sessionStorage.hdfcHealthInsurerAge = '';
+    sessionStorage.buyProductdetails = '';
+    sessionStorage.changedTabDetails = '';
+
 }
 
 DownloadPdf() {

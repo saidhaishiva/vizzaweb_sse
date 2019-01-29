@@ -67,6 +67,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     public totalInsureDetails: any;
     public hdfcTravel3: any;
     public sameAsinsure: any;
+    public declaration: any;
+    public fullName: any;
+    public totalAmount: any;
 
 
     constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -765,7 +768,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': this.getTravelPremiumList.enquiry_id,
-            'proposal_id': this.hdfc_Travel_proposal_id,
+            'proposal_id': sessionStorage.hdfc_Travel_proposal_id,
             "InsuranceDetails": {
                 "PlanDetails": {
                     'TotalSumInsured': this.getallTravelPremiumList.suminsured_amount,//From main page
@@ -843,8 +846,10 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.lastStepper.next();
 
             this.summaryData = successData.ResponseObject;
-            sessionStorage.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
+            this.fullName = this.summaryData.ProposalDetails.fname +' '+ this.summaryData.ProposalDetails.lname;
+            this.totalAmount = parseFloat(this.summaryData.ProposalDetails.totalPremium);
 
+            sessionStorage.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
         } else {
             this.toastr.error(successData.ErrorObject);
         }
