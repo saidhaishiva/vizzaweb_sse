@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {TravelService} from '../../shared/services/travel.service';
 
 @Component({
   selector: 'app-hdfc-travel-payment-success',
@@ -23,7 +24,7 @@ export class HdfcTravelPaymentSuccessComponent implements OnInit {
   public proposalId: any
   public settings: Settings;
 
-  constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
@@ -45,7 +46,7 @@ export class HdfcTravelPaymentSuccessComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
     }
     this.settings.loadingSpinner = true;
-    this.proposalservice.getDownloadPdfHdfc(data).subscribe(
+    this.proposalservice.hdfcPolicyDownload(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData);
         },

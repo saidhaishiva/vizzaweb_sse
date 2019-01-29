@@ -68,7 +68,7 @@
                         <mat-error *ngIf="hdfcTravel.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST"   formControlName="gst"  autocomplete="off" required maxlength="15" minlength="15">
+                        <input matInput placeholder="GST"   formControlName="gst"  autocomplete="off" required maxlength="15" minlength="15"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" >
                         <mat-error *ngIf="hdfcTravel.controls.email.errors?.required">GST is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
@@ -93,11 +93,11 @@
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">Telephpne office Number is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Phyisican Name"  (keypress)="typeValidate($event)"   formControlName="physicianName" autocomplete="off" required>
+                        <input matInput placeholder="Phyisican Name"  (keypress)="typeValidate($event)"   formControlName="physicianName" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.physicianName.errors?.required">Phyisican Name is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder=" Phyisican Mobilenumber"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="physicianMobile" autocomplete="off" required>
+                        <input matInput placeholder=" Phyisican Mobilenumber"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="physicianMobile" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
