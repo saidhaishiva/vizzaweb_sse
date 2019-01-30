@@ -1239,7 +1239,7 @@ export class DmProfileComponent implements OnInit {
 
     public data(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /^[a-zA-Z_\-]+$/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
