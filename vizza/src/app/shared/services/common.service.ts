@@ -236,7 +236,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/viewprofile' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/viewprofile' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -273,7 +273,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/get_dm_training_attended_details' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/get_dm_training_attended_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -285,7 +285,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/get_dm_exam_attended_details' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/get_dm_exam_attended_details' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -307,7 +307,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/register' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/register' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -329,7 +329,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/update_dm_doccuments' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/update_dm_doccuments' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -340,7 +340,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'pos/change_password' ;
+        const url = this.configurationService.getHostPos() + 'action/change_password' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -351,7 +351,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/change_password' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/change_password' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -448,7 +448,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'pos/get_referralcode_details';
+        const url = this.configurationService.getHostPos() + 'action/get_referralcode_details';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

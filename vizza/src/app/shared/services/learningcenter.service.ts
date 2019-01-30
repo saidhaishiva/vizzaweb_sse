@@ -15,7 +15,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'posquestion/questionlist';
+        const url = this.configurationService.getHostPos() + 'posquestion/questionlist';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -27,7 +27,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/questionlist';
+        const url = this.configurationService.getHostDm() + 'distancemanager/questionlist';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -38,7 +38,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'posquestion/answerrequest';
+        const url = this.configurationService.getHostPos() + 'posquestion/answerrequest';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -50,7 +50,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/answerrequest';
+        const url = this.configurationService.getHostDm() + 'distancemanager/answerrequest';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -62,7 +62,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'pos/get_pos_training_time_left' ;
+        const url = this.configurationService.getHostPos() + 'action/get_pos_training_time_left' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -74,7 +74,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/get_dm_training_time_left' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/get_dm_training_time_left' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -86,7 +86,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'pos/add_training_timezone' ;
+        const url = this.configurationService.getHostPos() + 'action/add_training_timezone' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -97,7 +97,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/add_training_timezone' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/add_training_timezone' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
