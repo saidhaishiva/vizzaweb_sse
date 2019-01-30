@@ -29,6 +29,14 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+//testingggg
+    getContacts() {
+        return  this.http.get('http://127.0.0.1:8000/list');
+    }
+
+
+
     // view travel-home
     getAllcountry(data) {
         const json = JSON.stringify(data);

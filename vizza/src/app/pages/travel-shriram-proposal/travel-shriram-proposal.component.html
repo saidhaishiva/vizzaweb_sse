@@ -425,8 +425,8 @@
 
             <form action={{paymentData.PaymentRedirect}}  method='post' #form>
               <div>
-                <input name="PolicySysID" type="text" value={{paymentData.PolicySisID}}/>
-                <input name="ReturnURL" type="text" value={{paymentData.PaymentReturn}}/>
+                <input name="PolicySysID" type="hidden" value={{paymentData.PolicySisID}}/>
+                <input name="ReturnURL" type="hidden" value={{paymentData.PaymentReturn}}/>
               </div>
               <div class="col-md-12">
                 <div class="proposal-buttom mb-3 text-center w-100">

@@ -29,6 +29,6 @@
 <!--</div>-->
 
 <div id="sidenav-menu-outer" class="sidenav-menu-outer" perfectScrollbar [class.user-block-show]="settings.sidenavUserBlock">
-    <span *ngIf="!menuItems">loading....</span>
-    <app-vertical-menu [menuItems]="menuItems" [menuParentId]="0"></app-vertical-menu>
+    <span *ngIf="!parentMenu">loading....</span>
+    <app-vertical-menu [menuItems]="parentMenu" [menuParentId]="0"></app-vertical-menu>
 </div>

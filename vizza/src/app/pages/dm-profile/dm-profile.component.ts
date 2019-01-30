@@ -227,18 +227,18 @@ export class DmProfileComponent implements OnInit {
             this.sideNav.push({'name': 'Certificate of Examination', 'value': 'active', 'selected': false});
         }
         if (this.posStatus == 1 ) {
-            this.sideNav.push(
-                {
-                    'name': 'Appointment Letter',
-                    'value': 'active',
-                    'selected': false
-                }
+            // this.sideNav.push(
+            //     {
+            //         'name': 'Appointment Letter',
+            //         'value': 'active',
+            //         'selected': false
+            //     }
                 // {
                 //     'name': 'Agreement Letter',
                 //     'value': 'active',
                 //     'selected': false
                 // },
-                );
+              //  );
         }
         this.sideNav[0].selected = true;
     }

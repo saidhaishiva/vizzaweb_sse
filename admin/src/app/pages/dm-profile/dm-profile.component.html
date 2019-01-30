@@ -60,10 +60,10 @@
           </i> &nbsp; No Pan Card</p>
         </div>
         <div class="col-md-6" *ngIf="posData.doc_pan_img != ''" >
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="isAlreadyAgent" >Already a Agent</mat-checkbox>
           </div>
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="panImage" >Pan Image</mat-checkbox>
           </div>
           <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
@@ -80,13 +80,13 @@
       </mat-expansion-panel-header>
       <div class="row">
         <div class="col-md-6">
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="aadharFront" >Aadhar Front Image</mat-checkbox>
           </div>
           <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
         </div>
         <div class="col-md-6">
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="aadharBack" >Aadhar Back Image</mat-checkbox>
           </div>
           <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
@@ -113,7 +113,7 @@
         </div>
 
         <div class="col-md-12" *ngIf="posData.doc_edu_certificate_img.length != 0" >
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="educationalDoc" >Educational Documents</mat-checkbox>
           </div>
           <div *ngFor="let edu of posData.doc_edu_certificate_img">
@@ -133,7 +133,7 @@
 
       <div fxLayout="row" fxLayoutAlign="center center" class="h-100" >
         <div fxFlex="100" fxFlex.gt-sm="60"  fxFlex.sm="80">
-          <div class="text-left">
+          <div class="text-left" *ngIf="roleId == '1'">
             <mat-checkbox [(ngModel)]="bankDoc" >Bank Details</mat-checkbox>
           </div>
           <mat-card class="list">
@@ -810,7 +810,7 @@
 
 <div class="container-fluid ">
   <mat-card class="doctordetail mb-3">
-    <div class="row">
+    <div class="row" *ngIf="roleId == '1'">
 
       <div class="col-md-12">
         <!--<img src="assets/img/users/default-user.jpg" class="transition-2 rounded-circle">-->
@@ -825,7 +825,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="roleId == '1'">
       <div class="col-md-12">
         <div mat-dialog-content >
           <mat-form-field class="w-100">
@@ -839,7 +839,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12 mt-4" *ngIf="roleId == '1'">
       <div class="row">
         <div class="col-md-6 text-left">
         </div>

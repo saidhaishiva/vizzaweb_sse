@@ -21,7 +21,7 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-          <button mat-raised-button color="primary"  [routerLink]="['/dm-add']">
+          <button mat-raised-button color="primary"  [routerLink]="['/dm-add']" *ngIf="roleId == '1'">
             <i class="material-icons">
               add
             </i>
@@ -114,12 +114,18 @@
                       </div>
                       <mat-menu #menu="matMenu" xPosition="before">
                                                 <span (mouseleave)="menuTrigger.closeMenu()">
-                                                    <button mat-menu-item (click)="DmProfile(row.dm_id, row.dm_status)">
+
+
+
+                                                    <button mat-menu-item (click)="DmProfile(row.dm_id, row.dm_status)" *ngIf="roleId == '1'">
                                                        <mat-icon class="material-icons">visibility</mat-icon><span *ngIf="dmStatus !=1">View & Approve</span>
                                                       <span *ngIf="dmStatus ==1">View</span>
-
                                                     </button>
-                                                    <button mat-menu-item (click)="DmEdit(row.dm_id)">
+                                                    <button mat-menu-item (click)="DmProfile(row.dm_id, row.dm_status)" *ngIf="roleId != '1'">
+                                                       <mat-icon class="material-icons">visibility</mat-icon><span *ngIf="dmStatus !=1">View</span>
+                                                      <span *ngIf="dmStatus ==1">View</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="DmEdit(row.dm_id)" *ngIf="roleId == '1'">
                                                         <mat-icon>mode_edit</mat-icon>
                                                         <span>Edit</span>
                                                     </button>
