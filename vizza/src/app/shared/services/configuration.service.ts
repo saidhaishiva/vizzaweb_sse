@@ -12,6 +12,7 @@ export class ConfigurationService {
   apiHostHealth: string = environment.apiHostHealth;
   apiHostPos: string = environment.apiHostPos;
   apiHostHome: string = environment.apiHostHome;
+  apiHostDm: string = environment.apiHostDm;
 
   webHost: string = environment.webHost;
   imgUrl: string = environment.imgUrl;
@@ -33,6 +34,7 @@ export class ConfigurationService {
     this.apiHostHealth = this.apiHostHealth;
     this.apiHostPos = this.apiHostPos;
     this.apiHostHome = this.apiHostHome;
+    this.apiHostDm = this.apiHostDm;
   }
     getHost() {
         return this.apiHost;
@@ -57,5 +59,8 @@ export class ConfigurationService {
   }
   getHostHome(){
     return this.apiHostHome;
+  }
+  getHostDm(){
+    return this.apiHostDm;
   }
 }

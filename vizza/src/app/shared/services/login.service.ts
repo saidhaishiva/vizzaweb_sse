@@ -46,7 +46,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/login';
+        const url = this.configurationService.getHostDm() + 'distancemanager/login';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -57,7 +57,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/register';
+        const url = this.configurationService.getHostDm() + 'distancemanager/register';
         return this.http.post(url , json, httpOptions)
         // .map(this.extractData )
         // .catch(this.handleError);
@@ -80,7 +80,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'distancemanager/forgotpassword' ;
+        const url = this.configurationService.getHostDm() + 'distancemanager/forgotpassword' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -142,7 +142,7 @@ export class LoginService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         };
-        const url = this.configurationService.getHost() + 'distancemanager/generateOtp';
+        const url = this.configurationService.getHostDm() + 'distancemanager/generateOtp';
         return this.http.post(url , json, httpOptions)
 
             .map(this.extractData )

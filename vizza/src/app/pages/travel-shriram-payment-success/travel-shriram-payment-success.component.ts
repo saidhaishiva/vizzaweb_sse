@@ -66,10 +66,10 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
                 console.log(successData.ResponseObject, 'www333');
-                window.open(this.currenturl + '/' +  this.path,'_blank');
+                window.open(this.path,'_blank');
             } else if (this.type === 'pdf') {
                 console.log(successData.ResponseObject, 'www3444');
-                window.open(this.currenturl + '/' +  this.path,'_blank');
+                window.open(this.path,'_blank');
             } else {
                 this.downloadMessage();
             }

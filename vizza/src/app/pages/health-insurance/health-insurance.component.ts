@@ -767,8 +767,12 @@ export class HealthInsuranceComponent implements OnInit {
                         this.insuranceLists[index].product_lists[j].removebtn = this.insuranceLists[index].product_lists[j].indiv_shortlist_status;
                         this.insuranceLists[index].product_lists[j].currentBtn = false;
                     }
+
+                    this.insuranceLists[index].product_lists[j].premium_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].premium_amount);
+                    this.insuranceLists[index].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].suminsured_amount);
                 }
             }
+            console.log(this.insuranceLists, 'lityyyy');
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }

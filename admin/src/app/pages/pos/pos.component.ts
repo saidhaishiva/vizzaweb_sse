@@ -49,6 +49,7 @@ export class PosComponent implements OnInit {
     allLists: any;
     selectedList: any;
     allPosLists: any;
+    roleId: any;
     searchTag: string;
     constructor(public router: Router, public route: ActivatedRoute,
                 public appSettings: AppSettings, private toastr: ToastrService,
@@ -56,6 +57,7 @@ export class PosComponent implements OnInit {
                 public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService) {
         this.settings = this.appSettings.settings;
         // this.settings.loadingSpinner = true;
+        this.roleId = this.auth.getAdminId();
         this.webhost = this.config.getimgUrl();
         this.filters = 'No';
         this.tabStatus = '0';

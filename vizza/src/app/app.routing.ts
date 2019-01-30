@@ -101,6 +101,7 @@ import {HdfcHealthPaymentSuccessComponent} from './pages/hdfc-health-payment-suc
 import {ClaimAssistanceComponent} from './pages/claim-assistance/claim-assistance.component';
 import {TravelHdfcProposalComponent} from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
 import {TravelShriramPaymentSuccessComponent} from './pages/travel-shriram-payment-success/travel-shriram-payment-success.component';
+import {HdfcTravelPaymentSuccessComponent} from './pages/hdfc-travel-payment-success/hdfc-travel-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -205,8 +206,9 @@ export const routes: Routes = [
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
-            { path: 'hdfc-payment-success/:status/:proId', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}},

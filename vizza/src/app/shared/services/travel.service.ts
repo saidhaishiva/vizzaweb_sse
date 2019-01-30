@@ -29,6 +29,14 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+//testingggg
+    getContacts() {
+        return  this.http.get('http://127.0.0.1:8000/list');
+    }
+
+
+
     // view travel-home
     getAllcountry(data) {
         const json = JSON.stringify(data);
@@ -413,6 +421,18 @@ export class TravelService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTravel() + 'hdfc/NomineeRelationshipList' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // policy download
+    hdfcPolicyDownload(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'hdfc/PolicyDownload' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

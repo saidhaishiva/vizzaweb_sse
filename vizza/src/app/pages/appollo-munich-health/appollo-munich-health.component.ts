@@ -295,21 +295,32 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
     insureChangeGender(index) {
+        console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value,'iiiiiii');
+
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR' ||
             this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MASTER') {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
             this.titleValidation = true;
-        } else if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "BABY"  || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "BABY") {
-            this.titleValidation = false;
-            this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.value = '';
-        } else {
+        } else if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "BABY" || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "MRS" || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == "MISS" ) {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
             this.titleValidation = true;
+
         }
-        sessionStorage.titleValidation =  this.titleValidation;
+            // this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.value = '';
+        // } else {
+        //     console.log('iiiopppp');
+        //     // if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MRS' ||
+        //     //     this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'BABY' || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MISS')
+        //     //    console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value,'jgkhgj');
+        //         this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
+        //         console.log( this.insureArray['controls'].items['controls'][index]['controls'].proposerGender,'vvvvvv');
+        //     this.titleValidation = true;
+        // }
+
+        sessionStorage.titleValidation = this.titleValidation;
+
+
     }
-
-
 
 
 

@@ -227,7 +227,7 @@ reset(){
 
     getPersonalAccident() {
 
-        if (this.Age < 17) {
+        if (this.Age < 18) {
             this.toast.error('Personal age should be 18 or above');
             return false;
         }

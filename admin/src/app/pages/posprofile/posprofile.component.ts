@@ -90,6 +90,7 @@ export class PosprofileComponent implements OnInit {
     allImage: any;
     pdfSrc: any;
     posManager: any;
+    roleId: any;
     comments: string;
     notes: string;
     rows = [];
@@ -110,7 +111,7 @@ export class PosprofileComponent implements OnInit {
 
     constructor(public route: ActivatedRoute, public datepipe: DatePipe, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
-
+        this.roleId = this.auth.getAdminId();
         this.physical = [];
         this.fileDetails = [];
         this.online = [];

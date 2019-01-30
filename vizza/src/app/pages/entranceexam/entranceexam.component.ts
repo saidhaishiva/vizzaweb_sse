@@ -16,7 +16,7 @@ export class EntranceexamComponent implements OnInit {
   }
     startExam() {
     sessionStorage.examBack = 0;
-    this.router.navigate(['/dm-exam']);
+    this.router.navigate(['/exam']);
     }
 
 }

@@ -75,7 +75,7 @@
 
             <div class="w-100 mt-2">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label"><span class="error">*</span>
                   Attach Your Photo</label>
                 <div class="error" *ngIf !="form.controls.personal.controls.profile.valid">Profile Image is required</div>
@@ -176,7 +176,7 @@
 
             <div class="w-100">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label"><span class="error">*</span> Aadhaar Front Image</label>
                 <div class="error" *ngIf !="form.controls.documents['controls'].aadharfront.valid">Aadhaar Front Image is required</div>
               </div>
@@ -190,7 +190,7 @@
             </div>
             <div class="w-100 mb-3">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="aadharback" (change)="readUrl($event, 'aadhar back')"   aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label"><span class="error">*</span> Aadhaar Back Image</label>
                 <div class="error" *ngIf !="form.controls.documents.controls.aadharback.valid">Aadhaar Back Image is required</div>
               </div>
@@ -204,7 +204,7 @@
             </div>
             <div class="w-100">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label"><span class="error">*</span> PAN Card Front Image</label>
                 <div class="error" *ngIf !="form.controls.documents['controls'].pancard.valid">PAN Card Image is required</div>
               </div>
@@ -224,7 +224,7 @@
 
           <mat-tab label="Education" formGroupName="education">
             <mat-form-field class="w-100">
-              <textarea matInput #message maxlength="300" required placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
+              <textarea matInput #message maxlength="300" required (keypress)="data($event)" placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
               <mat-hint align="end">{{message.value.length}} /300</mat-hint>
               <mat-error *ngIf="form.controls.education['controls'].qualification.hasError('required')">Educational details required</mat-error>
             </mat-form-field>
@@ -234,7 +234,7 @@
             </div>
             <div class="w-100">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01" multiple>
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01" multiple>
                 <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
               </div>
             </div>
@@ -280,7 +280,7 @@
             </mat-form-field>
             <div class="w-100">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
+                <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="chequeleaf" (change)="readUrl($event, 'chequeleaf')"   aria-describedby="inputGroupFileAddon01" autocomplete="off">
                 <label class="custom-file-label"> <span class="error">*</span> Attached Cancelled Cheque Leaf (or) Passbook</label>
                 <!--<div class="error" [hidden]="form.controls.bankdetails.controls.chequeleaf.valid">Education Back Image is required</div>-->
               </div>

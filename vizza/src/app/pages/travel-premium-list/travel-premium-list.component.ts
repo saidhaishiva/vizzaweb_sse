@@ -171,7 +171,21 @@ export class TravelPremiumListComponent implements OnInit {
         this.count = 0;
         this.sumInsuredAmonut();
         this.viewPlanList();
+        // this.test();
     }
+
+
+    // public test(){
+    //
+    //     this.travel.getContacts().subscribe((data:  Array<object>) => {
+    //         console.log(data, 'pythhh');
+    //     });
+    //
+    // }
+
+
+
+
     selectedSumAmount(){
 
     }
