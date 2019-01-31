@@ -133,7 +133,7 @@
                       <div class="col-md-6 uploadBtn" *ngIf="personalshow.dm_profile_img != 2">
                         <label class="btn-bs-file btn btn-secondary">
                           Browse
-                          <input type='file' (change)="readUrl($event, 'profile')">
+                          <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'profile')">
                         </label>
                       </div>
                     </div>
@@ -329,7 +329,7 @@
                       <div class="col-md-2 uploadBtn" *ngIf="personalshow.check_leaf_upload_img != 2">
                         <label class="btn-bs-file btn btn-secondary">
                           Browse
-                          <input type='file' (change)="readUrl($event, 'chequeleaf')">
+                          <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'chequeleaf')">
                         </label>
                       </div>
                     </div>
@@ -386,7 +386,7 @@
                     <div class="col-md-2 uploadBtn" *ngIf="personalshow.doc_verified_status != 2">
                       <label class="btn-bs-file btn btn-secondary">
                         Browse
-                        <input type='file' (change)="readUrl($event, 'education')" multiple>
+                        <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'education')" multiple>
                       </label>
                     </div>
                   </div>
@@ -477,7 +477,7 @@
                           <div class="uploadBtn">
                             <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                               Browse
-                              <input type='file' (change)="readUrl($event, 'aadhar front')">
+                              <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'aadhar front')">
                             </label>
                           </div>
                           <div *ngIf="aadharfront != ''">
@@ -494,7 +494,7 @@
                           <div class="uploadBtn">
                             <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                               Browse
-                              <input type='file' (change)="readUrl($event, 'aadhar back')">
+                              <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'aadhar back')">
                             </label>
                           </div>
                           <div *ngIf="aadharback != ''">
@@ -510,7 +510,7 @@
                           <div class=" uploadBtn" >
                             <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                               Browse
-                              <input type='file' (change)="readUrl($event, 'pancard')">
+                              <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'pancard')">
                             </label>
                           </div>
                           <div *ngIf="pancard != ''">

@@ -134,7 +134,7 @@
                                             <div class="col-md-6 uploadBtn" *ngIf="personalshow.pos_profile_img != 2">
                                                 <label class="btn-bs-file btn btn-secondary">
                                                     Browse
-                                                    <input type='file' (change)="readUrl($event, 'profile')">
+                                                    <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'profile')">
                                                 </label>
                                             </div>
                                         </div>
@@ -330,7 +330,7 @@
                                             <div class="col-md-2 uploadBtn" *ngIf="personalshow.check_leaf_upload_img != 2">
                                                 <label class="btn-bs-file btn btn-secondary">
                                                     Browse
-                                                    <input type='file' (change)="readUrl($event, 'chequeleaf')">
+                                                    <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'chequeleaf')">
                                                 </label>
                                             </div>
                                         </div>
@@ -375,7 +375,7 @@
                             <mat-card *ngIf="educationEdit">
                                 <form [formGroup]="educationlist" class="mt-registration">
                                     <mat-form-field class="w-100">
-                                    <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
+                                    <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" (keypress)="data($event)" formControlName="qualification"></textarea>
                                     <mat-hint align="end">{{message.value.length}} /300</mat-hint></mat-form-field>
                                     <div>
                                         <p><span class="imglabel" *ngIf=" personalshow.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>
@@ -387,7 +387,7 @@
                                         <div class="col-md-2 uploadBtn" *ngIf="personalshow.doc_verified_status != 2">
                                             <label class="btn-bs-file btn btn-secondary">
                                             Browse
-                                            <input type='file' (change)="readUrl($event, 'education')" multiple>
+                                            <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'education')" multiple>
                                             </label>
                                         </div>
                                     </div>
@@ -478,7 +478,7 @@
                                     <div class="uploadBtn">
                                     <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
-                                    <input type='file' (change)="readUrl($event, 'aadhar front')">
+                                    <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'aadhar front')">
                                     </label>
                                     </div>
                                     <div *ngIf="aadharfront != ''">
@@ -495,7 +495,7 @@
                                     <div class="uploadBtn">
                                     <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
-                                    <input type='file' (change)="readUrl($event, 'aadhar back')">
+                                    <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'aadhar back')">
                                     </label>
                                     </div>
                                     <div *ngIf="aadharback != ''">
@@ -511,7 +511,7 @@
                                     <div class=" uploadBtn" >
                                     <label class="btn-bs-file btn btn-secondary" *ngIf=" personalshow.doc_verified_status != 2">
                                     Browse
-                                    <input type='file' (change)="readUrl($event, 'pancard')">
+                                    <input type='file' accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'pancard')">
                                     </label>
                                     </div>
                                     <div *ngIf="pancard != ''">
