@@ -658,6 +658,16 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             }
         }
     }
+    public passportValidation(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[1-9A-Z]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
 
     public dobkeyPress(event: any) {
         if (event.charCode !== 0) {
@@ -1548,12 +1558,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             //         this.summaryData.proposer_insurer_details.occ_name =  this.personalClassDescription[i].occ_name;
             //     }
             // }
-// nominee relationShip
-            for( let i=0; i < this.relationshipList.length; i++) {
-                if(this.summaryData.proposer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
-                    this.summaryData.proposer_details.relationship_name =  this.relationshipList[i].relationship_name;
-                }
-            }
+// // nominee relationShip
+//             for( let i=0; i < this.relationshipList.length; i++) {
+//                 if(this.summaryData.proposer_details.nominee_relationship == this.relationshipList[i].relationship_code) {
+//                     this.summaryData.proposer_details.relationship_name =  this.relationshipList[i].relationship_name;
+//                 }
+//             }
 
         } else {
             this.toastr.error(successData.ErrorObject);

@@ -440,7 +440,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                     'ApplMiddleName': this.hdfcpersonalValues.midname,
                     'ApplLastName': this.hdfcpersonalValues.lastname,
                     'ApplDOB': this.datepipe.transform(this.hdfcpersonalValues.dob, 'dd/MM/yyyy'),
-                    'ApplGender': this.hdfcpersonalValues.gender,
+                    'ApplGender': this.hdfcpersonalValues.gender == 'Male'? 'M':'F',
                     'Address1': this.hdfcpersonalValues.address1,
                     'Address2': this.hdfcpersonalValues.address2,
                     'Address3': this.hdfcpersonalValues.address3,
@@ -466,7 +466,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                         'LastName': this.hdfcpersonalValues.lastname,
                         'DOB':this.datepipe.transform(this.hdfcpersonalValues.dob, 'dd/MM/yyyy'),
                         'RelationShip': "I",//Static
-                        'Gender': this.hdfcpersonalValues.gender,
+                        'Gender': this.hdfcpersonalValues.gender == 'Male' ? 'M' : 'F',
                         'NomineeName': this.nomineeDetails.controls['nomineeName'].value,
                         'NomineeRelationship': this.nomineeDetails.controls['nomineeRelationship'].value,//Master
                         'PreExistingDisease': this.hdfcpersonalValues.preexisting,

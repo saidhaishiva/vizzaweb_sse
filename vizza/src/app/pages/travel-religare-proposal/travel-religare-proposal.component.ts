@@ -859,6 +859,7 @@ public isDisable: boolean;
             let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {
                 'platform': 'web',
+                'policy_type': 'SFG',
                 'proposal_id': '0',
                 'product_id': this.getTravelPremiumList.product_id,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
@@ -890,6 +891,17 @@ public isDisable: boolean;
                 'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
+                'sponser_dob':'09/08/1992',
+                'sponser_name':'sJJ',
+                'student_relationship':'BOTH',
+                'university_name':'asf',
+                'address':'ASF',
+                'title':'MR',
+                'course_details':'parama',
+                'field11':'lastname11',
+                'university_address':'asd',
+                'gfirstname':'siva',
+                'glastname':'siva'
 
             };
 
