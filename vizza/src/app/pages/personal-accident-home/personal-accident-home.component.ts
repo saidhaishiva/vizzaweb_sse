@@ -108,6 +108,16 @@ reset(){
     this.Age = '';
     this.AnnualIncomeP = '';
 }
+
+public annualIncome(){
+    if (this.AnnualIncomeP == '0') {
+        this.annualerror = true;
+    }else if(this.AnnualIncomeP == this.AnnualIncomeP.value) {
+        this.annualerror = false;
+    }else{
+        this.annualerror = false;
+    }
+}
     public keyPress(event: any) {
         sessionStorage.pincoceP = this.pincoceP;
         sessionStorage.occupationP = this.occupationP;
