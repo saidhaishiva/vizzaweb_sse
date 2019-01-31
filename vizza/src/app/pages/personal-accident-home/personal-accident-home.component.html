@@ -31,7 +31,7 @@
             <mat-form-field class="w-100">
               <input matInput  placeholder="ANNUAL INCOME" name="annualincome"  [(ngModel)]="AnnualIncomeP" (keypress)="keyPress($event)" autocomplete="off" >
             </mat-form-field>
-            <div *ngIf="annualerror" class="ngError">AnnualIncome Required</div>
+            <div *ngIf="annualerror" class="ngError">Annual Income Required</div>
 
             <mat-form-field class="w-100">
               <input matInput  placeholder="AGE" name="age"  [(ngModel)]="Age" (keypress)="keyPress($event)" maxlength="3" autocomplete="off">
