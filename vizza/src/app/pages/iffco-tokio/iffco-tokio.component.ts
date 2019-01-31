@@ -41,8 +41,9 @@ export class IffcoTokioComponent implements OnInit {
     public proposer: FormGroup;
     public summary: FormGroup;
     public insureArray: FormGroup;
-    public nomineeDetails: FormGroup;
     public previousInsuranceFrom: FormGroup;
+    public riskDetails: FormGroup;
+    public nomineeDetails: FormGroup;
     public setDate: any;
     public selectDate: any;
     public stopNext: boolean;
@@ -74,6 +75,7 @@ export class IffcoTokioComponent implements OnInit {
 
     public getStepper1: any;
     public getStepper2: any;
+    public getStepper3: any;
     public getNomineeData: any;
     public prevviousInsuranceStepperDetails: any;
 
@@ -124,6 +126,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerPhone: '',
             proposerMarital: ['', Validators.required],
             proposerOccupation: ['', Validators.required],
+            proposerRelationship: ['', Validators.required],
             proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
             proposerAddress: ['',Validators.required],
             proposerAddress2:'',
@@ -164,6 +167,16 @@ export class IffcoTokioComponent implements OnInit {
             nomineeCity: ['', Validators.required],
             nomineeArea: ['', Validators.required],
             nearestLandMark: ''
+        });
+        this.riskDetails = this.fb.group({
+            serviceTax: 'No',
+            ServicesTaxId: '',
+            relianceAda: 'No',
+            companyname: '',
+            employeeCode: '',
+            emailId:'',
+            crossSell: 'No',
+            crossSellPolicyNo: '',
         });
     }
 
@@ -227,7 +240,7 @@ export class IffcoTokioComponent implements OnInit {
                 proposerGender: ['', Validators.compose([Validators.required])],
                 proposerAge: ['', Validators.compose([Validators.required])],
                 proposerMaritalStatus: ['', Validators.compose([Validators.required])],
-                proposerrelationship: ['', Validators.required],
+                proposerRelationship: ['', Validators.required],
                 proposerOccupation: ['', Validators.required],
                 proposerHeight: ['', Validators.required],
                 proposerWeight: ['', Validators.required],
@@ -633,6 +646,7 @@ export class IffcoTokioComponent implements OnInit {
                 proposerPhone: this.getStepper1.proposerPhone,
                 proposerMarital: this.getStepper1.proposerMarital,
                 proposerOccupation: this.getStepper1.proposerOccupation,
+                proposerRelationship: this.getStepper1.proposerRelationship,
                 proposerPan: this.getStepper1.proposerPan,
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
@@ -644,12 +658,12 @@ export class IffcoTokioComponent implements OnInit {
 
             });
 
-            if (this.getStepper1.personalPincode != '') {
-                this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
+            if (this.getStepper1.proposerPincode != '') {
+                this.commonPincode(this.getStepper1.proposerPincode, 'proposalP');
                 setTimeout(() =>{
                     if(this.getStepper1.sameas == true) {
                         // this.inputReadonly = true;
-                        this.commonPincode(this.getStepper1.personalPincode, 'proposalR');
+                        this.commonPincode(this.getStepper1.proposerPincode, 'proposalR');
                     } else if(this.getStepper1.sameas == false) {
                         this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
                     }
@@ -671,7 +685,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getStepper2.items[i].proposerAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.getStepper2.items[i].proposerLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationship.patchValue(this.getStepper2.items[i].proposerrelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue(this.getStepper2.items[i].proposerRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.patchValue(this.getStepper2.items[i].proposerOccupation);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
@@ -693,6 +707,21 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
             }
+        }
+
+        if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
+
+            this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+            this.riskDetails = this.fb.group({
+                serviceTax: this.getStepper3.serviceTax,
+                ServicesTaxId: this.getStepper3.ServicesTaxId,
+                relianceAda: this.getStepper3.relianceAda,
+                companyname: this.getStepper3.companyname,
+                employeeCode: this.getStepper3.employeeCode,
+                emailId: this.getStepper3.emailId,
+                crossSell: this.getStepper3.crossSell,
+                crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
+            });
         }
 
         // if (sessionStorage.nomineeAreaList != '' && sessionStorage.nomineeAreaList != undefined) {
@@ -744,33 +773,33 @@ export class IffcoTokioComponent implements OnInit {
             });
         }
     }
-    // sameProposer(value: any) {
-    //     if (value.checked) {
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue(this.personal.controls['personalMidname'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue(sessionStorage.personalAge);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.personal.controls['maritalStatus'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('345');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-    //
-    //         let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(getDob);
-    //     } else {
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalMidname.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalAge.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-    //         this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-    //     }
-    // }
+    sameProposer(value: any) {
+        if (value.checked) {
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAge);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerMaritalStatus.patchValue(this.proposer.controls['proposerMaritalStatus'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('345');
+            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
+
+            let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
+        } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+        }
+    }
 }
