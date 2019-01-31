@@ -340,7 +340,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="^([A-Z]){1}([1-9]){7}?$" autocomplete="off">
+                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
 
