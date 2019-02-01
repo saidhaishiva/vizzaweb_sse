@@ -25,6 +25,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     public personalaccidents: FormGroup;
     public settings: Settings;
+    public annualErrorMessage: any;
     setArray: any;
     closeIcon: boolean;
     occerror: boolean;
@@ -111,10 +112,9 @@ reset(){
 
 public annualIncome(){
     if (this.AnnualIncomeP == '0') {
-        this.annualerror = true;
-    }else if(this.AnnualIncomeP == this.AnnualIncomeP.value) {
-        this.annualerror = false;
+        this.annualErrorMessage = true;
     }else{
+        this.annualErrorMessage = false;
         this.annualerror = false;
     }
 }
@@ -268,10 +268,7 @@ public annualIncome(){
         }
         if (this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP == '0') {
             this.annualerror = true;
-        }else if(this.AnnualIncomeP == this.AnnualIncomeP.value) {
-            this.annualerror = false;
-        }
-        else {
+        } else {
             this.annualerror = false;
         }
         if (this.Age == '' || this.Age == undefined) {

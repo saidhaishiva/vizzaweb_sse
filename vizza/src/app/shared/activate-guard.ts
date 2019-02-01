@@ -9,12 +9,9 @@ export class ExamactivateGuard implements CanActivate {
     const status = this.auth.getSessionData('trainingStatus');
         console.log(status, 'status');
         const examStatus = sessionStorage.examStatus;
-        console.log(sessionStorage.examStatus, 'examStatus');
 
         if (status == '1') {
-            return true;
-        } else if (examStatus == '2' || examStatus == '1') {
-            return false;
+                return true;
         } else {
             alert("Please complete training before applying the exam");
             return false;

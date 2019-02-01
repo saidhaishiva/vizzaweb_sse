@@ -103,6 +103,8 @@ import {TravelHdfcProposalComponent} from './pages/travel-hdfc-proposal/travel-h
 import {TravelShriramPaymentSuccessComponent} from './pages/travel-shriram-payment-success/travel-shriram-payment-success.component';
 import {HdfcTravelPaymentSuccessComponent} from './pages/hdfc-travel-payment-success/hdfc-travel-payment-success.component';
 import {TravelReligarePaymentSuccessComponent} from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
+import {DmresultdeactivatetimeGuard} from './shared/dmresultdeactivatetime-guard';
+import {ResultDeactivateGuard} from './shared/resultdeactivate-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -169,8 +171,8 @@ export const routes: Routes = [
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare-health-proposal', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' } },
-            { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' } },
-            { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' } },
+            { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },
+            { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [DmresultdeactivatetimeGuard]},
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
             { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard], canActivate: [ExamactivateGuard] },
             { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
