@@ -171,7 +171,7 @@ export const routes: Routes = [
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' } },
             { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' } },
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
-            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard] },
+            { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' }, canDeactivate: [ExamdeactivatetimeGuard], canActivate: [ExamactivateGuard] },
             { path: 'training', component: TrainingComponent, data: { breadcrumb: 'Training' }, canDeactivate: [DeactivatetimeGuard] },
             { path: 'personalaccident', component: PersonalaccidentComponent, data: {breadcrumb: 'Personal Accident'} },
             { path: 'travel', component: TravelHomeComponent, data: {breadcrumb: 'Travel' } },

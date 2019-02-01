@@ -97,8 +97,7 @@ export class DmRegisterComponent implements OnInit {
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
                 referralconduct: ['', Validators.compose( [ Validators.pattern('[6789][0-9]{9}')])],
-                profile: ['',Validators.compose( [Validators.required])]
-
+                profile: ''
             }),
             contacts: this.fb.group({
                 email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -111,13 +110,13 @@ export class DmRegisterComponent implements OnInit {
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
                 pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
-                aadharfront: ['',Validators.compose( [Validators.required])],
-                aadharback: ['',Validators.compose( [Validators.required])],
-                pancard: ['',Validators.compose( [Validators.required])]
+                aadharfront: '',
+                aadharback: '',
+                pancard: ''
             }),
             education: this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
-                educationdocument:['', Validators.compose( [Validators.required])]
+                educationdocument: ''
 
             }),
             bankdetails: this.fb.group({
@@ -125,7 +124,7 @@ export class DmRegisterComponent implements OnInit {
                 bankbranch: ['', Validators.compose([Validators.required])],
                 ifsccode: ['', Validators.compose([Validators.required])],
                 accountnumber: ['', Validators.compose([Validators.required])],
-                chequeleaf:['', Validators.compose( [Validators.required])]
+                chequeleaf: ''
             })
         });
         this.aadharfront = '';
@@ -148,9 +147,66 @@ export class DmRegisterComponent implements OnInit {
     public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         this.selectedIndex = tabChangeEvent.index;
     }
-    public nextStep() {
-        this.selectedIndex += 1;
+
+    public nextStep(type) {
+        if(type == 'first') {
+            if(this.form.controls.personal.valid) {
+                if(this.profile != '') {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please upload profile image');
+                }
+            }
+        } else if(type == 'second') {
+            if(this.form.controls.contacts.valid) {
+                if (!this.pincodeErrors) {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please enter valid pincode');
+                }
+            }
+        } else if(type == 'third') {
+            if(this.form.controls.documents.valid) {
+                let validDoc = false;
+                if(this.aadharfront !='') {
+                    validDoc = true;
+                }else {
+                    validDoc = false;
+                    this.toastr.error('Please upload aadhar front');
+                }
+                if(this.aadharback !='') {
+                    validDoc = true;
+                } else {
+                    validDoc = false;
+                    this.toastr.error('Please upload aadhar back');
+                }
+                if(this.pancard !='') {
+                    validDoc = true;
+                } else {
+                    validDoc = false;
+                    this.toastr.error('Please upload pancard image');
+                }
+                if(validDoc) {
+                    this.selectedIndex += 1;
+                }
+
+            }
+
+        } else if(type == 'fourth') {
+            if(this.form.controls.education.valid) {
+                if(this.education != '') {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please upload qualification image');
+                }
+            }
+        } else if(type == 'start') {
+            this.selectedIndex += 1;
+
+        }
+
     }
+
     public previousStep() {
         this.selectedIndex -= 1;
     }
@@ -173,7 +229,7 @@ export class DmRegisterComponent implements OnInit {
                 reader.readAsDataURL(event.target.files[i]);
             }
         } else {
-            this.size = event.srcElement.files[0].size;
+            // this.size = event.srcElement.files[0].size;
             if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
@@ -288,44 +344,46 @@ export class DmRegisterComponent implements OnInit {
         } else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
+            if(this.form.controls.bankdetails.valid) {
 
-            const data = {
-                'platform': 'web',
-                'dm_hidden_id': '',
-                'dm_referralcode': this.form.value['personal']['referralconduct'],
-                'dm_firstname': this.form.value['personal']['firstname'],
-                'dm_lastname': this.form.value['personal']['lastname'],
-                'dm_gender': this.form.value['personal']['gender'],
-                'dm_dob': this.dob,
-                'dm_mobileno': this.form.value['contacts']['phone1'],
-                'dm_alternate_mobileno': this.form.value['contacts']['phone2'],
-                'dm_email': this.form.value['contacts']['email'],
-                'dm_address1': this.form.value['contacts']['address1'],
-                'dm_address2': this.form.value['contacts']['address2'],
-                'dm_postalcode': this.form.value['contacts']['pincode'],
-                'dm_aadhar_no': this.form.value['documents']['aadharnumber'],
-                'dm_pan_no': this.form.value['documents']['pannumber'],
-                'dm_profile_img': this.profile == undefined ? '' : this.profile,
-                'dm_aadhar_front_img': this.aadharfront,
-                'dm_aadhar_back_img': this.aadharback,
-                'dm_pan_img': this.pancard,
-                'check_leaf_upload_img': this.chequeleaf,
-                'dm_education': this.form.value['education']['qualification'],
-                'dm_education_doc_img': this.education,
-                'bank_name': this.form.value['bankdetails']['bankname'],
-                'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
-                'branch_name': this.form.value['bankdetails']['bankbranch'],
-                'ifsc_code': this.form.value['bankdetails']['ifsccode']
-            };
-            this.settings.loadingSpinner = true;
-            this.login.dmSignUp(data).subscribe(
-                (successData) => {
-                    this.signUpSuccess(successData);
-                },
-                (error) => {
-                    this.signUpFailure(error);
-                }
-            );
+                const data = {
+                    'platform': 'web',
+                    'dm_hidden_id': '',
+                    'dm_referralcode': this.form.value['personal']['referralconduct'],
+                    'dm_firstname': this.form.value['personal']['firstname'],
+                    'dm_lastname': this.form.value['personal']['lastname'],
+                    'dm_gender': this.form.value['personal']['gender'],
+                    'dm_dob': this.dob,
+                    'dm_mobileno': this.form.value['contacts']['phone1'],
+                    'dm_alternate_mobileno': this.form.value['contacts']['phone2'],
+                    'dm_email': this.form.value['contacts']['email'],
+                    'dm_address1': this.form.value['contacts']['address1'],
+                    'dm_address2': this.form.value['contacts']['address2'],
+                    'dm_postalcode': this.form.value['contacts']['pincode'],
+                    'dm_aadhar_no': this.form.value['documents']['aadharnumber'],
+                    'dm_pan_no': this.form.value['documents']['pannumber'],
+                    'dm_profile_img': this.profile == undefined ? '' : this.profile,
+                    'dm_aadhar_front_img': this.aadharfront,
+                    'dm_aadhar_back_img': this.aadharback,
+                    'dm_pan_img': this.pancard,
+                    'check_leaf_upload_img': this.chequeleaf,
+                    'dm_education': this.form.value['education']['qualification'],
+                    'dm_education_doc_img': this.education,
+                    'bank_name': this.form.value['bankdetails']['bankname'],
+                    'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
+                    'branch_name': this.form.value['bankdetails']['bankbranch'],
+                    'ifsc_code': this.form.value['bankdetails']['ifsccode']
+                };
+                this.settings.loadingSpinner = true;
+                this.login.dmSignUp(data).subscribe(
+                    (successData) => {
+                        this.signUpSuccess(successData);
+                    },
+                    (error) => {
+                        this.signUpFailure(error);
+                    }
+                );
+            }
         }
     }
 
@@ -353,7 +411,7 @@ export class DmRegisterComponent implements OnInit {
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9 ]/;
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -365,7 +423,7 @@ export class DmRegisterComponent implements OnInit {
 
     public dobkeyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern = /[0-9/\\]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -458,6 +516,15 @@ export class DmRegisterComponent implements OnInit {
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /^[a-zA-Z_\-]+$/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public typeValidate(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /^[a-zA-Z_\-().,\s]+$/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

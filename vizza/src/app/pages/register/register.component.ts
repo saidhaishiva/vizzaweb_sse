@@ -102,7 +102,7 @@ export class RegisterComponent implements OnInit {
                 birthday: ['', Validators.compose([Validators.required])],
                 gender: ['', Validators.compose([Validators.required])],
                 referralconduct: ['', Validators.compose( [ Validators.pattern('[6789][0-9]{9}')])],
-                profile: ['',Validators.compose( [Validators.required])]
+                profile: ''
 
             }),
             contacts: this.fb.group({
@@ -116,13 +116,13 @@ export class RegisterComponent implements OnInit {
             documents: this.fb.group({
                 aadharnumber: ['', Validators.compose([Validators.required])],
                 pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
-                aadharfront: ['',Validators.compose( [Validators.required])],
-                aadharback: ['',Validators.compose( [Validators.required])],
-                pancard: ['',Validators.compose( [Validators.required])]
+                aadharfront: '',
+                aadharback: '',
+                pancard: '',
             }),
             education: this.fb.group({
                 qualification: ['', Validators.compose([Validators.required])],
-                educationdocument:['', Validators.compose( [Validators.required])]
+                educationdocument:'',
 
             }),
             bankdetails: this.fb.group({
@@ -130,7 +130,7 @@ export class RegisterComponent implements OnInit {
                 bankbranch: ['', Validators.compose([Validators.required])],
                 ifsccode: ['', Validators.compose([Validators.required])],
                 accountnumber: ['', Validators.compose([Validators.required])],
-                chequeleaf:['', Validators.compose( [Validators.required])]
+                chequeleaf: ''
             })
         });
         this.aadharfront = '';
@@ -155,8 +155,63 @@ export class RegisterComponent implements OnInit {
         this.selectedIndex = tabChangeEvent.index;
     }
 
-    public nextStep() {
-        this.selectedIndex += 1;
+    public nextStep(type) {
+        if(type == 'first') {
+            if(this.form.controls.personal.valid) {
+                if(this.profile != '') {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please upload profile image');
+                }
+            }
+        } else if(type == 'second') {
+            if(this.form.controls.contacts.valid) {
+                if (!this.pincodeErrors) {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please enter valid pincode');
+                }
+            }
+        } else if(type == 'third') {
+            if(this.form.controls.documents.valid) {
+                let validDoc = false;
+                if(this.aadharfront !='') {
+                    validDoc = true;
+                }else {
+                    validDoc = false;
+                    this.toastr.error('Please upload aadhar front');
+                }
+                if(this.aadharback !='') {
+                    validDoc = true;
+                } else {
+                    validDoc = false;
+                    this.toastr.error('Please upload aadhar back');
+                }
+                if(this.pancard !='') {
+                    validDoc = true;
+                } else {
+                    validDoc = false;
+                    this.toastr.error('Please upload pancard image');
+                }
+                if(validDoc) {
+                    this.selectedIndex += 1;
+                }
+
+            }
+
+        } else if(type == 'fourth') {
+            if(this.form.controls.education.valid) {
+                if(this.education != '') {
+                    this.selectedIndex += 1;
+                } else {
+                    this.toastr.error('Please upload qualification image');
+                }
+            }
+        } else if(type == 'start') {
+            this.selectedIndex += 1;
+
+        }
+
     }
 
     public previousStep() {
@@ -185,6 +240,7 @@ export class RegisterComponent implements OnInit {
     readUrl(event: any, type) {
         this.type = type;
         this.getUrl = '';
+        console.log(event.target.files, 'event.target.files[i].files');
         if (type == 'education') {
             let getUrlEdu = [];
             this.fileDetails = [];
@@ -201,7 +257,7 @@ export class RegisterComponent implements OnInit {
                 reader.readAsDataURL(event.target.files[i]);
             }
         } else {
-            this.size = event.srcElement.files[0].size;
+           // this.size = event.srcElement.files[0].size;
             if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
@@ -324,44 +380,47 @@ export class RegisterComponent implements OnInit {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
         } else {
 
-            const data = {
-                'platform': 'web',
-                'pos_hidden_id': '',
-                'pos_referralcode': this.form.value['personal']['referralconduct'],
-                'pos_firstname': this.form.value['personal']['firstname'],
-                'pos_lastname': this.form.value['personal']['lastname'],
-                'pos_gender': this.form.value['personal']['gender'],
-                'pos_dob': this.dob,
-                'pos_mobileno': this.form.value['contacts']['phone1'],
-                'pos_alternate_mobileno': this.form.value['contacts']['phone2'],
-                'pos_email': this.form.value['contacts']['email'],
-                'pos_address1': this.form.value['contacts']['address1'],
-                'pos_address2': this.form.value['contacts']['address2'],
-                'pos_postalcode': this.form.value['contacts']['pincode'],
-                'pos_aadhar_no': this.form.value['documents']['aadharnumber'],
-                'pos_pan_no': this.form.value['documents']['pannumber'],
-                'pos_profile_img': this.profile == undefined ? '' : this.profile,
-                'pos_aadhar_front_img': this.aadharfront,
-                'pos_aadhar_back_img': this.aadharback,
-                'pos_pan_img': this.pancard,
-                'check_leaf_upload_img': this.chequeleaf,
-                'pos_education': this.form.value['education']['qualification'],
-                'pos_education_doc_img': this.education,
-                'bank_name': this.form.value['bankdetails']['bankname'],
-                'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
-                'branch_name': this.form.value['bankdetails']['bankbranch'],
-                'ifsc_code': this.form.value['bankdetails']['ifsccode']
-            };
-            console.log(data, 'dattatta');
-            this.settings.loadingSpinner = true;
-            this.login.signUp(data).subscribe(
-                (successData) => {
-                    this.signUpSuccess(successData);
-                },
-                (error) => {
-                    this.signUpFailure(error);
-                }
-            );
+            if(this.form.controls.bankdetails.valid) {
+
+                const data = {
+                    'platform': 'web',
+                    'pos_hidden_id': '',
+                    'pos_referralcode': this.form.value['personal']['referralconduct'],
+                    'pos_firstname': this.form.value['personal']['firstname'],
+                    'pos_lastname': this.form.value['personal']['lastname'],
+                    'pos_gender': this.form.value['personal']['gender'],
+                    'pos_dob': this.dob,
+                    'pos_mobileno': this.form.value['contacts']['phone1'],
+                    'pos_alternate_mobileno': this.form.value['contacts']['phone2'],
+                    'pos_email': this.form.value['contacts']['email'],
+                    'pos_address1': this.form.value['contacts']['address1'],
+                    'pos_address2': this.form.value['contacts']['address2'],
+                    'pos_postalcode': this.form.value['contacts']['pincode'],
+                    'pos_aadhar_no': this.form.value['documents']['aadharnumber'],
+                    'pos_pan_no': this.form.value['documents']['pannumber'],
+                    'pos_profile_img': this.profile == undefined ? '' : this.profile,
+                    'pos_aadhar_front_img': this.aadharfront,
+                    'pos_aadhar_back_img': this.aadharback,
+                    'pos_pan_img': this.pancard,
+                    'check_leaf_upload_img': this.chequeleaf,
+                    'pos_education': this.form.value['education']['qualification'],
+                    'pos_education_doc_img': this.education,
+                    'bank_name': this.form.value['bankdetails']['bankname'],
+                    'bank_acc_no': this.form.value['bankdetails']['accountnumber'],
+                    'branch_name': this.form.value['bankdetails']['bankbranch'],
+                    'ifsc_code': this.form.value['bankdetails']['ifsccode']
+                };
+                console.log(data, 'dattatta');
+                this.settings.loadingSpinner = true;
+                this.login.signUp(data).subscribe(
+                    (successData) => {
+                        this.signUpSuccess(successData);
+                    },
+                    (error) => {
+                        this.signUpFailure(error);
+                    }
+                );
+            }
         }
     }
 
@@ -391,7 +450,7 @@ export class RegisterComponent implements OnInit {
 
     public keyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9 ]/;
+            const pattern = /[0-9]/;
             const inputChar = String.fromCharCode(event.charCode);
 
             if (!pattern.test(inputChar)) {
@@ -403,7 +462,7 @@ export class RegisterComponent implements OnInit {
 
     public dobkeyPress(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
+            const pattern = /[0-9/\\]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
@@ -499,6 +558,15 @@ export class RegisterComponent implements OnInit {
     public data(event: any) {
         if (event.charCode !== 0) {
             const pattern = /^[a-zA-Z_\-]+$/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public typeValidate(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /^[a-zA-Z_\-().,\s]+$/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

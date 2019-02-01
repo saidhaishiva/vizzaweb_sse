@@ -43,22 +43,23 @@ export class DmConfirmpasswordComponent implements OnInit {
     }
 
     changePassword() {
-        this.settings.loadingSpinner = true;
-        const data = {
-            'mobilenumber': this.form.controls['mobilenumber'].value,
-            'otp': this.form.controls['otp'].value,
-            'password': this.form.controls['newpassword'].value,
-            'platform': 'web',
-        };
-
-        this.loginService.changeDmPassword(data).subscribe(
-            (successData) => {
-                this.changePasswordSuccess(successData);
-            },
-            (error) => {
-                this.changePasswordFailure(error);
-            }
-        );
+        if(this.form.valid) {
+            const data = {
+                'mobilenumber': this.form.controls['mobilenumber'].value,
+                'otp': this.form.controls['otp'].value,
+                'password': this.form.controls['newpassword'].value,
+                'platform': 'web',
+            };
+            this.settings.loadingSpinner = true;
+            this.loginService.changeDmPassword(data).subscribe(
+                (successData) => {
+                    this.changePasswordSuccess(successData);
+                },
+                (error) => {
+                    this.changePasswordFailure(error);
+                }
+            );
+        }
     }
 
     public changePasswordSuccess(successData) {

@@ -1246,6 +1246,15 @@ export class DmProfileComponent implements OnInit {
             }
         }
     }
+    public typeValidate(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /^[a-zA-Z_\-().,\s]+$/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     changeEdit(value, key){
         if (key == 'edit') {
             this.disabledList = true;

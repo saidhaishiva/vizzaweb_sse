@@ -99,7 +99,7 @@
                     </mat-form-field>
 
                     <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" required>
+                      <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YYYY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
                       <mat-datepicker  #birthday></mat-datepicker>
                       <mat-error *ngIf="personaledit.controls.birthday.errors?.required">Dob is required</mat-error>
@@ -374,7 +374,7 @@
               <mat-card *ngIf="educationEdit">
                 <form [formGroup]="educationlist" class="mt-registration">
                   <mat-form-field class="w-100">
-                    <textarea matInput #message maxlength="300" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
+                    <textarea matInput #message maxlength="300" (keypress)="typeValidate($event)" placeholder="Qualification" rows="3" formControlName="qualification"></textarea>
                     <mat-hint align="end">{{message.value.length}} /300</mat-hint></mat-form-field>
                   <div>
                     <p><span class="imglabel" *ngIf=" personalshow.doc_verified_status != 2"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span></p>

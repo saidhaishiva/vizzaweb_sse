@@ -21,7 +21,7 @@
             </ul>
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
-              <button color="primary" mat-raised-button (click)="nextStep()" type="button">Ok</button>
+              <button color="primary" mat-raised-button (click)="nextStep('start')" type="button">Ok</button>
             </div>
           </mat-tab>
 
@@ -38,7 +38,7 @@
             </mat-form-field>
 
             <mat-form-field class="w-100" >
-              <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" minlength="10" required>
+              <input matInput [matDatepicker]="birthday" [max]="today" formControlName="birthday" placeholder="Date of Birth(DD/MM/YYYY)" (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)" (keypress)="dobkeyPress($event)" autocomplete="off" maxlength="10" minlength="10" required>
               <mat-datepicker-toggle matSuffix [for]="birthday" ></mat-datepicker-toggle>
               <mat-datepicker  #birthday ></mat-datepicker>
               <mat-error *ngIf="form.controls.personal['controls'].birthday.errors?.required">Dob is required</mat-error>
@@ -72,7 +72,10 @@
             <!--<mat-error *ngIf="form.controls.personal.controls.referralconduct.hasError('pattern')">Referral Contact Number is Not Valid</mat-error>-->
             <!--</mat-form-field>-->
             <!--<div class="error" *ngIf="mismatchError != ''">{{mismatchError}}</div>-->
-
+            <div class="w-100">
+              <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
+              </p>
+            </div>
             <div class="w-100 mt-2">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'profile')" formControlName="profile"   aria-describedby="inputGroupFileAddon01">
@@ -92,7 +95,7 @@
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
               <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
               <button color="primary" mat-raised-button  [hidden]="nectStatus"  disabled>Next</button>
-              <button color="primary" mat-raised-button (click)="nextStep()"  *ngIf="nectStatus" [disabled]="!form.controls.personal.valid" type="button">Next</button>
+              <button color="primary" mat-raised-button (click)="nextStep('first')"  *ngIf="nectStatus" type="button">Next</button>
 
             </div>
           </mat-tab>
@@ -151,7 +154,7 @@
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
               <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-              <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.contacts.valid || pincodeErrors" type="button">Next</button>
+              <button color="primary" mat-raised-button (click)="nextStep('second')"  type="button">Next</button>
             </div>
           </mat-tab>
 
@@ -218,13 +221,13 @@
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
               <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-              <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.documents.valid" type="button">Next</button>
+              <button color="primary" mat-raised-button (click)="nextStep('third')" type="button">Next</button>
             </div>
           </mat-tab>
 
           <mat-tab label="Education" formGroupName="education">
             <mat-form-field class="w-100">
-              <textarea matInput #message maxlength="300" required (keypress)="data($event)" placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
+              <textarea matInput #message maxlength="300" required (keypress)="typeValidate($event)" placeholder="Highest Education Qualification" rows="3" formControlName="qualification" autocomplete="off"></textarea>
               <mat-hint align="end">{{message.value.length}} /300</mat-hint>
               <mat-error *ngIf="form.controls.education['controls'].qualification.hasError('required')">Educational details required</mat-error>
             </mat-form-field>
@@ -250,7 +253,7 @@
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
               <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-              <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+              <button color="primary" mat-raised-button (click)="nextStep('fourth')" type="button">Next</button>
             </div>
           </mat-tab>
           <mat-tab label="Bank Details" formGroupName="bankdetails">
@@ -294,13 +297,13 @@
             <hr>
             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
               <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-              <button color="primary" mat-raised-button (click)="submit(form.value)" [disabled]="!form.valid"  type="button">Save</button>
+              <button color="primary" mat-raised-button (click)="submit(form.value)" type="button">Save</button>
             </div>
           </mat-tab>
         </mat-tab-group>
 
         <div class="login-options">
-          <div><span>Already You have an account ? </span> <a [routerLink]="['/pos']"> Login</a></div>
+          <div><span>Already You have an account ? </span> <a [routerLink]="['/dm-login']"> Login</a></div>
         </div>
       </mat-card>
 

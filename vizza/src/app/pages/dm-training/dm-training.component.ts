@@ -239,10 +239,14 @@ export class DmTrainingComponent implements OnInit {
             h = h < 10 ? 0 + h : h;
             m = m < 10 ? 0 + m : m;
             if (this.trainingStatus !=1) {
+                console.log(h + ':' + m + ':' + seconds, 'left time1111');
+                console.log(sessionStorage.dmCheckoutTime, 'sessionStorage.dmCheckoutTime');
+
                 if (sessionStorage.dmCheckoutTime != '' && sessionStorage.dmCheckoutTime != undefined) {
                     document.getElementById('timer').innerHTML = sessionStorage.dmCheckoutTime;
                     this.countdown(840);
                 } else {
+                    console.log(h + ':' + m + ':' + seconds, 'left time');
                     document.getElementById('timer').innerHTML = h + ':' + m + ':' + seconds;
                     this.countdown(840);
 
