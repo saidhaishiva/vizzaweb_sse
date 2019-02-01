@@ -366,21 +366,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
-            console.log(this.insurerData, 'this.insurerData2222');
-            let diseases = [];
-
-            for (let i = 0; i< this.insurerData.length; i++) {
-                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value);
-            }
-            for (let i = 0; i< this.insurerData.length; i++) {
-                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.value);
-            }
-            for (let i = 0; i< this.insurerData.length; i++) {
-                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.value);
-            }
-            for (let i = 0; i< this.insurerData.length; i++) {
-                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.value);
-            }
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
@@ -411,6 +396,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'OtherInsuranceList': ''
                 });
             }
+            //age validation
             let ageValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if ( this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -420,18 +406,21 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
             }
 
-            //     let valiDisease = false;
-            // console.log(this.insureArray, 'this.insureArray2222');
-            // for (let i = 0; i< this.insurerData.length; i++){
-            //    if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value == '') {
-            //        valiDisease = true;
-            //    } else  if(this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.value != ''){
-            //        valiDisease = false;
-            //        break;
-            //    }
-            // }
+            //diseases validation
+            let diseases = [];
 
-            console.log(diseases, 'this.diseasesdiseasesdiseasesdiseases');
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.value);
+            }
+            for (let i = 0; i< this.insurerData.length; i++) {
+                diseases.push(this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.value);
+            }
 
             if(!ageValidate.includes(1)){
                 if(!diseases.includes('Yes')){
@@ -1037,8 +1026,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             let nomineeRelations = JSON.parse(sessionStorage.nomineeAreaList);
             this.nomineeAreaList = nomineeRelations;
         }
-
-
+        
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({

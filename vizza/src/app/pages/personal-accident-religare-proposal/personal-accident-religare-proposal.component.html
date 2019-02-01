@@ -340,12 +340,14 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port" (keypress)="keyEvent($event)"   formControlName="insuredPassPort"  [readonly]="readonlyproposer" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$"   autocomplete="off">
+                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
+                        <mat-error *ngIf="insured.controls.insuredPassPort.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
+
 
                       </mat-form-field></div>
-
-
+                       <!--pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$"-->
+<!---->
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="insuredEmail"  autocomplete="off"  [readonly]="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredEmail.errors?.required">Email ID is required</mat-error>
@@ -782,7 +784,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.relationship_name}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.nominee_relationship}}</li>
                       </ul>
                     </div>
 
