@@ -181,7 +181,7 @@
 
                         <div class="w-100">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="aadharfront" (change)="readUrl($event, 'aadhar front')"   aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label"><span class="error">*</span> Aadhaar Front Image</label>
                             <div class="error" *ngIf !="form.controls.documents['controls'].aadharfront.valid">Aadhaar Front Image is required</div>
                         </div>

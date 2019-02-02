@@ -11,7 +11,7 @@
           <mat-error *ngIf="form.controls.username.hasError('minlength')">Mobile number isn't long enough, minimum of 10 characters</mat-error>
         </mat-form-field >
         <mat-form-field class="w-100">
-          <input matInput placeholder="Password" formControlName="password" required minlength="5" [type]="hide ? 'password' : 'text'">
+          <input matInput placeholder="Password" formControlName="password" required minlength="6" [type]="hide ? 'password' : 'text'">
           <mat-icon style="cursor:pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           <mat-error *ngIf="form.controls.password.errors?.required">Password is required</mat-error>
           <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>

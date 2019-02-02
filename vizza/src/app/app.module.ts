@@ -223,10 +223,13 @@ import { HdfcTravelPaymentSuccessComponent } from './pages/hdfc-travel-payment-s
 import { DownloadMessageHdfcTravel} from './pages/hdfc-travel-payment-success/hdfc-travel-payment-success.component';
 import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
+// import {OrderBy} from '../oderByPipe';
+import {Ng2OrderModule} from 'ng2-order-pipe';
 
 @NgModule({
   imports: [
     BrowserModule,
+      Ng2OrderModule,
     BrowserAnimationsModule,
       ToastrModule.forRoot(),
       FormsModule,

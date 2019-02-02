@@ -565,6 +565,16 @@ a:hover {
       line-height: 2;
 
     }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 119px !important;
+      }
+    }
+
   }
   .table-fixed{
     width: 100%;
@@ -601,6 +611,7 @@ a:hover {
       text-align: center;
       border-collapse: collapse;
       border: 1px solid #ccc !important;
+      padding: 0px !important;
     }
     td{
       vertical-align: middle;
@@ -623,7 +634,7 @@ a:hover {
 
     thead th{
       border: none;
-      vertical-align: bottom;
+      vertical-align: text-bottom;
       border-bottom: 2px solid #dee2e6;
       background: #18ccb4;
       color: #fff;

@@ -31,6 +31,7 @@ export class DmExamComponent implements OnInit {
         this.startOnlineExam = false;
         this.selectedData = [];
         this.expired = false;
+        sessionStorage.backDmStatus = 'false';
 
     }
     ngOnInit() {

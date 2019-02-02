@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
+import { Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-dm-viewresult',
@@ -29,7 +31,7 @@ export class DmViewresultComponent implements OnInit {
 
     public settings: Settings;
 
-    constructor(public appSettings: AppSettings) {
+    constructor(public appSettings: AppSettings, public router: Router) {
         this.unAnsweredQuestions = sessionStorage.unAnsweredQuestions;
         this.allQuestions = sessionStorage.dmAllQuestions;
         this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions;
@@ -44,6 +46,11 @@ export class DmViewresultComponent implements OnInit {
 
     ngOnInit() {
         // console.log("hi");
+    }
+    backtotraining(){
+        sessionStorage.backDmStatus = 'true';
+        this.router.navigate(['/dm-profile']);
+
     }
 }
 

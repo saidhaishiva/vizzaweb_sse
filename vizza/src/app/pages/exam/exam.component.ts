@@ -30,6 +30,8 @@ export class ExamComponent implements OnInit {
       this.startOnlineExam = false;
       this.selectedData = [];
       this.expired = false;
+      sessionStorage.backPosStatus = 'false';
+
 
   }
   ngOnInit() {

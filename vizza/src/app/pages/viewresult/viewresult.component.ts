@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSettings} from '../../app.settings';
 import { Settings} from '../../app.settings.model';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-viewresult',
@@ -28,7 +29,8 @@ export class ViewresultComponent implements OnInit {
 
     public settings: Settings;
 
-    constructor(public appSettings: AppSettings) {
+    constructor(public appSettings: AppSettings, public router: Router) {
+
         this.unAnsweredQuestions = sessionStorage.unAnsweredQuestions;
         this.allQuestions = sessionStorage.allQuestions;
         this.answeredQuestions = this.allQuestions - this.unAnsweredQuestions;
@@ -68,6 +70,12 @@ export class ViewresultComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    backtotraining(){
+        sessionStorage.backPosStatus = 'true';
+        this.router.navigate(['/pos-profile']);
+
     }
 }
 

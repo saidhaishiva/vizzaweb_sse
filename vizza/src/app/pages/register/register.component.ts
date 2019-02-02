@@ -163,6 +163,8 @@ export class RegisterComponent implements OnInit {
                 } else {
                     this.toastr.error('Please upload profile image');
                 }
+            } else {
+                this.toastr.error('Please fill in all required fields');
             }
         } else if(type == 'second') {
             if(this.form.controls.contacts.valid) {
@@ -171,6 +173,8 @@ export class RegisterComponent implements OnInit {
                 } else {
                     this.toastr.error('Please enter valid pincode');
                 }
+            } else {
+                this.toastr.error('Please fill in all required fields');
             }
         } else if(type == 'third') {
             if(this.form.controls.documents.valid) {
@@ -197,6 +201,8 @@ export class RegisterComponent implements OnInit {
                     this.selectedIndex += 1;
                 }
 
+            } else {
+                this.toastr.error('Please fill in all required fields');
             }
 
         } else if(type == 'fourth') {
@@ -206,6 +212,8 @@ export class RegisterComponent implements OnInit {
                 } else {
                     this.toastr.error('Please upload qualification image');
                 }
+            } else {
+                this.toastr.error('Please fill in all required fields');
             }
         } else if(type == 'start') {
             this.selectedIndex += 1;

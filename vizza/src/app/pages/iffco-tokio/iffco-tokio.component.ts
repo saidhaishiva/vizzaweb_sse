@@ -268,6 +268,10 @@ export class IffcoTokioComponent implements OnInit {
         );
     }
 
+
+    boolenHide(evnt, i, ii){
+
+    }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
