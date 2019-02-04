@@ -100,7 +100,7 @@
               <tr>
                 <th >
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="FILTER BY COMPANY" [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                    <mat-select placeholder="FILTER BY COMPANY"  [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
                       <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
                     </mat-select>
                   </mat-form-field>

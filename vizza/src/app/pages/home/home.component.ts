@@ -90,9 +90,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        // star health
         sessionStorage.nomineeDate = '';
         sessionStorage.familyMembers = '';
         sessionStorage.stepper1Details = '';
@@ -102,18 +102,7 @@ export class HomeComponent implements OnInit {
         sessionStorage.copaymentShow = '';
         sessionStorage.prevviousInsuranceStepperDetails = '';
         sessionStorage.buyProductdetails = '';
-
-        //personalaccident components
-        sessionStorage.setOccupation = '';
-        sessionStorage.setAge = '';
-        sessionStorage.setAnnualIncome = '';
-        sessionStorage.setPage = '';
-        sessionStorage.sideMenu = false;
-        sessionStorage.setFamilyDetails = '';
-        sessionStorage.setInsuredAmount = '';
-        sessionStorage.setPincode = '';
-        sessionStorage.setPage = '';
-        sessionStorage.policyLists = '';
+        sessionStorage.groupName = '';
         sessionStorage.sideMenu = '';
         sessionStorage.sonBTn = '';
         sessionStorage.daughterBTn = '';
@@ -130,8 +119,22 @@ export class HomeComponent implements OnInit {
         sessionStorage.mobileNumber = '';
         sessionStorage.ageRestriction = '';
         sessionStorage.addonDetails = '';
+
+        // personal accident
+        sessionStorage.setOccupation = '';
+        sessionStorage.setAge = '';
+        sessionStorage.setAnnualIncome = '';
+        sessionStorage.setPage = '';
+        sessionStorage.sideMenu = false;
+        sessionStorage.setFamilyDetails = '';
+        sessionStorage.setInsuredAmount = '';
+        sessionStorage.setPincode = '';
+        sessionStorage.setPage = '';
+        sessionStorage.policyLists = '';
+
+
+
         this.testimonialList();
-        // this.getPolicyTypes();
     }
 
 

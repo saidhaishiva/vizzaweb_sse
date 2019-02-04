@@ -109,6 +109,7 @@ export class StarHealthProposalComponent implements OnInit {
     public inputReadonly: any;
     public previousInsurence: any;
     public nomineeNext: any;
+    public totalClaim: any;
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -225,7 +226,7 @@ export class StarHealthProposalComponent implements OnInit {
                     aage: '',
                     arelationship: '',
                     removeBtn: true,
-                    addBtn: false,
+                    addBtn: true,
                     ageSetting: false,
                     colorStatus: 'red'
 
@@ -328,7 +329,8 @@ export class StarHealthProposalComponent implements OnInit {
         }
 
     }
-    addNominee(value) {
+        addNominee(value) {
+        console.log(this.nomineeDate, 'this.nomineeDatethis.nomineeDatethis.nomineeDate');
         if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
             this.nomineeDate[0].nominee.push({
                 nname: '',
@@ -339,11 +341,14 @@ export class StarHealthProposalComponent implements OnInit {
                 aage: '',
                 arelationship: '',
                 removeBtn: false,
-                addBtn: true,
+                addBtn: false,
                 ageSetting: false,
                 colorStatus: 'green'
 
             });
+            this.nomineeDate[0].nominee[0].addBtn = false;
+
+            //
             this.nomineeAdd = true;
             this.nomineeRemove = false;
         } if (value == 'delete') {
@@ -352,25 +357,24 @@ export class StarHealthProposalComponent implements OnInit {
                 this.nomineeAdd = false;
                 this.nomineeRemove = true;
                 this.nomineeDate[0].nominee[0].removeBtn = true;
-                this.nomineeDate[0].nominee[0].addBtn = false;
+                this.nomineeDate[0].nominee[0].addBtn = true;
             }
         }
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
     }
-    claimPercent(percent) {
-        console.log(this.nomineeDate[0].nominee.length);
+    claimPercent(percent, i, pi) {
         if (this.nomineeDate[0].nominee.length == 1) {
-            if (percent >= 100) {
-                this.nomineeDate[0].nominee[0].addBtn = true;
+            if (this.nomineeDate[0].nominee[0].nclaim >= 100) {
+                this.nomineeDate[0].nominee[0].addBtn = false;
                 this.nomineeNext = false;
             } else {
-                this.nomineeDate[0].nominee[0].addBtn = false;
+                this.nomineeDate[0].nominee[0].addBtn = true;
                 this.nomineeNext = true;
-
             }
-
         } else {
+            this.nomineeNext = false;
+
             this.nomineeAdd = true;
 
         }
@@ -520,11 +524,7 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
-        console.log(value,'fgh');
         if (this.personal.valid) {
-            console.log(value, 'value');
-            console.log(value.socialAnswer1, 'socialllllllll');
-
             if (sessionStorage.proposerAge >= 18) {
                 if(this.personal.controls['socialStatus'].value == true || this.personal.controls['socialStatus'].value == 'true') {
                     if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
@@ -658,6 +658,10 @@ export class StarHealthProposalComponent implements OnInit {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
         } else {
             this.nomineeDate[index].nominee[ci].ageSetting = false;
+            this.nomineeDate[index].nominee[1].aname = '';
+            this.nomineeDate[index].nominee[1].aage = '';
+            this.nomineeDate[index].nominee[1].arelationship = '';
+
         }
     }
     getCityId(title) {
