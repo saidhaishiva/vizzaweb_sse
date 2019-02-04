@@ -8,7 +8,7 @@
             <form [formGroup]="hdfcTravel" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
-                  <mat-panel-title>`
+                  <mat-panel-title>
                     PROPOSER
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -396,7 +396,7 @@
                     <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.tittle}}.{{summaryData.ProposalDetails.fname}} {{summaryData.ProposalDetails.lname}}</li>
+                          <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.tittle}} {{summaryData.ProposalDetails.fname}} {{summaryData.ProposalDetails.mname}}{{summaryData.ProposalDetails.lname}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.gender == 'M'"><strong>Gender:</strong> Male</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.gender == 'F'"><strong>Gender:</strong> Female</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.dob}}</li>
