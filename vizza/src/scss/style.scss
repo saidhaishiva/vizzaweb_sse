@@ -666,7 +666,11 @@ a:hover {
       font-weight: normal;
       font-size: 12px;
     }
+    //health-insurance color white in mat-select-holder
     .myclass{
+      color: #ffffff !important;
+    }
+    .ng-star-inserted{
       color: #ffffff !important;
     }
     .mat-select-arrow{
@@ -675,6 +679,7 @@ a:hover {
     .mat-form-field-underline{
       background-color:#ffffff !important;
     }
+    // ------ health-insurance color End-------
   }
   .mat-tab-label-container{
     margin-bottom: 5px;
