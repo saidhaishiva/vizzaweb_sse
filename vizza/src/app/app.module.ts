@@ -225,6 +225,7 @@ import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-p
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 // import {OrderBy} from '../oderByPipe';
 import {Ng2OrderModule} from 'ng2-order-pipe';
+import { ValidationService} from './shared/services/validation.service';
 
 @NgModule({
   imports: [
@@ -446,6 +447,7 @@ import {Ng2OrderModule} from 'ng2-order-pipe';
       DmresultdeactivatetimeGuard,
       ResultDeactivateGuard,
       DatePipe,
+      ValidationService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

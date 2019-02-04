@@ -7,3 +7,16 @@
   background: #f1eaea !important ;
 }
 
+.table-fixed{
+
+  tbody{
+    height:200px !important;
+    overflow-y:auto !important;
+    width: 100% !important;
+  }
+  thead,tbody,tr,td,th{
+    display:block !important;
+  }
+
+
+}
