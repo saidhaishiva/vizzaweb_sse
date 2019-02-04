@@ -150,6 +150,87 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.sessionData();
 
     }
+    // session Storage
+    sessionData() {
+        if (sessionStorage.hdfcTravelDetails1 != '' && sessionStorage.hdfcTravelDetails1 != undefined) {
+            this.hdfcTravel1 = JSON.parse(sessionStorage.hdfcTravelDetails1);
+            console.log(this.hdfcTravel1, '  this.hdfcTravel1 ');
+            if (this.hdfcTravel1.pincode != '') {
+                this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
+            }
+            this.getPedList();
+
+            this.hdfcTravel = this.fb.group({
+                title: this.hdfcTravel1.title,
+                firstname: this.hdfcTravel1.firstname,
+                middlename: this.hdfcTravel1.middlename,
+                lastname: this.hdfcTravel1.lastname,
+                dob: this.datepipe.transform(this.hdfcTravel1.dob, 'y-MM-dd'),
+                gender: this.hdfcTravel1.gender,
+                address1: this.hdfcTravel1.address1,
+                address2: this.hdfcTravel1.address2,
+                address3: this.hdfcTravel1.address3,
+                pincode: this.hdfcTravel1.pincode,
+                city: this.hdfcTravel1.city,
+                state: this.hdfcTravel1.state,
+                stdcode: this.hdfcTravel1.stdcode,
+                telephoneNo: this.hdfcTravel1.telephoneNo,
+                stdcodeoffice: this.hdfcTravel1.stdcodeoffice,
+                paymentmode: this.hdfcTravel1.paymentmode,
+                telephoneNooffice: this.hdfcTravel1.telephoneNooffice,
+                physicianName: this.hdfcTravel1.physicianName,
+                physicianMobile: this.hdfcTravel1.physicianMobile,
+                email: this.hdfcTravel1.email,
+                declineinsurance: this.hdfcTravel1.declineinsurance,
+                declineReson: this.hdfcTravel1.declineReson,
+                restrictionbyinsurance: this.hdfcTravel1.restrictionbyinsurance,
+                restrictionbyinsurancedetails: this.hdfcTravel1.restrictionbyinsurancedetails,
+                gst: this.hdfcTravel1.gst,
+                sameAsProposer: this.hdfcTravel1.sameAsProposer,
+                mobile: this.hdfcTravel1.mobile,
+                ped: this.hdfcTravel1.ped,
+                rolecd: this.hdfcTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER'
+
+            });
+            this.getCityList(this.hdfcTravel1.city);
+            this.declinereason();
+            this.restrictionReson();
+
+
+        }
+        if (sessionStorage.hdfcTravelDetails2 != '' && sessionStorage.hdfcTravelDetails2 != undefined) {
+            this.hdfcTravel2 = JSON.parse(sessionStorage.hdfcTravelDetails2);
+            console.log(this.hdfcTravel2, '  this.hdfcTravel2 ');
+            this.insuredRelationshipList();
+            for (let i = 0; i < this.hdfcTravel2.items.length; i++) {
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsFirstName.patchValue(this.hdfcTravel2.items[i].InsFirstName);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsLastName.patchValue(this.hdfcTravel2.items[i].InsLastName);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsMiddleName.patchValue(this.hdfcTravel2.items[i].InsMiddleName);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsGender.patchValue(this.hdfcTravel2.items[i].InsGender);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.hdfcTravel2.items[i].InsDOB);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.patchValue(this.hdfcTravel2.items[i].InsuredRelation);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.hdfcTravel2.items[i].InsuredAge);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcTravel2.items[i].insurerDobValidError);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].PassportNo.patchValue(this.hdfcTravel2.items[i].PassportNo);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.hdfcTravel2.items[i].sameAsProposer);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.hdfcTravel2.items[i].sameasreadonly);
+
+
+            }
+            if (this.hdfcTravel2.items[0].sameAsProposer != '' && this.hdfcTravel2.items[0].sameAsProposer != undefined) {
+                this.sameasInsurerDetails();
+            }
+
+        }
+        if (sessionStorage.hdfcTravelDetails3 != '' && sessionStorage.hdfcTravelDetails3 != undefined) {
+            this.hdfcTravel3 = JSON.parse(sessionStorage.hdfcTravelDetails3);
+            this.nomineeTravelDetails = this.fb.group({
+                NomineeName: this.hdfcTravel3.NomineeName,
+                NomineeRelation: this.hdfcTravel3.NomineeRelation
+            });
+        }
+
+    }
 
     // validation
     nameValidate(event: any){
@@ -359,27 +440,6 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     }
 
-    // accept only character
-    // public typeValidate(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[a-zA-Z]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
-
-    // accept only number
-    // public keyPress(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9/]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
 
     declinereason() {
         if (this.hdfcTravel.controls['declineinsurance'].value == 'True') {
@@ -639,87 +699,6 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     }
 
-    // session Storage
-    sessionData() {
-        if (sessionStorage.hdfcTravelDetails1 != '' && sessionStorage.hdfcTravelDetails1 != undefined) {
-            this.hdfcTravel1 = JSON.parse(sessionStorage.hdfcTravelDetails1);
-            console.log(this.hdfcTravel1, '  this.hdfcTravel1 ');
-            if (this.hdfcTravel1.pincode != '') {
-                this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
-            }
-            this.getPedList();
-
-            this.hdfcTravel = this.fb.group({
-                title: this.hdfcTravel1.title,
-                firstname: this.hdfcTravel1.firstname,
-                middlename: this.hdfcTravel1.middlename,
-                lastname: this.hdfcTravel1.lastname,
-                dob: this.datepipe.transform(this.hdfcTravel1.dob, 'y-MM-dd'),
-                gender: this.hdfcTravel1.gender,
-                address1: this.hdfcTravel1.address1,
-                address2: this.hdfcTravel1.address2,
-                address3: this.hdfcTravel1.address3,
-                pincode: this.hdfcTravel1.pincode,
-                city: this.hdfcTravel1.city,
-                state: this.hdfcTravel1.state,
-                stdcode: this.hdfcTravel1.stdcode,
-                telephoneNo: this.hdfcTravel1.telephoneNo,
-                stdcodeoffice: this.hdfcTravel1.stdcodeoffice,
-                paymentmode: this.hdfcTravel1.paymentmode,
-                telephoneNooffice: this.hdfcTravel1.telephoneNooffice,
-                physicianName: this.hdfcTravel1.physicianName,
-                physicianMobile: this.hdfcTravel1.physicianMobile,
-                email: this.hdfcTravel1.email,
-                declineinsurance: this.hdfcTravel1.declineinsurance,
-                declineReson: this.hdfcTravel1.declineReson,
-                restrictionbyinsurance: this.hdfcTravel1.restrictionbyinsurance,
-                restrictionbyinsurancedetails: this.hdfcTravel1.restrictionbyinsurancedetails,
-                gst: this.hdfcTravel1.gst,
-                sameAsProposer: this.hdfcTravel1.sameAsProposer,
-                mobile: this.hdfcTravel1.mobile,
-                ped: this.hdfcTravel1.ped,
-                rolecd: this.hdfcTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER'
-
-            });
-            this.getCityList(this.hdfcTravel1.city);
-            this.declinereason();
-            this.restrictionReson();
-
-
-        }
-        if (sessionStorage.hdfcTravelDetails2 != '' && sessionStorage.hdfcTravelDetails2 != undefined) {
-            this.hdfcTravel2 = JSON.parse(sessionStorage.hdfcTravelDetails2);
-            console.log(this.hdfcTravel2, '  this.hdfcTravel2 ');
-            this.insuredRelationshipList();
-            for (let i = 0; i < this.hdfcTravel2.items.length; i++) {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsFirstName.patchValue(this.hdfcTravel2.items[i].InsFirstName);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsLastName.patchValue(this.hdfcTravel2.items[i].InsLastName);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsMiddleName.patchValue(this.hdfcTravel2.items[i].InsMiddleName);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsGender.patchValue(this.hdfcTravel2.items[i].InsGender);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.hdfcTravel2.items[i].InsDOB);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.patchValue(this.hdfcTravel2.items[i].InsuredRelation);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.hdfcTravel2.items[i].InsuredAge);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcTravel2.items[i].insurerDobValidError);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].PassportNo.patchValue(this.hdfcTravel2.items[i].PassportNo);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.hdfcTravel2.items[i].sameAsProposer);
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.hdfcTravel2.items[i].sameasreadonly);
-
-
-            }
-            if (this.hdfcTravel2.items[0].sameAsProposer != '' && this.hdfcTravel2.items[0].sameAsProposer != undefined) {
-                this.sameasInsurerDetails();
-            }
-
-        }
-        if (sessionStorage.hdfcTravelDetails3 != '' && sessionStorage.hdfcTravelDetails3 != undefined) {
-            this.hdfcTravel3 = JSON.parse(sessionStorage.hdfcTravelDetails3);
-            this.nomineeTravelDetails = this.fb.group({
-                NomineeName: this.hdfcTravel3.NomineeName,
-                NomineeRelation: this.hdfcTravel3.NomineeRelation
-            });
-        }
-
-    }
 
     // proposal craetion
     createProposal(stepper) {
