@@ -234,6 +234,7 @@ export class IffcoTokioComponent implements OnInit {
                 rolecd: 'PRIMARY',
                 proposerTitle: ['', Validators.required],
                 proposerFirstname: ['', Validators.required],
+                // proposerFirstname: ['',Validators.compose([Validators.required, Validators.pattern('[^-\s][a-zA-Z_\s-]+$')])],
                 proposerLastname: ['', Validators.required],
                 proposerMidname: '',
                 proposerDob: ['', Validators.compose([Validators.required])],
@@ -599,7 +600,7 @@ export class IffcoTokioComponent implements OnInit {
     }
     public onCharacter(event: any) {
         if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
+            const pattern = /[a-zA-Z\\]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();

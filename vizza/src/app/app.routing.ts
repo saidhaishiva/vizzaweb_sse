@@ -105,7 +105,6 @@ import {HdfcTravelPaymentSuccessComponent} from './pages/hdfc-travel-payment-suc
 import {TravelReligarePaymentSuccessComponent} from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import {DmresultdeactivatetimeGuard} from './shared/dmresultdeactivatetime-guard';
 import {ResultDeactivateGuard} from './shared/resultdeactivate-guard';
-import {PraticeComponent} from './pages/pratice/pratice.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
