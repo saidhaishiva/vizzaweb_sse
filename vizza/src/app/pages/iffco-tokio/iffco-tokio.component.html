@@ -25,8 +25,9 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="onCharacter($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="proposerFirstname" (keypress)="onCharacter($event)" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">First Name is required</mat-error>
+                          <!--<mat-error *ngIf="proposer.controls.proposerFirstname.hasError('pattern')">Beginning space not allowed</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
