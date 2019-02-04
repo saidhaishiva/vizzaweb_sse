@@ -136,9 +136,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.nomineeRelationshipList();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
-        console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
         this.insuredTravelPerson = this.getTravelPremiumList.family_details;
-        console.log(this.insuredTravelPerson, 'this.insuredTravelPerson');
         this.hdfcInsuredTravel = this.fb.group({
             items: this.fb.array([])
         });
@@ -154,7 +152,6 @@ export class TravelHdfcProposalComponent implements OnInit {
     sessionData() {
         if (sessionStorage.hdfcTravelDetails1 != '' && sessionStorage.hdfcTravelDetails1 != undefined) {
             this.hdfcTravel1 = JSON.parse(sessionStorage.hdfcTravelDetails1);
-            console.log(this.hdfcTravel1, '  this.hdfcTravel1 ');
             if (this.hdfcTravel1.pincode != '') {
                 this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
             }
@@ -200,7 +197,6 @@ export class TravelHdfcProposalComponent implements OnInit {
         }
         if (sessionStorage.hdfcTravelDetails2 != '' && sessionStorage.hdfcTravelDetails2 != undefined) {
             this.hdfcTravel2 = JSON.parse(sessionStorage.hdfcTravelDetails2);
-            console.log(this.hdfcTravel2, '  this.hdfcTravel2 ');
             this.insuredRelationshipList();
             for (let i = 0; i < this.hdfcTravel2.items.length; i++) {
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsFirstName.patchValue(this.hdfcTravel2.items[i].InsFirstName);
@@ -292,7 +288,6 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     public titleFailure(error) {
-        console.log(error);
     }
 
 
@@ -301,7 +296,6 @@ export class TravelHdfcProposalComponent implements OnInit {
             let selectedDate = '';
             this.hdfcTravelproposerAge = '';
             let dob = '';
-            console.log(event.value, 'event.value._i');
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -313,11 +307,8 @@ export class TravelHdfcProposalComponent implements OnInit {
 
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'dob');
                 if (selectedDate.length == 10) {
-                    console.log('ui');
                     this.hdfcTravelproposerAge = this.ageCalculate(dob);
-                    console.log(this.hdfcTravelproposerAge, ' this.religareTravelproposerAge');
 
                 }
 
@@ -328,7 +319,6 @@ export class TravelHdfcProposalComponent implements OnInit {
                 }
                 this.personalDobError = '';
             }
-            console.log(this.hdfcTravelproposerAge, ' this.religareTravelproposerAge ');
 
             sessionStorage.proposerAgeHdfcTravel = this.hdfcTravelproposerAge;
         }
@@ -391,9 +381,6 @@ export class TravelHdfcProposalComponent implements OnInit {
 
 
     ageValidation(i, type) {
-        console.log(type);
-        console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value, 'pppp');
-        // console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
 
         if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Self') {
             this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
@@ -530,7 +517,6 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     getCityList(value) {
-        console.log(this.hdfcTravel.controls['state'].value, 'pppppp');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -631,7 +617,6 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     // proposer Details
     proposerDetails(stepper: MatStepper, value) {
-        console.log(value);
         sessionStorage.hdfcTravelDetails1 = '';
         sessionStorage.hdfcTravelDetails1 = JSON.stringify(value);
         if (this.hdfcTravel.valid) {
@@ -652,11 +637,9 @@ export class TravelHdfcProposalComponent implements OnInit {
 
 // insured Details
     InsureDetails(stepper: MatStepper, value) {
-        console.log(value);
         sessionStorage.hdfcTravelDetails2 = '';
         sessionStorage.hdfcTravelDetails2 = JSON.stringify(value);
         this.insuredTravelData = value;
-        console.log(this.insuredTravelData, ' this.insuredTravelData');
         if (this.hdfcInsuredTravel.valid) {
             stepper.next();
 
@@ -665,11 +648,13 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     // nominee Details
     nomineeDetails(stepper: MatStepper, value) {
-        console.log(value);
         sessionStorage.hdfcTravelDetails3 = '';
         sessionStorage.hdfcTravelDetails3 = JSON.stringify(value);
-        this.createProposal(stepper);
-        this.lastStepper = stepper;
+        if(this.nomineeTravelDetails.valid){
+            this.createProposal(stepper);
+            this.lastStepper = stepper;
+        }
+
     }
 
     sameasInsurerDetails() {
@@ -707,7 +692,6 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;
             this.insuredTravelData.items[i].NomineeRelation = this.nomineeTravelDetails.controls['NomineeRelation'].value;
         }
-        console.log(this.insuredTravelData, 'this.insuredTravelData');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -773,7 +757,6 @@ export class TravelHdfcProposalComponent implements OnInit {
                 }
             }
         }
-        console.log(data, ' hgh');
         this.settings.loadingSpinner = true;
         this.travelservice.createHdfcTravelProposal(data).subscribe(
             (successData) => {
