@@ -246,6 +246,14 @@
                                       <div class="col-md-12 mb-3" *ngIf="i == 0" >
                                         <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (change)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
                                       </div>
+                                    <div class="col-md-3">
+                                    <mat-form-field class="w-100">
+                                      <mat-select placeholder="Title" formControlName="InsTitle" required>
+                                        <mat-option *ngFor="let  title of titleList" value="{{title.tittle}}">{{title.tittle}}</mat-option>
+                                      </mat-select>
+                                      <mat-error *ngIf="hdfcTravel.controls.title.errors?.required">Title is required</mat-error>
+                                    </mat-form-field>
+                                    </div>
                           <div class="col-md-3">
                              <mat-form-field class="w-100">
                                <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
@@ -348,11 +356,11 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="NomineeRelation" required >
-                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation}}" >
+                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation}}" [hidden]="sameInsurer == lists.relation">
                               {{lists.relation}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="nomineeTravelDetails.controls.NomineeRelation.errors?.required">Nominee Relationship  is required</mat-error>
+                          <mat-error  *ngIf="nomineeTravelDetails.controls.NomineeRelation.errors?.required">Nominee Relationship  is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -396,7 +404,7 @@
                     <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.tittle}} {{summaryData.ProposalDetails.fname}} {{summaryData.ProposalDetails.mname}}{{summaryData.ProposalDetails.lname}}</li>
+                          <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.tittle}} {{summaryData.ProposalDetails.fname}} {{summaryData.ProposalDetails.mname}} {{summaryData.ProposalDetails.lname}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.gender == 'M'"><strong>Gender:</strong> Male</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.gender == 'F'"><strong>Gender:</strong> Female</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.dob}}</li>
@@ -438,7 +446,7 @@
                       <div class="col-md-12">
                         <div class="p-3">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Name:</strong> {{item.fname}} {{item.lname}}</li>
+                            <li class="list-group-item"><strong>Name:</strong> {{item.tittle}} {{item.fname}} {{item.mname}} {{item.lname}}</li>
                             <li class="list-group-item" *ngIf="item.gender == 'M'"><strong>Gender:</strong> Male</li>
                             <li class="list-group-item" *ngIf="item.gender == 'F'"><strong>Gender:</strong> Female</li>
                             <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>

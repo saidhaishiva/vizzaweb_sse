@@ -71,6 +71,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public declaration: any;
     public fullName: any;
     public totalAmount: any;
+    public sameInsurer: any;
 
 
     constructor(public travelservice: TravelService, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -199,6 +200,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcTravel2 = JSON.parse(sessionStorage.hdfcTravelDetails2);
             this.insuredRelationshipList();
             for (let i = 0; i < this.hdfcTravel2.items.length; i++) {
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsTitle.patchValue(this.hdfcTravel2.items[i].InsTitle);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsFirstName.patchValue(this.hdfcTravel2.items[i].InsFirstName);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsLastName.patchValue(this.hdfcTravel2.items[i].InsLastName);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsMiddleName.patchValue(this.hdfcTravel2.items[i].InsMiddleName);
@@ -246,6 +248,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     initItemRows() {
         return this.fb.group(
             {
+                InsTitle: ['', Validators.required],
                 InsFirstName: new FormControl(''),
                 InsLastName: new FormControl(''),
                 InsMiddleName: new FormControl(''),
@@ -610,6 +613,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.nomineeRelationshipDetails = successData.ResponseObject;
         }
+
     }
 
     public nomineeRelationshipListFailure(error) {
@@ -639,6 +643,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     InsureDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcTravelDetails2 = '';
         sessionStorage.hdfcTravelDetails2 = JSON.stringify(value);
+        this.sameInsurer = this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.value;
+        this.nomineeTravelDetails.controls['NomineeRelation'].patchValue('');
         this.insuredTravelData = value;
         if (this.hdfcInsuredTravel.valid) {
             stepper.next();
@@ -651,8 +657,8 @@ export class TravelHdfcProposalComponent implements OnInit {
         sessionStorage.hdfcTravelDetails3 = '';
         sessionStorage.hdfcTravelDetails3 = JSON.stringify(value);
         if(this.nomineeTravelDetails.valid){
-            this.createProposal(stepper);
-            this.lastStepper = stepper;
+                this.createProposal(stepper);
+                this.lastStepper = stepper;
         }
 
     }
@@ -661,6 +667,7 @@ export class TravelHdfcProposalComponent implements OnInit {
 
         if (this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameAsProposer.value) {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsTitle.patchValue(this.hdfcTravel.controls['title'].value);
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsFirstName.patchValue(this.hdfcTravel.controls['firstname'].value);
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsLastName.patchValue(this.hdfcTravel.controls['lastname'].value);
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsMiddleName.patchValue(this.hdfcTravel.controls['middlename'].value);
@@ -672,6 +679,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         } else {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
 
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsTitle.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsFirstName.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsLastName.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsMiddleName.patchValue('');
