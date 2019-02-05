@@ -87,7 +87,11 @@ public getallTravelPremiumList: any;
 public questions_list: any;
 public questionsListTravel: any;
 public inputReadonly: boolean;
+public studentdetails: boolean;
 public isDisable: boolean;
+public religare_Travel_proposal_id: any;
+public sameinsure: any;
+
     constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
@@ -97,11 +101,13 @@ public isDisable: boolean;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.arr = [];
-    this.inputReadonly = false;
+        this.sameinsure = false;
+        // this.studentdetails = false;
+        this.inputReadonly = false;
     this.isDisable = false;
         this.acceptSummaryDeclaration = false;
         this.webhost = this.config.getimgUrl();
-
+        this.religare_Travel_proposal_id ='0';
         this.religarePersonal = this.fb.group({
             title: ['', Validators.required],
             firstname: new FormControl(''),
@@ -125,16 +131,19 @@ public isDisable: boolean;
              rstate: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            rolecd: 'PROPOSER'
-
-
+            rolecd: 'PROPOSER',
+            sponserdob: '',
+            sponsername: '',
+            universityname: '',
+            universityaddress: '',
+            guidetitle: '',
+            guidefirstname: '',
+            guidelastname: '',
         });
         this.nomineeDetails = this.fb.group({
             'religareTravelNomineeName': ['', Validators.required],
             'religareTravelRelationship': ['', Validators.required]
         });
-
-
     }
 
     // title change function
@@ -181,6 +190,12 @@ public isDisable: boolean;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
+        // if(this.getallTravelPremiumList.policy_type == 'student'){
+        //     this.studentdetails = true;
+        // } else {
+        //     this.studentdetails = false;
+        //
+        // }
         this.insureReligarePerson =  this.getTravelPremiumList.family_details;
         console.log(this.insureReligarePerson, 'this.insureReligarePerson');
         this.insureReligareArray = this.fb.group({
@@ -708,6 +723,7 @@ public isDisable: boolean;
     sameAddress(values){
     if ( this.religarePersonal.controls['sameAsProposer'].value) {
         this.inputReadonly = true;
+        this.sameinsure = values.checked;
         this.religarePersonal.controls['raddress1'].patchValue(this.religarePersonal.controls['address1'].value);
         this.religarePersonal.controls['raddress2'].patchValue(this.religarePersonal.controls['address2'].value);
         this.religarePersonal.controls['rcity'].patchValue(this.religarePersonal.controls['city'].value);
@@ -727,6 +743,7 @@ public isDisable: boolean;
 }
     sameInsureAddress(values,i){
         if( this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsurer.value){
+            this.getPostal(this.religareTravel1.pincode, 'personal');
             this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress1.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].address1.value);
             this.insureReligareArray['controls'].items['controls'][i]['controls'].raddress2.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].address2.value);
             this.insureReligareArray['controls'].items['controls'][i]['controls'].rpincode.patchValue(this.insureReligareArray['controls'].items['controls'][i]['controls'].pincode.value);
@@ -860,7 +877,7 @@ public isDisable: boolean;
             const data = {
                 'platform': 'web',
                 'policy_type': 'SFG',
-                'proposal_id': '0',
+                'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
                 'product_id': this.getTravelPremiumList.product_id,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
                 'trip_start_on': this.datepipe.transform( this.getTravelPremiumList.start_date , 'dd/MM/yyyy'),
@@ -891,17 +908,17 @@ public isDisable: boolean;
                 'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
-                'sponser_dob':'09/08/1992',
-                'sponser_name':'sJJ',
+                'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : null,
+                'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : null,
                 'student_relationship':'BOTH',
-                'university_name':'asf',
+                'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : null,
                 'address':'ASF',
-                'title':'MR',
+                'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : null,
                 'course_details':'parama',
                 'field11':'lastname11',
-                'university_address':'asd',
-                'gfirstname':'siva',
-                'glastname':'siva'
+                'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : null,
+                'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : null,
+                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : null
 
             };
 
@@ -928,7 +945,7 @@ public isDisable: boolean;
 
             console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
             this.proposalId = this.summaryData.proposal_id;
-            sessionStorage.proposalTravelID = this.proposalId;
+            sessionStorage.religare_Travel_proposal_id = this.proposalId;
             //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
             this.lastStepper.next();
 
@@ -969,10 +986,18 @@ public isDisable: boolean;
                 adharnumber: this.religareTravel1.adharnumber,
                 email: this.religareTravel1.email,
                 sameAsProposer: this.religareTravel1.sameAsProposer,
+                sponserdob: this.religareTravel1.sponserdob,
+                sponsername: this.religareTravel1.sponsername,
+                universityname: this.religareTravel1.universityname,
+                universityaddress: this.religareTravel1.universityaddress,
+                guidetitle: this.religareTravel1.guidetitle,
+                guidefirstname: this.religareTravel1.guidefirstname,
+                guidelastname: this.religareTravel1.guidelastname,
                 mobile: this.religareTravel1.mobile,
                 passport: this.religareTravel1.passport,
                 phone: this.religareTravel1.phone,
-                rolecd: this.religareTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER'
+                rolecd: this.religareTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER',
+
             });
 
         }
@@ -1026,9 +1051,9 @@ public isDisable: boolean;
                     religareTravelRelationship: this.getReligareTravelNomineeData.religareTravelRelationship
                 });
             }
-            if (sessionStorage.ReligareTravelProposalID != '' && sessionStorage.ReligareTravelProposalID != undefined) {
-                this.religareTravelProposalID = sessionStorage.ReligareTravelProposalID;
-                console.log(this.religareTravelProposalID, 'this.religarePAProposal');
+            if (sessionStorage.religare_Travel_proposal_id != '' && sessionStorage.religare_Travel_proposal_id != undefined) {
+                this.religare_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;
+                console.log(this.religare_Travel_proposal_id, 'this.religarePAProposal');
             }
         }
     }

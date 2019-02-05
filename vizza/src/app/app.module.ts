@@ -72,6 +72,7 @@ import { FixappointmentComponent } from './pages/fixappointment/fixappointment.c
 import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
+import { PosInsurer} from './pages/pos/pos.component';
 
 import { StarHealthProposalComponent } from './pages/star-health-proposal/star-health-proposal.component';
 import { ProposalmessageComponent } from './pages/star-health-proposal/proposalmessage/proposalmessage.component';
@@ -368,6 +369,7 @@ import { ValidationService} from './shared/services/validation.service';
       DmViewresultComponent,
       CareerComponent,
       AboutPosComponent,
+      PosInsurer,
       DmForgotpasswordComponent,
       DmConfirmpasswordComponent,
       AboutVizzaComponent,
@@ -456,7 +458,7 @@ import { ValidationService} from './shared/services/validation.service';
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth
-        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel
+        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer
     ]
 })
 export class AppModule { }

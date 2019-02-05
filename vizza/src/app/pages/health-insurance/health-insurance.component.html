@@ -100,14 +100,16 @@
               <tr>
                 <th >
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="FILTER BY COMPANY"  [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                    <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
+                    <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
                       <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </th>
                 <th class="sun-insured">
                   <mat-form-field >
-                    <mat-select placeholder="SUM INSURED ( &#8377; )" >
+                    <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
+                    <mat-select>
                       <mat-option value="1">1</mat-option>
                       <mat-option value="2">2</mat-option>
                       <mat-option value="3">3</mat-option>

@@ -55,6 +55,7 @@
     "ng2-bootstrap-modal": "^1.0.1",
     "ng2-datetime": "^1.4.0",
     "ng2-dragula": "1.5.0",
+    "ng2-order-pipe": "^0.1.5",
     "ng2-pdf-viewer": "^5.1.2",
     "ng2-scroll-to": "^1.0.7",
     "ng2-simple-timepicker": "^0.1.11",

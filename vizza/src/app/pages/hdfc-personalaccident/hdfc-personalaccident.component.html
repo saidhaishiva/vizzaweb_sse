@@ -94,7 +94,7 @@
                       <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Occupation"  formControlName="occupation" >
+                        <mat-select placeholder="Occupation"  formControlName="occupation" required>
                           <mat-option *ngFor="let IdProof of occupationCode" value="{{IdProof.isAcceptable}}" > {{IdProof.occupation_description}} </mat-option>
                         </mat-select>
                         <!--<mat-error *ngIf="hdfcPersonal.controls.occupation.errors?.required">Occupation is required</mat-error>-->

@@ -35,5 +35,14 @@ export class ValidationService {
           }
       }
   }
-
+// pan gst validation
+    idValidate(event) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
 }
