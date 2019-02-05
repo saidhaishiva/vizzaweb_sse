@@ -1,612 +1,779 @@
-<div class="container-fluid dashboard h-100" fxLayoutAlign="start start" id="travel-starthealth">
-  <div class="col-md-12">
-    <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
-      <mat-card-header fxLayoutAlign="left left">
-        <h4 class="color-blue" style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Travel Insurance</h4>
-      </mat-card-header>
-      <mat-card-content>
+<!--<div class="container-fluid dashboard h-100" fxLayoutAlign="start start" id="travel-starthealth">-->
+  <!--<div class="col-md-12">-->
+    <!--<mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">-->
+      <!--<mat-card-header fxLayoutAlign="left left">-->
+        <!--<h4 class="color-blue" style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Travel Insurance</h4>-->
+      <!--</mat-card-header>-->
+      <!--<mat-card-content>-->
 
 
-  <div class="row" fxLayoutAlign="center start">
-    <div class="col-md-9 " id="product-list">
-      <table class="table health-table" >
-        <thead>
-        <tr>
-          <th>INSURER</th>
-          <th>SUM INSURED</th>
-          <th>KEY FEATURES</th>
-          <th>COMPARE</th>
-          <th>PREMIUM</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let plists of premiumLists.product_lists;let i = index" >
-          <td *ngIf="plists.policy_available">
-            <p class="color-green">{{plists.plan_name | titlecase}}</p>
-            <img  src="{{webhost + '/' + plists.company_logo}}" alt="">
-          </td>
-          <td *ngIf="plists.policy_available">
-            <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
-          </td>
-          <td style="width: 45%" *ngIf="plists.policy_available">
-            <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
-              <div class="col-md-7">
-                <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>
-              </div>
-              <div class="col-md-1">
-                <span *ngIf="keys.key_features_name !='Room Rent'">:</span>
-              </div>
-              <div class="col-md-4">
-                <a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>
-              </div>
-            </div>
-            <div class="text-right mt-3">
-              <p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists, premiumLists.travel_type)"><strong>Policy Details / Product Documents</strong></p>
-            </div>
-          </td>
-          <td *ngIf="plists.policy_available">
-            <p><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, i)">Add to Compare</button></p>
-            <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
-          </td>
-          <td *ngIf="plists.policy_available">
-            <p></p>
-            <p><button mat-raised-button color="accent" (click)="booking(plists,plists.enquiry_id,plists.name)">{{plists.total_premium | currency: 'INR'}}</button></p>
-            <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <table class="table health-table" *ngIf="premiumLists.product_lists == ''">
-        <th class="text-center" class="primaryBlue"> No product matched your sum insured amount </th>
-      </table>
-
-
-    </div>
-    <div id="start-travel" class="col-md-3 col-sm-12 col-xs-12">
-
-      <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" [(selectedIndex)]="selectedIndex" class="travel-box">
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">person</mat-icon>
-            Self
-          </ng-template>
-          <div class="travel">
-            <mat-form-field class="w-100">
-              <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">
-                  {{amounts.suminsured_amount}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2">
-              <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-12" *ngFor="let item of selfArray; let i = index; let last = last">
-                  <div class="row" fxLayoutAlign="start center">
-                    <div class="col-md-1">
-                      <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
-                      </mat-checkbox>
-                    </div>
-                    <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
-                    <div class="col-md-6">
-                      <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
-                      </mat-form-field>
-                      <div *ngIf="item.error != ''" class="ngError">Required</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--<div class="text-right">-->
-              <!--<button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Add</button>-->
-              <!--<mat-menu #menu="matMenu">-->
-              <!--<button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>-->
-              <!--<button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>-->
-              <!--<button mat-menu-item (click)="addFamily('Mother')" *ngIf="MotherBTn">Mother</button>-->
-              <!--</mat-menu>-->
+  <!--<div class="row" fxLayoutAlign="center start">-->
+    <!--<div class="col-md-9 " id="product-list">-->
+      <!--<table class="table health-table" >-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>INSURER</th>-->
+          <!--<th>SUM INSURED</th>-->
+          <!--<th>KEY FEATURES</th>-->
+          <!--<th>COMPARE</th>-->
+          <!--<th>PREMIUM</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr *ngFor="let plists of premiumLists.product_lists;let i = index" >-->
+          <!--<td *ngIf="plists.policy_available">-->
+            <!--<p class="color-green">{{plists.plan_name | titlecase}}</p>-->
+            <!--<img  src="{{webhost + '/' + plists.company_logo}}" alt="">-->
+          <!--</td>-->
+          <!--<td *ngIf="plists.policy_available">-->
+            <!--<p>{{plists.suminsured_amount | currency: 'INR'}}</p>-->
+          <!--</td>-->
+          <!--<td style="width: 45%" *ngIf="plists.policy_available">-->
+            <!--<div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">-->
+              <!--<div class="col-md-7">-->
+                <!--<li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>-->
               <!--</div>-->
-            </div>
-            <div *ngIf="showSelf">
-              <div class="row mt-2" >
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip Start Date </mat-label>
-                    <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip End Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
-                </div>
-              </div>
-              <div class="row mt-2" >
-                <div class="col-md-12">
-                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
-                </div>
-              </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days </div>
-              <div class="row mt-2">
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>
-                      <mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
+              <!--<div class="col-md-1">-->
+                <!--<span *ngIf="keys.key_features_name !='Room Rent'">:</span>-->
+              <!--</div>-->
+              <!--<div class="col-md-4">-->
+                <!--<a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="text-right mt-3">-->
+              <!--<p class="linkClor" style="cursor: pointer" (click)="viewKeyList(plists, premiumLists.travel_type)"><strong>Policy Details / Product Documents</strong></p>-->
+            <!--</div>-->
+          <!--</td>-->
+          <!--<td *ngIf="plists.policy_available">-->
+            <!--<p><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, i)">Add to Compare</button></p>-->
+            <!--<p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>-->
+          <!--</td>-->
+          <!--<td *ngIf="plists.policy_available">-->
+            <!--<p></p>-->
+            <!--<p><button mat-raised-button color="accent" (click)="booking(plists,plists.enquiry_id,plists.name)">{{plists.total_premium | currency: 'INR'}}</button></p>-->
+            <!--<p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+      <!--</table>-->
+      <!--<table class="table health-table" *ngIf="premiumLists.product_lists == ''">-->
+        <!--<th class="text-center" class="primaryBlue"> No product matched your sum insured amount </th>-->
+      <!--</table>-->
 
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+
+    <!--</div>-->
+    <!--<div id="start-travel" class="col-md-3 col-sm-12 col-xs-12">-->
+
+      <!--<mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" [(selectedIndex)]="selectedIndex" class="travel-box">-->
+        <!--<mat-tab>-->
+          <!--<ng-template mat-tab-label>-->
+            <!--<mat-icon class="example-tab-icon">person</mat-icon>-->
+            <!--Self-->
+          <!--</ng-template>-->
+          <!--<div class="travel">-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">-->
+                  <!--{{amounts.suminsured_amount}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
+            <!--<div class="w-100 mb-2">-->
+              <!--<div class="row" fxLayoutAlign="start center">-->
+                <!--<div class="col-md-12" *ngFor="let item of selfArray; let i = index; let last = last">-->
+                  <!--<div class="row" fxLayoutAlign="start center">-->
+                    <!--<div class="col-md-1">-->
+                      <!--<mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">-->
+                      <!--</mat-checkbox>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4"><span class="text-left">{{item.name}}</span></div>-->
+                    <!--<div class="col-md-6">-->
+                      <!--<mat-form-field class="w-100 text-left">-->
+                        <!--<input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >-->
+                      <!--</mat-form-field>-->
+                      <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="text-right">&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Add</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;<mat-menu #menu="matMenu">&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-menu-item (click)="addFamily('Mother')" *ngIf="MotherBTn">Mother</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;</mat-menu>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div *ngIf="showSelf">-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip Start Date </mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker1></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip End Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-12">-->
+                  <!--<p class="days-count">Total Trip Days : {{daysCount}}</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days </div>-->
+              <!--<div class="row mt-2">-->
                 <!--<div class="col-md-6">-->
                   <!--<mat-form-field class="w-100">-->
-                    <!--<mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">-->
-                      <!--&lt;!&ndash;<mat-option value="1">&ndash;&gt;-->
-                        <!--&lt;!&ndash;Business&ndash;&gt;-->
-                      <!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<mat-option value="2">&ndash;&gt;-->
-                        <!--&lt;!&ndash;Holiday&ndash;&gt;-->
-                      <!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<mat-option value="3">&ndash;&gt;-->
-                        <!--&lt;!&ndash;Multiple trips in a year&ndash;&gt;-->
-                      <!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
-                      <!--<mat-option *ngFor="let list of viewList" value="{{list.id}}">{{list.country_name}}</mat-option>-->
+                    <!--<mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>-->
+                      <!--<mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>-->
 
                     <!--</mat-select>-->
                   <!--</mat-form-field>-->
                 <!--</div>-->
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">
-                      <mat-option value="Single">
-                        Business
-                      </mat-option>
-                      <mat-option value="Single">
-                        Holiday
-                      </mat-option>
-                      <mat-option value="Multi">
-                        Multiple trips in a year
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div *ngIf="travelType == 'Multi'">
-                <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <mat-label>Max trip Duraion (in days) </mat-label>
-                    </div>
-                    <!--<div class="col-md-1">-->
-                      <!--:-->
+                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;<mat-option value="1">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;Business&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;</mat-option>&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;<mat-option value="2">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;Holiday&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;</mat-option>&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;<mat-option value="3">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;Multiple trips in a year&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;&lt;!&ndash;</mat-option>&ndash;&gt;&ndash;&gt;-->
+                      <!--&lt;!&ndash;<mat-option *ngFor="let list of viewList" value="{{list.id}}">{{list.country_name}}</mat-option>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">-->
+                      <!--<mat-option value="Single">-->
+                        <!--Business-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Single">-->
+                        <!--Holiday-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Multi">-->
+                        <!--Multiple trips in a year-->
+                      <!--</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="travelType == 'Multi'">-->
+                <!--<mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-label>Max trip Duraion (in days) </mat-label>-->
                     <!--</div>-->
-                    <div class="col-md-12">
-                      <mat-radio-button value="30">30</mat-radio-button>
-                      <mat-radio-button value="45">45</mat-radio-button>
-                      <mat-radio-button value="60">60</mat-radio-button>
-                      <mat-radio-button value="90">90</mat-radio-button>
-                    </div>
-                  </div>
-                </mat-radio-group>
-              </div><br>
-              <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
-                <div class="row">
-                  <div class="col-md-12">
-                    <mat-label>Any medical conditions?</mat-label>
-                  </div>
-                  <div class="col-md-12">
-                    <mat-radio-button value="1">Yes</mat-radio-button>
-                    <mat-radio-button value="0">No</mat-radio-button>
-                  </div>
-                </div>
-              </mat-radio-group>
-              <div *ngIf="medicalerror" class="ngError">Required</div>
-
-              <div fxLayoutAlign="center center" class="mt-3">
-                <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="material-icons">play_arrow</i></button>
-              </div>
-
-            </div>
-
-          </div>
-        </mat-tab>
-
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">supervisor_account</mat-icon>
-            Family
-          </ng-template>
-          <!--<div mat-dialog-content >-->
-          <div class="travel">
-            <mat-form-field class="w-100">
-              <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">
-                  {{amounts.suminsured_amount}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2">
-              <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-12" *ngFor="let item of familyArray; let i = index; let last = last">
-                  <div class="row" fxLayoutAlign="start center">
-                    <div class="col-md-1">
-                      <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
-                      </mat-checkbox>
-                    </div>
-                    <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
-                    <div class="col-md-6">
-                      <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
-                      </mat-form-field>
-                      <div *ngIf="item.error != ''" class="ngError">Required</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="text-right">
-                <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Relatives</button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>
-                  <button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>
-                  <button mat-menu-item (click)="addFamily('Mother')" *ngIf="MotherBTn">Mother</button>
-                </mat-menu>
-              </div>
-            </div>
-            <div *ngIf="showFamily">
-              <div class="row mt-2" >
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip Start Date </mat-label>
-                    <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip End Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
-                </div>
-              </div>
-              <div class="row mt-2" >
-                <div class="col-md-12">
-                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
-                </div>
-              </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
-
-
-              <div class="row mt-2">
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple>
-                        <mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">
-                      <mat-option value="Single">
-                        Business
-                      </mat-option>
-                      <mat-option value="Single">
-                        Holiday
-                      </mat-option>
-                      <mat-option value="Multi">
-                        Multiple trips in a year
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div *ngIf="travelType == 'Multi'">
-                <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <mat-label>Max trip Duraion (in days) </mat-label>
-                    </div>
-                    <!--<div class="col-md-1">-->
-                      <!--:-->
+                    <!--&lt;!&ndash;<div class="col-md-1">&ndash;&gt;-->
+                      <!--&lt;!&ndash;:&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-radio-button value="30">30</mat-radio-button>-->
+                      <!--<mat-radio-button value="45">45</mat-radio-button>-->
+                      <!--<mat-radio-button value="60">60</mat-radio-button>-->
+                      <!--<mat-radio-button value="90">90</mat-radio-button>-->
                     <!--</div>-->
-                    <div class="col-md-12">
-                      <mat-radio-button value="30">30</mat-radio-button>
-                      <mat-radio-button value="45">45</mat-radio-button>
-                      <mat-radio-button value="60">60</mat-radio-button>
-                      <mat-radio-button value="90">90</mat-radio-button>
-                    </div>
-                  </div>
-                </mat-radio-group>
-              </div>
-              <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
-                <div class="row">
-                  <div class="col-md-12">
-                    <mat-label>Any medical conditions?</mat-label>
-                  </div>
-                  <div class="col-md-12">
-                    <mat-radio-button value="1">Yes</mat-radio-button>
-                    <mat-radio-button value="0">No</mat-radio-button>
-                  </div>
-                </div>
-              </mat-radio-group>
-              <div *ngIf="medicalerror" class="ngError">Required</div>
+                  <!--</div>-->
+                <!--</mat-radio-group>-->
+              <!--</div><br>-->
+              <!--<mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-label>Any medical conditions?</mat-label>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-radio-button value="1">Yes</mat-radio-button>-->
+                    <!--<mat-radio-button value="0">No</mat-radio-button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</mat-radio-group>-->
+              <!--<div *ngIf="medicalerror" class="ngError">Required</div>-->
 
-              <div fxLayoutAlign="center center" class="mt-3">
-                <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>
-              </div>
+              <!--<div fxLayoutAlign="center center" class="mt-3">-->
+                <!--&lt;!&ndash;<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;&ndash;&gt;-->
+                <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="material-icons">play_arrow</i></button>-->
+              <!--</div>-->
 
+            <!--</div>-->
 
-            </div>
+          <!--</div>-->
+        <!--</mat-tab>-->
 
-          </div>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">group_add</mat-icon>
-            Group
-          </ng-template>
-          <div class="travel">
-            <mat-form-field class="w-100">
-              <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">
-                  {{amounts.suminsured_amount}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2" >
-              <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-12" *ngFor="let item of groupArray; let i = index; let last = last">
-                  <div class="row" fxLayoutAlign="start center">
-                    <div class="col-md-1">
-                      <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
-                      </mat-checkbox>
-                    </div>
-                    <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
-                    <div class="col-md-6">
-                      <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
-                      </mat-form-field>
-                      <div *ngIf="item.error != ''" class="ngError">Required</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="text-right">
-                <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu1" [disabled]="!Member5BTn && !Member6BTn && !Member7BTn && !Member8BTn" ><i class="material-icons">add_circle_outline</i> Add Member</button>
-                <mat-menu #menu1="matMenu">
-                  <button mat-menu-item (click)="addGroupMembers('Member5')" *ngIf="Member5BTn">Member5</button>
-                  <button mat-menu-item (click)="addGroupMembers('Member6')" *ngIf="Member6BTn">Member6</button>
-                  <button mat-menu-item (click)="addGroupMembers('Member7')" *ngIf="Member7BTn">Member7</button>
-                  <button mat-menu-item (click)="addGroupMembers('Member8')" *ngIf="Member8BTn">Member8</button>
-                  <button mat-menu-item (click)="addGroupMembers('Member9')" *ngIf="Member9BTn">Member9</button>
-                  <button mat-menu-item (click)="addGroupMembers('Member10')" *ngIf="Member10BTn">Member10</button>
-                </mat-menu>
-              </div>
-            </div>
-            <div *ngIf="showGroup">
-              <div class="row mt-2" >
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip Start Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip End Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
-                </div>
-              </div>
-              <div class="row mt-2" >
-                <div class="col-md-12">
-                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
-                </div>
-              </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
-
-
-              <div class="row mt-2">
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>
-                        <mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
-
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Types of Travel" [(ngModel)]="travelType">
-                      <mat-option value="Single">
-                        Business
-                      </mat-option>
-                      <mat-option value="Single">
-                        Holiday
-                      </mat-option>
-                      <mat-option value="Multi">
-                        Multiple trips in a year
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div *ngIf="travelType == 'Multi'">
-                <mat-radio-group class="w-100" [(ngModel)]="duration" >
-                  <div class="row">
-                    <div class="col-md-12">
-                      <mat-label>Max trip Duraion (in days) </mat-label>
-                    </div>
+        <!--<mat-tab>-->
+          <!--<ng-template mat-tab-label>-->
+            <!--<mat-icon class="example-tab-icon">supervisor_account</mat-icon>-->
+            <!--Family-->
+          <!--</ng-template>-->
+          <!--&lt;!&ndash;<div mat-dialog-content >&ndash;&gt;-->
+          <!--<div class="travel">-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">-->
+                  <!--{{amounts.suminsured_amount}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
+            <!--<div class="w-100 mb-2">-->
+              <!--<div class="row" fxLayoutAlign="start center">-->
+                <!--<div class="col-md-12" *ngFor="let item of familyArray; let i = index; let last = last">-->
+                  <!--<div class="row" fxLayoutAlign="start center">-->
                     <!--<div class="col-md-1">-->
-                      <!--:-->
+                      <!--<mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">-->
+                      <!--</mat-checkbox>-->
                     <!--</div>-->
-                    <div class="col-md-12">
-                      <mat-radio-button value="30">30</mat-radio-button>
-                      <mat-radio-button value="45">45</mat-radio-button>
-                      <mat-radio-button value="60">60</mat-radio-button>
-                      <mat-radio-button value="90">90</mat-radio-button>
-                    </div>
-                  </div>
-                </mat-radio-group>
-              </div>
-              <mat-radio-group class="w-100" [(ngModel)]="medicalCondition">
-                <div class="row">
-                  <div class="col-md-12">
-                    <mat-label>Any medical conditions?</mat-label>
-                  </div>
-                  <div class="col-md-12">
-                    <mat-radio-button value="1">Yes</mat-radio-button>
-                    <mat-radio-button value="0">No</mat-radio-button>
-                  </div>
-                </div>
-              </mat-radio-group>
-              <div *ngIf="medicalerror" class="ngError">Required</div>
+                    <!--<div class="col-md-4"><span class="text-left">{{item.name}}</span></div>-->
+                    <!--<div class="col-md-6">-->
+                      <!--<mat-form-field class="w-100 text-left">-->
+                        <!--<input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >-->
+                      <!--</mat-form-field>-->
+                      <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="text-right">-->
+                <!--<button mat-raised-button color="primary" [matMenuTriggerFor]="menu" [disabled]="Child3BTn == false && FatherBTn == false && MotherBTn == false"><i class="material-icons">add_circle_outline</i> Relatives</button>-->
+                <!--<mat-menu #menu="matMenu">-->
+                  <!--<button mat-menu-item (click)="addFamily('Child3')" *ngIf="Child3BTn">Child3</button>-->
+                  <!--<button mat-menu-item (click)="addFamily('Father')" *ngIf="FatherBTn">Father</button>-->
+                  <!--<button mat-menu-item (click)="addFamily('Mother')" *ngIf="MotherBTn">Mother</button>-->
+                <!--</mat-menu>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div *ngIf="showFamily">-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip Start Date </mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker1></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip End Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-12">-->
+                  <!--<p class="days-count">Total Trip Days : {{daysCount}}</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>-->
 
-              <div fxLayoutAlign="center center" class="mt-3">
-                <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('group')">Proceed <i class="material-icons">play_arrow</i></button>
-              </div>
+
+              <!--<div class="row mt-2">-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple>-->
+                        <!--<mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">-->
+                      <!--<mat-option value="Single">-->
+                        <!--Business-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Single">-->
+                        <!--Holiday-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Multi">-->
+                        <!--Multiple trips in a year-->
+                      <!--</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="travelType == 'Multi'">-->
+                <!--<mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-label>Max trip Duraion (in days) </mat-label>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="col-md-1">&ndash;&gt;-->
+                      <!--&lt;!&ndash;:&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-radio-button value="30">30</mat-radio-button>-->
+                      <!--<mat-radio-button value="45">45</mat-radio-button>-->
+                      <!--<mat-radio-button value="60">60</mat-radio-button>-->
+                      <!--<mat-radio-button value="90">90</mat-radio-button>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</mat-radio-group>-->
+              <!--</div>-->
+              <!--<mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-label>Any medical conditions?</mat-label>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-radio-button value="1">Yes</mat-radio-button>-->
+                    <!--<mat-radio-button value="0">No</mat-radio-button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</mat-radio-group>-->
+              <!--<div *ngIf="medicalerror" class="ngError">Required</div>-->
+
+              <!--<div fxLayoutAlign="center center" class="mt-3">-->
+                <!--&lt;!&ndash;<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;&ndash;&gt;-->
+                <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>-->
+              <!--</div>-->
+
+
+            <!--</div>-->
+
+          <!--</div>-->
+        <!--</mat-tab>-->
+        <!--<mat-tab>-->
+          <!--<ng-template mat-tab-label>-->
+            <!--<mat-icon class="example-tab-icon">group_add</mat-icon>-->
+            <!--Group-->
+          <!--</ng-template>-->
+          <!--<div class="travel">-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">-->
+                  <!--{{amounts.suminsured_amount}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
+            <!--<div class="w-100 mb-2" >-->
+              <!--<div class="row" fxLayoutAlign="start center">-->
+                <!--<div class="col-md-12" *ngFor="let item of groupArray; let i = index; let last = last">-->
+                  <!--<div class="row" fxLayoutAlign="start center">-->
+                    <!--<div class="col-md-1">-->
+                      <!--<mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">-->
+                      <!--</mat-checkbox>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4"><span class="text-left">{{item.name}}</span></div>-->
+                    <!--<div class="col-md-6">-->
+                      <!--<mat-form-field class="w-100 text-left">-->
+                        <!--<input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >-->
+                      <!--</mat-form-field>-->
+                      <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="text-right">-->
+                <!--<button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu1" [disabled]="!Member5BTn && !Member6BTn && !Member7BTn && !Member8BTn" ><i class="material-icons">add_circle_outline</i> Add Member</button>-->
+                <!--<mat-menu #menu1="matMenu">-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member5')" *ngIf="Member5BTn">Member5</button>-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member6')" *ngIf="Member6BTn">Member6</button>-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member7')" *ngIf="Member7BTn">Member7</button>-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member8')" *ngIf="Member8BTn">Member8</button>-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member9')" *ngIf="Member9BTn">Member9</button>-->
+                  <!--<button mat-menu-item (click)="addGroupMembers('Member10')" *ngIf="Member10BTn">Member10</button>-->
+                <!--</mat-menu>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div *ngIf="showGroup">-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip Start Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker1></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip End Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-12">-->
+                  <!--<p class="days-count">Total Trip Days : {{daysCount}}</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>-->
+
+
+              <!--<div class="row mt-2">-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>-->
+                        <!--<mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>-->
+
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Types of Travel" [(ngModel)]="travelType">-->
+                      <!--<mat-option value="Single">-->
+                        <!--Business-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Single">-->
+                        <!--Holiday-->
+                      <!--</mat-option>-->
+                      <!--<mat-option value="Multi">-->
+                        <!--Multiple trips in a year-->
+                      <!--</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="travelType == 'Multi'">-->
+                <!--<mat-radio-group class="w-100" [(ngModel)]="duration" >-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-label>Max trip Duraion (in days) </mat-label>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="col-md-1">&ndash;&gt;-->
+                      <!--&lt;!&ndash;:&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="col-md-12">-->
+                      <!--<mat-radio-button value="30">30</mat-radio-button>-->
+                      <!--<mat-radio-button value="45">45</mat-radio-button>-->
+                      <!--<mat-radio-button value="60">60</mat-radio-button>-->
+                      <!--<mat-radio-button value="90">90</mat-radio-button>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</mat-radio-group>-->
+              <!--</div>-->
+              <!--<mat-radio-group class="w-100" [(ngModel)]="medicalCondition">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-label>Any medical conditions?</mat-label>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-radio-button value="1">Yes</mat-radio-button>-->
+                    <!--<mat-radio-button value="0">No</mat-radio-button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</mat-radio-group>-->
+              <!--<div *ngIf="medicalerror" class="ngError">Required</div>-->
+
+              <!--<div fxLayoutAlign="center center" class="mt-3">-->
+                <!--&lt;!&ndash;<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;&ndash;&gt;-->
+                <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('group')">Proceed <i class="material-icons">play_arrow</i></button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</mat-tab>-->
+
+        <!--<mat-tab>-->
+          <!--<ng-template mat-tab-label>-->
+            <!--<mat-icon class="example-tab-icon">school</mat-icon>-->
+            <!--Student-->
+          <!--</ng-template>-->
+          <!--<div class="travel">-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">-->
+                  <!--{{amounts.suminsured_amount}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
+            <!--<div class="w-100 mb-2 travel">-->
+              <!--<div class="row" fxLayoutAlign="start center">-->
+                <!--<div class="col-md-12" *ngFor="let item of studentArray; let i = index; let last = last">-->
+                  <!--<div class="row" fxLayoutAlign="start center">-->
+                    <!--<div class="col-md-1">-->
+                      <!--<mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">-->
+                      <!--</mat-checkbox>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4"><span class="text-left">{{item.name}}</span></div>-->
+                    <!--<div class="col-md-6">-->
+                      <!--<mat-form-field class="w-100 text-left">-->
+                        <!--<input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >-->
+                      <!--</mat-form-field>-->
+                      <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="text-right">-->
+                <!--<button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu2" [disabled]="!Student5BTn && !Student6BTn && !Student7BTn && !Student8BTn"><i class="material-icons">add_circle_outline</i> Add Student</button>-->
+                <!--<mat-menu #menu2="matMenu">-->
+                  <!--<button mat-menu-item (click)="addStudents('Student5')" *ngIf="Student5BTn">Student5</button>-->
+                  <!--<button mat-menu-item (click)="addStudents('Student6')" *ngIf="Student6BTn">Student6</button>-->
+                  <!--<button mat-menu-item (click)="addStudents('Student7')" *ngIf="Student7BTn">Student7</button>-->
+                  <!--<button mat-menu-item (click)="addStudents('Student8')" *ngIf="Student8BTn">Student8</button>-->
+                  <!--<button mat-menu-item (click)="addStudents('Student9')" *ngIf="Student9BTn">Student9</button>-->
+                  <!--<button mat-menu-item (click)="addStudents('Student10')" *ngIf="Student10BTn">Student10</button>-->
+                <!--</mat-menu>-->
+              <!--</div>-->
+
+
+            <!--</div>-->
+            <!--<div *ngIf="showstudent">-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-4">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip Start Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker1></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                  <!--<mat-form-field color="accent" class="w-100">-->
+                    <!--<mat-label>Trip End Date</mat-label>-->
+                    <!--<input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">-->
+                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                  <!--</mat-form-field>-->
+                  <!--<div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row mt-2" >-->
+                <!--<div class="col-md-12">-->
+                  <!--<p class="days-count">Total Trip Days : {{daysCount}}</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>-->
+
+
+              <!--<div class="row mt-2">-->
+                <!--<div class="col-md-12">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>-->
+                        <!--<mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>-->
+
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<mat-radio-group class="w-100" [(ngModel)]="medicalCondition">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-label>Any medical conditions?</mat-label>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-radio-button value="1">Yes</mat-radio-button>-->
+                    <!--<mat-radio-button value="0">No</mat-radio-button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</mat-radio-group>-->
+              <!--<div *ngIf="medicalerror" class="ngError">Required</div>-->
+
+              <!--<div fxLayoutAlign="center center" class="mt-3">-->
+                <!--&lt;!&ndash;<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;&ndash;&gt;-->
+                <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('students')">Proceed <i class="material-icons">play_arrow</i></button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</mat-tab>-->
+      <!--</mat-tab-group>-->
+
+
+
+    <!--</div>-->
+
+
+  <!--</div>-->
+
+  <!--</mat-card-content>-->
+  <!--</mat-card>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+<div class="row " id="product-list" fxLayoutAlign="center start">
+  <div class="col-sm-12">
+    <div fxLayout="column" >
+      <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="color-blue" style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Travel Insurance</h4>
+            </div>
+            <div class="col-md-6 w-100">
+              <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange11($event)">
+                <mat-tab class="headerColor" *ngFor="let lists of premiumLists;let pi = index"  (click)="changeTab()">
+                  <ng-template matTabLabel >
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="20" height="80"
+                         viewBox="0 0 24 24"
+                         style="fill:#ffffff;"><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
+                    <p class="ml-2 mt-3">{{lists.name | uppercase}}</p>
+                  </ng-template>
+                </mat-tab>
+              </mat-tab-group>
             </div>
           </div>
-        </mat-tab>
+        </div>
 
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">school</mat-icon>
-            Student
-          </ng-template>
-          <div class="travel">
-            <mat-form-field class="w-100">
-              <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmount" name="suminsure"  (change)="selectedSumAmount()" required>
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_amount">
-                  {{amounts.suminsured_amount}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div *ngIf="sumerror" class="ngError">Required</div>
-            <div class="w-100 mb-2 travel">
-              <div class="row" fxLayoutAlign="start center">
-                <div class="col-md-12" *ngFor="let item of studentArray; let i = index; let last = last">
-                  <div class="row" fxLayoutAlign="start center">
-                    <div class="col-md-1">
-                      <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
-                      </mat-checkbox>
-                    </div>
-                    <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
-                    <div class="col-md-6">
-                      <mat-form-field class="w-100 text-left">
-                        <input matInput placeholder="Age" required [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
-                      </mat-form-field>
-                      <div *ngIf="item.error != ''" class="ngError">Required</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="text-right">
-                <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="menu2" [disabled]="!Student5BTn && !Student6BTn && !Student7BTn && !Student8BTn"><i class="material-icons">add_circle_outline</i> Add Student</button>
-                <mat-menu #menu2="matMenu">
-                  <button mat-menu-item (click)="addStudents('Student5')" *ngIf="Student5BTn">Student5</button>
-                  <button mat-menu-item (click)="addStudents('Student6')" *ngIf="Student6BTn">Student6</button>
-                  <button mat-menu-item (click)="addStudents('Student7')" *ngIf="Student7BTn">Student7</button>
-                  <button mat-menu-item (click)="addStudents('Student8')" *ngIf="Student8BTn">Student8</button>
-                  <button mat-menu-item (click)="addStudents('Student9')" *ngIf="Student9BTn">Student9</button>
-                  <button mat-menu-item (click)="addStudents('Student10')" *ngIf="Student10BTn">Student10</button>
-                </mat-menu>
-              </div>
-
-
-            </div>
-            <div *ngIf="showstudent">
-              <div class="row mt-2" >
-                <div class="col-md-4">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip Start Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today"  [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
-                </div>
-                <div class="col-md-4">
-                  <mat-form-field color="accent" class="w-100">
-                    <mat-label>Trip End Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
-                </div>
-              </div>
-              <div class="row mt-2" >
-                <div class="col-md-12">
-                  <p class="days-count">Total Trip Days : {{daysCount}}</p>
-                </div>
-              </div>
-              <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
-
-
-              <div class="row mt-2">
-                <div class="col-md-12">
-                  <mat-form-field class="w-100">
-                    <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelType()" multiple>
-                        <mat-option *ngFor="let list of viewList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
-
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <mat-radio-group class="w-100" [(ngModel)]="medicalCondition">
-                <div class="row">
-                  <div class="col-md-12">
-                    <mat-label>Any medical conditions?</mat-label>
-                  </div>
-                  <div class="col-md-12">
-                    <mat-radio-button value="1">Yes</mat-radio-button>
-                    <mat-radio-button value="0">No</mat-radio-button>
-                  </div>
-                </div>
-              </mat-radio-group>
-              <div *ngIf="medicalerror" class="ngError">Required</div>
-
-              <div fxLayoutAlign="center center" class="mt-3">
-                <!--<button mat-raised-button color="accent" type="button" class="ml-2" (click)="refresh()">Reset <i class="material-icons">refresh</i></button>&nbsp;&nbsp;-->
-                <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('students')">Proceed <i class="material-icons">play_arrow</i></button>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-
-
-
+        <div class="flex-p" *ngFor="let lists of premiumLists;let pi = index" >
+          <table class="table health-table" *ngIf="lists.product_lists !='' ">
+            <thead>
+            <tr>
+              <th >
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
+                  <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="sun-insured">
+                <mat-form-field >
+                  <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
+                  <mat-select>
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="3">3</mat-option>
+                    <mat-option value="4">4</mat-option>
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="6">6</mat-option>
+                    <mat-option value="7">7</mat-option>
+                    <mat-option value="8">8</mat-option>
+                    <mat-option value="9">9</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="11">11</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th >COPAY</th>
+              <th>PRE EXIXTING DISEASE</th>
+              <th>PRE HOSPITALIZATION</th>
+              <th>POST HOSPITALIZATION</th>
+              <th>COMPARE</th>
+              <th>PREMIUM ( &#8377; )</th>
+              <th>BUY ( &#8377; )</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+              <td align="left">
+                <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
+              </td>
+              <td >
+                <p>&#8377; {{plists.suminsured_amount_format}}</p>
+              </td>
+              <td *ngFor="let keys of plists.key_features; let i = index;" >
+                <p class="text-center">{{keys.key_features_value}}</p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
+                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+              </td>
+              <td >
+                <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
+                <p class="text-center change-p">(Excluding.GST)</p>
+              </td>
+              <td >
+                <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table health-table" *ngIf="lists.product_lists =='' ">
+            <th class="text-center" class="color-pink"> No product matched your selection </th>
+          </table>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
     </div>
-
-
   </div>
+  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
 
-  </mat-card-content>
-  </mat-card>
+  <!--<div  *ngIf="secondPage">-->
+  <!--<div fxLayoutAlign="left center">-->
+  <!--<div class="col-md-12">-->
+  <!--<mat-card class="custom-card">-->
+  <!--<mat-card-header class="p-2" >-->
+  <!--<mat-card-title class="m-0">-->
+  <!--<h6>Your Selections</h6>-->
+  <!--</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<mat-radio-group><br>-->
+  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
+  <!--</mat-radio-group>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span style="font-size: 12px;">S.I</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<mat-select [(ngModel)]="changeSuninsuredAmount" name="suminsure" (change)="changeSuminsured($event)">-->
+  <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
+  <!--{{amounts.si_amount}}-->
+  <!--</mat-option>-->
+  <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
+  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>-->
+  <!--<div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>-->
+  <!--<div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >-->
+  <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span>Pincode</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<input matInput name="pin" name="pin" [disabled]="true"  [(ngModel)]="pincoce">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div fxLayoutAlign="center center" class="son">-->
+  <!--<button mat-raised-button color="accent" type="button" (click)="updateFunction()">Update</button>-->
+  <!--</div>-->
+
+  <!--</mat-card-content>-->
+  <!--</mat-card>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <!--</div>-->
+  <!--</div>-->
 </div>
-</div>
+
 
 <div class="row compar-fix" *ngIf="compareArray != ''">
     <div class="text-right closeBtnClass">

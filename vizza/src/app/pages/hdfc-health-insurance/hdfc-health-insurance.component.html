@@ -4,7 +4,7 @@
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="hdfcPersonal">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
+          <mat-accordion class="w-100 float-left">
             <form [formGroup]="hdfcPersonal" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
@@ -12,7 +12,7 @@
                     PROPOSER
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="row mt-3">
+                <div class="row ">
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-blue">PROPOSER DETAILS</h6>
                     <div class="row">
@@ -98,7 +98,7 @@
                     </div>
                   </div>
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue"> PROPOSER COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue"> COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">

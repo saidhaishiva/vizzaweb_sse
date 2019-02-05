@@ -544,6 +544,10 @@ a:hover {
   color: #cfcfcf!important;
 }
 #product-list{
+  .mat-tab-group {
+    width: 687px !important;
+    height: 42px !important;
+  }
   .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
     background-color: rgba(24, 204, 180, 0.35);
   }
@@ -551,7 +555,7 @@ a:hover {
     display:none !important;
   }
   .mat-tab-label-active{
-    background-color: #f29a1d !important;
+    background-color: #c94a65 !important;
     color: #fff!important;
 
   }
@@ -670,9 +674,9 @@ a:hover {
     .myclass{
       color: #ffffff !important;
     }
-    .ng-star-inserted{
-      color: #ffffff !important;
-    }
+    //.ng-star-inserted{
+    //  color: #ffffff !important;
+    //}
     .mat-select-arrow{
       color: #ffffff !important;
     }
@@ -2490,9 +2494,7 @@ fieldset {
 }
 
 #product-list .mat-tab-label-container {
-  margin-bottom: 5px;
-  //border: 1px solid #F19F00;
-  background: #dee2e6;
+  margin-bottom: 1px;
   border-radius: 15px 15px 0px 0px;
 }
 
