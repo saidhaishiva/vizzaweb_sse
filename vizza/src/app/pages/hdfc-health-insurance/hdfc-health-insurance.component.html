@@ -28,13 +28,13 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcPersonal.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcPersonal.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -50,7 +50,7 @@
 
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'index', 'Self', 'personal')" (dateChange)="addEvent($event, 'index', 'Self', 'personal')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'index', 'Self', 'personal')" (dateChange)="addEvent($event, 'index', 'Self', 'personal')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcPersonal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -127,7 +127,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" required>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('required')">Pincode required</mat-error>
                         <!--<mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -224,13 +224,13 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
+                            <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
                             <mat-error *ngIf="hdfcInsureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
+                            <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
                             <mat-error *ngIf="hdfcInsureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -254,7 +254,7 @@
                               </mat-form-field>
                           </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="keyPress($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
                           <mat-datepicker-toggle matSuffix [for]="picker" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcInsureArray.invalid">DOB is required</mat-error>
@@ -291,7 +291,7 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="typeValidate($event)" autocomplete="off"  >
+                            <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="nameValidate($event)" autocomplete="off"  >
                             <mat-error *ngIf="hdfcInsureArray.invalid">Pre Existing Disease is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -328,7 +328,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="typeValidate($event)" required>
+                          <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="nameValidate($event)" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>

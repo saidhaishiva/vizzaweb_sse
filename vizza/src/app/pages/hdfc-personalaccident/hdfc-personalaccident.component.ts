@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import { Router } from '@angular/router';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ValidationService} from '../../shared/services/validation.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -82,7 +83,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public getAllPremiumDetails: any;
     public pincodePAValid: any;
     public proposerAgeHDFCPA: any;
-    constructor( public personalacccidentservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor( public personalacccidentservice: PersonalAccidentService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                  public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string, public route: Router) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -134,7 +135,20 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.setOccupationList();
 
     }
-
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
     // title change function
     changeGender() {
         if (this.hdfcPersonal.controls['title'].value == 'MR') {
@@ -171,7 +185,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     }
     quesback() {
         this.back = false;
-        console.log(this.back);
     }
     prevStep() {
         this.step--;
@@ -191,7 +204,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     }
     // city lists
     selectedSate(event, type, i) {
-        console.log(event, 'pppp');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -214,7 +226,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         }
     }
     public getCityFailure(error) {
-        console.log(error);
     }
     // state lists
     getStateList() {
@@ -239,10 +250,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         }
     }
     public getStateFailure(error) {
-        console.log(error);
     }
     // occupationChangeList(val) {
-    //     console.log(val);
     //     alert(';opio');
     //     if(val == '0'){
     //         alert();
@@ -277,11 +286,9 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         }
     }
     public hdfcNomineeRelationshipFailure(error) {
-        console.log(error);
     }
     pincodevalidationHdfc(pin) {
         this.pin = pin;
-        console.log( this.pin, ' this.pin this.pin');
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -333,14 +340,12 @@ export class HdfcPersonalaccidentComponent implements OnInit {
 
     public occupationCodeSuccess(successData) {
         this.occupationCode = successData.ResponseObject;
-        console.log(  this.occupationCode, '  this.occupationCode');
 
     }
 
     public occupationCodeFailure(error) {
     }
     addEvent(event) {
-        console.log(event, 'event');
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAgeHDFCPA = '';
@@ -380,8 +385,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         sessionStorage.hdfcPAStep1 = '';
         sessionStorage.hdfcPAStep1 = JSON.stringify(value);
         this.hdfcpersonalValues = value;
-        console.log(this.hdfcpersonalValues, 'first');
-        console.log(this.hdfcPersonal.valid, 'this.hdfcPersonal.valid');
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.proposerAgeHDFCPA >= 18) {
                 if (this.pincodePAValid) {
@@ -410,7 +413,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     // proposerAgeHDFCPA
     // Nominee Details
     addNomineeDetails(stepper: MatStepper, value) {
-        console.log(value);
         sessionStorage.hdfcPANomineeDetails = '';
         sessionStorage.hdfcPANomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
@@ -476,7 +478,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             }
 
         }
-        console.log(data, 'data22');
 
         this.settings.loadingSpinner = true;
         this.personalacccidentservice.getHdfcProposalCreation(data).subscribe(
@@ -496,7 +497,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
 
 
     public proposalSuccess(successData, stepper) {
-        console.log(successData,'successData');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
@@ -509,12 +509,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             sessionStorage.hdfc_PA_proposal_id = successData.ResponseObject.ProposalId;
 
 
-            console.log(this.summaryData, '  this.summaryData');
-            console.log(this.summaryData.PaymentActionUrl, 'jhghfghfjgh');
-            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
 
-            console.log(this.proposalDtails, 'proposalDtails');
-            console.log(this.insurerDtails, 'insurerDtailsinsurerDtails');
+            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -529,7 +525,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
 // sessionData
     sessionData() {
         if (sessionStorage.hdfcPAStep1 != '' && sessionStorage.hdfcPAStep1 != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcPAStep1), 'sessionStorage.hdfcPAStep1');
             this.setOccupationList();
             this.hdfcPAStep1 = JSON.parse(sessionStorage.hdfcPAStep1);
             this.hdfcPersonal = this.fb.group({
@@ -575,7 +570,6 @@ export class HdfcPersonalaccidentComponent implements OnInit {
 
         }
         if (sessionStorage.hdfcPANomineeDetails != '' && sessionStorage.hdfcPANomineeDetails != undefined) {
-            console.log(JSON.parse(sessionStorage.hdfcPANomineeDetails), 'sessionStorage.hdfcPANomineeDetails');
             this.hdfcPANomineeDetails = JSON.parse(sessionStorage.hdfcPANomineeDetails);
             this.nomineeDetails = this.fb.group({
                 nomineeName: this.hdfcPANomineeDetails.nomineeName,
