@@ -283,7 +283,6 @@ export class StarHealthProposalComponent implements OnInit {
                 width: '500px'
             });
             dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
                 this.stopNext = true;
             });
         } else {
@@ -293,7 +292,6 @@ export class StarHealthProposalComponent implements OnInit {
     changeSocialStatus(result) {
         let btn = this.personal.controls['socialStatus'].value;
         if (btn == false || btn == 'false') {
-            console.log('out');
             this.personal.controls['socialAnswer1'].setValue('0');
             this.personal.controls['socialAnswer2'].setValue('0');
             this.personal.controls['socialAnswer3'].setValue('0');
@@ -306,7 +304,6 @@ export class StarHealthProposalComponent implements OnInit {
     }
     groupList() {
         this.familyMembers = this.getFamilyDetails.family_members;
-        console.log(this.familyMembers);
         for (let i = 0; i < this.familyMembers.length; i++ ) {
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
@@ -330,7 +327,6 @@ export class StarHealthProposalComponent implements OnInit {
 
     }
         addNominee(value) {
-        console.log(this.nomineeDate, 'this.nomineeDatethis.nomineeDatethis.nomineeDate');
         if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
             this.nomineeDate[0].nominee.push({
                 nname: '',
@@ -432,11 +428,8 @@ export class StarHealthProposalComponent implements OnInit {
                 this.personal.controls['socialAnswer4'].reset();
             }
 
-            console.log(this.getStepper1.socialStatus, 'socialStatus');
-
             if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
                 this.proposalId = sessionStorage.proposalID;
-                console.log(this.proposalId, 'this.proposalId');
             }
 
             if (this.getStepper1.personalPincode != '') {
@@ -471,10 +464,7 @@ export class StarHealthProposalComponent implements OnInit {
             }
             if (sessionStorage.mobileNumber != '' ) {
                 this.mobileNumber = sessionStorage.mobileNumber;
-                console.log(this.mobileNumber, 'iii');
             } else {
-                console.log(this.mobileNumber, 'iii');
-
                 this.mobileNumber = 'true';
             }
 
@@ -483,7 +473,6 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers = JSON.parse(sessionStorage.familyMembers);
             // let date = this.familyMembers[0].ins_dob.split('-');
             // date = date[0] +'/'+ date[1] +'/'+ date[2];
-            console.log(this.familyMembers, 'this.date');
             if (sessionStorage.ageRestriction != undefined) {
                 this.ageRestriction = sessionStorage.ageRestriction;
             } else {
@@ -536,7 +525,6 @@ export class StarHealthProposalComponent implements OnInit {
 
                 } else {
                     // if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
-                        console.log( value.socialAnswer2, ' value.socialAnswer2 value.socialAnswer2');
                         stepper.next();
                         this.topScroll();
                     // }
@@ -1155,6 +1143,38 @@ export class StarHealthProposalComponent implements OnInit {
 
     //Create Proposal
     proposal() {
+        // let comCityName = '';
+        // if (this.personalCitys.length !=0) {
+        //     for (let i = 0; i < this.personalCitys.length; i++) {
+        //         if (this.personalCitys[i].city_id == this.personal.controls['personalCity'].value) {
+        //             comCityName = this.personalCitys[i].city_name;
+        //         }
+        //     }
+        // }
+        // let resCityName = '';
+        // if (this.residenceCitys.length !=0) {
+        //     for (let i = 0; i < this.residenceCitys.length; i++) {
+        //         if (this.residenceCitys[i].city_id == this.personal.controls['residenceCity'].value) {
+        //             resCityName = this.residenceCitys[i].city_name;
+        //         }
+        //     }
+        // }
+        // let comAreaName = '';
+        // if (this.areaNames.length !=0) {
+        //     for (let i = 0; i < this.areaNames.length; i++) {
+        //         if (this.areaNames[i].areaID == this.personal.controls['personalArea'].value) {
+        //             comAreaName = this.areaNames[i].areaName;
+        //         }
+        //     }
+        // }
+        // let resAreaName = '';
+        // if (this.rAreaNames.length !=0) {
+        //     for (let i = 0; i < this.rAreaNames.length; i++) {
+        //         if (this.rAreaNames[i].areaID == this.personal.controls['residenceArea'].value) {
+        //             resAreaName = this.rAreaNames[i].areaName;
+        //         }
+        //     }
+        // }
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
@@ -1179,13 +1199,17 @@ export class StarHealthProposalComponent implements OnInit {
             'proposer_res_address1': this.personalData.residenceAddress,
             'proposer_res_address2': this.personalData.residenceAddress2,
             'proposer_res_area': this.personalData.residenceArea.toString(),
+            'proposer_res_areaname': '',
             'proposer_res_city': this.personalData.residenceCity.toString(),
+            'proposer_res_cityname': '',
             'proposer_res_state': this.personalData.residenceState,
             'proposer_res_pincode': this.personalData.residencePincode,
             'proposer_comm_address1': this.personalData.personalAddress,
             'proposer_comm_address2': this.personalData.personalAddress2,
             'proposer_comm_area': this.personalData.personalArea.toString(),
+            'proposer_comm_areaname': '',
             'proposer_comm_city': this.personalData.personalCity.toString(),
+            'proposer_comm_cityname': '',
             'proposer_comm_state': this.personalData.personalState,
             'proposer_comm_pincode': this.personalData.personalPincode,
             'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y') ,
