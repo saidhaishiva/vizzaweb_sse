@@ -832,32 +832,6 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     public getNationalityStatusFailure(error) {
     }
-    ServiceTax(){
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getServiceTax(data).subscribe(
-            (successData) => {
-                this.serviceTaxSuccess(successData);
-            },
-            (error) => {
-                this.serviceTaxFailure(error);
-            }
-        );
-    }
-
-    public serviceTaxSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.ServiceTaxId = successData.ResponseObject;
-        }
-    }
-
-    public serviceTaxFailure(error) {
-    }
-
 
 
     setOccupationList() {
@@ -1607,162 +1581,11 @@ export class RelianceHeathProposalComponent implements OnInit {
             }
             this.summaryData = successData.ResponseObject;
             let getdata=[];
-
-            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
-                for( let j=0; j < this.relationshipList.length; j++){
-                    if(this.summaryData.InsuredDetailsList[i].RelationshipWithProposerID == this.relationshipList[j].relationship_proposer_id ) {
-                        this.summaryData.InsuredDetailsList[i].relationship_proposer_name = this.relationshipList[j].relationship_proposer_name;
-                    }
-                }
-            }
-            // disease name
-
-                for( let j=0; j < this.diseaseList.length; j++){
-                    if( this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].DiseaseID == this.diseaseList[j].pre_existing_disease_id ) {
-                        this.summaryData.InsuredDetailsList[0].PreExistingDisease.DiseaseList[0].pre_existing_disease_name = this.diseaseList[j].pre_existing_disease_name;
-                    }
-                }
-
-
-            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
-                for (let j = 0; j < this.maritalDetail.length; j++) {
-                    if (this.summaryData.InsuredDetailsList[i].MaritalStatusID == this.maritalDetail[j].marital_status_id) {
-                        this.summaryData.InsuredDetailsList[i].marital_status = this.maritalDetail[j].marital_status;
-                    }
-                }
-            }
-            for( let i = 0; i <  this.summaryData.InsuredDetailsList.length; i++) {
-                for (let j = 0; j < this.occupationList.length; j++) {
-                    if (this.summaryData.InsuredDetailsList[i].OccupationID == this.occupationList[j].occupation_id) {
-                        this.summaryData.InsuredDetailsList[i].occupation_name = this.occupationList[j].occupation_name;
-                    }
-                }
-            }
-
-                for (let j = 0; j < this.occupationList.length; j++) {
-                    if (this.summaryData.ClientDetails.OccupationID == this.occupationList[j].occupation_id) {
-                        this.summaryData.ClientDetails.occupation_name = this.occupationList[j].occupation_name;
-                    } else {
-                    }
-                }
-                for (let j = 0; j < this.maritalDetail.length; j++) {
-                    if (this.summaryData.ClientDetails.MaritalStatusID == this.maritalDetail[j].marital_status_id) {
-                        this.summaryData.ClientDetails.marital_status = this.maritalDetail[j].marital_status;
-                    }
-                }
-            for (let j = 0; j <  this.nationalityList.length; j++) {
-                if (this.summaryData.ClientDetails.Nationality == this.nationalityList[j].nationality_id) {
-                    this.summaryData.ClientDetails.nationality = this.nationalityList[j].nationality;
-                }
-            }
-
-
-             if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
-                 this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
-             }
-             if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID == this.setPincode.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name =  this.setPincode.state_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID == this.setPincode.city_village_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name =  this.setPincode.city_village_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.setPincode.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.setPincode.state_name;
-            }
-
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.setPincode.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-
-            //Risk Details
-            for( let i = 0; i <  this.ServiceTaxId.length; i++) {
-                if (this.summaryData.RiskDetails.ServiceTaxExemptionID == this.ServiceTaxId[i].servicetax_exemp_id) {
-                    this.summaryData.RiskDetails.servicetax_exemp_name = this.ServiceTaxId[i].servicetax_exemp_name;
-                }
-            }
-
-            // nominee
-                for (let j = 0; j < this.nomineeRelationshipList.length; j++) {
-                    if (this.summaryData.NomineeDetails.NomineeRelationshipID == this.nomineeRelationshipList[j].nominee_relation_id) {
-                        this.summaryData.NomineeDetails.nominee_relation_name = this.nomineeRelationshipList[j].nominee_relation_name;
-                    }
-                }
-              if(this.summaryData.NomineeDetails.NomineeAddress.CityID == this.setPincode.city_village_id) {
-                this. summaryData.NomineeDetails.NomineeAddress.city_village_name =  this.setPincode.city_village_name;
-              }
-              if(this.summaryData.NomineeDetails.NomineeAddress.StateID == this.setPincode.state_id) {
-                this.summaryData.NomineeDetails.NomineeAddress.state_name =  this.setPincode.state_name;
-              }
-             for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if (this.summaryData.NomineeDetails.NomineeAddress.AreaID == this.setPincode.area_details[i].area_id) {
-                    this. summaryData.NomineeDetails.NomineeAddress.area_name = this.setPincode.area_details[i].area_name;
-
-                }
-            }
-
-
-
               setTimeout(() => {
                   this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalP');
               },700);
 
               this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalR');
-
-
-            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.getComAddressList.city_village_id) {
-                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.getComAddressList.city_village_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID == this.getComAddressList.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name =  this.getComAddressList.state_name;
-            }
-            // comincation address
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID == this.getComAddressList.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name = this.getComAddressList.area_details[i].area_name;
-
-                }
-            }
-
-            // resistance addresss
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID == this.getResAddressList.city_village_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name =  this.getResAddressList.city_village_name;
-            }
-            if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID == this.getResAddressList.state_id) {
-                this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name =  this.getResAddressList.state_name;
-            }
-            for(let i=0; i< this.setPincode.area_details.length; i++ ) {
-                if(this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID == this.getResAddressList.area_details[i].area_id) {
-                    this.summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name = this.getResAddressList.area_details[i].area_name;
-
-                }
-            }
-
-
-            // new
-
-
-            // if(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID == this.setPincode.city_village_id) {
-            //     this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name =  this.setPincode.city_village_name;
-            // }
-            //
-            // this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
-            // this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
-            // this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
-            //
-            // this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
-            // this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
-            // this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
-            //
-            //
 
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
@@ -1784,6 +1607,33 @@ export class RelianceHeathProposalComponent implements OnInit {
 
         }
     }
+    ServiceTax(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getServiceTax(data).subscribe(
+            (successData) => {
+                this.serviceTaxSuccess(successData);
+            },
+            (error) => {
+                this.serviceTaxFailure(error);
+            }
+        );
+    }
+
+    public serviceTaxSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.ServiceTaxId = successData.ResponseObject;
+        }
+    }
+
+    public serviceTaxFailure(error) {
+    }
+
+
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }

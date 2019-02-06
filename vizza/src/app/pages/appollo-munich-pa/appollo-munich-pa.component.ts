@@ -146,7 +146,6 @@ public maxStartdate:any;
           proposerPaStateIdP: '',
           proposerPaCountryIdP: '',
           proposerPaDistrictIdP: '',
-          MedicalInformations: '',
           rolecd: 'PROPOSER',
           type: ''
       });
@@ -266,57 +265,57 @@ public maxStartdate:any;
   }
     // session Data
     sessionData() {
-        if (sessionStorage.appollo1Details != '' && sessionStorage.appollo1Details != undefined) {
-            this.appollo1 = JSON.parse(sessionStorage.appollo1Details);
-            if (this.appollo1.proposerPaPincode != '') {
-                this.getPostalCode(this.appollo1.proposerPaPincode);
-            }
-            // this.ProposerPa.controls['proposerPaIdProof'].value;
-
-            this.ProposerPa = this.proposerpa.group({
-                proposerPaTitle: this.appollo1.proposerPaTitle,
-                proposerPaFirstname: this.appollo1.proposerPaFirstname,
-                proposerPaLastname: this.appollo1.proposerPaLastname,
-                proposerPaMidname: this.appollo1.proposerPaMidname,
-                maritalStatus: this.appollo1.maritalStatus,
-                proposerPaDob: new FormControl(new Date(this.appollo1.proposerPaDob)),
-                proposerParelationship: this.appollo1.proposerParelationship,
-                sameAsProposer: this.appollo1.sameAsProposer,
-                proposerPaGender: this.appollo1.proposerPaGender,
-                proposerPaAddress: this.appollo1.proposerPaAddress,
-                proposerPaAddress2: this.appollo1.proposerPaAddress2,
-                proposerPaAddress3: this.appollo1.proposerPaAddress3,
-                nationality: this.appollo1.nationality,
-                proposerPaPincode: this.appollo1.proposerPaPincode,
-                proposerPaIdProof: this.appollo1.proposerPaIdProof,
-                proposerPaIdProofIdP: this.appollo1.proposerPaIdProofIdP,
-                proposerPaPan: this.appollo1.proposerPaPan,
-                proposerPaPassport: this.appollo1.proposerPaPassport,
-                proposerPaVoter: this.appollo1.proposerPaVoter,
-                proposerPaGst: this.appollo1.proposerPaGst,
-                proposerPaDriving: this.appollo1.proposerPaDriving,
-                MedicalInformations: this.appollo1.MedicalInformations,
-                proposerPaCity: this.appollo1.proposerPaCity,
-                proposerPaState: this.appollo1.proposerPaState,
-                proposerPaCountry: this.appollo1.proposerPaCountry,
-                proposerPaDistrict: this.appollo1.proposerPaDistrict,
-                proposerPaStateIdP: this.appollo1.proposerPaStateIdP,
-                proposerPaCountryIdP: this.appollo1.proposerPaCountryIdP,
-                proposerPaCityIdP: this.appollo1.proposerPaCityIdP,
-                proposerPaDistrictIdP: this.appollo1.proposerPaDistrictIdP,
-                proposerPaEmail: this.appollo1.proposerPaEmail,
-                proposerPaMobile: this.appollo1.proposerPaMobile,
-                rolecd: this.appollo1.rolecd,
-                relationshipcd: this.appollo1.relationshipcd,
-            });
-            let age = this.ageCalculate(this.datepipe.transform(this.appollo1.proposerPaDob, 'y-MM-dd'));
-            sessionStorage.insuredPaAge = age;
-            if(this.appollo1.proposerPaIdProof != ''){
-                this.panType('personal');
-            }
-            this.idList();
-
-        }
+        // if (sessionStorage.appollo1Details != '' && sessionStorage.appollo1Details != undefined) {
+        //     this.appollo1 = JSON.parse(sessionStorage.appollo1Details);
+        //     if (this.appollo1.proposerPaPincode != '') {
+        //         this.getPostalCode(this.appollo1.proposerPaPincode);
+        //     }
+        //     // this.ProposerPa.controls['proposerPaIdProof'].value;
+        //
+        //     this.ProposerPa = this.proposerpa.group({
+        //         proposerPaTitle: this.appollo1.proposerPaTitle,
+        //         proposerPaFirstname: this.appollo1.proposerPaFirstname,
+        //         proposerPaLastname: this.appollo1.proposerPaLastname,
+        //         proposerPaMidname: this.appollo1.proposerPaMidname,
+        //         maritalStatus: this.appollo1.maritalStatus,
+        //         proposerPaDob: new FormControl(new Date(this.appollo1.proposerPaDob)),
+        //         proposerParelationship: this.appollo1.proposerParelationship,
+        //         sameAsProposer: this.appollo1.sameAsProposer,
+        //         proposerPaGender: this.appollo1.proposerPaGender,
+        //         proposerPaAddress: this.appollo1.proposerPaAddress,
+        //         proposerPaAddress2: this.appollo1.proposerPaAddress2,
+        //         proposerPaAddress3: this.appollo1.proposerPaAddress3,
+        //         nationality: this.appollo1.nationality,
+        //         proposerPaPincode: this.appollo1.proposerPaPincode,
+        //         proposerPaIdProof: this.appollo1.proposerPaIdProof,
+        //         proposerPaIdProofIdP: this.appollo1.proposerPaIdProofIdP,
+        //         proposerPaPan: this.appollo1.proposerPaPan,
+        //         proposerPaPassport: this.appollo1.proposerPaPassport,
+        //         proposerPaVoter: this.appollo1.proposerPaVoter,
+        //         proposerPaGst: this.appollo1.proposerPaGst,
+        //         proposerPaDriving: this.appollo1.proposerPaDriving,
+        //         MedicalInformations: this.appollo1.MedicalInformations,
+        //         proposerPaCity: this.appollo1.proposerPaCity,
+        //         proposerPaState: this.appollo1.proposerPaState,
+        //         proposerPaCountry: this.appollo1.proposerPaCountry,
+        //         proposerPaDistrict: this.appollo1.proposerPaDistrict,
+        //         proposerPaStateIdP: this.appollo1.proposerPaStateIdP,
+        //         proposerPaCountryIdP: this.appollo1.proposerPaCountryIdP,
+        //         proposerPaCityIdP: this.appollo1.proposerPaCityIdP,
+        //         proposerPaDistrictIdP: this.appollo1.proposerPaDistrictIdP,
+        //         proposerPaEmail: this.appollo1.proposerPaEmail,
+        //         proposerPaMobile: this.appollo1.proposerPaMobile,
+        //         rolecd: this.appollo1.rolecd,
+        //         relationshipcd: this.appollo1.relationshipcd,
+        //     });
+        //     let age = this.ageCalculate(this.datepipe.transform(this.appollo1.proposerPaDob, 'y-MM-dd'));
+        //     sessionStorage.insuredPaAge = age;
+        //     if(this.appollo1.proposerPaIdProof != ''){
+        //         this.panType('personal');
+        //     }
+        //     this.idList();
+        //
+        // }
 
 
 
@@ -388,9 +387,9 @@ public maxStartdate:any;
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
             }
-            if (this.appollo2.sameAsProposer == true || this.appollo2.sameAsProposer == 'true') {
-                this.readonlyProposer = true;
-            }
+            // if (this.appollo2.sameAsProposer == true || this.appollo2.sameAsProposer == 'true') {
+            //     this.readonlyProposer = true;
+            // }
             this.maxStartdate = this.appollo2.PolicyStartDate;
             this.insureidList();
 
@@ -1220,78 +1219,78 @@ preInsureList() {
 
     public pinPanomineeListFailure(error){
     }
-    sameProposer() {
-
-      if (this.insured.controls['sameAsProposer'].value) {
-          this.readonlyProposer = true;
-          this.insured.controls['insuredPaPincode'].patchValue(this.ProposerPa.controls['proposerPaPincode'].value);
-          this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
-          this.insured.controls['insuredPaIdProof'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
-          this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
-          this.insureidList();
-            this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
-            this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
-            this.insured.controls['insuredPaMidname'].patchValue(this.ProposerPa.controls['proposerPaMidname'].value);
-            this.insured.controls['insuredPaLastname'].patchValue(this.ProposerPa.controls['proposerPaLastname'].value);
-            this.insured.controls['insuredPaDob'].patchValue(this.ProposerPa.controls['proposerPaDob'].value, );
-            this.insured.controls['insuredParelationship'].patchValue('1');
-            this.insured.controls['insuredPaGender'].patchValue(this.ProposerPa.controls['proposerPaGender'].value);
-            this.insured.controls['insuredPaPan'].patchValue(this.ProposerPa.controls['proposerPaPan'].value.toUpperCase());
-            this.insured.controls['maritalStatus'].patchValue(this.ProposerPa.controls['maritalStatus'].value);
-            this.insured.controls['insuredPaDriving'].patchValue(this.ProposerPa.controls['proposerPaDriving'].value);
-            this.insured.controls['insuredPaVoter'].patchValue(this.ProposerPa.controls['proposerPaVoter'].value);
-            this.insured.controls['insuredPaEmail'].patchValue(this.ProposerPa.controls['proposerPaEmail'].value);
-            this.insured.controls['insuredPaMobile'].patchValue(this.ProposerPa.controls['proposerPaMobile'].value);
-            this.insured.controls['insuredPaAddress'].patchValue(this.ProposerPa.controls['proposerPaAddress'].value);
-            this.insured.controls['insuredPaAddress2'].patchValue(this.ProposerPa.controls['proposerPaAddress2'].value);
-            this.insured.controls['insuredPaAddress3'].patchValue(this.ProposerPa.controls['proposerPaAddress3'].value);
-            this.insured.controls['insuredPaCity'].patchValue(this.ProposerPa.controls['proposerPaCity'].value);
-            this.insured.controls['insuredPaState'].patchValue(this.ProposerPa.controls['proposerPaState'].value);
-            this.insured.controls['insuredPaDistrict'].patchValue(this.ProposerPa.controls['proposerPaDistrict'].value);
-          let age = this.ageCalculate(this.datepipe.transform(this.ProposerPa.controls['proposerPaDob'].value, 'y-MM-dd'));
-          this.insured.controls['insuredPaAge'].patchValue(age);
-            this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
-          this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
-          this.insured.controls['insuredPaCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
-          this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
-
-
-        } else {
-          this.readonlyProposer = false;
-
-          this.insured.controls['insuredPaTitle'].patchValue('');
-            this.insured.controls['insuredPaFirstname'].patchValue('');
-            this.insured.controls['insuredPaMidname'].patchValue('');
-            this.insured.controls['insuredPaLastname'].patchValue('');
-            this.insured.controls['insuredPaDob'].patchValue('');
-
-            this.insured.controls['insuredPaIdProof'].patchValue('');
-            this.insured.controls['insuredPaIdProofIdP'].patchValue('');
-
-            this.insured.controls['insuredParelationship'].patchValue('SELF');
-            this.insured.controls['insuredPaGender'].patchValue('');
-            this.insured.controls['insuredPaPan'].patchValue('');
-            this.insured.controls['maritalStatus'].patchValue('');
-            // this.insured.controls['insuredPassPort'].patchValue('');
-            this.insured.controls['insuredPaDriving'].patchValue('');
-            this.insured.controls['insuredPaVoter'].patchValue('');
-            this.insured.controls['insuredPaEmail'].patchValue('');
-            this.insured.controls['insuredPaMobile'].patchValue('');
-            this.insured.controls['insuredPaAddress'].patchValue('');
-            this.insured.controls['insuredPaAddress2'].patchValue('');
-            this.insured.controls['insuredPaAddress3'].patchValue('');
-            this.insured.controls['insuredPaCity'].patchValue('');
-            this.insured.controls['insuredPaPincode'].patchValue('');
-            this.insured.controls['insuredPaState'].patchValue('');
-            this.insured.controls['insuredPaDistrict'].patchValue('');
-            this.insured.controls['insuredPaGst'].patchValue('');
-          this.insured.controls['insuredPaAge'].patchValue('');
-          this.insured.controls['insuredPaStateIdP'].patchValue('');
-        }
-
-
-
-    }
+    // sameProposer() {
+    //
+    //   if (this.insured.controls['sameAsProposer'].value) {
+    //       this.readonlyProposer = true;
+    //       this.insured.controls['insuredPaPincode'].patchValue(this.ProposerPa.controls['proposerPaPincode'].value);
+    //       this.getinsuredPostalCode(this.insured.controls['insuredPaPincode'].value);
+    //       this.insured.controls['insuredPaIdProof'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
+    //       this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
+    //       this.insureidList();
+    //         this.insured.controls['insuredPaTitle'].patchValue(this.ProposerPa.controls['proposerPaTitle'].value);
+    //         this.insured.controls['insuredPaFirstname'].patchValue(this.ProposerPa.controls['proposerPaFirstname'].value);
+    //         this.insured.controls['insuredPaMidname'].patchValue(this.ProposerPa.controls['proposerPaMidname'].value);
+    //         this.insured.controls['insuredPaLastname'].patchValue(this.ProposerPa.controls['proposerPaLastname'].value);
+    //         this.insured.controls['insuredPaDob'].patchValue(this.ProposerPa.controls['proposerPaDob'].value, );
+    //         this.insured.controls['insuredParelationship'].patchValue('1');
+    //         this.insured.controls['insuredPaGender'].patchValue(this.ProposerPa.controls['proposerPaGender'].value);
+    //         this.insured.controls['insuredPaPan'].patchValue(this.ProposerPa.controls['proposerPaPan'].value.toUpperCase());
+    //         this.insured.controls['maritalStatus'].patchValue(this.ProposerPa.controls['maritalStatus'].value);
+    //         this.insured.controls['insuredPaDriving'].patchValue(this.ProposerPa.controls['proposerPaDriving'].value);
+    //         this.insured.controls['insuredPaVoter'].patchValue(this.ProposerPa.controls['proposerPaVoter'].value);
+    //         this.insured.controls['insuredPaEmail'].patchValue(this.ProposerPa.controls['proposerPaEmail'].value);
+    //         this.insured.controls['insuredPaMobile'].patchValue(this.ProposerPa.controls['proposerPaMobile'].value);
+    //         this.insured.controls['insuredPaAddress'].patchValue(this.ProposerPa.controls['proposerPaAddress'].value);
+    //         this.insured.controls['insuredPaAddress2'].patchValue(this.ProposerPa.controls['proposerPaAddress2'].value);
+    //         this.insured.controls['insuredPaAddress3'].patchValue(this.ProposerPa.controls['proposerPaAddress3'].value);
+    //         this.insured.controls['insuredPaCity'].patchValue(this.ProposerPa.controls['proposerPaCity'].value);
+    //         this.insured.controls['insuredPaState'].patchValue(this.ProposerPa.controls['proposerPaState'].value);
+    //         this.insured.controls['insuredPaDistrict'].patchValue(this.ProposerPa.controls['proposerPaDistrict'].value);
+    //       let age = this.ageCalculate(this.datepipe.transform(this.ProposerPa.controls['proposerPaDob'].value, 'y-MM-dd'));
+    //       this.insured.controls['insuredPaAge'].patchValue(age);
+    //         this.insured.controls['insuredPaGst'].patchValue(this.ProposerPa.controls['proposerPaGst'].value);
+    //       this.insured.controls['insuredPaStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
+    //       this.insured.controls['insuredPaCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
+    //       this.insured.controls['insuredPaIdProofIdP'].patchValue(this.ProposerPa.controls['proposerPaIdProof'].value);
+    //
+    //
+    //     } else {
+    //       this.readonlyProposer = false;
+    //
+    //       this.insured.controls['insuredPaTitle'].patchValue('');
+    //         this.insured.controls['insuredPaFirstname'].patchValue('');
+    //         this.insured.controls['insuredPaMidname'].patchValue('');
+    //         this.insured.controls['insuredPaLastname'].patchValue('');
+    //         this.insured.controls['insuredPaDob'].patchValue('');
+    //
+    //         this.insured.controls['insuredPaIdProof'].patchValue('');
+    //         this.insured.controls['insuredPaIdProofIdP'].patchValue('');
+    //
+    //         this.insured.controls['insuredParelationship'].patchValue('SELF');
+    //         this.insured.controls['insuredPaGender'].patchValue('');
+    //         this.insured.controls['insuredPaPan'].patchValue('');
+    //         this.insured.controls['maritalStatus'].patchValue('');
+    //         // this.insured.controls['insuredPassPort'].patchValue('');
+    //         this.insured.controls['insuredPaDriving'].patchValue('');
+    //         this.insured.controls['insuredPaVoter'].patchValue('');
+    //         this.insured.controls['insuredPaEmail'].patchValue('');
+    //         this.insured.controls['insuredPaMobile'].patchValue('');
+    //         this.insured.controls['insuredPaAddress'].patchValue('');
+    //         this.insured.controls['insuredPaAddress2'].patchValue('');
+    //         this.insured.controls['insuredPaAddress3'].patchValue('');
+    //         this.insured.controls['insuredPaCity'].patchValue('');
+    //         this.insured.controls['insuredPaPincode'].patchValue('');
+    //         this.insured.controls['insuredPaState'].patchValue('');
+    //         this.insured.controls['insuredPaDistrict'].patchValue('');
+    //         this.insured.controls['insuredPaGst'].patchValue('');
+    //       this.insured.controls['insuredPaAge'].patchValue('');
+    //       this.insured.controls['insuredPaStateIdP'].patchValue('');
+    //     }
+    //
+    //
+    //
+    // }
     // Proposal details first Page
     proposerDetails(stepper: MatStepper, value) {
         this.proposerPaData = value;
@@ -1313,7 +1312,7 @@ preInsureList() {
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         if (this.insured.valid) {
-            if (sessionStorage.proposerAgeP >= 18){
+            if (sessionStorage.insuredAgeP >= 18){
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
                 } else {
@@ -1363,35 +1362,35 @@ preInsureList() {
                 "Proposer": {
                     "Address": {
                         "Address": {
-                            "AddressLine1": this.ProposerPa.controls['proposerPaAddress'].value,
-                            "AddressLine2": this.ProposerPa.controls['proposerPaAddress2'].value,
-                            "AddressLine3":this.ProposerPa.controls['proposerPaAddress3'].value,
+                            "AddressLine1": this.insured.controls['insuredPaAddress'].value,
+                            "AddressLine2": this.insured.controls['insuredPaAddress2'].value,
+                            "AddressLine3":this.insured.controls['insuredPaAddress3'].value,
                             "CountryCode": "IN",
-                            "District":this.ProposerPa.controls['proposerPaDistrict'].value,
-                            "PinCode": this.ProposerPa.controls['proposerPaPincode'].value,
-                            "StateCode": this.ProposerPa.controls['proposerPaStateIdP'].value,
-                            "TownCode": this.ProposerPa.controls['proposerPaCity'].value,
+                            "District":this.insured.controls['insuredPaDistrict'].value,
+                            "PinCode": this.insured.controls['insuredPaPincode'].value,
+                            "StateCode": this.insured.controls['insuredPaStateIdP'].value,
+                            "TownCode": this.insured.controls['insuredPaCity'].value,
                         }
                     },
-                    "BirthDate": this.ProposerPa.controls['proposerPaDob'].value,
+                    "BirthDate": this.insured.controls['insuredPaDob'].value,
                     "ContactInformation": {
                         "ContactNumber": {
                             "ContactNumber": {
-                                "Number": this.ProposerPa.controls['proposerPaMobile'].value,
+                                "Number": this.insured.controls['insuredPaMobile'].value,
                             }
                         },
-                        "Email":this.ProposerPa.controls['proposerPaEmail'].value,
+                        "Email":this.insured.controls['insuredPaEmail'].value,
                     },
-                    "Titlecode": this.ProposerPa.controls['proposerPaTitle'].value,
-                    "FirstName": this.ProposerPa.controls['proposerPaFirstname'].value,
-                    "GenderCode": this.ProposerPa.controls['proposerPaGender'].value,
-                    "GstinNumber": this.ProposerPa.controls['proposerPaGst'].value,
+                    "Titlecode": this.insured.controls['insuredPaTitle'].value,
+                    "FirstName": this.insured.controls['insuredPaFirstname'].value,
+                    "GenderCode": this.insured.controls['insuredPaGender'].value,
+                    "GstinNumber": this.insured.controls['insuredPaGst'].value,
                     "IDProofNumber": this.idListDetailsProposal,
-                    "IDProofTypeCode":this.ProposerPa.controls['proposerPaIdProof'].value,
-                    "LastName": this.ProposerPa.controls['proposerPaLastname'].value,
-                    "MaritalStatusCode": this.ProposerPa.controls['maritalStatus'].value,
-                    "MiddleName": this.ProposerPa.controls['proposerPaMidname'].value,
-                    "RelationshipCode": 'SELF',
+                    "IDProofTypeCode":this.insured.controls['insuredPaIdProof'].value,
+                    "LastName": this.insured.controls['insuredPaLastname'].value,
+                    "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
+                    "MiddleName": this.insured.controls['insuredPaMidname'].value,
+                    "RelationshipCode": '1',
                 }
             },
             "Client": {
@@ -1458,10 +1457,10 @@ preInsureList() {
                     }
                 },
                 "ProfessionCode": this.insured.controls['insuredProfessionList'].value,
-                "RelationshipCode":this.insured.controls['insuredParelationship'].value,
+                "RelationshipCode":'1',
                 "TitleCode": this.insured.controls['insuredPaTitle'].value,
             },
-            "MedicalInformations": this.ProposerPa.controls['MedicalInformations'].value
+            "MedicalInformations": this.insured.controls['MedicalInformations'].value
         }
     }
 }

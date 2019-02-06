@@ -795,9 +795,9 @@
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Gender:</strong> {{summaryData.ClientDetails.Gender}}</li>
-                                            <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ClientDetails.marital_status}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.ClientDetails.occupation_name}}</li>
-                                            <li class="list-group-item"><strong>Nationality:</strong> {{summaryData.ClientDetails.nationality}}</li>
+                                            <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ClientDetails.MaritalStatusID}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.ClientDetails.OccupationID}}</li>
+                                            <li class="list-group-item"><strong>Nationality:</strong> {{summaryData.ClientDetails.Nationality}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.PanNo !=''"><strong>PAN Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PanNo}}</li>
                                         </ul>
                                     </div>
@@ -809,9 +809,9 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address1}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address2 !=''"><strong>Address 2:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address2}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address3 !=''"><strong>Address 3:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Address3}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name !=''"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.city_village_name}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.state_name}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.area_name !=''"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.AreaID}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.CityID}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.StateID}}</li>
                                             <li class="list-group-item"><strong>District:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.DistrictID}}</li>
                                             <li class="list-group-item"><strong>Country:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Country}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode}}</li>
@@ -827,9 +827,9 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address1}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address2 !=''"><strong>Address 2:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address2}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address3 !=''"><strong>Address 3:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Address3}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name !=''"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.city_village_name}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.state_name}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.area_name !=''"><strong>Area:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.AreaID}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.CityID}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.StateID}}</li>
                                             <li class="list-group-item"><strong>District:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.DistrictID}}</li>
                                             <li class="list-group-item"><strong>Country:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Country}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ClientDetails.ClientAddress.PermanentAddress.Address.Pincode}}</li>
@@ -851,11 +851,11 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}} {{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
-                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>
+                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd-MMM-yyyy'}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.occupation_name}}</li>
-                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_proposer_name}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -937,7 +937,7 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}} {{summaryData.NomineeDetails.FirstName}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.DOB !=''"><strong>DOB:</strong> {{summaryData.NomineeDetails.DOB | date: 'dd-MMM-yyyy'}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.NomineeDetails.nominee_relation_name !=''"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.nominee_relation_name}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.NomineeDetails.nominee_relation_name !=''"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.NomineeRelationshipID}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address1 !=''"><strong>Address 1:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address1}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address2 !=''"><strong>Address 2:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address2}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address3 !=''"><strong>Address 3:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address3}}</li>
@@ -952,10 +952,10 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <!--<li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther !=''"><strong>Relationship Other:</strong> {{summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther}}</li>-->
-                                                <li class="list-group-item"><strong *ngIf="summaryData.NomineeDetails.NomineeAddress.area_name !=''">Area:</strong> {{summaryData.NomineeDetails.NomineeAddress.area_name}}</li>
+                                                <li class="list-group-item"><strong *ngIf="summaryData.NomineeDetails.NomineeAddress.area_name !=''">Area:</strong> {{summaryData.NomineeDetails.NomineeAddress.AreaID}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NearestLandmark !=''"><strong>LandMark:</strong> {{summaryData.NomineeDetails.NomineeAddress.NearestLandmark}}</li>
                                                 <li class="list-group-item"><strong>City:</strong> {{summaryData.NomineeDetails.NomineeAddress.CityID}}</li>
-                                                <li class="list-group-item"><strong>State:</strong> {{summaryData.NomineeDetails.NomineeAddress.state_name}}</li>
+                                                <li class="list-group-item"><strong>State:</strong> {{summaryData.NomineeDetails.NomineeAddress.StateID}}</li>
                                                 <li class="list-group-item"><strong>Country:</strong> {{summaryData.NomineeDetails.NomineeAddress.Country}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Pincode !=''"><strong>PIN code:</strong> {{summaryData.NomineeDetails.NomineeAddress.Pincode}}</li>
                                             </ul>
