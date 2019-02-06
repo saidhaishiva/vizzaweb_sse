@@ -102,7 +102,7 @@ public sameinsure: any;
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.arr = [];
         this.sameinsure = false;
-        // this.studentdetails = false;
+        this.studentdetails = false;
         this.inputReadonly = false;
     this.isDisable = false;
         this.acceptSummaryDeclaration = false;
@@ -190,12 +190,12 @@ public sameinsure: any;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
-        // if(this.getallTravelPremiumList.policy_type == 'student'){
-        //     this.studentdetails = true;
-        // } else {
-        //     this.studentdetails = false;
-        //
-        // }
+        if(this.getallTravelPremiumList.travel_type == 'student'){
+            this.studentdetails = true;
+        } else {
+            this.studentdetails = false;
+
+        }
         this.insureReligarePerson =  this.getTravelPremiumList.family_details;
         console.log(this.insureReligarePerson, 'this.insureReligarePerson');
         this.insureReligareArray = this.fb.group({
@@ -908,17 +908,28 @@ public sameinsure: any;
                 'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
-                'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : null,
-                'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : null,
+                'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
+                'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
                 'student_relationship':'BOTH',
-                'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : null,
+                'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
                 'address':'ASF',
-                'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : null,
+                'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
                 'course_details':'parama',
                 'field11':'lastname11',
-                'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : null,
-                'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : null,
-                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : null
+                'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
+                'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
+                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : ''
+                // 'sponser_dob':'20/09/1994',
+                // 'sponser_name':'lkhk',
+                // 'student_relationship':'BOTH',
+                // 'university_name':'jjgfdg',
+                // 'address':'ASF',
+                // 'title':';lkhgj',
+                // 'course_details':'parama',
+                // 'field11':'lastname11',
+                // 'university_address':'kjhgfhj',
+                // 'gfirstname':'vhj',
+                // 'glastname':'kjhgjk'
 
             };
 
@@ -1056,9 +1067,6 @@ public sameinsure: any;
                 console.log(this.religare_Travel_proposal_id, 'this.religarePAProposal');
             }
         }
-    }
-    paynow(){
-
     }
 }
 
