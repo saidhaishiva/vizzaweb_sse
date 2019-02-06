@@ -99,7 +99,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Telephpne office Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
+                        <input matInput placeholder="Telephone office Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.errors?.required">Telephpne office Number is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 8 Digits</mat-error>
                       </mat-form-field></div>
@@ -108,7 +108,7 @@
                         <mat-error *ngIf="hdfcTravel.controls.physicianName.errors?.required">Phyisican Name is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Physician Mobilenumber"  (keypress)="dobValidate($event)"  minlength="10" maxlength="10" formControlName="physicianMobile" autocomplete="off">
+                        <input matInput placeholder="Physician Mobile Number"  (keypress)="dobValidate($event)"  minlength="10" maxlength="10" formControlName="physicianMobile"  pattern="[6789][0-9]{9}" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 Digits</mat-error>
@@ -145,7 +145,7 @@
                         <input matInput placeholder="Decline Insurance Reason"  (keypress)="nameValidate($event)"   formControlName="declineReson" autocomplete="off" >
                       </mat-form-field></div>
                       <div class="col-md-3">
-                        <b class="mt-3 mb-2">RestrictionByIns :</b>
+                        <b class="mt-3 mb-2">Restriction By Ins :</b>
                         <mat-radio-group   formControlName="restrictionbyinsurance" (change)="restrictionReson()">
                           <mat-radio-button value="True">Yes</mat-radio-button>
                           <mat-radio-button value="False">No</mat-radio-button>
@@ -411,6 +411,7 @@
                           <li class="list-group-item"><strong>Email:</strong> {{summaryData.ProposalDetails.emailid}}</li>
                           <li class="list-group-item"><strong>Mobile:</strong> {{summaryData.ProposalDetails.mobile}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.physicianName != ''"><strong>Physician Name :</strong> {{summaryData.ProposalDetails.physicianName}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.ProposalDetails.gst != ''"><strong>Physician Name :</strong> {{summaryData.ProposalDetails.gst}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.physicianNo != ''"><strong>Physician Mobilenumber :</strong> {{summaryData.ProposalDetails.physicianNo}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.stdcode_resi != ''"><strong>STD Code:</strong> {{summaryData.ProposalDetails.stdcode_resi}}</li>
                           <li class="list-group-item" *ngIf="summaryData.ProposalDetails.tel_resi != ''"><strong>Telephone Number:</strong> {{summaryData.ProposalDetails.tel_resi}}</li>
