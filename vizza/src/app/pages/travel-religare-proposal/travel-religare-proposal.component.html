@@ -85,7 +85,7 @@
                     <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid  passport</mat-error>
                   </mat-form-field></div>
                       <div class="col-md-12 box-card pt-3">
-                        <div class="row" >
+                        <div class="row" *ngIf="studentdetails">
                         <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Sponser Name"  formControlName="sponsername" autocomplete="off" >
                         <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">passport inputs required</mat-error>

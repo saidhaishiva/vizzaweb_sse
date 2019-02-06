@@ -14,6 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {ValidationService} from '../../shared/services/validation.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -160,8 +161,11 @@ export class AppolloMunichComponent implements OnInit {
     public getAge: any;
     public readonly: any;
     public readonlyproposer: any;
+    public appolloQuestionsList: any;
+    public medicalStatus: any;
+    public medicalquestion: any;
 
-  constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+  constructor(public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -267,6 +271,7 @@ export class AppolloMunichComponent implements OnInit {
         this.setOccupationList();
         this.getPreviousInsure();
         this.getProffession();
+        this.questionsList();
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
@@ -286,7 +291,209 @@ export class AppolloMunichComponent implements OnInit {
         // this.setDate = Date.now();
         // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
     }
+    sessionData() {
+        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+            this.stateChange(this.getStepper1.proposerStateIdP, 'proposer');
+            this.proposer = this.fb.group({
+                proposerTitle: this.getStepper1.proposerTitle,
+                proposerFirstname: this.getStepper1.proposerFirstname,
+                proposerLastname: this.getStepper1.proposerLastname,
+                proposerMidname: this.getStepper1.proposerMidname,
+                maritalStatus: this.getStepper1.maritalStatus,
+                proposerDob: new FormControl(new Date(this.getStepper1.proposerDob)),
+                proposerrelationship: this.getStepper1.proposerrelationship,
+                sameAsProposer: this.getStepper1.sameAsProposer,
+                proposerGender: this.getStepper1.proposerGender,
+                proposerAddress: this.getStepper1.proposerAddress,
+                proposerAddress2: this.getStepper1.proposerAddress2,
+                proposerAddress3: this.getStepper1.proposerAddress3,
+                nationality: this.getStepper1.nationality,
+                proposerPincode: this.getStepper1.proposerPincode,
+                proposerIdProof: this.getStepper1.proposerIdProof,
+                proposerIdProofIdP: this.getStepper1.proposerIdProofIdP,
+                proposerPan: this.getStepper1.proposerPan,
+                proposerPassport: this.getStepper1.proposerPassport,
+                proposerVoter: this.getStepper1.proposerVoter,
+                proposerGst: this.getStepper1.proposerGst,
+                proposerDriving: this.getStepper1.proposerDriving,
+                MedicalInformations: this.getStepper1.MedicalInformations,
+                proposerCity: this.getStepper1.proposerCity,
+                proposerState: this.getStepper1.proposerState,
+                proposerCountry: this.getStepper1.proposerCountry,
+                proposerCityIdP: this.getStepper1.proposerCityIdP,
+                proposerStateIdP: this.getStepper1.proposerStateIdP,
+                proposerCountryIdP: this.getStepper1.proposerCountryIdP,
+                proposerCityIdR: this.getStepper1.proposerCityIdR,
+                proposerStateIdR: this.getStepper1.proposerStateIdR,
+                proposerCountryIdR: this.getStepper1.proposerCountryIdR,
+                proposerDistrictIdP: this.getStepper1.proposerDistrictIdP,
+                proposerDistrict: this.getStepper1.proposerDistrict,
+                proposerEmail: this.getStepper1.proposerEmail,
+                proposerMobile: this.getStepper1.proposerMobile,
+                rolecd: this.getStepper1.rolecd,
+                relationshipcd: this.getStepper1.relationshipcd,
+                sameas: this.getStepper1.sameas,
+            });
+            let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.proposerDob, 'y-MM-dd'));
+            sessionStorage.proposerAge = age;
+            // this.proposer.controls['proposerDob'].pat();
 
+        }
+
+
+
+
+        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+            // this.getPincode(this.getStepper2.items[0].proposerPincode, 'insure', 0);
+
+            for (let i = 0; i < this.getStepper2.items.length; i++) {
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerFirstname.patchValue(this.getStepper2.items[i].proposerFirstname);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue(this.getStepper2.items[i].proposerGender);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getStepper2.items[i].proposerAge);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.getStepper2.items[i].proposerLastname);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerMobile.patchValue(this.getStepper2.items[i].proposerMobile);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationship.patchValue(this.getStepper2.items[i].proposerrelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
+                this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
+                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerEmail.patchValue(this.getStepper2.items[i].proposerEmail);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.patchValue(this.getStepper2.items[i].proposerIdProof);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.getStepper2.items[i].proposerIdProofIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue(this.getStepper2.items[i].proposerPan);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue(this.getStepper2.items[i].proposerDriving);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue(this.getStepper2.items[i].proposerPassport);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.patchValue(this.getStepper2.items[i].proposerVoter);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerGst.patchValue(this.getStepper2.items[i].proposerGst);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress.patchValue(this.getStepper2.items[i].proposerAddress);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress2.patchValue(this.getStepper2.items[i].proposerAddress2);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress3.patchValue(this.getStepper2.items[i].proposerAddress3);
+                this.insureArray['controls'].items['controls'][i]['controls'].nationality.patchValue(this.getStepper2.items[i].nationality);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerPincode.patchValue(this.getStepper2.items[i].proposerPincode);
+                this.getPincode(this.getStepper2.items[i].proposerPincode, 'insure', i);
+
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountry.patchValue(this.getStepper2.items[i].proposerCountry);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerState.patchValue(this.getStepper2.items[i].proposerState);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrict.patchValue(this.getStepper2.items[i].proposerDistrict);
+
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCity.patchValue(this.getStepper2.items[i].proposerCity);
+
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCityIdP.patchValue(this.getStepper2.items[i].proposerCityIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerStateIdP.patchValue(this.getStepper2.items[i].proposerStateIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountryIdP.patchValue(this.getStepper2.items[i].proposerCountryIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrictIdP.patchValue(this.getStepper2.items[i].proposerDistrictIdP == undefined? '' : this.getStepper2.items[i].proposerDistrictIdP);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
+                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.patchValue(this.getStepper2.items[i].LiquorPeg);
+                this.insureArray['controls'].items['controls'][i]['controls'].Smoking.patchValue(this.getStepper2.items[i].Smoking);
+                this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
+                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.patchValue(this.getStepper2.items[i].BeerBottle);
+                this.insureArray['controls'].items['controls'][i]['controls'].Pouches.patchValue(this.getStepper2.items[i].Pouches);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreviousInsurer.patchValue(this.getStepper2.items[i].PreviousInsurer);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolicyNumber.patchValue(this.getStepper2.items[i].PreviousPolicyNumber);
+                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
+                this.insureArray['controls'].items['controls'][i]['controls'].QualifyingAmount.patchValue(this.getStepper2.items[i].QualifyingAmount);
+                this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
+                this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
+                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.patchValue(this.getStepper2.items[i].SmokingStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.patchValue(this.getStepper2.items[i].LiquorPegStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.patchValue(this.getStepper2.items[i].WineGlassStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
+                this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
+                this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
+                this.insureArray['controls'].items['controls'][i]['controls'].stateHide.patchValue(true);
+
+            }
+
+
+            if (this.getStepper2.items[0].sameAsProposer != '' && this.getStepper2.items[0].sameAsProposer != undefined) {
+                this.sameProposer();
+            }
+
+        }
+
+        for (let i = 0; i < this.insurePersons.length; i++) {
+            if (this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "Yes") {
+
+                this.items.at(i).controls.PreviousPolicyNumber.setValidators([Validators.required]);
+                this.items.at(i).controls.PreviousInsurer.setValidators([Validators.required]);
+                this.items.at(i).controls.SumInsured.setValidators([Validators.required]);
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "No"){
+
+                this.items.at(i).controls.PreviousPolicyNumber.setValidators(null);
+                this.items.at(i).controls.PreviousInsurer.setValidators(null);
+                this.items.at(i).controls.SumInsured.setValidators(null);
+            }
+            this.items.at(i).controls.PreviousPolicyNumber.updateValueAndValidity();
+            this.items.at(i).controls.PreviousInsurer.updateValueAndValidity();
+            this.items.at(i).controls.SumInsured.updateValueAndValidity();
+        }
+        if (sessionStorage.titleValidation != '' && sessionStorage.titleValidation != undefined) {
+            this.titleValidation = sessionStorage.titleValidation;
+            // if ( this.titleValidation == false){}
+        }
+        if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
+            this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
+            this.stateChangeN(this.getNomineeData.nomineeStateId, 'nominee');
+            this.nomineeDetails = this.fb.group({
+                nomineeName: this.getNomineeData.nomineeName,
+                nomineeRelationship: this.getNomineeData.nomineeRelationship,
+                nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
+                nomineeAddress: this.getNomineeData.nomineeAddress,
+                nomineeAddress2: this.getNomineeData.nomineeAddress2,
+                nomineeAddress3: this.getNomineeData.nomineeAddress3,
+                nomineePincode: this.getNomineeData.nomineePincode,
+                nomineeCountry: this.getNomineeData.nomineeCountry,
+                nomineeCity: this.getNomineeData.nomineeCity,
+                nomineeState: this.getNomineeData.nomineeState,
+                nomineeCountryId: this.getNomineeData.nomineeCountryId,
+                nomineeDistrictId: this.getNomineeData.nomineeDistrictId,
+                nomineeCityId: this.getNomineeData.nomineeCityId,
+                nomineeStateId: this.getNomineeData.nomineeStateId,
+                nomineeDistrict: this.getNomineeData.nomineeDistrict,
+                nomineeTitle: this.getNomineeData.nomineeTitle,
+                nomineeDob: this.getNomineeData.nomineeDob,
+            });
+
+
+
+        }
+    }
+
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
     changeGender() {
         if (this.proposer.controls['proposerTitle'].value == 'MR'|| this.proposer.controls['proposerTitle'].value == 'MASTER'){
             this.proposer.controls['proposerGender'].patchValue('Male');
@@ -295,7 +502,6 @@ export class AppolloMunichComponent implements OnInit {
         }
     }
     insureChangeGender(index) {
-        console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value,'iiiiiii');
 
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR' ||
             this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MASTER') {
@@ -308,12 +514,9 @@ export class AppolloMunichComponent implements OnInit {
         }
             // this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.value = '';
         // } else {
-        //     console.log('iiiopppp');
         //     // if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MRS' ||
         //     //     this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'BABY' || this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MISS')
-        //     //    console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value,'jgkhgj');
         //         this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
-        //         console.log( this.insureArray['controls'].items['controls'][index]['controls'].proposerGender,'vvvvvv');
         //     this.titleValidation = true;
         // }
 
@@ -413,130 +616,45 @@ export class AppolloMunichComponent implements OnInit {
 
 
 
-
-    //Insure Details
-    AppolloInsureDetails(stepper: MatStepper, id, value, key) {
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper2Details = JSON.stringify(value);
-        if (this.insureArray.valid) {
-            this.insurerData = value.items;
-            console.log( this.insurerData, ' this.insurerData');
-            for(let i = 0; i < this.insurerData.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value != "") {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value);
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value != "") {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value);
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value != "") {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
-                }
+    questionsList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloQuestions(data).subscribe(
+            (successData) => {
+                this.appolloQuestionsSuccess(successData);
+            },
+            (error) => {
+                this.appolloQuestionsFailure(error);
             }
-            console.log(this.insurerData, 'pppp');
+        );
 
-            this.totalInsureDetails = [];
-            for (let i = 0; i < this.insurePersons.length; i++) {
-                this.totalInsureDetails.push({
-                    'Address': {
-                        'Address': {
-                    'AddressLine1': this.insurerData[i].proposerAddress,
-                    'AddressLine2': this.insurerData[i].proposerAddress2,
-                    'AddressLine3': this.insurerData[i].proposerAddress3,
-                    'CountryCode': this.insurerData[i].proposerCountry,
-                    'District': this.insurerData[i].proposerDistrict,
-                    'PinCode': this.insurerData[i].proposerPincode,
-                    'TownCode': this.insurerData[i].proposerCity,
-                    'StateCode': this.insurerData[i].proposerStateIdP,
-                        }
-                    },
-                    'proposerMobile': this.insurerData[i].proposerMobile,
-                    'FamilySize': this.insurerData[i].proposerFamilySize,
-                    'Age': this.insurerData[i].proposerAge,
-                    'BirthDate': this.insurerData[i].proposerDob,
-                    'ClientCode': this.insurerData[i].ClientCode,
-                    "ContactInformation": {
-                        "ContactNumber": {
-                            "ContactNumber": {
-                                "Number": this.insurerData[i].proposerMobile
-                            }
-                        },
-                        "Email": this.insurerData[i].proposerEmail,
-                    },
-                    'Dependants': '',
-                    'FirstName': this.insurerData[i].proposerFirstname,
-                    'GenderCode': this.insurerData[i].proposerGender,
-                    'GstinNumber': this.insurerData[i].proposerGst,
-                    'Height': this.insurerData[i].proposerHeight,
-                    'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
-                    'IDProofTypeCode': this.insurerData[i].proposerIdProof,
-                    'LastName': this.insurerData[i].proposerLastname,
-                    'AnnualIncome': this.insurerData[i].proposerAnnualIncome == undefined ? 0 : (this.insurerData[i].proposerAnnualIncome ? this.insurerData[i].proposerAnnualIncome : 0) ,
-                    'LifeStyleHabits': {
-                        'BeerBottle': this.insurerData[i].BeerBottle,
-                        'LiquorPeg': this.insurerData[i].LiquorPeg,
-                        'Pouches': this.insurerData[i].Pouches,
-                        'Smoking': this.insurerData[i].Smoking,
-                        'WineGlass': this.insurerData[i].WineGlass
-                },
-                    'MaritalStatusCode': this.insurerData[i].maritalStatus,
-                    'MiddleName': this.insurerData[i].proposerMidname,
-                    'NationalityCode': 'IN',
-                    'OccuptionCode': this.insurerData[i].Proposeroccupation,
-                    'PreviousInsurer': {
-                        'InceptionDate': this.insurerData[i].PolicyStartDate,
-                        'EndDate': this.insurerData[i].PolicyEndDate,
-                        'PreviousInsurerCode': this.insurerData[i].PreviousInsurer,
-                        'PreviousPolicyNumber': this.insurerData[i].PreviousPolicyNumber,
-                        'SumInsured': this.insurerData[i].SumInsured,
-                        'QualifyingAmount': this.insurerData[i].QualifyingAmount,
-                        'WaivePeriod': this.insurerData[i].WaivePeriod,
-                        'Remarks': this.insurerData[i].Remarks
-                    },
-                    'Product': {
-                    'Product': [{
+    }
 
-                    }]
-                },
-                    'ProfessionCode': this.insurerData[i].ProffessionList,
-                    'RelationshipCode': this.insurerData[i].proposerrelationship,
-                    'TitleCode': this.insurerData[i].proposerTitle,
-                    'Weight': this.insurerData[i].proposerWeight
-                });
-            }
-            let ageValidate = [];
-            for (let i = 0; i< this.insurerData.length; i++){
-                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
-                    ageValidate.push(1);
-
-                } else{
-                    ageValidate.push(0);
-                }
-            }
-            if(!ageValidate.includes(1)){
-                if (this.titleValidation) {
-                    stepper.next();
-                    this.topScroll();
-                    // if (sessionStorage.proposerAge >= 18) {
-                    //     stepper.next();
-                    //     this.topScroll();
-                    // } else {
-                    //     this.toastr.error('Insurer age should be 18 or above');
-                    // }
-                } else if (this.titleValidation == false) {
-                    stepper.next();
-                    this.topScroll();
-
-                }
+    public appolloQuestionsSuccess(successData) {
+        this.appolloQuestionsList = successData.ResponseObject;
+        for (let i = 0; i < this.appolloQuestionsList.length; i++) {
+            this.appolloQuestionsList[i].mStatus = 'No';
+            this.appolloQuestionsList[i].checked = false;
+        }
+    }
 
 
-            }
+    public appolloQuestionsFailure(error) {
+    }
 
+    questionYes(id, value: any) {
+        if (value.checked) {
+            this.appolloQuestionsList[id].mStatus = 'Yes';
+        } else {
+            this.appolloQuestionsList[id].mStatus = 'No';
         }
     }
 
 
     pInsureStatus(title: any, id){
-console.log(this.insureArray, 'pppp');
       if(title.value == 'Yes') {
         this.previousDetails = true;
         this.validateprvious = true;
@@ -605,59 +723,26 @@ console.log(this.insureArray, 'pppp');
     }
 
 
-    //proposer Details
-    proposerDetails(stepper: MatStepper, value) {
-        this.proposerData = value;
-        console.log(this.proposerData,   this.proposerData);
-        if(value.proposerDriving != ""){
-            this.proposerProofNum = value.proposerDriving;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
-        } else if(value.proposerPassport != ""){
-            this.proposerProofNum = value.proposerPassport;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
 
-        }else if(value.proposerVoter != ""){
-            this.proposerProofNum = value.proposerVoter;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
 
-        } else if(value.proposerPan != ""){
-            this.proposerProofNum = value.proposerPan;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
-
-        }
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        if (this.proposer.valid) {
-            if (sessionStorage.proposerAge >= 18) {
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                    this.topScroll();
-                }
-
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
-        }
-    }
-
-    religareQuestion(stepper: MatStepper) {
-        this.questionEmpty = false;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if (this.religareQuestionsList[i].answer == '') {
-                this.questionEmpty = false;
-                break;
-            } else {
-                this.questionEmpty = true;
-            }
-        }
-        if (this.questionEmpty ) {
-            stepper.next();
-
-        } else {
-            this.toastr.error('Please fill the all Answers');
-
-        }
-    }
+    // religareQuestion(stepper: MatStepper) {
+    //     this.questionEmpty = false;
+    //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
+    //         if (this.religareQuestionsList[i].answer == '') {
+    //             this.questionEmpty = false;
+    //             break;
+    //         } else {
+    //             this.questionEmpty = true;
+    //         }
+    //     }
+    //     if (this.questionEmpty ) {
+    //         stepper.next();
+    //
+    //     } else {
+    //         this.toastr.error('Please fill the all Answers');
+    //
+    //     }
+    // }
 
     PreviousInsure(value) {
         if (value.value == 'true') {
@@ -676,16 +761,6 @@ console.log(this.insureArray, 'pppp');
         } else {
             this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
             this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
-        }
-    }
-
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
         }
     }
 
@@ -728,103 +803,6 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
         }
     }
-
-
-    // addEvent(event, index, type, title) {
-    //     let dd = event.value;
-    //     this.selectDate = event.value;
-    //     this.minDate = this.selectDate;
-    //     this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-    //     this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    //     let age = this.ageCalculate(this.setDateAge);
-    //     this.agevalidation = age;
-    //     console.log(  this.agevalidation ,'  this.agevalidation   this.agevalidation ');
-    //     let days = this.DobDaysCalculate(this.setDateAge);
-    //     this.proposerAge = age;
-    //     if(title == 'proposer'){
-    //         sessionStorage.proposerAge = this.proposerAge;
-    //         sessionStorage.setItem('proposerAge', this.proposerAge);
-    //     } else if(title == 'insurer') {
-    //         sessionStorage.setItem('insurerAge', this.proposerAge);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].proposerAge.patchValue(sessionStorage.insurerAge);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].ins_age.patchValue(age);
-    //         this.insureArray['controls'].items['controls'][index]['controls'].ins_days.patchValue(days);
-    //         if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value < 91)  && (type == 'Son' || type == 'Daughter' )) {
-    //             this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 91 days to 25 years');
-    //         } else if((this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 25 || this.insureArray['controls'].items['controls'][index]['controls'].ins_days.value > 91) && (type == 'Son' || type == 'Daughter' ))  {
-    //             this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
-    //         } else{
-    //             if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value <= 18) {
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue(' Age between 18 above');
-    //             } else if(this.insureArray['controls'].items['controls'][index]['controls'].ins_age.value >= 18)  {
-    //                 this.insureArray['controls'].items['controls'][index]['controls'].insurerDobError.patchValue('');
-    //             }
-    //         }
-    //     }
-    //     if (event.value != null) {
-    //         let selectedDate = '';
-    //         let dob = '';
-    //         if (typeof event.value._i == 'string') {
-    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    //             if (pattern.test(event.value._i) && event.value._i.length == 10) {
-    //                 this.dobError = '';
-    //             } else {
-    //                 this.dobError = 'Enter Valid Date';
-    //             }
-    //             selectedDate = event.value._i;
-    //
-    //             let dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //             if (selectedDate.length == 10) {
-    //                 if (title == 'proposer') {
-    //                     this.dobError = '';
-    //                     this.proposer.controls['proposerDob'].patchValue(dob);
-    //                     this.ageCalculate(dob);
-    //
-    //                 } else if (title == 'insurer') {
-    //                     this.dobErrorInsure = '';
-    //                     this.insureArray['controls'].items['controls'][index]['controls'].proposerDob.patchValue(dob);
-    //                     this.ageCalculate(dob);
-    //                 } else if(title == 'startDate'){
-    //                     this.dobErrorStartDate = '';
-    //                     this.insureArray['controls'].items['controls'][index]['controls'].PolicyStartDate.patchValue(dob);
-    //                     this.ageCalculate(dob);
-    //                 }
-    //             }
-    //         } else if (typeof event.value._i == 'object') {
-    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //             if (dob.length == 10) {
-    //                 if (title == 'insurer') {
-    //                     this.dobErrorInsure = '';
-    //                     this.insureArray['controls'].items['controls'][index]['controls'].proposerDob.patchValue(dob);
-    //                     this.ageCalculate(dob);
-    //                 } else if(title == 'startDate'){
-    //                     this.dobErrorStartDate = '';
-    //                     this.insureArray['controls'].items['controls'][index]['controls'].PolicyStartDate.patchValue(dob);
-    //                     this.ageCalculate(dob);
-    //                 } else {
-    //                     this.dobError = '';
-    //                     this.proposer.controls['proposerDob'].patchValue(dob);
-    //                     this.ageCalculate(this.datepipe.transform(event.value, 'y-MM-dd'));
-    //
-    //                 }
-    //             }
-    //
-    //             this.dobError = '';
-    //             let date = event.value._i.date;
-    //             if (date.toString().length == 1) {
-    //                 date = '0' + date;
-    //             }
-    //             let month = (parseInt(event.value._i.month) + 1).toString();
-    //
-    //             if (month.length == 1) {
-    //                 month = '0' + month;
-    //             }
-    //             let year = event.value._i.year;
-    //             this.dob = date + '-' + month + '-' + year;
-    //         }
-    //     }
-    //
-    // }
 
     addEvent(event, type) {
         if (event.value != null) {
@@ -918,8 +896,6 @@ console.log(this.insureArray, 'pppp');
                 }
 
             }
-            console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'opopp1');
-            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd'), 'opopp23');
             let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
             // let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
             if (length.length == 10) {
@@ -955,9 +931,6 @@ console.log(this.insureArray, 'pppp');
         return Bob_days;
     }
     ageValidation(i, type) {
-      console.log(type);
-      console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
-      console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
 
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
@@ -1137,207 +1110,436 @@ console.log(this.insureArray, 'pppp');
         const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         const yearAge = Math.floor(differenceInMilisecond / 31536000000);
         this.agecal = yearAge;
-        console.log(this.agecal, '  this.agecal  this.agecal');
         return yearAge;
     }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }
-    sessionData() {
-        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-            this.stateChange(this.getStepper1.proposerStateIdP, 'proposer');
-            this.proposer = this.fb.group({
-                proposerTitle: this.getStepper1.proposerTitle,
-                proposerFirstname: this.getStepper1.proposerFirstname,
-                proposerLastname: this.getStepper1.proposerLastname,
-                proposerMidname: this.getStepper1.proposerMidname,
-                maritalStatus: this.getStepper1.maritalStatus,
-                proposerDob: new FormControl(new Date(this.getStepper1.proposerDob)),
-                proposerrelationship: this.getStepper1.proposerrelationship,
-                sameAsProposer: this.getStepper1.sameAsProposer,
-                proposerGender: this.getStepper1.proposerGender,
-                proposerAddress: this.getStepper1.proposerAddress,
-                proposerAddress2: this.getStepper1.proposerAddress2,
-                proposerAddress3: this.getStepper1.proposerAddress3,
-                nationality: this.getStepper1.nationality,
-                proposerPincode: this.getStepper1.proposerPincode,
-                proposerIdProof: this.getStepper1.proposerIdProof,
-                proposerIdProofIdP: this.getStepper1.proposerIdProofIdP,
-                proposerPan: this.getStepper1.proposerPan,
-                proposerPassport: this.getStepper1.proposerPassport,
-                proposerVoter: this.getStepper1.proposerVoter,
-                proposerGst: this.getStepper1.proposerGst,
-                proposerDriving: this.getStepper1.proposerDriving,
-                MedicalInformations: this.getStepper1.MedicalInformations,
-                proposerCity: this.getStepper1.proposerCity,
-                proposerState: this.getStepper1.proposerState,
-                proposerCountry: this.getStepper1.proposerCountry,
-                proposerCityIdP: this.getStepper1.proposerCityIdP,
-                proposerStateIdP: this.getStepper1.proposerStateIdP,
-                proposerCountryIdP: this.getStepper1.proposerCountryIdP,
-                proposerCityIdR: this.getStepper1.proposerCityIdR,
-                proposerStateIdR: this.getStepper1.proposerStateIdR,
-                proposerCountryIdR: this.getStepper1.proposerCountryIdR,
-                proposerDistrictIdP: this.getStepper1.proposerDistrictIdP,
-                proposerDistrict: this.getStepper1.proposerDistrict,
-                proposerEmail: this.getStepper1.proposerEmail,
-                proposerMobile: this.getStepper1.proposerMobile,
-                rolecd: this.getStepper1.rolecd,
-                relationshipcd: this.getStepper1.relationshipcd,
-                sameas: this.getStepper1.sameas,
-            });
-            let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.proposerDob, 'y-MM-dd'));
-            sessionStorage.proposerAge = age;
-            // this.proposer.controls['proposerDob'].pat();
-
+    //Marital Status
+    maritalStatus() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-
-
-
-
-        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-            console.log( this.getStepper2, ' this.getStepper2');
-            // this.getPincode(this.getStepper2.items[0].proposerPincode, 'insure', 0);
-
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerFirstname.patchValue(this.getStepper2.items[i].proposerFirstname);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue(this.getStepper2.items[i].proposerGender);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getStepper2.items[i].proposerAge);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.getStepper2.items[i].proposerLastname);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerMobile.patchValue(this.getStepper2.items[i].proposerMobile);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationship.patchValue(this.getStepper2.items[i].proposerrelationship);
-                this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-                this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
-                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerEmail.patchValue(this.getStepper2.items[i].proposerEmail);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.patchValue(this.getStepper2.items[i].proposerIdProof);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.getStepper2.items[i].proposerIdProofIdP);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue(this.getStepper2.items[i].proposerPan);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue(this.getStepper2.items[i].proposerDriving);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue(this.getStepper2.items[i].proposerPassport);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.patchValue(this.getStepper2.items[i].proposerVoter);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerGst.patchValue(this.getStepper2.items[i].proposerGst);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress.patchValue(this.getStepper2.items[i].proposerAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress2.patchValue(this.getStepper2.items[i].proposerAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAddress3.patchValue(this.getStepper2.items[i].proposerAddress3);
-                this.insureArray['controls'].items['controls'][i]['controls'].nationality.patchValue(this.getStepper2.items[i].nationality);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPincode.patchValue(this.getStepper2.items[i].proposerPincode);
-                this.getPincode(this.getStepper2.items[i].proposerPincode, 'insure', i);
-
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountry.patchValue(this.getStepper2.items[i].proposerCountry);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerState.patchValue(this.getStepper2.items[i].proposerState);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrict.patchValue(this.getStepper2.items[i].proposerDistrict);
-
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerCity.patchValue(this.getStepper2.items[i].proposerCity);
-
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerCityIdP.patchValue(this.getStepper2.items[i].proposerCityIdP);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerStateIdP.patchValue(this.getStepper2.items[i].proposerStateIdP);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerCountryIdP.patchValue(this.getStepper2.items[i].proposerCountryIdP);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerDistrictIdP.patchValue(this.getStepper2.items[i].proposerDistrictIdP == undefined? '' : this.getStepper2.items[i].proposerDistrictIdP);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAnnualIncome.patchValue(this.getStepper2.items[i].proposerAnnualIncome);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerFamilySize.patchValue(this.getStepper2.items[i].proposerFamilySize);
-                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.patchValue(this.getStepper2.items[i].LiquorPeg);
-                this.insureArray['controls'].items['controls'][i]['controls'].Smoking.patchValue(this.getStepper2.items[i].Smoking);
-                this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
-                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.patchValue(this.getStepper2.items[i].BeerBottle);
-                this.insureArray['controls'].items['controls'][i]['controls'].Pouches.patchValue(this.getStepper2.items[i].Pouches);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].PreviousInsurer.patchValue(this.getStepper2.items[i].PreviousInsurer);
-                this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolicyNumber.patchValue(this.getStepper2.items[i].PreviousPolicyNumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].QualifyingAmount.patchValue(this.getStepper2.items[i].QualifyingAmount);
-                this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
-                this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
-                this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
-                this.insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.patchValue(this.getStepper2.items[i].SmokingStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.patchValue(this.getStepper2.items[i].LiquorPegStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.patchValue(this.getStepper2.items[i].WineGlassStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.patchValue(this.getStepper2.items[i].PouchesStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
-                this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
-                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
-                this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                this.insureArray['controls'].items['controls'][i]['controls'].stateHide.patchValue(true);
-
+        this.proposalservice.getAppolloMaritalStatus(data).subscribe(
+            (successData) => {
+                this.setMaritalStatusSuccess(successData);
+            },
+            (error) => {
+                this.setMaritalStatusFailure(error);
             }
+        );
+    }
 
-
-            if (this.getStepper2.items[0].sameAsProposer != '' && this.getStepper2.items[0].sameAsProposer != undefined) {
-                this.sameProposer();
-            }
-
-        }
-
-        for (let i = 0; i < this.insurePersons.length; i++) {
-            if (this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "Yes") {
-
-                this.items.at(i).controls.PreviousPolicyNumber.setValidators([Validators.required]);
-                this.items.at(i).controls.PreviousInsurer.setValidators([Validators.required]);
-                this.items.at(i).controls.SumInsured.setValidators([Validators.required]);
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.value == "No"){
-
-                this.items.at(i).controls.PreviousPolicyNumber.setValidators(null);
-                this.items.at(i).controls.PreviousInsurer.setValidators(null);
-                this.items.at(i).controls.SumInsured.setValidators(null);
-            }
-            this.items.at(i).controls.PreviousPolicyNumber.updateValueAndValidity();
-            this.items.at(i).controls.PreviousInsurer.updateValueAndValidity();
-            this.items.at(i).controls.SumInsured.updateValueAndValidity();
-        }
-        if (sessionStorage.titleValidation != '' && sessionStorage.titleValidation != undefined) {
-            this.titleValidation = sessionStorage.titleValidation;
-           // if ( this.titleValidation == false){}
-        }
-        if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
-            console.log(this.getNomineeData, 'this.getNomineeData');
-            this.stateChangeN(this.getNomineeData.nomineeStateId, 'nominee');
-            this.nomineeDetails = this.fb.group({
-                nomineeName: this.getNomineeData.nomineeName,
-                nomineeRelationship: this.getNomineeData.nomineeRelationship,
-                nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
-                nomineeAddress: this.getNomineeData.nomineeAddress,
-                nomineeAddress2: this.getNomineeData.nomineeAddress2,
-                nomineeAddress3: this.getNomineeData.nomineeAddress3,
-                nomineePincode: this.getNomineeData.nomineePincode,
-                nomineeCountry: this.getNomineeData.nomineeCountry,
-                nomineeCity: this.getNomineeData.nomineeCity,
-                nomineeState: this.getNomineeData.nomineeState,
-                nomineeCountryId: this.getNomineeData.nomineeCountryId,
-                nomineeDistrictId: this.getNomineeData.nomineeDistrictId,
-                nomineeCityId: this.getNomineeData.nomineeCityId,
-                nomineeStateId: this.getNomineeData.nomineeStateId,
-                nomineeDistrict: this.getNomineeData.nomineeDistrict,
-                nomineeTitle: this.getNomineeData.nomineeTitle,
-                nomineeDob: this.getNomineeData.nomineeDob,
-            });
-
-
+    public setMaritalStatusSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.maritalDetail = successData.ResponseObject;
 
         }
     }
 
+    public setMaritalStatusFailure(error) {
+    }//TitleCode Status
+    TitleCodeStatus() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getTitleCode(data).subscribe(
+            (successData) => {
+                this.setTitleCodeSuccess(successData);
+            },
+            (error) => {
+                this.setTitleCodeFailure(error);
+            }
+        );
+    }
+
+    public setTitleCodeSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.titleCodeList = successData.ResponseObject;
+        }
+    }
+
+    public setTitleCodeFailure(error) {
+    }
+
+    //proffession list
+    getProffession() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichProffession(data).subscribe(
+            (successData) => {
+                this.getProffessionSuccess(successData);
+            },
+            (error) => {
+                this.getProffessionFailure(error);
+            }
+        );
+    }
+
+    public getProffessionSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.proffessionList = successData.ResponseObject;
+
+        }
+    }
+
+    public getProffessionFailure(error) {
+    }
+
+
+    //Previous Insure
+    getPreviousInsure() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.apollomunichPreviousInsure(data).subscribe(
+            (successData) => {
+                this.getPreviousInsureSuccess(successData);
+            },
+            (error) => {
+                this.getPreviousInsureFailure(error);
+            }
+        );
+    }
+
+    public getPreviousInsureSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.previousInsureList = successData.ResponseObject;
+
+        }
+    }
+
+    public getPreviousInsureFailure(error) {
+    }
+
+    //Nationality List
+    NationalityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelianceNationality(data).subscribe(
+            (successData) => {
+                this.getNationalityStatusSuccess(successData);
+            },
+            (error) => {
+                this.getNationalityStatusFailure(error);
+            }
+        );
+    }
+    public getNationalityStatusSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.nationalityList = successData.ResponseObject;
+        }
+    }
+
+    public getNationalityStatusFailure(error) {
+    }
+
+    //IdProoofList
+    IdProofList(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        };
+        this.proposalservice.getIdProofList(data).subscribe(
+            (successData) => {
+                this.setIdProofListStatusSuccess(successData);
+            },
+            (error) => {
+                this.setIdProofListStatusFailure(error);
+            }
+        );
+    }
+
+    public setIdProofListStatusSuccess(successData){
+        this.IdProofListss = successData.ResponseObject;
+    }
+    public setIdProofListStatusFailure(error){
+    }
+
+    //Appollo state
+    AppolloState(){
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloState(data).subscribe(
+            (successData) => {
+                this.setAppolloStateSuccess(successData);
+            },
+            (error) => {
+                this.setAppolloStateFailure(error);
+            }
+        );
+    }
+
+    public setAppolloStateSuccess(successData){
+        this.AppolloStateList = successData.ResponseObject;
+    }
+    public setAppolloStateFailure(error){
+    }
+
+
+
+    stateChange(stateId, title){
+        this.stateTitle = title;
+        this.stateCode = stateId;
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'state_code': this.stateCode
+        }
+
+
+        this.proposalservice.getAppolloDistrict(data).subscribe(
+            (successData) => {
+                this.setAppolloDistrictSuccess(successData)
+            },
+            (error) => {
+                this.setAppolloDistrictFailure(error);
+            }
+        );
+
+        this.proposalservice.getAppolloCity(data).subscribe(
+            (successData) => {
+                this.setAppolloCitySuccess(successData);
+            },
+            (error) => {
+                this.setAppolloCityFailure(error);
+            }
+        );
+    }
+
+
+//Appollo District
+    public setAppolloDistrictSuccess(successData){
+        this.AppolloDistrictList = successData.ResponseObject;
+
+    }
+    public setAppolloDistrictFailure(error){
+    }
+
+    //Appollo City
+    public setAppolloCitySuccess(successData){
+        this.AppolloCityList = successData.ResponseObject;
+
+    }
+    public setAppolloCityFailure(error){
+    }
+
+
+    stateChangeN(stateId, title){
+        this.stateTitle = title;
+        this.stateCode = stateId;
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'state_code': this.stateCode
+        }
+
+
+        this.proposalservice.getAppolloDistrict(data).subscribe(
+            (successData) => {
+                this.setAppolloDistrictNSuccess(successData)
+            },
+            (error) => {
+                this.setAppolloDistrictNFailure(error);
+            }
+        );
+
+        this.proposalservice.getAppolloCity(data).subscribe(
+            (successData) => {
+                this.setAppolloCityNSuccess(successData);
+            },
+            (error) => {
+                this.setAppolloCityNFailure(error);
+            }
+        );
+    }
+
+
+//Appollo District
+    public setAppolloDistrictNSuccess(successData){
+
+        this.nomineeAppolloDistrictList = successData.ResponseObject;
+
+    }
+    public setAppolloDistrictNFailure(error){
+    }
+
+    //Appollo City
+    public setAppolloCityNSuccess(successData){
+
+        this.nomineeAppolloCityLis = successData.ResponseObject;
+
+    }
+    public setAppolloCityNFailure(error){
+    }
+
+
+//Insure State
+    insureStateChange(stateId, title, i){
+        this.stateCode = stateId;
+        this.stateCodeId = i;
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'state_code': this.stateCode
+        }
+        this.proposalservice.getAppolloDistrict(data).subscribe(
+            (successData) => {
+                this.setInsureAppolloDistrictSuccess(successData)
+            },
+            (error) => {
+                this.setInsureAppolloDistrictFailure(error);
+            }
+        );
+
+
+        this.proposalservice.getAppolloCity(data).subscribe(
+            (successData) => {
+                this.setInsureAppolloCitySuccess(successData);
+            },
+            (error) => {
+                this.setInsureAppolloCityFailure(error);
+            }
+        );
+    }
+
+
+//Appollo District
+    public setInsureAppolloDistrictSuccess(successData){
+
+        this.iAppolloDistrictList = successData.ResponseObject;
+        this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].stateHide.patchValue(false);
+    }
+    public setInsureAppolloDistrictFailure(error){
+    }
+
+    //Appollo City
+    public setInsureAppolloCitySuccess(successData){
+
+        this.iAppolloCityList = successData.ResponseObject;
+        this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].cityHide.patchValue(false);
+
+    }
+    public setInsureAppolloCityFailure(error){
+    }
+
+
+    storeDname(id, title ) {
+        if (title == 'district') {
+            for(let i =0; i < this.iAppolloDistrictList.length; i++ ) {
+                if(this.iAppolloDistrictList[i].district_code == this.insureArray['controls'].items['controls'][id]['controls'].proposerDistrict.value){
+                    this.iAppolloDistrictName =  this.iAppolloDistrictList[i].district_name;
+                }
+            }
+            // this.insureArray['controls'].items['controls'][id]['controls'].proposerDistrictIdP.patchValue(this.iAppolloDistrictName);
+
+        }
+        else if (title == 'city') {
+
+            for(let i =0; i < this.iAppolloCityList.length; i++ ) {
+                if(this.iAppolloCityList[i].city_code == this.insureArray['controls'].items['controls'][id]['controls'].proposerCity.value){
+                    this.iAppolloCityName =  this.iAppolloCityList[i].city_name;
+                }
+            }
+            //  this.insureArray['controls'].items['controls'][id]['controls'].proposerCityIdP.patchValue(this.iAppolloCityName);
+
+        }
+    }
+
+    setRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloRelationship(data).subscribe(
+            (successData) => {
+                this.setRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setRelationshipFailure(error);
+            }
+        );
+    }
+
+    public setRelationshipSuccess(successData) {
+        this.relationshipList = successData.ResponseObject;
+
+    }
+    public setRelationshipFailure(error) {
+    }
+
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppolloOccupation(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
+            }
+        );
+
+    }
+
+    public occupationListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.occupationList = successData.ResponseObject;
+        }
+    }
+
+    public occupationListFailure(error) {
+    }
+    alternateChange(event) {
+        if (event.target.value.length == 10) {
+            if(event.target.value == this.proposer.get('proposerMobile').value) {
+                this.mobileNumber = 'Alternate number should be different from mobile number';
+            } else {
+                this.mobileNumber = '';
+            }
+        } else {
+            // this.mobileNumber = 'false';
+        }
+        sessionStorage.mobileNumber = this.mobileNumber;
+    }
 
     sameProposer() {
 
-        console.log(this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value,'valueuu');
 
         if (this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value) {
             this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
@@ -1423,9 +1625,190 @@ console.log(this.insureArray, 'pppp');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue('');
         }
 
-        console.log(this.insureArray.value, 'this.insureArray111');
 
 
+    }
+//proposer Details
+    proposerDetails(stepper: MatStepper, value) {
+        this.proposerData = value;
+        if(value.proposerDriving != ""){
+            this.proposerProofNum = value.proposerDriving;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+        } else if(value.proposerPassport != ""){
+            this.proposerProofNum = value.proposerPassport;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
+        }else if(value.proposerVoter != ""){
+            this.proposerProofNum = value.proposerVoter;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
+        } else if(value.proposerPan != ""){
+            this.proposerProofNum = value.proposerPan;
+            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+
+        }
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        if (this.proposer.valid) {
+            if (sessionStorage.proposerAge >= 18) {
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+                    this.topScroll();
+                }
+
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
+// medical details
+    medicalHistoryDetails(stepper: MatStepper) {
+
+        sessionStorage.apollomedical = '';
+        sessionStorage.apollomedical = JSON.stringify(this.appolloQuestionsList);
+
+        let statusChecked = [];
+        this.medicalStatus = [];
+        for (let i = 0; i < this.appolloQuestionsList.length; i++) {
+
+            if(this.appolloQuestionsList[i].mStatus == 'No'){
+                this.medicalStatus.push('No');
+            } else if(this.appolloQuestionsList[i].mStatus == 'Yes') {
+                this.medicalStatus.push('Yes');
+            }
+
+
+            for (let i = 0; i < this.appolloQuestionsList.length; i++) {
+                this.appolloQuestionsList[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            }
+        }
+
+        if (this.medicalStatus.includes('Yes')) {
+            this.toastr.error('This medical questions is unable to proceed');
+        } else {
+            stepper.next();
+
+        }
+
+    }
+
+
+    //Insure Details
+    AppolloInsureDetails(stepper: MatStepper, id, value, key) {
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper2Details = JSON.stringify(value);
+        if (this.insureArray.valid) {
+            this.insurerData = value.items;
+            for(let i = 0; i < this.insurerData.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value != "") {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
+                }
+            }
+
+            this.totalInsureDetails = [];
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.totalInsureDetails.push({
+                    'Address': {
+                        'Address': {
+                            'AddressLine1': this.insurerData[i].proposerAddress,
+                            'AddressLine2': this.insurerData[i].proposerAddress2,
+                            'AddressLine3': this.insurerData[i].proposerAddress3,
+                            'CountryCode': this.insurerData[i].proposerCountry,
+                            'District': this.insurerData[i].proposerDistrict,
+                            'PinCode': this.insurerData[i].proposerPincode,
+                            'TownCode': this.insurerData[i].proposerCity,
+                            'StateCode': this.insurerData[i].proposerStateIdP,
+                        }
+                    },
+                    'proposerMobile': this.insurerData[i].proposerMobile,
+                    'FamilySize': this.insurerData[i].proposerFamilySize,
+                    'Age': this.insurerData[i].proposerAge,
+                    'BirthDate': this.insurerData[i].proposerDob,
+                    'ClientCode': this.insurerData[i].ClientCode,
+                    "ContactInformation": {
+                        "ContactNumber": {
+                            "ContactNumber": {
+                                "Number": this.insurerData[i].proposerMobile
+                            }
+                        },
+                        "Email": this.insurerData[i].proposerEmail,
+                    },
+                    'Dependants': '',
+                    'FirstName': this.insurerData[i].proposerFirstname,
+                    'GenderCode': this.insurerData[i].proposerGender,
+                    'GstinNumber': this.insurerData[i].proposerGst,
+                    'Height': this.insurerData[i].proposerHeight,
+                    'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
+                    'IDProofTypeCode': this.insurerData[i].proposerIdProof,
+                    'LastName': this.insurerData[i].proposerLastname,
+                    'AnnualIncome': this.insurerData[i].proposerAnnualIncome == undefined ? 0 : (this.insurerData[i].proposerAnnualIncome ? this.insurerData[i].proposerAnnualIncome : 0) ,
+                    'LifeStyleHabits': {
+                        'BeerBottle': this.insurerData[i].BeerBottle,
+                        'LiquorPeg': this.insurerData[i].LiquorPeg,
+                        'Pouches': this.insurerData[i].Pouches,
+                        'Smoking': this.insurerData[i].Smoking,
+                        'WineGlass': this.insurerData[i].WineGlass
+                    },
+                    'MaritalStatusCode': this.insurerData[i].maritalStatus,
+                    'MiddleName': this.insurerData[i].proposerMidname,
+                    'NationalityCode': 'IN',
+                    'OccuptionCode': this.insurerData[i].Proposeroccupation,
+                    'PreviousInsurer': {
+                        'InceptionDate': this.insurerData[i].PolicyStartDate,
+                        'EndDate': this.insurerData[i].PolicyEndDate,
+                        'PreviousInsurerCode': this.insurerData[i].PreviousInsurer,
+                        'PreviousPolicyNumber': this.insurerData[i].PreviousPolicyNumber,
+                        'SumInsured': this.insurerData[i].SumInsured,
+                        'QualifyingAmount': this.insurerData[i].QualifyingAmount,
+                        'WaivePeriod': this.insurerData[i].WaivePeriod,
+                        'Remarks': this.insurerData[i].Remarks
+                    },
+                    'Product': {
+                        'Product': [{
+
+                        }]
+                    },
+                    'ProfessionCode': this.insurerData[i].ProffessionList,
+                    'RelationshipCode': this.insurerData[i].proposerrelationship,
+                    'TitleCode': this.insurerData[i].proposerTitle,
+                    'Weight': this.insurerData[i].proposerWeight
+                });
+            }
+            let ageValidate = [];
+            for (let i = 0; i< this.insurerData.length; i++){
+                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+                    ageValidate.push(1);
+
+                } else{
+                    ageValidate.push(0);
+                }
+            }
+            if(!ageValidate.includes(1)){
+                if (this.titleValidation) {
+                    stepper.next();
+                    this.topScroll();
+                    // if (sessionStorage.proposerAge >= 18) {
+                    //     stepper.next();
+                    //     this.topScroll();
+                    // } else {
+                    //     this.toastr.error('Insurer age should be 18 or above');
+                    // }
+                } else if (this.titleValidation == false) {
+                    stepper.next();
+                    this.topScroll();
+
+                }
+
+
+            }
+
+        }
     }
 
 
@@ -1433,7 +1816,6 @@ console.log(this.insureArray, 'pppp');
     proposal() {
 
       let clientData = this.totalInsureDetails.slice(1);
-      console.log(clientData, 'clientData');
 
         const data  = {
             'enquiry_id': this.enquiryId,
@@ -1646,7 +2028,6 @@ console.log(this.insureArray, 'pppp');
             //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
             // }
 
-            console.log(this.summaryData.InsurePolicyholderDetails, 'this.summaryData.InsurePolicyholderDetailsthis.summaryData.InsurePolicyholderDetails');
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
             sessionStorage.proposalID = this.proposalId;
@@ -1662,473 +2043,5 @@ console.log(this.insureArray, 'pppp');
         this.settings.loadingSpinner = false;
     }
 
-//Marital Status
-    maritalStatus() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getAppolloMaritalStatus(data).subscribe(
-            (successData) => {
-                this.setMaritalStatusSuccess(successData);
-            },
-            (error) => {
-                this.setMaritalStatusFailure(error);
-            }
-        );
-    }
-
-    public setMaritalStatusSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.maritalDetail = successData.ResponseObject;
-
-        }
-    }
-
-    public setMaritalStatusFailure(error) {
-    }//TitleCode Status
-    TitleCodeStatus() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getTitleCode(data).subscribe(
-            (successData) => {
-                this.setTitleCodeSuccess(successData);
-            },
-            (error) => {
-                this.setTitleCodeFailure(error);
-            }
-        );
-    }
-
-    public setTitleCodeSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.titleCodeList = successData.ResponseObject;
-                console.log( this.titleCodeList ,' this.titleCodeList  this.titleCodeList ');
-        }
-    }
-
-    public setTitleCodeFailure(error) {
-    }
-
-    //proffession list
-    getProffession() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.apollomunichProffession(data).subscribe(
-            (successData) => {
-                this.getProffessionSuccess(successData);
-            },
-            (error) => {
-                this.getProffessionFailure(error);
-            }
-        );
-    }
-
-    public getProffessionSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.proffessionList = successData.ResponseObject;
-
-        }
-    }
-
-    public getProffessionFailure(error) {
-    }
-
-
-    //Previous Insure
-    getPreviousInsure() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.apollomunichPreviousInsure(data).subscribe(
-            (successData) => {
-                this.getPreviousInsureSuccess(successData);
-            },
-            (error) => {
-                this.getPreviousInsureFailure(error);
-            }
-        );
-    }
-
-    public getPreviousInsureSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.previousInsureList = successData.ResponseObject;
-
-        }
-    }
-
-    public getPreviousInsureFailure(error) {
-    }
-
-    //Nationality List
-    NationalityList() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getRelianceNationality(data).subscribe(
-            (successData) => {
-                this.getNationalityStatusSuccess(successData);
-            },
-            (error) => {
-                this.getNationalityStatusFailure(error);
-            }
-        );
-    }
-    public getNationalityStatusSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.nationalityList = successData.ResponseObject;
-        }
-    }
-
-    public getNationalityStatusFailure(error) {
-    }
-
-    //IdProoofList
-    IdProofList(){
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        };
-        this.proposalservice.getIdProofList(data).subscribe(
-            (successData) => {
-                this.setIdProofListStatusSuccess(successData);
-            },
-            (error) => {
-                this.setIdProofListStatusFailure(error);
-            }
-        );
-    }
-
-    public setIdProofListStatusSuccess(successData){
-        this.IdProofListss = successData.ResponseObject;
-    }
-    public setIdProofListStatusFailure(error){
-    }
-
-    //Appollo state
-    AppolloState(){
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getAppolloState(data).subscribe(
-            (successData) => {
-                this.setAppolloStateSuccess(successData);
-            },
-            (error) => {
-                this.setAppolloStateFailure(error);
-            }
-        );
-    }
-
-    public setAppolloStateSuccess(successData){
-        this.AppolloStateList = successData.ResponseObject;
-    }
-    public setAppolloStateFailure(error){
-    }
-
-
-
-    stateChange(stateId, title){
-            this.stateTitle = title;
-            this.stateCode = stateId;
-            const data = {
-                'platform': 'web',
-                'product_id': '11',
-                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'state_code': this.stateCode
-            }
-
-
-            this.proposalservice.getAppolloDistrict(data).subscribe(
-                (successData) => {
-                    this.setAppolloDistrictSuccess(successData)
-                },
-                (error) => {
-                    this.setAppolloDistrictFailure(error);
-                }
-            );
-
-            this.proposalservice.getAppolloCity(data).subscribe(
-                (successData) => {
-                    this.setAppolloCitySuccess(successData);
-                },
-                (error) => {
-                    this.setAppolloCityFailure(error);
-                }
-            );
-        }
-
-
-//Appollo District
-    public setAppolloDistrictSuccess(successData){
-          this.AppolloDistrictList = successData.ResponseObject;
-
-    }
-    public setAppolloDistrictFailure(error){
-    }
-
-    //Appollo City
-    public setAppolloCitySuccess(successData){
-           this.AppolloCityList = successData.ResponseObject;
-
-    }
-    public setAppolloCityFailure(error){
-    }
-
-
-    stateChangeN(stateId, title){
-        this.stateTitle = title;
-        this.stateCode = stateId;
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'state_code': this.stateCode
-        }
-
-
-        this.proposalservice.getAppolloDistrict(data).subscribe(
-            (successData) => {
-                this.setAppolloDistrictNSuccess(successData)
-            },
-            (error) => {
-                this.setAppolloDistrictNFailure(error);
-            }
-        );
-
-        this.proposalservice.getAppolloCity(data).subscribe(
-            (successData) => {
-                this.setAppolloCityNSuccess(successData);
-            },
-            (error) => {
-                this.setAppolloCityNFailure(error);
-            }
-        );
-    }
-
-
-//Appollo District
-    public setAppolloDistrictNSuccess(successData){
-
-            this.nomineeAppolloDistrictList = successData.ResponseObject;
-
-    }
-    public setAppolloDistrictNFailure(error){
-    }
-
-    //Appollo City
-    public setAppolloCityNSuccess(successData){
-
-            this.nomineeAppolloCityLis = successData.ResponseObject;
-
-    }
-    public setAppolloCityNFailure(error){
-    }
-
-
-//Insure State
-    insureStateChange(stateId, title, i){
-        this.stateCode = stateId;
-        this.stateCodeId = i;
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'state_code': this.stateCode
-        }
-        this.proposalservice.getAppolloDistrict(data).subscribe(
-            (successData) => {
-                this.setInsureAppolloDistrictSuccess(successData)
-            },
-            (error) => {
-                this.setInsureAppolloDistrictFailure(error);
-            }
-        );
-
-
-        this.proposalservice.getAppolloCity(data).subscribe(
-            (successData) => {
-                this.setInsureAppolloCitySuccess(successData);
-            },
-            (error) => {
-                this.setInsureAppolloCityFailure(error);
-            }
-        );
-    }
-
-
-//Appollo District
-    public setInsureAppolloDistrictSuccess(successData){
-
-        this.iAppolloDistrictList = successData.ResponseObject;
-        this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].stateHide.patchValue(false);
-    }
-    public setInsureAppolloDistrictFailure(error){
-    }
-
-    //Appollo City
-    public setInsureAppolloCitySuccess(successData){
-
-        this.iAppolloCityList = successData.ResponseObject;
-        this.insureArray['controls'].items['controls'][this.stateCodeId]['controls'].cityHide.patchValue(false);
-
-    }
-    public setInsureAppolloCityFailure(error){
-    }
-
-
-    storeDname(id, title ) {
-      console.log(this.insureArray['controls'].items['controls'][id]['controls'].proposerDistrict.value, 'popp');
-        if (title == 'district') {
-            console.log(this.iAppolloDistrictList, 'this.iAppolloDistrictList');
-            for(let i =0; i < this.iAppolloDistrictList.length; i++ ) {
-                if(this.iAppolloDistrictList[i].district_code == this.insureArray['controls'].items['controls'][id]['controls'].proposerDistrict.value){
-                   this.iAppolloDistrictName =  this.iAppolloDistrictList[i].district_name;
-                }
-            }
-                // this.insureArray['controls'].items['controls'][id]['controls'].proposerDistrictIdP.patchValue(this.iAppolloDistrictName);
-
-        }
-        else if (title == 'city') {
-            console.log(this.iAppolloCityList, 'this.iAppolloCityList');
-
-            for(let i =0; i < this.iAppolloCityList.length; i++ ) {
-                if(this.iAppolloCityList[i].city_code == this.insureArray['controls'].items['controls'][id]['controls'].proposerCity.value){
-                    this.iAppolloCityName =  this.iAppolloCityList[i].city_name;
-                }
-            }
-               //  this.insureArray['controls'].items['controls'][id]['controls'].proposerCityIdP.patchValue(this.iAppolloCityName);
-
-        }
-    }
-
-    setRelationship() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getAppolloRelationship(data).subscribe(
-            (successData) => {
-                this.setRelationshipSuccess(successData);
-            },
-            (error) => {
-                this.setRelationshipFailure(error);
-            }
-        );
-    }
-
-    public setRelationshipSuccess(successData) {
-        this.relationshipList = successData.ResponseObject;
-
-    }
-    public setRelationshipFailure(error) {
-    }
-
-    setOccupationList() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getAppolloOccupation(data).subscribe(
-            (successData) => {
-                this.occupationListSuccess(successData);
-            },
-            (error) => {
-                this.occupationListFailure(error);
-            }
-        );
-
-    }
-
-    public occupationListSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.occupationList = successData.ResponseObject;
-        }
-    }
-
-    public occupationListFailure(error) {
-    }
-    OnNumber(event){
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
-            }
-        }
-    }
-
-    // onlyNum(event){
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //
-    //         if (!pattern.test(inputChar)) {
-    //             // invalid character, prevent input
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
-    public onCharacter(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    alternateChange(event) {
-        if (event.target.value.length == 10) {
-            if(event.target.value == this.proposer.get('proposerMobile').value) {
-                this.mobileNumber = 'Alternate number should be different from mobile number';
-            } else {
-                this.mobileNumber = '';
-            }
-        } else {
-            // this.mobileNumber = 'false';
-        }
-        sessionStorage.mobileNumber = this.mobileNumber;
-    }
-
-    public keyEvent(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9a-zA-Z ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
 
 }
