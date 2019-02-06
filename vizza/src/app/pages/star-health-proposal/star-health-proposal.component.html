@@ -481,7 +481,7 @@
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_name}}</li>
+                    <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_title}}.{{summaryData.proposer_name}} {{summaryData.proposer_lastname}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob | date: 'dd-MMM-yyyy'}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
@@ -571,7 +571,7 @@
                   <h6 class="color-blue">{{family.ins_member_typename | uppercase}}</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{family.ins_name}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob | date: 'dd-MMM-yyy'}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob }}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{family.ins_gender}}</li>
                     <li class="list-group-item"><strong>Illness:</strong> {{family.ins_illness}}</li>
                     <li class="list-group-item"><strong>Height:</strong> {{family.ins_height}}</li>
@@ -628,21 +628,21 @@
               <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">
                 <div class="p-3">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !=''">
                       <h6 class="color-blue">NOMINEE DETAILS 2 </h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
                         <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
                       </ul>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !='' ">
                       <h6 class="color-blue mt-3"></h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
                         <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two | limitTo : 3}}</li>
                       </ul>
                     </div>
-                    <div class="col-md-6 mt-3">
+                    <div class="col-md-6 mt-3" *ngIf="summaryData.appointee_name_two !='' && summaryData.appointee_age_two !='' && summaryData.appointee_name_two !='' ">
                       <h6 class="color-blue">APPOINTEE DETAILS 2 </h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>

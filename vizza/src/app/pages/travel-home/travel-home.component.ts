@@ -309,6 +309,7 @@ export class TravelHomeComponent implements OnInit {
             this.showFamily = true;
             this.showGroup = false;
             this.showstudent = false;
+            console.log(this.travelPlan, 'travelPlantravelPlan');
         } else if (event == 2) {
             this.currentTab = 'group';
             this.groupDetails();
