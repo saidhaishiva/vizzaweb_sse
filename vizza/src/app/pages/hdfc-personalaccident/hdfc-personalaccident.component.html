@@ -27,19 +27,19 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcPersonal.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="midname"  (keypress)="typeValidate($event)"  autocomplete="off"  >
+                          <input matInput placeholder="Middle Name" formControlName="midname"  (keypress)="nameValidate($event)"  autocomplete="off"  >
                           <!--<mat-error *ngIf="hdfcPersonal.controls.midname.errors?.required"> Middle Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcPersonal.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -51,7 +51,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="keyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcPersonal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -64,12 +64,12 @@
                         <mat-error *ngIf="hdfcPersonal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Phone Number"  (keypress)="keyPress($event)"  maxlength="12" formControlName="phone" autocomplete="off">
+                        <input matInput placeholder="Phone Number"  (keypress)="numberValidate($event)"  maxlength="12" formControlName="phone" autocomplete="off">
                         <mat-error *ngIf="hdfcPersonal.controls.phone.errors?.required">Phone Number is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3">
@@ -156,7 +156,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="pincode" autocomplete="off" (input)="pincodevalidationHdfc($event.target.value)" required>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -215,7 +215,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="typeValidate($event)" required>
+                          <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="nameValidate($event)" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
