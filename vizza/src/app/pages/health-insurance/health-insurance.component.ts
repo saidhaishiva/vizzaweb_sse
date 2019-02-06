@@ -551,7 +551,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
     onSelectedIndexChange(index) {
         if (this.insuranceLists.length == index) {
-            this.getShortListDetails(this.enquiryId, index, name);
+            // this.getShortListDetails(this.enquiryId, index, name);
             this.compareArray = [];
         } else {
             this.updateFlag = false;
@@ -765,6 +765,8 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     updateTabPolicy(value, index) {
+        console.log(index, 'this.insuranceListsthis.insuranceLists909909099909');
+
         this.finalData = [];
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i].checked) {
@@ -806,9 +808,15 @@ export class HealthInsuranceComponent implements OnInit {
         if (successData.IsSuccess) {
             // if (successData.ResponseObject) {
             this.insuranceLists = successData.ResponseObject;
-            this.getShortListDetails(enqId, index, name);
+            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists909909099909');
+
+            // this.getShortListDetails(enqId, index, name);
+            this.allCompanyList = [];
             for (let i = 0; i < this.insuranceLists.length; i++) {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
+                        this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
+                    }
                     this.insuranceLists[index].product_lists[j].shortlist =  this.insuranceLists[index].product_lists[j].shortlist_status;
                     this.insuranceLists[index].product_lists[j].currentBtn =  this.insuranceLists[index].product_lists[j].shortlist_status;
                     if (this.insuranceLists[index].product_lists[j].indiv_shortlist_status == true) {
@@ -820,7 +828,9 @@ export class HealthInsuranceComponent implements OnInit {
                     this.insuranceLists[index].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].suminsured_amount);
                 }
             }
+            console.log(index, 'indexindex');
             console.log(this.insuranceLists, 'lityyyy');
+            console.log(this.insuranceLists[index], 'inngyyyyy');
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }

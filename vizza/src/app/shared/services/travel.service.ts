@@ -59,6 +59,17 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    updatedTravelPremiumCal(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'productlist/showquotelist_ontabchange' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getplaceOfVisit(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();

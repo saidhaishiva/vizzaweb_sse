@@ -88,6 +88,7 @@ export class TravelHomeComponent implements OnInit {
     daysBookingCount: any
     public settings: Settings;
     getAllcountryList: any;
+    insuranceLists: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.showSelf = true;
@@ -611,6 +612,11 @@ export class TravelHomeComponent implements OnInit {
         } else {
             this.medicalerror = false;
         }
+
+        let arrayEmpty = true;
+        if (this.travelPlan && this.travelPlan.length) {
+            arrayEmpty = false;
+        }
         let memberValid = false;
         let getFiledData = '';
         if (groupname == 'self') {
@@ -702,7 +708,9 @@ export class TravelHomeComponent implements OnInit {
        //      alert('out');
        //
        //  }
-        if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+        if (!memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+            sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
+
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
@@ -717,7 +725,6 @@ export class TravelHomeComponent implements OnInit {
                     'sum_amount': sum_amount,
                     'family_members': this.finalData,
                     'travel_plan': this.travelPlan,
-                    'hidden_type': (this.travelPlan == 3 || this.travelPlan == 4 || this.travelPlan == 5) ? 1 : (this.travelPlan == 1 ? 6 : '0'),
                     'travel_time_type': this.travelType,
                     'enquiry_id': '',
                     'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
@@ -748,7 +755,18 @@ export class TravelHomeComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
+            this.insuranceLists = successData.ResponseObject;
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    this.insuranceLists[i].product_lists[j].compare = false;
+                    this.insuranceLists[i].product_lists[j].shortlist = false;
+                    this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].total_premium);
+                    this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
+                }
+                this.insuranceLists[i].all_product_list = this.insuranceLists[i].product_lists;
+            }
+            sessionStorage.changedTabIndex = 0;
+            sessionStorage.allTravelPremiumLists = JSON.stringify(this.insuranceLists);
             console.log(sessionStorage.allTravelPremiumLists, 'sessionStorage.allTravelPremiumLists');
             this.router.navigate(['/travelpremium']);
         } else {
@@ -757,6 +775,9 @@ export class TravelHomeComponent implements OnInit {
     }
     public getTravelPremiumCalFailure(error) {
         this.settings.loadingSpinner = false;
+    }
+    public  numberWithCommas(x) {
+        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
     sessionData() {
 
