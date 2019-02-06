@@ -90,9 +90,22 @@ export class TravelPremiumListComponent implements OnInit {
     equiryId: any;
     daysBookingCount: any;
     viewList: any;
+    setAllTravelFamilyDetails: any;
+    allCompanyList: any;
+    filterCompany: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.setAllTravelFamilyDetails = JSON.parse(sessionStorage.setAllTravelFamilyDetails);
+        this.allCompanyList = [];
+        for (let i = 0; i < this.premiumLists.length; i++) {
+            for (let j = 0; j < this.premiumLists[i].product_lists.length; j++) {
+                if(this.allCompanyList.indexOf(this.premiumLists[i].product_lists[j].company_name) == -1) {
+                    this.allCompanyList.push(this.premiumLists[i].product_lists[j].company_name);
+                }
+            }
+        }
+
         console.log(this.premiumLists, 'testy');
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -173,24 +186,37 @@ export class TravelPremiumListComponent implements OnInit {
         this.viewPlanList();
         // this.test();
     }
+    // filter by product
+    filterByProducts(){
+        let index = sessionStorage.changedTabIndex;
+        console.log(this.filterCompany, 'this.filterCompany');
+        // console.log(this.insuranceLists, ' this.insuranceList2222');
 
+        let cmpy = [];
+        for (let k = 0; k < this.filterCompany.length; k++) {
+            for (let j = 0; j < this.premiumLists[index].all_product_list.length; j++) {
+                if (this.filterCompany[k] == this.premiumLists[index].all_product_list[j].company_name) {
+                    // this.insuranceLists[0].product_lists.push(this.insuranceLists[0].product_lists[j]);
+                    cmpy.push(this.premiumLists[index].all_product_list[j]);
+                }
+            }
+        }
+        console.log(this.premiumLists[index].all_product_list, 'popp');
 
-    // public test(){
-    //
-    //     this.travel.getContacts().subscribe((data:  Array<object>) => {
-    //         console.log(data, 'pythhh');
-    //     });
-    //
-    // }
+        if(this.filterCompany.length < 1) {
+            console.log('innnn');
+            this.premiumLists[index].product_lists = this.premiumLists[index].all_product_list;
+        } else {
+            this.premiumLists[index].product_lists = cmpy;
+        }
 
-
-
+        // this.insuranceLists[0].product_lists = [];
+        console.log(this.premiumLists, ' this.insuranceLists this.insuranceListspppp');
+    }
 
     selectedSumAmount(){
-
     }
     changeTravelType() {
-
     }
     selfDetails() {
         this.selfArray = [
@@ -600,6 +626,46 @@ export class TravelPremiumListComponent implements OnInit {
     }
 
 
+    onSelectedGroupChange(index) {
+        console.log(index, 'indexindexindex');
+        sessionStorage.changedTabIndex = index;
+        console.log(this.premiumLists, 'this.premiumListsthis.premiumLists');
+                const data = {
+                    "platform": "web",
+                    "suminsured_id": this.premiumLists[index].suminsured_id,
+                    "suminsured_amount": this.premiumLists[index].suminsured_amount,
+                    "family_details": this.setAllTravelFamilyDetails,
+                    "family_group_name": this.premiumLists[index].name,
+                    "insurance_type": this.premiumLists[index].insurance_type,
+                    "enquiry_id": this.premiumLists[index].enquiry_id,
+                    "travel_time_type": this.premiumLists[index].travel_time_type,
+                    "travel_type": this.premiumLists[index].travel_type,
+                    "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                    "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                    "user_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0'
+                }
+                this.settings.loadingSpinner = true;
+                console.log(data, 'this.datadata');
+                this.travel.updatedTravelPremiumCal(data).subscribe(
+                    (successData) => {
+                        this.getTabUpdateSuccess(successData);
+                    },
+                    (error) => {
+                        this.getTabUpdateFailure(error);
+                    }
+                );
+
+
+    }
+    getTabUpdateSuccess(successData){
+        console.log(successData, 'successDatasuccessData');
+
+    }
+    getTabUpdateFailure(error){
+        this.settings.loadingSpinner = false;
+
+    }
+
 
 
     submit(groupname) {
@@ -700,6 +766,7 @@ export class TravelPremiumListComponent implements OnInit {
         }
         // console.log(this.studentArray, 'this.studentArray');
         if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
+            sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();

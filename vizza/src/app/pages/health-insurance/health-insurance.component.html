@@ -108,8 +108,9 @@
           </div>
         </div>
 
-            <div class="flex-p" *ngFor="let lists of insuranceLists;let pi = index" >
-              <table class="table health-table" *ngIf="lists.product_lists !='' ">
+            <div *ngFor="let lists of insuranceLists;let pi = index" >
+              <div class="flex-p" *ngIf="lists.product_lists !=''">
+               <table class="table health-table">
                 <thead>
                 <tr>
                   <th >
@@ -173,9 +174,7 @@
                 </tr>
                 </tbody>
               </table>
-              <table class="table health-table" *ngIf="lists.product_lists =='' ">
-                <th class="text-center" class="color-pink"> No product matched your selection </th>
-              </table>
+              </div>
             </div>
             <mat-divider></mat-divider>
       </div>
