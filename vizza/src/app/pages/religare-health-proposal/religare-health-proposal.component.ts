@@ -14,6 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -120,9 +121,9 @@ export class ReligareHealthProposalComponent implements OnInit {
     public setAddonDefault : any;
     religareListQuestions: any;
     dobError: any;
-array: any;
+    array: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+                public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -183,14 +184,169 @@ array: any;
             'religareRelationship': ''
         });
 
+    }
+    initItemRows() {
+        return this.fb.group(
+            {
+                rolecd: 'PRIMARY',
+                personalTitle: ['', Validators.required],
+                personalFirstname: new FormControl(''),
+                personalLastname: ['', Validators.required],
+                personalDob: ['', Validators.required],
+                personalGender: ['', Validators.compose([Validators.required])],
+                personalrelationship: ['', Validators.required],
+                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
+                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+                personalGst: ['', Validators.compose([Validators.minLength(15)])],
+                personalAddress: '',
+                sameAsProposer: false,
+                personalAddress2: '',
+                personalPincode: '',
+                personalCity: '',
+                personalState: '',
+                personalEmail: '',
+                personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+                personalAltnumber: '',
+                residenceAddress: '',
+                residenceAddress2: '',
+                residencePincode: '',
+                residenceCity: '',
+                residenceState: '',
+                personalWeight: ['', Validators.required],
+                personalHeight: ['', Validators.required],
+                sameas: false,
+                type: '',
+                cityHide: '',
+                pCityHide: '',
+                altmobileNumber:'',
+                ins_age: '',
+                ins_days: '',
+                insurerDobError: '',
+                insurerDobValidError: ''
+            }
+        );
+    }
+    ngOnInit() {
+        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        this.enquiryId = sessionStorage.enquiryId;
+        this.groupName = sessionStorage.groupName;
+        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        this.insurePersons = this.getFamilyDetails.family_members;
 
-        console.log(this.totalData);
+        if(this.buyProductdetails.product_id == 1) {
+            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
+            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
+        }
+        if(this.buyProductdetails.product_id != 1) {
+            this.nomineeDetails.get('religareNomineeName').setValidators(null);
+            this.nomineeDetails.get('religareRelationship').setValidators(null);
+        }
+        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
+        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
+
+        this.setOccupationListCode();
+        this.religareQuestions();
+        this.setOccupationList();
+        this.setRelationship();
+        if(this.buyProductdetails.product_id == 1) {
+            this.getAddon();
+            if(this.buyProductdetails.suminsured_amount == 300000.00){
+                this.setAddonDefault = false;
+            }
+        }
+        this.insureArray = this.fb.group({
+            items: this.fb.array([])
+        });
+        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+            this.items = this.insureArray.get('items') as FormArray;
+            this.items.push(this.initItemRows());
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+        }
+
+        if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
+            if (this.getFamilyDetails.family_members.length < 2) {
+                if (this.personal['controls'].personalTitle.value == 'MR') {
+                    this.insureSingle = false;
+
+                } else if(this.personal['controls'].personalTitle.value == 'MS'){
+                    this.insureSingle = true;
+                }
+            }
+        }
+
+        this.previousinsurance = [
+            'IFFCO TOKIO General Insurance Co. Ltd.',
+            'Liberty General Insurance Co. Ltd.',
+            'Shriram General Insurance Co. Ltd.',
+            'Reliance General Insurance Co. Ltd',
+            'DHFL General Insurance Co. Ltd.',
+            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
+            'Edelweiss General Insurance Co.Ltd.',
+            'Kotak Mahindra General Insurance Co. Ltd.',
+            'Go Digit General Insurance Co. Ltd.',
+            'Royal Sundaram General Insurance Co. Ltd.',
+            'Exports Credit Guarantee of India Co. Ltd',
+            'The New India Assurance Co. Ltd.',
+            'Tata AIG General Insurance Company Limited',
+            'National Insurance Co. Ltd.',
+            'Universal Sompo General Insurance Co. Ltd.',
+            'Agriculture Insurance Company of India Ltd.',
+            'Acko General Insurance Co. Ltd.',
+            'SBI General Insurance Co. Ltd.',
+            'Bharti AXA General Insurance Co. Ltd.',
+            'ICICI LOMBARD General Insurance Co. Ltd.',
+            'Magma HDI General Insurance Co. Ltd.',
+            'HDFC ERGO General Insurance Co.Ltd.',
+            'United India Insurance Co. Ltd.',
+            'The Oriental Insurance Co. Ltd.',
+            'Future Generali India Insurance Co. Ltd.',
+            'Cholamandalam MS General Insurance Co. Ltd.',
+            'Raheja QBE General Insurance Co. Ltd.',
+            'Star Health & Allied Insurance Co.Ltd.',
+            'Apollo Munich Health Insurance Co. Ltd',
+            'Religare Health Insurance Co. Ltd',
+            'Max Bupa Health Insurance Co. Ltd',
+            'CIGNA TTK Health Insurance Co. Ltd.',
+            'Aditya Birla Health Insurance Co. Ltd.'
+        ];
+
+        this.sessionData();
+        this.setDate = Date.now();
+        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+        if(this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
+            this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
+        } else{
+            this.personal.get('personalPan').setValidators(null);
+        }
+        this.personal.get('personalPan').updateValueAndValidity();
+
+
+        if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
+            if (this.getFamilyDetails.family_members.length < 2) {
+                this.changeGender();
+            }
+        }
+
+    }
+    // Dame validation
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event){
+        this.validation.idValidate(event);
 
     }
     changeGender() {
         if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
             if (this.getFamilyDetails.family_members.length < 2) {
-
                 if(this.personal['controls'].personalTitle.value == 'MR'){
                     this.insureSingle = false;
                     this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
@@ -243,183 +399,82 @@ array: any;
       }
 
     }
-
-
-
-
-    ngOnInit() {
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.insurePersons = this.getFamilyDetails.family_members;
-
-        if(this.buyProductdetails.product_id == 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
-            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
-        }
-        if(this.buyProductdetails.product_id != 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators(null);
-            this.nomineeDetails.get('religareRelationship').setValidators(null);
-        }
-        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
-        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-
-        this.setOccupationListCode();
-        this.religareQuestions();
-        this.setOccupationList();
-        this.setRelationship();
-        if(this.buyProductdetails.product_id == 1) {
-            this.getAddon();
-            if(this.buyProductdetails.suminsured_amount == 300000.00){
-                this.setAddonDefault = false;
-            }
-        }
-        this.insureArray = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.items = this.insureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-        }
-
-        if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
-                if (this.getFamilyDetails.family_members.length < 2) {
-                    if (this.personal['controls'].personalTitle.value == 'MR') {
-                        this.insureSingle = false;
-
-                    } else if(this.personal['controls'].personalTitle.value == 'MS'){
-                        this.insureSingle = true;
-                    }
-                }
-        }
-
-        this.previousinsurance = [
-            'IFFCO TOKIO General Insurance Co. Ltd.',
-            'Liberty General Insurance Co. Ltd.',
-            'Shriram General Insurance Co. Ltd.',
-            'Reliance General Insurance Co. Ltd',
-            'DHFL General Insurance Co. Ltd.',
-            'Bajaj Allianz Allianz General Insurance Co. Ltd.',
-            'Edelweiss General Insurance Co.Ltd.',
-            'Kotak Mahindra General Insurance Co. Ltd.',
-            'Go Digit General Insurance Co. Ltd.',
-            'Royal Sundaram General Insurance Co. Ltd.',
-            'Exports Credit Guarantee of India Co. Ltd',
-            'The New India Assurance Co. Ltd.',
-            'Tata AIG General Insurance Company Limited',
-            'National Insurance Co. Ltd.',
-            'Universal Sompo General Insurance Co. Ltd.',
-            'Agriculture Insurance Company of India Ltd.',
-            'Acko General Insurance Co. Ltd.',
-            'SBI General Insurance Co. Ltd.',
-            'Bharti AXA General Insurance Co. Ltd.',
-            'ICICI LOMBARD General Insurance Co. Ltd.',
-            'Magma HDI General Insurance Co. Ltd.',
-            'HDFC ERGO General Insurance Co.Ltd.',
-            'United India Insurance Co. Ltd.',
-            'The Oriental Insurance Co. Ltd.',
-            'Future Generali India Insurance Co. Ltd.',
-            'Cholamandalam MS General Insurance Co. Ltd.',
-            'Raheja QBE General Insurance Co. Ltd.',
-            'Star Health & Allied Insurance Co.Ltd.',
-            'Apollo Munich Health Insurance Co. Ltd',
-            'Religare Health Insurance Co. Ltd',
-            'Max Bupa Health Insurance Co. Ltd',
-            'CIGNA TTK Health Insurance Co. Ltd.',
-            'Aditya Birla Health Insurance Co. Ltd.'
-        ];
-
-
-
-        console.log(this.questionerData, 'this.questionerData[i].sub_questions_list.length');
-        this.sessionData();
-
-
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        if(this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
-            this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
-        } else{
-            this.personal.get('personalPan').setValidators(null);
-        }
-        this.personal.get('personalPan').updateValueAndValidity();
-
-
-        if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
-            if (this.getFamilyDetails.family_members.length < 2) {
-                this.changeGender();
-            }
-        }
-
-    }
-
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }
-
     setStep(index: number) {
         this.step = index;
     }
-
     prevStep() {
         this.step--;
     }
-
-    initItemRows() {
-        return this.fb.group(
-            {
-                rolecd: 'PRIMARY',
-                personalTitle: ['', Validators.required],
-                personalFirstname: new FormControl(''),
-                personalLastname: ['', Validators.required],
-                personalDob: ['', Validators.required],
-                personalGender: ['', Validators.compose([Validators.required])],
-                personalrelationship: ['', Validators.required],
-                personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-                personalGst: ['', Validators.compose([Validators.minLength(15)])],
-                personalAddress: ['', Validators.required],
-                sameAsProposer: false,
-                personalAddress2: ['', Validators.required],
-                personalPincode: ['', Validators.required],
-                personalCity: ['', Validators.required],
-                personalState: ['', Validators.required],
-                personalEmail: '',
-                personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
-                personalAltnumber: '',
-                residenceAddress: ['', Validators.required],
-                residenceAddress2: [''],
-                residencePincode: ['', Validators.required],
-                residenceCity: ['', Validators.required],
-                residenceState: ['', Validators.required],
-                personalWeight: ['', Validators.required],
-                personalHeight: ['', Validators.required],
-                sameas: false,
-                type: '',
-                cityHide: '',
-                pCityHide: '',
-                altmobileNumber:'',
-                ins_age: '',
-                ins_days: '',
-                insurerDobError: '',
-                insurerDobValidError: ''
+    //Personal Details
+    personalDetails(stepper: MatStepper, value) {
+        this.personalData = value;
+        this.personalData.rolecd = 'PROPOSER';
+        this.personalData.type = 'SELF';
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        this.addonDetails = [];
+        if (this.personal.valid) {
+            if(this.buyProductdetails.product_id == 1) {
+                for (let i = 0; i < this.objectKeys.length; i++) {
+                    if (this.objectKeys[i].checked) {
+                        this.addonDetails.push(this.objectKeys[i].key);
+                    }
+                }
+                sessionStorage.addonDetails = '';
+                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
             }
-        );
+            this.proposerInsureData = [];
+            if (sessionStorage.proposerAge >= 18) {
+                this.proposerInsureData.push(this.personalData);
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+                    this.topScroll();
+                }
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
     }
+    addonItem(event: any, i){
+        if (event.checked) {
+            this.objectKeys[i].checked = true;
 
+        } else {
+            this.objectKeys[i].checked = false;
+
+        }
+    }
+    religareQuestion(stepper: MatStepper) {
+        this.questionEmpty = false;
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            if (this.religareQuestionsList[i].answer == '') {
+                this.questionEmpty = false;
+                break;
+            } else {
+                this.questionEmpty = true;
+            }
+        }
+        if (this.questionEmpty ) {
+            stepper.next();
+            this.topScroll();
+
+
+        } else {
+            this.toastr.error('Please fill the all Answers');
+
+        }
+    }
     //Insure Details
     religareInsureDetails(stepper: MatStepper, value, key) {
-        console.log(value);
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personalData);
-        if (this.insureArray.valid) {
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.insurerData.items[i].type = this.insurePersons[i].type;
             }
@@ -447,18 +502,18 @@ array: any;
                             'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
                         }
                     ],
-                    'proposer_res_address1': this.proposerInsureData[i].residenceAddress,
-                    'proposer_res_address2': this.proposerInsureData[i].residenceAddress2,
-                    'proposer_res_area': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_city': this.proposerInsureData[i].residenceCity,
-                    'proposer_res_state': this.proposerInsureData[i].residenceState,
-                    'proposer_res_pincode': this.proposerInsureData[i].residencePincode,
-                    'proposer_comm_address1': this.proposerInsureData[i].personalAddress,
-                    'proposer_comm_address2': this.proposerInsureData[i].personalAddress2,
-                    'proposer_comm_area': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_city': this.proposerInsureData[i].personalCity,
-                    'proposer_comm_state': this.proposerInsureData[i].personalState,
-                    'proposer_comm_pincode': this.proposerInsureData[i].personalPincode,
+                    'proposer_res_address1': this.proposerInsureData[0].residenceAddress,
+                    'proposer_res_address2': this.proposerInsureData[0].residenceAddress2,
+                    'proposer_res_area': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_city': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_state': this.proposerInsureData[0].residenceState,
+                    'proposer_res_pincode': this.proposerInsureData[0].residencePincode,
+                    'proposer_comm_address1': this.proposerInsureData[0].personalAddress,
+                    'proposer_comm_address2': this.proposerInsureData[0].personalAddress2,
+                    'proposer_comm_area': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_city': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_state': this.proposerInsureData[0].personalState,
+                    'proposer_comm_pincode': this.proposerInsureData[0].personalPincode,
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
                     'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
@@ -491,10 +546,10 @@ array: any;
                 //         'identity_type': 'PAN'
                 //     });
                 // }
-                console.log(this.totalReligareData, 'this.totalReligareDatathis.totalReligareData');
 
             }
             let aterMobile = [];
+        if (this.insureArray.valid) {
             for(let i=0;i<this.insurerData.items.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '' ) {
                     aterMobile.push(0);
@@ -510,34 +565,24 @@ array: any;
                     aterMobile.push(3);
 
                 }
-
             }
-
             if (aterMobile.includes(0)) {
                 this.toastr.error('Alternative and personal number should be different');
             } else if(aterMobile.includes(2)){} else {
                 stepper.next();
                 this.topScroll();
-
             }
-
         }
     }
-
-
-
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
         this.lastStepper = stepper;
-        console.log(value);
-
         if (this.nomineeDetails.valid) {
             sessionStorage.nomineeData = '';
             sessionStorage.nomineeData = JSON.stringify(value);
             this.proposal();
         }
     }
-
     subStatus(value: any, i, k, j) {
         if (value.checked) {
         } else {
@@ -545,13 +590,9 @@ array: any;
         }
 
     }
-
-
     medicalHistoryDetails(stepper: MatStepper) {
-
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
-        console.log( sessionStorage.stepper3Details, ' sessionStorage.stepper3Details');
         this.questions_list = [];
         this.getFilterData = [];
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
@@ -566,7 +607,6 @@ array: any;
                     }
                 }
         }
-
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
         }
@@ -577,21 +617,15 @@ array: any;
         }
         let statusChecked = [];
             this.medicalStatus = [];
-            console.log(this.religareQuestionsList, 'this.religareQuestionsList');
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
-
             if(this.religareQuestionsList[i].mStatus == 'No'){
                 this.medicalStatus.push('No');
             } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
                 this.medicalStatus.push('Yes');
             }
-            
-
-                for (let i = 0; i < this.totalReligareData.length; i++) {
-                    this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-                }
-
-
+            for (let i = 0; i < this.totalReligareData.length; i++) {
+                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            }
          if (this.religareQuestionsList[i].answer_status == true) {
              for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
@@ -610,8 +644,6 @@ array: any;
                            }  else {
                                statusChecked.push(1);
                            }
-
-
                        }
                    }
                }
@@ -619,98 +651,24 @@ array: any;
              if (statusChecked.length == 0){
                  statusChecked.push(2);
              }
-
          } else {
-
              if (i == this.religareQuestionsList.length - 1) {
                  statusChecked.push(1);
              }
 
          }
-         console.log(this.medicalStatus, 'this.medicalStatus');
-         console.log(statusChecked, 'this.statusChecked');
-
         }
-
-            if (statusChecked.includes(0)) {
-                this.toastr.error('Please fill the empty field');
-            } else if (statusChecked.includes(2)) {
-                this.toastr.error('Please check atleast one checkbox!');
-            } else {
-                stepper.next();
-                this.topScroll();
-
-            }
-
-    }
-
-
-    //Personal Details
-    personalDetails(stepper: MatStepper, value) {
-        this.personalData = value;
-        console.log(this.personalData, 'dfgdfg');
-        this.personalData.rolecd = 'PROPOSER';
-        this.personalData.type = 'SELF';
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        console.log(value.personalDob, 'value');
-        this.addonDetails = [];
-        if (this.personal.valid) {
-            if(this.buyProductdetails.product_id == 1) {
-                for (let i = 0; i < this.objectKeys.length; i++) {
-                    if (this.objectKeys[i].checked) {
-                        this.addonDetails.push(this.objectKeys[i].key);
-                    }
-                }
-                sessionStorage.addonDetails = '';
-                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
-
-            }
-            this.proposerInsureData = [];
-            if (sessionStorage.proposerAge >= 18) {
-                this.proposerInsureData.push(this.personalData);
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                    this.topScroll();
-
-                }
-
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
-            console.log( this.addonDetails, ' this.addonDetails');
-        }
-    }
-    addonItem(event: any, i){
-        if (event.checked) {
-            this.objectKeys[i].checked = true;
-
+        if (statusChecked.includes(0)) {
+            this.toastr.error('Please fill the empty field');
+        } else if (statusChecked.includes(2)) {
+            this.toastr.error('Please check atleast one checkbox!');
         } else {
-            this.objectKeys[i].checked = false;
-
-        }
-    }
-    religareQuestion(stepper: MatStepper) {
-        this.questionEmpty = false;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if (this.religareQuestionsList[i].answer == '') {
-                this.questionEmpty = false;
-                break;
-            } else {
-                this.questionEmpty = true;
-            }
-        }
-        if (this.questionEmpty ) {
             stepper.next();
             this.topScroll();
 
-
-        } else {
-            this.toastr.error('Please fill the all Answers');
-
         }
-    }
 
+    }
     PreviousInsure(value) {
         if (value.value == 'true') {
             this.personal.controls['previousinsurance'].setValue('');
@@ -735,7 +693,6 @@ array: any;
         this.sameField = values.checked;
         if (values.checked) {
             this.inputReadonly = true;
-            console.log(values.checked);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
@@ -752,9 +709,7 @@ array: any;
 
         }
     }
-
     sameAddressInsurer(values: any, index) {
-
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
@@ -774,34 +729,6 @@ array: any;
         }
     }
 
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-
-    public dobkeyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public onAlternative(event: any) {
-        if (event.charCode !== 0) {
-            const pattern =/[0-9-]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
     // proposer dob
     addEvent(event) {
         if (event.value != null) {
@@ -840,7 +767,6 @@ array: any;
             let getAge;
             let getDays;
             if (typeof event.value._i == 'string') {
-                console.log(event.value._i.length, 'event.value._i.length');
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
@@ -1077,15 +1003,13 @@ array: any;
     }
     stepback() {
         this.back = true;
-        console.log(this.back);
     }
     quesback() {
         this.back = false;
-        console.log(this.back);
     }
 
     getAddon() {
-
+console.log('getAddon');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -1106,7 +1030,6 @@ array: any;
 
     public AddonSuccess(successData) {
         if (successData.IsSuccess) {
-            console.log(successData, 'successData');
             this.addon = successData.ResponseObject.addons_list[0];
             this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
             for (let i=0; i < this.objectKeys.length; i++) {
@@ -1121,7 +1044,6 @@ array: any;
 
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
@@ -1206,7 +1128,7 @@ array: any;
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.getStepper2.items[i].personalDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.datepipe.transform(this.getStepper2.items[i].personalDob, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
@@ -1260,32 +1182,23 @@ array: any;
                 }
             }
         }
-
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            console.log(JSON.parse(sessionStorage.nomineeData), 'sessionStorage.stepper1Details');
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
                 religareNomineeName: this.getNomineeData.religareNomineeName,
                 religareRelationship: this.getNomineeData.religareRelationship
             });
         }
-
-
         if (sessionStorage.proposal3Detail != '' && sessionStorage.proposal3Detail != undefined) {
-            console.log(JSON.parse(sessionStorage.proposal3Detail), 'sessionStorage.proposal3Detail');
-            // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
             this.religareListQuestions = JSON.parse(sessionStorage.proposal3Detail);
-            console.log(this.religareListQuestions, 'sessionStorage.this.personalAccidentQuestionsList');
         } else {
             this.religareQuestions();
         }
+        if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
+            this.proposalId = sessionStorage.proposalID;
+        }
+
     }
-
-
-
-
-
-
     sameProposer(value: any) {
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
@@ -1391,33 +1304,22 @@ array: any;
         );
 
     }
-
     public proposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
-            console.log(this.relationshipList, 'this.relationshipList');
             this.summaryData = successData.ResponseObject;
             let getdata=[];
-            for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
-                  for (let j = 0; j <  this.relationshipList.length; j++) {
-                     if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
-                          this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
-                      }
-                  }
-            }
-            console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
+            // for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
+            //       for (let j = 0; j <  this.relationshipList.length; j++) {
+            //          if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
+            //               this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
+            //           }
+            //       }
+            // }
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
-            //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
-            this.relationshipcode = [];
-            console.log(this.relationshipList,'lll');
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                this.relationshipcode.push(this.relationshipList[i].relationship_name);
-            }
-            console.log(this.relationshipcode ,'ooooo');
             this.lastStepper.next();
-
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1430,7 +1332,6 @@ array: any;
         let updatedFinalData = [];
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
-                console.log(diseaseData, 'diseaseDatadiseaseDatadiseaseData');
                 let updatedData = [];
                 for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
                     console.log(diseaseData.proposer_insurer_details[i]['questions_list'], 'diseaseData.proposer_insurer_details[i][\'questions_list\']')
@@ -1469,14 +1370,8 @@ array: any;
                     }
 
                 }
-                console.log(updatedData);
-
                 this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-
-
             }
-            console.log(this.totalData);
-
         }
 
 
@@ -1532,7 +1427,6 @@ array: any;
     getPostal(pin, title) {
         this.pin = pin;
         this.title = title;
-        console.log(this.title, 'kjhjkghkhk')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1676,8 +1570,6 @@ array: any;
     getPostalSummary(pin, title) {
         this.sumPin = pin;
         this.sumTitle = title;
-        console.log(this.sumPin, 'pin');
-        console.log(this.title, 'sumTitle1');
         const data = {
             'platform': 'web',
             'pincode': this.sumPin
@@ -1824,14 +1716,11 @@ array: any;
     }
 
     public occupationCodeSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationCode = successData.ResponseObject;
     }
-
     public occupationCodeFailure(error) {
         console.log(error);
     }
-
     setRelationship() {
         const data = {
             'platform': 'web',
@@ -1850,12 +1739,9 @@ array: any;
     }
 
     public setRelationshipSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.relationshipList = successData.ResponseObject;
         //this.relationshipLists = this.relationshipList.name;
-
         this.insureRelationList = [];
-        console.log(this.insurePersons.length, 'this.insurePersons.length');
         if(this.insurePersons.length > 1){
             for (let i = 0; i < this.relationshipList.length; i++) {
                 if(this.relationshipList[i].status == 1) {
@@ -1875,42 +1761,12 @@ array: any;
                 });
             }
         }
-
-        console.log(this.insureRelationList, 'insureRelationListinsureRelationListinsureRelationList');
-
     }
 
     public setRelationshipFailure(error) {
         console.log(error);
     }
-    add(event: any){
-            if (event.charCode !== 0) {
-                const pattern = /[0-9/\\ ]/;
-                const inputChar = String.fromCharCode(event.charCode);
-                if (!pattern.test(inputChar)) {
-                    event.preventDefault();
-                }
-            }
-        }
-    public keyEvent(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9a-zA-Z ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
 
-        public typeValidate(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
     alternateChange(event) {
         if (this.personal['controls'].personalAltnumber.value == 10) {
             if(this.personal['controls'].personalAltnumber.value == this.personal['controls'].personalMobile.value) {
