@@ -107,6 +107,7 @@ import {DmresultdeactivatetimeGuard} from './shared/dmresultdeactivatetime-guard
 import {ResultDeactivateGuard} from './shared/resultdeactivate-guard';
 import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
 import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
+import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -193,7 +194,7 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
-            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canActivate: [AppollohealthproposaldeactivateGuardService]},
+            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
@@ -217,7 +218,7 @@ export const routes: Routes = [
             { path: 'travel-religare-payment-success/:status/:proId', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
-            { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}},
+            { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

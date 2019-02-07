@@ -229,7 +229,9 @@ export class TravelHdfcProposalComponent implements OnInit {
                 NomineeRelation: this.hdfcTravel3.NomineeRelation
             });
         }
-
+        if (sessionStorage.hdfc_Travel_proposal_id != '' && sessionStorage.hdfc_Travel_proposal_id != undefined) {
+            this.hdfc_Travel_proposal_id = sessionStorage.hdfc_Travel_proposal_id;
+        }
     }
 
     // validation
@@ -246,6 +248,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
     idValidate(event: any){
         this.validation.idValidate(event);
+    }
+    canDeactivate() {
+        return this.hdfc_Travel_proposal_id;
     }
     initItemRows() {
         return this.fb.group(

@@ -229,6 +229,7 @@ import {Ng2OrderModule} from 'ng2-order-pipe';
 import { ValidationService} from './shared/services/validation.service';
 import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
 import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
+import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -454,6 +455,7 @@ import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealt
       ValidationService,
       HdfcproposaldeactivateGuardService,
       AppollohealthproposaldeactivateGuardService,
+      TravelhdfcdeactivateGuardService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

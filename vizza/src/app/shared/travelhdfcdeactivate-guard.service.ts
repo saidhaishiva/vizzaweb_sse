@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
+import {TravelHdfcProposalComponent} from '../pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
 import {CanDeactivate} from '@angular/router';
-import {AppolloMunichComponent} from '../pages/appollo-munich-health/appollo-munich-health.component';
 
 @Injectable()
-export class AppollohealthproposaldeactivateGuardService implements CanDeactivate<AppolloMunichComponent>{
+export class TravelhdfcdeactivateGuardService implements CanDeactivate<TravelHdfcProposalComponent>{
 
   constructor() { }
-  canDeactivate(proposal: AppolloMunichComponent) {
+  canDeactivate(proposal: TravelHdfcProposalComponent) {
 
-    const can = proposal.proposalId ;
+    const can = proposal.hdfc_Travel_proposal_id ;
     if (can == 0) {
       let r = confirm("You haven't closed the Appollo Munich-health-proposal form.Are you sure you want to navigate from this page?");
       if (r == true) {
