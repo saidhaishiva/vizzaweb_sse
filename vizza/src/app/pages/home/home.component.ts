@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
@@ -441,6 +441,45 @@ export class HomeComponent implements OnInit {
             }
         }
     }
+    DisclaimerDialog(){
+        const dialogRef = this.dialog.open(DisclaimerDialog, {
+            width: '800px',
+        });
+        dialogRef.disableClose = true;
+    }
+    }
 
+@Component({
+    selector: 'disclaimerdialog',
+    template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h4 class="text-center" style="color: #DF6600 ">Disclaimer</h4>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+                <ul style="list-style-type: none;">
+                    <li><strong>* </strong>Insurance is the subject matter of solicitation.</li>
+                    <li><strong>* </strong>Visitors are hereby informed that their information submitted on the website may be shared with insurers.</li>
+                    <li><strong>* </strong>The product information for comparison displayed on this website is of the insurers with whom our company has an agreement.</li>
+                    <li><strong>* </strong>Product information is authentic and solely based on the information received from the Insurer</li>
+                </ul>
+         </div>
+        </div>`,
+})
+export class DisclaimerDialog {
+
+    constructor(
+        public dialogRef: MatDialogRef<DisclaimerDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
