@@ -162,7 +162,6 @@ export class AppolloMunichComponent implements OnInit {
     public readonly: any;
     public readonlyproposer: any;
     public appolloQuestionsList: any;
-    public medicalStatus: any;
     public medicalquestion: any;
 
   constructor(public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -478,6 +477,10 @@ export class AppolloMunichComponent implements OnInit {
 
 
         }
+
+        if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
+            this.proposalId = sessionStorage.proposalID;
+        }
     }
 
     nameValidate(event: any){
@@ -493,6 +496,9 @@ export class AppolloMunichComponent implements OnInit {
     }
     idValidate(event: any){
         this.validation.idValidate(event);
+    }
+    canDeactivate() {
+        return this.proposalId;
     }
     changeGender() {
         if (this.proposer.controls['proposerTitle'].value == 'MR'|| this.proposer.controls['proposerTitle'].value == 'MASTER'){
@@ -645,11 +651,11 @@ export class AppolloMunichComponent implements OnInit {
     public appolloQuestionsFailure(error) {
     }
 
-    questionYes(id, value: any) {
+    questionYes(index, value: any) {
         if (value.checked) {
-            this.appolloQuestionsList[id].mStatus = 'Yes';
+            this.appolloQuestionsList[index].mStatus = 'Yes';
         } else {
-            this.appolloQuestionsList[id].mStatus = 'No';
+            this.appolloQuestionsList[index].mStatus = 'No';
         }
     }
 
@@ -1667,23 +1673,18 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.apollomedical = '';
         sessionStorage.apollomedical = JSON.stringify(this.appolloQuestionsList);
 
-        let statusChecked = [];
-        this.medicalStatus = [];
+        // let statusChecked = [];
+         let medicalStatus = [];
         for (let i = 0; i < this.appolloQuestionsList.length; i++) {
 
             if(this.appolloQuestionsList[i].mStatus == 'No'){
-                this.medicalStatus.push('No');
+                medicalStatus.push('No');
             } else if(this.appolloQuestionsList[i].mStatus == 'Yes') {
-                this.medicalStatus.push('Yes');
-            }
-
-
-            for (let i = 0; i < this.appolloQuestionsList.length; i++) {
-                this.appolloQuestionsList[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+                medicalStatus.push('Yes');
             }
         }
 
-        if (this.medicalStatus.includes('Yes')) {
+        if (medicalStatus.includes('Yes')) {
             this.toastr.error('This medical questions is unable to proceed');
         } else {
             stepper.next();

@@ -105,6 +105,8 @@ import {HdfcTravelPaymentSuccessComponent} from './pages/hdfc-travel-payment-suc
 import {TravelReligarePaymentSuccessComponent} from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import {DmresultdeactivatetimeGuard} from './shared/dmresultdeactivatetime-guard';
 import {ResultDeactivateGuard} from './shared/resultdeactivate-guard';
+import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
+import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -191,7 +193,7 @@ export const routes: Routes = [
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
-            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'}},
+            { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canActivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
@@ -206,7 +208,7 @@ export const routes: Routes = [
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
-            { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}},
+            { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},
             { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
             { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},

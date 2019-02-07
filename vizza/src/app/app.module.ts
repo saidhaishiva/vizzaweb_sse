@@ -227,6 +227,8 @@ import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-s
 // import {OrderBy} from '../oderByPipe';
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import { ValidationService} from './shared/services/validation.service';
+import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
+import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -450,6 +452,8 @@ import { ValidationService} from './shared/services/validation.service';
       ResultDeactivateGuard,
       DatePipe,
       ValidationService,
+      HdfcproposaldeactivateGuardService,
+      AppollohealthproposaldeactivateGuardService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

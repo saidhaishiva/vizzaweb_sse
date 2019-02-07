@@ -82,6 +82,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public otpvalidation: any;
     public checkotpvalidation: any;
     public checkotp: any;
+    public hdfc_health_proposal_id: any;
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -94,7 +95,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.IsCustomerAccepted = false;
         this.arr = [];
         this.webhost = this.config.getimgUrl();
-
+        this.hdfc_health_proposal_id = 0;
 
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -121,7 +122,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             'nomineeRelationship': ['', Validators.required]
         });
     }
-
+    canDeactivate() {
+        return this.hdfc_health_proposal_id;
+    }
     ngOnInit() {
         this.sameAsinsure = false;
         this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
@@ -224,7 +227,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     prevStep() {
         this.step--;
     }
-
+    // candeactivate(){
+    //     return sessionStorage.hdfc_health_proposal_id;
+    // }
     // insure form group
     initItemRows() {
         return this.fb.group(
@@ -823,7 +828,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'enquiry_id': this.getFamilyDetails.enquiry_id,
-                'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
+                // 'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
+                'proposal_id': this.hdfc_health_proposal_id,
                 'InsuranceDetails': {
                     'CustDetails': {
                         'Title': this.hdfcpersonalValues.title,
@@ -1005,6 +1011,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             //     this.sameasInsurerDetails(this.sameAsinsure, 'notClear');
             // }
 
+        }
+
+        if (sessionStorage.hdfc_health_proposal_id != '' && sessionStorage.hdfc_health_proposal_id != undefined) {
+            this.hdfc_health_proposal_id = sessionStorage.hdfc_health_proposal_id;
         }
     }
 }
