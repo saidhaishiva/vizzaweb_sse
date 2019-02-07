@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
+ import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -152,7 +153,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     addressPr: boolean;
     addressPC: boolean;
     insuredDescriptionValidator: boolean;
-    constructor(private fb: FormBuilder, public proposalservice: HealthService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(private fb: FormBuilder, public proposalservice: HealthService,public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -286,7 +287,20 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredGender'].patchValue('FEMALE');
         }
     }
-
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
 
     ngOnInit() {
         this.setRelationship();

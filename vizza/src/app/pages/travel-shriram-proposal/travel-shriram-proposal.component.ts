@@ -16,6 +16,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -61,7 +62,7 @@ export class TravelShriramProposalComponent implements OnInit {
     public proposalDtails: any;
     public insurerDtails: any;
     public webhost: any;
-    public proposalId: any;
+    public travel_shriram_proposal_id: any;
     public settings: Settings;
     public pin: any;
     public response: any;
@@ -132,7 +133,7 @@ export class TravelShriramProposalComponent implements OnInit {
     travelPurposeName: any;
     occupationLists: any;
     allPremiumLists: any;
-    constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -147,7 +148,7 @@ export class TravelShriramProposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
-        this.proposalId = 0;
+        this.travel_shriram_proposal_id = 0;
         this.step = 0;
         this.mobileNumber = 'true';
         this.inputReadonly = false;
@@ -208,26 +209,42 @@ export class TravelShriramProposalComponent implements OnInit {
     prevStep() {
         this.step--;
     }
-
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
     }
-
-    public dobkeyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
     }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
+    canDeactivate() {
+        return this.travel_shriram_proposal_id;
+    }
+    // public keyPress(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
+    //
+    // public dobkeyPress(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9/\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
     public onAlternative(event: any) {
         if (event.charCode !== 0) {
             const pattern =/[0-9-]/;
@@ -247,7 +264,6 @@ export class TravelShriramProposalComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
 
-                    console.log(event.value._i.length, 'gggg');
 
                     if (type == 'proposor') {
                         this.personalDobError = '';
@@ -272,8 +288,6 @@ export class TravelShriramProposalComponent implements OnInit {
 
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, '////');
-                console.log(type, 'typetype');
                 if (dob.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
                     sessionStorage.proposerAgeForTravel = this.proposerAge;
@@ -281,7 +295,6 @@ export class TravelShriramProposalComponent implements OnInit {
                 this.personalDobError = '';
                 this.mediReceiptDtError = '';
             }
-            console.log(this.proposerAge, 'this.proposerAgethis.proposerAge');
 
         }
     }
@@ -360,7 +373,9 @@ export class TravelShriramProposalComponent implements OnInit {
                 nomineeRelationship: this.getStepper2.nomineeRelationship
             });
         }
-
+        if (sessionStorage.travel_shriram_proposal_id != '' && sessionStorage.travel_shriram_proposal_id != undefined) {
+            this.travel_shriram_proposal_id = sessionStorage.travel_shriram_proposal_id;
+        }
 
     }
     //personal city detail
@@ -399,7 +414,6 @@ export class TravelShriramProposalComponent implements OnInit {
 
     // city lists
     selectedSate() {
-        console.log(event, 'pppp');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -423,7 +437,6 @@ export class TravelShriramProposalComponent implements OnInit {
         }
     }
     public getCityFailure(error) {
-        console.log(error);
     }
     // state lists
     getStateList() {
@@ -448,7 +461,6 @@ export class TravelShriramProposalComponent implements OnInit {
         }
     }
     public getStateFailure(error) {
-        console.log(error);
     }
 
     travelPurposeOfVisit() {
@@ -637,7 +649,6 @@ export class TravelShriramProposalComponent implements OnInit {
         sessionStorage.stepper1ShriramTravel = '';
         sessionStorage.stepper1ShriramTravel = JSON.stringify(value);
         this.personalData = value;
-        console.log(value, 'valuevaluevalue');
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
@@ -697,7 +708,6 @@ export class TravelShriramProposalComponent implements OnInit {
                 }
 
             }
-            console.log(data, 'datadatadatadata');
 
             // this.settings.loadingSpinner = true;
             this.travelservice.createShriramTravelProposal(data).subscribe(
@@ -718,7 +728,6 @@ export class TravelShriramProposalComponent implements OnInit {
 
 
     public proposalSuccess(successData, stepper) {
-      console.log(successData.ResponseObject, 'successData.ResponseObject');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();

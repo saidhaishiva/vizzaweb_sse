@@ -208,6 +208,8 @@ public maxStartdate:any;
           previousradio:'2',
           rolecd: 'PROPOSER',
           type: '',
+          insuredHeight:'',
+          insuredWeight:'',
           sameAsProposer:false
       });
       this.nomineeDetail = this.proposerpa.group({
@@ -364,6 +366,8 @@ public maxStartdate:any;
                 insuredSmokeList: this.appollo2.insuredSmokeList,
                 insuredLiquor: this.appollo2.insuredLiquor,
                 insuredWine: this.appollo2.insuredWine,
+                insuredHeight: this.appollo2.insuredHeight,
+                insuredWeight: this.appollo2.insuredWeight,
                 insuredPouches: false,
                 insuredSmoke: false,
                 insuredCheck: false,
@@ -1350,6 +1354,8 @@ preInsureList() {
             "Application": {
                 "NomineeAddress": {
                     "AddressLine1": this.nomineeDetail.controls['paNomineeAddress'].value,
+                    "AddressLine2": this.nomineeDetail.controls['paNomineeAddress2'].value,
+                    "AddressLine3": this.nomineeDetail.controls['paNomineeAddress3'].value,
                     "CountryCode": "IN",
                     "District": this.nomineeDetail.controls['paNomineeDistrict'].value,
                     "PinCode": this.nomineeDetail.controls['paNomineePincode'].value,
@@ -1424,7 +1430,8 @@ preInsureList() {
                 "FirstName": this.insured.controls['insuredPaFirstname'].value,
                 "GenderCode": this.insured.controls['insuredPaGender'].value,
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
-
+                "Height": this.insured.controls['insuredHeight'].value,
+                "Weight": this.insured.controls['insuredWeight'].value,
                 "IDProofNumber": this.idListDetailsinsured,
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
