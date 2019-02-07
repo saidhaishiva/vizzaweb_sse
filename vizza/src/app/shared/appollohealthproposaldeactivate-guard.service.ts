@@ -9,7 +9,7 @@ export class AppollohealthproposaldeactivateGuardService implements CanDeactivat
   canDeactivate(proposal: AppolloMunichComponent) {
 
     const can = proposal.proposalId ;
-    if (can == 0) {
+    if (can == 0 || can != '') {
       let r = confirm("You haven't closed the Appollo Munich-health-proposal form.Are you sure you want to navigate from this page?");
       if (r == true) {
         return true;

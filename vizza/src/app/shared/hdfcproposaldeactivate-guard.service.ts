@@ -11,7 +11,7 @@ export class HdfcproposaldeactivateGuardService implements CanDeactivate<HdfcHea
 
     const can = proposal.hdfc_health_proposal_id ;
     console.log(can);
-    if (can == 0) {
+    if (can == 0 || can != '') {
       let r = confirm("You haven't closed the hdfc-health-proposal form.Are you sure you want to navigate from this page?");
       if (r == true) {
         return true;

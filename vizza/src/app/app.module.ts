@@ -230,6 +230,9 @@ import { ValidationService} from './shared/services/validation.service';
 import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
 import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
 import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-guard.service';
+import {AppolloPaproposaldeactivateGuardService} from './shared/appollo-paproposaldeactivate-guard.service';
+import {ReligarePaproposaldeactivateGuardService} from './shared/religare-paproposaldeactivate-guard.service';
+import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -456,6 +459,9 @@ import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-gu
       HdfcproposaldeactivateGuardService,
       AppollohealthproposaldeactivateGuardService,
       TravelhdfcdeactivateGuardService,
+      AppolloPaproposaldeactivateGuardService,
+      ReligarePaproposaldeactivateGuardService,
+      HdfcPaproposaldeactivateGuardService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

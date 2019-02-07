@@ -363,7 +363,16 @@
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field>
                       </div>
-
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight"  autocomplete="off" required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight"  autocomplete="off" required>
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-12">
                         <h6 class="mt-3">Insured Address :</h6>
                       </div>

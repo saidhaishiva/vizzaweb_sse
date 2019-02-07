@@ -108,6 +108,9 @@ import {ResultDeactivateGuard} from './shared/resultdeactivate-guard';
 import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
 import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
 import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-guard.service';
+import {AppolloPaproposaldeactivateGuardService} from './shared/appollo-paproposaldeactivate-guard.service';
+import {ReligarePaproposaldeactivateGuardService} from './shared/religare-paproposaldeactivate-guard.service';
+import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeactivate-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -192,7 +195,7 @@ export const routes: Routes = [
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
-            { path: 'personal-accident-religare', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'} },
+            { path: 'personal-accident-religare', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
             { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
             { path: 'appollo-munich-health', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
@@ -203,14 +206,14 @@ export const routes: Routes = [
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
-            { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'}},
+            { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
             { path: 'hdfc-insurance', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},
-            { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}},
+            { path: 'hdfc-personalAccident', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}, canDeactivate: [HdfcPaproposaldeactivateGuardService]},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
             { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},

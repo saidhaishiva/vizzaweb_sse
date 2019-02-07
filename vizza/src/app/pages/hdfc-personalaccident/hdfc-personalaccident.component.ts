@@ -83,6 +83,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public getAllPremiumDetails: any;
     public pincodePAValid: any;
     public proposerAgeHDFCPA: any;
+    public hdfc_PA_proposal_id: any;
     constructor( public personalacccidentservice: PersonalAccidentService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                  public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string, public route: Router) {
         this.settings = this.appSettings.settings;
@@ -124,6 +125,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'nomineeName': ['', Validators.required],
             'nomineeRelationship': ['', Validators.required]
         });
+        this.hdfc_PA_proposal_id = 0;
     }
     ngOnInit() {
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
@@ -149,6 +151,10 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+    canDeactivate() {
+        return this.hdfc_PA_proposal_id;
+    }
+
     // title change function
     changeGender() {
         if (this.hdfcPersonal.controls['title'].value == 'MR') {
@@ -157,26 +163,26 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             this.hdfcPersonal.controls['gender'].patchValue('Female');
         }
     }
-    // accept only character
-    public typeValidate(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    // accept only number
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
+    // // accept only character
+    // public typeValidate(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[a-zA-Z]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
+    // // accept only number
+    // public keyPress(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9/]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
     occupationDetails() {
 
     }
@@ -434,7 +440,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
-            'proposal_id': sessionStorage.hdfc_PA_proposal_id == '' || sessionStorage.hdfc_PA_proposal_id == undefined ? '' : sessionStorage.hdfc_PA_proposal_id,
+            'proposal_id': this.hdfc_PA_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
                     'TittleCode': this.hdfcpersonalValues.title,
@@ -576,6 +582,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
                 nomineeRelationship: this.hdfcPANomineeDetails.nomineeRelationship
             });
         }
-
+        if (sessionStorage.hdfc_PA_proposal_id != '' && sessionStorage.hdfc_PA_proposal_id != undefined) {
+            this.hdfc_PA_proposal_id = sessionStorage.hdfc_PA_proposal_id;
+        }
     }
 }

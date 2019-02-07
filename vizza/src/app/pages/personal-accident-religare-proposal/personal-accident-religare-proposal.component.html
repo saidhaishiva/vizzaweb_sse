@@ -28,13 +28,13 @@
                       <!--</div>-->
                       <!--<div class="col-md-3">-->
                         <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="typeValidate($event)"  autocomplete="off" required >-->
+                          <!--<input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >-->
                             <!--<mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
                         <!--</mat-form-field>-->
                       <!--</div>-->
                       <!--<div class="col-md-3">-->
                         <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="typeValidate($event)"   autocomplete="off" required >-->
+                          <!--<input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >-->
                           <!--<mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>-->
 
                         <!--</mat-form-field>-->
@@ -55,7 +55,7 @@
 
                       <!--<div class="col-md-3">-->
                           <!--<mat-form-field class="w-100">-->
-                              <!--<input matInput placeholder="Annual Income" (keypress)="onNumber($event)"  formControlName="personalAnualIncome"  autocomplete="off" required>-->
+                              <!--<input matInput placeholder="Annual Income" (keypress)="numberValidate($event)"  formControlName="personalAnualIncome"  autocomplete="off" required>-->
                             <!--<mat-error *ngIf="personal.controls.personalAnualIncome.errors?.required">Annual Income is required</mat-error>-->
 
                           <!--</mat-form-field>-->
@@ -118,7 +118,7 @@
 
                       <!--</mat-form-field></div>-->
                       <!--<div class="col-md-3"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Mobile Number"  (keypress)="onNumber($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>-->
+                        <!--<input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>-->
                         <!--<mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>-->
                         <!--<mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
 
@@ -152,7 +152,7 @@
                         <!--</mat-form-field>-->
                       <!--</div>-->
                       <!--<div class="col-md-4"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>-->
+                        <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>-->
                         <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>-->
                         <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -191,7 +191,7 @@
                         <!--</mat-form-field>-->
                       <!--</div>-->
                       <!--<div class="col-md-4"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>-->
+                        <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="residencePincode"autocomplete="off"  required>-->
                         <!--<mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <!--<mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>-->
                         <!--<mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -261,13 +261,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredFirstname"  [readonly]="readonlyproposer" (keypress)="typeValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredFirstname"  [readonly]="readonlyproposer" (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredLastname"  [readonly]="readonlyproposer" (keypress)="typeValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredLastname"  [readonly]="readonlyproposer" (keypress)="nameValidate($event)"   autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>
@@ -278,7 +278,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"  formControlName="insuredDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" (keypress)="dobkeyPress($event)"  minlength="10"  maxlength="10"   autocomplete="off"  [readonly]="readonlyproposer" required >
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"  formControlName="insuredDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  [readonly]="readonlyproposer" required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredDob.errors?.required">DOB is required</mat-error>
@@ -288,7 +288,7 @@
                       </div>
 
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Annual Income" (keypress)="onNumber($event)" formControlName="insuredAnnualIncome"  [readonly]="readonlyproposer" required autocomplete="off">
+                        <input matInput placeholder="Annual Income" (keypress)="numberValidate($event)" formControlName="insuredAnnualIncome"  [readonly]="readonlyproposer" required autocomplete="off">
                           <mat-error *ngIf="insured.controls.insuredAnnualIncome.errors?.required">Annual Income is required</mat-error>
 
                       </mat-form-field></div>
@@ -333,14 +333,14 @@
                              <!--</mat-form-field>-->
                          <!--</div>-->
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="keyEvent($event)" minlength="10"  [readonly]="readonlyproposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  [readonly]="readonlyproposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off">
+                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$"  (keypress)="idValidate($event)" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
 
@@ -361,7 +361,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="onNumber($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off"   [readonly]="readonlyproposer" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off"   [readonly]="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
@@ -375,13 +375,13 @@
                       </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="onNumber($event)" required autocomplete="off">
+                           <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="numberValidate($event)" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
                          </mat-form-field>
                        </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="onNumber($event)" required autocomplete="off">
+                           <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="numberValidate($event)" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
                          </mat-form-field>
                        </div>
@@ -406,7 +406,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -453,7 +453,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="onNumber($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -550,12 +550,12 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="typeValidate($event)" required>
+                          <input matInput placeholder="Name of Nominee"  formControlName="religareNomineeName" autocomplete="off" (keypress)="nameValidate($event)" required>
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-4"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="typeValidate($event)" required>-->
+                        <!--<input matInput placeholder="Relationship with Proposer" formControlName="religareRelationship" autocomplete="off" (keypress)="nameValidate($event)" required>-->
                         <!--<mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>-->
                       <!--</mat-form-field></div>-->
                         <div class="col-md-4">
@@ -741,7 +741,6 @@
                            <b>{{summaryData.proposer_insurer_details.q_P002}}</b></li>
                       </ul>
                     </div>
-
                   </div>
                 </div>
               </div>
