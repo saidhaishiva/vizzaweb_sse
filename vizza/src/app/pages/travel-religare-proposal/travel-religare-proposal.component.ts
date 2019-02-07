@@ -188,7 +188,8 @@ public sameinsure: any;
 
     ngOnInit() {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
+        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
         if(this.getallTravelPremiumList.travel_type == 'student'){
             this.studentdetails = true;

@@ -197,7 +197,8 @@ export class TravelShriramProposalComponent implements OnInit {
         this.getStateList();
         // this.getIlnessDetails();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        this.allPremiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.allPremiumLists = allLists[sessionStorage.changedTabIndex];
         this.insurePersons = this.getTravelPremiumList.family_details;
         this.sessionData();
     }

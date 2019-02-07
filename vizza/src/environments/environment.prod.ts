@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
+
     apiHost: 'http://13.127.24.123/vizza/api/index.php/v1/',
     apiHostTravel: 'http://13.127.24.123/vizza/api/index.php/travel/',
     apiHostPa: 'http://13.127.24.123/vizza/api/index.php/pa/',
@@ -9,13 +10,15 @@ export const environment = {
     apiHostDm: 'http://13.127.24.123/vizza/api/index.php/dm/',
     webHost: 'http://13.127.24.123',
     imgUrl: 'http://13.127.24.123/vizza'
+
+    // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
+    // apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
+    // apiHostPa: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
+    // apiHostHealth: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
+    // apiHostHome: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
+    // apiHostPos: 'https://vizzainsurance.com/vizza/api/index.php/pos/',
+    // apiHostDm: 'https://vizzainsurance.com/vizza/api/index.php/dm/',
+    // webHost: 'https://vizzainsurance.com',
+    // imgUrl: 'https://vizzainsurance.com/vizza'
 }
 
-// apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     apiHostPa: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     apiHostHealth: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     apiHostHome: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     apiHostPos: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
-//     webHost: 'https://vizzainsurance.com',
-//     imgUrl: 'https://vizzainsurance.com/vizza'

@@ -136,7 +136,9 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.insuredRelationshipList();
         this.nomineeRelationshipList();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
+        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
+        console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
         this.insuredTravelPerson = this.getTravelPremiumList.family_details;
         this.hdfcInsuredTravel = this.fb.group({
             items: this.fb.array([])
@@ -695,6 +697,7 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     // proposal craetion
     createProposal(stepper) {
+        console.log(this.getallTravelPremiumList);
         let insuretravelDetails = this.totalInsureDetails;
         for (let i = 0; i < this.insuredTravelData.items.length; i++) {
             this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;

@@ -93,8 +93,10 @@ export class TravelPremiumListComponent implements OnInit {
     setAllTravelFamilyDetails: any;
     allCompanyList: any;
     filterCompany: any;
+    tabIndex: any;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
+        this.tabIndex = 0;
         this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
         this.setAllTravelFamilyDetails = JSON.parse(sessionStorage.setAllTravelFamilyDetails);
         this.allCompanyList = [];
