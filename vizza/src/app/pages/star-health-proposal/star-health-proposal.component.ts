@@ -110,7 +110,6 @@ export class StarHealthProposalComponent implements OnInit {
     public previousInsurence: any;
     public nomineeNext: any;
     public totalClaim: any;
-    public sameInsurer: any;
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -538,18 +537,6 @@ export class StarHealthProposalComponent implements OnInit {
     //Insured Details
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
-        // for (let i = 0; i < this.familyMembers.length; i++) {
-        //     for (let j = 0; j < this.relationshipList.length; j++) {
-        //         if (this.familyMembers[i].ins_relationship == this.relationshipList[j].relationship_code) {
-        //             this.sameInsurer = (this.familyMembers[i].relationship_name = this.relationshipList[j].relationship_name);
-        //         }
-        //     }
-        // }
-        for(let i = 0; i < this.familyMembers.length; i++) {
-            this.sameInsurer = this.familyMembers[i].ins_relationship;
-        }
-        console.log(this.sameInsurer,'resulttttt');
-        // if (this.ageRestriction == '') {
         this.illnesStatus = false;
         this.insureStatus = false;
         let errorMessage = true;
