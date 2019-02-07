@@ -63,12 +63,12 @@
                         <mat-error *ngIf="hdfcPersonal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" autocomplete="off" required>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="OTP"  (keypress)="keyPress($event)"  minlength="6" maxlength="6" formControlName="otp" (input)="checkotpValidate($event.target.value)" autocomplete="off" required>
+                        <input matInput placeholder="OTP"  (keypress)="numberValidate($event)"  minlength="6" maxlength="6" formControlName="otp" (input)="checkotpValidate($event.target.value)" autocomplete="off" required>
                         <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">OTP is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4">
