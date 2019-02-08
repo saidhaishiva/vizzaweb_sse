@@ -14,6 +14,7 @@ import {ViewdetailsComponent} from './viewdetails/viewdetails.component';
 import { Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {HealthService} from '../../shared/services/health.service';
+import {ClearSessionService} from '../../shared/services/clear-session.service';
 
 
 
@@ -81,7 +82,7 @@ export class HealthInsuranceComponent implements OnInit {
     allCompanyList : any;
 
     private keyUp = new Subject<string>();
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
@@ -117,6 +118,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.session.clearSessionData();
         this.firstPage = true;
         this.secondPage = false;
         this.sonBTn = false;

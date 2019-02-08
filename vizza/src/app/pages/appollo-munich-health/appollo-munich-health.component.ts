@@ -34,9 +34,7 @@ export const MY_FORMATS = {
   templateUrl: './appollo-munich-health.component.html',
   styleUrls: ['./appollo-munich-health.component.scss'],
     providers: [
-
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
@@ -279,16 +277,11 @@ export class AppolloMunichComponent implements OnInit {
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
-
         this.sessionData();
         this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
         if (this.insureArray['controls'].items['controls'][1]['controls'].type.value == 'Spouse') {
             this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
         }
-
-
-        // this.setDate = Date.now();
-        // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
     }
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -337,11 +330,7 @@ export class AppolloMunichComponent implements OnInit {
             let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.proposerDob, 'y-MM-dd'));
             sessionStorage.proposerAge = age;
             // this.proposer.controls['proposerDob'].pat();
-
         }
-
-
-
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -421,9 +410,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
                 this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
                 this.insureArray['controls'].items['controls'][i]['controls'].stateHide.patchValue(true);
-
             }
-
 
             if (this.getStepper2.items[0].sameAsProposer != '' && this.getStepper2.items[0].sameAsProposer != undefined) {
                 this.sameProposer();
@@ -473,13 +460,10 @@ export class AppolloMunichComponent implements OnInit {
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob,
             });
-
-
-
         }
 
-        if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
-            this.proposalId = sessionStorage.proposalID;
+        if (sessionStorage.appollo_health_proposal_id != '' && sessionStorage.appollo_health_proposal_id != undefined) {
+            this.proposalId = sessionStorage.appollo_health_proposal_id;
         }
     }
 
@@ -1019,11 +1003,6 @@ export class AppolloMunichComponent implements OnInit {
         // }
 
     }
-
-
-
-
-
     getPincode(pin, title, i){
             this.pin = pin;
             this.title = title;
@@ -1092,7 +1071,6 @@ export class AppolloMunichComponent implements OnInit {
     public pincodeFailure(error) {
     }
 
-
     DobDaysCalculate(dobDays) {
         let mdate = dobDays.toString();
         let yearThen = parseInt(mdate.substring( 8,10), 10);
@@ -1103,9 +1081,7 @@ export class AppolloMunichComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
         return Bob_days;
-
     }
-
     ageCalculate(dob) {
         const mdate = dob.toString();
         const yearThen = parseInt(mdate.substring(8, 10), 10);
@@ -1198,11 +1174,8 @@ export class AppolloMunichComponent implements OnInit {
 
         }
     }
-
     public getProffessionFailure(error) {
     }
-
-
     //Previous Insure
     getPreviousInsure() {
         const data = {
@@ -1405,8 +1378,6 @@ export class AppolloMunichComponent implements OnInit {
     }
     public setAppolloCityNFailure(error){
     }
-
-
 //Insure State
     insureStateChange(stateId, title, i){
         this.stateCode = stateId;
@@ -1717,14 +1688,14 @@ export class AppolloMunichComponent implements OnInit {
                 this.totalInsureDetails.push({
                     'Address': {
                         'Address': {
-                            'AddressLine1': this.insurerData[i].proposerAddress,
-                            'AddressLine2': this.insurerData[i].proposerAddress2,
-                            'AddressLine3': this.insurerData[i].proposerAddress3,
-                            'CountryCode': this.insurerData[i].proposerCountry,
-                            'District': this.insurerData[i].proposerDistrict,
-                            'PinCode': this.insurerData[i].proposerPincode,
-                            'TownCode': this.insurerData[i].proposerCity,
-                            'StateCode': this.insurerData[i].proposerStateIdP,
+                            'AddressLine1': this.insurerData[0].proposerAddress,
+                            'AddressLine2': this.insurerData[0].proposerAddress2,
+                            'AddressLine3': this.insurerData[0].proposerAddress3,
+                            'CountryCode': this.insurerData[0].proposerCountry,
+                            'District': this.insurerData[0].proposerDistrict,
+                            'PinCode': this.insurerData[0].proposerPincode,
+                            'TownCode': this.insurerData[0].proposerCity,
+                            'StateCode': this.insurerData[0].proposerStateIdP,
                         }
                     },
                     'proposerMobile': this.insurerData[i].proposerMobile,
@@ -1820,7 +1791,7 @@ export class AppolloMunichComponent implements OnInit {
 
         const data  = {
             'enquiry_id': this.enquiryId,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId,
+            'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -2031,7 +2002,7 @@ export class AppolloMunichComponent implements OnInit {
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
-            sessionStorage.proposalID = this.proposalId;
+            sessionStorage.appollo_health_proposal_id = this.proposalId;
             this.lastStepper.next();
         }
         else{

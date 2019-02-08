@@ -111,6 +111,8 @@ import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-gu
 import {AppolloPaproposaldeactivateGuardService} from './shared/appollo-paproposaldeactivate-guard.service';
 import {ReligarePaproposaldeactivateGuardService} from './shared/religare-paproposaldeactivate-guard.service';
 import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeactivate-guard.service';
+import {ReligareHealthDeactivateGuardService} from './shared/religare-health-deactivate-guard.service';
+import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -176,7 +178,7 @@ export const routes: Routes = [
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
-            { path: 'religare-health-proposal', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' } },
+            { path: 'religare-health-proposal', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' }, canDeactivate: [ReligareHealthDeactivateGuardService] },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },
             { path: 'dm-viewresult', component: DmViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [DmresultdeactivatetimeGuard]},
             { path: 'startexam', component: EntranceexamComponent, data: { breadcrumb: 'Exam' }, canActivate: [ExamactivateGuard]},
@@ -204,7 +206,7 @@ export const routes: Routes = [
             { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
-            { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'} },
+            { path: 'bajaj', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
             { path: 'appollopa',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},

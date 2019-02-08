@@ -234,6 +234,9 @@ import {TravelhdfcdeactivateGuardService} from './shared/travelhdfcdeactivate-gu
 import {AppolloPaproposaldeactivateGuardService} from './shared/appollo-paproposaldeactivate-guard.service';
 import {ReligarePaproposaldeactivateGuardService} from './shared/religare-paproposaldeactivate-guard.service';
 import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeactivate-guard.service';
+import {ReligareHealthDeactivateGuardService} from './shared/religare-health-deactivate-guard.service';
+import { ClearSessionService} from './shared/services/clear-session.service';
+import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -464,6 +467,9 @@ import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeac
       AppolloPaproposaldeactivateGuardService,
       ReligarePaproposaldeactivateGuardService,
       HdfcPaproposaldeactivateGuardService,
+      ReligareHealthDeactivateGuardService,
+      BajajHealthDeactivateGuardService,
+      ClearSessionService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

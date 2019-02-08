@@ -120,6 +120,11 @@ export class HomeComponent implements OnInit {
         sessionStorage.ageRestriction = '';
         sessionStorage.addonDetails = '';
 
+        //religare helth
+        sessionStorage.proposal3Detail = '';
+        sessionStorage.proposalID = '';
+
+
         // personal accident
         sessionStorage.setOccupation = '';
         sessionStorage.setAge = '';

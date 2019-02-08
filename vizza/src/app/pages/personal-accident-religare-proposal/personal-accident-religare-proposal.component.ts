@@ -477,8 +477,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 religareRelationship: this.getpersonalNomineeData.religareRelationship
             });
         }
-        if (sessionStorage.paProposalID != '' && sessionStorage.paProposalID != undefined) {
-            this.religarePAProposal = sessionStorage.paProposalID;
+        if (sessionStorage.pa_religare_proposal_id != '' && sessionStorage.pa_religare_proposal_id != undefined) {
+            this.religarePAProposal = sessionStorage.pa_religare_proposal_id;
         }
     }
 
@@ -1368,7 +1368,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             'role_id': '4',
             'pos_status': '0',
             'platform': 'web',
-            'proposal_id': this.religarePAProposal,
+            'proposal_id': sessionStorage.pa_religare_proposal_id == '' || sessionStorage.pa_religare_proposal_id == undefined ? '' : sessionStorage.pa_religare_proposal_id,
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'group_name': 'Group A',
             'company_name': this.getBuyDetails.company_name,
@@ -1535,7 +1535,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
-            sessionStorage.paProposalID = this.religarePAProposal;
+            sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
             // get religare-health-proposal proposer occupation code
             for( let i=0; i < this.occupationCode.length; i++) {
                 if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {

@@ -14,6 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -97,7 +98,7 @@ export class BajajAlianzComponent implements OnInit {
 
 
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+                public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
@@ -209,6 +210,23 @@ export class BajajAlianzComponent implements OnInit {
 
             }
         );
+    }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
+    canDeactivate() {
+        return this.proposalId;
     }
 
     //Insure Details
@@ -687,6 +705,9 @@ export class BajajAlianzComponent implements OnInit {
             this.copaymentShow = sessionStorage.copaymentShow;
             this.insureArray['controls'].items['controls'][0]['controls'].insureCheckCopay.patchValue(this.copaymentShow);
         }
+        if (sessionStorage.bajaj_health_proposalid != '' && sessionStorage.bajaj_health_proposalid != undefined) {
+            this.proposalId = sessionStorage.bajaj_health_proposalid;
+        }
     }
 
     //create poposal
@@ -695,7 +716,7 @@ export class BajajAlianzComponent implements OnInit {
         const data  = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString(): this.proposalId.toString(),
+            'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
             'enquiry_id': this.enquiryId,
             'company_name': 'bajajalianz',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -753,7 +774,7 @@ export class BajajAlianzComponent implements OnInit {
             let getdata=[];
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.proposal_id;
-            sessionStorage.proposalID = this.proposalId;
+            sessionStorage.bajaj_health_proposalid = this.proposalId;
             this.lastStepper.next();
         } else{
             this.toastr.error(successData.ErrorObject);

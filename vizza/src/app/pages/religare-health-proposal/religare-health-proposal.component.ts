@@ -1200,6 +1200,7 @@ console.log('getAddon');
 
     }
     sameProposer(value: any) {
+        console.log(this.personal.controls['personalrelationship'].value, 'this.personal.controls[\'personalrelationship\'].value');
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
@@ -1220,8 +1221,8 @@ console.log('getAddon');
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
@@ -1788,7 +1789,7 @@ console.log('getAddon');
                 this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
             }
         }
-        sessionStorage.this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
+        this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
         }
 
 }

@@ -623,7 +623,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             );
         }
     }
-
     public pincodeSuccess(successData) {
         if (successData.IsSuccess) {
             this.pincodeValid = true;
@@ -633,9 +632,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             // this.hdfcPersonal.controls['pincode'].setValue('');
         }
         sessionStorage.pincodeValid = this.pincodeValid;
-
     }
-
     public pincodeFailure(successData) {
     }
 
@@ -814,7 +811,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
         this.lastStepper = stepper;
     }
-
 // star-health-proposal Creation
     createProposal(stepper){
 
@@ -829,7 +825,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'enquiry_id': this.getFamilyDetails.enquiry_id,
                 'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
-                // 'proposal_id': this.hdfc_health_proposal_id,
                 'InsuranceDetails': {
                     'CustDetails': {
                         'Title': this.hdfcpersonalValues.title,
@@ -871,14 +866,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     this.proposalFailure(error);
                 }
             );
-
-
-
-
-
     }
-
-
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
@@ -967,16 +955,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcStep2.items[i].insurerDobValidError);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].accepted.patchValue(this.hdfcStep2.items[i].accepted);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.patchValue(this.hdfcStep2.items[i].sameasInsurer);
-
                 }
-
-                // if( this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type == 'Son') {
-                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
-                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Male');
-                // } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type == 'Daughter') {
-                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
-                //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Female');
-                // }
             }
             if(this.hdfcStep2.items[0].accepted){
                 this.IsCustomerAccepted = false;
@@ -985,13 +964,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             }
 
         }
-        // if (sessionStorage.ReligareTravelDetails3 != '' && sessionStorage.ReligareTravelDetails3 != undefined) {
-        //     // this.getStepper3 = JSON.parse(sessionStorage.proposal3Detail);
-        //     this.religareTravelQuestionsList = JSON.parse(sessionStorage.ReligareTravelDetails3);
-        //
-        // } else {
-        //     // this. religareQuestions();
-        // }
         if (sessionStorage.hdfcHealthNomineeDetails != '' && sessionStorage.hdfcHealthNomineeDetails != undefined) {
             this.hdfcHealthNomineeDetails = JSON.parse(sessionStorage.hdfcHealthNomineeDetails);
             this.nomineeDetails = this.fb.group({
@@ -1002,7 +974,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         if (sessionStorage.sameAsinsure != '' && sessionStorage.sameAsinsure != undefined) {
             this.sameAsinsure = sessionStorage.sameAsinsure;
             this.sameasInsurerDetails(this.sameAsinsure, 'notClear');
-
             // if(this.sameAsinsure){
             //     alert('in');
             //     this.sameasInsurerDetails(this.sameAsinsure, 'notClear');
@@ -1010,9 +981,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             //     alert('outt');
             //     this.sameasInsurerDetails(this.sameAsinsure, 'notClear');
             // }
-
         }
-
         if (sessionStorage.hdfc_health_proposal_id != '' && sessionStorage.hdfc_health_proposal_id != undefined) {
             this.hdfc_health_proposal_id = sessionStorage.hdfc_health_proposal_id;
         }

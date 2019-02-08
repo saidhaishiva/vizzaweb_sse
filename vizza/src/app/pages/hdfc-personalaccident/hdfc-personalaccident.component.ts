@@ -440,7 +440,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
-            'proposal_id': this.hdfc_PA_proposal_id,
+            'proposal_id': sessionStorage.hdfc_PA_proposal_id == '' || sessionStorage.hdfc_PA_proposal_id == undefined ? '' : sessionStorage.hdfc_PA_proposal_id,
             'InsuranceDetails': {
                 'CustDetails': {
                     'TittleCode': this.hdfcpersonalValues.title,

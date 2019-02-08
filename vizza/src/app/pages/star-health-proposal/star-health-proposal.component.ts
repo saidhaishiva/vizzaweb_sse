@@ -836,6 +836,11 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].insurerDobError = '';
             this.ageCheck = this.datepipe.transform(event.value, 'y-MM-dd');
                 let age = this.ageCalculate(this.ageCheck);
+            if (age < 18 && (type == 'Self' || type == 'Spouse')) {
+                this.familyMembers[i].ageRestriction = 'Self or Spouse age should be above 18';
+            } else {
+                this.familyMembers[i].ageRestriction = '';
+            }
                 this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.familyMembers[i].ins_age = age;
                 if (this.buyProductdetails.company_name.toLowerCase() == 'star health') {

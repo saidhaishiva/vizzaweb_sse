@@ -1345,7 +1345,7 @@ preInsureList() {
       let enq_id = this.getAllPremiumDetails.enquiry_id;
    const data = {
     "enquiry_id": enq_id.toString(),
-    "proposal_id": this.appolloPA,
+    'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
