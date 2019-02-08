@@ -113,6 +113,7 @@ import {ReligarePaproposaldeactivateGuardService} from './shared/religare-paprop
 import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeactivate-guard.service';
 import {ReligareHealthDeactivateGuardService} from './shared/religare-health-deactivate-guard.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
+import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -188,7 +189,7 @@ export const routes: Routes = [
             { path: 'travel', component: TravelHomeComponent, data: {breadcrumb: 'Travel' } },
             //{ path: 'Personal-accident-star-health-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
-            { path: 'reliance-heath-proposal', component: RelianceHeathProposalComponent, data: { breadcrumb: 'Reliance'} },
+            { path: 'reliance-heath-proposal', component: RelianceHeathProposalComponent, data: { breadcrumb: 'Reliance'}, canDeactivate: [RelianceHealthDeactivateGuardService] },
             { path: 'religare-health-proposal-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'reliance-heath-proposal-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Relaince payment Success'} },
             { path: 'apollomunich-payment-success/:status/:proId', component: ApollomunichPaymentSuccessComponent, data: { breadcrumb: 'Apollo munich payment Success'} },

@@ -237,6 +237,7 @@ import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeac
 import {ReligareHealthDeactivateGuardService} from './shared/religare-health-deactivate-guard.service';
 import { ClearSessionService} from './shared/services/clear-session.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
+import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -469,6 +470,7 @@ import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivat
       HdfcPaproposaldeactivateGuardService,
       ReligareHealthDeactivateGuardService,
       BajajHealthDeactivateGuardService,
+      RelianceHealthDeactivateGuardService,
       ClearSessionService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

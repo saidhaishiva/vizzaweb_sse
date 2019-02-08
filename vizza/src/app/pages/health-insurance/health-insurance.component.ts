@@ -1132,7 +1132,9 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
         this.checkAge = Math.max.apply(null, ages);
-            if (this.auth.getPosStatus() == '0') {
+        console.log(this.auth.getPosRoleId(), 'roliiddd');
+        console.log(this.auth.getPosStatus(), 'getPosStatus');
+            if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
                 let dialogRef = this.dialog.open(PosstatusAlert, {
                     width: '700px',
                 });

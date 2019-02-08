@@ -110,15 +110,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     public nomineeData: any;
     public nomineeRelationshipList: any;
     public getStepper3: any;
-    public rStateId: any;
-    public rCityId: any;
-    public rCountryId: any;
-    public nStateId: any;
-    public nCityId: any;
-    public nCountryId: any;
-    public pStateId: any;
-    public pCityId: any;
-    public pCountryId: any;
     public proposalPArea: any;
     public proposalRArea: any;
     public nomineeAreaList: any;
@@ -276,10 +267,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
         }
     }
-
-
-
-
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
@@ -612,7 +599,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             }
         }
 
-
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9131 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son')  {
@@ -628,9 +614,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
-
-
-
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
@@ -747,8 +730,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     public getMaritalStatusFailure(error) {
     }
 
-
-
     //Disease List
     getDiseaseList() {
         const data = {
@@ -775,8 +756,6 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     public getDiseaseListFailure(error) {
     }
-
-
     //Cover type List
     getCoverTypeList() {
         const data = {
@@ -804,8 +783,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     public getCoverTypeFailure(error) {
     }
 
-
-
     //Nationality List
     NationalityList() {
         const data = {
@@ -829,11 +806,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.nationalityList = successData.ResponseObject;
         }
     }
-
     public getNationalityStatusFailure(error) {
     }
-
-
     setOccupationList() {
         const data = {
             'platform': 'web',
@@ -860,9 +834,6 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     public occupationListFailure(error) {
     }
-
-
-
     setRelationship() {
         const data = {
             'platform': 'web',
@@ -1177,8 +1148,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
     }
 
-
-
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
         this.lastStepper = stepper;
@@ -1189,7 +1158,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.proposal();
         }
     }
-
     subStatus(value: any, i, k, j) {
         if (value.checked) {
         } else {
@@ -1197,7 +1165,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
 
     }
-
 
     //Risk Details
     riskDetail(stepper: MatStepper, value) {
@@ -1237,45 +1204,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
     }
 
-    //
-    // religareQuestion(stepper: MatStepper) {
-    //     this.questionEmpty = false;
-    //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
-    //         if (this.religareQuestionsList[i].answer == '') {
-    //             this.questionEmpty = false;
-    //             break;
-    //         } else {
-    //             this.questionEmpty = true;
-    //         }
-    //     }
-    //     if (this.questionEmpty ) {
-    //         stepper.next();
-    //
-    //     } else {
-    //         this.toastr.error('Please fill the all Answers');
-    //
-    //     }
-    // }
-
-    // PreviousInsure(value) {
-    //     if (value.value == 'true') {
-    //         this.personal.controls['previousinsurance'].setValue('');
-    //         this.previousInsuranceStatus = true;
-    //     } else {
-    //         this.previousInsuranceStatus = false;
-    //         this.personal.controls['previousinsurance'].setValue('No');
-    //     }
-    // }
-
-    // PreviousInsuredDetail(value, i) {
-    //     if (value.value == 'true') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
-    //         this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-    //     } else {
-    //         this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-    //         this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
-    //     }
-    // }
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -1408,7 +1336,10 @@ export class RelianceHeathProposalComponent implements OnInit {
             let nomineeRelations = JSON.parse(sessionStorage.nomineeAreaList);
             this.nomineeAreaList = nomineeRelations;
         }
-        
+        if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
+            this.proposalId = sessionStorage.proposalID;
+        }
+
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
@@ -1586,7 +1517,6 @@ export class RelianceHeathProposalComponent implements OnInit {
               },700);
 
               this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalR');
-
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
@@ -1595,16 +1525,12 @@ export class RelianceHeathProposalComponent implements OnInit {
                     if (this.mobileNumber == '' || this.mobileNumber == 'true'){
             this.lastStepper.next();
                     }
-
                 } else {
                     this.toastr.error('Proposer age should be 18 or above');
                 }
             }
         } else {
             this.toastr.error(successData.ErrorObject);
-           // this.toastr.error('Nominee age should be 18 or above');
-
-
         }
     }
     ServiceTax(){
