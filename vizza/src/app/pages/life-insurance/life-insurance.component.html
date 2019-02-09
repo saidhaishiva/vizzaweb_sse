@@ -1,4 +1,4 @@
-<div class="container dashboard h-100" fxLayoutAlign="start start">
+<div class="container dashboard h-100" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
     <h2 class="w-100 text-center" style="color:#A521B3;"><img src="assets/img/life-insurances.png" class="logo-size">&nbsp;Life Insurance</h2>
     <!--<div fxLayout="row" fxLayoutAlign="center stretch">-->
@@ -15,10 +15,10 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-6 col-sm-12 col-xs-12" >
       <div class="card">
         <div class="card-block">
-          <mat-card style="background:#A521B3 !important; color: #fff; height:available;">
+          <mat-card style="background:#A521B3 !important; color: #fff !important; height:available;">
             <h2 class="w-100 text-center" >Let us assist you</h2>
             <form [formGroup]="Lifeapp">
 
@@ -122,5 +122,104 @@
     <!--</div>-->
   </div>
 </div>
+
+<!--second page-->
+
+<div class="row " id="product-list" fxLayoutAlign="center start">
+  <div class="col-sm-12">
+    <div fxLayout="column" *ngIf="secondPage">
+            <h4 style="cursor: pointer; color:#A521B3;" (click)="lifeInsurance()"><img src="assets/img/life-insurances.png" class="logo-size">&nbsp;Life Insurance</h4>
+        <div class="col-md-12">
+          <div class="flex-p">
+            <table class="table health-table">
+              <thead>
+              <tr>
+                <th >INSURER</th>
+                <th>KEY FEATURES</th>
+                <th >COMPARE</th>
+                <th>POLICY DOCUMENTS</th>
+                <th>FIX AN APPOINTMENT</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td></td>
+                <td ></td>
+                <td></td>
+                <td></td>
+                <td ></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  </div>
+  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
+
+  <!--<div  *ngIf="secondPage">-->
+  <!--<div fxLayoutAlign="left center">-->
+  <!--<div class="col-md-12">-->
+  <!--<mat-card class="custom-card">-->
+  <!--<mat-card-header class="p-2" >-->
+  <!--<mat-card-title class="m-0">-->
+  <!--<h6>Your Selections</h6>-->
+  <!--</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<mat-radio-group><br>-->
+  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
+  <!--</mat-radio-group>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span style="font-size: 12px;">S.I</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<mat-select [(ngModel)]="changeSuninsuredAmount" name="suminsure" (change)="changeSuminsured($event)">-->
+  <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
+  <!--{{amounts.si_amount}}-->
+  <!--</mat-option>-->
+  <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
+  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>-->
+  <!--<div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>-->
+  <!--<div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >-->
+  <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span>Pincode</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<input matInput name="pin" name="pin" [disabled]="true"  [(ngModel)]="pincoce">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div fxLayoutAlign="center center" class="son">-->
+  <!--<button mat-raised-button color="accent" type="button" (click)="updateFunction()">Update</button>-->
+  <!--</div>-->
+
+  <!--</mat-card-content>-->
+  <!--</mat-card>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <!--</div>-->
+  <!--</div>-->
 
 
