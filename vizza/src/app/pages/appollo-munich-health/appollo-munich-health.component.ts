@@ -1789,7 +1789,7 @@ export class AppolloMunichComponent implements OnInit {
                 if (this.titleValidation) {
                     for (let i = 0; i< this.insurerData.length; i++){
                         if (this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.value >0 && this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.value >0 && this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.value >0) {
-                            this.toastr.error('If you have all the drinking Habits, You can\'t purchase the policy');
+                            this.toastr.error('If you have all the drinking Habits,Sorry you are unable to purchase the policy');
                         } else if(this.insureArray['controls'].items['controls'][id]['controls'].Smoking.value >10){
                             this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
                         } else if(this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.value >9){
