@@ -942,7 +942,33 @@ preInsureList() {
 
         }
     }
-
+    smokingPersonalhabit(){
+      alert();
+      console.log(this.insured.controls['insuredSmokeList'].value);
+        if(this.insured.controls['insuredSmokeList'].value >10){
+            this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+        }
+    }
+    liquorPegPersonalhabit(){
+        if(this.insured.controls['insuredLiquor'].value >9){
+            this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+        }
+    }
+    pouchesPersonalhabit(){
+        if(this.insured.controls['insuredPouchesList'].value >7){
+            this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+        }
+    }
+    wineGlassPersonalhabit(){
+        if(this.insured.controls['insuredWine'].value >6){
+            this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+        }
+    }
+    beerBottlePersonalhabit(){
+        if(this.insured.controls['insuredBeer'].value >10){
+            this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+        }
+    }
 // list id
     idList(){
       if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
@@ -1319,7 +1345,20 @@ preInsureList() {
             if (sessionStorage.insuredAgeP >= 18){
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
-                } else {
+                } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
+                    this.toastr.error('If you have all the drinking Habits, You can\'t purchase the policy');
+                } else if(this.insured.controls['insuredSmokeList'].value >10){
+                    this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+                } else if(this.insured.controls['insuredLiquor'].value >9){
+                    this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+                }   else if(this.insured.controls['insuredPouchesList'].value >7){
+                    this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+                } else if(this.insured.controls['insuredWine'].value >6){
+                    this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+                } else if(this.insured.controls['insuredBeer'].value >10) {
+                    this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+                }
+                else {
                     stepper.next();
                 }
                 this.topScroll();

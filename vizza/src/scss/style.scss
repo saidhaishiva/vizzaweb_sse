@@ -22,7 +22,7 @@ $light-green:#2FE827;
 
 body{
   font-family: Roboto,sans-serif !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
 }
 a:hover {
   color: unset !important;
@@ -539,10 +539,7 @@ a:hover {
 .options-icon{
   display: none !important;
 }
-.mat-tab-label-active{
-  background-color: #00695c !important;
-  color: #cfcfcf!important;
-}
+
 #product-list{
   .mat-tab-group {
     width: 687px !important;
@@ -554,18 +551,8 @@ a:hover {
   .mat-ink-bar{
     display:none !important;
   }
-  .mat-tab-label-active{
-    background-color: #c94a65 !important;
-    color: #fff!important;
-
-  }
   .mat-tab-labels {
     float: right;
-    .mat-ripple {
-      background-color: $green-color;
-      color: #fff;
-      opacity: 1;
-    }
 
   }
   .son{
@@ -1816,12 +1803,11 @@ a:hover {
     background: #d4d4d4;
     border-radius: 50%;
     height: 55px;
-    margin: 44px;
     font-size: 25px;
     color: #fff;
     padding-top: 15px;
     width: 55px;
-    margin: 10px;
+    margin: 5px;
     margin-top: 21px;
 
   }
