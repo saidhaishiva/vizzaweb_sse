@@ -92,8 +92,7 @@
             <div class="col-md-6">
               <h4 class="color-pink" style="cursor: pointer" (click)="headinghealthinsurance()"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h4>
             </div>
-            <div class="col-md-6 w-100">
-              <mat-tab-group #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
+              <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
                 <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index"  (click)="changeTab()">
                   <ng-template matTabLabel >
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -104,7 +103,6 @@
                 </ng-template>
                 </mat-tab>
               </mat-tab-group>
-            </div>
           </div>
         </div>
 
