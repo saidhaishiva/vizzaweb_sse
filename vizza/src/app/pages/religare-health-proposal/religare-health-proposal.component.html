@@ -532,7 +532,7 @@
               </div>
             </div>
             <section *ngFor="let item of summaryData.proposer_insurer_details">
-            <h5 class="mt-3 sub-title">{{item.relationship_code}} DETAILS </h5>
+              <h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER</span> <span *ngIf="i != 0">INSURED</span>({{item.relationship_code}}) DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-12">
               <!--<h6>{{item.role_cd}} DETAILS</h6>-->
@@ -596,7 +596,7 @@
               <div class="col-md-12">
                 <div class="p-3">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 1">
                       <ul class="m-0 list-group" *ngFor="let items of religareQuestionsList;let i = index;">
                         <li class="list-group-item" *ngIf="i == 0">1.Does any person(s) to be insured has any Pre-existing diseases :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 0)"> No</b>
@@ -621,17 +621,180 @@
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 4)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 4)"> Yes</b>
                         </li>
-                        <!--<li class="list-group-item" *ngIf="i == 5">6.Is any of the persons proposed for insurance cover…y other health insurance policy with the Company :-->
-                          <!--<b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 5)"> No</b>-->
-                          <!--<b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 5)"> Yes</b>-->
-                        <!--</li>-->
-                        <!--<li class="list-group-item">7.Does your existing Health insurance policy cover Maternity benefit :-->
-                          <!--<b *ngIf="items.response == false || items.response == ''"> No</b>-->
-                          <!--<b *ngIf="items.response != false && items.response != ''"> Yes</b>-->
-
-                        <!--</li>-->
                       </ul>
                     </div>
+
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 2">
+                      <ul class="m-0 list-group" *ngFor="let items of religareQuestionsList;let i = index;">
+                        <li class="list-group-item" *ngIf="i == 0">1.Cancer?:
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 0)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 0)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 1">2.Any cardiovascular/Heart Disease,incl. but not limited to Coronary artery disease/Rheumatic heart disease/ Heart failure/Bypass Grafting/Angioplasty? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 1)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 1)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 2">3.Hypertension / High Blood Pressure? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 2)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 2)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 3">4.Any Respiratory disease/Disease of Lungs, Pleura and airway including but not limited to Asthma/Tuberculosis/Pleural effusion/Bronchitis/ Emphysema? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 3)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 3)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 4">5.Any disorders of the endocrine system including but not limited to Pituitary / Parathyroid / adrenal gland disorders? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 4)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 4)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 5">6.Diabetes Mellitus type 1 or Diabetes on insulin or Diabetes associated with blindness or chronic foot ulcer? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 5)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 5)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 6">7.Any Neuromuscular,muscles or nervous system, disorder or Psychiatric disorders incl. but not limited to Motor Neuron Disease, Muscular dystrophies? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 6)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 6)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 7">8.Chronic Pancreatitis or Chronic Liver disease including but not limited to Cirrhosis / Hepatitis B or C / Willson’s disease? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 7)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 7)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 8">9.Any chronic Kidney Disease? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 8)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 8)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 9">10.Any disorders of Blood/Immunity incl. but not limited to bleeding or clotting disorders, Systemic Lupus Erythematosus, Rheumatoid Arthritis? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 9)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 9)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 10">11.Have You smoked, consumed alcohol, or chewed tobacco, ghutka, paan or used any recreational drugs?If Yes, provide the frequency & amount consumed? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 10)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 10)"> Yes</b>
+                        </li>
+
+                        <li class="list-group-item" *ngIf="i == 11">12.Has any of the Insured been hosp. or has been under any prolonged treatment for illness or undergone surgery other than for childbirth/minor injuries? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 11)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 11)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 12">13.Has any of the Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 12)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 12)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 13">14.If Your response is yes to any of the following questions, please specify details of the same in the additional information section? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 13)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 13)"> Yes</b>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 3">
+                      <ul class="m-0 list-group" *ngFor="let items of religareQuestionsList;let i = index;">
+                        <li class="list-group-item" *ngIf="i == 0">1.Does your job require you to engage in significant manual labor or hazardous activities or requires handling hazardous material or working at significant heights or with high voltage? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 0)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 0)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 1">2.Have you ever been diagnosed or are under treatment for any terminal illness or any illness/disease restricting your activities (e.g. Epilepsy/Seizure disorder)? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 1)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 1)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 2">3.Any existing Disability/Deformity (physical or mental impairment/infirmity or any condition hampering vision, hearing or mobility)? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 2)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 2)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 3">4.Has any company ever declined to issue/renew a Personal Accident policy for any proposed? If yes, please provide details? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 3)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 3)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 4">5.Do you have an existing Personal Accident/Health Insurance Policy with Religare Health or any other Insurer? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 4)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 4)"> Yes</b>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 4">
+                      <ul class="m-0 list-group" *ngFor="let items of religareQuestionsList;let i = index;">
+                        <li class="list-group-item" *ngIf="i == 0">1.Does any person(s) to be insured has any Pre-existing diseases? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 0)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 0)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 1">2.Are you pregnant currently? If yes, please share ANC records? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 1)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 1)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 2">3.Diagnosed / hospitalized under any treatment for any illness / injury? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 2)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 2)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 3">4.Any complications in past pregnancy? If yes, please share the premature delivery report? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 3)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 3)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 4">5.Have any of the persons to be insured ever filed a claim with their current/ previous insurer? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 4)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 4)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 5">6.Has any proposal for Health insurance been declined, cancelled or charged a higher premium? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 5)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 5)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 6">7.Is any of the persons proposed for insurance covered under any other health insurance policy with the Company? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 6)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 6)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 7">7.Does your existing Health insurance policy cover Maternity benefit? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 7)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 7)"> Yes</b>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="buyProductdetails.product_id == 5">
+                      <ul class="m-0 list-group" *ngFor="let items of religareQuestionsList;let i = index;">
+                        <li class="list-group-item" *ngIf="i == 0">1.Does any person(s) to be insured has any Pre-existing diseases? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 0)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 0)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 1">2.Are you pregnant currently? If yes, please share ANC records? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 1)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 1)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 2">3.Diagnosed / hospitalized under any treatment for any illness / injury? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 2)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 2)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 3">4.Any complications in past pregnancy? If yes, please share the premature delivery report? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 3)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 3)"> Yes</b>
+
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 4">5.Have any of the persons to be insured ever filed a claim with their current/ previous insurer? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 4)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 4)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 5">6.Has any proposal for Health insurance been declined, cancelled or charged a higher premium? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 5)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 5)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 6">7.Is any of the persons proposed for insurance covered under any other health insurance policy with the Company? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 6)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 6)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 7">7.Does your existing Health insurance policy cover Maternity benefit? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 7)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 7)"> Yes</b>
+                        </li>
+                      </ul>
+                    </div>
+
+
                   </div>
                 </div>
               </div>

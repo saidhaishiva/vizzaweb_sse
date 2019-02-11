@@ -303,7 +303,7 @@
                           <mat-error *ngIf="insureReligareArray.invalid">Mobile Number is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Residence MobileNumber"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="phone" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput placeholder="Residence MobileNumber"  (keypress)="keyPress($event)"  minlength="10" maxlength="10" formControlName="phone" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">Mobile Number is required</mat-error>
                         </mat-form-field></div>
 
@@ -312,11 +312,11 @@
                           <mat-error *ngIf="insureReligareArray.invalid">passport is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="PANNUMBER"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput placeholder="Pan Number"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">pannumber is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="ADHAR NO"  minlength="10" maxlength="10" formControlName="adharnumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput placeholder="Aadhar No"  minlength="10" maxlength="10" formControlName="adharnumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">adharnumber is required</mat-error>
                         </mat-form-field></div>
                       </div>
@@ -476,10 +476,13 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Relationship with Proposer" formControlName="religareTravelRelationship" autocomplete="off" (keypress)="typeValidate($event)" required>
+                        <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" required>
+                          <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
+                            {{lists.relation_name}}
+                          </mat-option>
+                        </mat-select>
                         <mat-error *ngIf="nomineeDetails.controls.religareTravelRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
-
                       <div class="col-md-4">
                         <div class="proposal-buttom mb-3 text-right w-100">
                           <button mat-button matStepperPrevious  (click)="quesback()">Back</button>
