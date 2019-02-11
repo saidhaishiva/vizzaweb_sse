@@ -800,22 +800,22 @@ export class AppolloMunichComponent implements OnInit {
     }
     liquorPegPersonalhabit(id){
         if(this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.value >9){
-            this.toastr.error('As per your LiquorPeg count more than 10 per week unable to purchase the policy in online');
+            this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
         }
     }
     pouchesPersonalhabit(id){
         if(this.insureArray['controls'].items['controls'][id]['controls'].Pouches.value >7){
-            this.toastr.error('More than  is not allowed for continue this insurance');
+            this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
         }
     }
     wineGlassPersonalhabit(id){
         if(this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.value >6){
-            this.toastr.error('More than 9 per Week  LiquorPeg is not allowed for continue this insurance');
+            this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
         }
     }
     beerBottlePersonalhabit(id){
         if(this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.value >10){
-            this.toastr.error('More than 9 per Week  LiquorPeg is not allowed for continue this insurance');
+            this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
         }
     }
     addEvent(event, type) {
