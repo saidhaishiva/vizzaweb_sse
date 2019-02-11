@@ -602,15 +602,15 @@
                     <div class="col-md-6">
                       <h6 class="color-blue">NOMINEE DETAILS </h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_one}}</li>
-                        <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_one}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="summaryData.nominee_name_one == ''"> Nill</span> <span *ngIf="summaryData.nominee_name_one != ''">{{summaryData.nominee_name_one}}</span></li>
+                        <li class="list-group-item"><strong>Age:</strong> <span *ngIf="summaryData.nominee_age_one == '' || summaryData.nominee_age_one == 0"> Nill</span> <span *ngIf="summaryData.nominee_age_one != '' && summaryData.nominee_age_one != 0">{{summaryData.nominee_age_one}}</span></li>
                       </ul>
                     </div>
                     <div class="col-md-6">
                       <h6 class="color-blue mt-4"></h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_one}}</li>
-                        <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_one | limitTo : 3}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> <span *ngIf="summaryData.nominee_relationship_one == ''">Nill</span> <span *ngIf="summaryData.nominee_relationship_one != ''">{{summaryData.nominee_relationship_one}}</span></li>
+                        <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="summaryData.nominee_percentclaim_one == '' || summaryData.nominee_percentclaim_one == 0">Nill</span> <span *ngIf="summaryData.nominee_percentclaim_one != ''">{{summaryData.nominee_percentclaim_one | limitTo : 3}}</span></li>
                       </ul>
                     </div>
                     <div class="col-md-6" *ngIf="summaryData.nominee_age_one < 18 && summaryData.appointee_name_one !='' && summaryData.appointee_age_one !='' && summaryData.appointee_relationship_one !=''">

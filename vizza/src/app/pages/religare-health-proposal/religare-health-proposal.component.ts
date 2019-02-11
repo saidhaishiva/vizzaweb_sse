@@ -1264,70 +1264,6 @@ console.log('getAddon');
         }
 
     }
-
-    //Create Proposal
-    proposal() {
-
-        this.totalData = {
-            'platform': 'web',
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
-            'enquiry_id': this.enquiryId,
-            'group_name': 'Group A',
-            'company_name': 'Religare',
-            'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
-            'suminsured_amount': this.buyProductdetails.suminsured_amount,
-            'proposer_insurer_details': this.totalReligareData,
-            'product_id': this.buyProductdetails.product_id,
-            'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
-            'scheme_id': this.buyProductdetails.scheme,
-            'terms_condition': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
-            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-        };
-        if (!this.back){
-            this.processDiseaseData(this.totalData);
-        }
-        this.stepback();
-
-        const data = this.totalData;
-        this.settings.loadingSpinner = true;
-        this.proposalservice.getReligareProposal(data).subscribe(
-            (successData) => {
-                this.proposalSuccess(successData);
-            },
-            (error) => {
-                this.proposalFailure(error);
-            }
-        );
-
-    }
-    public proposalSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
-            this.summaryData = successData.ResponseObject;
-            let getdata=[];
-            // for( let i = 0; i <  this.summaryData.proposer_insurer_details.length; i++) {
-            //       for (let j = 0; j <  this.relationshipList.length; j++) {
-            //          if(this.summaryData.proposer_insurer_details[i].relationship_code == this.relationshipList[j].relationship_code ) {
-            //               this.summaryData.proposer_insurer_details[i].relationship_name = this.relationshipList[j].relationship_name;
-            //           }
-            //       }
-            // }
-            this.proposalId = this.summaryData.proposal_id;
-            sessionStorage.proposalID = this.proposalId;
-            this.lastStepper.next();
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-
-
-
     processDiseaseData(diseaseData) {
 
         let updatedFinalData = [];
@@ -1769,7 +1705,7 @@ console.log('getAddon');
     }
 
     alternateChange(event) {
-        if (this.personal['controls'].personalAltnumber.value == 10) {
+        if (this.personal['controls'].personalAltnumber.value.length == 10) {
             if(this.personal['controls'].personalAltnumber.value == this.personal['controls'].personalMobile.value) {
                 this.mobileNumber = 'Alternate number should be different from mobile number';
             } else {
@@ -1780,9 +1716,8 @@ console.log('getAddon');
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
-    insuredalternateChange(event ,index) {
+    insurerAlternateChange(event ,index) {
         if (event.target.value.length == 10) {
-
             if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value == this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value) {
                 this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('Alternate number should be different from mobile number');
             } else {
@@ -1791,5 +1726,60 @@ console.log('getAddon');
         }
         this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
         }
+
+    //Create Proposal
+    proposal() {
+
+        this.totalData = {
+            'platform': 'web',
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
+            'enquiry_id': this.enquiryId,
+            'group_name': 'Group A',
+            'company_name': 'Religare',
+            'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
+            'suminsured_amount': this.buyProductdetails.suminsured_amount,
+            'proposer_insurer_details': this.totalReligareData,
+            'product_id': this.buyProductdetails.product_id,
+            'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
+            'scheme_id': this.buyProductdetails.scheme,
+            'terms_condition': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
+            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
+            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+        };
+        if (!this.back){
+            this.processDiseaseData(this.totalData);
+        }
+        this.stepback();
+
+        const data = this.totalData;
+        this.settings.loadingSpinner = true;
+        this.proposalservice.getReligareProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            }
+        );
+
+    }
+    public proposalSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            let getdata=[];
+            this.proposalId = this.summaryData.proposal_id;
+            sessionStorage.proposalID = this.proposalId;
+            this.lastStepper.next();
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
 
 }
