@@ -870,13 +870,11 @@
                               <div class="p-3">
                                   <h6>PERSONAL HABITS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngIf="item.i_smoking == 1"><strong>Smoking:</strong> Less than or equal to 10 per day</li>
-                                      <li class="list-group-item" *ngIf="item.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
-                                      <li class="list-group-item"  *ngIf="item.i_pouches == 1" ><strong>Pouches:</strong> Less than or equal to 10 per day</li>
-                                      <li class="list-group-item"  *ngIf="item.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
-                                      <li class="list-group-item" *ngIf="item.i_liquorpeg != ''"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_wineglass != ''"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_beerbottle != ''"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_smoking != '' && item.i_smoking != 0"><strong>Smoking:</strong>{{item.i_smoking}}</li>
+                                      <li class="list-group-item"  *ngIf="item.i_pouches != '' && item.i_pouches != 0" ><strong>Pouches:</strong> {{item.i_pouches}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_liquorpeg != '' && item.i_liquorpeg != 0"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_wineglass != '' && item.i_wineglass != 0"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_beerbottle != '' && item.i_beerbottle != 0"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -884,14 +882,14 @@
                               <div class="p-3">
                                   <h6>PREVIOUS INSURER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
-                                      <li class="list-group-item"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
-                                      <li class="list-group-item"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
-                                      <li class="list-group-item"><strong>Previous Policy N0:</strong> {{item.PreviousPolicyNumber}}</li>
+                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
+                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
+                                      <li class="list-group-item" *ngIf="item.PreviousInsurerCode != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
+                                      <li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>
                                       <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
-                                      <li class="list-group-item"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
-                                      <li class="list-group-item"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
-                                      <li class="list-group-item"><strong>Remark Details:</strong> {{item.Remarks}}</li>
+                                      <li class="list-group-item"  *ngIf="item.QualifyingAmount != ''"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
+                                      <li class="list-group-item"  *ngIf="item.WaivePeriod != ''"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
+                                      <li class="list-group-item"  *ngIf="item.Remarks != ''"><strong>Remark Details:</strong> {{item.Remarks}}</li>
                                   </ul>
                               </div>
                           </div>
