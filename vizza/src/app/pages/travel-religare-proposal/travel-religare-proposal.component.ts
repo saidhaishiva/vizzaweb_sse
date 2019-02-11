@@ -91,6 +91,7 @@ public studentdetails: boolean;
 public isDisable: boolean;
 public religare_Travel_proposal_id: any;
 public sameinsure: any;
+public allLists: any;
 
     constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -188,8 +189,8 @@ public sameinsure: any;
 
     ngOnInit() {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
+        this.allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
         if(this.getallTravelPremiumList.travel_type == 'student'){
             this.studentdetails = true;
@@ -874,10 +875,11 @@ public sameinsure: any;
 
 // star-health-proposal Creation Page
     religareTravelproposal() {
+        console.log(this.allLists[0].travel_type,'type');
             let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {
                 'platform': 'web',
-                'policy_type': 'SFG',
+                'travel_type':this.allLists[0].travel_type,
                 'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
                 'product_id': this.getTravelPremiumList.product_id,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
@@ -911,33 +913,23 @@ public sameinsure: any;
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
                 'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
                 'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
-                'student_relationship':'BOTH',
+                'student_relationship':'',
                 'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
-                'address':'ASF',
+                'address':'',
                 'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
-                'course_details':'parama',
-                'field11':'lastname11',
+                'course_details':'',
+                'field11':'',
                 'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                 'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
-                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : ''
-                // 'sponser_dob':'20/09/1994',
-                // 'sponser_name':'lkhk',
-                // 'student_relationship':'BOTH',
-                // 'university_name':'jjgfdg',
-                // 'address':'ASF',
-                // 'title':';lkhgj',
-                // 'course_details':'parama',
-                // 'field11':'lastname11',
-                // 'university_address':'kjhgfhj',
-                // 'gfirstname':'vhj',
-                // 'glastname':'kjhgjk'
+                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
+                'addons':''
 
             };
 
             console.log(data, 'fghj');
 
 
-            // this.settings.loadingSpinner = true;
+            this.settings.loadingSpinner = true;
             this.travelservice.createReligareTravelProposal(data).subscribe(
                 (successData) => {
                     this.proposalSuccess(successData);
