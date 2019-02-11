@@ -69,8 +69,10 @@
                         <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" required>
-                        <mat-error *ngIf="personal.controls.passportNumber.errors?.required">Enter Valid Passport number</mat-error>
+                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
+                        <mat-error *ngIf="personal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
+                        <mat-error *ngIf="personal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
+
                       </mat-form-field></div>
                       <!--<div class="col-md-4"><mat-form-field class="w-100">-->
                         <!--<mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple>-->

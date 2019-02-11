@@ -793,7 +793,31 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
         }
     }
-
+    smokingPersonalhabit(id){
+      if(this.insureArray['controls'].items['controls'][id]['controls'].Smoking.value >10){
+          this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+      }
+    }
+    liquorPegPersonalhabit(id){
+        if(this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.value >9){
+            this.toastr.error('As per your LiquorPeg count more than 10 per week unable to purchase the policy in online');
+        }
+    }
+    pouchesPersonalhabit(id){
+        if(this.insureArray['controls'].items['controls'][id]['controls'].Pouches.value >7){
+            this.toastr.error('More than  is not allowed for continue this insurance');
+        }
+    }
+    wineGlassPersonalhabit(id){
+        if(this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.value >6){
+            this.toastr.error('More than 9 per Week  LiquorPeg is not allowed for continue this insurance');
+        }
+    }
+    beerBottlePersonalhabit(id){
+        if(this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.value >10){
+            this.toastr.error('More than 9 per Week  LiquorPeg is not allowed for continue this insurance');
+        }
+    }
     addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
@@ -1763,8 +1787,26 @@ export class AppolloMunichComponent implements OnInit {
             }
             if(!ageValidate.includes(1)){
                 if (this.titleValidation) {
-                    stepper.next();
-                    this.topScroll();
+                    for (let i = 0; i< this.insurerData.length; i++){
+                        if (this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.value >0 && this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.value >0 && this.insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.value >0) {
+                            this.toastr.error('If you have all the drinking Habits, You can\'t purchase the policy');
+                        } else if(this.insureArray['controls'].items['controls'][id]['controls'].Smoking.value >10){
+                            this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+                        } else if(this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.value >9){
+                            this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+                        }   else if(this.insureArray['controls'].items['controls'][id]['controls'].Pouches.value >7){
+                            this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+                        } else if(this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.value >6){
+                            this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+                        } else if(this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.value >10){
+                            this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+                        } else{
+                            stepper.next();
+
+                            this.topScroll();
+                        }
+                    }
+
                     // if (sessionStorage.proposerAge >= 18) {
                     //     stepper.next();
                     //     this.topScroll();
