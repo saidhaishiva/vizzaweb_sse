@@ -1346,9 +1346,9 @@ preInsureList() {
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
                 } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
-                    this.toastr.error('If you have all the drinking Habits, You can\'t purchase the policy');
+                    this.toastr.error('If you have all the drinking Habits, Sorry you are unable to purchase the policy.');
                 } else if(this.insured.controls['insuredSmokeList'].value >10){
-                    this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+                    this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy ');
                 } else if(this.insured.controls['insuredLiquor'].value >9){
                     this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
                 }   else if(this.insured.controls['insuredPouchesList'].value >7){
