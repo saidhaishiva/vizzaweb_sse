@@ -185,20 +185,22 @@
             </form>
           </mat-accordion>
         </mat-step>
+
+
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel >INSURED DETAILS</ng-template>
-          <mat-accordion class="w-100 float-left">
-                <mat-expansion-panel   [expanded]="true">
+          <mat-accordion class="mt-4 w-100 float-left">
+            <form [formGroup]="insureArray">
+              <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
+                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{getFamilyDetails.name}}
+                      {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                  <form [formGroup]="insureArray">
-                    <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-
-                      <div class="row" [formGroupName]="i">
+                  <div class="row" >
                     <!--<div class="row">-->
                       <!--<div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>-->
                     <!--</div>-->
@@ -612,9 +614,9 @@
                     </div>
                   </div>
 
-                      </div>
-                    </form>
                 </mat-expansion-panel>
+              </div>
+            </form>
 
           </mat-accordion>
         </mat-step>

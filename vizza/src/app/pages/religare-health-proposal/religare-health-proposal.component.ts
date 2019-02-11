@@ -15,6 +15,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
+
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -122,8 +124,16 @@ export class ReligareHealthProposalComponent implements OnInit {
     religareListQuestions: any;
     dobError: any;
     array: any;
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    currentStep: any;
+    constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true) {
+                stepperindex = 4;
+            }
+        });
+        this.currentStep = stepperindex;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -502,18 +512,18 @@ export class ReligareHealthProposalComponent implements OnInit {
                             'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
                         }
                     ],
-                    'proposer_res_address1': i == 0 ? this.proposerInsureData[0].residenceAddress : this.proposerInsureData[1].residenceAddress,
-                    'proposer_res_address2': i == 0 ? this.proposerInsureData[0].residenceAddress2 : this.proposerInsureData[1].residenceAddress2,
-                    'proposer_res_area': i == 0 ? this.proposerInsureData[0].residenceCity : this.proposerInsureData[1].residenceCity,
-                    'proposer_res_city': i == 0 ? this.proposerInsureData[0].residenceCity : this.proposerInsureData[1].residenceCity,
-                    'proposer_res_state': i == 0 ? this.proposerInsureData[0].residenceState : this.proposerInsureData[1].residenceState,
-                    'proposer_res_pincode': i == 0 ? this.proposerInsureData[0].residencePincode : this.proposerInsureData[1].residencePincode,
-                    'proposer_comm_address1': i == 0 ? this.proposerInsureData[0].personalAddress : this.proposerInsureData[1].personalAddress,
-                    'proposer_comm_address2': i == 0 ? this.proposerInsureData[0].personalAddress2 : this.proposerInsureData[1].personalAddress2,
-                    'proposer_comm_area': i == 0 ? this.proposerInsureData[0].personalCity : this.proposerInsureData[1].personalCity,
-                    'proposer_comm_city': i == 0 ? this.proposerInsureData[0].personalCity : this.proposerInsureData[1].personalCity,
-                    'proposer_comm_state': i == 0 ? this.proposerInsureData[0].personalState : this.proposerInsureData[1].personalState,
-                    'proposer_comm_pincode': i == 0 ? this.proposerInsureData[0].personalPincode : this.proposerInsureData[1].personalPincode,
+                    'proposer_res_address1': this.proposerInsureData[0].residenceAddress,
+                    'proposer_res_address2': this.proposerInsureData[0].residenceAddress2,
+                    'proposer_res_area': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_city': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_state': this.proposerInsureData[0].residenceState,
+                    'proposer_res_pincode': this.proposerInsureData[0].residencePincode,
+                    'proposer_comm_address1': this.proposerInsureData[0].personalAddress,
+                    'proposer_comm_address2': this.proposerInsureData[0].personalAddress2,
+                    'proposer_comm_area': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_city': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_state': this.proposerInsureData[0].personalState,
+                    'proposer_comm_pincode': this.proposerInsureData[0].personalPincode,
                     'prop_dob': this.proposerInsureData[i].personalDob,
                     'prop_gender': this.proposerInsureData[i].personalGender,
                     'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
@@ -709,6 +719,17 @@ export class ReligareHealthProposalComponent implements OnInit {
 
         }
     }
+
+    typeAddressDeatils() {
+        if (this.personal.controls['sameas'].value) {
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+        }
+    }
+
     sameAddressInsurer(values: any, index) {
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
@@ -1009,7 +1030,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     getAddon() {
-console.log('getAddon');
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -1091,7 +1111,7 @@ console.log('getAddon');
                     this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
                     this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
                 }
-                if (sessionStorage.mobileNumber != '') {
+                if (sessionStorage.mobileNumber != '' && sessionStorage.mobileNumber != undefined) {
                     this.mobileNumber = sessionStorage.mobileNumber;
                 } else {
                     this.mobileNumber = 'true';
@@ -1200,7 +1220,6 @@ console.log('getAddon');
 
     }
     sameProposer(value: any) {
-        console.log(this.personal.controls['personalrelationship'].value, 'this.personal.controls[\'personalrelationship\'].value');
         if (value.checked) {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
@@ -1213,23 +1232,25 @@ console.log('getAddon');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value.toUpperCase());
             this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue(this.personal.controls['personalCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue(this.personal.controls['personalPincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue(this.personal.controls['personalState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue(this.personal.controls['personalCity'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue(this.personal.controls['personalPincode'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue(this.personal.controls['personalState'].value);
             // this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
             // this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
+            //
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
@@ -1243,23 +1264,26 @@ console.log('getAddon');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
+            //
+            //
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
 
         }
 
@@ -1271,7 +1295,6 @@ console.log('getAddon');
             if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
                 let updatedData = [];
                 for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
-                    console.log(diseaseData.proposer_insurer_details[i]['questions_list'], 'diseaseData.proposer_insurer_details[i][\'questions_list\']')
                     let newObject = {};
                     newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
                     newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];

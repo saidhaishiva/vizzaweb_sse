@@ -902,6 +902,11 @@ a:hover {
     color: #306da6 !important;
 
   }
+  .insuredStepper {
+    .mat-expansion-panel-body {
+      padding: 25px 41px 8px !important;
+    }
+  }
   .box-card{
     background: #ffffff;
     border-left: 5px solid #fff;

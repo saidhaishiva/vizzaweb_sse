@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row starHealthProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="personal">
           <form [formGroup]="personal" (submit)="personalDetails(stepper, personal.value)">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
@@ -9,7 +9,8 @@
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{groupName}}
+                    <!--{{groupName}}-->
+                    PROPOSER DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
@@ -103,24 +104,21 @@
                         <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                       </div>
                       <div class="col-md-3">
-                        <div class="row">
-                          <div class="col">
-                            <p>Previous Medical insurance</p>
-                            <mat-radio-group (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
-                              <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
-                              <mat-radio-button value="false" [checked]="true">No</mat-radio-button>
-                            </mat-radio-group>
-                          </div>
-                          <div class="col" *ngIf="previousInsuranceStatus">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus" autocomplete="off">
-                                <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                        </div>
+                        <p>Previous Medical insurance</p>
+                        <mat-radio-group (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
+                          <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
+                          <mat-radio-button value="false" [checked]="true">No</mat-radio-button>
+                        </mat-radio-group>
                       </div>
+                      <div class="col-md-3" *ngIf="previousInsuranceStatus">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Previous Medical insurance" formControlName="previousinsurance" [required]="previousInsuranceStatus" autocomplete="off">
+                            <mat-option *ngFor="let preInsurence of previousinsurance" [value]="preInsurence" >{{preInsurence}}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="personal.controls.previousinsurance.errors?.required">Previous Medical insurance is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
                     </div>
                   </div>
                   <div class="row" fxLayoutAlign="center center">
@@ -130,24 +128,24 @@
                         <div class="row">
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Address 1" formControlName="personalAddress" autocomplete="off" required>
+                              <input matInput placeholder="Address 1" formControlName="personalAddress" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                               <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address1 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Address 2" formControlName="personalAddress2" autocomplete="off" required>
+                              <input matInput placeholder="Address 2" formControlName="personalAddress2" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                               <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-6"><mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
+                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" (keyup)="typeAddressDeatils()" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" >
-                            <mat-select placeholder="City" formControlName="personalCity"  (change)="getCityId( 'personal')" autocomplete="off" required>
+                            <mat-select placeholder="City" formControlName="personalCity"  (change)="getCityId('personal', 'manual')" autocomplete="off" required>
                               <mat-option *ngFor="let city of personalCitys" [value]= 'city.city_id'>
                                 {{city.city_name}}
                               </mat-option>
@@ -155,11 +153,11 @@
                             <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>
+                            <input matInput placeholder="State" formControlName="personalState" (keyup)="typeAddressDeatils()" autocomplete="off" required readonly>
                             <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" >
-                            <mat-select placeholder="Area" formControlName="personalArea" autocomplete="off" required>
+                            <mat-select placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" autocomplete="off" required>
                               <mat-option *ngFor="let area of areaNames" [value]= 'area.areaID'>
                                 {{area.areaName}}
                               </mat-option>
@@ -197,7 +195,7 @@
                             <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" >
-                            <mat-select placeholder="City" formControlName="residenceCity"  (change)="getCityId('residence')"  autocomplete="off">
+                            <mat-select placeholder="City" formControlName="residenceCity"  (change)="getCityId('residence', 'rmanual')"  autocomplete="off">
                               <mat-option *ngFor="let citys of residenceCitys" [value]= 'citys.city_id'>
                                 {{citys.city_name}}
                               </mat-option>
@@ -274,17 +272,18 @@
 
         <mat-step [stepControl]="">
           <ng-template matStepLabel >INSURED DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel expanded>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{groupName}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
-              <div class="row" >
-                <div class="col-md-12 box-card pt-3"  *ngFor="let item of familyMembers; let i = index">
-                  <h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>
+          <mat-accordion class="w-100 float-left insuredStepper">
+              <div class="col-md-12 box-card"  *ngFor="let item of familyMembers; let i = index">
+                  <mat-expansion-panel [expanded]="i == 0">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{item.type | uppercase}} DETAILS
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matStepLabel>INSURED DETAILS </ng-template>
+
+                    <div class="row" >
+                  <!--<h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>-->
                   <div class="row">
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
@@ -393,17 +392,18 @@
                     <button mat-raised-button color="primaryBlue"  type="submit" (click)="InsureDetails(stepper, i, 'Insured Details')">Next</button>
                   </div>
                 </div>
-              </div>
             </mat-expansion-panel>
+              </div>
+
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
+          <mat-accordion class="w-100 float-left">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{groupName}}
+                  NOMINEE DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
