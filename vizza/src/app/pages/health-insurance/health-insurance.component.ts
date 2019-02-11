@@ -1172,9 +1172,10 @@ export class HealthInsuranceComponent implements OnInit {
                         } else if (value.product_id == 12 || value.product_id == 13) {
                             this.router.navigate(['/appollo-munich-health']);
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
-                            this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
                         } else if (value.product_id == 51 || value.product_id == 21) {
-                            this.router.navigate(['/bajaj']);
+                            this.router.navigate(['/bajaj'  + '/' + false]);
+
                         } else {
                             this.router.navigate(['/proposal'  + '/' + false]);
                         }
@@ -1214,9 +1215,10 @@ export class HealthInsuranceComponent implements OnInit {
                 } else if (value.product_id == 12 || value.product_id == 13) {
                     this.router.navigate(['//appollo-munich-health']);
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
-                    this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+
                 } else if (value.product_id == 51 || value.product_id == 21) {
-                    this.router.navigate(['/bajaj']);
+                    this.router.navigate(['/bajaj'  + '/' + false]);
                 } else {
                     this.router.navigate(['/proposal'  + '/' + false]);
                 }
