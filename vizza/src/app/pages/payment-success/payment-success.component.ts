@@ -27,7 +27,7 @@ export class PaymentSuccessComponent implements OnInit {
  path: any;
  currenturl: any;
 
-  constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -66,37 +66,15 @@ export class PaymentSuccessComponent implements OnInit {
     public purchaseStatusSuccess(successData) {
        if (successData.IsSuccess) {
            this.purchaseStatus = successData.ResponseObject;
-           sessionStorage.nomineeDate = '';
-           sessionStorage.familyMembers = '';
-           sessionStorage.stepper1Details = '';
-           sessionStorage.setPage = '';
-           sessionStorage.sideMenu = false;
-           sessionStorage.setFamilyDetails = '';
-           sessionStorage.setInsuredAmount = '';
-           sessionStorage.setPincode = '';
-           sessionStorage.setPage = '';
-           sessionStorage.policyLists = '';
-           sessionStorage.sideMenu = '';
-           sessionStorage.sonBTn = '';
-           sessionStorage.daughterBTn = '';
-           sessionStorage.fatherBTn = '';
-           sessionStorage.motherBtn = '';
-           sessionStorage.fatherInLawBTn = '';
-           sessionStorage.motherInLawBtn = '';
-           sessionStorage.changedTabDetails = '';
-           sessionStorage.changeSuninsuredAmount = '';
-           sessionStorage.changedTabIndex = '';
-           sessionStorage.shorListTab = '';
-           sessionStorage.enquiryId = '';
-           sessionStorage.proposalId = '';
-           sessionStorage.mobileNumber = '';
-           sessionStorage.ageRestriction = '';
        } else {
            this.purchaseStatus = successData.ResponseObject;
        }
        console.log(this.purchaseStatus, 'this.purchaseStatusthis.purchaseStatus');
     }
     public purchaseStatusFailure(error) {
+    }
+    retry() {
+        this.router.navigate(['/proposal'  + '/' + true]);
     }
 
     DownloadPdf() {

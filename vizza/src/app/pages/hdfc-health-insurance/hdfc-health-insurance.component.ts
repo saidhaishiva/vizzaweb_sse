@@ -12,6 +12,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -83,9 +84,18 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public checkotpvalidation: any;
     public checkotp: any;
     public hdfc_health_proposal_id: any;
+    public currentStep: any;
 
-    constructor(public proposalservice: HealthService, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public validation: ValidationService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true) {
+                stepperindex = 3;
+            }
+        });
+        this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;

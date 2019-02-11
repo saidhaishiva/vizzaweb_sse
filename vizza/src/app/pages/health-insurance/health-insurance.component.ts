@@ -118,7 +118,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.session.clearSessionData();
+       // this.session.clearSessionData();
         this.firstPage = true;
         this.secondPage = false;
         this.sonBTn = false;
@@ -196,12 +196,18 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.allCompanyList != undefined && sessionStorage.allCompanyList != '') {
             this.allCompanyList = JSON.parse(sessionStorage.allCompanyList);
         }
+        if (sessionStorage.changedTabIndex != undefined && sessionStorage.changedTabIndex != '') {
+            this.changedTabIndex = sessionStorage.changedTabIndex;
+        }
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
-            let index = JSON.parse(sessionStorage.policyLists).index;
+            let index = sessionStorage.changedTabIndex;
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }
+            console.log(sessionStorage.changedTabIndex, 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex');
+            console.log(index, 'indexindex');
+            console.log(this.insuranceLists[index], 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex');
             this.getArray = this.insuranceLists[index].family_members;
             for (let i = 0; i < this.setArray.length; i++) {
                 for (let j = 0; j < this.getArray.length; j++) {
@@ -222,9 +228,6 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
             this.changeSuninsuredAmount = sessionStorage.changeSuninsuredAmount;
-        }
-        if (sessionStorage.changedTabIndex != undefined && sessionStorage.changedTabIndex != '') {
-            this.changedTabIndex = sessionStorage.changedTabIndex;
         }
         if (sessionStorage.shortListCount != undefined && sessionStorage.shortListCount != '') {
             this.shortListCount = sessionStorage.shortListCount;
@@ -1144,7 +1147,7 @@ export class HealthInsuranceComponent implements OnInit {
                         sessionStorage.buyProductdetails = JSON.stringify(value);
                         sessionStorage.groupName = gname;
                         if (value.product_id <= 5) {
-                            this.router.navigate(['/religare-health-proposal']);
+                            this.router.navigate(['/religare-health-proposal' + '/' + false]);
                         } else if (value.product_id == 11) {
                             if (this.checkAge <= 45) {
                                 if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
@@ -1169,11 +1172,11 @@ export class HealthInsuranceComponent implements OnInit {
                         } else if (value.product_id == 12 || value.product_id == 13) {
                             this.router.navigate(['/appollo-munich-health']);
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
-                            this.router.navigate(['/hdfc-insurance']);
+                            this.router.navigate(['/religare-health-proposal'  + '/' + false]);
                         } else if (value.product_id == 51 || value.product_id == 21) {
                             this.router.navigate(['/bajaj']);
                         } else {
-                            this.router.navigate(['/proposal']);
+                            this.router.navigate(['/proposal'  + '/' + false]);
                         }
                     } else {
                     }
@@ -1182,7 +1185,7 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
                 sessionStorage.groupName = gname;
                 if (value.product_id <= 5) {
-                    this.router.navigate(['/religare-health-proposal']);
+                    this.router.navigate(['/religare-health-proposal' + '/' + false]);
                 } else if (value.product_id == 11) {
 
                     if (this.checkAge <= 45) {
@@ -1211,11 +1214,11 @@ export class HealthInsuranceComponent implements OnInit {
                 } else if (value.product_id == 12 || value.product_id == 13) {
                     this.router.navigate(['//appollo-munich-health']);
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
-                    this.router.navigate(['/hdfc-insurance']);
+                    this.router.navigate(['/religare-health-proposal'  + '/' + false]);
                 } else if (value.product_id == 51 || value.product_id == 21) {
                     this.router.navigate(['/bajaj']);
                 } else {
-                    this.router.navigate(['/proposal']);
+                    this.router.navigate(['/proposal'  + '/' + false]);
                 }
             }
     }

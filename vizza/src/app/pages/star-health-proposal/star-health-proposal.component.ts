@@ -16,6 +16,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 export const MY_FORMATS = {
@@ -110,10 +111,17 @@ export class StarHealthProposalComponent implements OnInit {
     public previousInsurence: any;
     public nomineeNext: any;
     public totalClaim: any;
+    currentStep: any;
 
-    constructor(public proposalservice: HealthService, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
-
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true) {
+                stepperindex = 3;
+            }
+        });
+        this.currentStep = stepperindex;
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.illnessCheck = false;
@@ -434,7 +442,7 @@ export class StarHealthProposalComponent implements OnInit {
 
             if (this.getStepper1.personalPincode != '') {
                 this.getPostal(this.getStepper1.personalPincode, 'personal');
-                this.getCityId('personal');
+                this.getCityId('personal', 'auto');
                 this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
                 this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
                 this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
@@ -493,7 +501,7 @@ export class StarHealthProposalComponent implements OnInit {
                 this.mobileNumber = '';
             }
         } else {
-            this.mobileNumber = '';
+            this.mobileNumber = 'false';
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
@@ -651,7 +659,10 @@ export class StarHealthProposalComponent implements OnInit {
 
         }
     }
-    getCityId(title) {
+    getCityId(title, type) {
+        if(type == 'manual') {
+            this.typeAddressDeatils();
+        }
         this.cityTitle = title;
         const data = {
             'platform': 'web',
@@ -745,6 +756,17 @@ export class StarHealthProposalComponent implements OnInit {
             this.personal.controls['residenceArea'].setValue('');
         }
 
+    }
+
+    typeAddressDeatils() {
+        if (this.personal.controls['sameas'].value) {
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+        }
     }
     // Dame validation
     nameValidate(event: any){
