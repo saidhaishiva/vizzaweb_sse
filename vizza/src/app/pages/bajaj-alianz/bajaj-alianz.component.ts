@@ -98,8 +98,7 @@ export class BajajAlianzComponent implements OnInit {
     public currentStep: any;
     public sameRelation: any;
     public selfRelation: any;
-
-
+    public setZonePincode: any;
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -841,6 +840,28 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     commonPincodeFailure(error){
+    }
+    zonePincode(pin, title){
+        const data = {
+            'platform': 'web',
+            'postcode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.proposalservice.getZoneCode(data).subscribe(
+                (successData) => {
+                    this.zoneCodeSuccess(successData);
+                },
+                (error) => {
+                    this.zoneCodeFailure(error);
+                }
+            );
+        }
+    }
+    zoneCodeSuccess(successData){
+        this.setZonePincode = successData.ResponseObject;
+        console.log(this.setZonePincode,' this.setZonePincode ');
+    }
+    zoneCodeFailure(error){
     }
 }
 
