@@ -8,7 +8,7 @@ export class ValidationService {
   // Name validation
   nameValidate(event) {
   if (event.charCode !== 0) {
-        const pattern = /[a-zA-Z ]/;
+        const pattern = /[a-zA-Z\S]/;
         const inputChar = String.fromCharCode(event.charCode);
         if (!pattern.test(inputChar)) {
             event.preventDefault();

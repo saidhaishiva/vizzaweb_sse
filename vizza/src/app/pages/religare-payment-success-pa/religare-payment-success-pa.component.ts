@@ -24,7 +24,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
     public proposalId: any;
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService,public router: Router, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
 
         this.route.params.forEach((params) => {
@@ -36,19 +36,21 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
         });
     }
     ngOnInit() {
-            sessionStorage.AnnualIncomeP= '';
-           sessionStorage.occupationP='';
-           sessionStorage.personalPremiumLists = '';
-           sessionStorage.pincoceP= '';
-           sessionStorage.selectedAmountP= '';
-           sessionStorage.setAge= '';
-           sessionStorage.pAccidentProposalList= '';
-           sessionStorage.proposal1Detail= '';
-           sessionStorage.proposal2Detail= '';
-           sessionStorage.personalnomineeData= '';
+           //  sessionStorage.AnnualIncomeP= '';
+           // sessionStorage.occupationP='';
+           // sessionStorage.personalPremiumLists = '';
+           // sessionStorage.pincoceP= '';
+           // sessionStorage.selectedAmountP= '';
+           // sessionStorage.setAge= '';
+           // sessionStorage.pAccidentProposalList= '';
+           // sessionStorage.proposal1Detail= '';
+           // sessionStorage.proposal2Detail= '';
+           // sessionStorage.personalnomineeData= '';
 
     }
-
+    retry() {
+        this.router.navigate(['/personal-accident-religare'  + '/' + true]);
+    }
     DownloadPdf() {
         const data = {
             'mail_status': '1',

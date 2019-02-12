@@ -10,6 +10,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -100,10 +101,18 @@ public drivinglicenseP: boolean;
 public minDate: any;
 public insuredage: any;
 public maxStartdate:any;
+public currentStep:any;
 
     CheckHabits : boolean;
     readonlyProposer : boolean;
-  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
+  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if(params.stepper == true) {
+              stepperindex = 2;
+          }
+      });
+      this.currentStep = stepperindex;
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -114,7 +123,12 @@ public maxStartdate:any;
       this.proposerAgeP = '';
       this.insuredAgeP = '';
       this.maxStartdate = '';
-
+      // let stepperindex = 0;
+      // this.route.params.forEach((params) => {
+      //     if(params.stepper == true) {
+      //         stepperindex =2;
+      //     }
+      // });
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -943,7 +957,6 @@ preInsureList() {
         }
     }
     smokingPersonalhabit(){
-      alert();
       console.log(this.insured.controls['insuredSmokeList'].value);
         if(this.insured.controls['insuredSmokeList'].value >10){
             this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');

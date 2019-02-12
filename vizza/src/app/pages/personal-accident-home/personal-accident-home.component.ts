@@ -498,12 +498,12 @@ public annualIncome(){
     buyDetails(value){
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15){
-            this.router.navigate(['/appollopa']);
+            this.router.navigate(['/appollopa' + '/' + false]);
         } else if(value.product_id == 3){
-                this.router.navigate(['/personal-accident-religare']);
+                this.router.navigate(['/personal-accident-religare' +'/' + false]);
             } else {
             if (value.product_id == 23) {
-                this.router.navigate(['/hdfc-personalAccident']);
+                this.router.navigate(['/hdfc-personalAccident'+'/' + false]);
             }
         }
 
