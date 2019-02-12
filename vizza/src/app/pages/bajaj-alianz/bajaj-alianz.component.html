@@ -1,20 +1,29 @@
 <div class="container-fluid">
     <div class="row bajajHealthProposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper  #stepper>
-                <mat-step [stepControl]="">
+            <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
+
+                <mat-step [stepControl]="insureArray">
                     <ng-template matStepLabel >INSURED DETAILS</ng-template>
-                    <mat-accordion class="w-100 float-left">
-                                <mat-expansion-panel   [expanded]="true">
+                    <mat-accordion class="mt-4 w-100 float-left">
+                        <form [formGroup]="insureArray">
+                            <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
+                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title> {{getFamilyDetails.name}}</mat-panel-title>
+                                        <mat-panel-title >
+                                            <span *ngIf="i == 0">PROPOSER DETAILS</span>
+                                            <span *ngIf="i != 0">INSURED DETAILS FOR {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}</span>
+                                        </mat-panel-title>
                                     </mat-expansion-panel-header>
+                                    <!--<mat-expansion-panel-header *ngIf="i !=0">-->
+                                        <!--<mat-panel-title>-->
+                                            <!--{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS-->
+                                        <!--</mat-panel-title>-->
+                                    <!--</mat-expansion-panel-header>-->
                                     <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                                    <form [formGroup]="insureArray">
-                                        <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                           <div class="row mt-1" [formGroupName]="i">
+                                    <div class="row">
                                                     <div class="col-md-12 box-card pt-3">
-                                                        <h6 class="color-blue">{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>
+                                                        <!--<h6 class="color-blue">{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
@@ -222,9 +231,9 @@
                                                                     <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">
                                                                 </mat-form-field>
                                                             </div>
-                                                            <div class="col-md-3" *ngIf="i == 0">
+                                                            <div class="col-md-6" *ngIf="i == 0">
                                                                 <mat-form-field class="w-100">
-                                                                    <textarea matInput placeholder="Previous Insured Address" rows="2" formControlName="insurePIAddress" autocomplete="off"></textarea>
+                                                                    <input matInput placeholder="Previous Insured Address" formControlName="insurePIAddress" autocomplete="off">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
@@ -269,10 +278,9 @@
                                                         <!--<button mat-button matStepperNext >Next</button>-->
                                                     </div>
                                                 </div>
-
-                                        </div>
-                                    </form>
                                 </mat-expansion-panel>
+                            </div>
+                        </form>
 
                     </mat-accordion>
                 </mat-step>

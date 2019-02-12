@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row hdfcHealthProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
+      <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="hdfcPersonal">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -14,7 +14,7 @@
                 </mat-expansion-panel-header>
                 <div class="row ">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue">PROPOSER DETAILS</h6>
+                    <!--<h6 class="color-blue">PROPOSER DETAILS</h6>-->
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -165,25 +165,24 @@
             </form>
           </mat-accordion>
         </mat-step>
-
         <mat-step [stepControl]="">
-          <ng-template matStepLabel >INSURED DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <form [formGroup]="insureArray">
-              <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
-                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+          <ng-template matStepLabel >INSURER DETAILS</ng-template>
+          <mat-accordion class="w-100 float-left">
+                <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS
+                      INSURER DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <ng-template matStepLabel>INSURED DETAILS </ng-template>
+                  <ng-template matStepLabel>INSURER DETAILS </ng-template>
                   <div class="row">
-                    <div class="col-md-12 mt-4"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event, 'clear')"><strong>Same as proposer</strong></mat-checkbox></div>
+                    <div class="col-md-12 mt-4 ml-2"><mat-checkbox [(ngModel)]="sameAsinsure" (change)="sameasInsurerDetails($event, 'clear')"><strong>Same as proposer</strong></mat-checkbox></div>
                   </div>
-                  <div class="row" >
+                  <form [formGroup]="hdfcInsureArray">
+                    <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
+                     <div class="row" [formGroupName]="i">
                     <div class="col-md-12 box-card pt-3">
-                      <h4 class="color-blue">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h4>
+                      <h4 class="color-blue mb-4" style="padding: 15px;background: #cb453f !important;color: #ffffff !important;">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h4>
                       <div class="row">
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
@@ -291,14 +290,13 @@
                       </div>
                     </div>
                   </div>
-
+                    </div>
+                  </form>
                   <div class="proposal-buttom mt-3 text-right w-100" >
                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                     <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, hdfcInsureArray.value)">Next</button>
                   </div>
                 </mat-expansion-panel>
-              </div>
-            </form>
           </mat-accordion>
         </mat-step>
 
