@@ -129,8 +129,11 @@ export class ReligareHealthProposalComponent implements OnInit {
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
-            if(params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                this.proposalId = this.summaryData.proposal_id;
+                sessionStorage.proposalID = this.proposalId;
             }
         });
         this.currentStep = stepperindex;
@@ -1746,8 +1749,10 @@ export class ReligareHealthProposalComponent implements OnInit {
             } else {
                 this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
             }
+        } else {
+            this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
         }
-        this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
+        // this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
         }
 
     //Create Proposal
@@ -1795,7 +1800,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            let getdata=[];
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();

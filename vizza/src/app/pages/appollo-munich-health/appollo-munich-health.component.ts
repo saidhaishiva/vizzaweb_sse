@@ -15,6 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -161,9 +162,23 @@ export class AppolloMunichComponent implements OnInit {
     public readonlyproposer: any;
     public appolloQuestionsList: any;
     public medicalquestion: any;
+    currentStep: any;
 
-  constructor(public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if(params.stepper == true || params.stepper == 'true') {
+              stepperindex = 4;
+              this.summaryData = JSON.parse(sessionStorage.summaryData);
+              this.RediretUrlLink = this.summaryData.PaymentURL;
+              this.proposalId = this.summaryData.ProposalId;
+              sessionStorage.appollo_health_proposal_id = this.proposalId;
+          }
+      });
+      this.currentStep = stepperindex;
+
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       let today  = new Date();
@@ -1990,7 +2005,7 @@ export class AppolloMunichComponent implements OnInit {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
             sessionStorage.appollo_health_proposal_id = this.proposalId;

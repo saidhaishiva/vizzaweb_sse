@@ -106,6 +106,10 @@ export class BajajAlianzComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true) {
                 stepperindex = 1;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                this.RediretUrlLink = this.summaryData.payment_url;
+                this.proposalId = this.summaryData.proposal_id;
+                sessionStorage.bajaj_health_proposalid = this.proposalId;
             }
         });
         this.currentStep = stepperindex;
@@ -775,7 +779,7 @@ export class BajajAlianzComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            let getdata=[];
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;

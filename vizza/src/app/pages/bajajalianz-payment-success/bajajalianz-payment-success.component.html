@@ -17,8 +17,17 @@
           <li>Credit/Debit card has insufficient funds</li>
           <li>Credit/Debit card number provided is invalid</li>
           <li>Credit/Debit card provided has not been approved for recurring payments</li></ul>
-        <button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>
+        <p>If you want to Retry a payment.<span (click)="retry()" class="retryClass"> Please click here... </span></p>
+
+        <!--<button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>-->
       </div>
     </mat-card>
   </div>
 </div>
+<style>
+  .retryClass{
+    color: #3e65d4 !important;
+    cursor: pointer;
+  }
+
+</style>

@@ -22,7 +22,7 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     public mailstatus: any
 
     public settings: Settings;
-  constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       this.route.params.forEach((params) => {
           console.log(params.id);
@@ -35,12 +35,12 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
-      sessionStorage.stepper1Details = '';
-      sessionStorage.copaymentShow = '';
-      sessionStorage.buyProductdetails = '';
-      sessionStorage.enquiryId = '';
-      sessionStorage.groupName = '';
-      sessionStorage.proposalID = '';
+      // sessionStorage.stepper1Details = '';
+      // sessionStorage.copaymentShow = '';
+      // sessionStorage.buyProductdetails = '';
+      // sessionStorage.enquiryId = '';
+      // sessionStorage.groupName = '';
+      // sessionStorage.proposalID = '';
   }
     DownloadPdf() {
         const data = {
@@ -86,6 +86,9 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     }
     public downloadPdfFailure(error) {
         console.log(error);
+    }
+    retry() {
+        this.router.navigate(['/bajaj'  + '/' + true]);
     }
 
     downloadMessage() {

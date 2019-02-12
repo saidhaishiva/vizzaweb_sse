@@ -182,7 +182,7 @@
                     <div formArrayName="items" *ngFor="let item of hdfcInsureArray.get('items')['controls']; let i = index; let last = last;">
                      <div class="row" [formGroupName]="i">
                     <div class="col-md-12 box-card pt-3">
-                      <h4 class="color-blue mb-4" style="padding: 15px;background: #cb453f !important;color: #ffffff !important;">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h4>
+                      <h4 class="color-blue mb-4" style="padding: 15px;background: #da1717 !important;color: #ffffff !important;">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h4>
                       <div class="row">
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
