@@ -1173,14 +1173,6 @@ export class HealthInsuranceComponent implements OnInit {
                             this.router.navigate(['/appollo-munich-health']);
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
                             this.router.navigate(['/hdfc-insurance'  + '/' + false]);
-                            // for (let i = 0; i <= this.changedTabDetails.family_members.length; i++) {
-                            //     if (this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 18 || this.changedTabDetails.family_members[i].type == 'Daughter' && this.changedTabDetails.family_members[i].age <= 18) {
-                            //         alert('in');
-                            //     } else {
-                            //         this.router.navigate(['/hdfc-insurance' + '/' + false]);
-                            //
-                            //     }
-                            // }
                         } else if (value.product_id == 51 || value.product_id == 21) {
                             this.router.navigate(['/bajaj'  + '/' + false]);
 
@@ -1194,7 +1186,28 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
                 sessionStorage.groupName = gname;
                 if (value.product_id <= 5) {
-                    this.router.navigate(['/religare-health-proposal' + '/' + false]);
+                    let ageValid = true;
+                    for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                        if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 26) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 26)){
+                            ageValid = false;
+                        }
+                    }
+                    if (!ageValid) {
+                        let dialogRef = this.dialog.open(AgeValidate, {
+                            width: '500px',
+                        });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed().subscribe(result => {
+                            if(result == true){
+                                this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                            } else {
+                            }
+                        });
+                    } else {
+                        this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+
+                    }
+
                 } else if (value.product_id == 11) {
 
                     if (this.checkAge <= 45) {
@@ -1224,16 +1237,12 @@ export class HealthInsuranceComponent implements OnInit {
                     this.router.navigate(['//appollo-munich-health']);
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
                     let ageValid = true;
-                    console.log(this.changedTabDetails.family_members[0].type, '(this.changedTabDetails.family_members[i].type fghj');
-                        for(let i=0;i<=this.changedTabDetails.family_members.length; i++){
-
-                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 18) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 18)){
+                        for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 22)){
                                 ageValid = false;
                             }
                          }
-                    console.log(ageValid);
                         if (!ageValid) {
-
                             let dialogRef = this.dialog.open(AgeValidate, {
                                 width: '500px',
                             });
@@ -1537,8 +1546,7 @@ export class RelainceAgeMax {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                <h3 class="text-center">Age</h3>
-                <p>Child Age below 18 should not be allowed</p>
+                <p> {{agemsg}}.If you want to continue</p>
                 </div>
             </div>
         </div>
@@ -1550,9 +1558,14 @@ export class RelainceAgeMax {
     `
 })
 export class AgeValidate {
+    agemsg: any;
     constructor(
         public dialogRef: MatDialogRef<AgeValidate>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+       let msg = JSON.parse(sessionStorage.buyProductdetails);
+        this.agemsg = msg.childmsg;
+
+    }
     onClick(result) {
         if(result == true){
             this.dialogRef.close(result);
