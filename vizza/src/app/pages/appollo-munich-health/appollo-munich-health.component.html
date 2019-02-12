@@ -185,20 +185,22 @@
             </form>
           </mat-accordion>
         </mat-step>
+
+
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel >INSURED DETAILS</ng-template>
-          <mat-accordion class="w-100 float-left">
-                <mat-expansion-panel   [expanded]="true">
+          <mat-accordion class="mt-4 w-100 float-left">
+            <form [formGroup]="insureArray">
+              <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
+                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{getFamilyDetails.name}}
+                      {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                  <form [formGroup]="insureArray">
-                    <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-
-                      <div class="row" [formGroupName]="i">
+                  <div class="row" >
                     <!--<div class="row">-->
                       <!--<div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>-->
                     <!--</div>-->
@@ -440,7 +442,7 @@
                               <div class="col-md-6">
                                 <mat-checkbox formControlName="SmokingStatus" (change)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
                                 <mat-form-field class="w-100">
-                                  <mat-select  placeholder="Smoking" formControlName="Smoking" [required]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
+                                  <mat-select  placeholder="Smoking" formControlName="Smoking" (change)="smokingPersonalhabit(i)" [required]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
                                     <mat-option value="3">3</mat-option>
@@ -451,25 +453,25 @@
                                     <mat-option value="8">8</mat-option>
                                     <mat-option value="9">9</mat-option>
                                     <mat-option value="10">10</mat-option>
-                                    <mat-option value="11">11</mat-option>
+                                    <mat-option value="11">Greater than 10</mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                 <mat-checkbox formControlName="PouchesStatus" (change)="selectHabitat($event, i , 'Pouches')">Pouches</mat-checkbox>
                                 <mat-form-field class="w-100">
-                                  <mat-select  placeholder="Pouches" formControlName="Pouches" [required]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value != true">
+                                  <mat-select  placeholder="Pouches" formControlName="Pouches" (change)="pouchesPersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value != true">
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
                                     <mat-option value="3">3</mat-option>
                                     <mat-option value="4">4</mat-option>
                                     <mat-option value="5">5</mat-option>
                                     <mat-option value="6">6</mat-option>
-                                    <mat-option value="7">7</mat-option>
-                                    <mat-option value="8">8</mat-option>
-                                    <mat-option value="9">9</mat-option>
-                                    <mat-option value="10">10</mat-option>
-                                    <mat-option value="11">11</mat-option>
+                                    <mat-option value="7">Greater than 6</mat-option>
+                                    <!--<mat-option value="8">8</mat-option>-->
+                                    <!--<mat-option value="9">9</mat-option>-->
+                                    <!--<mat-option value="10">10</mat-option>-->
+                                    <!--<mat-option value="11">11</mat-option>-->
                                   </mat-select>
                                 </mat-form-field>
                               </div>
@@ -483,7 +485,7 @@
                               <div class="col-md-4">
                                   <mat-checkbox formControlName="LiquorPegStatus" (change)="selectHabitat($event, i, 'Liquor')">Liquor Peg</mat-checkbox>
                                   <mat-form-field class="w-100">
-                                    <mat-select  placeholder="Liquor Peg" formControlName="LiquorPeg" [required]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value != true">
+                                    <mat-select  placeholder="Liquor Peg" formControlName="LiquorPeg" (change)="liquorPegPersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value != true">
                                       <mat-option value="1">1</mat-option>
                                       <mat-option value="2">2</mat-option>
                                       <mat-option value="3">3</mat-option>
@@ -493,8 +495,8 @@
                                       <mat-option value="7">7</mat-option>
                                       <mat-option value="8">8</mat-option>
                                       <mat-option value="9">9</mat-option>
-                                      <mat-option value="10">10</mat-option>
-                                      <mat-option value="11">11</mat-option>
+                                      <mat-option value="10">Greater than 9</mat-option>
+                                      <!--<mat-option value="11">11</mat-option>-->
                                     </mat-select>
 
                                   </mat-form-field>
@@ -502,18 +504,18 @@
                               <div class="col-md-4">
                                 <mat-checkbox formControlName="WineGlassStatus" (change)="selectHabitat($event, i, 'Wine')">Wine Glass</mat-checkbox>
                                 <mat-form-field class="w-100">
-                                  <mat-select  placeholder="Wine Glass" formControlName="WineGlass" [required]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value != true">
+                                  <mat-select  placeholder="Wine Glass" formControlName="WineGlass" (change)="wineGlassPersonalhabit(i)" [required]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value != true">
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
                                     <mat-option value="3">3</mat-option>
                                     <mat-option value="4">4</mat-option>
                                     <mat-option value="5">5</mat-option>
                                     <mat-option value="6">6</mat-option>
-                                    <mat-option value="7">7</mat-option>
-                                    <mat-option value="8">8</mat-option>
-                                    <mat-option value="9">9</mat-option>
-                                    <mat-option value="10">10</mat-option>
-                                    <mat-option value="11">11</mat-option>
+                                    <mat-option value="7">Greater than 6</mat-option>
+                                    <!--<mat-option value="8">8</mat-option>-->
+                                    <!--<mat-option value="9">9</mat-option>-->
+                                    <!--<mat-option value="10">10</mat-option>-->
+                                    <!--<mat-option value="11">11</mat-option>-->
                                   </mat-select>
 
                                 </mat-form-field>
@@ -521,7 +523,7 @@
                               <div class="col-md-4">
                                 <mat-checkbox formControlName="BeerBottleStatus" (change)="selectHabitat($event, i, 'Beer')">Beer Bottle</mat-checkbox>
                                 <mat-form-field class="w-100">
-                                  <mat-select  placeholder="Beer Bottle" formControlName="BeerBottle" [required]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value != true">
+                                  <mat-select  placeholder="Beer Bottle" formControlName="BeerBottle" (change)="beerBottlePersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value != true">
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
                                     <mat-option value="3">3</mat-option>
@@ -532,7 +534,7 @@
                                     <mat-option value="8">8</mat-option>
                                     <mat-option value="9">9</mat-option>
                                     <mat-option value="10">10</mat-option>
-                                    <mat-option value="11">11</mat-option>
+                                    <mat-option value="11">Greater than 11</mat-option>
                                   </mat-select>
 
                                 </mat-form-field>
@@ -612,9 +614,9 @@
                     </div>
                   </div>
 
-                      </div>
-                    </form>
                 </mat-expansion-panel>
+              </div>
+            </form>
 
           </mat-accordion>
         </mat-step>
@@ -870,13 +872,11 @@
                               <div class="p-3">
                                   <h6>PERSONAL HABITS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngIf="item.i_smoking == 1"><strong>Smoking:</strong> Less than or equal to 10 per day</li>
-                                      <li class="list-group-item" *ngIf="item.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
-                                      <li class="list-group-item"  *ngIf="item.i_pouches == 1" ><strong>Pouches:</strong> Less than or equal to 10 per day</li>
-                                      <li class="list-group-item"  *ngIf="item.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
-                                      <li class="list-group-item" *ngIf="item.i_liquorpeg != ''"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_wineglass != ''"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
-                                      <li class="list-group-item" *ngIf="item.i_beerbottle != ''"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_smoking != '' && item.i_smoking != 0"><strong>Smoking:</strong>{{item.i_smoking}}</li>
+                                      <li class="list-group-item"  *ngIf="item.i_pouches != '' && item.i_pouches != 0" ><strong>Pouches:</strong> {{item.i_pouches}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_liquorpeg != '' && item.i_liquorpeg != 0"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_wineglass != '' && item.i_wineglass != 0"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
+                                      <li class="list-group-item" *ngIf="item.i_beerbottle != '' && item.i_beerbottle != 0"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -884,14 +884,14 @@
                               <div class="p-3">
                                   <h6>PREVIOUS INSURER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
-                                      <li class="list-group-item"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
-                                      <li class="list-group-item"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
-                                      <li class="list-group-item"><strong>Previous Policy N0:</strong> {{item.PreviousPolicyNumber}}</li>
+                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
+                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
+                                      <li class="list-group-item" *ngIf="item.PreviousInsurerCode != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
+                                      <li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>
                                       <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
-                                      <li class="list-group-item"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
-                                      <li class="list-group-item"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
-                                      <li class="list-group-item"><strong>Remark Details:</strong> {{item.Remarks}}</li>
+                                      <li class="list-group-item"  *ngIf="item.QualifyingAmount != ''"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
+                                      <li class="list-group-item"  *ngIf="item.WaivePeriod != ''"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
+                                      <li class="list-group-item"  *ngIf="item.Remarks != ''"><strong>Remark Details:</strong> {{item.Remarks}}</li>
                                   </ul>
                               </div>
                           </div>

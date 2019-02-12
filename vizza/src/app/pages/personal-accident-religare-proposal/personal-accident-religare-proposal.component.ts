@@ -12,6 +12,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
  import {ValidationService} from '../../shared/services/validation.service';
+ import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -140,6 +141,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insuredate: any;
     personaldateError: any;
     insurerdateError: any;
+    currentStep: any;
     personalDescriptionclassPA: boolean;
     Address2: boolean;
     personalAddress2: boolean;
@@ -153,8 +155,15 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     addressPr: boolean;
     addressPC: boolean;
     insuredDescriptionValidator: boolean;
-    constructor(private fb: FormBuilder, public proposalservice: HealthService,public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(private fb: FormBuilder, public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+        if(params.stepper == true) {
+        stepperindex = 4;
+    }
+     });
+ this.currentStep = stepperindex;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;

@@ -22,7 +22,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public proposalId: any
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
 
         this.route.params.forEach((params) => {
@@ -79,6 +79,9 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     }
     public downloadPdfFailure(error) {
         console.log(error);
+    }
+    retry() {
+        this.router.navigate(['/religare-health-proposal'  + '/' + true]);
     }
 
 

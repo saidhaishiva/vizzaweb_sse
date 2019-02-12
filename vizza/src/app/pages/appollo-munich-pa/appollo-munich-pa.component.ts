@@ -10,6 +10,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -100,10 +101,18 @@ public drivinglicenseP: boolean;
 public minDate: any;
 public insuredage: any;
 public maxStartdate:any;
+public currentStep:any;
 
     CheckHabits : boolean;
     readonlyProposer : boolean;
-  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
+  constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if(params.stepper == true) {
+              stepperindex = 2;
+          }
+      });
+      this.currentStep = stepperindex;
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -114,7 +123,12 @@ public maxStartdate:any;
       this.proposerAgeP = '';
       this.insuredAgeP = '';
       this.maxStartdate = '';
-
+      // let stepperindex = 0;
+      // this.route.params.forEach((params) => {
+      //     if(params.stepper == true) {
+      //         stepperindex =2;
+      //     }
+      // });
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -942,7 +956,32 @@ preInsureList() {
 
         }
     }
-
+    smokingPersonalhabit(){
+      console.log(this.insured.controls['insuredSmokeList'].value);
+        if(this.insured.controls['insuredSmokeList'].value >10){
+            this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy in online');
+        }
+    }
+    liquorPegPersonalhabit(){
+        if(this.insured.controls['insuredLiquor'].value >9){
+            this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+        }
+    }
+    pouchesPersonalhabit(){
+        if(this.insured.controls['insuredPouchesList'].value >7){
+            this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+        }
+    }
+    wineGlassPersonalhabit(){
+        if(this.insured.controls['insuredWine'].value >6){
+            this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+        }
+    }
+    beerBottlePersonalhabit(){
+        if(this.insured.controls['insuredBeer'].value >10){
+            this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+        }
+    }
 // list id
     idList(){
       if(this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2'){
@@ -1319,7 +1358,20 @@ preInsureList() {
             if (sessionStorage.insuredAgeP >= 18){
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
-                } else {
+                } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
+                    this.toastr.error('If you have all the drinking Habits, Sorry you are unable to purchase the policy.');
+                } else if(this.insured.controls['insuredSmokeList'].value >10){
+                    this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy ');
+                } else if(this.insured.controls['insuredLiquor'].value >9){
+                    this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+                }   else if(this.insured.controls['insuredPouchesList'].value >7){
+                    this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+                } else if(this.insured.controls['insuredWine'].value >6){
+                    this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+                } else if(this.insured.controls['insuredBeer'].value >10) {
+                    this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+                }
+                else {
                     stepper.next();
                 }
                 this.topScroll();
