@@ -1173,6 +1173,14 @@ export class HealthInsuranceComponent implements OnInit {
                             this.router.navigate(['/appollo-munich-health']);
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
                             this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                            // for (let i = 0; i <= this.changedTabDetails.family_members.length; i++) {
+                            //     if (this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 18 || this.changedTabDetails.family_members[i].type == 'Daughter' && this.changedTabDetails.family_members[i].age <= 18) {
+                            //         alert('in');
+                            //     } else {
+                            //         this.router.navigate(['/hdfc-insurance' + '/' + false]);
+                            //
+                            //     }
+                            // }
                         } else if (value.product_id == 51 || value.product_id == 21) {
                             this.router.navigate(['/bajaj'  + '/' + false]);
 
@@ -1215,7 +1223,39 @@ export class HealthInsuranceComponent implements OnInit {
                 } else if (value.product_id == 12 || value.product_id == 13) {
                     this.router.navigate(['//appollo-munich-health']);
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
-                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                    let ageValid = true;
+                    console.log(this.changedTabDetails.family_members[0].type, '(this.changedTabDetails.family_members[i].type fghj');
+                        for(let i=0;i<=this.changedTabDetails.family_members.length; i++){
+
+                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 18) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 18)){
+                                ageValid = false;
+                            }
+                         }
+                    console.log(ageValid);
+                        if (!ageValid) {
+
+                            let dialogRef = this.dialog.open(AgeValidate, {
+                                width: '500px',
+                            });
+                            dialogRef.disableClose = true;
+                            dialogRef.afterClosed().subscribe(result => {
+                                if(result == true){
+                                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                                } else {
+                                }
+                            });
+
+                        //     dialogRef.afterClosed().subscribe(agevalue => {
+                        //         // if(agevalue){
+                        //         //     this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                        //         //
+                        //         // }
+                        // });
+                        } else {
+                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+
+                        }
+
 
                 } else if (value.product_id == 51 || value.product_id == 21) {
                     this.router.navigate(['/bajaj'  + '/' + false]);
@@ -1489,5 +1529,35 @@ export class RelainceAgeMax {
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+}
+@Component({
+    selector: 'agevalidate',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                <h3 class="text-center">Age</h3>
+                <p>Child Age below 18 should not be allowed</p>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onClick(false)" >Cancel</button>
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+
+        </div>
+    `
+})
+export class AgeValidate {
+    constructor(
+        public dialogRef: MatDialogRef<AgeValidate>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+    onClick(result) {
+        if(result == true){
+            this.dialogRef.close(result);
+        } else {
+            this.dialogRef.close(result);
+        }
     }
 }
