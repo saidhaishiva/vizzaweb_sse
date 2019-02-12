@@ -700,7 +700,7 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.nomineeData = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
-            this.proposal();
+            this.proposal(stepper);
         }
     }
 
@@ -1632,6 +1632,7 @@ export class AppolloMunichComponent implements OnInit {
 //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         this.proposerData = value;
+        console.log(this.proposerData,'this.proposerData');
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
             this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
@@ -1827,7 +1828,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     //Create Appollo-Munich Details
-    proposal() {
+    proposal(stepper) {
 
       let clientData = this.totalInsureDetails.slice(1);
 
@@ -1864,7 +1865,7 @@ export class AppolloMunichComponent implements OnInit {
                                     'TownCode': this.proposerData.proposerCity
                                 }
                             },
-                            'BirthDate': this.proposerData.proposerDob,
+                            'BirthDate': this.datepipe.transform(this.proposerData.proposerDob, 'y-MM-dd'),
                             'ClientCode': this.proposerData.ClientCode,
                             'ContactInformation': {
                                 'ContactNumber': {
@@ -1974,7 +1975,7 @@ export class AppolloMunichComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.proposalservice.apollomunichProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData,stepper);
             },
             (error) => {
                 this.proposalFailure(error);
@@ -1983,70 +1984,17 @@ export class AppolloMunichComponent implements OnInit {
 
     }
 
-    public proposalSuccess(successData) {
+    public proposalSuccess(successData,stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            // let getdata=[];
-
-                        // for (let j = 0; j < this.insurePersons.length; j++) {
-                        //     for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
-                        //             this.summaryData.InsurePolicyholderDetails[i].typenamel = this.insurePersons[j].type;
-                        //     }
-                        // }
-
-            for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
-                for (let j = 0; j < this.relationshipList.length; j++) {
-                    if (this.summaryData.InsurePolicyholderDetails[i].i_relation == this.relationshipList[j].relationship_code) {
-                        this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
-                    }
-                }
-                for (let j = 0; j < this.occupationList.length; j++) {
-                    if (this.summaryData.InsurePolicyholderDetails[i].i_occuption == this.occupationList[j].occupation_code) {
-                        this.summaryData.InsurePolicyholderDetails[i].occupation = this.occupationList[j].occupation;
-                    }
-                }
-                    for(let j = 0; j< this.maritalDetail.length; j++){
-                        if(this.summaryData.InsurePolicyholderDetails[i].i_maritalstatus == this.maritalDetail[j].marital_code ) {
-                            this.summaryData.InsurePolicyholderDetails[i].marital_status = this.maritalDetail[j].marital_status;
-                        }
-                    }
-                // for(let j = 0; j< this.proffessionList.length; j++){
-                //     if(this.summaryData.InsurePolicyholderDetails[i].i_procode == this.proffessionList[j].proffession.code ) {
-                //         this.summaryData.InsurePolicyholderDetails[i].profession = this.proffessionList[j].profession;
-                //     }
-                // }
-                for(let j = 0; j< this.IdProofList.length; j++){
-                    if(this.summaryData.ProposalDetails[i].p_idproof_code== this.IdProofList[j].proof_code ) {
-                        this.summaryData.ProposalDetails[i].proof_name = this.IdProofList[j].proof_name;
-                    }
-                }
-                }
-                for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.ProposalDetails.n_relation == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.ProposalDetails.relationship = this.relationshipList[j].relationship;
-                    }
-                }
-            for(let i = 0; i< this.IdProofList.length; i++){
-                if(this.summaryData.ProposalDetails.p_idproof_code== this.IdProofList[i].proof_code ) {
-                    this.summaryData.ProposalDetails.proof_name = this.IdProofList[i].proof_name;
-                }
-            }
-            for(let j = 0; j< this.maritalDetail.length; j++){
-                if(this.summaryData.InsurePolicyholderDetails.p_maritalstatus == this.maritalDetail[j].marital_code ) {
-                    this.summaryData.InsurePolicyholderDetails.marital_status = this.maritalDetail[j].marital_status;
-                }
-            }
-
-            // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
-            //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
-            // }
 
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
             sessionStorage.appollo_health_proposal_id = this.proposalId;
-            this.lastStepper.next();
+            // this.lastStepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);
