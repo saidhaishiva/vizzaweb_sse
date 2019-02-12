@@ -74,7 +74,6 @@ export class BajajAlianzComponent implements OnInit {
     public totalMedicalDetails: any;
     public medicalPersons: any;
     public zonemessage: any;
-    public relationshipSameError: any;
     // public grossAmountAge: any;
 
 
@@ -97,6 +96,8 @@ export class BajajAlianzComponent implements OnInit {
     public insuremobileNumber: any;
     public copaymentShow: any;
     public currentStep: any;
+    public sameRelation: any;
+    public selfRelation: any;
 
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -156,6 +157,9 @@ export class BajajAlianzComponent implements OnInit {
             items: this.fb.array([])
         });
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+
+
+            //show insured auto selected self
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             if (i == 0) {
@@ -167,6 +171,7 @@ export class BajajAlianzComponent implements OnInit {
             this.sessionData();
             this.setDate = Date.now();
             this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+            this.selfRelation = this.insureArray['controls'].items['controls'][0]['controls'].insurerelationship.value;
     }
     initItemRows() {
         return this.fb.group(
@@ -215,7 +220,6 @@ export class BajajAlianzComponent implements OnInit {
                 insurerDobValidError: '',
                 ins_age: '',
                 ins_days: '',
-                relationshipSameError: '',
                 insuremobileNumber: '',
                 insureCoPayment:'',
                 insureCheckCopay: '',
@@ -242,16 +246,19 @@ export class BajajAlianzComponent implements OnInit {
         return this.proposalId;
     }
 
+    insureRelationChange(event,i){
+        this.sameRelation = this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value;
+        this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue('');
+    }
+
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {
-        console.log(this.insureArray, 'value.itemsvalue.items');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
-                console.log(this.insurerData[i], 'helllllllllllllll');
                 this.totalInsureDetails.push({
                     'membername': this.insurerData[i].insureName,
                     'memrelation': this.insurerData[i].insurerelationship,
@@ -643,17 +650,6 @@ export class BajajAlianzComponent implements OnInit {
 
     public relationListFailure(error) {
     }
-
-    relationshipSame(i){
-        if(this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value == this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.value){
-            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('Insurer and Nominee relationship should be different');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.value == ''){
-            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('');
-        } else{
-            this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue('');
-        }
-    }
-
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -698,7 +694,6 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper1.items[i].medicalSmoking);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureDisease.patchValue(this.getStepper1.items[i].insureDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper1.items[i].rolecd);
-                this.insureArray['controls'].items['controls'][i]['controls'].relationshipSameError.patchValue(this.getStepper1.items[i].relationshipSameError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper1.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper1.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper1.items[i].ins_days);

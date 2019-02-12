@@ -22,7 +22,7 @@ $light-green:#2FE827;
 
 body{
   font-family: Roboto,sans-serif !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 a:hover {
   color: unset !important;
@@ -541,12 +541,33 @@ a:hover {
 }
 
 #product-list{
+  //.main{
+  //  with: 100%;
+  //  background:#ffffff;
+  //  position: sticky;
+  //  top:0;
+  //  z-index:1;
+  //}
+  //.health-table th{
+  //  with: 100%;
+  //  background:#ffffff;
+  //  position: sticky;
+  //  top:50px;
+  //  z-index:2;
+  //}
   .mat-tab-group {
     width: 687px !important;
     height: 42px !important;
   }
-  .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
+  //.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
+  //  background-color: rgba(24, 204, 180, 0.35);
+  //}
+  .mat-tab-label:hover{
     background-color: rgba(24, 204, 180, 0.35);
+  }
+  .mat-tab-label-active{
+    background-color: #90EE90;
+    z-index: 1;
   }
   .mat-ink-bar{
     display:none !important;
@@ -555,6 +576,7 @@ a:hover {
     float: right;
 
   }
+
   .son{
     button{
       line-height: 28px;
@@ -562,6 +584,7 @@ a:hover {
       padding: 0 10px;
     }
   }
+
   .health-table{
     button{
       font-size: 12px;
@@ -692,14 +715,6 @@ a:hover {
     }
     mat-card{
       background: rgba(242, 154, 29, 0.05);
-    }
-  }
-  .mat-tab-labels{
-    .mat-tab-label:first-child{
-      border-radius: 10px 0 0 0;
-    }
-    .mat-tab-label:last-child{
-      border-radius: 0 10px 0 0;
     }
   }
   .linkClor {
@@ -2529,11 +2544,6 @@ fieldset {
   p {
     display: none;
   }
-}
-
-#product-list .mat-tab-label-container {
-  margin-bottom: 1px;
-  border-radius: 15px 15px 0px 0px;
 }
 
 #travel-starthealth {

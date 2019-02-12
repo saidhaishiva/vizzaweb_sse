@@ -1188,7 +1188,28 @@ export class HealthInsuranceComponent implements OnInit {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
                 sessionStorage.groupName = gname;
                 if (value.product_id <= 5) {
-                    this.router.navigate(['/religare-health-proposal' + '/' + false]);
+                    let ageValid = true;
+                    for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                        if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 26) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 26)){
+                            ageValid = false;
+                        }
+                    }
+                    if (!ageValid) {
+                        let dialogRef = this.dialog.open(AgeValidate, {
+                            width: '500px',
+                        });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed().subscribe(result => {
+                            if(result == true){
+                                this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                            } else {
+                            }
+                        });
+                    } else {
+                        this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+
+                    }
+
                 } else if (value.product_id == 11) {
 
                     if (this.checkAge <= 45) {
@@ -1218,7 +1239,35 @@ export class HealthInsuranceComponent implements OnInit {
                     this.router.navigate(['/appollo-munich-health'  + '/' + false]);
 
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
-                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                    let ageValid = true;
+                        for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 22)){
+                                ageValid = false;
+                            }
+                         }
+                        if (!ageValid) {
+                            let dialogRef = this.dialog.open(AgeValidate, {
+                                width: '500px',
+                            });
+                            dialogRef.disableClose = true;
+                            dialogRef.afterClosed().subscribe(result => {
+                                if(result == true){
+                                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                                } else {
+                                }
+                            });
+
+                        //     dialogRef.afterClosed().subscribe(agevalue => {
+                        //         // if(agevalue){
+                        //         //     this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                        //         //
+                        //         // }
+                        // });
+                        } else {
+                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+
+                        }
+
 
                 } else if (value.product_id == 51 || value.product_id == 21) {
                     this.router.navigate(['/bajaj'  + '/' + false]);
@@ -1492,5 +1541,39 @@ export class RelainceAgeMax {
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+}
+@Component({
+    selector: 'agevalidate',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                <p> {{agemsg}}.If you want to continue</p>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onClick(false)" >Cancel</button>
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+
+        </div>
+    `
+})
+export class AgeValidate {
+    agemsg: any;
+    constructor(
+        public dialogRef: MatDialogRef<AgeValidate>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+       let msg = JSON.parse(sessionStorage.buyProductdetails);
+        this.agemsg = msg.childmsg;
+
+    }
+    onClick(result) {
+        if(result == true){
+            this.dialogRef.close(result);
+        } else {
+            this.dialogRef.close(result);
+        }
     }
 }
