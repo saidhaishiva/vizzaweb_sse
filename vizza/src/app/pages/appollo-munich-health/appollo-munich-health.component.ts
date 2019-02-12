@@ -916,7 +916,7 @@ export class AppolloMunichComponent implements OnInit {
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                    } else {
+                    } else if(type == 'insurer') {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
@@ -925,22 +925,16 @@ export class AppolloMunichComponent implements OnInit {
                 }
 
             }
-            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
-            // let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
-            if (length.length == 10) {
-                if (type == 'startDate') {
-                } else {
+            if (type == 'insurer') {
+                let length = this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
+                if (length.length == 10) {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                     this.ageValidation(i, type);
-                }
-
-            } else {
-                if (type == 'startDate') {
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
+                   this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
                 }
             }
 
