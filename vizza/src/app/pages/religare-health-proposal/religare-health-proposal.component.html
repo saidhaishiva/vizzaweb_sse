@@ -231,7 +231,7 @@
                                 <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                                   <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter' && insureSingle">Mr</mat-option>
                                   <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
-                                  <!--<mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>-->
+                                  <mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                               </mat-form-field>
@@ -288,11 +288,11 @@
                               <mat-error *ngIf="insureArray.invalid">Email Id is required</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="onAlternative($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="insurerAlternateChange($event, i)" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="numberValidate($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="insurerAlternateChange($event, i)" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                             </mat-form-field>
                             <div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value !='' ">{{insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value}}</div>
                           </div>
@@ -549,7 +549,6 @@
                     <li class="list-group-item" *ngIf="item.official_email"><strong>Official Email:</strong> {{item.official_email}} </li>
                     <li class="list-group-item" *ngIf="item.mobile_no"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
                     <li class="list-group-item" *ngIf="item.resedential_contact_no"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
-
                   </ul>
                 </div>
               </div>
@@ -559,8 +558,8 @@
                     <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no}}</li>
                     <li class="list-group-item" *ngIf="item.aadhar_no"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
                     <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no}}</li>
-                    <li class="list-group-item" *ngIf="item.height"><strong>Height:</strong> {{item.height}}</li>
-                    <li class="list-group-item" *ngIf="item.weight"><strong>Weight:</strong> {{item.weight}}</li>
+                    <li class="list-group-item" *ngIf="item.height && item.height !=0 && i !=0"><strong>Height:</strong> {{item.height}}</li>
+                    <li class="list-group-item" *ngIf="item.weight && item.height !=0 && i !=0"><strong>Weight:</strong> {{item.weight}}</li>
                   </ul>
                 </div>
               </div>
