@@ -1882,7 +1882,8 @@ export class AppolloMunichComponent implements OnInit {
                             'LastName': this.proposerData.proposerLastname,
                             'MaritalStatusCode': this.proposerData.maritalStatus,
                             'MiddleName': this.proposerData.proposerMidname,
-                            'RelationshipCode': this.proposerData.proposerrelationship
+                            'RelationshipCode': this.proposerData.proposerrelationship,
+                            'TitleCode': this.proposerData.proposerTitle
                         }
                     },
 
