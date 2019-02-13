@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
 import { MatStepper } from '@angular/material';
@@ -25,7 +24,6 @@ export const MY_FORMATS = {
         dateInput: 'DD/MM/YYYY',
         monthYearLabel: 'MM YYYY',
         dateA11yLabel: 'DD/MM/YYYY',
-
         monthYearA11yLabel: 'MM YYYY',
     },
 };
@@ -125,7 +123,7 @@ export class TravelShriramProposalComponent implements OnInit {
     travelPurposeLists: any;
     preExistingDisease: any;
     personalDobError: any;
-    mediReceiptDtError: any;
+    mediReportDtError: any;
     getAge: any;
     paymentGatewayData: any;
     visaTypeAllList: any;
@@ -268,14 +266,14 @@ export class TravelShriramProposalComponent implements OnInit {
                     if (type == 'proposor') {
                         this.personalDobError = '';
                     } else {
-                        this.mediReceiptDtError = '';
+                        this.mediReportDtError = '';
                     }
 
                 } else {
                     if (type == 'proposor') {
                         this.personalDobError = 'Enter Valid Dob';
                     } else {
-                        this.mediReceiptDtError = 'Enter Valid Dob';
+                        this.mediReportDtError = 'Enter Valid Report Date';
                     }
 
                 }
@@ -293,7 +291,7 @@ export class TravelShriramProposalComponent implements OnInit {
                     sessionStorage.proposerAgeForTravel = this.proposerAge;
                 }
                 this.personalDobError = '';
-                this.mediReceiptDtError = '';
+                this.mediReportDtError = '';
             }
 
         }
@@ -597,11 +595,8 @@ export class TravelShriramProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
-
     public getIlnessDetailFailure(error) {
     }
-
-
     add(event: any){
         if (event.charCode !== 0) {
             const pattern = /[0-9/\\ ]/;
@@ -620,7 +615,6 @@ export class TravelShriramProposalComponent implements OnInit {
             }
         }
     }
-
     public typeValidate(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z\\ ]/;
@@ -642,8 +636,6 @@ export class TravelShriramProposalComponent implements OnInit {
         }
         sessionStorage.mobileNumberForTravel = this.mobileNumber;
     }
-
-
     //Personal Details
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.stepper1ShriramTravel = '';
@@ -657,7 +649,6 @@ export class TravelShriramProposalComponent implements OnInit {
             }
         }
     }
-
     //Create Proposal
     createProposal(stepper: MatStepper, value) {
         sessionStorage.stepper2ShriramTravel = '';
@@ -706,9 +697,7 @@ export class TravelShriramProposalComponent implements OnInit {
                     "OrgPhysiciansAttach": "",
                     "TravelerType": "IND"//Set Static value - Individul
                 }
-
             }
-
             // this.settings.loadingSpinner = true;
             this.travelservice.createShriramTravelProposal(data).subscribe(
                 (successData) => {
@@ -718,15 +707,8 @@ export class TravelShriramProposalComponent implements OnInit {
                     this.proposalFailure(error);
                 }
             );
-
-
-
-
         }
-
     }
-
-
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
@@ -737,9 +719,6 @@ export class TravelShriramProposalComponent implements OnInit {
             // this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
            // this.proposalDtails = this.summaryData.proposal_details[0];
             this.toastr.success('Proposal created successfully!!');
-
-
-
         } else {
             this.toastr.error(successData.ErrorObject);
         }
