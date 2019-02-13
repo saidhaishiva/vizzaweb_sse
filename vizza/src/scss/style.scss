@@ -852,6 +852,13 @@ a:hover {
 }
 
 .travel-product-list{
+  .mat-tab-label:hover{
+    background-color: #31CCEB !important;
+  }
+  .mat-tab-label-active{
+    background-color: #6FC5E4 !important;
+    z-index: 1;
+  }
   thead th{
     background: #6fc5e4 !important;
   }
@@ -859,14 +866,17 @@ a:hover {
     color: #6fc5e4 !important;
   }
   .mat-raised-button.mat-primaryBlue {
-    background-color: #80c4e0 !important;
-    color: #ffff;
+    background-color: #6fc5e4;
   }
-  .mat-tab-labels {
-    .mat-ripple {
-      background-color: #6fc5e4 !important;
-    }
-  }
+  //.mat-raised-button.mat-primaryBlue {
+  //  background-color: #80c4e0 !important;
+  //  color: #ffff;
+  //}
+  //.mat-tab-labels {
+  //  .mat-ripple {
+  //    background-color: #6fc5e4 !important;
+  //  }
+  //}
   td{
     color: rgb(15, 105, 142) !important;
   }

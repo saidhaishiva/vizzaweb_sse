@@ -116,8 +116,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>
-                            <mat-option *ngFor="let item of getpedDetails" value= {{item.ped}}>
+                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>                            <mat-option *ngFor="let item of getpedDetails" value= {{item.ped}}>
                               {{item.ped}}
                             </mat-option>
                           </mat-select>
@@ -142,7 +141,7 @@
                       </div>
                       <div class="col-md-3" *ngIf= declinedetails>
                           <mat-form-field class="w-100" required>
-                        <input matInput placeholder="Decline Insurance Reason"  (keypress)="nameValidate($event)"   formControlName="declineReson" autocomplete="off" >
+                        <input matInput placeholder="Decline Insurance Reason"  (keypress)="nameValidate($event)"   formControlName="declineReson" required autocomplete="off" >
                             <mat-error *ngIf="hdfcTravel.controls.declineReson.errors?.required">Decline Insurance Reason is required</mat-error>
 
                           </mat-form-field></div>
@@ -154,7 +153,9 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf="restrictiondetails"><mat-form-field class="w-100">
-                        <input matInput placeholder="Restrictionbyinsurancedetails"  (keypress)="nameValidate($event)"   formControlName="restrictionbyinsurancedetails" autocomplete="off">
+                        <input matInput placeholder="Restrictionbyinsurancedetails"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
+                        <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restrictionbyinsurancedetails is required</mat-error>
+
                       </mat-form-field></div>
                     </div>
                   </div>

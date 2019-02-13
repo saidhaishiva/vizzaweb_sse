@@ -4,18 +4,18 @@
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="personal">
-          <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+          <ng-template matStepLabel>PROPOSER / INSURER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="personal" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    PROPOSER
+                    PROPOSER / INSURER DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue">PROPOSER DETAILS</h6>
+                    <h6 class="color-blue">PROPOSER / INSURER DETAILS</h6>
                     <div class="row">
 
                       <div class="col-md-4">
@@ -69,10 +69,9 @@
                         <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
+                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
                         <mat-error *ngIf="personal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
                         <mat-error *ngIf="personal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
-
                       </mat-form-field></div>
                       <!--<div class="col-md-4"><mat-form-field class="w-100">-->
                         <!--<mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple>-->
@@ -97,21 +96,21 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Medical Receipt" formControlName="medicalRepAttach" required>
+                          <mat-select placeholder="Medical Report" formControlName="medicalRepAttach" required>
                             <mat-option value="ATTACHED">ATTACHED</mat-option>
                             <mat-option value="NOT-ATTACHED">NOT-ATTACHED</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.medicalRepAttach.errors?.required">Medical Receipt is required</mat-error>
+                          <mat-error *ngIf="personal.controls.medicalRepAttach.errors?.required">Medical Report is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="Receipt Date (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="Medical Report Date (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
-                          <mat-error *ngIf="personal.controls.medicalRepDate.errors?.required">DOB is required</mat-error>
+                          <mat-error *ngIf="personal.controls.medicalRepDate.errors?.required">Report Date is required</mat-error>
                         </mat-form-field>
-                        <div class="error" *ngIf="mediReceiptDtError != ''">{{mediReceiptDtError}}</div>
+                        <div class="error" *ngIf="mediReportDtError != ''">{{mediReportDtError}}</div>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -137,7 +136,7 @@
                   </div>
 
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue"> PROPOSER COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue"> PROPOSER / INSURER COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -330,8 +329,6 @@
                       <li class="list-group-item"><strong>Purpose of Visit:</strong> {{summaryData.purposeofVisit}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.occupation}}</li>
                       <li class="list-group-item"><strong>Travel Type:</strong> Individual</li>
-
-
                     </ul>
                   </div>
                 </div>
@@ -342,8 +339,10 @@
                       <li class="list-group-item"><strong>Physician Address:</strong> {{summaryData.doctorAddress}}</li>
                       <li class="list-group-item"><strong>Medical Report Attachment:</strong> {{summaryData.medicalReportAttachment}}</li>
                       <li class="list-group-item"><strong>Medical Report Date:</strong> {{summaryData.medicalReportDate}}</li>
-                      <li class="list-group-item"><strong>Handicapped:</strong> {{summaryData.handicapped}}</li>
-                      <li class="list-group-item"><strong>Engaged Sports:</strong> {{summaryData.engagedSports}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.handicapped == 'N' && summaryData.handicapped != ''"><strong>Handicapped:</strong> No</li>
+                      <li class="list-group-item" *ngIf="summaryData.handicapped == 'Y' && summaryData.handicapped != ''"><strong>Handicapped:</strong> Yes</li>
+                      <li class="list-group-item" *ngIf="summaryData.engagedSports== 'N' && summaryData.engagedSports != ''"><strong>Engaged Sports:</strong> No</li>
+                      <li class="list-group-item" *ngIf="summaryData.engagedSports== 'Y' && summaryData.engagedSports != ''"><strong>Engaged Sports:</strong> Yes</li>
                       <li class="list-group-item" *ngIf="summaryData.preExistingDisease != '' && summaryData.preExistingDisease != 0"><strong>Pre Existing Disease:</strong> {{summaryData.preExistingDisease}}</li>
                       <li class="list-group-item" *ngIf="summaryData.orgAttachment != '' && summaryData.orgAttachment != 0"><strong>Org Attachment:</strong> {{summaryData.orgAttachment}}</li>
                       <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->
@@ -353,7 +352,7 @@
 
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                    <h6 class="color-blue">PROPOSER / INSURER COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.address1}}</li>
                       <li class="list-group-item" *ngIf="summaryData.address2 != ''"><strong>Address 2:</strong> {{summaryData.address2}}</li>
@@ -365,6 +364,15 @@
                   </div>
                 </div>
 
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">NOMINEE DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name of Nominee:</strong> {{summaryData.nomineeName}}</li>
+                      <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nomineeRelationship}}</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>
