@@ -445,8 +445,11 @@ export class TravelHdfcProposalComponent implements OnInit {
     declinereason() {
         if (this.hdfcTravel.controls['declineinsurance'].value == 'True') {
             this.declinedetails = true;
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].declineReson.setValidators([Validators.required]);
+
         } else {
             this.declinedetails = false;
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].declineReson.setValidators(null);
 
         }
     }
@@ -454,8 +457,11 @@ export class TravelHdfcProposalComponent implements OnInit {
     restrictionReson() {
         if (this.hdfcTravel.controls['restrictionbyinsurance'].value == 'True') {
             this.restrictiondetails = true;
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].restrictionbyinsurancedetails.setValidators([Validators.required]);
+
         } else {
             this.restrictiondetails = false;
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].restrictionbyinsurancedetails.setValidators(null);
 
         }
     }
