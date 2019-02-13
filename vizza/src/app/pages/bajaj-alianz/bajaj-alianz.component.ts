@@ -100,6 +100,7 @@ export class BajajAlianzComponent implements OnInit {
     public selfRelation: any;
     public setZonePincode: any;
     public zoneList: any;
+    public zonepanvalue: any;
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -120,6 +121,7 @@ export class BajajAlianzComponent implements OnInit {
         this.hideQuestion = false;
         this.zoneList = false;
         this.declaration = false;
+        this.zonepanvalue = false;
         this.copaymentShow = false;
         this.zonemessage = '';
 
@@ -692,7 +694,6 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalDisordr.patchValue(this.getStepper1.items[i].medicalDisordr);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalHeartDisease.patchValue(this.getStepper1.items[i].medicalHeartDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalHypertension.patchValue(this.getStepper1.items[i].medicalHypertension);
-                this.insureArray['controls'].items['controls'][i]['controls'].zoneCheck.patchValue(this.getStepper1.items[i].zoneCheck);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalDiabetes.patchValue(this.getStepper1.items[i].medicalDiabetes);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalObesity.patchValue(this.getStepper1.items[i].medicalObesity);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper1.items[i].medicalSmoking);
@@ -706,6 +707,10 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureCheckCopay.patchValue(this.getStepper1.items[i].insureCheckCopay);
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper1.items[i].dobErrorStartDate);
                 this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer');
+                this.zoneValidate(this.getStepper1.items[i].insurePincode, 'insurer');
+                this.zonecheckingList(this.getStepper1.items[i].zoneCheck);
+                this.insureArray['controls'].items['controls'][i]['controls'].zoneCheck.patchValue(this.getStepper1.items[i].zoneCheck);
+
             }
         }
         // if (sessionStorage.insuremobileNumber != '' ) {
@@ -748,7 +753,7 @@ export class BajajAlianzComponent implements OnInit {
             },
             'tycpaddrlist': [{
                 'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode.value,
-                'pan_india_cover':this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value,
+                'pan_india_cover':this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value ? this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value : '',
                 'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress.value,
                 'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2.value,
                 'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea.value,
@@ -878,7 +883,7 @@ export class BajajAlianzComponent implements OnInit {
     }
     zonecheckingList(value){
        let data = value;
-       console.log(data,'jhghj');
+       console.log(data,'oooooo');
         if(data.checked == true){
             this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue(1);
 
