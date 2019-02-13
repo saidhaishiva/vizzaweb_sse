@@ -20,10 +20,16 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     public path: any
     public proposalId: any
     public mailstatus: any
+    public remainingStatus: any
 
     public settings: Settings;
   constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
+      let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      this.remainingStatus = false;
+      if(allDetails.length > 1) {
+          this.remainingStatus = true;
+      }
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.status;
@@ -89,6 +95,18 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     }
     retry() {
         this.router.navigate(['/bajaj'  + '/' + true]);
+    }
+
+    pay(){
+        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
+        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
+        for (let i = 0; i < allGroupDetails.length; i++) {
+            if(allGroupDetails[i].name == changedTabDetails.name) {
+                allGroupDetails.splice(i, 1);
+            }
+        }
+        sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
+        this.router.navigate(['/healthinsurance']);
     }
 
     downloadMessage() {

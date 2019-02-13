@@ -92,17 +92,9 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-        // star health
-        sessionStorage.nomineeDate = '';
+
         sessionStorage.familyMembers = '';
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper3Details = '';
-        sessionStorage.nomineeData = '';
-        sessionStorage.copaymentShow = '';
-        sessionStorage.prevviousInsuranceStepperDetails = '';
         sessionStorage.buyProductdetails = '';
-        sessionStorage.groupName = '';
         sessionStorage.sideMenu = '';
         sessionStorage.sonBTn = '';
         sessionStorage.daughterBTn = '';
@@ -114,15 +106,21 @@ export class HomeComponent implements OnInit {
         sessionStorage.changeSuninsuredAmount = '';
         sessionStorage.changedTabIndex = '';
         sessionStorage.shorListTab = '';
-        sessionStorage.enquiryId = '';
-        sessionStorage.proposalId = '';
-        sessionStorage.mobileNumber = '';
-        sessionStorage.ageRestriction = '';
-        sessionStorage.addonDetails = '';
 
-        //religare helth
-        sessionStorage.proposal3Detail = '';
-        sessionStorage.proposalID = '';
+
+
+        //appollo helth
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper2Details = '';
+        sessionStorage.proposerAge = '';
+        sessionStorage.titleValidation = '';
+        sessionStorage.nomineeData = '';
+        sessionStorage.appollo_health_proposal_id = '';
+        sessionStorage.proposerAge = '';
+        sessionStorage.mobileNumber = '';
+        sessionStorage.apollomedical = '';
+
+        sessionStorage.summaryData = '';
 
 
         // personal accident

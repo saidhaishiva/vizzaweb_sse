@@ -26,6 +26,7 @@ export class PaymentSuccessComponent implements OnInit {
  type: any;
  path: any;
  currenturl: any;
+    remainingStatus: any;
 
   constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
@@ -33,6 +34,11 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
+      let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      this.remainingStatus = false;
+      if(allDetails.length > 1) {
+          this.remainingStatus = true;
+      }
 
   }
 
@@ -77,7 +83,6 @@ export class PaymentSuccessComponent implements OnInit {
         this.router.navigate(['/proposal'  + '/' + true]);
     }
     pay(){
-
         let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
         let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
         for (let i = 0; i < allGroupDetails.length; i++) {

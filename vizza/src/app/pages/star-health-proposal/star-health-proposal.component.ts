@@ -512,7 +512,7 @@ export class StarHealthProposalComponent implements OnInit {
                 this.mobileNumber = '';
             }
         } else {
-            this.mobileNumber = 'false';
+            this.mobileNumber = '';
         }
         sessionStorage.mobileNumber = this.mobileNumber;
     }
