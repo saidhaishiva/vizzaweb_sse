@@ -146,7 +146,9 @@
                                                                 </mat-form-field>
                                                             </div>
                                                             <div class="col-sm-2" *ngIf = "zoneList">
-                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Indian Pan Cover</mat-checkbox>
+                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)" required="zonepanvalue">Pan India cover</mat-checkbox>
+                                                                <mat-error *ngIf="insureArray.invalid">Pan India cover is required</mat-error>
+
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
