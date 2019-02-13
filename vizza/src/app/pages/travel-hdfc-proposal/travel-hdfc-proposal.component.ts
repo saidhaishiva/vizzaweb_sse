@@ -72,6 +72,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public fullName: any;
     public totalAmount: any;
     public sameInsurer: any;
+    public decline: any;
 
 
     constructor(public travelservice: TravelService, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -80,7 +81,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.totalInsureDetails = [];
-
+        this.decline = false;
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.hdfcTravel = this.fb.group({
