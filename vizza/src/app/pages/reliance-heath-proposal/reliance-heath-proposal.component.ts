@@ -15,6 +15,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material
 import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -129,11 +130,28 @@ export class RelianceHeathProposalComponent implements OnInit {
     public previousInsuranceData: any;
     public getResAddressList: any;
     public getComAddressList: any;
+    public currentStep: any;
+    public taxRequired: any;
     // public personalAge: any;
     public agecal: any;
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-         const minDate = new Date();
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 4;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                setTimeout(() => {
+                    this.commonPincode(this.summaryData.ResponseObject.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalP');
+                },800);
+                this.commonPincode(this.summaryData.ResponseObject.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalR');
+                this.RediretUrlLink = this.summaryData.RediretUrlLink;
+                this.proposalId = this.summaryData.ResponseObject.proposal_id;
+                sessionStorage.proposalID = this.proposalId;
+            }
+        });
+        this.currentStep = stepperindex;
+        const minDate = new Date();
          this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
         this.hideQuestion = false;
@@ -156,6 +174,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.totalInsureDetails = [];
         this.questions_list = [];
         this.arr = [];
+        this.taxRequired = '';
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: ['', Validators.required],
@@ -206,7 +225,9 @@ export class RelianceHeathProposalComponent implements OnInit {
             residenceState: ['', Validators.required],
             sameas: false,
             rolecd: 'PROPOSER',
-            type: ''
+            type: '',
+            serviceTax: 'No',
+            ServicesTaxId: ''
 
         });
         this.previousInsuranceFrom = this.fb.group({
@@ -241,16 +262,16 @@ export class RelianceHeathProposalComponent implements OnInit {
             nomineeTitle: ['', Validators.required],
             nomineeDob: ['', Validators.compose([Validators.required])]
         });
-        this.riskDetails = this.fb.group({
-            serviceTax: 'No',
-            ServicesTaxId: '',
-            relianceAda: 'No',
-            companyname: '',
-            employeeCode: '',
-            emailId:'',
-            crossSell: 'No',
-            crossSellPolicyNo: '',
-        });
+        // this.riskDetails = this.fb.group({
+        //     serviceTax: 'No',
+        //     ServicesTaxId: '',
+        //     relianceAda: 'No',
+        //     companyname: '',
+        //     employeeCode: '',
+        //     emailId:'',
+        //     crossSell: 'No',
+        //     crossSellPolicyNo: '',
+        // });
     }
 
     changeGender() {
@@ -395,6 +416,20 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
     }
 
+    typeAddressDeatils() {
+        if (this.personal.controls['sameas'].value) {
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceDistrict'].setValue(this.personal.controls['residenceDistrict'].value);
+            this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['residenceNearestLandMark'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['residenceArea'].value);
+        }
+    }
+
     sameAddressInsurer(values: any, index) {
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
@@ -436,6 +471,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.dobError = '';
                     }
                 } else {
+                    console.log(type, 'kkk');
                     if(type == 'nominee') {
                         this.nomineeDateError = 'Enter Valid Date';
                     } else if(type == 'previousStartDate'){
@@ -925,6 +961,12 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
 
     }
+    isServiceTax() {
+        if (this.personal.controls['ServicesTaxId'].value != '') {
+            this.taxRequired = '';
+        }
+    }
+
 
     boolenHide(change: any, id, key){
         let valid = false;
@@ -945,17 +987,14 @@ export class RelianceHeathProposalComponent implements OnInit {
         } else {
             this.insureArray['controls'].items['controls'][id]['controls'].insurerIllness.patchValue('');
         }
-        if (key == 'serviceTax' && change.value == 'No') {
-            this.riskDetails['controls'].ServicesTaxId.patchValue('');
-        }
-        if (key == 'crossSell' && change.value == 'No') {
-            this.riskDetails['controls'].crossSellPolicyNo.patchValue('');
-        }
-        if (key == 'relianceAda' && change.value == 'No') {
-            this.riskDetails['controls'].companyname.patchValue('');
-            this.riskDetails['controls'].employeeCode.patchValue('');
-            this.riskDetails['controls'].emailId.patchValue('');
-        }
+        // if (key == 'crossSell' && change.value == 'No') {
+        //     this.riskDetails['controls'].crossSellPolicyNo.patchValue('');
+        // }
+        // if (key == 'relianceAda' && change.value == 'No') {
+        //     this.riskDetails['controls'].companyname.patchValue('');
+        //     this.riskDetails['controls'].employeeCode.patchValue('');
+        //     this.riskDetails['controls'].emailId.patchValue('');
+        // }
     }
 
     commonPincode(pin, title){
@@ -1060,7 +1099,19 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.personal.valid) {
             if (sessionStorage.personalAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
+
+                    if(this.personal.controls['serviceTax'].value == 'No') {
+                        this.personal.controls['ServicesTaxId'].patchValue('');
+                        this.taxRequired = '';
+                        stepper.next();
+                    } else {
+                        if(this.personal.controls['ServicesTaxId'].value != '') {
+                            this.taxRequired = '';
+                            stepper.next();
+                        } else {
+                            this.taxRequired = 'Services Tax is required';
+                        }
+                    }
                 }
 
             } else {
@@ -1260,7 +1311,15 @@ export class RelianceHeathProposalComponent implements OnInit {
                 rolecd: this.getStepper1.rolecd,
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
+                ServicesTaxId: this.getStepper1.ServicesTaxId,
+                serviceTax: this.getStepper1.serviceTax,
             });
+            if (this.getStepper1.ServicesTaxId == '') {
+                this.taxRequired = 'Services Tax is required';
+            } else {
+                this.taxRequired = '';
+            }
+
 
             if (this.getStepper1.personalPincode != '') {
                 this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
@@ -1317,20 +1376,20 @@ export class RelianceHeathProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerIllness.patchValue(this.getStepper2.items[i].insurerIllness);
             }
         }
-        if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
-
-            this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
-            this.riskDetails = this.fb.group({
-                serviceTax: this.getStepper3.serviceTax,
-                ServicesTaxId: this.getStepper3.ServicesTaxId,
-                relianceAda: this.getStepper3.relianceAda,
-                companyname: this.getStepper3.companyname,
-                employeeCode: this.getStepper3.employeeCode,
-                emailId: this.getStepper3.emailId,
-                crossSell: this.getStepper3.crossSell,
-                crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
-            });
-            }
+        // if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
+        //
+        //     this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+        //     this.riskDetails = this.fb.group({
+        //         serviceTax: this.getStepper3.serviceTax,
+        //         ServicesTaxId: this.getStepper3.ServicesTaxId,
+        //         relianceAda: this.getStepper3.relianceAda,
+        //         companyname: this.getStepper3.companyname,
+        //         employeeCode: this.getStepper3.employeeCode,
+        //         emailId: this.getStepper3.emailId,
+        //         crossSell: this.getStepper3.crossSell,
+        //         crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
+        //     });
+        //     }
 
         if (sessionStorage.nomineeAreaList != '' && sessionStorage.nomineeAreaList != undefined) {
             let nomineeRelations = JSON.parse(sessionStorage.nomineeAreaList);
@@ -1443,14 +1502,14 @@ export class RelianceHeathProposalComponent implements OnInit {
                 },
                 'RiskDetails': {
                     'SumInsured': this.buyProductdetails.suminsured_amount,
-                    'IsServiceTaxExemptionApplicable': this.riskData.serviceTax == 'Yes' ? 'true' : 'false',
-                    'ServiceTaxExemptionID': this.riskData.ServicesTaxId,
-                    'IsAnyEmployeeOfRelianceADAGroup': this.riskData.relianceAda == 'Yes' ? 'true' : 'false',
-                    'CompanyNameID': this.riskData.companyname,
-                    'EmployeeCode': this.riskData.employeeCode,
-                    'EmailID': this.riskData.emailId,
-                    'Iscrosssell': this.riskData.crossSell == 'Yes' ? 'true' : 'false',
-                    'CrossSellPolicyNo': this.riskData.crossSellPolicyNo,
+                    'IsServiceTaxExemptionApplicable': this.personalData.serviceTax == 'Yes' ? 'true' : 'false',
+                    'ServiceTaxExemptionID': this.personalData.ServicesTaxId,
+                    'IsAnyEmployeeOfRelianceADAGroup': 'false',
+                    'CompanyNameID': '',
+                    'EmployeeCode': '',
+                    'EmailID': '',
+                    'Iscrosssell': 'false',
+                    'CrossSellPolicyNo': '',
                 },
                 'NomineeDetails': {
                     'FirstName': this.nomineeData.nomineeFirstName,
@@ -1511,7 +1570,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
             }
             this.summaryData = successData.ResponseObject;
-            let getdata=[];
+            sessionStorage.summaryData = JSON.stringify(successData);
               setTimeout(() => {
                   this.commonPincode(this.summaryData.ClientDetails.ClientAddress.CommunicationAddress.Pincode, 'proposalP');
               },700);
@@ -1520,15 +1579,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.RediretUrlLink = successData.RediretUrlLink;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
-            if (this.nomineeDetails.valid) {
-                if (sessionStorage.personalAge >= 18) {
-                    if (this.mobileNumber == '' || this.mobileNumber == 'true'){
             this.lastStepper.next();
-                    }
-                } else {
-                    this.toastr.error('Proposer age should be 18 or above');
-                }
-            }
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

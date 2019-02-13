@@ -141,9 +141,12 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="numberValidate($event)" maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer')" autocomplete="off" [required]="i == 0">
+                                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="numberValidate($event)" maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer'); zoneValidate($event.target.value, 'insurer')" autocomplete="off" [required]="i == 0">
                                                                     <mat-error *ngIf="insureArray.invalid">Pincode is required</mat-error>
                                                                 </mat-form-field>
+                                                            </div>
+                                                            <div class="col-sm-2" *ngIf = "zoneList">
+                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Indian Pan Cover</mat-checkbox>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">

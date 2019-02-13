@@ -1151,9 +1151,10 @@ export class HealthInsuranceComponent implements OnInit {
                         } else if (value.product_id == 11) {
                             if (this.checkAge <= 45) {
                                 if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                                    this.router.navigate(['/reliance-heath-proposal']);
+                                    this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
                                 } else if (this.checkAge < 18) {
-                                    this.router.navigate(['/reliance-heath-proposal']);
+                                    this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+
                                 } else {
                                     let dialogRef = this.dialog.open(RelainceAgeMin, {
                                         width: '1600px',
@@ -1170,7 +1171,8 @@ export class HealthInsuranceComponent implements OnInit {
                             }
 
                         } else if (value.product_id == 12 || value.product_id == 13) {
-                            this.router.navigate(['/appollo-munich-health']);
+                            this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+
                         } else if (value.product_id >= 17 && value.product_id <= 20) {
                             this.router.navigate(['/hdfc-insurance'  + '/' + false]);
                         } else if (value.product_id == 51 || value.product_id == 21) {
@@ -1212,9 +1214,9 @@ export class HealthInsuranceComponent implements OnInit {
 
                     if (this.checkAge <= 45) {
                         if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                            this.router.navigate(['/reliance-heath-proposal']);
+                            this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
                         } else if (this.checkAge < 18) {
-                            this.router.navigate(['/reliance-heath-proposal']);
+                            this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
                         } else {
                             let dialogRef = this.dialog.open(RelainceAgeMin, {
                                 width: '1600px',
@@ -1234,7 +1236,8 @@ export class HealthInsuranceComponent implements OnInit {
 
 
                 } else if (value.product_id == 12 || value.product_id == 13) {
-                    this.router.navigate(['//appollo-munich-health']);
+                    this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
                     let ageValid = true;
                         for(let i=0; i < this.changedTabDetails.family_members.length; i++){

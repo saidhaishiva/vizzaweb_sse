@@ -15,6 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
     parse: {
@@ -161,9 +162,23 @@ export class AppolloMunichComponent implements OnInit {
     public readonlyproposer: any;
     public appolloQuestionsList: any;
     public medicalquestion: any;
+    currentStep: any;
 
-  constructor(public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if(params.stepper == true || params.stepper == 'true') {
+              stepperindex = 4;
+              this.summaryData = JSON.parse(sessionStorage.summaryData);
+              this.RediretUrlLink = this.summaryData.PaymentURL;
+              this.proposalId = this.summaryData.ProposalId;
+              sessionStorage.appollo_health_proposal_id = this.proposalId;
+          }
+      });
+      this.currentStep = stepperindex;
+
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
       let today  = new Date();
@@ -700,7 +715,7 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.nomineeData = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
-            this.proposal();
+            this.proposal(stepper);
         }
     }
 
@@ -901,7 +916,7 @@ export class AppolloMunichComponent implements OnInit {
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                    } else {
+                    } else if(type == 'insurer') {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
@@ -910,22 +925,16 @@ export class AppolloMunichComponent implements OnInit {
                 }
 
             }
-            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
-            // let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
-            if (length.length == 10) {
-                if (type == 'startDate') {
-                } else {
+            if (type == 'insurer') {
+                let length = this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
+                if (length.length == 10) {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                     this.ageValidation(i, type);
-                }
-
-            } else {
-                if (type == 'startDate') {
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
+                   this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
                 }
             }
 
@@ -1632,6 +1641,7 @@ export class AppolloMunichComponent implements OnInit {
 //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         this.proposerData = value;
+        console.log(this.proposerData,'this.proposerData');
         if(value.proposerDriving != ""){
             this.proposerProofNum = value.proposerDriving;
             this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
@@ -1827,7 +1837,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     //Create Appollo-Munich Details
-    proposal() {
+    proposal(stepper) {
 
       let clientData = this.totalInsureDetails.slice(1);
 
@@ -1864,7 +1874,7 @@ export class AppolloMunichComponent implements OnInit {
                                     'TownCode': this.proposerData.proposerCity
                                 }
                             },
-                            'BirthDate': this.proposerData.proposerDob,
+                            'BirthDate': this.datepipe.transform(this.proposerData.proposerDob, 'y-MM-dd'),
                             'ClientCode': this.proposerData.ClientCode,
                             'ContactInformation': {
                                 'ContactNumber': {
@@ -1882,7 +1892,8 @@ export class AppolloMunichComponent implements OnInit {
                             'LastName': this.proposerData.proposerLastname,
                             'MaritalStatusCode': this.proposerData.maritalStatus,
                             'MiddleName': this.proposerData.proposerMidname,
-                            'RelationshipCode': this.proposerData.proposerrelationship
+                            'RelationshipCode': this.proposerData.proposerrelationship,
+                            'TitleCode': this.proposerData.proposerTitle
                         }
                     },
 
@@ -1973,7 +1984,7 @@ export class AppolloMunichComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.proposalservice.apollomunichProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData,stepper);
             },
             (error) => {
                 this.proposalFailure(error);
@@ -1982,70 +1993,17 @@ export class AppolloMunichComponent implements OnInit {
 
     }
 
-    public proposalSuccess(successData) {
+    public proposalSuccess(successData,stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            // let getdata=[];
-
-                        // for (let j = 0; j < this.insurePersons.length; j++) {
-                        //     for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
-                        //             this.summaryData.InsurePolicyholderDetails[i].typenamel = this.insurePersons[j].type;
-                        //     }
-                        // }
-
-            for(let i = 0; i < this.summaryData.InsurePolicyholderDetails.length; i++) {
-                for (let j = 0; j < this.relationshipList.length; j++) {
-                    if (this.summaryData.InsurePolicyholderDetails[i].i_relation == this.relationshipList[j].relationship_code) {
-                        this.summaryData.InsurePolicyholderDetails[i].relationship = this.relationshipList[j].relationship;
-                    }
-                }
-                for (let j = 0; j < this.occupationList.length; j++) {
-                    if (this.summaryData.InsurePolicyholderDetails[i].i_occuption == this.occupationList[j].occupation_code) {
-                        this.summaryData.InsurePolicyholderDetails[i].occupation = this.occupationList[j].occupation;
-                    }
-                }
-                    for(let j = 0; j< this.maritalDetail.length; j++){
-                        if(this.summaryData.InsurePolicyholderDetails[i].i_maritalstatus == this.maritalDetail[j].marital_code ) {
-                            this.summaryData.InsurePolicyholderDetails[i].marital_status = this.maritalDetail[j].marital_status;
-                        }
-                    }
-                // for(let j = 0; j< this.proffessionList.length; j++){
-                //     if(this.summaryData.InsurePolicyholderDetails[i].i_procode == this.proffessionList[j].proffession.code ) {
-                //         this.summaryData.InsurePolicyholderDetails[i].profession = this.proffessionList[j].profession;
-                //     }
-                // }
-                for(let j = 0; j< this.IdProofList.length; j++){
-                    if(this.summaryData.ProposalDetails[i].p_idproof_code== this.IdProofList[j].proof_code ) {
-                        this.summaryData.ProposalDetails[i].proof_name = this.IdProofList[j].proof_name;
-                    }
-                }
-                }
-                for(let j = 0; j< this.relationshipList.length; j++){
-                    if(this.summaryData.ProposalDetails.n_relation == this.relationshipList[j].relationship_code ) {
-                        this.summaryData.ProposalDetails.relationship = this.relationshipList[j].relationship;
-                    }
-                }
-            for(let i = 0; i< this.IdProofList.length; i++){
-                if(this.summaryData.ProposalDetails.p_idproof_code== this.IdProofList[i].proof_code ) {
-                    this.summaryData.ProposalDetails.proof_name = this.IdProofList[i].proof_name;
-                }
-            }
-            for(let j = 0; j< this.maritalDetail.length; j++){
-                if(this.summaryData.InsurePolicyholderDetails.p_maritalstatus == this.maritalDetail[j].marital_code ) {
-                    this.summaryData.InsurePolicyholderDetails.marital_status = this.maritalDetail[j].marital_status;
-                }
-            }
-
-            // if(this.summaryData.InsurePolicyholderDetails.p_gender == this.relationshipList.relationship_proposer_id ) {
-            //     this.summaryData.InsuredDetailsList.relationship_proposer_name = this.relationshipList.relationship_proposer_name;
-            // }
-
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
             sessionStorage.appollo_health_proposal_id = this.proposalId;
-            this.lastStepper.next();
+            // this.lastStepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);

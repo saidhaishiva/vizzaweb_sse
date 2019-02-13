@@ -120,7 +120,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     public addon : any;
     public objectKeys : any;
     public setAddonDefault : any;
-    // public sameRelation: any;
     religareListQuestions: any;
     dobError: any;
     array: any;
@@ -129,8 +128,11 @@ export class ReligareHealthProposalComponent implements OnInit {
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
-            if(params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                this.proposalId = this.summaryData.proposal_id;
+                sessionStorage.proposalID = this.proposalId;
             }
         });
         this.currentStep = stepperindex;
@@ -557,8 +559,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 //         'identity_type': 'PAN'
                 //     });
                 // }
-                // this.sameRelation = this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.value;
-                // console.log(this.sameRelation,'this.sameRelationthis.sameRelationthis.sameRelationthis.sameRelation');
+
             }
             let aterMobile = [];
         if (this.insureArray.valid) {
@@ -1805,7 +1806,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            let getdata=[];
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();

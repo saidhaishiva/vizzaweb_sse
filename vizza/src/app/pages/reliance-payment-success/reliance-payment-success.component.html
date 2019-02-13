@@ -12,8 +12,17 @@
         <img src="assets/img/error-icon.png" alt="">
         <h2 style="color:#f44336">Payment Failure</h2>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
-        <button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>
+        <p>If you want to Retry a payment.<span (click)="retry()" class="retryClass"> Please click here... </span></p>
+
+        <!--<button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>-->
       </div>
     </mat-card>
   </div>
 </div>
+<style>
+  .retryClass{
+    color: #3e65d4 !important;
+    cursor: pointer;
+  }
+
+</style>

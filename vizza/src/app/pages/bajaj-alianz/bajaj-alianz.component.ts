@@ -98,7 +98,8 @@ export class BajajAlianzComponent implements OnInit {
     public currentStep: any;
     public sameRelation: any;
     public selfRelation: any;
-
+    public setZonePincode: any;
+    public zoneList: any;
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -106,6 +107,10 @@ export class BajajAlianzComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true) {
                 stepperindex = 1;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                this.RediretUrlLink = this.summaryData.payment_url;
+                this.proposalId = this.summaryData.proposal_id;
+                sessionStorage.bajaj_health_proposalid = this.proposalId;
             }
         });
         this.currentStep = stepperindex;
@@ -113,6 +118,7 @@ export class BajajAlianzComponent implements OnInit {
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
         this.hideQuestion = false;
+        this.zoneList = false;
         this.declaration = false;
         this.copaymentShow = false;
         this.zonemessage = '';
@@ -213,6 +219,7 @@ export class BajajAlianzComponent implements OnInit {
                 insureDisease: 0,
                 type: '',
                 insurerDobError: '',
+                zoneCheck: '',
                 insurerDobValidError: '',
                 ins_age: '',
                 ins_days: '',
@@ -685,6 +692,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalDisordr.patchValue(this.getStepper1.items[i].medicalDisordr);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalHeartDisease.patchValue(this.getStepper1.items[i].medicalHeartDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalHypertension.patchValue(this.getStepper1.items[i].medicalHypertension);
+                this.insureArray['controls'].items['controls'][i]['controls'].zoneCheck.patchValue(this.getStepper1.items[i].zoneCheck);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalDiabetes.patchValue(this.getStepper1.items[i].medicalDiabetes);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalObesity.patchValue(this.getStepper1.items[i].medicalObesity);
                 this.insureArray['controls'].items['controls'][i]['controls'].medicalSmoking.patchValue(this.getStepper1.items[i].medicalSmoking);
@@ -740,6 +748,7 @@ export class BajajAlianzComponent implements OnInit {
             },
             'tycpaddrlist': [{
                 'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode.value,
+                'pan_india_cover':this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value,
                 'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress.value,
                 'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2.value,
                 'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea.value,
@@ -762,6 +771,7 @@ export class BajajAlianzComponent implements OnInit {
                 'memiptreatsi': this.buyProductdetails.suminsured_amount
             }]
         };
+        console.log(data,'jhgfdghj');
         this.proposalservice.getbajajProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData);
@@ -775,7 +785,7 @@ export class BajajAlianzComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            let getdata=[];
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
@@ -837,6 +847,45 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     commonPincodeFailure(error){
+    }
+    zoneValidate(pin, title){
+        const data = {
+            'platform': 'web',
+            'postcode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.proposalservice.getZoneCode(data).subscribe(
+                (successData) => {
+                    this.zoneCodeSuccess(successData);
+                },
+                (error) => {
+                    this.zoneCodeFailure(error);
+                }
+            );
+        }
+    }
+    zoneCodeSuccess(successData){
+        this.setZonePincode = successData.ResponseObject;
+        console.log(this.setZonePincode,' this.setZonePincode ');
+        if(this.setZonePincode.zone_value == 2){
+            this.zoneList = true;
+        } else {
+            this.zoneList = false;
+
+        }
+    }
+    zoneCodeFailure(error){
+    }
+    zonecheckingList(value){
+       let data = value;
+       console.log(data,'jhghj');
+        if(data.checked == true){
+            this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue(1);
+
+        } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue('');
+
+        }
     }
 }
 

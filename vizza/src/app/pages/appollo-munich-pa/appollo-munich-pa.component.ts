@@ -1339,7 +1339,7 @@ preInsureList() {
         this.proposerPaData = value;
         sessionStorage.appollo1Details = '';
         sessionStorage.appollo1Details = JSON.stringify(value);
-
+        console.log(this.proposerPaData,'this.proposerPaData ');
         if (this.ProposerPa.valid) {
             if (sessionStorage.proposerAgeP >= 18) {
                 stepper.next();

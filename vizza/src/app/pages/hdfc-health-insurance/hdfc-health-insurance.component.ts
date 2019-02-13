@@ -91,8 +91,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
         let stepperindex = 0;
         this.route.params.forEach((params) => {
-            if(params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                sessionStorage.hdfc_health_proposal_id = this.summaryData.ProposalId;
+                this.insurerDtails = this.summaryData.InsurePolicyholderDetails;
+                this.nomineeDtails = this.summaryData.InsurePolicyholderDetails[0];
+                this.proposalDtails = this.summaryData.ProposalDetails;
+                this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
+                this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
             }
         });
         this.currentStep = stepperindex;
@@ -883,6 +890,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
             this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];

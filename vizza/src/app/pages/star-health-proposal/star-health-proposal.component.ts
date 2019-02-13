@@ -117,8 +117,19 @@ export class StarHealthProposalComponent implements OnInit {
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
-            if(params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
+                this.summaryData = JSON.parse(sessionStorage.summaryData);
+                this.proposalId = this.summaryData.proposal_id;
+                sessionStorage.proposalID = this.proposalId;
+                if (this.summaryData.prop_res_pincode) {
+                    this.getPostalSummary(this.summaryData.prop_res_pincode, 'residence');
+                    this.getCityIdF2(this.sumTitle, this.summaryData.prop_res_city, this.sumPin);
+                }
+                if (this.summaryData.prop_comm_pincode) {
+                    this.getPostal(this.summaryData.prop_comm_pincode, 'personal');
+                    this.getCityIdSumm(this.title, this.summaryData.prop_comm_city, this.pin);
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -1289,6 +1300,7 @@ export class StarHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
             this.lastStepper.next();
