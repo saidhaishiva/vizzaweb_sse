@@ -10,7 +10,7 @@ export class TravelhdfcdeactivateGuardService implements CanDeactivate<TravelHdf
 
     const can = proposal.hdfc_Travel_proposal_id ;
     if (can == 0 || can != '') {
-      let r = confirm("You haven't closed the Appollo Munich-health-proposal form.Are you sure you want to navigate from this page?");
+      let r = confirm("You haven't closed the Hdfc-Travel-Proposal form.Are you sure you want to navigate from this page?");
       if (r == true) {
         return true;
       } else {
