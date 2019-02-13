@@ -716,7 +716,7 @@ export class TravelHomeComponent implements OnInit {
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
             console.log(days, 'days');
-            if (days < 180 ) {
+            if (days <= 180 ) {
                 const data = {
                     'platform': 'web',
                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
