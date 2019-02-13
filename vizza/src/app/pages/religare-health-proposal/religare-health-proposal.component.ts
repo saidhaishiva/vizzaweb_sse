@@ -231,7 +231,6 @@ export class ReligareHealthProposalComponent implements OnInit {
                 cityHide: '',
                 pCityHide: '',
                 sameInsureAltMobileNumber:'',
-                sameInsureMobileNumber:'',
                 ins_age: '',
                 ins_days: '',
                 insurerDobError: '',
@@ -1171,7 +1170,6 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameInsureMobileNumber.patchValue(this.getStepper2.items[i].sameInsureMobileNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.patchValue(this.getStepper2.items[i].sameInsureAltMobileNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
@@ -1750,14 +1748,13 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value.length == 10) {
             if (this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value) {
                 this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('Alternate number should be different from mobile number')
-                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureMobileNumber.patchValue('Mobile number should be different from alternate number')
+
             } else {
                 this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('');
-                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureMobileNumber.patchValue('');
+
             }
         }else{
             this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('')
-            this.insureArray['controls'].items['controls'][index]['controls'].sameInsureMobileNumber.patchValue('')
         }
         }
 
