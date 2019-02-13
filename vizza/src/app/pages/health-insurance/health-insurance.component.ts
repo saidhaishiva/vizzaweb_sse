@@ -149,6 +149,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     // this function will get the session data
     sessionData() {
+
         if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
             this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
             for (let i = 0; i < this.setArray.length; i++) {
@@ -205,8 +206,6 @@ export class HealthInsuranceComponent implements OnInit {
             for (let i = 0; i < this.setArray.length; i++) {
                 this.setArray[i].auto = false;
             }
-            console.log(sessionStorage.changedTabIndex, 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex');
-            console.log(index, 'indexindex');
             console.log(this.insuranceLists[index], 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex');
             this.getArray = this.insuranceLists[index].family_members;
             for (let i = 0; i < this.setArray.length; i++) {
@@ -482,6 +481,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.insuranceLists = successData.ResponseObject;
+            sessionStorage.allGroupDetails = JSON.stringify(this.insuranceLists);
             if(this.insuranceLists.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject}});

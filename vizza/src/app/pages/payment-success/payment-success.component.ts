@@ -76,6 +76,18 @@ export class PaymentSuccessComponent implements OnInit {
     retry() {
         this.router.navigate(['/proposal'  + '/' + true]);
     }
+    pay(){
+
+        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
+        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
+        for (let i = 0; i < allGroupDetails.length; i++) {
+            if(allGroupDetails[i].name == changedTabDetails.name) {
+                allGroupDetails.splice(i, 1);
+            }
+        }
+        sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
+        this.router.navigate(['/healthinsurance']);
+    }
 
     DownloadPdf() {
         const data = {

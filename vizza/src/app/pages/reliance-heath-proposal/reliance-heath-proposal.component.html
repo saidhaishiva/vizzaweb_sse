@@ -394,7 +394,7 @@
                                                         <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required >
                                                             <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>
                                                         </mat-select>
-                                                        <mat-error ngIf="insureArray.invalid">Relationship is required</mat-error>
+                                                        <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-3">
