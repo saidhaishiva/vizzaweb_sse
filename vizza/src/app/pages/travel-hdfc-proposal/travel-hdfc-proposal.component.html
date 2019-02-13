@@ -83,7 +83,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="STD Code"  (keypress)="numberValidate($event)"  minlength="5" maxlength="5" formControlName="stdcode" autocomplete="off" >
+                        <input matInput placeholder="STD Code"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcode" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">STD Code is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 5 Digits</mat-error>
                       </mat-form-field></div>
@@ -93,7 +93,7 @@
                         <mat-error *ngIf="hdfcTravel.controls.telephoneNo.hasError('minlength')">Telephone Number isn't long enough, minimum of 8 Digits</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                      <input matInput placeholder="STD Code(office)"  (keypress)="numberValidate($event)"  minlength="5" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" >
+                      <input matInput placeholder="STD Code(office)"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" >
                       <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.errors?.required"> STD Code(office) is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 5 Digits</mat-error>
 
@@ -141,9 +141,11 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf= declinedetails>
-                          <mat-form-field class="w-100">
+                          <mat-form-field class="w-100" required>
                         <input matInput placeholder="Decline Insurance Reason"  (keypress)="nameValidate($event)"   formControlName="declineReson" autocomplete="off" >
-                      </mat-form-field></div>
+                            <mat-error *ngIf="hdfcTravel.controls.declineReson.errors?.required">Decline Insurance Reason is required</mat-error>
+
+                          </mat-form-field></div>
                       <div class="col-md-3">
                         <b class="mt-3 mb-2">Restriction By Ins :</b>
                         <mat-radio-group   formControlName="restrictionbyinsurance" (change)="restrictionReson()">
@@ -247,7 +249,7 @@
                                         <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (change)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
                                       </div>
                                     <div class="col-md-3">
-                                    <mat-form-field class="w-100">
+                                    <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                                       <mat-select placeholder="Title" formControlName="InsTitle" required>
                                         <mat-option *ngFor="let  title of titleList" value="{{title.tittle}}">{{title.tittle}}</mat-option>
                                       </mat-select>
@@ -356,7 +358,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="NomineeRelation" required >
-                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation}}" [hidden]="sameInsurer == lists.relation">
+                            <mat-option *ngFor="let lists of nomineeRelationshipDetails" value="{{lists.relation}}">
                               {{lists.relation}}
                             </mat-option>
                           </mat-select>

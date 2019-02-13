@@ -90,7 +90,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     public questionEmpty: any;
     public proposerInsureData: any;
     public mobileNumber: any;
-    public  altmobileNumber: any;
     public insurerData: any;
     public totalReligareData: any;
     public getStepper1: any;
@@ -231,11 +230,11 @@ export class ReligareHealthProposalComponent implements OnInit {
                 type: '',
                 cityHide: '',
                 pCityHide: '',
-                altmobileNumber:'',
+                sameInsureAltMobileNumber:'',
                 ins_age: '',
                 ins_days: '',
                 insurerDobError: '',
-                insurerDobValidError: ''
+                insurerDobValidError: '',
             }
         );
     }
@@ -564,12 +563,14 @@ export class ReligareHealthProposalComponent implements OnInit {
             let aterMobile = [];
         if (this.insureArray.valid) {
             for(let i=0;i<this.insurerData.items.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value != '' ) {
-                    aterMobile.push(0);
-
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value == '' ) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value.length == 10) {
+                    if (this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value) {
+                        aterMobile.push(0);
+                    } else {
+                        aterMobile.push(1);
+                    }
+                }else {
                     aterMobile.push(1);
-
                 }
                 if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
                     aterMobile.push(2);
@@ -1169,6 +1170,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.patchValue(this.getStepper2.items[i].sameInsureAltMobileNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
@@ -1743,16 +1745,17 @@ export class ReligareHealthProposalComponent implements OnInit {
         sessionStorage.mobileNumber = this.mobileNumber;
     }
     insurerAlternateChange(event ,index) {
-        if (event.target.value.length == 10) {
-            if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value == this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value) {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('Alternate number should be different from mobile number');
+        if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value.length == 10) {
+            if (this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value) {
+                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('Alternate number should be different from mobile number')
+
             } else {
-                this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
+                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('');
+
             }
-        } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.setValue('');
+        }else{
+            this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('')
         }
-        // this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber = this.insureArray['controls'].items['controls'][index]['controls'].altmobileNumber.value;
         }
 
     //Create Proposal

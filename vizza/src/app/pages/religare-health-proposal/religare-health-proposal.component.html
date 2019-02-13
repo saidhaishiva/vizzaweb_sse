@@ -81,13 +81,13 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" minlength="10"  maxlength="10" formControlName="personalMobile"  autocomplete="off" required>
+                        <input matInput placeholder="Mobile Number" formControlName="personalMobile" minlength="10"  maxlength="10" (keypress)="numberValidate($event)" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="personalAltnumber" (keyup)="alternateChange($event)"  (keypress)="numberValidate($event)" autocomplete="off">
+                        <input matInput placeholder="Alternate Number"   maxlength="10"  formControlName="personalAltnumber" (keypress)="numberValidate($event)" (keyup)="alternateChange($event)" autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalAltnumber.errors?.required">Alternate Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalAltnumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field>
@@ -290,11 +290,12 @@
                             <div class="col-md-3"><mat-form-field class="w-100">
                               <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
-                            </mat-form-field></div>
+                            </mat-form-field>
+                            </div>
                             <div class="col-md-3"><mat-form-field class="w-100">
                               <input matInput placeholder="Alternate Number" maxlength="10" (keypress)="numberValidate($event)" formControlName="personalAltnumber" autocomplete="off" (keyup)="insurerAlternateChange($event, i)" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                             </mat-form-field>
-                            <div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value !='' ">{{insureArray['controls'].items['controls'][i]['controls'].altmobileNumber.value}}</div>
+                            <div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.value !='' ">{{insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.value}}</div>
                           </div>
                             <div class="col-md-3">
                               <mat-form-field class="w-100">

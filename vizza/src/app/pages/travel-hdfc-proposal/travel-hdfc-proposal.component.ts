@@ -71,7 +71,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     public declaration: any;
     public fullName: any;
     public totalAmount: any;
-    public sameInsurer: any;
+    // public sameInsurer: any;
+    public decline: any;
 
 
     constructor(public travelservice: TravelService, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -80,7 +81,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.totalInsureDetails = [];
-
+        this.decline = false;
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.hdfcTravel = this.fb.group({
@@ -222,8 +223,11 @@ export class TravelHdfcProposalComponent implements OnInit {
             }
 
         }
+        let insuretravelDetails = this.totalInsureDetails;
+
         if (sessionStorage.hdfcTravelDetails3 != '' && sessionStorage.hdfcTravelDetails3 != undefined) {
             this.hdfcTravel3 = JSON.parse(sessionStorage.hdfcTravelDetails3);
+            console.log(this.hdfcTravel3,'this.hdfcTravel3');
             this.nomineeTravelDetails = this.fb.group({
                 NomineeName: this.hdfcTravel3.NomineeName,
                 NomineeRelation: this.hdfcTravel3.NomineeRelation
@@ -650,8 +654,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     InsureDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcTravelDetails2 = '';
         sessionStorage.hdfcTravelDetails2 = JSON.stringify(value);
-        this.sameInsurer = this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.value;
-        this.nomineeTravelDetails.controls['NomineeRelation'].patchValue('');
+        // this.sameInsurer = this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.value;
+        // this.nomineeTravelDetails.controls['NomineeRelation'].patchValue('');
         this.insuredTravelData = value;
         if (this.hdfcInsuredTravel.valid) {
             stepper.next();
