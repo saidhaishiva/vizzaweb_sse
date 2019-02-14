@@ -20,6 +20,7 @@ export class ApollomunichPaymentSuccessComponent implements OnInit {
     public path: any
     public proposalId: any
     public remainingStatus: any
+    public applicationNo: any
     public settings: Settings;
 
     constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -32,6 +33,7 @@ export class ApollomunichPaymentSuccessComponent implements OnInit {
         this.route.params.forEach((params) => {
             this.paymentStatus = params.status;
             this.proposalId = params.proId;
+            this.applicationNo = params.applicationNo;
         });
     }
 
