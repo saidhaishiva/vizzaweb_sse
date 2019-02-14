@@ -151,9 +151,9 @@ export class TravelHomeComponent implements OnInit {
     studentDetails() {
         this.studentArray = [
             {name: 'Student1', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student2', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student3', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student4', age: '', disabled: false, checked: false, required: true, error: ''}
+            {name: 'Student2', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Student3', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Student4', age: '', disabled: false, checked: false, required: false, error: ''}
         ];
     }
     public keyPress(event: any) {
@@ -318,15 +318,15 @@ export class TravelHomeComponent implements OnInit {
             this.showGroup = true;
             this.showstudent = false;
         } else if (event == 3) {
-            this.currentTab = 'students';
+            this.currentTab = 'student';
             this.studentDetails();
             this.showSelf = false;
             this.showFamily = false;
             this.showGroup = false;
             this.showstudent = true;
-            // this.travelType = '';
-            // this.travelPlan = '';
-            // this.medicalCondition = '';
+            this.travelType = 'Single';
+            this.travelPlan = '';
+            this.medicalCondition = '';
         }
     }
     ckeckedUser(index, checked, name) {
@@ -339,7 +339,7 @@ export class TravelHomeComponent implements OnInit {
                 this.familyArray[index].checked = true;
             } else if (this.currentTab == 'group') {
                 this.groupArray[index].checked = true;
-            } else if (this.currentTab == 'students') {
+            } else if (this.currentTab == 'student') {
                 this.studentArray[index].checked = true;
             }
         } else {
@@ -355,10 +355,10 @@ export class TravelHomeComponent implements OnInit {
                 this.groupArray[index].checked = false;
                 this.groupArray[index].age = '';
                 if (this.groupArray.length > 4) this.groupArray.splice(index, 1);
-            } else if (this.currentTab == 'students') {
+            } else if (this.currentTab == 'student') {
                 this.studentArray[index].checked = false;
                 this.studentArray[index].age = '';
-                if (this.studentArray.length > 4) this.studentArray.splice(index, 1);
+                if (this.studentArray.length > 1) this.studentArray.splice(index, 1);
             }
             this.contrlButtons(name, checked);
         }
@@ -482,7 +482,7 @@ export class TravelHomeComponent implements OnInit {
                 this.familyArray[index].checked = true;
             } else if (this.currentTab == 'group') {
                 this.groupArray[index].checked = true;
-            } else if (this.currentTab == 'students') {
+            } else if (this.currentTab == 'student') {
                 this.studentArray[index].checked = true;
             }
         } else {
@@ -492,7 +492,7 @@ export class TravelHomeComponent implements OnInit {
                 this.familyArray[index].checked = false;
             } else if (this.currentTab == 'group') {
                 this.groupArray[index].checked = false;
-            } else if (this.currentTab == 'students') {
+            } else if (this.currentTab == 'student') {
                 this.studentArray[index].checked = false;
             }
         }
@@ -677,17 +677,24 @@ export class TravelHomeComponent implements OnInit {
                     }
                 }
             }
-        } else if (groupname == 'students') {
-            for (let i = 0; i < 4; i++) {
-                if (!this.studentArray[i].checked) {
-                    this.studentArray[i].error = 'Required';
-                }
+        } else if (groupname == 'student') {
+            // for (let i = 0; i < 1; i++) {
+            //     if (!this.studentArray[i].checked) {
+            //         this.studentArray[i].error = 'Required';
+            //     }
+            // }
+            getFiledData = this.studentArray.filter(data => data.checked == true);
+            if (getFiledData != '') {
+                this.studentArray[0].error = '';
+            } else {
+                this.studentArray[0].error = 'Required';
             }
             for (let i = 0; i < this.studentArray.length; i++) {
                 if (this.studentArray[i].checked) {
                     if (this.studentArray[i].age == '') {
                         this.studentArray[i].error = 'Required';
                     } else {
+                        alert('1');
                         this.studentArray[i].error = '';
                         this.finalData.push({type: this.studentArray[i].name, age: this.studentArray[i].age});
                     }
@@ -709,7 +716,9 @@ export class TravelHomeComponent implements OnInit {
        //      alert('out');
        //
        //  }
+
         if (!memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+            alert('2');
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
 
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
@@ -717,6 +726,7 @@ export class TravelHomeComponent implements OnInit {
             let days = this.dyasCalculation();
             console.log(days, 'days');
             if (days <= 180 ) {
+                console.log('as');
                 const data = {
                     'platform': 'web',
                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -757,6 +767,7 @@ export class TravelHomeComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.insuranceLists = successData.ResponseObject;
+            console.log(this.insuranceLists,'this.insuranceLists');
             for (let i = 0; i < this.insuranceLists.length; i++) {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
                     this.insuranceLists[i].product_lists[j].compare = false;

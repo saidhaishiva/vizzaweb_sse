@@ -318,8 +318,8 @@
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Gender :</strong> Male</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Gender :</strong> Female</li>
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd-MMM-yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob| date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                         </ul>

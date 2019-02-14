@@ -1912,7 +1912,7 @@ export class AppolloMunichComponent implements OnInit {
                         },
                         'Age': this.totalInsureDetails[0].Age,
                         'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome == undefined?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
-                        'BirthDate': this.totalInsureDetails[0].BirthDate,
+                        'BirthDate': this.datepipe.transform(this.totalInsureDetails[0].BirthDate, 'y-MM-dd'),
                         'ClientCode': 'PolicyHolder',
                         'ContactInformation': {
                             'ContactNumber': {

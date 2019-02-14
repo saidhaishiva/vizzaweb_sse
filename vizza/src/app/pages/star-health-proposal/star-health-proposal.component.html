@@ -139,7 +139,7 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-6"><mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" (keyup)="typeAddressDeatils()" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
+                            <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" (keyup)="typeAddressDeatils()" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" >
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -482,7 +482,7 @@
                 <div class="p-3">
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_title}}.{{summaryData.proposer_name}} {{summaryData.proposer_lastname}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob | date: 'dd-MMM-yyyy'}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
                     <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && summaryData.prop_alternate_mobile !=null"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
@@ -494,8 +494,8 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="summaryData.prop_annual_income !='' && summaryData.prop_annual_income !=null"><strong>Annual Income:</strong> {{summaryData.prop_annual_income | currency: 'INR'}}</li>
                     <li class="list-group-item" *ngIf="summaryData.prop_aadhar_no !='' && summaryData.prop_aadhar_no !=null"><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.prop_pan_no !='' && summaryData.prop_pan_no !=null"><strong>PAN Number:</strong> {{summaryData.prop_pan_no}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.gst_id_no !='' && summaryData.gst_id_no !=null"><strong>GST Number:</strong> {{summaryData.gst_id_no}}</li>
+                    <li class="list-group-item" *ngIf="summaryData.prop_pan_no !='' && summaryData.prop_pan_no !=null"><strong>PAN Number:</strong> {{summaryData.prop_pan_no | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="summaryData.gst_id_no !='' && summaryData.gst_id_no !=null"><strong>GST Number:</strong> {{summaryData.gst_id_no | uppercase}}</li>
                     <li class="list-group-item" *ngIf="summaryData.previous_medical_insurance !='' && summaryData.previous_medical_insurance !=null"><strong>Previous Medical Insurence:</strong> {{summaryData.previous_medical_insurance}}</li>
                   </ul>
                 </div>
@@ -571,7 +571,7 @@
                   <h6 class="color-blue">{{family.ins_member_typename | uppercase}}</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{family.ins_name}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob }}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{family.ins_gender}}</li>
                     <li class="list-group-item"><strong>Illness:</strong> {{family.ins_illness}}</li>
                     <li class="list-group-item"><strong>Height:</strong> {{family.ins_height}}</li>
