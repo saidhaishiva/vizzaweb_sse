@@ -879,7 +879,7 @@ public allLists: any;
             let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {
                 'platform': 'web',
-                'travel_type':this.allLists[0].travel_type,
+                'travel_type':this.allLists[0].insurance_type,
                 'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
                 'product_id': this.getTravelPremiumList.product_id,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
