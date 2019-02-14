@@ -145,9 +145,6 @@
                                                                     <mat-error *ngIf="insureArray.invalid">Pincode is required</mat-error>
                                                                 </mat-form-field>
                                                             </div>
-                                                            <div class="col-sm-2" *ngIf = "zoneList">
-                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Pan India cover</mat-checkbox>
-                                                            </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
                                                                     <input matInput placeholder="State" formControlName="insureState" autocomplete="off" [required]="i == 0" readonly>
@@ -167,11 +164,22 @@
                                                                     <mat-error *ngIf="insureArray.invalid">Area is required</mat-error>
                                                                 </mat-form-field>
                                                             </div>
+                                                            <div class="col-sm-2" *ngIf = "zoneList">
+                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Pan India cover</mat-checkbox>
+                                                            </div>
                                                             <div class="col-md-12" *ngIf="zonemessage !=''">
                                                                 <div class="card notes">
                                                                     <div class="card-body">
                                                                         <p style="margin-bottom: 0rem;"> <strong>Note : </strong></p>
-                                                                        {{zonemessage}}
+                                                                        <p class="ml-4"><strong>Zone A:</strong>
+                                                                        Following cities has been clubbed in Zone A :- Delhi/NCR, Mumbai(including Navi mumbai, Thane and Kalyan), Hyderabad and secunderabad, Bangalore, Kolkata, Ahmedabad, Vadodara and surat.
+                                                                        </p>
+                                                                        <p class="ml-4"><strong>Zone B:</strong>
+                                                                        Rest of India appart from Zone A cities.
+                                                                        </p>
+                                                                        <p class="ml-4">
+                                                                          1.Policyholders Paying Zone A Premium Rates Can Avail Treatment Allover India Without Any Co-Payment. But, Those, Who Pay Zone B Premium Rates And Avail Treatment In Zone A City Will Have To Pay 20% Co-Payment On Admissible Claim Amount. This Co-Payment Will Not Be Applicable For Accidental Hospitalization Cases Policyholder Residing In Zone B Can Choose To Pay Premium For Zone A And Avail Treatment All Over India Without Any Co-Payment.
+                                                                        </p>
                                                                     </div>
                                                                 </div>
 
@@ -310,8 +318,8 @@
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Gender :</strong> Male</li>
                                             <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Gender :</strong> Female</li>
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd-MMM-yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob| date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                         </ul>

@@ -269,9 +269,9 @@ export class TravelPremiumListComponent implements OnInit {
     studentDetails() {
         this.studentArray = [
             {name: 'Student1', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student2', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student3', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student4', age: '', disabled: false, checked: false, required: true, error: ''}
+            {name: 'Student2', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Student3', age: '', disabled: false, checked: false, required: false, error: ''},
+            {name: 'Student4', age: '', disabled: false, checked: false, required: false, error: ''}
         ];
         this.getArray = this.premiumLists.family_details;
         for (let i =0; i < this.getArray.length; i++) {
@@ -412,7 +412,7 @@ export class TravelPremiumListComponent implements OnInit {
             } else if (this.currentTab == 'students') {
                 this.studentArray[index].checked = false;
                 this.studentArray[index].age = '';
-                if (this.studentArray.length > 4) this.studentArray.splice(index, 1);
+                if (this.studentArray.length > 1) this.studentArray.splice(index, 1);
             }
             this.contrlButtons(name, checked);
         }
@@ -843,7 +843,7 @@ export class TravelPremiumListComponent implements OnInit {
                 if (result) {
                     if (value.product_id <= 37 && value.product_id >=32) {
                         this.router.navigate(['/travelproposal']);
-                    } else if (value.product_id <= 50 && value.product_id >=38) {
+                    } else if (value.product_id <= 59 && value.product_id >=38) {
                         this.router.navigate(['/religaretravel']);
                     } else if (value.product_id <= 31 && value.product_id >=27) {
                         this.router.navigate(['/hdfc-travel']);

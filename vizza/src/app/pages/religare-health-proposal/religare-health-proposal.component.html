@@ -543,7 +543,7 @@
                 <div class="p-3">
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{item.name_title}}.{{item.first_name}} {{item.last_name}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
                     <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_code}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{item.personal_email}}</li>

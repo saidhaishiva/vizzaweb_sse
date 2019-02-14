@@ -741,7 +741,7 @@
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{summaryData.ClientDetails.Salutation}} {{summaryData.ClientDetails.ForeName}} {{summaryData.ClientDetails.MidName}} {{summaryData.ClientDetails.LastName}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ClientDetails.Email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ClientDetails.MobileNo}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.PhoneNo !=''"><strong>Phone Number:</strong> {{summaryData.ClientDetails.PhoneNo}}</li>
@@ -814,7 +814,7 @@
                                             <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}.{{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
                                             <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>
                                             <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>

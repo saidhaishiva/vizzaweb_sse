@@ -779,8 +779,8 @@
                               <div class="p-3">
                                 <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.n_tittlecode}}. {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
-                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob | date: 'dd-MMM-yyyy'}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.p_tittlecode}}. {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
+                                      <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
                                       <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
@@ -818,7 +818,7 @@
                                   <h6>INSURED DETAILS</h6>
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}}. {{item.i_fname}} {{item.i_mname}} {{item.i_lname}}</li>
-                                  <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob | date: 'dd-MMM-yyyy'}}</li>
+                                  <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob | date: 'dd/MM/yyyy'}}</li>
                                   <li class="list-group-item"><strong>Email Id:</strong> {{item.i_email}}</li>
                                   <li class="list-group-item"><strong>Mobile Number:</strong> {{item.i_mobilenumber}}</li>
                                   <li class="list-group-item" *ngIf="item.i_gender == 1"><strong>Gender:</strong> MALE </li>
