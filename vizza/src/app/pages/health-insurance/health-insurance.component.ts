@@ -206,6 +206,7 @@ export class HealthInsuranceComponent implements OnInit {
              let pcompleted = this.insuranceLists.filter((data) => data.purchase_status == '1');
                 console.log(pcompleted,  'pcompletedpcompleted');
              if(pcompleted.length < 1) {
+                 console.log('innn');
 
                 let index = sessionStorage.changedTabIndex;
                 for (let i = 0; i < this.setArray.length; i++) {
@@ -225,6 +226,7 @@ export class HealthInsuranceComponent implements OnInit {
                 }
                 this.tabIndex = index;
             } else {
+                 console.log('out');
 
                  let unpurchaseGroup = this.insuranceLists.filter((data) => data.purchase_status == '0');
                  console.log(unpurchaseGroup,  'unpurchaseGroup');
