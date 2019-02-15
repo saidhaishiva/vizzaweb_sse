@@ -162,6 +162,7 @@ export class AppolloMunichComponent implements OnInit {
     public readonlyproposer: any;
     public appolloQuestionsList: any;
     public medicalquestion: any;
+    public sameRelationship : any;
     currentStep: any;
     public idlistValid: boolean;
     public nomineesame: boolean;
@@ -1944,6 +1945,11 @@ export class AppolloMunichComponent implements OnInit {
             }
 
         }
+        if(this.insurePersons.length == 1) {
+            this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.value;
+        }
+        console.log(this.insurePersons.length,'this.insurePersons.lengththis.insurePersons.lengththis.insurePersons.length');
+        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationshipthis.sameRelationship');
     }
 
 
