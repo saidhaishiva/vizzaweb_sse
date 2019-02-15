@@ -96,11 +96,10 @@ export class BajajAlianzComponent implements OnInit {
     public insuremobileNumber: any;
     public copaymentShow: any;
     public currentStep: any;
-    public sameRelation: any;
-    public selfRelation: any;
     public setZonePincode: any;
     public zoneList: any;
     public zonepanvalue: any;
+    public sameRelationship: any;
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -175,7 +174,10 @@ export class BajajAlianzComponent implements OnInit {
             this.sessionData();
             this.setDate = Date.now();
             this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-            this.selfRelation = this.insureArray['controls'].items['controls'][0]['controls'].insurerelationship.value;
+            if(this.insurePersons.length == 1){
+                this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].insurerelationship.value;
+                console.log(this.sameRelationship,'resultttttrelationship');
+            }
     }
     initItemRows() {
         return this.fb.group(
@@ -251,10 +253,6 @@ export class BajajAlianzComponent implements OnInit {
         return this.proposalId;
     }
 
-    insureRelationChange(event,i){
-        this.sameRelation = this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.value;
-        this.insureArray['controls'].items['controls'][i]['controls'].bajajRelationship.patchValue('');
-    }
 
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {

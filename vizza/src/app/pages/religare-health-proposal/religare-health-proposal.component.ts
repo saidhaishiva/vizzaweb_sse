@@ -120,6 +120,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public addon : any;
     public objectKeys : any;
     public setAddonDefault : any;
+    public sameRelationship : any;
     religareListQuestions: any;
     dobError: any;
     array: any;
@@ -587,6 +588,10 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.topScroll();
             }
         }
+        if(this.insurePersons.length == 1) {
+            this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.value;
+        }
+        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationshipthis.sameRelationship');
     }
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
@@ -1063,7 +1068,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public AddonFailure(error) {
-        console.log(error);
     }
 
     sessionData() {
@@ -1146,7 +1150,6 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
 
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            console.log(JSON.parse(sessionStorage.stepper2Details), 'sessionStorage.stepper1Details');
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
@@ -1346,7 +1349,6 @@ export class ReligareHealthProposalComponent implements OnInit {
 //Summary residence detail
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
-        console.log(error);
     }
 
     getCityIdF2(title, cid, pincode) {
@@ -1381,7 +1383,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public getCityResistFailure(error) {
-        console.log(error);
     }
 
 
@@ -1453,7 +1454,6 @@ export class ReligareHealthProposalComponent implements OnInit {
 
 
     public getpostalFailure(error) {
-        console.log(error);
     }
 
 
@@ -1526,7 +1526,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public getpostalInsurerFailure(error) {
-        console.log(error);
     }
 
 
@@ -1569,7 +1568,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public PostalSummaryFailure(error) {
-        console.log(error);
     }
 
 
@@ -1610,7 +1608,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public religareQuestionsFailure(error) {
-        console.log(error);
     }
 
 
@@ -1654,12 +1651,10 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public occupationListSuccess(successData) {
-        console.log(successData.ResponseObject);
         this.occupationList = successData.ResponseObject;
     }
 
     public occupationListFailure(error) {
-        console.log(error);
     }
 
 
@@ -1684,7 +1679,6 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.occupationCode = successData.ResponseObject;
     }
     public occupationCodeFailure(error) {
-        console.log(error);
     }
     setRelationship() {
         const data = {
@@ -1729,7 +1723,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     public setRelationshipFailure(error) {
-        console.log(error);
     }
 
     alternateChange(event) {
