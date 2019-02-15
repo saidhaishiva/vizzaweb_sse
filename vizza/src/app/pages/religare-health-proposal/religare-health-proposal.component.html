@@ -499,7 +499,7 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Proposer"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
-                          <mat-option *ngFor="let relationship of insureRelationList" value="{{relationship.relationship_code}}" >
+                          <mat-option *ngFor="let relationship of insureRelationList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" >
                             {{relationship.relationship_name}}
                           </mat-option>
                         </mat-select>

@@ -187,7 +187,7 @@
                                                         </mat-form-field>
                                                     </div>
 
-                                                    <div class="col-md-6 m-1">
+                                                    <div class="col-md-6">
                                                         <mat-form-field  class="w-100">
                                                             <input matInput placeholder="District" formControlName="personalDistrict" autocomplete="off" required readonly>
                                                             <mat-error *ngIf="personal.controls.personalDistrict.errors?.required">District is required</mat-error>
@@ -262,7 +262,7 @@
                                                         </mat-form-field>
                                                     </div>
 
-                                                    <div class="col-md-6 m-1">
+                                                    <div class="col-md-6">
                                                         <mat-form-field  class="w-100">
                                                             <input matInput placeholder="District" formControlName="residenceDistrict" autocomplete="off" required [readonly]="inputReadonly">
                                                             <mat-error *ngIf="personal.controls.residenceDistrict.errors?.required">District is required</mat-error>
@@ -591,9 +591,9 @@
                     <mat-accordion class="w-100 float-left">
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
-                                <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
+                                <mat-panel-title> INSURED DETAILS </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+                            <ng-template matStepLabel>INSURED DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
@@ -640,7 +640,7 @@
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
-                                                        <mat-option *ngFor="let relationship of nomineeRelationshipList" value="{{relationship.nominee_relation_id}}" > {{relationship.nominee_relation_name}} </mat-option>
+                                                        <mat-option *ngFor="let relationship of nomineeRelationshipList" [hidden]="sameRelationship == relationship.nominee_relation_id" value="{{relationship.nominee_relation_id}}" > {{relationship.nominee_relation_name}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                                                 </mat-form-field>
@@ -741,11 +741,11 @@
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{summaryData.ClientDetails.Salutation}} {{summaryData.ClientDetails.ForeName}} {{summaryData.ClientDetails.MidName}} {{summaryData.ClientDetails.LastName}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd-MMM-yyyy'}}</li>
                                             <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ClientDetails.Email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ClientDetails.MobileNo}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.PhoneNo !=''"><strong>Phone Number:</strong> {{summaryData.ClientDetails.PhoneNo}}</li>
-                                            <!--<li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo !=''"><strong>Alternate Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo}}</li>-->
+                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo !=''"><strong>Alternate Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -814,7 +814,7 @@
                                             <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}.{{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
                                             <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd-MMM-yyyy'}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>
                                             <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>

@@ -109,7 +109,7 @@
                                                             </div>
                                                             <div class="col-md-3" *ngIf="i != 0">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="insurerelationship" (change)="insureRelationChange($event,i)" required >
+                                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="insurerelationship" required >
                                                                         <mat-option *ngFor="let relation of insureRelation" value="{{relation.relationship_name}}" >{{relation.relationship_name}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -258,7 +258,7 @@
                                                             <div class="col-md-6">
                                                                 <mat-form-field class="w-100">
                                                                     <mat-select placeholder="Relationship with Proposer" formControlName="bajajRelationship" required>
-                                                                        <mat-option  *ngFor="let relation of nomeeRelation" [hidden]="selfRelation == relation.relationship_name || sameRelation == relation.relationship_name" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
+                                                                        <mat-option  *ngFor="let relation of nomeeRelation" [hidden]="sameRelationship == relation.relationship_name" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Nominee Relationship is required</mat-error>
                                                                 </mat-form-field>

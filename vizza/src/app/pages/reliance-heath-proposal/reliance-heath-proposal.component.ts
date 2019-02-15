@@ -132,6 +132,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public getComAddressList: any;
     public currentStep: any;
     public taxRequired: any;
+    public sameRelationship : any;
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -471,7 +472,6 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.dobError = '';
                     }
                 } else {
-                    console.log(type, 'kkk');
                     if(type == 'nominee') {
                         this.nomineeDateError = 'Enter Valid Date';
                     } else if(type == 'previousStartDate'){
@@ -1196,6 +1196,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                 }
             }
 
+        }
+        if(this.insurePersons.length == 1){
+            this.sameRelationship =  this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.value
         }
     }
 
