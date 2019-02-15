@@ -401,8 +401,8 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.patchValue(this.getStepper2.items[i].BeerBottle);
                 this.insureArray['controls'].items['controls'][i]['controls'].Pouches.patchValue(this.getStepper2.items[i].Pouches);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.datepipe.transform(this.getStepper2.items[i].PolicyStartDate, 'y-MM-dd'));
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.datepipe.transform(this.getStepper2.items[i].PolicyEndDate, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].PreviousInsurer.patchValue(this.getStepper2.items[i].PreviousInsurer);
                 this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolicyNumber.patchValue(this.getStepper2.items[i].PreviousPolicyNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
@@ -893,6 +893,7 @@ export class AppolloMunichComponent implements OnInit {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
@@ -911,12 +912,12 @@ export class AppolloMunichComponent implements OnInit {
             }else if (typeof event.value._i == 'object') {
 
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
                 if (dob.length == 10) {
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else if(type == 'insurer') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);

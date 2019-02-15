@@ -203,7 +203,11 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
 
-            if( this.insuranceLists[0].product_lists.length > 0) {
+             let pcompleted = this.insuranceLists.filter((data) => data.purchase_status == '1');
+                console.log(pcompleted,  'pcompletedpcompleted');
+             if(pcompleted.length < 1) {
+                 console.log('innn');
+
                 let index = sessionStorage.changedTabIndex;
                 for (let i = 0; i < this.setArray.length; i++) {
                     this.setArray[i].auto = false;
@@ -222,7 +226,11 @@ export class HealthInsuranceComponent implements OnInit {
                 }
                 this.tabIndex = index;
             } else {
-                console.log('outtt');
+                 console.log('out');
+
+                 let unpurchaseGroup = this.insuranceLists.filter((data) => data.purchase_status == '0');
+                 console.log(unpurchaseGroup,  'unpurchaseGroup');
+                 this.insuranceLists = unpurchaseGroup;
                 console.log(this.insuranceLists, 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex1');
 
                 this.onSelectedIndexChange(0);
@@ -238,6 +246,9 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.shortListCount != undefined && sessionStorage.shortListCount != '') {
             this.shortListCount = sessionStorage.shortListCount;
+        }
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
         }
 
     }
@@ -547,6 +558,7 @@ export class HealthInsuranceComponent implements OnInit {
                     }
                 }
             }
+            this.filterCompany = this.allCompanyList;
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
             sessionStorage.allCompanyList = JSON.stringify(this.allCompanyList);
         } else {
@@ -774,6 +786,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         // this.insuranceLists[0].product_lists = [];
+        sessionStorage.filterCompany = JSON.parse(this.filterCompany);
 
         console.log(this.insuranceLists, ' this.insuranceLists this.insuranceListspppp');
     }
@@ -820,17 +833,17 @@ export class HealthInsuranceComponent implements OnInit {
         if (successData.IsSuccess) {
             // if (successData.ResponseObject) {
             this.insuranceLists = successData.ResponseObject;
-            let remainingGroups = JSON.parse(sessionStorage.policyLists).value;
-            console.log(remainingGroups, 'remainingGroups');
-
-            if(remainingGroups[0].product_lists.length == 0) {
-                for (let i = 0; i < this.insuranceLists.length; i++) {
-                    if(this.insuranceLists[i].name != remainingGroups[0].name) {
-                     console.log('iny');
-                        this.insuranceLists.splice(i, 1);
-                    }
-                }
-            }
+            // let remainingGroups = JSON.parse(sessionStorage.policyLists).value;
+            // console.log(remainingGroups, 'remainingGroups');
+            //
+            // if(remainingGroups[0].product_lists.length == 0) {
+            //     for (let i = 0; i < this.insuranceLists.length; i++) {
+            //         if(this.insuranceLists[i].name != remainingGroups[0].name) {
+            //          console.log('iny');
+            //             this.insuranceLists.splice(i, 1);
+            //         }
+            //     }
+            // }
             console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists909909099909');
             // this.getShortListDetails(enqId, index, name);
             this.allCompanyList = [];
@@ -863,6 +876,7 @@ export class HealthInsuranceComponent implements OnInit {
             }
             // }
            sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
+            this.filterCompany = this.allCompanyList;
         } else {
             this.toast.error(successData.ErrorObject, 'Failed');
         }
