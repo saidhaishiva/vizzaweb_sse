@@ -22,7 +22,7 @@
                           <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
-                            <mat-option value="MRS">Mrs</mat-option>
+                            <!--<mat-option value="MRS">Mrs</mat-option>-->
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
 
@@ -62,7 +62,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" required>
-                        <mat-error *ngIf="personal.controls.personalPan.errors?.required">Pan is required</mat-error>
+                        <mat-error *ngIf="personal.controls.personalPan.errors?.required">PAN is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
@@ -231,7 +231,7 @@
                                 <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                                   <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter' && insureSingle">Mr</mat-option>
                                   <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
-                                  <mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>
+                                  <!--<mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>-->
                                 </mat-select>
                                 <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                               </mat-form-field>
@@ -543,7 +543,7 @@
                 <div class="p-3">
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{item.name_title}}.{{item.first_name}} {{item.last_name}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
                     <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_code}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{item.personal_email}}</li>

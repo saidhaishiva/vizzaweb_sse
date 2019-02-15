@@ -401,8 +401,8 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].WineGlass.patchValue(this.getStepper2.items[i].WineGlass);
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottle.patchValue(this.getStepper2.items[i].BeerBottle);
                 this.insureArray['controls'].items['controls'][i]['controls'].Pouches.patchValue(this.getStepper2.items[i].Pouches);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.getStepper2.items[i].PolicyStartDate);
-                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.getStepper2.items[i].PolicyEndDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(this.datepipe.transform(this.getStepper2.items[i].PolicyStartDate, 'y-MM-dd'));
+                this.insureArray['controls'].items['controls'][i]['controls'].PolicyEndDate.patchValue(this.datepipe.transform(this.getStepper2.items[i].PolicyEndDate, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].PreviousInsurer.patchValue(this.getStepper2.items[i].PreviousInsurer);
                 this.insureArray['controls'].items['controls'][i]['controls'].PreviousPolicyNumber.patchValue(this.getStepper2.items[i].PreviousPolicyNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].SumInsured.patchValue(this.getStepper2.items[i].SumInsured);
@@ -893,6 +893,7 @@ export class AppolloMunichComponent implements OnInit {
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
@@ -911,12 +912,12 @@ export class AppolloMunichComponent implements OnInit {
             }else if (typeof event.value._i == 'object') {
 
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
                 if (dob.length == 10) {
                     if (type == 'startDate') {
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else if(type == 'insurer') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
@@ -942,16 +943,24 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     ageCalculateInsurer(dob) {
-
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring( 8,10), 10);
-        let monthThen = parseInt(mdate.substring(5,7), 10);
-        let dayThen = parseInt(mdate.substring(0,4), 10);
-        let todays = new Date();
-        let birthday = new Date( dayThen, monthThen-1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+        // let mdate = dob.toString();
+        // let yearThen = parseInt(mdate.substring( 8,10), 10);
+        // let monthThen = parseInt(mdate.substring(5,7), 10);
+        // let dayThen = parseInt(mdate.substring(0,4), 10);
+        // let todays = new Date();
+        // let birthday = new Date( dayThen, monthThen-1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        // return Bob_days;
     }
     ageValidation(i, type) {
 
@@ -1116,16 +1125,26 @@ export class AppolloMunichComponent implements OnInit {
         return Bob_days;
     }
     ageCalculate(dob) {
-        const mdate = dob.toString();
-        const yearThen = parseInt(mdate.substring(8, 10), 10);
-        const monthThen = parseInt(mdate.substring(5, 7), 10);
-        const dayThen = parseInt(mdate.substring(0, 4), 10);
-        const todays = new Date();
-        const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        this.agecal = yearAge;
-        return yearAge;
+        // const mdate = dob.toString();
+        // const yearThen = parseInt(mdate.substring(8, 10), 10);
+        // const monthThen = parseInt(mdate.substring(5, 7), 10);
+        // const dayThen = parseInt(mdate.substring(0, 4), 10);
+        // const todays = new Date();
+        // const birthday = new Date(dayThen, monthThen - 1, yearThen);
+        // const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        // this.agecal = yearAge;
+        // return yearAge;
+            let today = new Date();
+            let birthDate = new Date(dob);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            let dd = today.getDate()- birthDate.getDate();
+            if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+                age = age-1;
+            }
+            this.agecal = age;
+            return age;
     }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
@@ -1912,7 +1931,7 @@ export class AppolloMunichComponent implements OnInit {
                         },
                         'Age': this.totalInsureDetails[0].Age,
                         'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome == undefined?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
-                        'BirthDate': this.totalInsureDetails[0].BirthDate,
+                        'BirthDate': this.datepipe.transform(this.totalInsureDetails[0].BirthDate, 'y-MM-dd'),
                         'ClientCode': 'PolicyHolder',
                         'ContactInformation': {
                             'ContactNumber': {

@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {HealthService} from '../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
+import {CommonService} from '../../shared/services/common.service';
 
 
 @Component({
@@ -20,11 +21,24 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public type: any
     public path: any
     public proposalId: any
+    public remainingStatus: any
+    public setArray: any
+    public insuranceLists: any
+    public getArray: any
+    public finalData: any
+    public selectedAmount: any
+    public pincoce: any
+    public allCompanyList: any
+    public filterCompany: any
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService, public router: Router,public common: CommonService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-
+        let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+        this.remainingStatus = false;
+        if(allDetails.length > 1) {
+            this.remainingStatus = true;
+        }
         this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.status;
@@ -32,6 +46,31 @@ export class ReligarePaymentSuccessComponent implements OnInit {
       });
   }
   ngOnInit() {
+      if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
+          this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
+              let index = sessionStorage.changedTabIndex;
+              for (let i = 0; i < this.setArray.length; i++) {
+                  this.setArray[i].auto = false;
+              }
+              this.getArray = this.insuranceLists[index].family_members;
+              for (let i = 0; i < this.setArray.length; i++) {
+                  for (let j = 0; j < this.getArray.length; j++) {
+                      if (this.setArray[i].name == this.getArray[j].type) {
+                          this.setArray[i].auto = true;
+                      }
+                      if (this.setArray[i].checked && this.setArray[i].age != '') {
+                          this.setArray[i].error = '';
+                      }
+
+                  }
+              }
+      }
+      if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
+          this.selectedAmount = sessionStorage.setInsuredAmount;
+      }
+      if (sessionStorage.setPincode != undefined && sessionStorage.setPincode != '') {
+          this.pincoce = sessionStorage.setPincode;
+      }
   }
 
     DownloadPdf() {
@@ -83,9 +122,114 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     retry() {
         this.router.navigate(['/religare-health-proposal'  + '/' + true]);
     }
+    pay(){
+        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
+        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
+
+        for (let i = 0; i < allGroupDetails.length; i++) {
+            if(allGroupDetails[i].name == changedTabDetails.name) {
+                allGroupDetails.splice(i, 1);
+            }
+        }
+        console.log(allGroupDetails, 'allGroupDetailswww');
+
+        this.updateTabPolicy(allGroupDetails[0], 0);
+        // sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
+        // this.router.navigate(['/healthinsurance']);
+    }
 
 
-downloadMessage() {
+    updateTabPolicy(value, index) {
+        this.finalData = [];
+        for (let i = 0; i < this.setArray.length; i++) {
+            if (this.setArray[i].checked) {
+                if (this.setArray[i].age == '') {
+                    this.setArray[i].error = 'Required';
+                } else {
+                    this.setArray[i].error = '';
+                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+                }
+            }
+        }
+        for (let i = 0; i < this.setArray.length; i++) {
+            this.setArray[i].auto = false;
+        }
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pincoce,
+            'sum_insured': this.selectedAmount,
+            'family_details': this.finalData,
+            'family_group_name': value.name,
+            'enquiry_id': value.enquiry_id,
+            'created_by': '0',
+            'insurance_type' : '1',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.settings.loadingSpinner = true;
+        this.common.updateTabPolicyQuotation(data).subscribe(
+            (successData) => {
+                this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
+            },
+            (error) => {
+                this.updateTabPolicyQuotationFailure(error);
+            }
+        );
+    }
+    public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            // if (successData.ResponseObject) {
+            this.insuranceLists = successData.ResponseObject;
+            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists909909099909');
+            // this.getShortListDetails(enqId, index, name);
+            this.allCompanyList = [];
+            for (let i = 0; i < this.insuranceLists.length; i++) {
+                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                    if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
+                        this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
+                    }
+                    this.insuranceLists[index].product_lists[j].shortlist =  this.insuranceLists[index].product_lists[j].shortlist_status;
+                    this.insuranceLists[index].product_lists[j].currentBtn =  this.insuranceLists[index].product_lists[j].shortlist_status;
+                    if (this.insuranceLists[index].product_lists[j].indiv_shortlist_status == true) {
+                        this.insuranceLists[index].product_lists[j].removebtn = this.insuranceLists[index].product_lists[j].indiv_shortlist_status;
+                        this.insuranceLists[index].product_lists[j].currentBtn = false;
+                    }
+
+                    this.insuranceLists[index].product_lists[j].premium_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].premium_amount);
+                    this.insuranceLists[index].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].suminsured_amount);
+                }
+            }
+            for (let i = 0; i < this.setArray.length; i++) {
+                this.setArray[i].auto = false;
+            }
+            this.getArray = this.insuranceLists[index].family_members;
+            for (let i = 0; i < this.setArray.length; i++) {
+                for (let j = 0; j < this.getArray.length; j++) {
+                    if (this.setArray[i].name == this.getArray[j].type) {
+                        this.setArray[i].auto = true;
+                    }
+                }
+            }
+            // }
+            sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
+            this.filterCompany = this.allCompanyList;
+        } else {
+            this.toast.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public updateTabPolicyQuotationFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+    public  numberWithCommas(x) {
+        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
+    }
+
+
+
+
+    downloadMessage() {
     const dialogRef = this.dialog.open(DownloadMessageReligare, {
         width: '400px',
         data: this.path

@@ -884,8 +884,10 @@ export class BajajAlianzComponent implements OnInit {
        console.log(data,'oooooo');
         if(data.checked == true){
             this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue(1);
+            this.zonepanvalue = false;
 
         } else {
+            this.zonepanvalue = true;
             this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue('');
 
         }

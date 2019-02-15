@@ -92,6 +92,7 @@ public isDisable: boolean;
 public religare_Travel_proposal_id: any;
 public sameinsure: any;
 public allLists: any;
+public addon: any;
 
     constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -140,6 +141,9 @@ public allLists: any;
             guidetitle: '',
             guidefirstname: '',
             guidelastname: '',
+            guideAddress: '',
+            coursedetails: '',
+            studentRelationShip: ''
         });
         this.nomineeDetails = this.fb.group({
             'religareTravelNomineeName': ['', Validators.required],
@@ -192,13 +196,13 @@ public allLists: any;
         this.allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
         this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
-        if(this.getallTravelPremiumList.travel_type == 'student'){
+        if(this.allLists[0].insurance_type == 'Student'){
             this.studentdetails = true;
         } else {
             this.studentdetails = false;
 
         }
-        this.insureReligarePerson =  this.getTravelPremiumList.family_details;
+        this.insureReligarePerson =  this.allLists[0].family_members;
         console.log(this.insureReligarePerson, 'this.insureReligarePerson');
         this.insureReligareArray = this.fb.group({
             items: this.fb.array([])
@@ -215,6 +219,7 @@ public allLists: any;
         this.RelationShipListTravel();
         this.religareTravelQuestions();
         this.sessionData();
+        this.getAddon();
     }
 
     setStep(index: number) {
@@ -875,11 +880,10 @@ public allLists: any;
 
 // star-health-proposal Creation Page
     religareTravelproposal() {
-        console.log(this.allLists[0].travel_type,'type');
             let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
             const data = {
                 'platform': 'web',
-                'travel_type':this.allLists[0].travel_type,
+                'travel_type':this.allLists[0].insurance_type,
                 'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
                 'product_id': this.getTravelPremiumList.product_id,
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
@@ -890,7 +894,7 @@ public allLists: any;
                 'businessTypeCd': 'NEWBUSINESS',
                 'baseAgentId': '20572800',
                 'baseProductId': this.getTravelPremiumList.plan_id,
-                'trip_type': this.getTravelPremiumList.trip_type,
+                'trip_type': 'Single',
                 'company_name': this.getTravelPremiumList.company_name,
                 'suminsured_amount': this.getTravelPremiumList.suminsured_amount,
                 'proposer_insurer_details': this.totalReligareData,
@@ -902,7 +906,7 @@ public allLists: any;
                 'travel_geography_code': this.getTravelPremiumList.geography_code,
                 'maxTripPeriod':this.getTravelPremiumList.trip_duration,
                 'plan_id': this.getTravelPremiumList.plan_id,
-                'policy_term':this.getTravelPremiumList.policy_term,
+                'policy_term':this.getTravelPremiumList.trip_duration,
                 'scheme_id': '',
                 'terms_condition': '1',
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -913,16 +917,16 @@ public allLists: any;
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
                 'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
                 'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
-                'student_relationship':'',
+                'student_relationship': this.religarePersonal.controls['studentRelationShip'].value,
                 'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
-                'address':'',
+                'address':this.religarePersonal.controls['guideAddress'].value,
                 'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
-                'course_details':'',
+                'course_details':this.religarePersonal.controls['coursedetails'].value,
                 'field11':'',
                 'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                 'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                 'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                'addons':''
+                'addons':'',
 
             };
 
@@ -960,8 +964,41 @@ public allLists: any;
     public proposalFailure(error){
 
     }
+    getAddon() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
 
+        }
 
+        this.travelservice.addOn(data).subscribe(
+            (successData) => {
+                this.AddonSuccess(successData);
+            },
+            (error) => {
+                this.AddonFailure(error);
+            }
+        );
+    }
+
+    public AddonSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.addon = successData.ResponseObject;
+            console.log(this.addon, 'this.addon');
+        }
+    }
+
+    public AddonFailure(error) {
+        console.log(error);
+    }
+    addonItem(event: any, i){
+        if (event.checked) {
+
+        } else {
+
+        }
+    }
 // sessionData
     sessionData() {
         if (sessionStorage.ReligareTravelDetails1 != '' && sessionStorage.ReligareTravelDetails1 != undefined) {
@@ -997,6 +1034,9 @@ public allLists: any;
                 guidetitle: this.religareTravel1.guidetitle,
                 guidefirstname: this.religareTravel1.guidefirstname,
                 guidelastname: this.religareTravel1.guidelastname,
+                studentRelationShip: this.religareTravel1.studentRelationShip,
+                coursedetails: this.religareTravel1.coursedetails,
+                guideAddress: this.religareTravel1.guideAddress,
                 mobile: this.religareTravel1.mobile,
                 passport: this.religareTravel1.passport,
                 phone: this.religareTravel1.phone,
