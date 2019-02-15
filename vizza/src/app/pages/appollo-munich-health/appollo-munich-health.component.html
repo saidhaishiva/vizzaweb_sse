@@ -27,18 +27,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" maxlength="30" required >
                           <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="proposerMidname"  (keypress)="nameValidate($event)"   autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="proposerMidname"   maxlength="30" (keypress)="nameValidate($event)"   autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="proposerLastname" maxlength="30"  (keypress)="nameValidate($event)"   autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -130,19 +130,19 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" formControlName="proposerAddress" autocomplete="off" required>
+                          <input matInput placeholder="Address 1" formControlName="proposerAddress" maxlength="30" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 2" formControlName="proposerAddress2" autocomplete="off">
+                          <input matInput placeholder="Address 2" formControlName="proposerAddress2" maxlength="30" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 3" formControlName="proposerAddress3" autocomplete="off">
+                          <input matInput placeholder="Address 3" formControlName="proposerAddress3" maxlength="30" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerAddress3.errors?.required">Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -221,19 +221,19 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="nameValidate($event)" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="First Name" formControlName="proposerFirstname" maxlength="30" (keypress)="nameValidate($event)" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Mid Name" formControlName="proposerMidname"  (keypress)="nameValidate($event)"   autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                        <input matInput placeholder="Mid Name" formControlName="proposerMidname"  maxlength="30" (keypress)="nameValidate($event)"   autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                         </mat-form-field>
                         </div>
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Last Name" formControlName="proposerLastname" maxlength="30"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -376,19 +376,19 @@
                           </div>
                           <div class="col-md-4" *ngIf="i == 0">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Address 1" formControlName="proposerAddress" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                                  <input matInput placeholder="Address 1" formControlName="proposerAddress" maxlength="30" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                                   <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i == 0">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Address 2" formControlName="proposerAddress2" autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                                  <input matInput placeholder="Address 2" formControlName="proposerAddress2" maxlength="30" autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                                   <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i == 0">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Address 3" formControlName="proposerAddress3" autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                                  <input matInput placeholder="Address 3" formControlName="proposerAddress3" maxlength="30" autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                                   <mat-error *ngIf="insureArray.invalid">Address3 is required</mat-error>
                               </mat-form-field>
                           </div>

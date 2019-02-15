@@ -942,16 +942,24 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     ageCalculateInsurer(dob) {
-
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring( 8,10), 10);
-        let monthThen = parseInt(mdate.substring(5,7), 10);
-        let dayThen = parseInt(mdate.substring(0,4), 10);
-        let todays = new Date();
-        let birthday = new Date( dayThen, monthThen-1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+        // let mdate = dob.toString();
+        // let yearThen = parseInt(mdate.substring( 8,10), 10);
+        // let monthThen = parseInt(mdate.substring(5,7), 10);
+        // let dayThen = parseInt(mdate.substring(0,4), 10);
+        // let todays = new Date();
+        // let birthday = new Date( dayThen, monthThen-1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        // return Bob_days;
     }
     ageValidation(i, type) {
 
@@ -1116,16 +1124,26 @@ export class AppolloMunichComponent implements OnInit {
         return Bob_days;
     }
     ageCalculate(dob) {
-        const mdate = dob.toString();
-        const yearThen = parseInt(mdate.substring(8, 10), 10);
-        const monthThen = parseInt(mdate.substring(5, 7), 10);
-        const dayThen = parseInt(mdate.substring(0, 4), 10);
-        const todays = new Date();
-        const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        this.agecal = yearAge;
-        return yearAge;
+        // const mdate = dob.toString();
+        // const yearThen = parseInt(mdate.substring(8, 10), 10);
+        // const monthThen = parseInt(mdate.substring(5, 7), 10);
+        // const dayThen = parseInt(mdate.substring(0, 4), 10);
+        // const todays = new Date();
+        // const birthday = new Date(dayThen, monthThen - 1, yearThen);
+        // const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // const yearAge = Math.floor(differenceInMilisecond / 31536000000);
+        // this.agecal = yearAge;
+        // return yearAge;
+            let today = new Date();
+            let birthDate = new Date(dob);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            let dd = today.getDate()- birthDate.getDate();
+            if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+                age = age-1;
+            }
+            this.agecal = age;
+            return age;
     }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
