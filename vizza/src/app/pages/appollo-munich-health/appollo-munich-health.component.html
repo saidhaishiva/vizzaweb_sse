@@ -93,27 +93,31 @@
 
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO2'">
                         <mat-form-field class="w-100"  >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}" formControlName="proposerPan"  autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}" formControlName="proposerPan" required="idlistValid" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerPan.errors?.required">PAN Number is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO3'" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Driving License" formControlName="proposerDriving"  (keypress)="idValidate($event)" minlength="15"  maxlength="15"  pattern="^([a-zA-Z]){2}([0-9]){13}?$">
+                          <input matInput placeholder="Driving License" formControlName="proposerDriving"  (keypress)="idValidate($event)" minlength="15"  maxlength="15" required="idlistValid"  pattern="^([a-zA-Z]){2}([0-9]){13}?$">
                           <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerDriving.errors?.required">Driving License is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO1'">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" (keypress)="idValidate($event)" formControlName="proposerPassport" minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport" (keypress)="idValidate($event)" formControlName="proposerPassport" minlength="8"  maxlength="8" required="idlistValid" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="proposer.controls.proposerPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerPassport.errors?.required">Passport is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].proposerIdProof.value == 'IDNO4'" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" (keypress)="idValidate($event)" formControlName="proposerVoter" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$">
+                          <input matInput placeholder="Voter Id" (keypress)="idValidate($event)" formControlName="proposerVoter" minlength="10"  maxlength="10" required="idlistValid" pattern="^([a-zA-Z]){3}([0-9]){7}?$">
                           <mat-error *ngIf="proposer.controls.proposerVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerVoter.errors?.required">Voter Id is required</mat-error>
 
                         </mat-form-field>
                       </div>
@@ -328,27 +332,35 @@
 
                         <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO2'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="proposerPan"  autocomplete="off"  required="idlistValid" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="proposer.controls.proposerPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                             <mat-error *ngIf="proposer.controls.proposerPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                            <mat-error *ngIf="insureArray.invalid">PAN Number is required</mat-error>
+
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO3'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Driving License" formControlName="proposerDriving" maxlength="15"  minlength="15" (keypress)="idValidate($event)" pattern="^([a-zA-Z]){2}([0-9]){13}?$" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Driving License" formControlName="proposerDriving" maxlength="15"  minlength="15" (keypress)="idValidate($event)" pattern="^([a-zA-Z]){2}([0-9]){13}?$"   required="idlistValid" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Driving License is required</mat-error>
+
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO1'">
                           <mat-form-field class="w-100" >
-                            <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8" (keypress)="idValidate($event)" maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Passport" formControlName="proposerPassport" minlength="8" (keypress)="idValidate($event)" maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$"  required="idlistValid" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="proposer.controls.proposerDriving.hasError('pattern')"> Enter Valid Passport</mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Passport is required</mat-error>
+
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value == 'IDNO4'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Voter Id" formControlName="proposerVoter" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Voter Id" formControlName="proposerVoter" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)"  required="idlistValid" readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="proposer.controls.proposerVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
+                            <mat-error *ngIf="insureArray.invalid">Voter Id is required</mat-error>
+
                           </mat-form-field>
                         </div>
 
@@ -628,7 +640,7 @@
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{getFamilyDetails.name}}
+                  MEDICAL HISTORY
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
@@ -683,7 +695,7 @@
                   <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="nomineeTitle" required>
                             <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
@@ -691,13 +703,13 @@
                           <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Name"  formControlName="nomineeName" autocomplete="off" (keypress)="nameValidate($event)" required>
+                          <input matInput placeholder="Nominee Name"  formControlName="nomineeName"  maxlength="30" autocomplete="off" (keypress)="nameValidate($event)" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeName.errors?.required">Nominee Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
                             <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
@@ -705,16 +717,28 @@
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
                         </mat-form-field>
                       </div>
-
+                      <div class="col-md-12 mt-3">
+                        <mat-checkbox formControlName="sameAsProposerAddress" (change)="sameProposerAddress()"><strong>Same as proposer Address</strong></mat-checkbox>
+                      </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" formControlName="nomineeAddress" autocomplete="off" required>
-                          <mat-error *ngIf="nomineeDetails.controls.nomineeAddress.errors?.required">Address is required</mat-error>
+                          <input matInput placeholder="Address 1" formControlName="nomineeAddress" maxlength="30" autocomplete="off" required readonly="nomineesame">
+                          <mat-error *ngIf="nomineeDetails.controls.nomineeAddress.errors?.required">Address1 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPincode($event.target.value, 'nominee', 'i')"  formControlName="nomineePincode" autocomplete="off" required>
+                          <input matInput placeholder="Address 2" formControlName="nomineeAddress2"  maxlength="30" autocomplete="off" readonly="nomineesame">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Address 3" formControlName="nomineeAddress3"  maxlength="30" autocomplete="off" readonly="nomineesame">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="numberValidate($event)" minlength="6" readonly="nomineesame"  maxlength="6" (input)="getPincode($event.target.value, 'nominee', 'i')"  formControlName="nomineePincode" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -779,7 +803,7 @@
                               <div class="p-3">
                                 <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.p_tittlecode}}. {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.p_tittlecode}}. {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
                                       <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
