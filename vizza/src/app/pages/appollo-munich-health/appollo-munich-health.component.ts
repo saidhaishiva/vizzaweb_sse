@@ -1683,6 +1683,7 @@ export class AppolloMunichComponent implements OnInit {
     sameProposerAddress() {
         if (this.nomineeDetails.controls['sameAsProposerAddress'].value) {
             this.nomineesame = true;
+            this.getPincode(this.proposer.controls['proposerPincode'].value, 'nominee', 0);
             this.nomineeDetails.controls['nomineeAddress'].patchValue(this.proposer.controls['proposerAddress'].value);
             this.nomineeDetails.controls['nomineeAddress2'].patchValue(this.proposer.controls['proposerAddress2'].value);
             this.nomineeDetails.controls['nomineeAddress3'].patchValue(this.proposer.controls['proposerAddress3'].value);
@@ -1690,6 +1691,10 @@ export class AppolloMunichComponent implements OnInit {
             this.nomineeDetails.controls['nomineeCity'].patchValue(this.proposer.controls['proposerCity'].value);
             this.nomineeDetails.controls['nomineeState'].patchValue(this.proposer.controls['proposerState'].value);
             this.nomineeDetails.controls['nomineeDistrict'].patchValue(this.proposer.controls['proposerDistrict'].value);
+            this.nomineeDetails.controls['nomineeCountryId'].patchValue(this.proposer.controls['proposerCountryIdP'].value);
+            this.nomineeDetails.controls['nomineeDistrictId'].patchValue(this.proposer.controls['proposerDistrictIdP'].value);
+            this.nomineeDetails.controls['nomineeCityId'].patchValue(this.proposer.controls['proposerCityIdP'].value);
+            this.nomineeDetails.controls['nomineeStateId'].patchValue(this.proposer.controls['proposerStateIdP'].value);
         } else {
             this.nomineesame = false;
             this.nomineeDetails.controls['nomineeAddress'].patchValue('');
@@ -1699,6 +1704,10 @@ export class AppolloMunichComponent implements OnInit {
             this.nomineeDetails.controls['nomineeCity'].patchValue('');
             this.nomineeDetails.controls['nomineeState'].patchValue('');
             this.nomineeDetails.controls['nomineeDistrict'].patchValue('');
+            this.nomineeDetails.controls['nomineeCountryId'].patchValue('');
+            this.nomineeDetails.controls['nomineeDistrictId'].patchValue('');
+            this.nomineeDetails.controls['nomineeCityId'].patchValue('');
+            this.nomineeDetails.controls['nomineeStateId'].patchValue('');
         }
 
 
