@@ -11,6 +11,7 @@ import {TestimonialComponent} from './testimonial/testimonial.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ClearSessionService} from '../../shared/services/clear-session.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
     maxDate: any;
     dateError: any;
 
-    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
+    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
         // this.form =  this.fb.group({
         //     'insurename': ['', Validators.compose([Validators.required])],
         //     'startdate': ['', Validators.compose([Validators.required])],
@@ -90,6 +91,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.session.clearSessionData();
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
 

@@ -93,10 +93,10 @@
             </div>
               <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
                 <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index"  (click)="changeTab()">
-                    <ng-template matTabLabel *ngIf="lists.purchase_status == '1'">
-                        Purchased
-                    </ng-template>
-                  <ng-template matTabLabel *ngIf="lists.purchase_status == '0'">
+                    <!--<ng-template matTabLabel *ngIf="lists.purchase_status == '1'">-->
+                        <!--Purchased-->
+                    <!--</ng-template>-->
+                  <ng-template matTabLabel >
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                   width="20" height="80"
                   viewBox="0 0 24 24"
@@ -166,7 +166,7 @@
                   </td>
                   <td >
                     <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
-                    <p class="text-center change-p">(Excluding.GST)</p>
+                    <p class="text-center change-p">(Including.GST)</p>
                   </td>
                   <td >
                     <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
