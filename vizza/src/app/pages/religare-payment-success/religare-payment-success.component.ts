@@ -30,6 +30,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public pincoce: any
     public allCompanyList: any
     public filterCompany: any
+    public allGroupDetails: any
     public settings: Settings;
 
     constructor(public config: ConfigurationService, public router: Router,public common: CommonService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -46,6 +47,15 @@ export class ReligarePaymentSuccessComponent implements OnInit {
       });
   }
   ngOnInit() {
+      if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
+          this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
+          for (let i = 0; i < this.setArray.length; i++) {
+              this.setArray[i].auto = false;
+              if (this.setArray[i].checked && this.setArray[i].age != '') {
+                  this.setArray[i].error = '';
+              }
+          }
+      }
       if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
           this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
               let index = sessionStorage.changedTabIndex;
@@ -124,16 +134,48 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     }
     pay(){
         let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
-        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
+        this.allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
 
-        for (let i = 0; i < allGroupDetails.length; i++) {
-            if(allGroupDetails[i].name == changedTabDetails.name) {
-                allGroupDetails.splice(i, 1);
-            }
+        for (let i = 0; i < this.allGroupDetails.length; i++) {
+                if(this.allGroupDetails[i].name == changedTabDetails.name) {
+                    this.allGroupDetails.splice(i, 1);
+                }
         }
-        console.log(allGroupDetails, 'allGroupDetailswww');
+        console.log(this.allGroupDetails, 'this.allGroupDetails');
+        this.updateTabPolicy(this.allGroupDetails[0], 0);
 
-        this.updateTabPolicy(allGroupDetails[0], 0);
+        //
+        // for (let i = 0; i < allGroupDetails.length; i++) {
+        //     let ststus = false;
+        //     if(allGroupDetails[i].purchase_status == '0') {
+        //         ststus = true;
+        //     }
+        //     if(ststus) {
+        //         if(allGroupDetails[i].name == changedTabDetails.name) {
+        //             allGroupDetails.splice(i, 1);
+        //         }
+        //     } else if(!ststus && allGroupDetails[i].purchase_status == '1') {
+        //         allGroupDetails.splice(i, 1);
+        //     }
+        //
+        // }
+        // let groups = [];
+        // for (let i = 0; i < allGroupDetails.length; i++) {
+        //     if(allGroupDetails[i] != changedTabDetails.name) {
+        //         groups.push(allGroupDetails[i].name);
+        //     }
+        // }
+        //     console.log(groups, 'groups');
+        // for (let i = 0; i < groups.length; i++) {
+        //     let index = allGroupDetails.findIndex(item => item.name == groups[i]);
+        //     console.log(index, 'indexindex');
+        //     // if(allGroupDetails.indexOf(data.name == groups[i])) {
+        //     //
+        //     // }
+        // }
+
+            // changedTabDetails.indexOf(data.purchase_status == -1);
+
         // sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
         // this.router.navigate(['/healthinsurance']);
     }
@@ -179,10 +221,14 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            // if (successData.ResponseObject) {
             this.insuranceLists = successData.ResponseObject;
-            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists909909099909');
-            // this.getShortListDetails(enqId, index, name);
+            let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
+            for (let j = 0; j < this.insuranceLists.length; j++) {
+                if (this.insuranceLists[j].name == changedTabDetails.name) {
+                    this.insuranceLists.splice(j, 1);
+                }
+            }
+            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists9099090999091121');
             this.allCompanyList = [];
             for (let i = 0; i < this.insuranceLists.length; i++) {
                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
@@ -212,8 +258,12 @@ export class ReligarePaymentSuccessComponent implements OnInit {
                 }
             }
             // }
+
             sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
-            this.filterCompany = this.allCompanyList;
+            sessionStorage.allGroupDetails = JSON.stringify(this.insuranceLists);
+            sessionStorage.changedTabIndex = 0;
+            this.router.navigate(['/healthinsurance']);
+
         } else {
             this.toast.error(successData.ErrorObject, 'Failed');
         }
