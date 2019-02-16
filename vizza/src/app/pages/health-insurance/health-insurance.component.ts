@@ -202,11 +202,11 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
-
-             let pcompleted = this.insuranceLists.filter((data) => data.purchase_status == '1');
-                console.log(pcompleted,  'pcompletedpcompleted');
-             if(pcompleted.length < 1) {
-                 console.log('innn');
+             //
+             // let pcompleted = this.insuranceLists.filter((data) => data.purchase_status == '1');
+             //    console.log(pcompleted,  'pcompletedpcompleted');
+             // if(pcompleted.length < 1) {
+             //     console.log('innn');
 
                 let index = sessionStorage.changedTabIndex;
                 for (let i = 0; i < this.setArray.length; i++) {
@@ -225,16 +225,18 @@ export class HealthInsuranceComponent implements OnInit {
                     }
                 }
                 this.tabIndex = index;
-            } else {
-                 console.log('out');
+                this.filterCompany = this.allCompanyList;
 
-                 let unpurchaseGroup = this.insuranceLists.filter((data) => data.purchase_status == '0');
-                 console.log(unpurchaseGroup,  'unpurchaseGroup');
-                 this.insuranceLists = unpurchaseGroup;
-                console.log(this.insuranceLists, 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex1');
-
-                this.onSelectedIndexChange(0);
-            }
+            // } else {
+            //      console.log('out');
+            //
+            //      let unpurchaseGroup = this.insuranceLists.filter((data) => data.purchase_status == '0');
+            //      console.log(unpurchaseGroup,  'unpurchaseGroup');
+            //      this.insuranceLists = unpurchaseGroup;
+            //     console.log(this.insuranceLists, 'sessionStorage.changedTabIndexsessionStorage.changedTabIndex1');
+            //
+            //     this.onSelectedIndexChange(0);
+            // }
 
         }
         if (sessionStorage.changedTabDetails != undefined && sessionStorage.changedTabDetails != '') {
@@ -559,6 +561,7 @@ export class HealthInsuranceComponent implements OnInit {
                 }
             }
             this.filterCompany = this.allCompanyList;
+            sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
             sessionStorage.allCompanyList = JSON.stringify(this.allCompanyList);
         } else {
