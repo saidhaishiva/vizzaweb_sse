@@ -84,6 +84,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
     public pincodePAValid: any;
     public proposerAgeHDFCPA: any;
     public hdfc_PA_proposal_id: any;
+    public logo: any;
     constructor( public personalacccidentservice: PersonalAccidentService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                  public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string, public route: Router) {
         this.settings = this.appSettings.settings;
@@ -135,8 +136,12 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.sessionData();
         this.getStateList();
         this.setOccupationList();
-
+        for(let i=0; i<this.getAllPremiumDetails.product_lists.length; i++) {
+            this.logo = this.getAllPremiumDetails.product_lists[i].company_logo;
+        }
     }
+
+
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }

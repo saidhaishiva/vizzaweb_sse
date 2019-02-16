@@ -111,6 +111,8 @@ export class StarHealthProposalComponent implements OnInit {
     public previousInsurence: any;
     public nomineeNext: any;
     public totalClaim: any;
+    public sameRelationship: any;
+    public sameRelationshipName: any;
     currentStep: any;
 
     constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -657,6 +659,9 @@ export class StarHealthProposalComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
             }
+        }
+        if(this.familyMembers.length == 1){
+            this.sameRelationship = this.familyMembers[0].ins_relationship;
         }
     }
     typeAge(value, index, ci) {

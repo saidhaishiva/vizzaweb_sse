@@ -422,7 +422,7 @@
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" >
-                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_name}}">
+                                <mat-option *ngFor="let relationship of relationshipList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_name}}">
                                   {{relationship.relationship_name}}
                                 </mat-option>
                             </mat-select>
