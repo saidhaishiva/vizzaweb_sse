@@ -814,7 +814,7 @@
                                             <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}.{{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
                                             <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>
                                             <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>
@@ -900,7 +900,7 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}} {{summaryData.NomineeDetails.FirstName}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.NomineeDetails.DOB !=''"><strong>DOB:</strong> {{summaryData.NomineeDetails.DOB | date: 'dd-MMM-yyyy'}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.NomineeDetails.DOB !=''"><strong>DOB:</strong> {{summaryData.NomineeDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.nominee_relation_name !=''"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.NomineeRelationshipID}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address1 !=''"><strong>Address 1:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address1}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address2 !=''"><strong>Address 2:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address2}}</li>
