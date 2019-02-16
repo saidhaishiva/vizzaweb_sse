@@ -436,11 +436,12 @@ export class HealthInsuranceComponent implements OnInit {
     }
     // this function will get the policy quotation lists
     getPolicyQuotationList() {
-        if (this.selectedAmount == '' || this.selectedAmount == undefined) {
-            this.sumerror = true;
-        } else {
-            this.sumerror = false;
-        }
+        this.selectedAmount = ''
+        // if (this.selectedAmount == '' || this.selectedAmount == undefined) {
+        //     this.sumerror = true;
+        // } else {
+        //     this.sumerror = false;
+        // }
         if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
             this.pinerror = true;
         } else {
@@ -466,7 +467,7 @@ export class HealthInsuranceComponent implements OnInit {
 
 
 
-        if (this.selectedAmount != '' && this.selectedAmount != undefined && this.pincoce != '' && this.pincoce != undefined) {
+        if (this.pincoce != '' && this.pincoce != undefined) {
             if (!memberValid) {
                 if (this.finalData != '') {
                     const data = {
@@ -789,7 +790,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         // this.insuranceLists[0].product_lists = [];
-        sessionStorage.filterCompany = JSON.parse(this.filterCompany);
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
 
         console.log(this.insuranceLists, ' this.insuranceLists this.insuranceListspppp');
     }

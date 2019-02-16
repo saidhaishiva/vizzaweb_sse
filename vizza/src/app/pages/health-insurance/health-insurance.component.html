@@ -25,14 +25,14 @@
         <div class="card-block">
           <mat-card class="p-5" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
             <mat-card-header><h5>Health Insurance plans for..</h5></mat-card-header>
-            <mat-form-field class="w-100">
-              <mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()" >
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                  {{amounts.si_amount}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div *ngIf="sumerror" class="ngError">Required</div>
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmount" name="suminsure" (change)="changeAmount()" >-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
+                  <!--{{amounts.si_amount}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="sumerror" class="ngError">Required</div>-->
 
             <div class="w-100 mb-2 son" >
               <div id="clonehead">
@@ -124,18 +124,9 @@
                   <th class="sun-insured">
                     <mat-form-field >
                       <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
-                      <mat-select>
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="5">5</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="7">7</mat-option>
-                        <mat-option value="8">8</mat-option>
-                        <mat-option value="9">9</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="11">11</mat-option>
+                      <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
+                        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
+
                       </mat-select>
                     </mat-form-field>
                   </th>

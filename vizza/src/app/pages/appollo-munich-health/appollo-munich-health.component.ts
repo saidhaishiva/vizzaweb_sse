@@ -164,6 +164,7 @@ export class AppolloMunichComponent implements OnInit {
     public medicalquestion: any;
     public sameRelationship : any;
     currentStep: any;
+    proofValid: any;
     public idlistValid: boolean;
     public nomineesame: boolean;
 
@@ -214,7 +215,9 @@ export class AppolloMunichComponent implements OnInit {
       this.totalInsureDetails = [];
       this.questions_list = [];
     this.validateprvious = false;
-      this.proposer = this.fb.group({
+        this.proofValid = true;
+
+        this.proposer = this.fb.group({
           proposerTitle: ['', Validators.required],
           proposerFirstname: ['', Validators.required],
           proposerMidname: '',
@@ -429,6 +432,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerIdProofError.patchValue(this.getStepper2.items[i].insurerIdProofError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
@@ -620,6 +624,7 @@ export class AppolloMunichComponent implements OnInit {
                 insurerDobError: '',
                 insurerDobValidError: '',
                 dobErrorStartDate: '',
+                insurerIdProofError: '',
                 ins_days: '',
                 ins_age: '',
                 sameasreadonly:false,
@@ -700,27 +705,93 @@ export class AppolloMunichComponent implements OnInit {
 }
 
 
-    changeIdproof(title){
+    changeIdproof(title, index){
         if(title == 'proposer') {
-            this.proposer.controls['proposerDriving'].patchValue('');
-            this.proposer.controls['proposerPassport'].patchValue('');
-            this.proposer.controls['proposerVoter'].patchValue('');
-            this.proposer.controls['proposerPan'].patchValue('');
-            this.idlistValid = true;
-        } else if(title == 'insurer'){
-            for(let i = 0; i < this.insurePersons.length; i++) {
-                this.idlistValid = true;
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue('');
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPassport.patchValue('');
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.patchValue('');
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue('');
+            this.proofValid = true;
+            if(this.proposer.controls['proposerIdProof'].value != '') {
+            } else {
+                this.proposer.controls['proposerDriving'].patchValue('');
+                this.proposer.controls['proposerPassport'].patchValue('');
+                this.proposer.controls['proposerVoter'].patchValue('');
+                this.proposer.controls['proposerPan'].patchValue('');
             }
-        } else {
-            this.idlistValid = false;
+
+        } else if(title == 'insurer'){
+            console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value, 'secttty');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProofIdP.patchValue('');
+            if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value != '') {
+                // if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO2') {
+                //     if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.value == '') {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('PAN Number is required');
+                //     } else {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                //     }
+                //
+                // } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO3') {
+                //     if(this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.value == '') {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Driving License is required');
+                //     } else {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                //     }
+                // } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO1') {
+                //     if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.value == '') {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Passport is required');
+                //     } else {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                //     }
+                // } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO4') {
+                //     if(this.insureArray['controls'].items['controls'][index]['controls'].proposerVoter.value == '') {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Voter Id is required');
+                //     } else {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                //     }
+                // } else {
+                //         this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                //  }
+
+            } else {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+
+                this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.patchValue('');
+                this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.patchValue('');
+                this.insureArray['controls'].items['controls'][index]['controls'].proposerVoter.patchValue('');
+                this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.patchValue('');
+            }
+
         }
     }
 
+    validateProof(index){
+            if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO2') {
+                if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.value == '') {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('PAN Number is required');
+                } else {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                }
 
+            } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO3') {
+                if(this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.value == '') {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Driving License is required');
+                } else {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                }
+            } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO1') {
+                if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.value == '') {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Passport is required');
+                } else {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                }
+            } else if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO4') {
+                if(this.insureArray['controls'].items['controls'][index]['controls'].proposerVoter.value == '') {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('Voter Id is required');
+                } else {
+                    this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+                }
+            } else {
+                this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
+            }
+
+        }
 
     //Nominee Details
     religareNomineeDetails(stepper: MatStepper, value) {
@@ -1708,30 +1779,44 @@ export class AppolloMunichComponent implements OnInit {
 //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         this.proposerData = value;
-        console.log(this.proposerData,'this.proposerData');
-        if(value.proposerDriving != ""){
-            this.proposerProofNum = value.proposerDriving;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
-        } else if(value.proposerPassport != ""){
-            this.proposerProofNum = value.proposerPassport;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+        console.log(this.proposerData, 'this.proposerData');
+        this.proofValid = false;
+        if (value.proposerIdProof !='') {
+            if (value.proposerDriving != "") {
+                this.proofValid = true;
+                this.proposerProofNum = value.proposerDriving;
+                this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+            } else if (value.proposerPassport != "") {
+                this.proofValid = true;
+                this.proposerProofNum = value.proposerPassport;
+                this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
 
-        }else if(value.proposerVoter != ""){
-            this.proposerProofNum = value.proposerVoter;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+            } else if (value.proposerVoter != "") {
+                this.proofValid = true;
+                this.proposerProofNum = value.proposerVoter;
+                this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
 
-        } else if(value.proposerPan != ""){
-            this.proposerProofNum = value.proposerPan;
-            this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
-
+            } else if (value.proposerPan != "") {
+                this.proofValid = true;
+                this.proposerProofNum = value.proposerPan;
+                this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
+            }
+        } else {
+            this.proofValid = true;
         }
+        console.log(this.proofValid, 'proofValid');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                    this.topScroll();
+                    if(this.proofValid){
+                        stepper.next();
+                        this.topScroll();
+                    } else{
+                        this.toastr.error('Please enter id proof');
+                    }
+
                 }
 
             } else {
@@ -1917,11 +2002,32 @@ export class AppolloMunichComponent implements OnInit {
                         }
                     }
 
+                    let proofValidate = [];
+                    for (let i = 0; i< this.insurerData.length; i++){
+                        if (this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.value != '') {
+                            if (this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.value == '') {
+                                this.insureArray['controls'].items['controls'][i]['controls'].insurerIdProofError.patchValue('Please enter id proof');
+                                proofValidate.push(1);
+                            } else{
+                                this.insureArray['controls'].items['controls'][i]['controls'].insurerIdProofError.patchValue('');
+                                proofValidate.push(0);
+                            }
+                        }
+
+                    }
 
                     if(valid) {
                          if(bmiValue){
-                            stepper.next();
-                            this.topScroll();
+                             console.log(proofValidate, 'proofValidate122');
+
+                             if(!proofValidate.includes(1)){
+
+                                 stepper.next();
+                                 this.topScroll();
+                             } else {
+                                 this.toastr.error('Please enter id proof');
+                             }
+
                         } else {
                                  this.toastr.error('BMI Range should be BMI >= 12 and BMI <= 39 ');
 
