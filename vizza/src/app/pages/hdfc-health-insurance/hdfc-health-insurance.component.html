@@ -257,7 +257,7 @@
                         </div>
 
                         <div class="col-md-4">
-                          <mat-form-field class="w-100">
+                          <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required >
                             <mat-option *ngFor="let lists of insuredHdfcRelationList" value="{{lists.relationship_code}}" >
                               {{lists.Relation_code}}
@@ -328,7 +328,7 @@
                               {{lists.relation}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
+                          <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
