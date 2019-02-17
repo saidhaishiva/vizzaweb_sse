@@ -294,7 +294,7 @@
                       </mat-form-field></div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
+                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
                                     <mat-option *ngFor="let occupation of occupationCode" value="{{occupation.occupation_code}}">{{occupation.occupation_description}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>
@@ -303,7 +303,7 @@
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="OCCUPATION LIST" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode()" required>
+                                <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode()" required>
                                     <mat-option *ngFor="let occupation of insureoccupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredDescriptionCode.errors?.required">Occupation List is required</mat-error>
@@ -313,12 +313,12 @@
 
                         <div class="col-md-3" *ngIf="insureoccupationDescription">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Description"  formControlName="insuredDescription" autocomplete="off"  [readonly]="readonlyproposer" [required]="insuredDescriptionValidator">
+                                <input matInput placeholder="Description"  formControlName="insuredDescription" autocomplete="off"  (keypress)="nameValidate($event)"  [readonly]="readonlyproposer" [required]="insuredDescriptionValidator">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="OCCUPATION DESCRPTION" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()"  >
+                                <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()"  >
                                     <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -334,13 +334,13 @@
                          <!--</div>-->
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  [readonly]="readonlyproposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
-                        <mat-error *ngIf="insured.controls.insuredPan.errors?.required">Pan is required</mat-error>
+                        <mat-error *ngIf="insured.controls.insuredPan.errors?.required">PAN is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Pass Port"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$"  (keypress)="idValidate($event)" autocomplete="off">
+                        <input matInput placeholder="Passport"  class="text-uppercase" formControlName="insuredPassPort"  minlength="8"  maxlength="8"  pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$"  (keypress)="idValidate($event)" autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('minlength')">Enter PassPort</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPassPort.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
 
@@ -375,14 +375,18 @@
                       </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="numberValidate($event)" required autocomplete="off">
+                           <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="numberValidate($event)"  maxlength="3"   required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
+                           <mat-error *ngIf="insured.controls.insuredHeight.hasError('maxlength')">Enter Valid Height</mat-error>
+
                          </mat-form-field>
                        </div>
                        <div class="col-md-3">
                          <mat-form-field class="w-100" >
-                           <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="numberValidate($event)" required autocomplete="off">
+                           <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="numberValidate($event)"   maxlength="3" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
+                           <mat-error *ngIf="insured.controls.insuredWeight.hasError('maxlength')">Enter Valid Weight</mat-error>
+
                          </mat-form-field>
                        </div>
                     </div>
@@ -394,19 +398,19 @@
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredAddress" autocomplete="off"    [readonly]="readonlyproposer" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredAddress" autocomplete="off" required></textarea>
                           <mat-error *ngIf="insured.controls.insuredAddress.errors?.required">Address is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredAddress2" autocomplete="off"  [readonly]="readonlyproposer"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredAddress2" autocomplete="off"></textarea>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -437,23 +441,23 @@
                   <!--<div class="col-md-12 box-card pt-3" [ngClass]="{'disabledP':readonlyproposer == true}">-->
                     <h6 class="color-blue">INSURED RESIDENCE ADDRESS</h6>
                     <div class="row">
-                      <div class="col-md-12"><mat-checkbox formControlName="sameasInsuredAddress"    (change)="insuredsameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox></div>
+                      <div class="col-md-12"><mat-checkbox formControlName="sameasInsuredAddress" (change)="insuredsameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredrAddress" required autocomplete="off"   [readonly]="readonlyproposer"></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredrAddress" required autocomplete="off"   [readonly]="inputReadonly"></textarea>
                           <mat-error *ngIf="insured.controls.insuredrAddress.errors?.required">Address1 is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredrAddress2" autocomplete="off"  [readonly]="readonlyproposer" ></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredrAddress2" autocomplete="off"  [readonly]="inputReadonly" ></textarea>
                           <!--<mat-error *ngIf="insured.controls.insuredrAddress2.errors?.required">Address2 is required</mat-error>-->
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="readonlyproposer" maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
+                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="inputReadonly" maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -474,7 +478,7 @@
                         <mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="State" formControlName="insuredrState" autocomplete="off"  required>
+                        <input matInput placeholder="State" formControlName="insuredrState" autocomplete="off"  readonly required>
                         <mat-error *ngIf="insured.controls.insuredrState.errors?.required">State is required</mat-error>
 
                       </mat-form-field></div>
@@ -605,7 +609,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_titlecd}} {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
                         <li class="list-group-item"><strong>Gender:</strong>{{summaryData.proposer_details.p_gender}} </li>
-                        <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob  | date: 'dd-MMM-yyyy'}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{summaryData.proposer_details.p_res_contactnum}} </li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
@@ -617,8 +621,9 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>
+                      <!--<li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>-->
+                      <!--<li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>-->
+                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_occupation_class_description != '' && summaryData.proposer_details.p_occupation_class_description != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.p_occupation_class_description}}</li>
 
                       <li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_details.description}}</li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.occ_name != '' && summaryData.proposer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
@@ -659,7 +664,7 @@
               </div>
             </section>
             <section>
-              <h5 class="mt-3 ">INSURE DETAILS </h5>
+              <h5 class="mt-3 ">INSURED DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-12">
                 </div>
@@ -668,7 +673,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_titlecd}} {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
                       <li class="list-group-item"><strong>Gender:</strong>  {{summaryData.proposer_insurer_details.i_gender }}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob | date: 'dd-MMM-yyyy'}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_res_contactnum!= ''"><strong>Residence Number:</strong>{{summaryData.proposer_insurer_details.i_res_contactnum}} </li>
@@ -683,9 +688,9 @@
                       <li class="list-group-item"><strong>Height:</strong>  {{summaryData.proposer_insurer_details.i_height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong>  {{summaryData.proposer_insurer_details.i_weight}}</li>
 
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.occ_name != '' && summaryData.proposer_insurer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_occupation_class_description != '' && summaryData.proposer_insurer_details.i_occupation_class_description != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.i_occupation_class_description}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
-                      <li class="list-group-item"><strong>RelationShip with Proposer:</strong> {{summaryData.proposer_insurer_details.i_relationcd}}</li>
+                      <!--<li class="list-group-item"><strong>RelationShip with Proposer:</strong> {{summaryData.proposer_insurer_details.i_relationcd}}</li>-->
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_pass_idnum!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_insurer_details.i_annual_salary}} </li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_off_email != ''"><strong>Official Email Id:</strong>  {{summaryData.proposer_insurer_details.i_off_email}}</li>
