@@ -238,7 +238,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
-                            <mat-option *ngFor="let lists of nomineeRelationList" value="{{lists.relation_code}}" >
+                            <mat-option *ngFor="let lists of nomineeRelationList" [hidden]="sameRelationship == lists.relation"  value="{{lists.relation_code}}" >
                               {{lists.relation}}
                             </mat-option>
                           </mat-select>

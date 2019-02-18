@@ -131,6 +131,7 @@ export class TravelShriramProposalComponent implements OnInit {
     travelPurposeName: any;
     occupationLists: any;
     allPremiumLists: any;
+    public sameRelationship: any;
     constructor(public travelservice: TravelService, public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -200,6 +201,7 @@ export class TravelShriramProposalComponent implements OnInit {
         this.allPremiumLists = allLists[sessionStorage.changedTabIndex];
         this.insurePersons = this.getTravelPremiumList.family_details;
         this.sessionData();
+        this.sameRelationship = 'SELF';
     }
     setStep(index: number) {
         this.step = index;
