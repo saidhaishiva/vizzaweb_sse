@@ -387,16 +387,16 @@ export class HdfcHealthInsuranceComponent implements OnInit {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9490 && type == 'Son')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9496 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
          if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8035 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
-             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9490 && type == 'Daughter')  {
-             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9496 && type == 'Daughter')  {
+             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
 

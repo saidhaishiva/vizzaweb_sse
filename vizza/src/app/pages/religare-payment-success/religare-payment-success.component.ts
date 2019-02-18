@@ -106,11 +106,10 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;
-        this.settings.loadingSpinner = false;
-
         if (successData.IsSuccess == true) {
             console.log(this.type, 'ww22');
 
@@ -130,6 +129,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     retry() {

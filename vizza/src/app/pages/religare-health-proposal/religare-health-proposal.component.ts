@@ -867,19 +867,19 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
 
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Son')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Son')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Daughter')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Daughter')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 

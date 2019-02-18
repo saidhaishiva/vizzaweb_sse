@@ -1036,26 +1036,29 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     ageCalculateInsurer(dob) {
-        let today = new Date();
-        let birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
-        let dd = today.getDate()- birthDate.getDate();
-        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-            age = age-1;
-        }
-        return dd;
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring( 8,10), 10);
-        // let monthThen = parseInt(mdate.substring(5,7), 10);
-        // let dayThen = parseInt(mdate.substring(0,4), 10);
-        // let todays = new Date();
-        // let birthday = new Date( dayThen, monthThen-1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        // return Bob_days;
+        // let today = new Date();
+        // let birthDate = new Date(dob);
+        // let age = today.getFullYear() - birthDate.getFullYear();
+        // let m = today.getMonth() - birthDate.getMonth();
+        // let dd = today.getDate()- birthDate.getDate();
+        // if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+        //     age = age-1;
+        // }
+        // console.log(dd, '');
+        // return dd;
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring( 8,10), 10);
+        let monthThen = parseInt(mdate.substring(5,7), 10);
+        let dayThen = parseInt(mdate.substring(0,4), 10);
+        let todays = new Date();
+        let birthday = new Date( dayThen, monthThen-1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        return Bob_days;
     }
     ageValidation(i, type) {
+        console.log(type, 'type');
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
@@ -1077,19 +1080,19 @@ export class AppolloMunichComponent implements OnInit {
         }
 
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Son')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Son')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9490 && type == 'Daughter')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9490 && type == 'Daughter')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 
