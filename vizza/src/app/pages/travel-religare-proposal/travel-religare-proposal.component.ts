@@ -941,13 +941,12 @@ public sameRelationship: any;
                 'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
                 'address':this.religarePersonal.controls['guideAddress'].value,
                 'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
-                'course_details':this.religarePersonal.controls['coursedetails'].value,
-                'field11':'',
+                // 'course_details':this.religarePersonal.controls['coursedetails'].value,
+                // 'field11':'',
                 'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                 'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                 'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
                 'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
-
             };
 
             console.log(data, 'fghj');
