@@ -49,13 +49,17 @@ export class ReligareDownloadPolicyComponent implements OnInit {
         );
     }
     public downloadPdfSuccess(successData) {
-        this.type = successData.ResponseObject.type;
-        this.currenturl = this.config.getimgUrl();
-        if (this.type == 'pdf') {
-            console.log(this.currenturl);
-            console.log(successData.ResponseObject.path , 'path');
+        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
+        if (successData.IsSuccess == true) {
+            this.type = successData.ResponseObject.type;
             this.path = successData.ResponseObject.path;
-            window.open(this.currenturl + '/' +  this.path,'_blank');
+            this.currenturl = this.config.getimgUrl();
+            if (this.type == 'pdf') {
+                console.log(this.currenturl);
+                console.log(successData.ResponseObject.path, 'path');
+                this.path = successData.ResponseObject.path;
+                window.open(this.currenturl + '/' + this.path, '_blank');
+            }
         }
     }
     public downloadPdfFailure(error) {
