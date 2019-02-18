@@ -11,6 +11,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -95,7 +96,7 @@ public allLists: any;
 public addon: any;
 public sameRelationship: any;
 
-    constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -144,11 +145,12 @@ public sameRelationship: any;
             guidelastname: '',
             guideAddress: '',
             coursedetails: '',
-            studentRelationShip: ''
+            studentRelationShip: '',
+            addon:''
         });
         this.nomineeDetails = this.fb.group({
-            'religareTravelNomineeName': ['', Validators.required],
-            'religareTravelRelationship': ['', Validators.required]
+            'religareTravelNomineeName': '',
+            'religareTravelRelationship': ''
         });
     }
 
@@ -235,6 +237,20 @@ public sameRelationship: any;
 
     prevStep() {
         this.step--;
+    }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
     }
 
     // insure page
@@ -706,7 +722,7 @@ public sameRelationship: any;
                     'proposer_comm_pincode': this.proposerInsureData[i].rpincode,
                     'prop_dob': this.datepipe.transform(this.proposerInsureData[i].dob, 'dd/MM/yyyy'),
                     'prop_gender': this.proposerInsureData[i].gender,
-                    'relationship_cd': this.proposerInsureData[i].type,
+                    'relationship_cd': this.proposerInsureData[i].type == "Student1" ? 'Self' : this.proposerInsureData[i].type,
                     'role_cd': this.proposerInsureData[i].rolecd
                 });
             }
@@ -916,8 +932,8 @@ public sameRelationship: any;
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-                'nominee_name': this.nomineeDetails.controls['religareTravelNomineeName'].value,
-                'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
+                'nominee_name':this.nomineeDetails.controls['religareTravelNomineeName'].value,
+                'nominee_relationship': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
                 'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
                 'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
@@ -930,7 +946,7 @@ public sameRelationship: any;
                 'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                 'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                 'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                'addons':'',
+                'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
 
             };
 
@@ -1031,7 +1047,7 @@ public sameRelationship: any;
                 adharnumber: this.religareTravel1.adharnumber,
                 email: this.religareTravel1.email,
                 sameAsProposer: this.religareTravel1.sameAsProposer,
-                sponserdob: this.religareTravel1.sponserdob,
+                sponserdob:  new FormControl(new Date(this.religareTravel1.sponserdob)),
                 sponsername: this.religareTravel1.sponsername,
                 universityname: this.religareTravel1.universityname,
                 universityaddress: this.religareTravel1.universityaddress,
@@ -1044,6 +1060,7 @@ public sameRelationship: any;
                 mobile: this.religareTravel1.mobile,
                 passport: this.religareTravel1.passport,
                 phone: this.religareTravel1.phone,
+                addon: this.religareTravel1.addon,
                 rolecd: this.religareTravel1.rolecd == null ? 'PROPOSER' : 'PROPOSER',
 
             });
@@ -1103,6 +1120,11 @@ public sameRelationship: any;
                 this.religare_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;
                 console.log(this.religare_Travel_proposal_id, 'this.religarePAProposal');
             }
+        }
+    }
+    addonList(value){
+        if(value.checked){
+            this.toastr.error('Your SumInsured Amount should be different');
         }
     }
 }

@@ -545,17 +545,23 @@
                     <li class="list-group-item"><strong>Name:</strong> {{item.name_title}}.{{item.first_name}} {{item.last_name}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                    <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_code}}</li>
-                    <li class="list-group-item"><strong>Email Id:</strong> {{item.personal_email}}</li>
-                    <li class="list-group-item" *ngIf="item.official_email"><strong>Official Email:</strong> {{item.official_email}} </li>
-                    <li class="list-group-item" *ngIf="item.mobile_no"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
-                    <li class="list-group-item" *ngIf="item.resedential_contact_no"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+                    <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_code}}</li>
+                    <li class="list-group-item" *ngIf="item.personal_email"><strong>Email Id:</strong> {{item.personal_email}}</li>
+                    <li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>
+                    <li class="list-group-item" *ngIf="item.mobile_no && i != 0"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                    <li class="list-group-item" *ngIf="item.resedential_contact_no && i != 0"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+
                   </ul>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="item.official_email && i == 0"><strong>Official Email:</strong> {{item.official_email}} </li>
+                    <li class="list-group-item" *ngIf="item.mobile_no && i == 0"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                    <li class="list-group-item" *ngIf="item.resedential_contact_no && i == 0"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+
+
                     <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no}}</li>
                     <li class="list-group-item" *ngIf="item.aadhar_no"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
                     <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no}}</li>
@@ -748,7 +754,7 @@
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 6)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 6)"> Yes</b>
                         </li>
-                        <li class="list-group-item" *ngIf="i == 7">7.Does your existing Health insurance policy cover Maternity benefit? :
+                        <li class="list-group-item" *ngIf="i == 7">8.Does your existing Health insurance policy cover Maternity benefit? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 7)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 7)"> Yes</b>
                         </li>
@@ -807,7 +813,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="summaryData.nominee_name !=''">{{summaryData.nominee_name}}</span> <span *ngIf="summaryData.nominee_name ==''"> Nill</span></li>
                       </ul>
                     </div>
 
@@ -819,7 +825,9 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong>
+                          <span *ngIf="summaryData.nominee_relationship !=''">{{summaryData.nominee_relationship}}</span> <span *ngIf="summaryData.nominee_relationship ==''"> Nill</span>
+                         </li>
                       </ul>
                     </div>
 
@@ -829,7 +837,7 @@
 
 
             </div>
-          <div *ngIf="summaryData.add_ons !='' && buyProductdetails.product_id == 1">
+          <div *ngIf="summaryData.add_ons !='' && buyProductdetails.product_id == 1 && summaryData.add_ons != 'CAREWITHNCB'">
             <h5 class="mt-3 sub-title" >ADDONS</h5>
             <div class="row box-card">
               <div class="col-md-6">

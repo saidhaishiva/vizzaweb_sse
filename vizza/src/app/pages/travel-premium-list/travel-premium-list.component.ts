@@ -818,6 +818,7 @@ export class TravelPremiumListComponent implements OnInit {
         if (successData.IsSuccess) {
             sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
+            console.log( this.premiumLists,' this.premiumLists');
             for (let i = 0; i < this.premiumLists.length; i++) {
                 this.premiumLists[i].compare = false;
                 this.premiumLists[i].shortlist = false;

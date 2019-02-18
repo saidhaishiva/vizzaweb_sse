@@ -75,7 +75,6 @@ DownloadPdf() {
 }
 public downloadPdfSuccess(successData) {
     this.settings.loadingSpinner = false;
-    console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
     if (successData.IsSuccess == true) {
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;

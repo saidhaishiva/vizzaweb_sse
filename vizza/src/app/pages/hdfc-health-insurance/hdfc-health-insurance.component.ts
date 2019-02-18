@@ -351,15 +351,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
 
      ageValidationInsurer(i, type) {
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 6570 && type == 'Self') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 6575 && type == 'Self') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6570 && type == 'Self') {
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6575 && type == 'Self') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 6570 && type == 'Spouse') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 6575 && type == 'Spouse') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6570 && type == 'Spouse') {
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6575 && type == 'Spouse') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
@@ -383,20 +383,20 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         // }
 
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8035 && type == 'Son')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9490 && type == 'Son')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8035 && type == 'Daughter')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
-             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 9490 && type == 'Daughter')  {
-             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Daughter')  {
+             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
 

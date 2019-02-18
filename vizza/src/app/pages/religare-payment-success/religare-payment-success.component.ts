@@ -33,13 +33,16 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public allGroupDetails: any
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public router: Router,public common: CommonService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService, public router: Router,public healthService: HealthService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+        console.log(allDetails, 'allDetailsallDetails');
         this.remainingStatus = false;
         if(allDetails.length > 1) {
+            console.log('in');
             this.remainingStatus = true;
         }
+        console.log(this.remainingStatus, 'pppp');
         this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.status;
@@ -103,11 +106,10 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;
-        this.settings.loadingSpinner = false;
-
         if (successData.IsSuccess == true) {
             console.log(this.type, 'ww22');
 
@@ -127,22 +129,26 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     retry() {
         this.router.navigate(['/religare-health-proposal'  + '/' + true]);
     }
-    pay(){
+    pay() {
         let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
-
         for (let i = 0; i < this.allGroupDetails.length; i++) {
-                if(this.allGroupDetails[i].name == changedTabDetails.name) {
-                    this.allGroupDetails.splice(i, 1);
-                }
+            if (this.allGroupDetails[i].name == changedTabDetails.name) {
+                this.allGroupDetails.splice(i, 1);
+            }
         }
         console.log(this.allGroupDetails, 'this.allGroupDetails');
         this.updateTabPolicy(this.allGroupDetails[0], 0);
+    }
+
+
+
 
         //
         // for (let i = 0; i < allGroupDetails.length; i++) {
@@ -178,7 +184,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
         // sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
         // this.router.navigate(['/healthinsurance']);
-    }
+
 
 
     updateTabPolicy(value, index) {
@@ -209,7 +215,7 @@ export class ReligarePaymentSuccessComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.settings.loadingSpinner = true;
-        this.common.updateTabPolicyQuotation(data).subscribe(
+        this.healthService.updateTabPolicyQuotation(data).subscribe(
             (successData) => {
                 this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
             },
