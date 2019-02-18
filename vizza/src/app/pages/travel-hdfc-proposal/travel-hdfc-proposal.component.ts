@@ -71,8 +71,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     public declaration: any;
     public fullName: any;
     public totalAmount: any;
-    // public sameInsurer: any;
     public decline: any;
+    public sameRelationship: any;
 
 
     constructor(public travelservice: TravelService, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -150,7 +150,6 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
         }
         this.sessionData();
-
     }
     // session Storage
     sessionData() {
@@ -659,13 +658,15 @@ export class TravelHdfcProposalComponent implements OnInit {
     InsureDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcTravelDetails2 = '';
         sessionStorage.hdfcTravelDetails2 = JSON.stringify(value);
-        // this.sameInsurer = this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.value;
-        // this.nomineeTravelDetails.controls['NomineeRelation'].patchValue('');
         this.insuredTravelData = value;
         if (this.hdfcInsuredTravel.valid) {
             stepper.next();
 
         }
+        if(this.insuredTravelPerson.length == 1){
+            this.sameRelationship = this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.value;
+        }
+        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationship');
     }
 
     // nominee Details
@@ -792,7 +793,6 @@ export class TravelHdfcProposalComponent implements OnInit {
                 this.proposalFailure(error);
             }
         );
-
     }
 
     public proposalSuccess(successData) {
