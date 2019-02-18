@@ -670,6 +670,17 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     //
     //     }
     // }
+    removeSpaces(string){
+        return string.split(' ').join('');
+        // if (event.charCode !== 0) {
+        //     const pattern = /[a-zA-Z ]/;
+        //     const inputChar = String.fromCharCode(event.charCode);
+        //     if (!pattern.test(inputChar)) {
+        //         event.preventDefault();
+        //     }
+        // }
+    }
+
 
     addEvent(event, type) {
         if (event.value != null) {
