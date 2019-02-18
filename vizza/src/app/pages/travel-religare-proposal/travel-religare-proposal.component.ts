@@ -11,6 +11,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -94,7 +95,7 @@ public sameinsure: any;
 public allLists: any;
 public addon: any;
 
-    constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -234,6 +235,20 @@ public addon: any;
 
     prevStep() {
         this.step--;
+    }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
     }
 
     // insure page

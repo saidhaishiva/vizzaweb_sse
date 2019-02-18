@@ -829,9 +829,9 @@
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE </li>
                                     <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.p_maritalstatus}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{summaryData.ProposalDetails.p_idproof_code | uppercase}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproff_no != ''"><strong>ID Proof Number:</strong> {{summaryData.ProposalDetails.p_idproff_no }}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{summaryData.ProposalDetails.p_gstno}}</li>
+                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproof_code != ''"><strong>Select ID Proof:</strong> {{summaryData.ProposalDetails.p_idproof_code  | uppercase}}</li>
+                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_idproff_no != ''"><strong>ID Proof Number:</strong> {{summaryData.ProposalDetails.p_idproff_no  | uppercase }}</li>
+                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{summaryData.ProposalDetails.p_gstno | uppercase}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -879,8 +879,8 @@
                               <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                               <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                               <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>
-                              <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null"><strong>Select ID Proof:</strong> {{item.i_idprooftype | uppercase}}</li>
-                              <li class="list-group-item" *ngIf="item.i_idproofno != '' && item.i_idproofno != null"><strong>ID Proof Number:</strong> {{item.i_idproofno}}</li>
+                              <li class="list-group-item" *ngIf="item.i_idprooftype != '' && item.i_idprooftype != null"><strong>Select ID Proof:</strong> {{item.i_idprooftype  | uppercase}}</li>
+                              <li class="list-group-item" *ngIf="item.i_idproofno != '' && item.i_idproofno != null"><strong>ID Proof Number:</strong> {{item.i_idproofno  | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.i_gstNumber != '' && item.i_gstNumber != null"><strong>GST:</strong> {{item.i_gstNumber | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.i_annualIncome != '' && item.i_annualIncome != null"><strong>Annual Income:</strong> {{item.i_annualIncome}}</li>
                               <li class="list-group-item" *ngIf="item.i_familySize != '' && item.i_familySize != null"><strong>Family Size:</strong> {{item.i_familySize}}</li>

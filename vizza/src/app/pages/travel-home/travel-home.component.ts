@@ -694,7 +694,6 @@ export class TravelHomeComponent implements OnInit {
                     if (this.studentArray[i].age == '') {
                         this.studentArray[i].error = 'Required';
                     } else {
-                        alert('1');
                         this.studentArray[i].error = '';
                         this.finalData.push({type: this.studentArray[i].name, age: this.studentArray[i].age});
                     }
@@ -718,7 +717,6 @@ export class TravelHomeComponent implements OnInit {
        //  }
 
         if (!memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
-            alert('2');
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
 
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
