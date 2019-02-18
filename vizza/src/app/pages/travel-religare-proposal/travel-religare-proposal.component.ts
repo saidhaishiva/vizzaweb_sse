@@ -93,6 +93,7 @@ public religare_Travel_proposal_id: any;
 public sameinsure: any;
 public allLists: any;
 public addon: any;
+public sameRelationship: any;
 
     constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -725,6 +726,9 @@ public addon: any;
 
             }
 
+        }
+        if(this.insurerData.items.length == 1){
+            this.sameRelationship = this.insureReligareArray['controls'].items['controls'][0]['controls'].relationship.value;
         }
     }
     sameAddress(values){

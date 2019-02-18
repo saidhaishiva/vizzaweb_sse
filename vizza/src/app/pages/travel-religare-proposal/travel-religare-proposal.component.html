@@ -69,19 +69,19 @@
                         <mat-error *ngIf="religarePersonal.controls.phone.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">
-                      <input matInput placeholder="PASSPORT"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required>
+                      <input matInput placeholder="PASSPORT" class="text-uppercase" minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required>
                       <mat-error *ngIf="religarePersonal.controls.passport.errors?.required">passport is required</mat-error>
                       <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  passport</mat-error>
                     </mat-form-field></div>
                     <div class="col-md-4"><mat-form-field class="w-100">
-                      <input matInput placeholder="PAN"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off" >
-                      <mat-error *ngIf="religarePersonal.controls.pannumber.errors?.required">passport is required</mat-error>
-                      <mat-error *ngIf="religarePersonal.controls.pannumber.hasError('pattern')">Enter Valid  passport</mat-error>
+                      <input matInput placeholder="Pan Number" class="text-uppercase"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off" >
+                      <mat-error *ngIf="religarePersonal.controls.pannumber.errors?.required">Pan Number is required</mat-error>
+                      <mat-error *ngIf="religarePersonal.controls.pannumber.hasError('pattern')">Enter Valid  Pan Number</mat-error>
                     </mat-form-field></div>
                   <div class="col-md-4"><mat-form-field class="w-100">
-                    <input matInput placeholder="ADHAR No"  formControlName="adharnumber" autocomplete="off" >
-                    <mat-error *ngIf="religarePersonal.controls.adharnumber.errors?.required">passport is required</mat-error>
-                    <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid  passport</mat-error>
+                    <input matInput placeholder="Adhar Number" class="text-uppercase"  formControlName="adharnumber" autocomplete="off" >
+                    <mat-error *ngIf="religarePersonal.controls.adharnumber.errors?.required">Adhar Number is required</mat-error>
+                    <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid Adhar Number</mat-error>
                   </mat-form-field></div>
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
@@ -334,16 +334,16 @@
                         </mat-form-field></div>
 
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="passport"  minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput placeholder="passport" class="text-uppercase" minlength="10" maxlength="10" formControlName="passport" autocomplete="off" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">passport is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="Pan Number"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                          <mat-error *ngIf="insureReligareArray.invalid">pannumber is required</mat-error>
+                          <input matInput placeholder="Pan Number" class="text-uppercase"  minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <mat-error *ngIf="insureReligareArray.invalid">pan Number is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="Aadhar No"  minlength="10" maxlength="10" formControlName="adharnumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                          <mat-error *ngIf="insureReligareArray.invalid">adharnumber is required</mat-error>
+                          <input matInput placeholder="Aadhar Number" class="text-uppercase"  minlength="10" maxlength="10" formControlName="adharnumber" autocomplete="off"  readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <mat-error *ngIf="insureReligareArray.invalid">adhar Number is required</mat-error>
                         </mat-form-field></div>
                       </div>
                       </div>
@@ -503,7 +503,7 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" required>
-                          <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
+                          <mat-option *ngFor="let lists of insuretravelRelationList" [hidden]="sameRelationship == lists.relation_id"  value="{{lists.relation_id}}" >
                             {{lists.relation_name}}
                           </mat-option>
                         </mat-select>

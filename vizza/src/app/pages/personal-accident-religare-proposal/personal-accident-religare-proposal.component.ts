@@ -110,6 +110,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public medicalStatus: any;
     public arr: any;
     public insureRelationList: any;
+    public sameRelationship: any;
     array: any;
     gender: any;
     sameFieldsInsure: any;
@@ -331,6 +332,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         // this.mobileNumber = '';
         // this.insuremobileNumber = '';
         this.sessionData();
+        this.sameRelationship = 'SELF' ;
     }
     setStep(index: number) {
         this.step = index;

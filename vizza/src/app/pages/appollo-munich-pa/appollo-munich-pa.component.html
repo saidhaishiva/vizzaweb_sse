@@ -644,7 +644,7 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                               <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" required >
-                                  <mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                                  <mat-option *ngFor="let relationship of relationshipListPa" [hidden]="sameRelationship == relationship.relationship" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                               </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
