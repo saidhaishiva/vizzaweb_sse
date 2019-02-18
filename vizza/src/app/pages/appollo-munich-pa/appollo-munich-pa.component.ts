@@ -102,6 +102,7 @@ public minDate: any;
 public insuredage: any;
 public maxStartdate:any;
 public currentStep:any;
+public sameRelationship:any;
 
     CheckHabits : boolean;
     readonlyProposer : boolean;
@@ -278,6 +279,7 @@ public currentStep:any;
       this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
       this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
       this.sessionData();
+      this.sameRelationship = 'Self' ;
   }
     // session Data
     sessionData() {
