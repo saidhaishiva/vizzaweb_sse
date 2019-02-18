@@ -687,6 +687,7 @@ export class TravelPremiumListComponent implements OnInit {
         let memberValid = false;
         let getFiledData = '';
         if (groupname == 'self') {
+            alert('1');
             getFiledData = this.selfArray.filter(data => data.checked == true);
             if (getFiledData != '') {
                 this.selfArray[0].error = '';
@@ -768,6 +769,7 @@ export class TravelPremiumListComponent implements OnInit {
         }
         // console.log(this.studentArray, 'this.studentArray');
         if (!memberValid && this.medicalerror == false && getFiledData != '' && !this.sumerror) {
+            alert('2');
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -816,8 +818,10 @@ export class TravelPremiumListComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            alert('3');
             sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
+            console.log( this.premiumLists,' this.premiumLists');
             for (let i = 0; i < this.premiumLists.length; i++) {
                 this.premiumLists[i].compare = false;
                 this.premiumLists[i].shortlist = false;
