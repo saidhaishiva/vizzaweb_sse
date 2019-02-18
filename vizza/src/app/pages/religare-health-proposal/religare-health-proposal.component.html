@@ -545,17 +545,23 @@
                     <li class="list-group-item"><strong>Name:</strong> {{item.name_title}}.{{item.first_name}} {{item.last_name}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
-                    <li class="list-group-item"><strong>Relationship:</strong> {{item.relationship_code}}</li>
+                    <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_code}}</li>
                     <li class="list-group-item"><strong>Email Id:</strong> {{item.personal_email}}</li>
-                    <li class="list-group-item" *ngIf="item.official_email"><strong>Official Email:</strong> {{item.official_email}} </li>
-                    <li class="list-group-item" *ngIf="item.mobile_no"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
-                    <li class="list-group-item" *ngIf="item.resedential_contact_no"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+                    <li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>
+                    <li class="list-group-item" *ngIf="item.mobile_no && i != 0"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                    <li class="list-group-item" *ngIf="item.resedential_contact_no && i != 0"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+
                   </ul>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="item.official_email && i == 0"><strong>Official Email:</strong> {{item.official_email}} </li>
+                    <li class="list-group-item" *ngIf="item.mobile_no && i == 0"><strong>Mobile Number:</strong> {{item.mobile_std_code}}{{item.mobile_no}}</li>
+                    <li class="list-group-item" *ngIf="item.resedential_contact_no && i == 0"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
+
+
                     <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no}}</li>
                     <li class="list-group-item" *ngIf="item.aadhar_no"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
                     <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no}}</li>

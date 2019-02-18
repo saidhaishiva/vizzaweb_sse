@@ -932,27 +932,41 @@ export class HealthInsuranceComponent implements OnInit {
     public changeAmountPolicyQuotationSuccess(successData, index) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.insuranceLists = successData.ResponseObject;
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    this.insuranceLists[i].product_lists[j].compare = false;
-                    this.insuranceLists[i].product_lists[j].shortlist = false;
-                    this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
-                    this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
+            let result = successData.ResponseObject;
+            let found = true;
+            for (let i = 0; i < result.length; i++) {
+                if (typeof result[i].product_lists != "undefined" && result[i].product_lists != null && result[i].product_lists.length != null && result[i].product_lists.length > 0) {
+                    found = false;
                 }
             }
-            for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].auto = false;
-            }
-            this.getArray = this.insuranceLists[index].family_members;
-            for (let i = 0; i < this.setArray.length; i++) {
-                for (let j = 0; j < this.getArray.length; j++) {
-                    if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].auto = true;
+            if (found) {
+                alert('No products found which match your selection');
+            } else {
+
+                //No products found which match your selection
+                this.insuranceLists = successData.ResponseObject;
+                for (let i = 0; i < this.insuranceLists.length; i++) {
+                    for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+                        this.insuranceLists[i].product_lists[j].compare = false;
+                        this.insuranceLists[i].product_lists[j].shortlist = false;
+                        this.insuranceLists[i].product_lists[j].premium_amount_format = this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+                        this.insuranceLists[i].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
                     }
                 }
+                for (let i = 0; i < this.setArray.length; i++) {
+                    this.setArray[i].auto = false;
+                }
+                this.getArray = this.insuranceLists[index].family_members;
+                for (let i = 0; i < this.setArray.length; i++) {
+                    for (let j = 0; j < this.getArray.length; j++) {
+                        if (this.setArray[i].name == this.getArray[j].type) {
+                            this.setArray[i].auto = true;
+                        }
+                    }
+                }
+                sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
             }
-            sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+
         } else {
             this.toast.error(successData.ErrorObject, 'Failed');
         }

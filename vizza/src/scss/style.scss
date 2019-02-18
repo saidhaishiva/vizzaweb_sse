@@ -555,10 +555,17 @@ a:hover {
   //  top:50px;
   //  z-index:2;
   //}
+  .mat-tab-header, .mat-tab-nav-bar {
+    border-bottom: 0px solid rgba(0,0,0,.12) !important;
+  }
   .mat-tab-group {
     width: 687px !important;
-    height: 42px !important;
+    height: 1px !important;
   }
+  .mat-tab-label {
+    height: 44px !important;
+  }
+
   //.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
   //  background-color: rgba(24, 204, 180, 0.35);
   //}
@@ -566,7 +573,7 @@ a:hover {
     background-color: rgba(24, 204, 180, 0.35);
   }
   .mat-tab-label-active{
-    background-color: #90EE90;
+    background-color: #19a98e;
     z-index: 1;
   }
   .mat-ink-bar{
