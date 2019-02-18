@@ -14,6 +14,7 @@ import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
 import {TravelService} from '../../shared/services/travel.service';
 import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
+import { ValidationService} from '../../shared/services/validation.service';
 
 
 export const MY_FORMATS = {
@@ -89,7 +90,7 @@ export class TravelHomeComponent implements OnInit {
     public settings: Settings;
     getAllcountryList: any;
     insuranceLists: any;
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
+    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe, public validation : ValidationService) {
         this.settings = this.appSettings.settings;
         this.showSelf = true;
         this.showFamily = false;
@@ -164,6 +165,10 @@ export class TravelHomeComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
     }
 
     // this function will get the sum insured amounts
