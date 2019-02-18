@@ -928,8 +928,8 @@ public addon: any;
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-                'nominee_name':this.totalReligareData[0].relationship_cd == 'Self'? '' :this.nomineeDetails.controls['religareTravelNomineeName'].value,
-                'nominee_relationship':this.totalReligareData[0].relationship_cd == 'Self'? '' :this.nomineeDetails.controls['religareTravelNomineeName'].value,
+                'nominee_name':this.nomineeDetails.controls['religareTravelNomineeName'].value,
+                'nominee_relationship': this.nomineeDetails.controls['religareTravelNomineeName'].value,
                 'medical_status': mcondition != '' ? 'Yes' : 'No',
                 'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
                 'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
@@ -942,7 +942,7 @@ public addon: any;
                 'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                 'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                 'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                'addons':'',
+                'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
 
             };
 
