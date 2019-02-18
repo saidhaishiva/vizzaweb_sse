@@ -367,7 +367,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="10" minlength="10"  [readonly]="readonlyproposer" (keyup)="alternateChange($event, 'insurer')" (keypress)="onAlternative($event)" autocomplete="off">
+                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="10" minlength="10"  [readonly]="readonlyproposer" (keyup)="alternateChange($event, 'insurer')" (keypress)="numberValidate($event)" autocomplete="off">
 
                       </mat-form-field>
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
