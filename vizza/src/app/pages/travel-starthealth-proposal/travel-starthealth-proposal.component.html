@@ -203,7 +203,7 @@
                         </div>
 
                         <div class="col-md-6"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="insurerRelationship" required >
+                          <mat-select placeholder="Relationship with Proposer" (change)="changeRelationSame($event)" formControlName="insurerRelationship" required >
                             <mat-option *ngFor="let lists of insureRelationList" value="{{lists.relationship_id}}" >
                               {{lists.relationship_name}}
                             </mat-option>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="col-md-6"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Assignee"  formControlName="assigneeRelationship" required >
-                            <mat-option *ngFor="let lists of assigneeRelationList" value="{{lists.relationship_id}}" >
+                            <mat-option *ngFor="let lists of assigneeRelationList" [hidden]="sameRelationshipValue == lists.relationship_name" value="{{lists.relationship_id}}" >
                               {{lists.relationship_name}}
                             </mat-option>
                           </mat-select>
