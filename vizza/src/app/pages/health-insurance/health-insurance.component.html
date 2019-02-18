@@ -123,7 +123,7 @@
                   </th>
                   <th class="sun-insured">
                     <mat-form-field >
-                      <mat-placeholder class="myclass">SUM INSURED ( Lacs )</mat-placeholder>
+                      <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
                       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
                         <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
 
