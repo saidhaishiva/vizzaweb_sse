@@ -97,7 +97,7 @@
                     </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" required>
-                              <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
+                              <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_name}}" >
                                 {{lists.relation_name}}
                               </mat-option>
                             </mat-select>
@@ -314,7 +314,7 @@
 
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required>
-                            <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
+                            <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_name}}" >
                               {{lists.relation_name}}
                             </mat-option>
                           </mat-select>
@@ -504,7 +504,7 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" >
-                          <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
+                          <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_name}}" >
                             {{lists.relation_name}}
                           </mat-option>
                         </mat-select>
