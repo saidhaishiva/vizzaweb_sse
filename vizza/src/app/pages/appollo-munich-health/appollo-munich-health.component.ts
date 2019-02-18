@@ -1887,8 +1887,8 @@ export class AppolloMunichComponent implements OnInit {
                     'Address': {
                         'Address': {
                             'AddressLine1': this.insurerData[0].proposerAddress,
-                            'AddressLine2': this.insurerData[0].proposerAddress2,
-                            'AddressLine3': this.insurerData[0].proposerAddress3,
+                            'AddressLine2': this.insurerData[0].proposerAddress2 == null ? '' : this.insurerData[0].proposerAddress2,
+                            'AddressLine3': this.insurerData[0].proposerAddress3 == null ? '' : this.insurerData[0].proposerAddress3,
                             'CountryCode': this.insurerData[0].proposerCountry,
                             'District': this.insurerData[0].proposerDistrict,
                             'PinCode': this.insurerData[0].proposerPincode,
@@ -1912,10 +1912,10 @@ export class AppolloMunichComponent implements OnInit {
                     'Dependants': '',
                     'FirstName': this.insurerData[i].proposerFirstname,
                     'GenderCode': this.insurerData[i].proposerGender,
-                    'GstinNumber': this.insurerData[i].proposerGst,
+                    'GstinNumber': this.insurerData[i].proposerGst == null ? '': this.insurerData[i].proposerGst,
                     'Height': this.insurerData[i].proposerHeight,
-                    'IDProofNumber': this.insurerData[i].proposerIdProofIdP,
-                    'IDProofTypeCode': this.insurerData[i].proposerIdProof,
+                    'IDProofNumber': this.insurerData[i].proposerIdProofIdP == null ? '': this.insurerData[i].proposerIdProofIdP,
+                    'IDProofTypeCode': this.insurerData[i].proposerIdProof  == null ? '': this.insurerData[i].proposerIdProof,
                     'LastName': this.insurerData[i].proposerLastname,
                     'AnnualIncome': this.insurerData[i].proposerAnnualIncome == undefined ? 0 : (this.insurerData[i].proposerAnnualIncome ? this.insurerData[i].proposerAnnualIncome : 0) ,
                     'LifeStyleHabits': {
@@ -1926,7 +1926,7 @@ export class AppolloMunichComponent implements OnInit {
                         'WineGlass': this.insurerData[i].WineGlass
                     },
                     'MaritalStatusCode': this.insurerData[i].maritalStatus,
-                    'MiddleName': this.insurerData[i].proposerMidname,
+                    'MiddleName': this.insurerData[i].proposerMidname == null ? '': this.insurerData[i].proposerMidname,
                     'NationalityCode': 'IN',
                     'OccuptionCode': this.insurerData[i].Proposeroccupation,
                     'PreviousInsurer': {
@@ -2087,10 +2087,10 @@ export class AppolloMunichComponent implements OnInit {
                     'Application': {
                         'NomineeAddress': {
                             'AddressLine1': this.nomineeData.nomineeAddress,
-                            'AddressLine2': this.nomineeData.nomineeAddress2,
-                            'AddressLine3': this.nomineeData.nomineeAddress3,
-                            'CountryCode': this.nomineeData.nomineeCountry,
-                            'District': this.nomineeData.nomineeDistrict,
+                            'AddressLine2': this.nomineeData.nomineeAddress2 == null ? '' : this.nomineeData.nomineeAddress2,
+                            'AddressLine3': this.nomineeData.nomineeAddress3 == null ? '' : this.nomineeData.nomineeAddress3,
+                            'CountryCode': this.nomineeData.nomineeCountry == null ? '' : this.nomineeData.nomineeCountry,
+                            'District': this.nomineeData.nomineeDistrict == null ? '' : this.nomineeData.nomineeDistrict,
                             'PinCode': this.nomineeData.nomineePincode,
                             'StateCode': this.nomineeData.nomineeStateId,
                             'TownCode': this.nomineeData.nomineeCity
@@ -2102,10 +2102,10 @@ export class AppolloMunichComponent implements OnInit {
                             'Address': {
                                 'Address': {
                                     'AddressLine1': this.proposerData.proposerAddress,
-                                    'AddressLine2': this.proposerData.proposerAddress2,
-                                    'AddressLine3': this.proposerData.proposerAddress3,
-                                    'CountryCode': this.proposerData.proposerCountry,
-                                    'District': this.proposerData.proposerDistrict,
+                                    'AddressLine2': this.proposerData.proposerAddress2 == null ? '' : this.proposerData.proposerAddress2,
+                                    'AddressLine3': this.proposerData.proposerAddress3 == null ? '' : this.proposerData.proposerAddress3,
+                                    'CountryCode': this.proposerData.proposerCountry == null ? '' : this.proposerData.proposerCountry ,
+                                    'District': this.proposerData.proposerDistrict == null ? '' : this.proposerData.proposerDistrict,
                                     'PinCode': this.proposerData.proposerPincode,
                                     'StateCode': this.proposerData.proposerStateIdP,
                                     'TownCode': this.proposerData.proposerCity
@@ -2123,13 +2123,13 @@ export class AppolloMunichComponent implements OnInit {
                             },
                             'FirstName': this.proposerData.proposerFirstname,
                             'GenderCode': this.proposerData.proposerGender,
-                            'GstinNumber': this.proposerData.proposerGst,
-                            'IDProofNumber': this.proposerData.proposerIdProofIdP,
-                            'IDProofTypeCode': this.proposerData.proposerIdProof,
-                            'LastName': this.proposerData.proposerLastname,
+                            'GstinNumber': this.proposerData.proposerGst == null ? '':  this.proposerData.proposerGst,
+                            'IDProofNumber': this.proposerData.proposerIdProofIdP == null ? '':  this.proposerData.proposerIdProofIdP,
+                            'IDProofTypeCode': this.proposerData.proposerIdProof == null ? '':  this.proposerData.proposerIdProof,
+                            'LastName': this.proposerData.proposerLastname == null ? '':  this.proposerData.proposerLastname,
                             'MaritalStatusCode': this.proposerData.maritalStatus,
-                            'MiddleName': this.proposerData.proposerMidname,
-                            'RelationshipCode': this.proposerData.proposerrelationship,
+                            'MiddleName': this.proposerData.proposerMidname == null ? '':  this.proposerData.proposerMidname,
+                            'RelationshipCode': this.proposerData.proposerrelationship == null ? '': this.proposerData.proposerrelationship,
                             'TitleCode': this.proposerData.proposerTitle
                         }
                     },
@@ -2138,10 +2138,10 @@ export class AppolloMunichComponent implements OnInit {
                         'Address': {
                             'Address': {
                                 'AddressLine1': this.totalInsureDetails[0].Address.Address.AddressLine1,
-                                'AddressLine2': this.totalInsureDetails[0].Address.Address.AddressLine2,
-                                'AddressLine3': this.totalInsureDetails[0].Address.Address.AddressLine3,
+                                'AddressLine2': this.totalInsureDetails[0].Address.Address.AddressLine2 == null ? '' : this.totalInsureDetails[0].Address.Address.AddressLine2,
+                                'AddressLine3': this.totalInsureDetails[0].Address.Address.AddressLine3  == null ? '' : this.totalInsureDetails[0].Address.Address.AddressLine3,
                                 'CountryCode': 'IN',
-                                'District': this.totalInsureDetails[0].Address.Address.District,
+                                'District': this.totalInsureDetails[0].Address.Address.District == null ? '' : this.totalInsureDetails[0].Address.Address.District,
                                 'PinCode': this.totalInsureDetails[0].Address.Address.PinCode,
                                 'StateCode': this.totalInsureDetails[0].Address.Address.StateCode,
                                 'TownCode': this.totalInsureDetails[0].Address.Address.TownCode
@@ -2165,13 +2165,13 @@ export class AppolloMunichComponent implements OnInit {
                         'FamilySize': this.totalInsureDetails[0].FamilySize,
                         'FirstName': this.totalInsureDetails[0].FirstName,
                         'GenderCode': this.totalInsureDetails[0].GenderCode,
-                        'GstinNumber': this.totalInsureDetails[0].GstinNumber,
+                        'GstinNumber': this.totalInsureDetails[0].GstinNumber == null ? '':  this.totalInsureDetails[0].GstinNumber,
                         'Height': this.totalInsureDetails[0].Height,
-                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber,
-                        'IDProofTypeCode': this.totalInsureDetails[0].IDProofTypeCode,
+                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber == null ? '':  this.totalInsureDetails[0].IDProofNumber,
+                        'IDProofTypeCode': this.totalInsureDetails[0].proposerIdProof == null ? '':  this.totalInsureDetails[0].proposerIdProof,
                         'LastName': this.totalInsureDetails[0].LastName,
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
-                        'MiddleName': this.totalInsureDetails[0].MiddleName,
+                        'MiddleName': this.totalInsureDetails[0].MiddleName == null ? '':  this.totalInsureDetails[0].MiddleName,
                         'NationalityCode': this.totalInsureDetails[0].NationalityCode,
                         // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
@@ -2206,7 +2206,7 @@ export class AppolloMunichComponent implements OnInit {
                         'TitleCode': this.totalInsureDetails[0].TitleCode,
                         'Weight': this.totalInsureDetails[0].Weight
                     },
-                    'MedicalInformations': this.proposerData.MedicalInformations,
+                    'MedicalInformations': this.proposerData.MedicalInformations == null ? '': this.proposerData.MedicalInformations,
                 }
             }
 
