@@ -788,6 +788,7 @@ public sameRelationship: any;
     sameInsuredProposer(){
 
         if (this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsuredProposer.value) {
+            this.getPostal(this.religareTravel1.pincode, 'personal');
             console.log(this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsuredProposer.value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameAsInsurer.disable();
