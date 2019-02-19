@@ -927,8 +927,8 @@
                               <div class="p-3">
                                   <h6>PREVIOUS INSURER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.InceptionDate}}</li>
-                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.EndDate}}</li>
+                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.InceptionDate  | date: 'dd/MM/yyyy'}}</li>
+                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.EndDate  | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item" *ngIf="item.PreviousInsurerCode != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
                                       <li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>
                                       <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
