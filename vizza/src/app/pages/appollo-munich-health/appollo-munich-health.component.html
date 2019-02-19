@@ -824,8 +824,8 @@
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong> {{summaryData.ProposalDetails.p_tittlecode}}. {{summaryData.ProposalDetails.p_fname}} {{summaryData.ProposalDetails.p_mname}} {{summaryData.ProposalDetails.p_lname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ProposalDetails.p_dob | date: 'dd/MM/yyyy'}}</li>
-                                      <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
-                                      <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_email != ''"><strong>Email Id:</strong> {{summaryData.ProposalDetails.p_email}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_mobilenumber != ''"><strong>Mobile Number:</strong> {{summaryData.ProposalDetails.p_mobilenumber}}</li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
                                     <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE </li>
                                     <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.p_maritalstatus}}</li>
@@ -862,8 +862,8 @@
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}}. {{item.i_fname}} {{item.i_mname}} {{item.i_lname}}</li>
                                   <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob | date: 'dd/MM/yyyy'}}</li>
-                                  <li class="list-group-item"><strong>Email Id:</strong> {{item.i_email}}</li>
-                                  <li class="list-group-item"><strong>Mobile Number:</strong> {{item.i_mobilenumber}}</li>
+                                  <li class="list-group-item" *ngIf="item.i_email != ''"><strong>Email Id:</strong> {{item.i_email}}</li>
+                                  <li class="list-group-item" *ngIf="item.i_mobilenumber != ''"><strong>Mobile Number:</strong> {{item.i_mobilenumber}}</li>
                                   <li class="list-group-item" *ngIf="item.i_gender == 1"><strong>Gender:</strong> MALE </li>
                                   <li class="list-group-item" *ngIf="item.i_gender== 2"><strong>Gender:</strong> FEMALE </li>
                                   <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
@@ -949,10 +949,10 @@
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}}.{{summaryData.ProposalDetails.n_name}}</li>
+                                  <li class="list-group-item"><strong>Nominee Relationship:</strong> {{summaryData.ProposalDetails.n_relation}}</li>
                                   <li class="list-group-item"><strong>Address1:</strong> {{summaryData.ProposalDetails.n_address}}</li>
                                   <li class="list-group-item" *ngIf="summaryData.ProposalDetails.n_address2 != ''"><strong>Address2:</strong> {{summaryData.ProposalDetails.n_address2}}</li>
                                   <li class="list-group-item" *ngIf="summaryData.ProposalDetails.n_address3 != ''"><strong>Address3:</strong> {{summaryData.ProposalDetails.n_address3}}</li>
-                                  <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.n_relation}}</li>
                                 </ul>
                               </div>
                             </div>

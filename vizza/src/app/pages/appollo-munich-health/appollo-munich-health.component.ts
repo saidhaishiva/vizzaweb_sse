@@ -1696,6 +1696,10 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('1');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
+
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProofIdP.patchValue(this.proposer.controls['proposerIdProofIdP'].value);
+
+
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.patchValue(this.proposer.controls['proposerDistrict'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPan.patchValue(this.proposer.controls['proposerPan'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue(this.proposer.controls['proposerDriving'].value);
