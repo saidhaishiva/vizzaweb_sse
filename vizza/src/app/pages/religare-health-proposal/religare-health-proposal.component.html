@@ -276,7 +276,7 @@
 
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                              <input matInput placeholder="PAN Number" class="text-uppercase"  (input)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                               <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
@@ -562,9 +562,9 @@
                     <li class="list-group-item" *ngIf="item.resedential_contact_no && i == 0"><strong>Alternate Number:</strong> {{item.resedential_std_code}}{{item.resedential_contact_no}}</li>
 
 
-                    <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no}}</li>
+                    <li class="list-group-item" *ngIf="item.pan_no"><strong>PAN Number:</strong> {{item.pan_no | uppercase}}</li>
                     <li class="list-group-item" *ngIf="item.aadhar_no"><strong>Aadhar Number:</strong> {{item.aadhar_no}}</li>
-                    <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no}}</li>
+                    <li class="list-group-item" *ngIf="item.gst_no"><strong>GST Number:</strong> {{item.gst_no | uppercase}}</li>
                     <li class="list-group-item" *ngIf="item.height && item.height !=0 && i !=0"><strong>Height:</strong> {{item.height}}</li>
                     <li class="list-group-item" *ngIf="item.weight && item.height !=0 && i !=0"><strong>Weight:</strong> {{item.weight}}</li>
                   </ul>

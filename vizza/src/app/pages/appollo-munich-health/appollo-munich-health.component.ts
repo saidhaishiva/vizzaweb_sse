@@ -708,17 +708,30 @@ export class AppolloMunichComponent implements OnInit {
     changeIdproof(title, index){
         if(title == 'proposer') {
             this.proofValid = true;
-            if(this.proposer.controls['proposerIdProof'].value != '') {
-            } else {
-                this.proposer.controls['proposerDriving'].patchValue('');
-                this.proposer.controls['proposerPassport'].patchValue('');
-                this.proposer.controls['proposerVoter'].patchValue('');
-                this.proposer.controls['proposerPan'].patchValue('');
-            }
+            this.proposer.controls['proposerIdProofIdP'].patchValue('');
+            this.proposer.controls['proposerDriving'].patchValue('');
+            this.proposer.controls['proposerPassport'].patchValue('');
+            this.proposer.controls['proposerVoter'].patchValue('');
+            this.proposer.controls['proposerPan'].patchValue('');
+            // if(this.proposer.controls['proposerIdProof'].value != '') {
+            //     this.proposer.controls['proposerDriving'].patchValue('');
+            //     this.proposer.controls['proposerPassport'].patchValue('');
+            //     this.proposer.controls['proposerVoter'].patchValue('');
+            //     this.proposer.controls['proposerPan'].patchValue('');
+            // } else {
+            //     this.proposer.controls['proposerDriving'].patchValue('');
+            //     this.proposer.controls['proposerPassport'].patchValue('');
+            //     this.proposer.controls['proposerVoter'].patchValue('');
+            //     this.proposer.controls['proposerPan'].patchValue('');
+            // }
 
         } else if(title == 'insurer'){
             console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value, 'secttty');
             this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProofIdP.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerVoter.patchValue('');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.patchValue('');
             if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value != '') {
                 // if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO2') {
                 //     if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.value == '') {
@@ -752,10 +765,7 @@ export class AppolloMunichComponent implements OnInit {
             } else {
                 this.insureArray['controls'].items['controls'][index]['controls'].insurerIdProofError.patchValue('');
 
-                this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.patchValue('');
-                this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.patchValue('');
-                this.insureArray['controls'].items['controls'][index]['controls'].proposerVoter.patchValue('');
-                this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.patchValue('');
+
             }
 
         }
@@ -1816,7 +1826,8 @@ export class AppolloMunichComponent implements OnInit {
         } else {
             this.proofValid = true;
         }
-        console.log(this.proofValid, 'proofValid');
+
+        console.log(this.proposer, 'proposerproposer');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.proposer.valid) {
@@ -1869,6 +1880,7 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+
             for(let i = 0; i < this.insurerData.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
@@ -1880,6 +1892,9 @@ export class AppolloMunichComponent implements OnInit {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
                 }
             }
+
+            console.log(this.insurerData,'this.insurerData');
+
 
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
@@ -1930,8 +1945,8 @@ export class AppolloMunichComponent implements OnInit {
                     'NationalityCode': 'IN',
                     'OccuptionCode': this.insurerData[i].Proposeroccupation,
                     'PreviousInsurer': {
-                        'InceptionDate': this.insurerData[i].PolicyStartDate,
-                        'EndDate': this.insurerData[i].PolicyEndDate,
+                        'InceptionDate': this.insurerData[i].PolicyStartDate == null ? '': this.insurerData[i].PolicyStartDate ,
+                        'EndDate': this.insurerData[i].PolicyEndDate == null ? '' : this.insurerData[i].PolicyEndDate,
                         'PreviousInsurerCode': this.insurerData[i].PreviousInsurer,
                         'PreviousPolicyNumber': this.insurerData[i].PreviousPolicyNumber,
                         'SumInsured': this.insurerData[i].SumInsured,
@@ -1950,6 +1965,7 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
+            console.log(this.totalInsureDetails, 'iuoytretyuio');
             let ageValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -2073,10 +2089,14 @@ export class AppolloMunichComponent implements OnInit {
 
     //Create Appollo-Munich Details
     proposal(stepper) {
+      // let clientData = this.totalInsureDetails.slice(1);
+      let clientData = this.totalInsureDetails;
+      console.log(clientData, 'clientData');
 
-      let clientData = this.totalInsureDetails.slice(1);
 
-        const data  = {
+      console.log(this.proposer.controls['proposerIdProofIdP'].value, 'kkk');
+      console.log(this.proposer, 'jjjjjjj');
+      const data  = {
             'enquiry_id': this.enquiryId,
             'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -2101,14 +2121,14 @@ export class AppolloMunichComponent implements OnInit {
                         'Proposer': {
                             'Address': {
                                 'Address': {
-                                    'AddressLine1': this.proposerData.proposerAddress,
-                                    'AddressLine2': this.proposerData.proposerAddress2 == null ? '' : this.proposerData.proposerAddress2,
-                                    'AddressLine3': this.proposerData.proposerAddress3 == null ? '' : this.proposerData.proposerAddress3,
-                                    'CountryCode': this.proposerData.proposerCountry == null ? '' : this.proposerData.proposerCountry ,
-                                    'District': this.proposerData.proposerDistrict == null ? '' : this.proposerData.proposerDistrict,
-                                    'PinCode': this.proposerData.proposerPincode,
-                                    'StateCode': this.proposerData.proposerStateIdP,
-                                    'TownCode': this.proposerData.proposerCity
+                                    'AddressLine1': this.proposer.controls['proposerAddress'].value,
+                                    'AddressLine2': this.proposer.controls['proposerAddress2'].value == null ? '' : this.proposer.controls['proposerAddress2'].value,
+                                    'AddressLine3': this.proposer.controls['proposerAddress3'].value == null ? '' :this.proposer.controls['proposerAddress3'].value,
+                                    'CountryCode': this.proposer.controls['proposerCountry'].value == null ? '' : this.proposer.controls['proposerCountry'].value ,
+                                    'District': this.proposer.controls['proposerDistrict'].value == null ? '' : this.proposer.controls['proposerDistrict'].value,
+                                    'PinCode':this.proposer.controls['proposerPincode'].value,
+                                    'StateCode': this.proposer.controls['proposerStateIdP'].value,
+                                    'TownCode': this.proposer.controls['proposerCity'].value
                                 }
                             },
                             'BirthDate': this.datepipe.transform(this.proposerData.proposerDob, 'y-MM-dd'),
@@ -2116,21 +2136,21 @@ export class AppolloMunichComponent implements OnInit {
                             'ContactInformation': {
                                 'ContactNumber': {
                                     'ContactNumber': {
-                                        'Number': this.proposerData.proposerMobile
+                                        'Number':this.proposer.controls['proposerMobile'].value
                                     }
                                 },
-                                'Email': this.proposerData.proposerEmail
+                                'Email': this.proposer.controls['proposerEmail'].value
                             },
-                            'FirstName': this.proposerData.proposerFirstname,
-                            'GenderCode': this.proposerData.proposerGender,
-                            'GstinNumber': this.proposerData.proposerGst == null ? '':  this.proposerData.proposerGst,
-                            'IDProofNumber': this.proposerData.proposerIdProofIdP == null ? '':  this.proposerData.proposerIdProofIdP,
-                            'IDProofTypeCode': this.proposerData.proposerIdProof == null ? '':  this.proposerData.proposerIdProof,
-                            'LastName': this.proposerData.proposerLastname == null ? '':  this.proposerData.proposerLastname,
-                            'MaritalStatusCode': this.proposerData.maritalStatus,
-                            'MiddleName': this.proposerData.proposerMidname == null ? '':  this.proposerData.proposerMidname,
-                            'RelationshipCode': this.proposerData.proposerrelationship == null ? '': this.proposerData.proposerrelationship,
-                            'TitleCode': this.proposerData.proposerTitle
+                            'FirstName': this.proposer.controls['proposerFirstname'].value,
+                            'GenderCode': this.proposer.controls['proposerGender'].value,
+                            'GstinNumber':this.proposer.controls['proposerGst'].value == null ? '':  this.proposer.controls['proposerGst'].value,
+                            'IDProofNumber': this.proposer.controls['proposerIdProofIdP'].value == null ? '':  this.proposer.controls['proposerIdProofIdP'].value ,
+                            'IDProofTypeCode': this.proposer.controls['proposerIdProof'].value == null ? '':  this.proposer.controls['proposerIdProof'].value,
+                            'LastName': this.proposer.controls['proposerLastname'].value == null ? '':  this.proposer.controls['proposerLastname'].value,
+                            'MaritalStatusCode': this.proposer.controls['maritalStatus'].value,
+                            'MiddleName': this.proposer.controls['proposerMidname'].value == null ? '':  this.proposer.controls['proposerMidname'].value,
+                            'RelationshipCode': this.proposer.controls['proposerrelationship'].value == null ? '': this.proposer.controls['proposerrelationship'].value,
+                            'TitleCode': this.proposer.controls['proposerTitle'].value
                         }
                     },
 
@@ -2167,7 +2187,7 @@ export class AppolloMunichComponent implements OnInit {
                         'GenderCode': this.totalInsureDetails[0].GenderCode,
                         'GstinNumber': this.totalInsureDetails[0].GstinNumber == null ? '':  this.totalInsureDetails[0].GstinNumber,
                         'Height': this.totalInsureDetails[0].Height,
-                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber == null ? '':  this.totalInsureDetails[0].IDProofNumber,
+                        'IDProofNumber': this.totalInsureDetails[0].proposerIdProofIdP == null ? '':  this.totalInsureDetails[0].proposerIdProofIdP,
                         'IDProofTypeCode': this.totalInsureDetails[0].proposerIdProof == null ? '':  this.totalInsureDetails[0].proposerIdProof,
                         'LastName': this.totalInsureDetails[0].LastName,
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
@@ -2176,8 +2196,8 @@ export class AppolloMunichComponent implements OnInit {
                         // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                             'PreviousInsurer': {
-                                'InceptionDate': this.totalInsureDetails[0].PreviousInsurer.InceptionDate ? this.totalInsureDetails[0].PreviousInsurer.InceptionDate : '',
-                                'EndDate': this.totalInsureDetails[0].PreviousInsurer.EndDate ? this.totalInsureDetails[0].PreviousInsurer.EndDate : '',
+                                'InceptionDate': this.totalInsureDetails[0].PreviousInsurer.InceptionDate == null ? '' :  this.totalInsureDetails[0].PreviousInsurer.InceptionDate ,
+                                'EndDate': this.totalInsureDetails[0].PreviousInsurer.EndDate == null  ? '' : this.totalInsureDetails[0].PreviousInsurer.EndDate,
                                 'PreviousInsurerCode': this.totalInsureDetails[0].PreviousInsurer.PreviousInsurerCode,
                                 'PreviousPolicyNumber': this.totalInsureDetails[0].PreviousInsurer.PreviousPolicyNumber,
                                 'SumInsured': this.totalInsureDetails[0].PreviousInsurer.SumInsured,
