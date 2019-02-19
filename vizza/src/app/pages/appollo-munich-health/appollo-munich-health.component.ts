@@ -726,7 +726,6 @@ export class AppolloMunichComponent implements OnInit {
             // }
 
         } else if(title == 'insurer'){
-            console.log(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value, 'secttty');
             this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProofIdP.patchValue('');
             this.insureArray['controls'].items['controls'][index]['controls'].proposerDriving.patchValue('');
             this.insureArray['controls'].items['controls'][index]['controls'].proposerPassport.patchValue('');
@@ -2089,12 +2088,9 @@ export class AppolloMunichComponent implements OnInit {
 
     //Create Appollo-Munich Details
     proposal(stepper) {
-      let clientData = this.totalInsureDetails.slice(1);
-      console.log(clientData, 'clientData');
+        console.log(this.totalInsureDetails, 'this.totalInsureDetails222');
 
-
-      console.log(this.proposer.controls['proposerIdProofIdP'].value, 'kkk');
-      console.log(this.proposer, 'jjjjjjj');
+        let clientData = this.totalInsureDetails.slice(1);
       const data  = {
             'enquiry_id': this.enquiryId,
             'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
@@ -2186,8 +2182,8 @@ export class AppolloMunichComponent implements OnInit {
                         'GenderCode': this.totalInsureDetails[0].GenderCode,
                         'GstinNumber': this.totalInsureDetails[0].GstinNumber == null ? '':  this.totalInsureDetails[0].GstinNumber,
                         'Height': this.totalInsureDetails[0].Height,
-                        'IDProofNumber': this.totalInsureDetails[0].proposerIdProofIdP == null ? '':  this.totalInsureDetails[0].proposerIdProofIdP,
-                        'IDProofTypeCode': this.totalInsureDetails[0].proposerIdProof == null ? '':  this.totalInsureDetails[0].proposerIdProof,
+                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber == null ? '':  this.totalInsureDetails[0].IDProofNumber,
+                        'IDProofTypeCode': this.totalInsureDetails[0].IDProofTypeCode == null ? '':  this.totalInsureDetails[0].IDProofTypeCode,
                         'LastName': this.totalInsureDetails[0].LastName,
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
                         'MiddleName': this.totalInsureDetails[0].MiddleName == null ? '':  this.totalInsureDetails[0].MiddleName,
