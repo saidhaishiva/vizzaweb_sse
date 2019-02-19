@@ -119,6 +119,8 @@ export class TravelProposalComponent implements OnInit {
     public medicalStatus : any;
     public arr : any;
     public insureRelationList : any;
+    public sameRelationship : any;
+    public sameRelationshipValue : any;
     array: any;
     placeOfVisiLists: any;
     assigneeRelationList: any;
@@ -507,7 +509,19 @@ export class TravelProposalComponent implements OnInit {
     quesback() {
         this.back = false;
     }
-
+    changeRelationSame(event){
+            let target = event.source.selected._element.nativeElement;
+            let selectedData = {
+                value: event.value,
+                text: target.innerText.trim()
+            };
+        this.sameRelationship = selectedData.value;
+        for (let j =0; j < this.insureRelationList.length; j++) {
+            if (this.sameRelationship == this.insureRelationList[j].relationship_id) {
+                this.sameRelationshipValue = this.insureRelationList[j].relationship_name;
+            }
+        }
+    }
     sessionData() {
         if (sessionStorage.stepper1DetailsForTravel != '' && sessionStorage.stepper1DetailsForTravel != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1DetailsForTravel);
@@ -682,14 +696,8 @@ export class TravelProposalComponent implements OnInit {
                     }
                 );
             }
-
-
-
-
             }
-
     }
-
 
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
