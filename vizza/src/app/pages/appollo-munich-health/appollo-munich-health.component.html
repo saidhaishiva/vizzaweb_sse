@@ -884,7 +884,7 @@
                               <li class="list-group-item" *ngIf="item.i_gstNumber != '' && item.i_gstNumber != null"><strong>GST:</strong> {{item.i_gstNumber | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.i_annualIncome != '' && item.i_annualIncome != null"><strong>Annual Income:</strong> {{item.i_annualIncome}}</li>
                               <li class="list-group-item" *ngIf="item.i_familySize != '' && item.i_familySize != null"><strong>Family Size:</strong> {{item.i_familySize}}</li>
-                              <li class="list-group-item" *ngIf="item.i_procode != '' && item.i_procode != null"><strong>Family Size:</strong> {{item.i_procode}}</li>
+                              <li class="list-group-item" *ngIf="item.i_procode != '' && item.i_procode != null"><strong>Profession:</strong> {{item.i_procode}}</li>
                             </ul>
                           </div>
                         </div>
@@ -949,7 +949,9 @@
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.ProposalDetails.n_tittlecode}}.{{summaryData.ProposalDetails.n_name}}</li>
-                                  <li class="list-group-item"><strong>Address:</strong> {{summaryData.ProposalDetails.n_address}}</li>
+                                  <li class="list-group-item"><strong>Address1:</strong> {{summaryData.ProposalDetails.n_address}}</li>
+                                  <li class="list-group-item" *ngIf="summaryData.ProposalDetails.n_address2 != ''"><strong>Address2:</strong> {{summaryData.ProposalDetails.n_address2}}</li>
+                                  <li class="list-group-item" *ngIf="summaryData.ProposalDetails.n_address3 != ''"><strong>Address3:</strong> {{summaryData.ProposalDetails.n_address3}}</li>
                                   <li class="list-group-item"><strong>Relationship:</strong> {{summaryData.ProposalDetails.n_relation}}</li>
                                 </ul>
                               </div>
