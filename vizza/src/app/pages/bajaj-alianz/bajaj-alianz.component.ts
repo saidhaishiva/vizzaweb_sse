@@ -260,6 +260,7 @@ export class BajajAlianzComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log(this.insurerData, 'this.insurerData');
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
@@ -316,6 +317,9 @@ export class BajajAlianzComponent implements OnInit {
                     relationshipValidate.push('Yes')
                 }
             }
+            console.log(ageValidate, 'ageValidate');
+            console.log(diseaseValidate, 'diseaseValidate');
+            console.log(relationshipValidate, 'relationshipValidate');
             if(!ageValidate.includes(1)){
                 if(!diseaseValidate.includes('No')) {
                     if(!relationshipValidate.includes('No')) {
@@ -468,14 +472,14 @@ export class BajajAlianzComponent implements OnInit {
         return Bob_days;
     }
     ageValidation(i, type) {
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Self' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Self')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self Age between above 18 years to 45 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Spouse' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Spouse')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse Age between above 18 years to 45 years');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
@@ -490,7 +494,7 @@ export class BajajAlianzComponent implements OnInit {
 
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Son')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
@@ -498,7 +502,7 @@ export class BajajAlianzComponent implements OnInit {
 
         if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Daughter')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9496 && type == 'Daughter')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');

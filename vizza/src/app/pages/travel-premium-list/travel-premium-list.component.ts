@@ -107,6 +107,7 @@ export class TravelPremiumListComponent implements OnInit {
                 }
             }
         }
+        this.filterCompany = this.allCompanyList;
 
         console.log(this.premiumLists, 'testy');
         this.settings.HomeSidenavUserBlock = false;
@@ -187,13 +188,13 @@ export class TravelPremiumListComponent implements OnInit {
         this.sumInsuredAmonut();
         this.viewPlanList();
         // this.test();
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+        }
     }
     // filter by product
     filterByProducts(){
         let index = sessionStorage.changedTabIndex;
-        console.log(this.filterCompany, 'this.filterCompany');
-        // console.log(this.insuranceLists, ' this.insuranceList2222');
-
         let cmpy = [];
         for (let k = 0; k < this.filterCompany.length; k++) {
             for (let j = 0; j < this.premiumLists[index].all_product_list.length; j++) {
@@ -203,17 +204,13 @@ export class TravelPremiumListComponent implements OnInit {
                 }
             }
         }
-        console.log(this.premiumLists[index].all_product_list, 'popp');
-
         if(this.filterCompany.length < 1) {
             console.log('innnn');
             this.premiumLists[index].product_lists = this.premiumLists[index].all_product_list;
         } else {
             this.premiumLists[index].product_lists = cmpy;
         }
-
-        // this.insuranceLists[0].product_lists = [];
-        console.log(this.premiumLists, ' this.insuranceLists this.insuranceListspppp');
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
     }
 
     selectedSumAmount(){
@@ -833,9 +830,8 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
     booking(value, enqId, gname) {
-        console.log(value, 'vlitss');
         sessionStorage.travelPremiumList = JSON.stringify(value);
-        if (this.auth.getPosStatus() == '0') {
+        if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
             });

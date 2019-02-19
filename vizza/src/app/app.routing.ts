@@ -190,7 +190,7 @@ export const routes: Routes = [
             //{ path: 'Personal-accident-star-health-proposal', component: PersonalAccidentProposalComponent, data: { breadcrumb: 'Personal Accident Proposal'} },
             { path: 'pos-certificate', component: PosCertificateComponent, data: { breadcrumb: 'Pos Certificate'} },
             { path: 'reliance-heath-proposal/:stepper', component: RelianceHeathProposalComponent, data: { breadcrumb: 'Reliance'}, canDeactivate: [RelianceHealthDeactivateGuardService] },
-            { path: 'religare-health-proposal-payment-success/:status/:proId', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
+            { path: 'religare-health-proposal-payment-success/:status/:proId/:policyNo/:policyStatus', component: ReligarePaymentSuccessComponent, data: { breadcrumb: 'Religare payment Success'} },
             { path: 'reliance-heath-proposal-payment-success/:status/:proId/:mailstatus', component: ReliancePaymentSuccessComponent, data: { breadcrumb: 'Relaince payment Success'} },
             { path: 'apollomunich-payment-success/:status/:proId/:applicationNo', component: ApollomunichPaymentSuccessComponent, data: { breadcrumb: 'Apollo munich payment Success'} },
             { path: 'careers', component:CareerComponent, data: { breadcrumb: 'Career'} },

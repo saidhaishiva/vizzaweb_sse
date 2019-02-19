@@ -53,7 +53,9 @@
                                                             <div class="col-md-3" *ngIf="i == 0">
                                                                 <mat-form-field class="w-100">
                                                                     <input matInput placeholder="Email ID"   formControlName="insureEmail"   autocomplete="off" [required]="i == 0">
-                                                                    <mat-error *ngIf="insureArray.invalid">Email ID is required</mat-error>
+                                                                    <!--<mat-error *ngIf="insureArray.invalid">Email ID is required</mat-error>-->
+                                                                    <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureEmail.errors?.required">Email ID is required</mat-error>
+                                                                    <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                                                                 </mat-form-field>
                                                             </div>
                                                             <div class="col-md-3">
@@ -234,7 +236,7 @@
                                                                     <input matInput placeholder="Previous Sum Insurance"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
                                                                 </mat-form-field>
                                                             </div>
-                                                            <div class="col-md-3" *ngIf="i == 0">
+                                                            <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
                                                                     <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">
                                                                 </mat-form-field>
@@ -257,7 +259,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select placeholder="Relationship with Proposer" formControlName="bajajRelationship" required>
+                                                                    <mat-select placeholder="Relationship with Insurer" formControlName="bajajRelationship" required>
                                                                         <mat-option  *ngFor="let relation of nomeeRelation" [hidden]="sameRelationship == relation.relationship_name" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Nominee Relationship is required</mat-error>
@@ -321,6 +323,8 @@
                                             <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob| date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_age !='' && i != 0"><strong>Age :</strong> {{item.ins_age}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                         </ul>
                                     </div>
@@ -332,7 +336,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && i == 0"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
                                             <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}}</li>
+                                            <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}} %</li>
                                             <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
                                             <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
@@ -371,7 +375,7 @@
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>
@@ -383,7 +387,7 @@
                                         <h6 class="color-blue">NOMINEE DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.ins_memnomineename}}</li>
-                                            <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{item.ins_memnomineerelation}}</li>
+                                            <li class="list-group-item"><strong>Relationship with Insurer:</strong> {{item.ins_memnomineerelation}}</li>
                                         </ul>
                                     </div>
                                 </div>

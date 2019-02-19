@@ -826,7 +826,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with Proposer:</strong>
-                          <span *ngIf="summaryData.nominee_relationship !=''">{{summaryData.nominee_relationship}}</span> <span *ngIf="summaryData.nominee_relationship ==''"> Nill</span>
+                          <span *ngIf="summaryData.nominee_relationship !=''">{{summaryData.nominee_relationship}}</span> <span *ngIf="summaryData.nominee_relationship =='' || summaryData.nominee_relationship == null || summaryData.nominee_relationship == undefined"> Nill</span>
                          </li>
                       </ul>
                     </div>

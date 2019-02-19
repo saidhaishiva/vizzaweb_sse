@@ -31,6 +31,8 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     public allCompanyList: any
     public filterCompany: any
     public allGroupDetails: any
+    public policyNo: any
+    public policyStatus: any
     public settings: Settings;
 
     constructor(public config: ConfigurationService, public router: Router,public healthService: HealthService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -46,8 +48,11 @@ export class ReligarePaymentSuccessComponent implements OnInit {
         this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.status;
+          this.policyStatus = params.policyStatus;
           this.proposalId = params.proId;
-      });
+          this.policyNo = params.policyNo;
+
+        });
   }
   ngOnInit() {
       if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
