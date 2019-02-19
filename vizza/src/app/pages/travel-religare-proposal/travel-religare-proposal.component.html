@@ -340,11 +340,11 @@
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
                           <input matInput placeholder="Pan Number" class="text-uppercase" minlength="10" maxlength="10" formControlName="pannumber" autocomplete="off"  (keypress)="idValidate($event)" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                          <mat-error *ngIf="insureReligareArray.invalid">pannumber is required</mat-error>
+                          <mat-error *ngIf="insureReligareArray.invalid">Pan Number is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
                           <input matInput placeholder="Aadhar Number" class="text-uppercase" minlength="10" maxlength="10" formControlName="adharnumber" autocomplete="off"  (keypress)="idValidate($event)" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                          <mat-error *ngIf="insureReligareArray.invalid">adharnumber is required</mat-error>
+                          <mat-error *ngIf="insureReligareArray.invalid">Aadhar Number is required</mat-error>
                         </mat-form-field></div>
                       </div>
                       </div>
