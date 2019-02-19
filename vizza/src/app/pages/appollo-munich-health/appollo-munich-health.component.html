@@ -297,7 +297,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income"  (keypress)="numberValidate($event)" formControlName="proposerAnnualIncome" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                            <input matInput placeholder="Annual Income"  (keypress)="numberValidate($event)" maxlength="10" formControlName="proposerAnnualIncome" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                             <mat-error *ngIf="insureArray.invalid">Annual Income is required</mat-error>
                           </mat-form-field>
                         </div>
