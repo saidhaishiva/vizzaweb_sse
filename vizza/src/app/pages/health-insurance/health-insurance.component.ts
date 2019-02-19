@@ -792,7 +792,6 @@ export class HealthInsuranceComponent implements OnInit {
         // this.insuranceLists[0].product_lists = [];
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
 
-        console.log(this.insuranceLists, ' this.insuranceLists this.insuranceListspppp');
     }
 
     updateTabPolicy(value, index) {
@@ -940,7 +939,8 @@ export class HealthInsuranceComponent implements OnInit {
                 }
             }
             if (found) {
-                alert('No products found which match your selection');
+                alert('No products were found matching your selection');
+                this.changeSuninsuredAmount = '';
             } else {
 
                 //No products found which match your selection
@@ -1181,8 +1181,6 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
         this.checkAge = Math.max.apply(null, ages);
-        console.log(this.auth.getPosRoleId(), 'roliiddd');
-        console.log(this.auth.getPosStatus(), 'getPosStatus');
             if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
                 let dialogRef = this.dialog.open(PosstatusAlert, {
                     width: '700px',

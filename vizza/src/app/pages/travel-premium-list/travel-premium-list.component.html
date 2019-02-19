@@ -1,3 +1,214 @@
+<div class="row " id="product-list" fxLayoutAlign="center start">
+  <div class="col-sm-12">
+    <div fxLayout="column" class="travel-product-list">
+      <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Travel Insurance</h4>
+            </div>
+            <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedGroupChange($event)">
+              <mat-tab class="headerColor" *ngFor="let lists of premiumLists;let pi = index"  (click)="changeTab()">
+                <ng-template matTabLabel >
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                       width="20" height="80"
+                       viewBox="0 0 24 24"
+                       style="fill:#044E43;"><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
+                  <p class="ml-2 mt-3" style="color:#ffffff !important;">{{lists.name | uppercase}}</p>
+                </ng-template>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+
+        <div class="flex-p " *ngFor="let lists of premiumLists;let pi = index" >
+          <table class="table health-table" *ngIf="lists.product_lists !='' ">
+            <thead>
+            <tr>
+              <th >
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
+                  <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="sun-insured">
+                <mat-form-field >
+                  <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
+                  <mat-select>
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="3">3</mat-option>
+                    <mat-option value="4">4</mat-option>
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="6">6</mat-option>
+                    <mat-option value="7">7</mat-option>
+                    <mat-option value="8">8</mat-option>
+                    <mat-option value="9">9</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="11">11</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th>EMERGENCY MEDICAL EXPENSES</th>
+              <th>EMERGENCY MEDICAL TRANSPORTATION</th>
+              <th>TRANSPORTATION OF MORTAL REMAINS</th>
+              <th>DAILY ALLOWANCE</th>
+              <th>PRE EXISTING DISEASES</th>
+              <th>COMPARE</th>
+              <th>PREMIUM ( &#8377; )</th>
+              <th>BUY ( &#8377; )</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+              <td align="left">
+                <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.plan_name | titlecase}}
+              </td>
+              <td >
+                <p>&#8377; {{plists.suminsured_amount_format}}</p>
+              </td>
+              <td *ngFor="let keys of plists.key_features; let i = index;" >
+                <p class="text-center">{{keys.key_features_value}}</p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
+                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+              </td>
+              <td >
+                <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
+                <p class="text-center change-p">(Excluding.GST)</p>
+              </td>
+              <td >
+                <p><button mat-raised-button color="accent" (click)="booking(plists, lists.enquiry_id,lists.name)">Buy</button></p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <!--<table class="table health-table" *ngIf="lists.product_lists =='' ">-->
+          <!--<th class="text-center" class="color-pink"> No product matched your selection </th>-->
+          <!--</table>-->
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  </div>
+  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
+
+  <!--<div  *ngIf="secondPage">-->
+  <!--<div fxLayoutAlign="left center">-->
+  <!--<div class="col-md-12">-->
+  <!--<mat-card class="custom-card">-->
+  <!--<mat-card-header class="p-2" >-->
+  <!--<mat-card-title class="m-0">-->
+  <!--<h6>Your Selections</h6>-->
+  <!--</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<mat-radio-group><br>-->
+  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
+  <!--</mat-radio-group>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span style="font-size: 12px;">S.I</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<mat-select [(ngModel)]="changeSuninsuredAmount" name="suminsure" (change)="changeSuminsured($event)">-->
+  <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
+  <!--{{amounts.si_amount}}-->
+  <!--</mat-option>-->
+  <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
+  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>-->
+  <!--<div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>-->
+  <!--<div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >-->
+  <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--<div class="row" fxLayoutAlign="left center">-->
+  <!--<div class="col-md-6">-->
+  <!--<span>Pincode</span>-->
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<mat-form-field class="w-100">-->
+  <!--<input matInput name="pin" name="pin" [disabled]="true"  [(ngModel)]="pincoce">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div fxLayoutAlign="center center" class="son">-->
+  <!--<button mat-raised-button color="accent" type="button" (click)="updateFunction()">Update</button>-->
+  <!--</div>-->
+
+  <!--</mat-card-content>-->
+  <!--</mat-card>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <!--</div>-->
+  <!--</div>-->
+</div>
+
+
+<div class="row compar-fix" *ngIf="compareArray != ''">
+  <div class="text-right closeBtnClass">
+    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
+  </div>
+  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+    <div fxLayout="column" class="flex-p">
+      <mat-card class="custom-card compare-icon text-center">
+        <div class="text-right closeBtnClass">
+          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+        </div>
+        <mat-card-content class="p-0">
+          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+  </div>
+</div>
+
+<style>
+  .btn-color {
+    background: #00695c !important;
+  }
+  .refreshBtn {
+    cursor: pointer;
+  i {
+    cursor: pointer;
+  }
+  }
+  .days-count {
+    margin-top: 16px !important;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
 <!--<div class="container-fluid dashboard h-100" fxLayoutAlign="start start" id="travel-starthealth">-->
   <!--<div class="col-md-12">-->
     <!--<mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">-->
@@ -610,203 +821,3 @@
 
 
 
-<div class="row " id="product-list" fxLayoutAlign="center start">
-  <div class="col-sm-12">
-    <div fxLayout="column" class="travel-product-list">
-      <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-6">
-              <h4 style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Travel Insurance</h4>
-            </div>
-              <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedGroupChange($event)">
-                <mat-tab class="headerColor" *ngFor="let lists of premiumLists;let pi = index"  (click)="changeTab()">
-                  <ng-template matTabLabel >
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                         width="20" height="80"
-                         viewBox="0 0 24 24"
-                         style="fill:#044E43;"><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
-                    <p class="ml-2 mt-3" style="color:#ffffff !important;">{{lists.name | uppercase}}</p>
-                  </ng-template>
-                </mat-tab>
-              </mat-tab-group>
-            </div>
-          </div>
-
-        <div class="flex-p " *ngFor="let lists of premiumLists;let pi = index" >
-          <table class="table health-table" *ngIf="lists.product_lists !='' ">
-            <thead>
-            <tr>
-              <th >
-                <mat-form-field class="w-100">
-                  <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
-                  <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </th>
-              <th class="sun-insured">
-                <mat-form-field >
-                  <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
-                  <mat-select>
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="6">6</mat-option>
-                    <mat-option value="7">7</mat-option>
-                    <mat-option value="8">8</mat-option>
-                    <mat-option value="9">9</mat-option>
-                    <mat-option value="10">10</mat-option>
-                    <mat-option value="11">11</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </th>
-              <th>EMERGENCY MEDICAL EXPENSES</th>
-              <th>EMERGENCY MEDICAL TRANSPORTATION</th>
-              <th>TRANSPORTATION OF MORTAL REMAINS</th>
-              <th>DAILY ALLOWANCE</th>
-              <th>PRE EXISTING DISEASES</th>
-              <th>COMPARE</th>
-              <th>PREMIUM ( &#8377; )</th>
-              <th>BUY ( &#8377; )</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
-              <td align="left">
-                <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.plan_name | titlecase}}
-              </td>
-              <td >
-                <p>&#8377; {{plists.suminsured_amount_format}}</p>
-              </td>
-              <td *ngFor="let keys of plists.key_features; let i = index;" >
-                <p class="text-center">{{keys.key_features_value}}</p>
-              </td>
-              <td>
-                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
-                <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
-                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
-              </td>
-              <td >
-                <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
-                <p class="text-center change-p">(Excluding.GST)</p>
-              </td>
-              <td >
-                <p><button mat-raised-button color="accent" (click)="booking(plists, lists.enquiry_id,lists.name)">Buy</button></p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <!--<table class="table health-table" *ngIf="lists.product_lists =='' ">-->
-            <!--<th class="text-center" class="color-pink"> No product matched your selection </th>-->
-          <!--</table>-->
-        </div>
-        <mat-divider></mat-divider>
-      </div>
-    </div>
-  </div>
-  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
-
-  <!--<div  *ngIf="secondPage">-->
-  <!--<div fxLayoutAlign="left center">-->
-  <!--<div class="col-md-12">-->
-  <!--<mat-card class="custom-card">-->
-  <!--<mat-card-header class="p-2" >-->
-  <!--<mat-card-title class="m-0">-->
-  <!--<h6>Your Selections</h6>-->
-  <!--</mat-card-title>-->
-  <!--</mat-card-header>-->
-  <!--<mat-card-content>-->
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<mat-radio-group><br>-->
-  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
-  <!--</mat-radio-group>-->
-  <!--</div>-->
-
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<div class="col-md-6">-->
-  <!--<span style="font-size: 12px;">S.I</span>-->
-  <!--</div>-->
-  <!--<div class="col-md-6">-->
-  <!--<mat-form-field class="w-100">-->
-  <!--<mat-select [(ngModel)]="changeSuninsuredAmount" name="suminsure" (change)="changeSuminsured($event)">-->
-  <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
-  <!--{{amounts.si_amount}}-->
-  <!--</mat-option>-->
-  <!--</mat-select>-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
-  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>-->
-  <!--<div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>-->
-  <!--<div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >-->
-  <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-
-  <!--</div>-->
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<div class="col-md-6">-->
-  <!--<span>Pincode</span>-->
-  <!--</div>-->
-  <!--<div class="col-md-6">-->
-  <!--<mat-form-field class="w-100">-->
-  <!--<input matInput name="pin" name="pin" [disabled]="true"  [(ngModel)]="pincoce">-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div fxLayoutAlign="center center" class="son">-->
-  <!--<button mat-raised-button color="accent" type="button" (click)="updateFunction()">Update</button>-->
-  <!--</div>-->
-
-  <!--</mat-card-content>-->
-  <!--</mat-card>-->
-  <!--</div>-->
-  <!--</div>-->
-
-
-  <!--</div>-->
-  <!--</div>-->
-</div>
-
-
-<div class="row compar-fix" *ngIf="compareArray != ''">
-    <div class="text-right closeBtnClass">
-        <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
-    </div>
-    <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
-        <div fxLayout="column" class="flex-p">
-            <mat-card class="custom-card compare-icon text-center">
-                <div class="text-right closeBtnClass">
-                    <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
-                </div>
-                <mat-card-content class="p-0">
-                    <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
-                    <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
-    <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-        <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-    </div>
-</div>
-
-<style>
-  .btn-color {
-    background: #00695c !important;
-  }
-  .refreshBtn {
-    cursor: pointer;
-  i {
-    cursor: pointer;
-  }
-  }
-  .days-count {
-    margin-top: 16px !important;
-  }
-</style>
