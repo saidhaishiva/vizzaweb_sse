@@ -2089,8 +2089,7 @@ export class AppolloMunichComponent implements OnInit {
 
     //Create Appollo-Munich Details
     proposal(stepper) {
-      // let clientData = this.totalInsureDetails.slice(1);
-      let clientData = this.totalInsureDetails;
+      let clientData = this.totalInsureDetails.slice(1);
       console.log(clientData, 'clientData');
 
 
