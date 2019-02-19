@@ -83,7 +83,9 @@
                       <div class="col-md-4">
                         <p class="days-count">Total Days : {{daysCount}}</p>
                       </div>
-                      <p *ngIf="daysBookingCount> 60" class="error">Travel booking starts before 60 days</p>
+                      <div col-md-4>
+                        <p *ngIf="daysBookingCount> 60" class="error">Travel booking starts before 60 days</p>
+                      </div>
                     </div>
                     <div class="row mt-2">
                       <div class="col-md-6">
