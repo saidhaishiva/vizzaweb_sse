@@ -78,14 +78,13 @@
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2 color="primary"></mat-datepicker>
                         </mat-form-field>
-                        <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
+                          <p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>
                       </div>
                       <div class="col-md-4">
                         <p class="days-count">Total Days : {{daysCount}}</p>
                       </div>
+                      <p *ngIf="daysBookingCount> 60" class="error">Travel booking starts before 60 days</p>
                     </div>
-                    <div *ngIf="daysBookingCount > 60" class="ngError">Travel booking starts before 60 days</div>
-
                     <div class="row mt-2">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
