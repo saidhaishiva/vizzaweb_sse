@@ -864,17 +864,22 @@ a:hover {
     background-color: #31CCEB !important;
   }
   .mat-tab-label-active{
-    background-color: #6FC5E4 !important;
+    background-color: #127396 !important;
     z-index: 1;
   }
   thead th{
-    background: #6fc5e4 !important;
+    background: #127396 !important;
   }
   h4 {
-    color: #6fc5e4 !important;
+    color: #127396 !important;
+  }
+  .mat-tab-labels {
+    float: right;
+    background: #efe9e9 !important;
+
   }
   .mat-raised-button.mat-primaryBlue {
-    background-color: #6fc5e4;
+    background-color: #127396;
     color: #ffffff !important;
   }
   //.mat-raised-button.mat-primaryBlue {
