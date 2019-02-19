@@ -11,7 +11,7 @@
                                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title >
-                                            <span *ngIf="i == 0">PROPOSER DETAILS</span>
+                                            <span *ngIf="i == 0">PROPOSER / INSURED DETAILS</span>
                                             <span *ngIf="i != 0">INSURED DETAILS FOR {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}</span>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>

@@ -392,6 +392,9 @@ export class BajajAlianzComponent implements OnInit {
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(dob);
+                        this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
+                        this.ageValidation(i, type);
 
                     }
 
@@ -417,6 +420,9 @@ export class BajajAlianzComponent implements OnInit {
                         this.getDays = this.ageCalculateInsurer(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+                        this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
+                        this.ageValidation(i, type);
 
                     }
 
@@ -425,6 +431,7 @@ export class BajajAlianzComponent implements OnInit {
             }
             let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'y-MM-dd');
             // let length =  this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value;
+            // let length = this.datepipe.transform(event.value, 'y-MM-dd');
             if (length.length == 10) {
                 if (name == 'expiry') {
                 } else {
@@ -432,7 +439,6 @@ export class BajajAlianzComponent implements OnInit {
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
-                    this.ageValidation(i, type);
                 }
 
             } else {
