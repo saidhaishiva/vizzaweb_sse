@@ -171,7 +171,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'contact/addContactDetails' ;
+        const url = this.configurationService.getHostHome() + 'contact/addContactDetails' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -236,17 +236,17 @@ export class HealthService {
     }
 
     // Get testimonial list
-    getTestimonialList(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'testemonial/list_testemonials' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // getTestimonialList(data) {
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'testemonial/list_testemonials' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     //Get company list
     getcompanyList(data) {
         const json = JSON.stringify(data);
@@ -285,43 +285,43 @@ export class HealthService {
             .catch(this.handleError);
     }
     //referral code
-    getReferralCode(data){
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'pos/get_referralcode_details';
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // getReferralCode(data){
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'pos/get_referralcode_details';
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
     // add testimonial
-    addTestimonial(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'testemonial/add' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // addTestimonial(data) {
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'testemonial/add' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // career update
-    careerupdate(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'careers/job_apply' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // careerupdate(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'careers/job_apply' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     //policy
     mediaCenter(data) {
         console.log(data, 'ssssssssssss');

@@ -6,7 +6,7 @@ declare let numeral: any;
 @Injectable()
 export class ConfigurationService {
 
-  apiHost: string = environment.apiHost;
+  //apiHost: string = environment.apiHost;
   apiHostTravel: string = environment.apiHostTravel;
   apiHostPa: string = environment.apiHostPa;
   apiHostHealth: string = environment.apiHostHealth;
@@ -28,7 +28,7 @@ export class ConfigurationService {
   constructor() {
     this.webhost = this.webHost;
     this.imgurl = this.imgUrl;
-    this.apihost = this.apiHost;
+    //this.apihost = this.apiHost;
     this.apiHostTravel = this.apiHostTravel;
     this.apiHostPa = this.apiHostPa;
     this.apiHostHealth = this.apiHostHealth;
@@ -36,9 +36,9 @@ export class ConfigurationService {
     this.apiHostHome = this.apiHostHome;
     this.apiHostDm = this.apiHostDm;
   }
-    getHost() {
-        return this.apiHost;
-    }
+    // getHost() {
+    //     return this.apiHost;
+    // }
     getHostTravel() {
         return this.apiHostTravel;
     }

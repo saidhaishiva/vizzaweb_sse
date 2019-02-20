@@ -486,7 +486,7 @@ export class BajajAlianzComponent implements OnInit {
         }
         if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Spouse' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Spouse')) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse Age between above 18 years to 45 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6939 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }

@@ -1002,7 +1002,7 @@ export class PosprofileComponent implements OnInit {
             'postalcode': pin
         }
         if (pin.length == 6) {
-            this.common.getPincode(data).subscribe(
+            this.common.getPincodeDetails(data).subscribe(
                 (successData) => {
                     this.getPinSuccess(successData);
                 },

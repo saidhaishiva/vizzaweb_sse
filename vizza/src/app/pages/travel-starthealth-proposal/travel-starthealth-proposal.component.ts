@@ -867,10 +867,12 @@ export class TravelProposalComponent implements OnInit {
         this.sumTitle = title;
         const data = {
             'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
             'pincode': this.sumPin
         }
         if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
+            this.proposalservice.getPostalReligare(data).subscribe(
                 (successData) => {
                     this.PostalSummarySuccess(successData);
                 },

@@ -20,30 +20,30 @@ export class CommonService {
         return formBody.join('&');
     }
 
-    getPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/lists' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // getPolicyQuotation(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/lists' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 // this function will get the sum insured amount lists
-    getSumInsuredAmount(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/suminsured_amount' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+//     getSumInsuredAmount(data) {
+//         const json = JSON.stringify(data);
+//         const token = this.authService.getAccessToken();
+//         const httpOptions = {
+//             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+//         };
+//         const url = this.configurationService.getHost() + 'quote/suminsured_amount' ;
+//         return this.http.post(url, json, httpOptions)
+//             .map(this.extractData)
+//             .catch(this.handleError);
+//     }
     // // this function will get the travel-home sum insured amount lists
     // getTravelSumInsuredAmount(data) {
     //     console.log(data, 'ssssssssssss');
@@ -59,110 +59,110 @@ export class CommonService {
     // }
 
 // this function will tab update the policy deatils
-    updateTabPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/showquotelist_ontabchange' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+//     updateTabPolicyQuotation(data) {
+//         console.log(data, 'ssssssssssss');
+//         const json = JSON.stringify(data);
+//         const token = this.authService.getAccessToken();
+//         const httpOptions = {
+//             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+//         };
+//         const url = this.configurationService.getHost() + 'quote/showquotelist_ontabchange' ;
+//         return this.http.post(url, json, httpOptions)
+//             .map(this.extractData)
+//             .catch(this.handleError);
+//     }
     // this function will update the base policy deatils
-    updatePolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/update_enqfamily_memberdetails' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // updatePolicyQuotation(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/update_enqfamily_memberdetails' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // this function will change the sum insured amount
-    changeAmountPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/update_familygroup_suminsured' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // changeAmountPolicyQuotation(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/update_familygroup_suminsured' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
     // this function will compare the product lists
-    addtoCompare(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/compare_shkeyfeatures' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // addtoCompare(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/compare_shkeyfeatures' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // this function will add the short lists
-    addShortList(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/add_prodshortlist' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // addShortList(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/add_prodshortlist' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // this function will remove the short lists
-    removeShortList(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/remove_prodshortlist' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // removeShortList(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/remove_prodshortlist' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // this function will get the key feature lists
-    viewKeyFeatureList(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'starheathproduct/view_keyfeatures' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // viewKeyFeatureList(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'starheathproduct/view_keyfeatures' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     // this function will get the short lists
-    getShortLists(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/get_enq_shortlistedproduct' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // getShortLists(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'quote/get_enq_shortlistedproduct' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
     setFixAppointment(data) {
         const json = JSON.stringify(data);
@@ -181,7 +181,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'contact/addContactDetails' ;
+        const url = this.configurationService.getHostHome() + 'contact/addContactDetails' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -296,7 +296,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'pos/register' ;
+        const url = this.configurationService.getHostPos() + 'pos/register' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -357,17 +357,17 @@ export class CommonService {
             .catch(this.handleError);
     }
 // Get city list
-    getPostal(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/get_city' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+//     getPostal(data) {
+//         const json = JSON.stringify(data);
+//         const token = this.authService.getAccessToken();
+//         const httpOptions = {
+//             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+//         };
+//         const url = this.configurationService.getHost() + 'quote/get_city' ;
+//         return this.http.post(url, json, httpOptions)
+//             .map(this.extractData)
+//             .catch(this.handleError);
+//     }
     getPincodeDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -380,17 +380,17 @@ export class CommonService {
             .catch(this.handleError);
     }
 // Get Area list
-    getArea(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'quote/get_area' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+//     getArea(data) {
+//         const json = JSON.stringify(data);
+//         const token = this.authService.getAccessToken();
+//         const httpOptions = {
+//             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+//         };
+//         const url = this.configurationService.getHost() + 'quote/get_area' ;
+//         return this.http.post(url, json, httpOptions)
+//             .map(this.extractData)
+//             .catch(this.handleError);
+//     }
 
     // Get testimonial list
     getTestimonialList(data) {
@@ -399,7 +399,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'testemonial/list_testemonials' ;
+        const url = this.configurationService.getHostHome() + 'testemonial/list_testemonials' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -429,18 +429,18 @@ export class CommonService {
             .catch(this.handleError);
     }
     // pincode
-    getPincode(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'common/checkpincode';
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // getPincode(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'common/checkpincode';
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     //referral code
     getReferralCode(data){
         const json = JSON.stringify(data);
@@ -461,7 +461,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'testemonial/add' ;
+        const url = this.configurationService.getHostHome() + 'testemonial/add' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -474,24 +474,24 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHost() + 'careers/job_apply' ;
+        const url = this.configurationService.getHostHome() + 'careers/job_apply' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     //policy
-    mediaCenter(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'policyrenewal/ListMedia' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // mediaCenter(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'policyrenewal/ListMedia' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
     // Home page renewal-reminder
     policyRenewalRemainder(data) {

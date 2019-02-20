@@ -12,10 +12,10 @@ export class LoginService {
 
     }
 
-    logout() {
-        const url = this.configurationService.getHost() + 'auth/logout';
-        return this.http.get(url);
-    }
+    // logout() {
+    //     const url = this.configurationService.getHost() + 'auth/logout';
+    //     return this.http.get(url);
+    // }
 
 
     doLogin(data) {
@@ -84,41 +84,7 @@ export class LoginService {
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
-
     }
-    getResendRequest(data){
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'assistant/resendRequest' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-
-    }
-    assisting(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
-        };
-        const url = this.configurationService.getHost() + 'assistant/assisting' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    // getFormUrlEncoded(toConvert) {
-    //     const formBody = [];
-    //     for (const property in toConvert) {
-    //         const encodedKey = encodeURIComponent(property);
-    //         const encodedValue = encodeURIComponent(toConvert[property]);
-    //         formBody.push(encodedKey + '=' + encodedValue);
-    //     }
-    //     return formBody.join('&');
-    // }
-
     doForgot(data) {
         console.log(data);
         const json = JSON.stringify(data);
@@ -149,71 +115,105 @@ export class LoginService {
             .catch(this.handleError);
 
     }
-    doConfirm(data) {
-        console.log(data);
-        const json = JSON.stringify(data);
+    // getResendRequest(data){
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'assistant/resendRequest' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    //
+    // }
+    // assisting(data) {
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+    //     };
+    //     const url = this.configurationService.getHost() + 'assistant/assisting' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+    // getFormUrlEncoded(toConvert) {
+    //     const formBody = [];
+    //     for (const property in toConvert) {
+    //         const encodedKey = encodeURIComponent(property);
+    //         const encodedValue = encodeURIComponent(toConvert[property]);
+    //         formBody.push(encodedKey + '=' + encodedValue);
+    //     }
+    //     return formBody.join('&');
+    // }
 
-        console.log(json);
 
-        // const token = this.authService.getaccesstoken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
-        };
-        const url = this.configurationService.getHost() + 'doctor/setNewPassword';
-        return this.http.post(url , json, httpOptions)
+    // doConfirm(data) {
+    //     console.log(data);
+    //     const json = JSON.stringify(data);
+    //
+    //     console.log(json);
+    //
+    //     // const token = this.authService.getaccesstoken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    //     };
+    //     const url = this.configurationService.getHost() + 'doctor/setNewPassword';
+    //     return this.http.post(url , json, httpOptions)
+    //
+    //         .map(this.extractData )
+    //         .catch(this.handleError);
+    //
+    // }
+    // signupSelf(data) {
+    //     const json = JSON.stringify(data);
+    //     console.log(data, 'service');
+    //     // const token = this.authService.getaccesstoken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    //     };
+    //     const url = this.configurationService.getHost() + 'doctor/selfRegister';
+    //     return this.http.post(url , json, httpOptions)
+    //         // .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+    // executiveCallback(data) {
+    //     const json = JSON.stringify(data);
+    //     console.log(data, 'service');
+    //     // const token = this.authService.getaccesstoken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    //     };
+    //     const url = this.configurationService.getHost() + 'doctor/executiveCallback';
+    //     return this.http.post(url , json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+    // registerDoctor(data) {
+    //     const json = JSON.stringify(data);
+    //     console.log(data, 'inside service of confirm register');
+    //     // const token = this.authService.getaccesstoken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'doctor/confirmRegister' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
-            .map(this.extractData )
-            .catch(this.handleError);
-
-    }
-    signupSelf(data) {
-        const json = JSON.stringify(data);
-        console.log(data, 'service');
-        // const token = this.authService.getaccesstoken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
-        };
-        const url = this.configurationService.getHost() + 'doctor/selfRegister';
-        return this.http.post(url , json, httpOptions)
-            // .map(this.extractData)
-            .catch(this.handleError);
-    }
-    executiveCallback(data) {
-        const json = JSON.stringify(data);
-        console.log(data, 'service');
-        // const token = this.authService.getaccesstoken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
-        };
-        const url = this.configurationService.getHost() + 'doctor/executiveCallback';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    registerDoctor(data) {
-        const json = JSON.stringify(data);
-        console.log(data, 'inside service of confirm register');
-        // const token = this.authService.getaccesstoken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'doctor/confirmRegister' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    generateOtp(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHost() + 'common/generateOtp' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // generateOtp(data) {
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHost() + 'common/generateOtp' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
 
 
