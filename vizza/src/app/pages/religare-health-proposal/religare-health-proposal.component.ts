@@ -16,6 +16,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
     parse: {
@@ -794,6 +795,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
+            let dob_days = '';
             let getAge;
             let getDays;
             if (typeof event.value._i == 'string') {
@@ -808,7 +810,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 if (selectedDate.length == 10) {
                     if (name == 'insurer') {
                         getAge = this.ageCalculate(dob);
-                        getDays = this.DobDaysCalculate(dob);
+                        getDays = this.DobDaysCalculate(dob_days);
                         this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
                     }
 
@@ -821,7 +823,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 if (dob.length == 10) {
                     if (name == 'insurer') {
                         getAge = this.ageCalculate(dob);
-                        getDays = this.DobDaysCalculate(dob);
+                        getDays = this.DobDaysCalculate(dob_days);
                         this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
                     }
                 }
@@ -848,28 +850,28 @@ export class ReligareHealthProposalComponent implements OnInit {
     ageValidation(i, type) {
 
         if(this.buyProductdetails.product_id == "2") {
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Self') {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 16800 && type == 'Self') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 46 and above');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >=46 && type == 'Self')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >=16800 && type == 'Self')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-                this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+                this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value);
             }
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Spouse') {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 16800 && type == 'Spouse') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 46 and above');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 46 && type == 'Spouse')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 16800 && type == 'Spouse')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-                this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
+                this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value);
             }
         } else {
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Self') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Self')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
             }
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Spouse') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Spouse')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
             }
@@ -1036,17 +1038,20 @@ export class ReligareHealthProposalComponent implements OnInit {
         return year_age;
     }
 
-    DobDaysCalculate(dobDays) {
-        let mdate = dobDays.toString();
-        let yearThen = parseInt(mdate.substring( 8,10), 10);
-        let monthThen = parseInt(mdate.substring(5,7), 10);
-        let dayThen = parseInt(mdate.substring(0,4), 10);
-        let todays = new Date();
-        let birthday = new Date( dayThen, monthThen-1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
-
+    DobDaysCalculate(getDays) {
+        // let mdate = dobDays.toString();
+        // let yearThen = parseInt(mdate.substring( 8,10), 10);
+        // let monthThen = parseInt(mdate.substring(5,7), 10);
+        // let dayThen = parseInt(mdate.substring(0,4), 10);
+        // let todays = new Date();
+        // let birthday = new Date( dayThen, monthThen-1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        // return Bob_days;
+        let a = moment(getDays, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
     }
     stepback() {
         this.back = true;
