@@ -436,7 +436,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value && i == 0" >
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district')">
+                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district')"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                                       <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
                                   </mat-select>
                                   <!--<mat-error *ngIf="insureArray.invalid">District is required</mat-error>-->
