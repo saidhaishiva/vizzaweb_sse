@@ -492,15 +492,15 @@ export class BajajAlianzComponent implements OnInit {
 
     }
     ageValidation(i, type) {
-        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Self' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Self')) {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self Age between above 18 years to 45 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Self')  {
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Self' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Self')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self Age between 18 years to 45 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Spouse' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Spouse')) {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse Age between above 18 years to 45 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6939 && type == 'Spouse')  {
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Spouse' )|| (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 16800 && type == 'Spouse')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse Age between 18 years to 45 years');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6573 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }

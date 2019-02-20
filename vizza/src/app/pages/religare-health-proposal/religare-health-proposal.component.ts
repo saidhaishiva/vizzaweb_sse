@@ -863,15 +863,15 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value);
             }
         } else {
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Self') {
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Self')  {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Self') {
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Self')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
             }
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 6939 && type == 'Spouse') {
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Spouse')  {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Spouse') {
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Spouse')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
             }
