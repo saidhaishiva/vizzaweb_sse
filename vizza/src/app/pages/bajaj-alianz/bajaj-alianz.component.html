@@ -368,7 +368,7 @@
                                 </div>
 
 
-                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !=''">
+                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !='' || item.ins_memcompname !='' || item.ins_memprvpolno !='' || item.ins_memprvexpdate !='' || (item.ins_memprvsi !='' && item.ins_memprvsi != 0.00) || summaryData.prop_noofclaims !='' || summaryData.prop_previnsaddress !=''">
                                     <div class="p-3">
                                         <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
