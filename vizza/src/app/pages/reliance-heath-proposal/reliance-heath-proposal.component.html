@@ -639,7 +639,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
+                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
                                                         <mat-option *ngFor="let relationship of nomineeRelationshipList" [hidden]="sameRelationship == relationship.nominee_relation_id" value="{{relationship.nominee_relation_id}}" > {{relationship.nominee_relation_name}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>

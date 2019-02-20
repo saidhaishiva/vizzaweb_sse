@@ -86,7 +86,6 @@ import {MediaCenterComponent} from './pages/media-center/media-center.component'
 import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
-import {PreligareComponent} from './pages/preligare/preligare.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
 import {TravelProposalComponent} from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
 import {ReligarePaymentSuccessPaComponent} from './pages/religare-payment-success-pa/religare-payment-success-pa.component';
@@ -199,7 +198,6 @@ export const routes: Routes = [
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
-            { path: 'preligare', component:PreligareComponent, data: { breadcrumb: 'Personal Accident'} },
             { path: 'appollo-munich-health/:stepper', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },

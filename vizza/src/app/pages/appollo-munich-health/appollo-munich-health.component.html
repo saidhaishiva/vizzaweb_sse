@@ -729,7 +729,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="nomineeRelationship" required >
+                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
                             <mat-option *ngFor="let relationship of relationshipList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>

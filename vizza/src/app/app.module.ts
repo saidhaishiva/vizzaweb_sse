@@ -176,7 +176,6 @@ import { MediaCenterComponent } from './pages/media-center/media-center.componen
 import { ViewmediaComponent } from './pages/media-center/viewmedia/viewmedia.component';
 import { ReliancePaymentSuccessComponent } from './pages/reliance-payment-success/reliance-payment-success.component';
 import { PersonalAccidentReligareProposalComponent } from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
-import { PreligareComponent } from './pages/preligare/preligare.component';
 import { TravelPremiumListComponent } from './pages/travel-premium-list/travel-premium-list.component';
 import { PosstatusAlertTravel } from './pages/travel-premium-list/travel-premium-list.component';
 import { TravelProposalComponent } from './pages/travel-starthealth-proposal/travel-starthealth-proposal.component';
@@ -392,7 +391,6 @@ import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-dea
       SafePipe,
       ReliancePaymentSuccessComponent,
       PersonalAccidentReligareProposalComponent,
-      PreligareComponent,
       TravelPremiumListComponent,
       TravelProposalComponent,
       CompareDetailsComponent,
@@ -441,7 +439,7 @@ import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-dea
       DownloadMessageHdfcTravel,
       TravelReligarePaymentSuccessComponent,
       DownloadMessageReligareTravel,
-      DisclaimerDialog
+      DisclaimerDialog,
   ],
   providers: [
       AppSettings,
