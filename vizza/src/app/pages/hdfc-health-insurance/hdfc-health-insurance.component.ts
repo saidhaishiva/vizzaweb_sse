@@ -13,6 +13,7 @@ import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
     parse: {
@@ -383,19 +384,19 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         // }
 
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Son')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Son')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8401 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Daughter')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Daughter')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8401 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
@@ -496,6 +497,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
         return Bob_days;
+        // let a = moment(dob, 'DD/MM/YYYY');
+        // let b = moment(new Date(), 'DD/MM/YYYY');
+        // let days = b.diff(a, 'days');
+        // return days;
 
     }
 

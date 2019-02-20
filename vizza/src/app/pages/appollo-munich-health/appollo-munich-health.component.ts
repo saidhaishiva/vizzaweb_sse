@@ -972,10 +972,12 @@ export class AppolloMunichComponent implements OnInit {
             this.getDays;
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                if (name == 'insurer') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                    } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                    }
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
@@ -1011,8 +1013,6 @@ export class AppolloMunichComponent implements OnInit {
                         this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else if(name == 'insurer') {
-                        console.log(name, 'name');
-
                         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         console.log(this.getAge,'age');
@@ -1020,9 +1020,7 @@ export class AppolloMunichComponent implements OnInit {
                         console.log(this.getDays,'das');
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
                     }
-
                 }
-
             }
             if (name == 'insurer') {
                 console.log(name, 'typettttt');
@@ -1030,7 +1028,6 @@ export class AppolloMunichComponent implements OnInit {
                 let length = this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
                 if (length.length == 10) {
                     console.log(length, 'length');
-
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
