@@ -231,7 +231,9 @@
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
-                              <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}">{{titleCode.tittle}}</mat-option>
+                              <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.tittle_code == 'MASTER' || titleCode.tittle_code == 'BABY') ||
+                              insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.tittle_code == 'MASTER' || titleCode.tittle_code == 'BABY')
+                              ">{{titleCode.tittle}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
@@ -436,9 +438,9 @@
                                   <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
                               </mat-form-field>
                           </div>
-                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value && i == 0" >
+                          <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value && i == 0" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district')"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
+                                  <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district')" >
                                       <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
                                   </mat-select>
                                   <!--<mat-error *ngIf="insureArray.invalid">District is required</mat-error>-->
@@ -570,7 +572,6 @@
                                     <mat-option value="10">10</mat-option>
                                     <mat-option value="11">Greater than 10</mat-option>
                                   </mat-select>
-
                                 </mat-form-field>
                             </div>
                             </div>
@@ -915,7 +916,7 @@
                           </div>
                         </div>
                           <div class="col-md-6" *ngIf="personalhabit">
-                              <div class="p-3">
+                              <div class="p-3" *ngIf="(item.i_smoking != '' && item.i_smoking != 0) || (item.i_pouches != '' && item.i_pouches != 0) || (item.i_liquorpeg != '' && item.i_liquorpeg != 0) || (item.i_wineglass != '' && item.i_wineglass != 0) || (item.i_beerbottle != '' && item.i_beerbottle != 0)">
                                   <h6>PERSONAL HABITS</h6>
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item" *ngIf="item.i_smoking != '' && item.i_smoking != 0"><strong>Smoking:</strong>{{item.i_smoking}}</li>

@@ -369,6 +369,7 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     addEvent(event, name, i, type ) {
+        console.log(event.value, 'event.value');
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
@@ -392,62 +393,66 @@ export class BajajAlianzComponent implements OnInit {
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob_days);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
-                        this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                         this.ageValidation(i, type);
-
                     }
 
                 } else {
-                    if (name == 'expiry') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
-                    } else {
-                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
-                        this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
-                    }
+                        if (name == 'expiry') {
+                            this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
+                        } else {
+                            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                            this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
+                            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+                        }
 
-                }
+                    }
             }else if (typeof event.value._i == 'object') {
                 if (dob.length == 10) {
                     if (name == 'expiry') {
-                        // this.insureArray['controls'].items['controls'][i]['controls'].insurePItDate.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculateInsurer(dob_days);
-                        this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(dob);
                         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                         this.ageValidation(i, type);
-
                     }
-
-                }
-
-            }
-            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'y-MM-dd');
-            // let length =  this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value;
-            // let length = this.datepipe.transform(event.value, 'y-MM-dd');
-            if (length.length == 10) {
-                if (name == 'expiry') {
-                } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                    this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-                    this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
-                    this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
-                }
-
-            } else {
-                if (name == 'expiry') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-
                 }
             }
+            // let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value, 'y-MM-dd');
+            // // let length =  this.insureArray['controls'].items['controls'][i]['controls'].insureDob.value;
+            // // let length = this.datepipe.transform(event.value, 'y-MM-dd');
+            // if (length.length == 10) {
+            //     if (name == 'expiry') {
+            //     } else {
+            //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+            //         this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getAge);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
+            //     }
+            //
+            // } else {
+            //     if (name == 'expiry') {
+            //     } else {
+            //         this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue('');
+            //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            //
+            //     }
+            // }
 
+        } else {
+            if (name == 'expiry') {
+                this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
+            } else {
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+            }
         }
 
     }
@@ -682,7 +687,7 @@ export class BajajAlianzComponent implements OnInit {
             for (let i = 0; i < this.getStepper1.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureTitle.patchValue(this.getStepper1.items[i].insureTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureName.patchValue(this.getStepper1.items[i].insureName);
-                this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.getStepper1.items[i].insureDob);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.datepipe.transform(this.getStepper1.items[i].insureDob, 'y-MM-dd')),
                 this.insureArray['controls'].items['controls'][i]['controls'].insureGender.patchValue(this.getStepper1.items[i].insureGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getStepper1.items[i].insureAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureHeight.patchValue(this.getStepper1.items[i].insureHeight);
