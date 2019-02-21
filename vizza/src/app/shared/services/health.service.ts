@@ -206,7 +206,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/get_city' ;
+        const url = this.configurationService.getHostHealth() + 'starhealth/city' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -229,7 +229,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/get_area' ;
+        const url = this.configurationService.getHostHealth() + 'starhealth/area' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -341,7 +341,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/create_proposal';
+        const url = this.configurationService.getHostHealth() + 'starhealth/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -351,7 +351,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/get_policy_proposaltoken';
+        const url = this.configurationService.getHostHealth() + 'starhealth/proposalToken';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -458,7 +458,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/get_policy_purchasetoken';
+        const url = this.configurationService.getHostHealth() + 'starhealth/purchaseToken';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -469,7 +469,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'starhealth/get_policy_schedule';
+        const url = this.configurationService.getHostHealth() + 'starhealth/policyDownload';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
