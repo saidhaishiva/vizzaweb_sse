@@ -265,7 +265,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Age" formControlName="insuredPaAge"     autocomplete="off" autocomplete="off" required readonly >
-                          <!--<mat-error *ngIf="insured.controls.insuredPaAge.errors?.required">DOB is required</mat-error>-->
+                          <mat-error *ngIf="insured.controls.insuredPaAge.errors?.required">Age is required</mat-error>
 
                         </mat-form-field>
                       </div>
@@ -279,6 +279,8 @@
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>
+                              <mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
+
                             </mat-form-field>
                         </div>
 
@@ -304,14 +306,16 @@
                             <mat-select placeholder="Profession" formControlName="insuredProfessionList" required>
                                 <mat-option *ngFor="let professioncode of professionList" [value]="professioncode.code">{{professioncode.profession}}</mat-option>
                             </mat-select>
-                        </mat-form-field>
+                              <mat-error *ngIf="insured.controls.insuredProfessionList.errors?.required">Profession is required</mat-error>
+
+                            </mat-form-field>
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" required>
                             <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation}}</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">OCCUPATION is required</mat-error>
+                          <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
                       </div>
 
@@ -366,11 +370,15 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight"  autocomplete="off" required>
+                          <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight"  autocomplete="off" required>
+                          <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-12">
@@ -405,7 +413,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="insuredPaState"  autocomplete="off" readonly>
+                            <input matInput placeholder="State" formControlName="insuredPaState"  autocomplete="off" readonly required>
                             <mat-error *ngIf="insured.controls.insuredPaState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -592,17 +600,18 @@
                           </div>
                         </div>
                      </div>
-                     <div class="col-md-12">
-                       <h6 class="mt-3">Medical Informations details:</h6>
-                     </div>
-                     <div class="col-md-4">
-                       <mat-form-field  class="w-100">
-                         <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
-                         <mat-error *ngIf="insured.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>
-                       </mat-form-field>
-                     </div>
                    </div>
-                   </div>
+                    <div class="col-md-12">
+                        <h6 class="mt-3">Medical Informations details:</h6>
+                      </div>
+                      <div class="col-md-4">
+                        <mat-form-field  class="w-100">
+                          <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
+                          <mat-error *ngIf="insured.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, insured.value)" >Next</button>
@@ -750,7 +759,7 @@
                         <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.p_maritalstatus}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_code != '' && appollosummaryData.ProposalDetails.p_idproof_code != null"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.p_idproof_code}}</li>
                         <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != '' && appollosummaryData.ProposalDetails.p_idproof_no != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no | uppercase}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != '' && appollosummaryData.ProposalDetails.p_gstno != null"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno}}</li>
+                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != '' && appollosummaryData.ProposalDetails.p_gstno != null"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno | uppercase}}</li>
                       </ul>
                     </div>
                   </div>
@@ -806,9 +815,9 @@
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !='' && appollosummaryData.InsurePolicyholderDetails.i_procode != null"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_procode}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idprooftype}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno | uppercase}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_anualincome != '' && appollosummaryData.InsurePolicyholderDetails.i_anualincome != null"><strong>Annual Income:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_anualincome}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gstno != '' && appollosummaryData.InsurePolicyholderDetails.i_gstno != null"><strong>Gst Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_gstno}}</li>
+                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gstno != '' && appollosummaryData.InsurePolicyholderDetails.i_gstno != null"><strong>Gst Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_gstno | uppercase}}</li>
                   </ul>
                 </div>
               </div>
@@ -832,13 +841,11 @@
                 <div class="p-3">
                   <h6>PERSONAL HABITS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 1"><strong>Smoking:</strong> Less than or equal to 10 per day</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking == 2"><strong>Smoking:</strong> More than 10 per day</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 1"><strong>Pouches:</strong>Less than or equal to 10 per day</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches == 2"><strong>Pouches:</strong> More than 10 per day</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != '' && appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != '0'"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_wineglass != '' && appollosummaryData.InsurePolicyholderDetails.i_wineglass != '0'"><strong>Wine Glass:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_beerbottle != ''&& appollosummaryData.InsurePolicyholderDetails.i_wineglass != '0'"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                    <li class="list-group-item" *ngIf="item.i_smoking != '' && item.i_smoking != 0"><strong>Smoking:</strong>{{item.i_smoking}}</li>
+                    <li class="list-group-item"  *ngIf="item.i_pouches != '' && item.i_pouches != 0" ><strong>Pouches:</strong> {{item.i_pouches}}</li>
+                    <li class="list-group-item" *ngIf="item.i_liquorpeg != '' && item.i_liquorpeg != 0"><strong>Liquor Peg:</strong> {{item.i_liquorpeg}}</li>
+                    <li class="list-group-item" *ngIf="item.i_wineglass != '' && item.i_wineglass != 0"><strong>Wine Glass:</strong> {{item.i_wineglass}}</li>
+                    <li class="list-group-item" *ngIf="item.i_beerbottle != '' && item.i_beerbottle != 0"><strong>Beer Bottle:</strong> {{item.i_beerbottle}}</li>
                   </ul>
                 </div>
               </div>
