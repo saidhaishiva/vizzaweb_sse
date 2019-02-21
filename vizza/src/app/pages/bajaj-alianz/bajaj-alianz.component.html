@@ -298,7 +298,7 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                                <h4 class="mt-3"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">
@@ -323,8 +323,8 @@
                                             <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob| date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_age !='' && i != 0"><strong>Age :</strong> {{item.ins_age}}</li>
+                                            <!--<li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
+                                            <li class="list-group-item" *ngIf="item.ins_age !=''"><strong>Age :</strong> {{item.ins_age}}</li>
                                             <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
                                         </ul>
                                     </div>
@@ -368,7 +368,7 @@
                                 </div>
 
 
-                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !='' || item.ins_memcompname !='' || item.ins_memprvpolno !='' || item.ins_memprvexpdate !='' || (item.ins_memprvsi !='' && item.ins_memprvsi != 0.00) || summaryData.prop_noofclaims !='' || summaryData.prop_previnsaddress !=''">
+                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !='' || item.ins_memcompname !='' || item.ins_memprvpolno !='' || (item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null) || (item.ins_memprvsi !='' && item.ins_memprvsi != 0.00) || (summaryData.prop_noofclaims !='' && summaryData.prop_noofclaims !='0') || summaryData.prop_previnsaddress !=''">
                                     <div class="p-3">
                                         <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
@@ -381,7 +381,21 @@
                                             <li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>
                                         </ul>
                                     </div>
+                                    <!--<div class="p-3" *ngIf="i != 0">-->
+                                        <!--<h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>-->
+                                        <!--<ul class="m-0 list-group">-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
                                 </div>
+
+
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <h6 class="color-blue">NOMINEE DETAILS</h6>

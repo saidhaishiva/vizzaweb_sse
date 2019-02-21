@@ -552,6 +552,10 @@ public sameRelationship:any;
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+    // space
+    space(event: any){
+        this.validation.space(event);
+    }
     // RelationShip with Proposer
     relationshipPaProposer() {
         const data = {

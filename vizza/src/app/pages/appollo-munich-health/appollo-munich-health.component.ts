@@ -1066,14 +1066,15 @@ export class AppolloMunichComponent implements OnInit {
         console.log(type, 'type');
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Self')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 55');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
+        if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 55');
+            // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
@@ -1227,16 +1228,6 @@ export class AppolloMunichComponent implements OnInit {
         return Bob_days;
     }
     ageCalculate(dob) {
-        // const mdate = dob.toString();
-        // const yearThen = parseInt(mdate.substring(8, 10), 10);
-        // const monthThen = parseInt(mdate.substring(5, 7), 10);
-        // const dayThen = parseInt(mdate.substring(0, 4), 10);
-        // const todays = new Date();
-        // const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        // this.agecal = yearAge;
-        // return yearAge;
             let today = new Date();
             let birthDate = new Date(dob);
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -1670,11 +1661,8 @@ export class AppolloMunichComponent implements OnInit {
     }
 
     sameProposer() {
-
-
         if (this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value) {
             this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
-
             this.getPincode(this.proposer.controls['proposerPincode'].value, 'insure', 0);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
@@ -1724,6 +1712,11 @@ export class AppolloMunichComponent implements OnInit {
             // setTimeout(() => {
             //     this.storeDname(0, 'city');
             // },600);
+            if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
+            } else {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
+            }
 
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
@@ -1758,6 +1751,9 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPassport.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue('');
+
+            this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
+
         }
 
 
@@ -1865,7 +1861,8 @@ export class AppolloMunichComponent implements OnInit {
         }
 
         if (medicalStatus.includes('Yes')) {
-            this.toastr.error('This medical questions is unable to proceed');
+            // this.toastr.error('This medical questions is unable to proceed');
+            this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
         } else {
             stepper.next();
 
@@ -1880,7 +1877,6 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
-
             for(let i = 0; i < this.insurerData.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
@@ -1892,9 +1888,6 @@ export class AppolloMunichComponent implements OnInit {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
                 }
             }
-
-            console.log(this.insurerData,'this.insurerData');
-
 
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
@@ -1965,7 +1958,11 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
-            console.log(this.totalInsureDetails, 'iuoytretyuio');
+            if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
+            } else {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
+            }
             let ageValidate = [];
             for (let i = 0; i< this.insurerData.length; i++){
                 if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -1987,7 +1984,6 @@ export class AppolloMunichComponent implements OnInit {
                             bmiValue = true;
                         } else {
                         bmiValue = false;
-
                     }
                 }
 
@@ -1998,8 +1994,6 @@ export class AppolloMunichComponent implements OnInit {
                         bmiValue = false;
                     }
                 }
-
-                    console.log(BMI, 'jfg');
             }
 
 
@@ -2072,25 +2066,18 @@ export class AppolloMunichComponent implements OnInit {
                 } else if (this.titleValidation == false) {
                     stepper.next();
                     this.topScroll();
-
                 }
-
-
             }
 
         }
         if(this.insurePersons.length == 1) {
             this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.value;
         }
-        console.log(this.insurePersons.length,'this.insurePersons.lengththis.insurePersons.lengththis.insurePersons.length');
-        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationshipthis.sameRelationship');
     }
 
 
     //Create Appollo-Munich Details
     proposal(stepper) {
-        console.log(this.totalInsureDetails, 'this.totalInsureDetails222');
-
         let clientData = this.totalInsureDetails.slice(1);
       const data  = {
             'enquiry_id': this.enquiryId,
