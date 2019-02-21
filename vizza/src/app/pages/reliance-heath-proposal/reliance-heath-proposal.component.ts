@@ -627,10 +627,11 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 16800) {
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Self') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6939 && type == 'Self')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Self')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
             }
+            console.log(this.arr,'gfghj');
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Spouse') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Spouse')  {
@@ -643,19 +644,19 @@ export class RelianceHeathProposalComponent implements OnInit {
                     smallest = this.arr[i];
                 }
             }
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son')  {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9495 && type == 'Son')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
             }
 
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Daughter')  {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Daughter')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9495 && type == 'Daughter')  {
+            } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 9495 && type == 'Daughter')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
             }
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
@@ -706,16 +707,18 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     }
     ageCalculate(dob) {
-        const mdate = dob.toString();
-        const yearThen = parseInt(mdate.substring(8, 10), 10);
-        const monthThen = parseInt(mdate.substring(5, 7), 10);
-        const dayThen = parseInt(mdate.substring(0, 4), 10);
-        const todays = new Date();
-        const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        this.agecal = yearAge;
-        return yearAge;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        this.agecal = age;
+
+        return age;
+
     }
     getCityIdF2(title, cid, pincode) {
         const data = {

@@ -277,7 +277,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             let selectedDate = '';
             this.hdfcHealthProposerAge = '';
             let dob = '';
+            let dob_days = '';
             let insurerAge;
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -297,7 +301,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
                 }
                 selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
@@ -309,7 +312,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                             let getPage = this.ageCalculate(dob);
                             this.ageData(getPage, formtype);
                         }
-                        insurerAge = this.DobDaysCalculate(dob);
+                        insurerAge = this.DobDaysCalculate(dob_days);
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
                         this.ageValidationInsurer(i, type);
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
@@ -318,7 +321,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
 
             } else if (typeof event.value._i == 'object') {
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     if (formtype == 'personal') {
                         this.personalDobError = '';
@@ -330,7 +332,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                             let getPage = this.ageCalculate(dob);
                             this.ageData(getPage, formtype);
                         }
-                        insurerAge = this.DobDaysCalculate(dob);
+                        insurerAge = this.DobDaysCalculate(dob_days);
                         sessionStorage.hdfcHealthInsurerAge = insurerAge;
                         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(insurerAge);
                         this.ageValidationInsurer(i, type);
@@ -358,6 +360,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
+
         if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 6574 && type == 'Spouse') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
         } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 6573 && type == 'Spouse') {
@@ -476,31 +479,43 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     // age calculation
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        // let mdate = dob.toString();
+        // let yearThen = parseInt(mdate.substring(8, 10), 10);
+        // let monthThen = parseInt(mdate.substring(5, 7), 10);
+        // let dayThen = parseInt(mdate.substring(0, 4), 10);
+        // let todays = new Date();
+        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        // return year_age;
+
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+
+
     }
 
     DobDaysCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
-        // let a = moment(dob, 'DD/MM/YYYY');
-        // let b = moment(new Date(), 'DD/MM/YYYY');
-        // let days = b.diff(a, 'days');
-        // return days;
+        // let mdate = dob.toString();
+        // let yearThen = parseInt(mdate.substring(8, 10), 10);
+        // let monthThen = parseInt(mdate.substring(5, 7), 10);
+        // let dayThen = parseInt(mdate.substring(0, 4), 10);
+        // let todays = new Date();
+        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        // return Bob_days;
+        let a = moment(dob, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
 
     }
 
