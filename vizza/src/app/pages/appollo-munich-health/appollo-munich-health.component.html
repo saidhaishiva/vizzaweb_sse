@@ -20,7 +20,9 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required>
-                            <mat-option *ngFor="let list of titleCodeList" [value]="list.tittle_code">{{list.tittle}}</mat-option>
+                            <mat-option *ngFor="let list of titleCodeList" [value]="list.tittle_code" [hidden]="list.tittle_code == 'MASTER' || list.tittle_code == 'BABY'">
+                              {{list.tittle}}
+                            </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -862,11 +864,13 @@
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Name:</strong> {{item.i_tittlecode}}. {{item.i_fname}} {{item.i_mname}} {{item.i_lname}}</li>
                                   <li class="list-group-item"><strong>D.O.B:</strong> {{item.i_dob | date: 'dd/MM/yyyy'}}</li>
-                                  <li class="list-group-item" *ngIf="item.i_email != ''"><strong>Email Id:</strong> {{item.i_email}}</li>
-                                  <li class="list-group-item" *ngIf="item.i_mobilenumber != ''"><strong>Mobile Number:</strong> {{item.i_mobilenumber}}</li>
+                                  <li class="list-group-item" *ngIf="item.i_email != '' && item.i_email != null && item.i_email != undefined"><strong>Email Id:</strong> {{item.i_email}}</li>
+                                  <li class="list-group-item" *ngIf="item.i_mobilenumber != '' && item.i_mobilenumber != null && item.i_mobilenumber != undefined"><strong>Mobile Number:</strong> {{item.i_mobilenumber}}</li>
                                   <li class="list-group-item" *ngIf="item.i_gender == 1"><strong>Gender:</strong> MALE </li>
                                   <li class="list-group-item" *ngIf="item.i_gender== 2"><strong>Gender:</strong> FEMALE </li>
                                   <li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>
+                                  <li class="list-group-item" *ngIf="item.i_occuption !='' && item.i_occuption !=null"><strong>Occupation:</strong> {{item.i_occuption}}</li>
+
                                 </ul>
                               </div>
                           </div>
@@ -875,7 +879,6 @@
                           <div class="p-3">
                             <h6 class="mt-4" ></h6>
                             <ul class="m-0 list-group">
-                              <li class="list-group-item" *ngIf="item.i_occuption !='' && item.i_occuption !=null"><strong>Occupation:</strong> {{item.i_occuption}}</li>
                               <li class="list-group-item"><strong>Relationship:</strong> {{item.i_relation}}</li>
                               <li class="list-group-item"><strong>Height:</strong> {{item.i_height}}</li>
                               <li class="list-group-item"><strong>Weight:</strong> {{item.i_weight}}</li>

@@ -1066,15 +1066,15 @@ export class AppolloMunichComponent implements OnInit {
         console.log(type, 'type');
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
+        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }

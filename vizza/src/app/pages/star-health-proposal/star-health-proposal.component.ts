@@ -862,7 +862,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.ageCheck = this.datepipe.transform(event.value, 'y-MM-dd');
                 let age = this.ageCalculate(this.ageCheck);
             if (age < 18 && (type == 'Self' || type == 'Spouse')) {
-                this.familyMembers[i].ageRestriction = 'Self or Spouse age should be above 18';
+                this.familyMembers[i].ageRestriction = 'Self or Spouse age should be 18 and above ';
             } else {
                 this.familyMembers[i].ageRestriction = '';
             }
@@ -894,7 +894,7 @@ export class StarHealthProposalComponent implements OnInit {
                             this.familyMembers[i].ageRestriction = '';
                         }
                     } else if (this.buyProductdetails.product_id == '7' && (type != 'Son' || type != 'Daughter')) {
-                        if (age <= 18 || age > 60) {
+                        if (age < 18 || age > 60) {
                             this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
