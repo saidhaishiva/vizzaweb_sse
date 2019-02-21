@@ -643,7 +643,6 @@ export class RelianceHeathProposalComponent implements OnInit {
                     smallest = this.arr[i];
                 }
             }
-            console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'jhgfdsghjk');
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {

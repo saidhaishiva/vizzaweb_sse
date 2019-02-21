@@ -788,7 +788,7 @@
 
                     </div>
                     <div class="proposal-buttom mb-3 text-right w-100">
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetails.value)">Next</button>
                     </div>
                   </form>
@@ -981,7 +981,7 @@
                   <div class="row">
                       <div class="col-md-12 text-center">
                           <form action='{{RediretUrlLink}}' method='post' #form>
-                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                             <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                           </form>
                       </div>
