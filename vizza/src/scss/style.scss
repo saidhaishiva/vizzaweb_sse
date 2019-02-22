@@ -729,6 +729,19 @@ a:hover {
     color: #117ab7;
   }
 }
+#life-list{
+  .health-table{
+    thead th{
+      border: 2px solid #fff;
+      vertical-align: text-bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #731C77;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
+    }
+  }
+}
 .closeBtnClass {
   position: absolute;
   right: 0;

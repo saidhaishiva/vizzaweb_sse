@@ -205,7 +205,7 @@ import { ReliagretravelproposalComponent } from './pages/travel-religare-proposa
 import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
-import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
+// import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 import { DownloadMessageBajaj} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
@@ -238,6 +238,7 @@ import {ReligareHealthDeactivateGuardService} from './shared/religare-health-dea
 import { ClearSessionService} from './shared/services/clear-session.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
+import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
 
 @NgModule({
   imports: [
@@ -418,7 +419,7 @@ import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-dea
       TermLifeInsurer,
       ReliagretravelproposalComponent,
       LifeInsuranceComponent,
-      LifeInsurer,
+      // LifeInsurer,
       HdfcHealthInsuranceComponent,
       BajajalianzPaymentSuccessComponent,
       DownloadMessageBajaj,
@@ -440,6 +441,7 @@ import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-dea
       TravelReligarePaymentSuccessComponent,
       DownloadMessageReligareTravel,
       DisclaimerDialog,
+      TravelRelianceProposalComponent
   ],
   providers: [
       AppSettings,
@@ -479,8 +481,8 @@ import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-dea
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
-        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,LifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
+        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer
     ]
 })
 export class AppModule { }

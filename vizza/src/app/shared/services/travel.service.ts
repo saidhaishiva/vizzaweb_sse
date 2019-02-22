@@ -471,6 +471,94 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    //travel reliance
+    //occupation
+    travelRelianceOccupation(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_occupation' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    //pincode
+    travelRelianceCheckpincode(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_pincode_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Relationship
+    travelRelianceRelationShip(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_relation_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Nationality
+    travelRelianceNationality(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/nationality_list' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Marital
+    travelRelianceMarital(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/marital_status_list' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //vistingcountry
+    travelRelianceVisitingCountries(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_visting_country' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //PreExixtingIllness
+    travelReliancePreExistingIllness(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_pre_existingdisease' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         const body = res;
         return body || {};
