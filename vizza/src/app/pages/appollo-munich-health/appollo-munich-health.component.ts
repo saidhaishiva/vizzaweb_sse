@@ -1816,7 +1816,7 @@ export class AppolloMunichComponent implements OnInit {
 
             } else if (value.proposerPan != "") {
                 this.proofValid = true;
-                this.proposerProofNum = value.proposerPan;
+                this.proposerProofNum = value.proposerPan.toUpperCase();
                 this.proposer.controls['proposerIdProofIdP'].patchValue(this.proposerProofNum);
             }
         } else {
@@ -1885,7 +1885,7 @@ export class AppolloMunichComponent implements OnInit {
                 } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value != "") {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerVoter.value);
                 } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value != "") {
-                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value);
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.value.toUpperCase());
                 }
             }
 
