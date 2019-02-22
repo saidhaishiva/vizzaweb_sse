@@ -227,6 +227,7 @@ import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-p
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 // import {OrderBy} from '../oderByPipe';
 import {Ng2OrderModule} from 'ng2-order-pipe';
+import {KeysPipe} from '../iterateObjectPipe';
 import { ValidationService} from './shared/services/validation.service';
 import {HdfcproposaldeactivateGuardService} from './shared/hdfcproposaldeactivate-guard.service';
 import {AppollohealthproposaldeactivateGuardService} from './shared/appollohealthproposaldeactivate-guard.service';
@@ -311,6 +312,7 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
       ReligareHealthProposalComponent,
       ViewdetailsComponent,
       SplitLastPipe,
+      KeysPipe,
       TestimonialComponent,
       ExamComponent,
       ResultpageComponent,

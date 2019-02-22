@@ -304,7 +304,7 @@
                         <div class="col-md-3" >
                             <mat-form-field class="w-100">
                                 <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode()" required>
-                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList" value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
+                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList " value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredDescriptionCode.errors?.required">Occupation List is required</mat-error>
 
@@ -614,7 +614,7 @@
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{summaryData.proposer_details.p_res_contactnum}} </li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
                       <li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.p_occupation_code}}</li>
                     </ul>
                   </div>
                 </div>
@@ -625,7 +625,7 @@
                       <!--<li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>-->
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_occupation_class_description != '' && summaryData.proposer_details.p_occupation_class_description != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.p_occupation_class_description}}</li>
 
-                      <li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_details.description}}</li>
+                      <li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_details.p_occupation_class_description}}</li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.occ_name != '' && summaryData.proposer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
                       <li class="list-group-item" *ngIf="summaryData.proposer_details.p_pass_idnum != ''"><strong>Passport Number:</strong> {{summaryData.proposer_details.p_pass_idnum}}</li>
@@ -685,10 +685,12 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_insurer_details.occupation_description}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.occ_name != '' && summaryData.proposer_insurer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
+                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.description != '' && summaryData.proposer_insurer_details.description != null"><strong>Occupation List:</strong>  {{summaryData.proposer_insurer_details.description}}</li>
+
                       <li class="list-group-item"><strong>Height:</strong>  {{summaryData.proposer_insurer_details.i_height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong>  {{summaryData.proposer_insurer_details.i_weight}}</li>
 
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_occupation_class_description != '' && summaryData.proposer_insurer_details.i_occupation_class_description != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.i_occupation_class_description}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
                       <!--<li class="list-group-item"><strong>RelationShip with Proposer:</strong> {{summaryData.proposer_insurer_details.i_relationcd}}</li>-->
                       <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_pass_idnum!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
