@@ -11,14 +11,11 @@ import {HttpClient} from '@angular/common/http';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
-import {CommonService} from '../../shared/services/common.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
-
-
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -31,7 +28,6 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
-
 @Component({
     selector: 'app-star-health-proposal',
     templateUrl: './star-health-proposal.component.html',
@@ -110,10 +106,11 @@ export class StarHealthProposalComponent implements OnInit {
     public inputReadonly: any;
     public previousInsurence: any;
     public nomineeNext: any;
-    public totalClaim: any;
     public sameRelationship: any;
-    public sameRelationshipName: any;
     currentStep: any;
+    proposerFormData: any;
+    insuredFormData: any;
+    nomineeFormData: any;
 
     constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -124,14 +121,7 @@ export class StarHealthProposalComponent implements OnInit {
                 this.summaryData = JSON.parse(sessionStorage.summaryData);
                 this.proposalId = this.summaryData.proposal_id;
                 sessionStorage.proposalID = this.proposalId;
-                if (this.summaryData.prop_res_pincode) {
-                    this.getPostalSummary(this.summaryData.prop_res_pincode, 'residence');
-                    this.getCityIdF2(this.sumTitle, this.summaryData.prop_res_city, this.sumPin);
-                }
-                if (this.summaryData.prop_comm_pincode) {
-                    this.getPostal(this.summaryData.prop_comm_pincode, 'personal');
-                    this.getCityIdSumm(this.title, this.summaryData.prop_comm_city, this.pin);
-                }
+
             }
         });
         this.currentStep = stepperindex;
@@ -159,9 +149,8 @@ export class StarHealthProposalComponent implements OnInit {
             personalLastname: ['', Validators.required],
             personalDob: ['', Validators.compose([Validators.required])],
             personalOccupation: ['', Validators.required],
+            personalOccupationName: '',
             personalIncome: [''],
-            personalArea: ['', Validators.required],
-            residenceArea: '',
             personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
@@ -176,6 +165,9 @@ export class StarHealthProposalComponent implements OnInit {
             personalAddress2: ['', Validators.required],
             personalPincode: '',
             personalCity: ['', Validators.required],
+            personalCityName: '',
+            personalArea: ['', Validators.required],
+            personalAreaName: '',
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -184,13 +176,14 @@ export class StarHealthProposalComponent implements OnInit {
             residenceAddress2: '',
             residencePincode:'',
             residenceCity: '',
+            residenceCityName: '',
+            residenceArea: '',
+            residenceAreaName: '',
             residenceState: '',
             illnessCheck: '',
             sameas: ''
         });
-
     }
-
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
@@ -292,112 +285,30 @@ export class StarHealthProposalComponent implements OnInit {
             'Aditya Birla Health Insurance Co. Ltd.'
         ];
         this.personal.controls['socialStatus'].patchValue(false);
+        this.personal.controls['previousinsuranceChecked'].patchValue(false);
         this.sessionData();
         this.socialNo = '';
     }
     canDeactivate() {
         return this.proposalId;
     }
-    criticalIllness(values: any) {
-        if (values.checked) {
-            const dialogRef = this.dialog.open(ProposalmessageComponent, {
-                width: '500px'
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                this.stopNext = true;
-            });
-        } else {
-            this.stopNext = false;
-        }
-    }
-    changeSocialStatus(result) {
-        let btn = this.personal.controls['socialStatus'].value;
-        if (btn == false || btn == 'false') {
-            this.personal.controls['socialAnswer1'].setValue('0');
-            this.personal.controls['socialAnswer2'].setValue('0');
-            this.personal.controls['socialAnswer3'].setValue('0');
-            this.personal.controls['socialAnswer4'].setValue('0');
-            this.socialNo = '';
-        } else {
-            this.socialNo = false;
-
-        }
-    }
-    groupList() {
-        this.familyMembers = this.getFamilyDetails.family_members;
-        for (let i = 0; i < this.familyMembers.length; i++ ) {
-            this.familyMembers[i].ins_name = '';
-            this.familyMembers[i].ins_dob = '';
-            this.familyMembers[i].ins_gender = '';
-            this.familyMembers[i].illness = 'false';
-            this.familyMembers[i].ins_illness = '';
-            this.familyMembers[i].ins_weight = '';
-            this.familyMembers[i].ins_height = '';
-            this.familyMembers[i].ins_occupation_id = '';
-            // this.familyMembers[i].insurincome = '';
-            this.familyMembers[i].ins_relationship = '';
-            this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'None';
-            this.familyMembers[i].ins_engage_winter_sports = 'None';
-            this.familyMembers[i].ins_personal_accident_applicable = '0';
-            this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
-            this.familyMembers[i].engage_manual_status = '0';
-            this.familyMembers[i].engage_winter_status = '0';
-            this.familyMembers[i].ageRestriction = '';
-        }
-
-    }
-        addNominee(value) {
-        if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
-            this.nomineeDate[0].nominee.push({
-                nname: '',
-                nage: '',
-                nrelationship: '',
-                nclaim: '',
-                aname: '',
-                aage: '',
-                arelationship: '',
-                removeBtn: false,
-                addBtn: false,
-                ageSetting: false,
-                colorStatus: 'green'
-
-            });
-            this.nomineeDate[0].nominee[0].addBtn = false;
-
-            //
-            this.nomineeAdd = true;
-            this.nomineeRemove = false;
-        } if (value == 'delete') {
-            if (this.nomineeDate[0].nominee.length == 2) {
-                this.nomineeDate[0].nominee.splice(1, 1);
-                this.nomineeAdd = false;
-                this.nomineeRemove = true;
-                this.nomineeDate[0].nominee[0].removeBtn = true;
-                this.nomineeDate[0].nominee[0].addBtn = true;
-            }
-        }
-        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
-
-    }
-    claimPercent(percent, i, pi) {
-        if (this.nomineeDate[0].nominee.length == 1) {
-            if (this.nomineeDate[0].nominee[0].nclaim >= 100) {
-                this.nomineeDate[0].nominee[0].addBtn = false;
-                this.nomineeNext = false;
-            } else {
-                this.nomineeDate[0].nominee[0].addBtn = true;
-                this.nomineeNext = true;
-            }
-        } else {
-            this.nomineeNext = false;
-
-            this.nomineeAdd = true;
-
-        }
-        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
-    }
     sessionData() {
+        if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
+            this.proposalId = sessionStorage.proposalID;
+        }
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
+        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }
+        if (sessionStorage.rAreaNames != '' && sessionStorage.rAreaNames != undefined) {
+            this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
+        }
+        if (sessionStorage.areaNames != '' && sessionStorage.areaNames != undefined) {
+            this.areaNames = JSON.parse(sessionStorage.areaNames);
+        }
+
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -437,51 +348,12 @@ export class StarHealthProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
 
             });
-            if (this.getStepper1.previousinsuranceChecked) {
-                this.previousInsuranceStatus = this.getStepper1.previousinsuranceChecked;
-            }
             if (this.getStepper1.socialStatus == true || this.getStepper1.socialStatus == 'true') {
-
             } else {
                 this.personal.controls['socialAnswer1'].reset();
                 this.personal.controls['socialAnswer2'].reset();
                 this.personal.controls['socialAnswer3'].reset();
                 this.personal.controls['socialAnswer4'].reset();
-            }
-
-            if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
-                this.proposalId = sessionStorage.proposalID;
-            }
-
-            if (this.getStepper1.personalPincode != '') {
-                this.getPostal(this.getStepper1.personalPincode, 'personal');
-                this.getCityId('personal', 'auto');
-                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
-                this.personal.controls['personalArea'].setValue(this.getStepper1.personalArea);
-
-                setTimeout(() =>{
-                    if (this.getStepper1.sameas) {
-                        this.inputReadonly = true;
-                        this.getPostal(this.getStepper1.personalPincode, 'residence');
-                        this.getCityIdF2('residence', this.getStepper1.personalCity, this.getStepper1.personalPincode);
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-                        this.personal.controls['residenceArea'].setValue(this.getStepper1.personalArea);
-                    }
-                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                        this.getPostal(this.getStepper1.residencePincode, 'residence');
-                        this.getCityIdF2('residence', this.getStepper1.residenceCity, this.getStepper1.residencePincode);
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                        this.personal.controls['residenceArea'].setValue(this.getStepper1.residenceArea);
-                    }
-
-                },2000);
-
             }
             if (sessionStorage.mobileNumber != '' ) {
                 this.mobileNumber = sessionStorage.mobileNumber;
@@ -492,8 +364,6 @@ export class StarHealthProposalComponent implements OnInit {
         }
         if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
             this.familyMembers = JSON.parse(sessionStorage.familyMembers);
-            // let date = this.familyMembers[0].ins_dob.split('-');
-            // date = date[0] +'/'+ date[1] +'/'+ date[2];
             if (sessionStorage.ageRestriction != undefined) {
                 this.ageRestriction = sessionStorage.ageRestriction;
             } else {
@@ -505,6 +375,64 @@ export class StarHealthProposalComponent implements OnInit {
         }
 
 
+    }
+    changeOccupation() {
+    }
+    //Proposer Details
+
+
+    setOccupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getOccupationList(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
+            }
+        );
+
+    }
+    public occupationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.occupationList = successData.ResponseObject;
+        }
+    }
+    public occupationListFailure(error) {
+        console.log(error);
+    }
+
+    setRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelationshipList(data).subscribe(
+            (successData) => {
+                this.setRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setRelationshipFailure(error);
+            }
+        );
+    }
+    public setRelationshipSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipList = successData.ResponseObject;
+        }
+    }
+    public setRelationshipFailure(error) {
+        console.log(error);
+    }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
     }
     alternateChange(event) {
         if (event.target.value.length == 10) {
@@ -521,15 +449,192 @@ export class StarHealthProposalComponent implements OnInit {
     PreviousInsure(value) {
         if (value.value == 'true') {
             this.personal.controls['previousinsurance'].setValue('');
-            this.previousInsuranceStatus = true;
         } else {
-            this.previousInsuranceStatus = false;
             this.personal.controls['previousinsurance'].setValue('No');
         }
     }
-    changeOccupation() {
+    criticalIllness(values: any) {
+        if (values.checked) {
+            const dialogRef = this.dialog.open(ProposalmessageComponent, {
+                width: '500px'
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                this.stopNext = true;
+            });
+        } else {
+            this.stopNext = false;
+        }
     }
-    //Personal Details
+    changeSocialStatus(result) {
+        let btn = this.personal.controls['socialStatus'].value;
+        if (btn == false || btn == 'false') {
+            this.personal.controls['socialAnswer1'].setValue('0');
+            this.personal.controls['socialAnswer2'].setValue('0');
+            this.personal.controls['socialAnswer3'].setValue('0');
+            this.personal.controls['socialAnswer4'].setValue('0');
+            this.socialNo = '';
+        } else {
+            this.socialNo = false;
+
+        }
+    }
+    // pincode list
+    getPostal(pin, title) {
+        const data = {
+            'platform': 'web',
+            'pincode': pin
+        }
+        if (pin.length == 6) {
+            this.common.getPostal(data).subscribe(
+                (successData) => {
+                    this.getpostalSuccess(successData,title);
+                },
+                (error) => {
+                    this.getpostalFailure(error);
+                }
+            );
+        }
+    }
+    public getpostalSuccess(successData,title) {
+        if (successData.IsSuccess == true) {
+            this.response = successData.ResponseObject;
+            if (title == 'personal') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personal.controls['personalArea'].setValue('');
+                    this.personalCitys = [];
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personalCitys = this.response.city;
+                }
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            } else if (title == 'residence') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['residenceCity'].setValue('');
+                    this.personal.controls['residenceState'].setValue('');
+                    this.personal.controls['residenceArea'].setValue('');
+                    this.residenceCitys = [];
+                } else {
+                    this.personal.controls['residenceState'].setValue(this.response.state);
+                    this.residenceCitys = this.response.city;
+                }
+            }
+        } else {
+            this.toastr.error('In valid Pincode');
+        }
+    }
+    public getpostalFailure(error) {
+        console.log(error);
+    }
+    // get all areas
+    getAreas(title, type) {
+        if(type == 'manual') {
+            this.typeAddressDeatils();
+        }
+        const data = {
+            'platform': 'web',
+            'pincode': title == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
+            'city_id': title == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCitySuccess(successData, title);
+            },
+            (error) => {
+                this.getCityFailure(error);
+            }
+        );
+    }
+    public getCitySuccess(successData, title) {
+        if (successData.IsSuccess == true) {
+            if (title == 'personal') {
+                this.areaNames = successData.ResponseObject;
+                sessionStorage.areaNames = JSON.stringify(this.areaNames);
+            } else if (title == 'residence') {
+                this.rAreaNames = successData.ResponseObject;
+                sessionStorage.rAreaNames = JSON.stringify(this.rAreaNames);
+            }
+        }
+    }
+    public getCityFailure(error) {
+        console.log(error);
+    }
+    sameAddress(values: any) {
+        if (values.checked) {
+            this.inputReadonly = true;
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+            this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            this.rAreaNames = JSON.parse(sessionStorage.areaNames);
+        } else {
+            this.inputReadonly = false;
+            this.personal.controls['residenceAddress'].setValue('');
+            this.personal.controls['residenceAddress2'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residencePincode'].setValue('');
+            this.personal.controls['residenceState'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residenceArea'].setValue('');
+            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+                this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+                this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
+            } else {
+                this.residenceCitys = [];
+                this.rAreaNames = [];
+            }
+        }
+    }
+    typeAddressDeatils() {
+        if (this.personal.controls['sameas'].value) {
+            this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            this.rAreaNames = JSON.parse(sessionStorage.areaNames);
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+        }
+    }
+    // proposer dob
+    addEvent(event) {
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    this.personalAge = this.ageCalculate(dob);
+                }
+
+            } else if (typeof event.value._i == 'object') {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.personalAge = this.ageCalculate(dob);
+                }
+                this.dobError = '';
+            }
+            sessionStorage.setItem('proposerAge' , this.personalAge);
+        }
+    }
+    selectOccupation(index) {
+        this.familyMembers[index].ins_occupation_name = this.occupationList[this.familyMembers[index].ins_occupation_id];
+    }
+
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
@@ -543,7 +648,6 @@ export class StarHealthProposalComponent implements OnInit {
                     } else {
                         this.toastr.error('Select any one Social Status');
                     }
-
                 } else {
                     // if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
                         stepper.next();
@@ -555,7 +659,40 @@ export class StarHealthProposalComponent implements OnInit {
             }
         }
     }
+
+    // End
+
     //Insured Details
+    groupList() {
+        this.familyMembers = this.getFamilyDetails.family_members;
+        for (let i = 0; i < this.familyMembers.length; i++ ) {
+            this.familyMembers[i].ins_name = '';
+            this.familyMembers[i].ins_dob = '';
+            this.familyMembers[i].ins_gender = '';
+            this.familyMembers[i].illness = 'false';
+            this.familyMembers[i].ins_illness = '';
+            this.familyMembers[i].ins_weight = '';
+            this.familyMembers[i].ins_height = '';
+            this.familyMembers[i].ins_occupation_id = '';
+            this.familyMembers[i].ins_occupation_name = '';
+            this.familyMembers[i].ins_relationship = '';
+            this.familyMembers[i].ins_relationship_name = '';
+            this.familyMembers[i].ins_hospital_cash = '1';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
+            this.familyMembers[i].ins_engage_winter_sports = 'None';
+            this.familyMembers[i].ins_personal_accident_applicable = '0';
+            this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
+            this.familyMembers[i].engage_manual_status = '0';
+            this.familyMembers[i].engage_winter_status = '0';
+            this.familyMembers[i].ageRestriction = '';
+        }
+
+    }
+    selectProposerRelation(index) {
+        this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
+    }
+
+
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         this.illnesStatus = false;
@@ -675,39 +812,6 @@ export class StarHealthProposalComponent implements OnInit {
 
         }
     }
-    getCityId(title, type) {
-        if(type == 'manual') {
-            this.typeAddressDeatils();
-        }
-        this.cityTitle = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.cityTitle == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
-            'city_id': this.cityTitle == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
-        }
-        this.common.getArea(data).subscribe(
-            (successData) => {
-                this.getCitySuccess(successData);
-            },
-            (error) => {
-                this.getCityFailure(error);
-            }
-        );
-    }
-    public getCitySuccess(successData) {
-        if (successData.IsSuccess == true) {
-            if (this.cityTitle == 'personal') {
-                this.areaNames = successData.ResponseObject.area;
-                // this.areaName = this.areaNames.area;
-            } else if (this.cityTitle == 'residence') {
-                this.rAreaNames = successData.ResponseObject.area;
-                // this.rAreaName = this.rAreaNames.area;
-            }
-        }
-    }
-    public getCityFailure(error) {
-        console.log(error);
-    }
 
     illnessStatus(result: any, index) {
         if (result.value == 'true') {
@@ -750,40 +854,7 @@ export class StarHealthProposalComponent implements OnInit {
             }
         }
     }
-    sameAddress(values: any) {
-        if (values.checked) {
-            this.inputReadonly = true;
-            this.getPostal(this.personal.controls['personalPincode'].value, 'residence');
-            this.getCityIdF2('residence', this.personal.controls['personalCity'].value, this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-        } else {
-            this.inputReadonly = false;
-            this.personal.controls['residenceAddress'].setValue('');
-            this.personal.controls['residenceAddress2'].setValue('');
-            this.personal.controls['residenceCity'].setValue('');
-            this.personal.controls['residencePincode'].setValue('');
-            this.personal.controls['residenceState'].setValue('');
-            this.personal.controls['residenceArea'].setValue('');
-        }
 
-    }
-
-    typeAddressDeatils() {
-        if (this.personal.controls['sameas'].value) {
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-        }
-    }
     // Dame validation
     nameValidate(event: any){
         this.validation.nameValidate(event);
@@ -795,35 +866,6 @@ export class StarHealthProposalComponent implements OnInit {
     // Number validation
     numberValidate(event: any){
         this.validation.numberValidate(event);
-    }
-    // proposer dob
-    addEvent(event) {
-        if (event.value != null) {
-            let selectedDate = '';
-            let dob = '';
-            if (typeof event.value._i == 'string') {
-                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-
-                } else {
-                    this.dobError = 'Enter Valid Date';
-                }
-                selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (selectedDate.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                }
-
-            } else if (typeof event.value._i == 'object') {
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (dob.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                }
-                this.dobError = '';
-            }
-            sessionStorage.setItem('proposerAge' , this.personalAge);
-        }
     }
 
     // insured dob
@@ -884,8 +926,6 @@ export class StarHealthProposalComponent implements OnInit {
                         }
 
                     }
-
-
                     if (this.buyProductdetails.product_id == '7' && (type == 'Son' || type == 'Daughter')) {
                         let dobdays = this.DobDaysCalculate(this.ageCheck);
                         if (dobdays < 16 || age > 25) {
@@ -900,8 +940,6 @@ export class StarHealthProposalComponent implements OnInit {
                             this.familyMembers[i].ageRestriction = '';
                         }
                     }
-
-
                     if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
                         let dobmonth = this.DobMonthCalculate(this.ageCheck);
                         if (dobmonth < 3 || age > 25) {
@@ -925,15 +963,6 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.insurerDobError = this.familyMembers[i].insurerDobError;
     }
     ageCalculate(dob) {
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring( 8,10), 10);
-        // let monthThen = parseInt(mdate.substring(5,7), 10);
-        // let dayThen = parseInt(mdate.substring(0,4), 10);
-        // let todays = new Date();
-        // let birthday = new Date( dayThen, monthThen-1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        // return year_age;
         let today = new Date();
         let birthDate = new Date(dob);
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -942,7 +971,6 @@ export class StarHealthProposalComponent implements OnInit {
         if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
             age = age-1;
         }
-        // this.agecal = age;
         return age;
     }
 
@@ -971,192 +999,65 @@ export class StarHealthProposalComponent implements OnInit {
 
     }
 
-//personal city detail
-    getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.getpostalSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalFailure(error);
-                }
-            );
-        }
-    }
-    public getpostalSuccess(successData) {
-        if (successData.IsSuccess == true) {
 
-            if (this.title == 'personal') {
-                this.response = successData.ResponseObject;
-                if (this.response.length == 0) {
-                    this.personal.controls['personalState'].setValue('');
-                    this.personal.controls['personalCity'].setValue('');
-                    this.personal.controls['personalArea'].setValue('');
-                    this.personalCitys = [];
-                    this.summaryCity = [];
-                    this.areaNames = [];
-                    this.toastr.error('In valid Pincode');
-                } else {
-                    this.personal.controls['personalState'].setValue(this.response.state_name);
-                    this.personalCitys = this.response.city;
-                    for (let i = 0; i < this.personalCitys.length; i++) {
-                        if ( this.personalCitys[i].city_id == this.summaryData.prop_comm_city ) {
-                            this.summaryCity = this.personalCitys[i].city_name;
-                        }
-                    }
-                }
-            }
-            if (this.title == 'residence') {
-                this.rResponse = successData.ResponseObject;
-                if (this.rResponse.length == 0) {
-                    this.personal.controls['residenceCity'].setValue('');
-                    this.personal.controls['residenceState'].setValue('');
-                    this.personal.controls['residenceArea'].setValue('');
-                    this.toastr.error('In valid Pincode');
-                } else {
-                    this.personal.controls['residenceState'].setValue(this.rResponse.state_name);
-                    this.residenceCitys = this.rResponse.city;
-                }
-            }
-        }
-    }
-    public getpostalFailure(error) {
-        console.log(error);
-    }
 
-    //summary city details
-    getPostalSummary(pin, title) {
-        this.sumPin = pin;
-        this.sumTitle = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.sumPin
-        }
-        if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.PostalSummarySuccess(successData);
-                },
-                (error) => {
-                    this.PostalSummaryFailure(error);
-                }
-            );
-        }
-    }
-    public PostalSummarySuccess(successData) {
-        if (successData.IsSuccess == true) {
-            if (this.sumTitle == 'residence') {
-                this.rResponse = successData.ResponseObject;
-                this.residenceCitys = this.rResponse.city;
-                for (let i = 0; i < this.residenceCitys.length; i++) {
-                    if ( this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
-                        this.rSummaryCity = this.residenceCitys[i].city_name;
-                    }
-                }
-            }
-        }
-    }
-    public PostalSummaryFailure(error) {
-        console.log(error);
-    }
-    // payment
-    public payNow() {
-        const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'platform': 'web',
-            'reference_id' :  this.summaryData.proposal_details[0].referenceId,
-            'proposal_id': sessionStorage.proposalID,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.settings.loadingSpinner = true;
-        this.proposalservice.getPolicyToken(data).subscribe(
-            (successData) => {
-                this.getPolicyTokenSuccess(successData);
-            },
-            (error) => {
-                this.getPolicyTokenFailure(error);
-            }
-        );
-    }
-    public getPolicyTokenSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
-            this.paymentGatewayData = successData.ResponseObject;
-            window.location.href = this.paymentGatewayData.payment_gateway_url;
-            this.lastStepper.next();
 
+    // Nominee Deatils
+    addNominee(value) {
+        if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+            this.nomineeDate[0].nominee.push({
+                nname: '',
+                nage: '',
+                nrelationship: '',
+                nrelationshipName: '',
+                nclaim: '',
+                aname: '',
+                aage: '',
+                arelationship: '',
+                removeBtn: false,
+                addBtn: false,
+                ageSetting: false,
+                colorStatus: 'green'
+
+            });
+            this.nomineeDate[0].nominee[0].addBtn = false;
+
+            //
+            this.nomineeAdd = true;
+            this.nomineeRemove = false;
+        } if (value == 'delete') {
+            if (this.nomineeDate[0].nominee.length == 2) {
+                this.nomineeDate[0].nominee.splice(1, 1);
+                this.nomineeAdd = false;
+                this.nomineeRemove = true;
+                this.nomineeDate[0].nominee[0].removeBtn = true;
+                this.nomineeDate[0].nominee[0].addBtn = true;
+            }
+        }
+        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+
+    }
+    claimPercent(percent, i, pi) {
+        if (this.nomineeDate[0].nominee.length == 1) {
+            if (this.nomineeDate[0].nominee[0].nclaim >= 100) {
+                this.nomineeDate[0].nominee[0].addBtn = false;
+                this.nomineeNext = false;
+            } else {
+                this.nomineeDate[0].nominee[0].addBtn = true;
+                this.nomineeNext = true;
+            }
         } else {
-            this.toastr.error(successData.ErrorObject);
+            this.nomineeNext = false;
+
+            this.nomineeAdd = true;
+
         }
-    }
-    public getPolicyTokenFailure(error) {
-        this.settings.loadingSpinner = false;
-        console.log(error);
+        sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
     }
 
-    setOccupationList() {
-        const data = {
-            'platform': 'web',
-            'product_id': this.buyProductdetails.product_id,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getOccupationList(data).subscribe(
-            (successData) => {
-                this.occupationListSuccess(successData);
-            },
-            (error) => {
-                this.occupationListFailure(error);
-            }
-        );
-
+    selectNomineRelation(index, cIndex) {
+        this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationshipName];
     }
-    public occupationListSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.occupationList = successData.ResponseObject;
-        }
-    }
-    public occupationListFailure(error) {
-        console.log(error);
-    }
-
-    setRelationship() {
-        const data = {
-            'platform': 'web',
-            'product_id': this.buyProductdetails.product_id,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getRelationshipList(data).subscribe(
-            (successData) => {
-                this.setRelationshipSuccess(successData);
-            },
-            (error) => {
-                this.setRelationshipFailure(error);
-            }
-        );
-    }
-    public setRelationshipSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.relationshipList = successData.ResponseObject;
-        }
-    }
-    public setRelationshipFailure(error) {
-        console.log(error);
-    }
-    topScroll() {
-        document.getElementById('main-content').scrollTop = 0;
-    }
-    //Nominee Details
     nomineeDetails(stepper: MatStepper, index, key) {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
         this.lastStepper = stepper;
@@ -1170,7 +1071,7 @@ export class StarHealthProposalComponent implements OnInit {
                         if (this.nomineeDate[index].nominee[i].aname != '' &&
                             this.nomineeDate[index].nominee[i].aage != '' &&
                             this.nomineeDate[index].nominee[i].arelationship != '') {
-                            this.proposal();
+                            this.proposal(stepper);
 
                         } else {
                             if (i == this.nomineeDate[index].nominee.length - 1) {
@@ -1178,7 +1079,7 @@ export class StarHealthProposalComponent implements OnInit {
                             }
                         }
                     } else {
-                        this.proposal();
+                        this.proposal(stepper);
 
                     }
                 } else {
@@ -1188,44 +1089,14 @@ export class StarHealthProposalComponent implements OnInit {
                 }
             }
         } else {
-            this.proposal();
+            this.proposal(stepper);
         }
     }
 
+    // End
+
     //Create Proposal
-    proposal() {
-        // let comCityName = '';
-        // if (this.personalCitys.length !=0) {
-        //     for (let i = 0; i < this.personalCitys.length; i++) {
-        //         if (this.personalCitys[i].city_id == this.personal.controls['personalCity'].value) {
-        //             comCityName = this.personalCitys[i].city_name;
-        //         }
-        //     }
-        // }
-        // let resCityName = '';
-        // if (this.residenceCitys.length !=0) {
-        //     for (let i = 0; i < this.residenceCitys.length; i++) {
-        //         if (this.residenceCitys[i].city_id == this.personal.controls['residenceCity'].value) {
-        //             resCityName = this.residenceCitys[i].city_name;
-        //         }
-        //     }
-        // }
-        // let comAreaName = '';
-        // if (this.areaNames.length !=0) {
-        //     for (let i = 0; i < this.areaNames.length; i++) {
-        //         if (this.areaNames[i].areaID == this.personal.controls['personalArea'].value) {
-        //             comAreaName = this.areaNames[i].areaName;
-        //         }
-        //     }
-        // }
-        // let resAreaName = '';
-        // if (this.rAreaNames.length !=0) {
-        //     for (let i = 0; i < this.rAreaNames.length; i++) {
-        //         if (this.rAreaNames[i].areaID == this.personal.controls['residenceArea'].value) {
-        //             resAreaName = this.rAreaNames[i].areaName;
-        //         }
-        //     }
-        // }
+    proposal(stepper) {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
@@ -1301,7 +1172,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.proposalservice.getProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData, stepper);
             },
             (error) => {
                 this.proposalFailure(error);
@@ -1309,100 +1180,153 @@ export class StarHealthProposalComponent implements OnInit {
         );
 
     }
-    public proposalSuccess( successData) {
+    public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
+            stepper.next();
+            this.topScroll();
+            console.log(this.occupationList[this.personal.controls['personalOccupation'].value], 'ccccc');
+
+            this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
+            this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+            this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
+            this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+            this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
+
+            this.proposerFormData = this.personal.value;
+            this.insuredFormData = this.familyMembers;
+            this.nomineeFormData = this.nomineeDate;
+            console.log(this.proposerFormData, 'proposerFormData');
+            console.log(this.insuredFormData, 'insuredFormData');
+            console.log(this.nomineeFormData, 'nomineeFormData');
+
+
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.proposalID = this.proposalId;
-            this.lastStepper.next();
-            if (this.summaryData.prop_res_pincode) {
-                this.getPostalSummary(this.summaryData.prop_res_pincode, 'residence');
-                this.getCityIdF2(this.sumTitle, this.summaryData.prop_res_city, this.sumPin);
-            }
-            if (this.summaryData.prop_comm_pincode) {
-                this.getPostal(this.summaryData.prop_comm_pincode, 'personal');
-                this.getCityIdSumm(this.title, this.summaryData.prop_comm_city, this.pin);
-            }
+
 
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
-//Summary residence detail
     public proposalFailure(error) {
-        console.log(error);
+        this.settings.loadingSpinner = false;
     }
-
-    getCityIdF2(title, cid, pincode) {
+        // payment
+    public payNow() {
         const data = {
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'pincode': pincode,
-            'city_id': cid
+            'reference_id' :  this.summaryData.proposal_details[0].referenceId,
+            'proposal_id': sessionStorage.proposalID,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        this.common.getArea(data).subscribe(
+        this.settings.loadingSpinner = true;
+        this.proposalservice.getPolicyToken(data).subscribe(
             (successData) => {
-                this.getCityResistSuccess(successData);
+                this.getPolicyTokenSuccess(successData);
             },
             (error) => {
-                this.getCityResistFailure(error);
+                this.getPolicyTokenFailure(error);
             }
         );
     }
-    public getCityResistSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.rAreaNames = successData.ResponseObject.area;
-            // this.rAreaName = this.rAreaNames.area;
-            if (this.sumTitle == 'residence') {
-                for (let i =0; i < this.rAreaNames.length; i++) {
-                    if (this.rAreaNames[i].areaID == this.summaryData.prop_res_area) {
-                        this.sumAreaName = this.rAreaNames[i].areaName;
-                    }
+    public getPolicyTokenSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.paymentGatewayData = successData.ResponseObject;
+            window.location.href = this.paymentGatewayData.payment_gateway_url;
+            this.lastStepper.next();
 
-                }
-            }
+        } else {
+            this.toastr.error(successData.ErrorObject);
         }
     }
-
-    public getCityResistFailure(error) {
+    public getPolicyTokenFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
 
-//Summary personal detail
-    getCityIdSumm(title, cid, pincode) {
-        const data = {
-            'platform': 'web',
-            'pincode': pincode,
-            'city_id': cid
-        }
-        this.common.getArea(data).subscribe(
-            (successData) => {
-                this.getCityIdSummSuccess(successData);
-            },
-            (error) => {
-                this.getCityIdSummFailure(error);
-            }
-        );
-    }
-    public getCityIdSummSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.rAreaNames = successData.ResponseObject.area;
-            // this.rAreaName = this.rAreaNames.area;
-            if (this.title == 'personal') {
-                for (let i =0; i < this.rAreaNames.length; i++) {
-                    if (this.rAreaNames[i].areaID == this.summaryData.prop_comm_area) {
-                        this.sumAreaNameComm = this.rAreaNames[i].areaName;
-                    }
 
-                }
-            }
-        }
-    }
-    public getCityIdSummFailure(error) {
-        console.log(error);
-    }
+
+//
+// //Summary residence detail
+//     public proposalFailure(error) {
+//         console.log(error);
+//     }
+//
+//     getCityIdF2(title, cid, pincode) {
+//         const data = {
+//             'platform': 'web',
+//             'pincode': pincode,
+//             'city_id': cid
+//         }
+//         this.common.getArea(data).subscribe(
+//             (successData) => {
+//                 this.getCityResistSuccess(successData);
+//             },
+//             (error) => {
+//                 this.getCityResistFailure(error);
+//             }
+//         );
+//     }
+//     public getCityResistSuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             this.rAreaNames = successData.ResponseObject.area;
+//             // this.rAreaName = this.rAreaNames.area;
+//             if (this.sumTitle == 'residence') {
+//                 for (let i =0; i < this.rAreaNames.length; i++) {
+//                     if (this.rAreaNames[i].areaID == this.summaryData.prop_res_area) {
+//                         this.sumAreaName = this.rAreaNames[i].areaName;
+//                     }
+//
+//                 }
+//             }
+//         }
+//     }
+//
+//     public getCityResistFailure(error) {
+//         console.log(error);
+//     }
+//
+// //Summary personal detail
+//     getCityIdSumm(title, cid, pincode) {
+//         const data = {
+//             'platform': 'web',
+//             'pincode': pincode,
+//             'city_id': cid
+//         }
+//         this.common.getArea(data).subscribe(
+//             (successData) => {
+//                 this.getCityIdSummSuccess(successData);
+//             },
+//             (error) => {
+//                 this.getCityIdSummFailure(error);
+//             }
+//         );
+//     }
+//     public getCityIdSummSuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             this.rAreaNames = successData.ResponseObject.area;
+//             // this.rAreaName = this.rAreaNames.area;
+//             if (this.title == 'personal') {
+//                 for (let i =0; i < this.rAreaNames.length; i++) {
+//                     if (this.rAreaNames[i].areaID == this.summaryData.prop_comm_area) {
+//                         this.sumAreaNameComm = this.rAreaNames[i].areaName;
+//                     }
+//
+//                 }
+//             }
+//         }
+//     }
+//     public getCityIdSummFailure(error) {
+//         console.log(error);
+//     }
 
 
 }
