@@ -1554,31 +1554,35 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
-            // get religare-health-proposal proposer occupation code
             // for( let i=0; i < this.occupationCode.length; i++) {
             //     if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {
             //         this.summaryData.proposer_details.occupation_description =  this.occupationCode[i].occupation_description;
             //     }
             // }
-            // // get reliagre insure occupation code
-            // for( let i=0; i < this.occupationCode.length; i++) {
-            //     if(this.summaryData.proposer_insurer_details.i_occupation_code == this.occupationCode[i].occupation_code) {
-            //         this.summaryData.proposer_insurer_details.occupation_description =  this.occupationCode[i].occupation_description;
-            //     }
-            // }
-            // // occupation class in proposer
-            // for( let i=0; i < this.occupationdescriptionList.length; i++) {
-            //     if(this.summaryData.proposer_details.p_occupation_class == this.occupationdescriptionList[i].occupation_class) {
-            //         this.summaryData.proposer_details.description =  this.occupationdescriptionList[i].description;
-            //     }
-            // }
-            // // occupation class in insured
-            // for( let i=0; i < this.occupationdescriptionList.length; i++) {
-            //     if(this.summaryData.proposer_insurer_details.i_occupation_class == this.occupationdescriptionList[i].occupation_code) {
-            //         this.summaryData.proposer_insurer_details.description =  this.occupationdescriptionList[i].description;
-            //     }
-            // }
-            //
+            // get reliagre insure occupation code
+            for( let i=0; i < this.occupationCode.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_code == this.occupationCode[i].occupation_code) {
+                    this.summaryData.proposer_insurer_details.occupation_description =  this.occupationCode[i].occupation_description;
+                }
+            }
+            // occupation class in proposer
+            for( let i=0; i < this.occupationdescriptionList.length; i++) {
+                if(this.summaryData.proposer_details.p_occupation_class == this.occupationdescriptionList[i].occupation_class) {
+                    this.summaryData.proposer_details.insureoccupationdescriptionList =  this.occupationdescriptionList[i].description;
+                }
+            }
+            // occupation class in insured
+            for( let i=0; i < this.insureoccupationdescriptionList.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_class_description == this.occupationdescriptionList[i].occupation_class) {
+                    this.summaryData.proposer_insurer_details.description =  this.occupationdescriptionList[i].description;
+                }
+            }
+            for( let i=0; i < this.insureClassDescription.length; i++) {
+                if(this.summaryData.proposer_insurer_details.i_occupation_class == this.occupationdescriptionList[i].occupation_class_description) {
+                    this.summaryData.proposer_insurer_details.occ_name =  this.occupationdescriptionList[i].occ_name;
+                }
+            }
+
 
         } else {
             this.toastr.error(successData.ErrorObject);
