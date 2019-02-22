@@ -841,7 +841,7 @@ export class TravelPremiumListComponent implements OnInit {
                 if (result) {
                     if (value.product_id <= 37 && value.product_id >=32) {
                         this.router.navigate(['/travelproposal']);
-                    }else if (value.product_id == 52) {
+                    }else if (value.product_id <= 52) {
                         this.router.navigate(['/reliancetravel']);
                     } else if (value.product_id <= 59 && value.product_id >=38) {
                         this.router.navigate(['/religaretravel']);
