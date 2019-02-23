@@ -113,6 +113,7 @@ import {HdfcPaproposaldeactivateGuardService} from './shared/hdfc-paproposaldeac
 import {ReligareHealthDeactivateGuardService} from './shared/religare-health-deactivate-guard.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
+import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -211,6 +212,7 @@ export const routes: Routes = [
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
+            { path: 'reliancetravel', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
             { path: 'hdfc-insurance/:stepper', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},

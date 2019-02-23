@@ -415,7 +415,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/get_religare_occupationcode';
+        const url = this.configurationService.getHostHealth() + 'religare/occupation';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -436,7 +436,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/get_religare_questions';
+        const url = this.configurationService.getHostHealth() + 'religare/questions';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -479,7 +479,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/get_religare_policypdf';
+        const url = this.configurationService.getHostHealth() + 'religare/policyDownload';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -502,7 +502,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/display_addons_careplan';
+        const url = this.configurationService.getHostHealth() + 'religare/addons';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
