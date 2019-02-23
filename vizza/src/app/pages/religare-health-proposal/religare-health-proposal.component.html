@@ -125,8 +125,8 @@
                         </mat-form-field></div>
                         <div class="col-md-6"><mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="personalCity" (change)="typeAddressDeatils()" autocomplete="off" required>
-                            <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
-                              {{city.city}}
+                            <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
+                              {{city.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
@@ -262,9 +262,9 @@
                               <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                             </div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                                <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
-                                    <mat-option *ngFor="let relationship of insureRelationList" value="{{relationship.relationship_code}}" >
-                                        {{relationship.relationship_name}}
+                                <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required (change)="selectRelationship(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                                    <mat-option *ngFor="let relationship of insureRelationList | keys" value="{{relationship.key}}" >
+                                        {{relationship.value}}
                                     </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -499,8 +499,8 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Insurer"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
-                          <mat-option *ngFor="let relationship of insureRelationList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" >
-                            {{relationship.relationship_name}}
+                          <mat-option *ngFor="let relationship of insureRelationList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" >
+                            {{relationship.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="nomineeDetails.controls.religareRelationship.errors?.required">Relationship with Proposer is required</mat-error>

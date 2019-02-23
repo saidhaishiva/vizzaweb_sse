@@ -491,7 +491,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/get_religare_pincodes';
+        const url = this.configurationService.getHostHealth() + 'religare/pincode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
