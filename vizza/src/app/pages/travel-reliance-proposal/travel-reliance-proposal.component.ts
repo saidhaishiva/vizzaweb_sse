@@ -60,7 +60,6 @@ export class TravelRelianceProposalComponent implements OnInit {
   public inputReadonly: any;
   public inputBurglaryReadonly: any;
   public inputSponsorReadonly: any;
-  public inputCompanyReadonly: any;
   public common: any;
   public proposalPArea: any;
   public proposalRArea: any;
@@ -80,11 +79,24 @@ export class TravelRelianceProposalComponent implements OnInit {
   public personalAge: any;
   public nomineeAge: any;
   public dobError: any;
-  public nomineeDateError: any;
   public agecal: any;
   public getAge: any;
   public getDays: any;
   public arr: any;
+  public today: any;
+  public maxDate: any;
+  public sufferingError: any;
+  public startDateError: any;
+  public endDateError: any;
+  public riskDOBDateError: any;
+  public riskstartDate: any;
+  public riskdaysBookingCount: any;
+  public riskendDate: any;
+  public riskdaysCount: any;
+
+  public insurerData: any;
+  public totalInsureDetails: any;
+  public totalInsureChildDetails: any;
 
   public PersonalOccupation: any;
   public Relationship: any;
@@ -92,11 +104,36 @@ export class TravelRelianceProposalComponent implements OnInit {
   public Marital: any;
   public VisitingCountry: any;
   public PreExistingIllness: any;
+  public SportsActivities: any;
+  public CoverType: any;
+
+  public overseas :any;
+  public riskIsResidingInIndiaTrue :any;
+  public riskSportsActivitiesTrue :any;
+  public VisitingListTure :any;
+  public riskCoverageTypeTrue :any;
+  public riskMaxDaysPerTripTrue :any;
+  public riskNoOfYearsTrue :any;
+  public riskSeniorCitizenTrue :any;
+  public TravelCoverageTrue :any;
+  public TravelStandardLimitTrue :any;
+  public TravelSilverPlanTrue :any;
+  public TravelGoldPlanTrue :any;
+  public TravelPlatinumPlanTrue :any;
+  public TravelBasicPlanTrue :any;
+  public TravelElitePlanTrue :any;
+  public TravelPlusPlanTrue :any;
+
+  public getStepper1: any;
+  public getStepper2: any;
+  public personalData :any;
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    let today = new Date();
+    this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -143,6 +180,15 @@ export class TravelRelianceProposalComponent implements OnInit {
       residenceState: ['', Validators.required],
       residenceNearestLandMark: '',
       residenceCountry: '',
+
+      personalUniversityName: '',
+      personalUniversityEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+      personalUniversityMobileNo: '',
+      personalUniversityPhoneNo: '',
+      personalUniversityFax: '',
+      personalUniversityCity: '',
+      personalUniversityState: '',
+      personalUniversityCountry: '',
 
       personalBurglaryEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
       personalBurglaryMobileNo: '',
@@ -223,14 +269,56 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalStateIdC: '',
       residenceDistrictIdC: '',
 
-
+      startDate: '',
+      endDate: '',
       sameas: false,
       rolecd: 'PROPOSER',
 
     });
 
     this.riskDetails = this.fb.group({
-        indian: '',
+      riskIndian: '',
+      riskIsOverSeasCitizen: '',
+      riskIsResidingInIndia:'',
+      riskPermanentResidenceCountry: '',
+      riskOCINumber: '',
+      riskPassportIssuingCountry: '',
+      riskIsInsuredOnImmigrantVisa: '',
+      riskIsTravelInvolvesSportingActivities: '',
+      riskSportsActivities: '',
+      riskIsSufferingFromPEMC: '',
+      riskPreExistDisease: '',
+      riskIsVisitingUSACanada: '',
+      riskDOB: '',
+      riskVisitingCountries: '',
+      riskstartDate: '',
+      riskendDate: '',
+      riskCoverageType: '',
+      riskIsVisitingStudent: '',
+      riskMaxDaysPerTrip: '',
+      riskNoOfYears: '',
+      riskSeniorCitizen: '',
+      riskSeniorCitizenPlanID: '',
+      TravelStandardLimited: '',
+
+      TravelCoverageName:'',
+      TravelCoverageDisplayName:'',
+      TravelStandardLimitedPlan:'',
+      TravelStandardDeductiblePlan:'',
+      TravelIsSilverPlan:'',
+      TravelSilverPlan:'',
+      TravelIsGoldPlan:'',
+      TravelGoldPlan:'',
+      TravelIsPlatinumPlan:'',
+      TravelPlatinumPlan:'',
+      TravelIsBasicPlan:'',
+      TravelBasicPlan:'',
+      TravelIsElitePlan:'',
+      TravelElitePlan:'',
+      TravelIsPlusPlan:'',
+      TravelPlusPlan:'',
+      // TravelIsAllPlan:'',
+
     });
 
   }
@@ -242,6 +330,8 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceMarital();
     this.relainceVisitingCountries();
     this.relaincePreExistingIllness();
+    this.relainceSportsActivities();
+    this.relainceCoverType();
 
     this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
     let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -265,6 +355,7 @@ export class TravelRelianceProposalComponent implements OnInit {
           rolecd: 'PRIMARY',
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
+          childFullname: ['', Validators.required],
           personalLastname: ['', Validators.required],
           personalMidname: '',
           personalGender: ['', Validators.compose([Validators.required])],
@@ -274,7 +365,8 @@ export class TravelRelianceProposalComponent implements OnInit {
           relationship: ['', Validators.required],
           passport: ['', Validators.compose([Validators.minLength(10)])],
           personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-          personalPhone: '',
+          personalPhone1: '',
+          VisitingCountries: '',
 
           IsUnderMedication: 'false',
           PreExistingIllness: '',
@@ -290,6 +382,68 @@ export class TravelRelianceProposalComponent implements OnInit {
           sameasreadonly: false,
           sameas: false,
         });
+  }
+
+  //Personal Details
+  personalDetails(stepper: MatStepper, value) {
+    this.personalData = value;
+    sessionStorage.stepper1Details = '';
+    sessionStorage.stepper1Details = JSON.stringify(value);
+    if (this.personal.valid) {
+      if (sessionStorage.personalAge >= 18) {
+        stepper.next();
+      }else {
+        this.toastr.error('Proposer age should be 18 or above');
+      }
+    }
+  }
+  //Insure Details
+  relianceInsureDetails(stepper: MatStepper, id, value, key) {
+    console.log(this.insuredTravelPerson,'insuredTravelPerson');
+    sessionStorage.stepper2Details = '';
+    sessionStorage.stepper2Details = JSON.stringify(value);
+    if (this.relianceInsuredTravel.valid) {
+      this.insurerData = value.items;
+      this.totalInsureDetails = [];
+      for (let i = 0; i < this.insuredTravelPerson.length; i++) {
+        this.totalInsureDetails.push({
+          'RelationshipWithProposerID': this.insurerData[i].relationship,
+          'PassportNumber': this.insurerData[i].passport,
+          'NameofNominee': this.insurerData[i].nomineeName,
+          'RelationshipWithNomineeID': this.insurerData[i].nomineeRelationship,
+          'VisitingCountries': this.insurerData[i].VisitingCountries,
+          'IsUnderMedication': this.insurerData[i].IsUnderMedication,
+          'PreExistingIllness': this.insurerData[i].PreExistingIllness,
+          'SufferingSince': this.insurerData[i].SufferingSince,
+          'Salutation': this.insurerData[i].personalTitle,
+          'ForeName': this.insurerData[i].personalFirstname,
+          'LastName': this.insurerData[i].personalLastname,
+          'MidName': this.insurerData[i].personalMidname,
+          'Gender': this.insurerData[i].personalGender,
+          'DateofBirth': this.datepipe.transform(this.insurerData[i].InsDOB, 'y-MM-dd'),
+          'OccupationID': this.insurerData[i].occupation,
+          'MobileNo': this.insurerData[i].personalMobile,
+          'PhoneNo': this.insurerData[i].personalPhone1,
+          'Email': this.insurerData[i].personalEmail
+        })
+      }
+      this.totalInsureChildDetails = [];
+      for(let j = 0; j < this.insuredTravelPerson.length; j++){
+        if(this.insuredTravelPerson.type != 'self' && this.insuredTravelPerson.type != 'spouse'){
+        this.totalInsureChildDetails.push({
+          'childFullname': this.insurerData[j].childFullname,
+          'ChildRelationID': this.insurerData[j].nomineeRelationship,
+          'DOB': this.datepipe.transform(this.insurerData[j].InsDOB, 'y-MM-dd'),
+          'PassportNo': this.insurerData[j].passport,
+          'NomineeName': this.insurerData[j].nomineeName,
+          'NomineeRelationshipID': this.insurerData[j].nomineeRelationship,
+          'IsUnderMedication': this.insurerData[j].IsUnderMedication,
+          'PreExistingMC': this.insurerData[j].PreExistingIllness,
+          'SufferingSince': this.insurerData[j].SufferingSince
+        })
+        }
+      }
+    }
   }
 
   topScroll() {
@@ -330,8 +484,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
-
   addEvent(event, type) {
+    this.maxDate = '';
     if (event.value != null) {
       let selectedDate = '';
       this.personalAge = '';
@@ -339,31 +493,45 @@ export class TravelRelianceProposalComponent implements OnInit {
       if (typeof event.value._i == 'string') {
         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          if (type == 'nominee') {
-            this.nomineeDateError = '';
+           if(type == 'sufferingDate'){
+            this.sufferingError = '';
           } else if (type == 'proposer') {
             this.dobError = '';
+          }else if(type == 'riskDOB'){
+            this.riskDOBDateError = '';
+          }else if(type == 'sDate'){
+            this.startDateError = '';
+          }else if(type == 'eDate'){
+            this.endDateError = '';
           } else {
             this.dobError = '';
           }
         } else {
-          if (type == 'nominee') {
-            this.nomineeDateError = 'Enter Valid Date';
+           if(type == 'sufferingDate'){
+            this.sufferingError = 'Enter Valid Date';
           } else if (type == 'proposer') {
             this.dobError = 'Enter Valid Date';
-          } else {
+          }else if(type == 'riskDOB'){
+             this.riskDOBDateError = 'Enter Valid Date';
+           }else if(type == 'sDate'){
+            this.startDateError = 'Enter Valid Date';
+          }else if(type == 'eDate'){
+            this.endDateError = 'Enter Valid Date';
+          }else {
             this.dobError = 'Enter Valid Date';
           }
         }
+
         selectedDate = event.value._i;
+        console.log(selectedDate, 'selectedDate');
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           if (type == 'proposer') {
             this.personalAge = this.ageCalculate(dob);
             sessionStorage.personalAge = this.personalAge;
-          } else if (type == 'nominee') {
-            this.nomineeAge = this.ageCalculate(dob);
-            sessionStorage.nomineeAge = this.nomineeAge;
+          } else if (type == 'sDate') {
+            console.log('inst');
+            this.maxDate = event.value;
           }
         }
       } else if (typeof event.value._i == 'object') {
@@ -372,14 +540,45 @@ export class TravelRelianceProposalComponent implements OnInit {
           if (type == 'proposer') {
             this.personalAge = this.ageCalculate(dob);
             sessionStorage.personalAge = this.personalAge;
-          } else if (type == 'nominee') {
-            this.nomineeAge = this.ageCalculate(dob);
-            sessionStorage.nomineeAge = this.nomineeAge;
           }
         }
+        if (type == 'sDate') {
+          this.startDateError = '';
+        } else if (type == 'eDate') {
+          this.endDateError = '';
+        }
+        console.log(event.value, 'event.value');
+        if(type == 'sDate'){
+          this.maxDate = event.value;
+        }
         this.dobError = '';
-        this.nomineeDateError = '';
+        this.sufferingError = '';
+        this.startDateError = '';
+        this.endDateError = '';
+        this.riskDOBDateError = '';
       }
+    }
+    if (type == 'sDate') {
+      sessionStorage.riskstartDate = this.riskstartDate;
+      console.log(this.riskstartDate, 'startDate1111');
+      let fDate = this.datepipe.transform(new Date(), 'MM/dd/yyyy');
+      let tDate = this.datepipe.transform(this.riskstartDate, 'MM/dd/yyyy');
+      let diff = Date.parse(tDate) - Date.parse(fDate);
+      this.riskdaysBookingCount =  Math.floor(diff / 86400000);
+      console.log(this.riskdaysBookingCount, 'daysCount111');
+      sessionStorage.riskdaysBookingCount = this.riskdaysBookingCount;
+      // if (this.daysBookingCount > 60) {
+      //     this.toast.error('Travel booking shoud be less than 60 days ')
+      // }
+
+    } else if (type == 'eDate') {
+      sessionStorage.riskendDate = this.riskendDate;
+      let days = this.dyasCalculation();
+      this.riskdaysCount = days;
+      sessionStorage.riskdaysCount = days;
+
+      console.log(days, 'daysdays');
+
     }
   }
 
@@ -399,7 +598,6 @@ export class TravelRelianceProposalComponent implements OnInit {
         }
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
         if (selectedDate.length == 10) {
           this.getAge = this.ageCalculate(dob);
           this.getDays = this.ageCalculateInsurer(dob);
@@ -485,6 +683,13 @@ export class TravelRelianceProposalComponent implements OnInit {
     return Bob_days;
 
   }
+  dyasCalculation() {
+    let fDate = this.datepipe.transform(this.riskstartDate, 'MM/dd/yyyy');
+    let tDate = this.datepipe.transform(this.riskendDate, 'MM/dd/yyyy');
+    let diff = Date.parse(tDate) - Date.parse(fDate);
+    let days = Math.floor(diff / 86400000);
+    return days+1;
+  }
   typeAddressDeatils() {
     if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -564,6 +769,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   sameSponsorAddress(values: any){
     this.sameField = values.checked;
     if (values.checked) {
+      this.commonPincode(this.personal.controls['personalSponsorPincode'].value, 'proposalS');
       this.inputSponsorReadonly = true;
       this.personal.controls['personalSponsorAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['personalSponsorCity'].setValue(this.personal.controls['personalCity'].value);
@@ -616,7 +822,196 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   sessionData() {
+    if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+      this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+      this.personal = this.fb.group({
+        personalTitle: this.getStepper1.personalTitle,
+        personalFirstname: this.getStepper1.personalFirstname,
+        personalMidname: this.getStepper1.personalMidname,
+        personalLastname: this.getStepper1.personalLastname,
+        personalDob: this.getStepper1.personalDob,
+        personalGender: this.getStepper1.personalGender,
+        maritalStatus: this.getStepper1.maritalStatus,
+        occupation: this.getStepper1.occupation,
+        personalAadhar: this.getStepper1.personalAadhar,
+        personalPan: this.getStepper1.personalPan,
+        personalEmail: this.getStepper1.personalEmail,
+        personalMobile: this.getStepper1.personalMobile,
+        personalPhone: this.getStepper1.personalPhone,
+        nationality: this.getStepper1.nationality,
+        personalGst: this.getStepper1.personalGst,
+        gstin: this.getStepper1.gstin,
+        relatedParty: this.getStepper1.relatedParty,
+        groupCorpID: this.getStepper1.groupCorpID,
+        personalAddress: this.getStepper1.personalAddress,
+        personalAddress2: this.getStepper1.personalAddress2,
+        personalAddress3: this.getStepper1.personalAddress3,
+        personalPincode: this.getStepper1.personalPincode,
+        personalCity: this.getStepper1.personalCity,
+        personalArea: this.getStepper1.personalArea,
+        personalDistrict: this.getStepper1.personalDistrict,
+        personalState: this.getStepper1.personalState,
+        personalNearestLandMark: this.getStepper1.personalNearestLandMark,
+        personalCountry: this.getStepper1.personalCountry,
+        residenceAddress: this.getStepper1.residenceAddress,
+        residenceAddress2: this.getStepper1.residenceAddress2,
+        residenceAddress3: this.getStepper1.residenceAddress3,
+        residencePincode: this.getStepper1.residencePincode,
+        residenceCity: this.getStepper1.residenceCity,
+        residenceArea: this.getStepper1.residenceArea,
+        residenceDistrict: this.getStepper1.residenceDistrict,
+        residenceState: this.getStepper1.residenceState,
+        residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
+        residenceCountry: this.getStepper1.residenceCountry,
+        personalUniversityName: this.getStepper1.personalUniversityName,
+        personalUniversityEmail: this.getStepper1.personalUniversityEmail,
+        personalUniversityMobileNo: this.getStepper1.personalUniversityMobileNo,
+        personalUniversityPhoneNo: this.getStepper1.personalUniversityPhoneNo,
+        personalUniversityFax: this.getStepper1.personalUniversityFax,
+        personalUniversityCity: this.getStepper1.personalUniversityCity,
+        personalUniversityState: this.getStepper1.personalUniversityState,
+        personalUniversityCountry: this.getStepper1.personalUniversityCountry,
+        personalBurglaryEmail: this.getStepper1.personalBurglaryEmail,
+        personalBurglaryMobileNo: this.getStepper1.personalBurglaryMobileNo,
+        personalBurglaryPhoneNo: this.getStepper1.personalBurglaryPhoneNo,
+        personalBurglaryFax: this.getStepper1.personalBurglaryFax,
+        personalBurglaryAddress: this.getStepper1.personalBurglaryAddress,
+        personalBurglaryAddress2: this.getStepper1.personalBurglaryAddress2,
+        personalBurglaryAddress3: this.getStepper1.personalBurglaryAddress3,
+        personalBurglaryPincode: this.getStepper1.personalBurglaryPincode,
+        personalBurglaryCity: this.getStepper1.personalBurglaryCity,
+        personalBurglaryArea: this.getStepper1.personalBurglaryArea,
+        personalBurglaryDistrict: this.getStepper1.personalBurglaryDistrict,
+        personalBurglaryState: this.getStepper1.personalBurglaryState,
+        personalBurglaryNearestLandMark: this.getStepper1.personalBurglaryNearestLandMark,
+        personalBurglaryCountry: this.getStepper1.personalBurglaryCountry,
+        personalSponsorFullname: this.getStepper1.personalSponsorFullname,
+        personalSponsorEmail: this.getStepper1.personalSponsorEmail,
+        personalSponsorMobileNo: this.getStepper1.personalSponsorMobileNo,
+        personalSponsorPhoneNo: this.getStepper1.personalSponsorPhoneNo,
+        personalSponsorAddress: this.getStepper1.personalSponsorAddress,
+        personalSponsorPincode: this.getStepper1.personalSponsorPincode,
+        personalSponsorCity: this.getStepper1.personalSponsorCity,
+        personalSponsorState: this.getStepper1.personalSponsorState,
+        personalSponsorCountry: this.getStepper1.personalSponsorCountry,
+        IsDoctorDetails: this.getStepper1.IsDoctorDetails,
+        personalDoctorFullname: this.getStepper1.personalDoctorFullname,
+        personalDoctorEmail: this.getStepper1.personalDoctorEmail,
+        personalDoctorMobileNo: this.getStepper1.personalDoctorMobileNo,
+        personalDoctorPhoneNo: this.getStepper1.personalDoctorPhoneNo,
+        personalDoctorFax: this.getStepper1.personalDoctorFax,
+        personalDoctorAddress: this.getStepper1.personalDoctorAddress,
+        personalDoctorAddress2: this.getStepper1.personalDoctorAddress2,
+        personalDoctorAddress3: this.getStepper1.personalDoctorAddress3,
+        personalDoctorPincode: this.getStepper1.personalDoctorPincode,
+        personalDoctorCity: this.getStepper1.personalDoctorCity,
+        personalDoctorArea: this.getStepper1.personalDoctorArea,
+        personalDoctorDistrict: this.getStepper1.personalDoctorDistrict,
+        personalDoctorState: this.getStepper1.personalDoctorState,
+        personalDoctorNearestLandMark: this.getStepper1.personalDoctorNearestLandMark,
+        personalDoctorCountry: this.getStepper1.personalDoctorCountry,
+        personalCompanyFullname: this.getStepper1.personalCompanyFullname,
+        personalCompanyEmail: this.getStepper1.personalCompanyEmail,
+        personalCompanyMobileNo: this.getStepper1.personalCompanyMobileNo,
+        personalCompanyPhoneNo: this.getStepper1.personalCompanyPhoneNo,
+        personalCompanyFax: this.getStepper1.personalCompanyFax,
+        personalCompanyAddress: this.getStepper1.personalCompanyAddress,
+        personalCompanyAddress2: this.getStepper1.personalCompanyAddress2,
+        personalCompanyAddress3: this.getStepper1.personalCompanyAddress3,
+        personalCompanyPincode: this.getStepper1.personalCompanyPincode,
+        personalCompanyCity: this.getStepper1.personalCompanyCity,
+        personalCompanyArea: this.getStepper1.personalCompanyArea,
+        personalCompanyDistrict: this.getStepper1.personalCompanyDistrict,
+        personalCompanyState: this.getStepper1.personalCompanyState,
+        personalCompanyNearestLandMark: this.getStepper1.personalCompanyNearestLandMark,
+        personalCompanyCountry: this.getStepper1.personalCompanyCountry,
+        personalCityIdP: this.getStepper1.personalCityIdP,
+        personalStateIdP: this.getStepper1.personalStateIdP,
+        personalDistrictIdP: this.getStepper1.personalDistrictIdP,
+        personalCityIdR: this.getStepper1.personalCityIdR,
+        personalStateIdR: this.getStepper1.personalStateIdR,
+        residenceDistrictIdR: this.getStepper1.residenceDistrictIdR,
+        personalCityIdB: this.getStepper1.personalCityIdB,
+        personalStateIdB: this.getStepper1.personalStateIdB,
+        residenceDistrictIdB: this.getStepper1.residenceDistrictIdB,
+        personalCityIdS: this.getStepper1.personalCityIdS,
+        personalStateIdS: this.getStepper1.personalStateIdS,
+        personalCityIdD: this.getStepper1.personalCityIdD,
+        personalStateIdD: this.getStepper1.personalStateIdD,
+        residenceDistrictIdD: this.getStepper1.residenceDistrictIdD,
+        personalCityIdC: this.getStepper1.personalCityIdC,
+        personalStateIdC: this.getStepper1.personalStateIdC,
+        residenceDistrictIdC: this.getStepper1.residenceDistrictIdC,
+        startDate: this.getStepper1.startDate,
+        endDate: this.getStepper1.endDate,
+        sameas: this.getStepper1.sameas,
+        rolecd: this.getStepper1.rolecd,
+      });
 
+      if (this.getStepper1.personalPincode != '') {
+        this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
+        setTimeout(() =>{
+          if(this.getStepper1.sameas == true) {
+            this.inputReadonly = true;
+            this.inputBurglaryReadonly = true;
+            this.inputSponsorReadonly = true;
+            this.commonPincode(this.getStepper1.personalPincode, 'proposalR');
+            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
+            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
+          } else if(this.getStepper1.sameas == false) {
+            this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
+            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
+            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
+          }
+        },2000);
+      };
+
+      let getPerDob = this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd');
+      this.personal['controls'].personalDob.patchValue(getPerDob);
+    }
+
+    if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+      this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+      for (let i = 0; i < this.getStepper2.items.length; i++) {
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].childFullname.patchValue(this.getStepper2.items[i].childFullname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.getStepper2.items[i].InsDOB);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].relationship.patchValue(this.getStepper2.items[i].relationship);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passport.patchValue(this.getStepper2.items[i].passport);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalPhone1.patchValue(this.getStepper2.items[i].personalPhone1);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.patchValue(this.getStepper2.items[i].IsUnderMedication);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.patchValue(this.getStepper2.items[i].PreExistingIllness);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].SufferingSince.patchValue(this.getStepper2.items[i].SufferingSince);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeName.patchValue(this.getStepper2.items[i].nomineeName);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeRelationship.patchValue(this.getStepper2.items[i].nomineeRelationship);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getStepper2.items[i].InsuredAge);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
+      }
+    }
+
+    if (sessionStorage.riskstartDate != undefined && sessionStorage.riskstartDate != '') {
+      this.riskstartDate = this.datepipe.transform(sessionStorage.riskstartDate, 'y-MM-dd');
+      this.maxDate = this.riskstartDate;
+    }
+    if (sessionStorage.riskdaysCount != undefined && sessionStorage.riskdaysCount != '') {
+      this.riskdaysCount = sessionStorage.riskdaysCount;
+    }
+    if (sessionStorage.riskendDate != undefined && sessionStorage.riskendDate != '') {
+      this.riskendDate = this.datepipe.transform(sessionStorage.riskendDate, 'y-MM-dd');
+
+    }
   }
 
   relianceOccupation() {
@@ -769,6 +1164,57 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   public relaincePreExistingIllnessListFailure(error) {
+  }
+
+  relainceSportsActivities() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'product_id': '11'
+    }
+    this.travelservice.travelReliancerelainceSportsActivities(data).subscribe(
+        (successData) => {
+          this.relainceSportsActivitiesListSuccess(successData);
+        },
+        (error) => {
+          this.relainceSportsActivitiesListFailure(error);
+        }
+    );
+  }
+
+  public relainceSportsActivitiesListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.SportsActivities = successData.ResponseObject;
+    }
+  }
+
+  public relainceSportsActivitiesListFailure(error) {
+  }
+  relainceCoverType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'product_id': '11'
+    }
+    this.travelservice.travelReliancerelainceCoverType(data).subscribe(
+        (successData) => {
+          this.relainceCoverTypeListSuccess(successData);
+        },
+        (error) => {
+          this.relainceCoverTypeListFailure(error);
+        }
+    );
+  }
+
+  public relainceCoverTypeListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.CoverType = successData.ResponseObject;
+    }
+  }
+
+  public relainceCoverTypeListFailure(error) {
   }
 
   commonPincode(pin, title) {
@@ -932,14 +1378,159 @@ export class TravelRelianceProposalComponent implements OnInit {
   public commonPincodeFailure(error)
     {
     }
-    indiaChange(value: any, title){
-      if(title == 'india'){
-            if(value.checked){
-                this.riskDetails['controls'].indian.patchValue('true');
-              }else{
-                this.riskDetails['controls'].indian.patchValue('');
-                    }
+  riskDetailsChange(value: any, title) {
+    if (title == 'india') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIndian.patchValue('true');
+        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('')
+        this.overseas = false;
+      } else if (value.checked == false) {
+        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('true');
+        this.overseas = true;
+      }
     }
-        console.log(this.riskDetails.controls.indian.value,'this.riskDetails');
+    if (title == 'overseas') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('true');
+        this.riskDetails['controls'].riskIndian.patchValue('');
+        this.overseas = true;
+      } else if (value.checked == false) {
+        this.riskDetails['controls'].riskIndian.patchValue('true');
+        this.overseas = false;
+      }
+    }
+    if (title == 'residingIndia') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsResidingInIndia.patchValue('true');
+        this.riskIsResidingInIndiaTrue = true;
+      } else if (value.checked == false) {
+        this.riskIsResidingInIndiaTrue = false;
+      }
+    }
+    if (title == 'ImmigrantVisa') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsInsuredOnImmigrantVisa.patchValue('true');
+      } else if (value.checked == false) {
+      }
+    }
+    if (title == 'IsSufferingFromPEMC') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsSufferingFromPEMC.patchValue('true');
+      } else if (value.checked == false) {
+      }
+    }
+    if (title == 'PreExistDisease') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskPreExistDisease.patchValue('true');
+      } else if (value.checked == false) {
+      }
+    }
+    if (title == 'TravelInvolvesSporting') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsTravelInvolvesSportingActivities.patchValue('true');
+        this.riskSportsActivitiesTrue = true;
+      } else if (value.checked == false) {
+        this.riskSportsActivitiesTrue = false;
+      }
+    }
+    if (title == 'IsVisitingUSACanada') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsVisitingUSACanada.patchValue('true');
+        this.VisitingListTure = true;
+      } else if (value.checked == false) {
+        this.VisitingListTure = false;
+      }
+    }
+    if (title == 'IsVisitingFamily') {
+      if (value.checked == true) {
+        this.riskCoverageTypeTrue = true;
+      } else if (value.checked == false) {
+        this.riskCoverageTypeTrue = false;
+      }
+    }
+    if (title == 'IsVisitingStudent') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskIsVisitingStudent.patchValue('true');
+      } else if (value.checked == false) {
+      }
+    }
+    if (title == 'IsMultitripIndividual') {
+      if (value.checked == true) {
+        this.riskMaxDaysPerTripTrue = true;
+      } else if (value.checked == false) {
+        this.riskMaxDaysPerTripTrue = false;
+      }
+    }
+    if (title == 'IsSeniorCitizen') {
+      if (value.checked == true) {
+        this.riskDetails['controls'].riskSeniorCitizen.patchValue('true');
+        this.riskSeniorCitizenTrue = true;
+      } else if (value.checked == false) {
+        this.riskSeniorCitizenTrue = false;
+      }
+    }
+      if (title == 'TravelCoverage') {
+        if (value.checked == true) {
+          this.TravelCoverageTrue = true;
+        } else if (value.checked == false) {
+          this.TravelCoverageTrue = false;
+        }
+      }
+      if (title == 'TravelStandardLimit') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelStandardLimited.patchValue('true');
+          this.TravelStandardLimitTrue = true;
+        } else if (value.checked == false) {
+          this.TravelStandardLimitTrue = false;
+        }
+      }
+      if (title == 'TravelSilverPlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsSilverPlan.patchValue('true');
+          this.TravelSilverPlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelSilverPlanTrue = false;
+        }
+      }
+      if (title == 'TravelGoldPlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsGoldPlan.patchValue('true');
+          this.TravelGoldPlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelGoldPlanTrue = false;
+        }
+      }
+      if (title == 'TravelPlatinumPlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsPlatinumPlan.patchValue('true');
+          this.TravelPlatinumPlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelPlatinumPlanTrue = false;
+        }
+      }
+      if (title == 'TravelBasicPlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsBasicPlan.patchValue('true');
+          this.TravelBasicPlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelBasicPlanTrue = false;
+        }
+      }
+      if (title == 'TravelElitePlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsElitePlan.patchValue('true');
+          this.TravelElitePlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelElitePlanTrue = false;
+        }
+      }
+      if (title == 'TravelPlusPlan') {
+        if (value.checked == true) {
+          this.riskDetails['controls'].TravelIsPlusPlan.patchValue('true');
+          this.TravelPlusPlanTrue = true;
+        } else if (value.checked == false) {
+          this.TravelPlusPlanTrue = false;
+        }
+      }
     }
 }
