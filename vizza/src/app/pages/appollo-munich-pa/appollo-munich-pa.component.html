@@ -657,6 +657,9 @@
                               </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
+                      <div class="col-md-12 mb-3"  >
+                      <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer Address</strong></mat-checkbox>
+                      </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="paNomineeAddress" maxlength="30" autocomplete="off" required></textarea>
@@ -734,74 +737,76 @@
               </div>
             </div>
 
-              <section>
-                <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
-                <div class="row box-card">
-                  <div class="col-md-12">
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6>PERSONAL DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_tittlecode}} {{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_mname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob  | date: 'dd-MMM-yyyy'}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6 class="mb-4"></h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>
-                        <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.p_maritalstatus}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_code != '' && appollosummaryData.ProposalDetails.p_idproof_code != null"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.p_idproof_code}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != '' && appollosummaryData.ProposalDetails.p_idproof_no != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no | uppercase}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != '' && appollosummaryData.ProposalDetails.p_gstno != null"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno | uppercase}}</li>
-                      </ul>
-                    </div>
-                  </div>
+              <!--<section>-->
+                <!--<h5 class="mt-3 sub-title">PROPOSER DETAILS/INSURED DETAILS  </h5>-->
+                <!--<div class="row box-card">-->
+                  <!--<div class="col-md-12">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6>PERSONAL DETAILS</h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Name:</strong> {{appollosummaryData.ProposalDetails.p_tittlecode}}.{{appollosummaryData.ProposalDetails.p_fname}} {{appollosummaryData.ProposalDetails.p_mname}} {{appollosummaryData.ProposalDetails.p_lname}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 1"><strong>Gender:</strong> MALE </li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gender == 2"><strong>Gender:</strong> FEMALE</li>-->
+                        <!--<li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.ProposalDetails.p_dob  | date: 'dd/MM/yyyy'}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6 class="mb-4"></h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Email Id:</strong>  {{appollosummaryData.ProposalDetails.p_email}}</li>-->
+                        <!--<li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.ProposalDetails.p_mobilenumber}}</li>-->
+                        <!--<li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.ProposalDetails.p_maritalstatus}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_code != '' && appollosummaryData.ProposalDetails.p_idproof_code != null"><strong>Select ID Proof:</strong> {{appollosummaryData.ProposalDetails.p_idproof_code}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_idproof_no != '' && appollosummaryData.ProposalDetails.p_idproof_no != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.ProposalDetails.p_idproof_no | uppercase}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_gstno != '' && appollosummaryData.ProposalDetails.p_gstno != null"><strong>GST:</strong> {{appollosummaryData.ProposalDetails.p_gstno | uppercase}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
 
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6>COMMUNICATION DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.ProposalDetails.p_address1}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>
-                        <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6>COMMUNICATION DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.p_statecode}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_district != '' && appollosummaryData.ProposalDetails.p_district != null"><strong>District:</strong> {{appollosummaryData.ProposalDetails.p_district}}</li>
-                        <li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.p_towncode}}</li>
-                      </ul>
-                    </div>
-                  </div>
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6>COMMUNICATION DETAILS</h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.ProposalDetails.p_address1}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{appollosummaryData.ProposalDetails.p_address2}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.ProposalDetails.p_address3}}</li>-->
+                        <!--<li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.ProposalDetails.p_pincode}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6>COMMUNICATION DETAILS</h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>State:</strong> {{appollosummaryData.ProposalDetails.p_statecode}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.p_district != '' && appollosummaryData.ProposalDetails.p_district != null"><strong>District:</strong> {{appollosummaryData.ProposalDetails.p_district}}</li>-->
+                        <!--<li class="list-group-item"><strong>City:</strong>{{appollosummaryData.ProposalDetails.p_towncode}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
-                </div>
-              </section>
+                <!--</div>-->
+              <!--</section>-->
           <section>
-            <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
+            <h5 class="mt-3 sub-title">PROPOSER DETAILS / INSURED DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">
                 <div class="p-3">
                   <h6>PERSONAL DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_tittlecode}}{{appollosummaryData.InsurePolicyholderDetails.i_fname}}{{appollosummaryData.InsurePolicyholderDetails.i_mname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
+                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_tittlecode}}.{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_mname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 1"><strong>Gender:</strong> MALE </li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd-MMM-yyyy'}}</li>
-
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
+                    <li class="list-group-item"><strong>Medical Information:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
                   </ul>
                 </div>
               </div>
@@ -809,9 +814,9 @@
                 <div class="p-3">
                   <h6 class="mb-4"></h6>
                   <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
-                      <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
+                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
+                    <li class="list-group-item"><strong>Height:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_Height}}</li>
+                    <li class="list-group-item"><strong>Weight:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_weight}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !='' && appollosummaryData.InsurePolicyholderDetails.i_procode != null"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_procode}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
                     <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idprooftype}}</li>
@@ -874,7 +879,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong>{{appollosummaryData.ProposalDetails.n_tittlecode}} {{appollosummaryData.ProposalDetails.n_name}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong>{{appollosummaryData.ProposalDetails.n_tittlecode}}.{{appollosummaryData.ProposalDetails.n_name}}</li>
                       </ul>
                     </div>
 

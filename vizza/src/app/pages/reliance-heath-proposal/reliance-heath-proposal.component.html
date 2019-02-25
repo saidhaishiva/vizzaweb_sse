@@ -740,12 +740,11 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{summaryData.ClientDetails.Salutation}} {{summaryData.ClientDetails.ForeName}} {{summaryData.ClientDetails.MidName}} {{summaryData.ClientDetails.LastName}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd-MMM-yyyy'}}</li>
+                                            <li class="list-group-item"><strong>Name:</strong> {{summaryData.ClientDetails.Salutation}}. {{summaryData.ClientDetails.ForeName}} {{summaryData.ClientDetails.MidName}} {{summaryData.ClientDetails.LastName}}</li>
+                                            <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.ClientDetails.Email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.ClientDetails.MobileNo}}</li>
                                             <li class="list-group-item" *ngIf="summaryData.ClientDetails.PhoneNo !=''"><strong>Phone Number:</strong> {{summaryData.ClientDetails.PhoneNo}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo !=''"><strong>Alternate Number:</strong> {{summaryData.ClientDetails.ClientAddress.CommunicationAddress.PhoneNo}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -811,7 +810,7 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}{{item.FirstName}} {{item.LastName}}</li>
+                                            <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}. {{item.FirstName}} {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
                                             <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
@@ -853,9 +852,9 @@
                                                 <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevInsuranceID == ''"> <strong>Previous Insurance ID : </strong> Nil</li>
                                                 <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyNo != ''"><strong>Previous Year Policy No : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyNo}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyNo == ''"><strong>Previous Year Policy No : </strong> Nil</li>
-                                                <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyStartDate != ''"><strong>Previous Year Start Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyStartDate | date: 'dd-MMM-yyyy'}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyStartDate != ''"><strong>Previous Year Start Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyStartDate | date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyStartDate == ''"><strong>Previous Year Start Date : </strong> Nil</li>
-                                                <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate != ''"><strong>Previous Year End Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate | date: 'dd-MMM-yyyy'}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate != ''"><strong>Previous Year End Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate | date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate == ''"><strong>Previous Year End Date : </strong> Nil</li>
 
 
@@ -899,7 +898,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}} {{summaryData.NomineeDetails.FirstName}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
+                                                <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.NomineeDetails.Salutation}}. {{summaryData.NomineeDetails.FirstName}} {{summaryData.NomineeDetails.MiddleName}} {{summaryData.NomineeDetails.LastName}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.DOB !=''"><strong>DOB:</strong> {{summaryData.NomineeDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.nominee_relation_name !=''"><strong>Relationship with Proposer:</strong> {{summaryData.NomineeDetails.NomineeRelationshipID}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.Address1 !=''"><strong>Address 1:</strong> {{summaryData.NomineeDetails.NomineeAddress.Address1}}</li>

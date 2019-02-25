@@ -264,7 +264,6 @@ export class TravelShriramProposalComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
 
-
                     if (type == 'proposor') {
                         this.personalDobError = '';
                     } else {
@@ -281,7 +280,7 @@ export class TravelShriramProposalComponent implements OnInit {
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (selectedDate.length == 10) {
+                if (selectedDate.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
                     sessionStorage.proposerAgeForTravel = this.proposerAge;
                 }

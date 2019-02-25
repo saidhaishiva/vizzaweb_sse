@@ -644,6 +644,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                     smallest = this.arr[i];
                 }
             }
+        } else{
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('The age of 46 Years will have to under-go Compulsory Health / Medical Check');
+        }
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
@@ -689,10 +692,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             }
-        }
-        else{
-                this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('The age of 46 Years will have to under-go Compulsory Health / Medical Check');
-            }
+
 
         // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
         //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
@@ -961,6 +961,13 @@ export class RelianceHeathProposalComponent implements OnInit {
 
             let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(getDob);
+            let agee =  this.insureArray['controls'].items['controls'][0]['controls'].personalAge.value;
+            console.log(agee,'agee');
+            if(agee > 45){
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('The age of 46 Years will have to under-go Compulsory Health / Medical Check');
+            } else {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+            }
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
@@ -973,6 +980,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+
         }
 
     }
