@@ -186,8 +186,6 @@ export class StarHealthProposalComponent implements OnInit {
     }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
         this.setOccupationList();
@@ -235,10 +233,12 @@ export class StarHealthProposalComponent implements OnInit {
                     nname: '',
                     nage: '',
                     nrelationship: '',
+                    nrelationshipName: '',
                     nclaim: '',
                     aname: '',
                     aage: '',
                     arelationship: '',
+                    arelationshipName: '',
                     removeBtn: true,
                     addBtn: true,
                     ageSetting: false,
@@ -318,6 +318,7 @@ export class StarHealthProposalComponent implements OnInit {
                 personalLastname: this.getStepper1.personalLastname,
                 personalDob:new FormControl(new Date(this.getStepper1.personalDob)),
                 personalOccupation: this.getStepper1.personalOccupation,
+                personalOccupationName: this.getStepper1.personalOccupationName,
                 personalIncome: this.getStepper1.personalIncome,
                 personalArea: this.getStepper1.personalArea,
                 residenceArea: this.getStepper1.residenceArea,
@@ -335,6 +336,8 @@ export class StarHealthProposalComponent implements OnInit {
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
+                personalCityName: this.getStepper1.personalCityName,
+                personalAreaName: this.getStepper1.personalAreaName,
                 personalState: this.getStepper1.personalState,
                 personalEmail: this.getStepper1.personalEmail,
                 personalMobile: this.getStepper1.personalMobile,
@@ -343,7 +346,9 @@ export class StarHealthProposalComponent implements OnInit {
                 residenceAddress2: this.getStepper1.residenceAddress2,
                 residencePincode: this.getStepper1.residencePincode,
                 residenceCity: this.getStepper1.residenceCity,
+                residenceCityName: this.getStepper1.residenceCityName,
                 residenceState: this.getStepper1.residenceState,
+                residenceAreaName: this.getStepper1.residenceAreaName,
                 illnessCheck: this.getStepper1.illnessCheck,
                 sameas: this.getStepper1.sameas
 
@@ -362,6 +367,9 @@ export class StarHealthProposalComponent implements OnInit {
             }
 
         }
+
+        console.log(this.personal.value, 'this.personal');
+
         if (sessionStorage.familyMembers != '' && sessionStorage.familyMembers != undefined) {
             this.familyMembers = JSON.parse(sessionStorage.familyMembers);
             if (sessionStorage.ageRestriction != undefined) {
@@ -519,6 +527,7 @@ export class StarHealthProposalComponent implements OnInit {
                     this.personal.controls['residenceState'].setValue(this.response.state);
                     this.residenceCitys = this.response.city;
                 }
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
             }
         } else {
             this.toastr.error('In valid Pincode');
@@ -572,6 +581,10 @@ export class StarHealthProposalComponent implements OnInit {
             this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
             this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
             this.rAreaNames = JSON.parse(sessionStorage.areaNames);
+
+            sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+            sessionStorage.rAreaNames = JSON.stringify(this.rAreaNames);
+
         } else {
             this.inputReadonly = false;
             this.personal.controls['residenceAddress'].setValue('');
@@ -1014,6 +1027,7 @@ export class StarHealthProposalComponent implements OnInit {
                 aname: '',
                 aage: '',
                 arelationship: '',
+                arelationshipName: '',
                 removeBtn: false,
                 addBtn: false,
                 ageSetting: false,
@@ -1055,8 +1069,14 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
     }
 
-    selectNomineRelation(index, cIndex) {
-        this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationshipName];
+    selectNomineRelation(index, cIndex, type) {
+        if(type == 'first') {
+            this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationship];
+        } else if(type == 'second') {
+            this.nomineeDate[index].nominee[cIndex].arelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].arelationship];
+        }
+
+
     }
     nomineeDetails(stepper: MatStepper, index, key) {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
@@ -1101,8 +1121,8 @@ export class StarHealthProposalComponent implements OnInit {
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'proposal_id' : this.proposalId,
-            'enquiry_id': this.enquiryId,
-            'group_name':  this.groupName,
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'product_id': this.buyProductdetails.product_id,
             'policy_type_name': this.buyProductdetails.prod_shortform,
@@ -1184,16 +1204,26 @@ export class StarHealthProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
-            stepper.next();
-            this.topScroll();
+            this.summaryData = successData.ResponseObject[0];
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.proposalId = this.summaryData.policyid;
+            sessionStorage.proposalID = this.proposalId;
+
+
             console.log(this.occupationList[this.personal.controls['personalOccupation'].value], 'ccccc');
+
 
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
             this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
-            this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
-            this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
 
+            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+                this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+                this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
+            } else {
+                this.personal.controls['residenceCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+                this.personal.controls['residenceAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
+            }
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.familyMembers;
             this.nomineeFormData = this.nomineeDate;
@@ -1202,10 +1232,8 @@ export class StarHealthProposalComponent implements OnInit {
             console.log(this.nomineeFormData, 'nomineeFormData');
 
 
-            this.summaryData = successData.ResponseObject;
-            sessionStorage.summaryData = JSON.stringify(this.summaryData);
-            this.proposalId = this.summaryData.proposal_id;
-            sessionStorage.proposalID = this.proposalId;
+            stepper.next();
+            this.topScroll();
 
 
         } else {
@@ -1220,7 +1248,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' :  this.summaryData.proposal_details[0].referenceId,
+            'reference_id' :  this.summaryData.ProposalNumber,
             'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'

@@ -76,7 +76,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     public rResponse: any;
     public addonDetails: any;
     public rSummaryCity: any;
-    public summaryRelationship : any;
     public sumTitle: any;
     public sumPin: any;
     public code: any;
@@ -126,6 +125,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     dobError: any;
     array: any;
     currentStep: any;
+    insuredCityDetails: any;
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -177,6 +177,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             personalAddress2: ['', Validators.required],
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
+            personalCityName: '',
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -185,6 +186,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             residenceAddress2: [''],
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
+            residenceCityName: '',
             residenceState: ['', Validators.required],
             mobileNumber: '',
             sameas: false,
@@ -209,6 +211,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 personalDob: ['', Validators.required],
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalrelationship: ['', Validators.required],
+                personalrelationshipName: '',
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
                 personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
@@ -242,8 +245,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
 
@@ -258,9 +259,9 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
 
-        this.setOccupationListCode();
+        // this.setOccupationListCode();
         this.religareQuestions();
-        this.setOccupationList();
+        // this.setOccupationList();
         this.setRelationship();
         if(this.buyProductdetails.product_id == 1) {
             this.getAddon();
@@ -358,6 +359,352 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.validation.idValidate(event);
 
     }
+    // Proposer Details
+    getPostal(pin, title) {
+        const data = {
+            'platform': 'web',
+            'pincode': pin
+        }
+        if (pin.length == 6) {
+            this.proposalservice.getPostalReligare(data).subscribe(
+                (successData) => {
+                    this.getpostalSuccess(successData,title);
+                },
+                (error) => {
+                    this.getpostalFailure(error);
+                }
+            );
+        }
+    }
+    public getpostalSuccess(successData,title) {
+        if (successData.IsSuccess == true) {
+            this.response = successData.ResponseObject;
+            if (title == 'personal') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personal.controls['personalArea'].setValue('');
+                    this.personalCitys = {};
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personalCitys = this.response.city;
+                }
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            } else if (title == 'residence') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['residenceCity'].setValue('');
+                    this.personal.controls['residenceState'].setValue('');
+                    this.personal.controls['residenceArea'].setValue('');
+                    this.residenceCitys = {};
+                } else {
+                    this.personal.controls['residenceState'].setValue(this.response.state);
+                    this.residenceCitys = this.response.city;
+                }
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+            }
+        } else {
+            this.toastr.error('In valid Pincode');
+            sessionStorage.residenceCitys = {};
+            sessionStorage.personalCitys = {};
+            this.personalCitys = {};
+            this.residenceCitys = {};
+        }
+    }
+    public getpostalFailure(error) {
+        console.log(error);
+    }
+    setRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelationshipList(data).subscribe(
+            (successData) => {
+                this.setRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setRelationshipFailure(error);
+            }
+        );
+    }
+
+    public setRelationshipSuccess(successData) {
+        if(successData.IsSuccess) {
+            this.relationshipList = successData.ResponseObject;
+            this.insureRelationList = [];
+            if (this.insurePersons.length > 1) {
+                for (let i = 0; i < this.relationshipList.length; i++) {
+                    if (this.relationshipList[i].status == 1) {
+                        this.insureRelationList.push({
+                            'relationship_code': this.relationshipList[i].relationship_code,
+                            'relationship_name': this.relationshipList[i].relationship_name,
+                            'status': this.relationshipList[i].status
+                        });
+                    }
+                }
+            } else {
+                for (let i = 0; i < this.relationshipList.length; i++) {
+                    this.insureRelationList.push({
+                        'relationship_code': this.relationshipList[i].relationship_code,
+                        'relationship_name': this.relationshipList[i].relationship_name,
+                        'status': this.relationshipList[i].status
+                    });
+                }
+            }
+        }
+    }
+
+    public setRelationshipFailure(error) {
+    }
+
+    alternateChange(event) {
+        if (this.personal['controls'].personalAltnumber.value.length == 10) {
+            if(this.personal['controls'].personalAltnumber.value == this.personal['controls'].personalMobile.value) {
+                this.mobileNumber = 'Alternate number should be different from mobile number';
+            } else {
+                this.mobileNumber = '';
+            }
+        } else {
+            this.mobileNumber = '';
+        }
+        sessionStorage.mobileNumber = this.mobileNumber;
+    }
+
+    insureChangeGender(index) {
+      if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
+          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
+      } else {
+          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
+      }
+
+    }
+    PreviousInsure(value) {
+        if (value.value == 'true') {
+            this.personal.controls['previousinsurance'].setValue('');
+            this.previousInsuranceStatus = true;
+        } else {
+            this.previousInsuranceStatus = false;
+            this.personal.controls['previousinsurance'].setValue('No');
+        }
+    }
+    sameAddress(values: any) {
+        this.sameField = values.checked;
+        console.log(this.personal.controls['sameas'].value, 'tyyy');
+        if (values.checked) {
+            this.inputReadonly = true;
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+
+        } else {
+            this.inputReadonly = false;
+            this.personal.controls['residenceAddress'].setValue('');
+            this.personal.controls['residenceAddress2'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residencePincode'].setValue('');
+            this.personal.controls['residenceState'].setValue('');
+            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+                this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+            } else {
+                this.residenceCitys = {};
+            }
+
+        }
+    }
+
+    typeAddressDeatils() {
+        if (this.personal.controls['sameas'].value) {
+            this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+        }
+    }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
+    setStep(index: number) {
+        this.step = index;
+    }
+    prevStep() {
+        this.step--;
+    }
+    getAddon() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'prod_id': this.buyProductdetails.product_id
+
+        }
+
+        this.proposalservice.getReligareAddon(data).subscribe(
+            (successData) => {
+                this.AddonSuccess(successData);
+            },
+            (error) => {
+                this.AddonFailure(error);
+            }
+        );
+    }
+
+    public AddonSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.addon = successData.ResponseObject.addons_list[0];
+            this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
+            for (let i=0; i < this.objectKeys.length; i++) {
+                this.objectKeys[i].checked = false;
+            }
+        }
+    }
+
+    public AddonFailure(error) {
+    }
+    addonItem(event: any, i){
+        if (event.checked) {
+            this.objectKeys[i].checked = true;
+
+        } else {
+            this.objectKeys[i].checked = false;
+
+        }
+    }
+    // proposer dob
+    addEvent(event) {
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    this.personalAge = this.ageCalculate(dob);
+                }
+
+            } else if (typeof event.value._i == 'object') {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.personalAge = this.ageCalculate(dob);
+                }
+                this.dobError = '';
+            }
+            sessionStorage.setItem('proposerAge', this.personalAge);
+        }
+    }
+
+    personalDetails(stepper: MatStepper, value) {
+        this.personalData = value;
+        this.personalData.rolecd = 'PROPOSER';
+        this.personalData.type = 'SELF';
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper1Details = JSON.stringify(value);
+        this.addonDetails = [];
+        if (this.personal.valid) {
+            if(this.buyProductdetails.product_id == 1) {
+                for (let i = 0; i < this.objectKeys.length; i++) {
+                    if (this.objectKeys[i].checked) {
+                        this.addonDetails.push(this.objectKeys[i].key);
+                    }
+                }
+                sessionStorage.addonDetails = '';
+                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
+            }
+            this.proposerInsureData = [];
+            if (sessionStorage.proposerAge >= 18) {
+                this.proposerInsureData.push(this.personalData);
+                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
+                    stepper.next();
+                    this.topScroll();
+                }
+            } else {
+                this.toastr.error('Proposer age should be 18 or above');
+            }
+        }
+    }
+
+    // Insured details
+    // getPostalInsurer(pin, index, title) {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': '0',
+    //         'role_id': '4',
+    //         'pincode': pin
+    //     }
+    //     if (pin.length == 6) {
+    //         this.proposalservice.getPostalReligare(data).subscribe(
+    //             (successData) => {
+    //                 this.getpostalInsurerSuccess(successData,title,index);
+    //             },
+    //             (error) => {
+    //                 this.getpostalInsurerFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
+    // public getpostalInsurerSuccess(successData,title,index) {
+    //     if (successData.IsSuccess) {
+    //         this.insuredCityDetails = successData.ResponseObject;
+    //         if (title == 'personal') {
+    //             if (Object.keys(this.response).length === 0) {
+    //                 this.insureArray['controls'].items['controls'][index]['controls'].personalState.patchValue('');
+    //                 this.iPersonalCitys = {};
+    //             } else {
+    //                 this.insureArray['controls'].items['controls'][index]['controls'].personalState.patchValue(this.insuredCityDetails.state);
+    //                 this.iPersonalCitys = this.insuredCityDetails.city;
+    //             }
+    //             sessionStorage.iPersonalCitys = JSON.stringify(this.iPersonalCitys);
+    //
+    //         } else  if (title == 'residence') {
+    //             if (Object.keys(this.response).length === 0) {
+    //                 this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue('');
+    //                 this.iResidenceCitys = {};
+    //             } else {
+    //                 this.insureArray['controls'].items['controls'][index]['controls'].residenceState.patchValue(this.insuredCityDetails.state);
+    //                 this.iResidenceCitys = this.insuredCityDetails.city;
+    //             }
+    //             sessionStorage.iResidenceCitys = JSON.stringify(this.iResidenceCitys);
+    //
+    //         }
+    //     } else {
+    //         this.toastr.error('In valid Pincode');
+    //         sessionStorage.iPersonalCitys = {};
+    //         sessionStorage.iResidenceCitys = {};
+    //         this.iPersonalCitys = {};
+    //         this.iResidenceCitys = {};
+    //     }
+    //
+    // }
+    // public getpostalInsurerFailure(error) {
+    // }
+
+    insurerAlternateChange(event ,index) {
+        if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value.length == 10) {
+            if (this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value) {
+                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('Alternate number should be different from mobile number')
+
+            } else {
+                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('');
+            }
+        }else{
+            this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('')
+        }
+    }
+
     changeGender() {
         if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
             if (this.getFamilyDetails.family_members.length < 2) {
@@ -405,300 +752,10 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.personal.controls['personalGender'].patchValue('Female');
         }
     }
-    insureChangeGender(index) {
-      if (this.insureArray['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
-          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
-      } else {
-          this.insureArray['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
-      }
+    selectRelationship(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.insureRelationList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
 
     }
-    topScroll() {
-        document.getElementById('main-content').scrollTop = 0;
-    }
-    setStep(index: number) {
-        this.step = index;
-    }
-    prevStep() {
-        this.step--;
-    }
-    //Personal Details
-    personalDetails(stepper: MatStepper, value) {
-        this.personalData = value;
-        this.personalData.rolecd = 'PROPOSER';
-        this.personalData.type = 'SELF';
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        this.addonDetails = [];
-        if (this.personal.valid) {
-            if(this.buyProductdetails.product_id == 1) {
-                for (let i = 0; i < this.objectKeys.length; i++) {
-                    if (this.objectKeys[i].checked) {
-                        this.addonDetails.push(this.objectKeys[i].key);
-                    }
-                }
-                sessionStorage.addonDetails = '';
-                sessionStorage.addonDetails = JSON.stringify(this.objectKeys);
-            }
-            this.proposerInsureData = [];
-            if (sessionStorage.proposerAge >= 18) {
-                this.proposerInsureData.push(this.personalData);
-                if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-                    stepper.next();
-                    this.topScroll();
-                }
-            } else {
-                this.toastr.error('Proposer age should be 18 or above');
-            }
-        }
-    }
-    addonItem(event: any, i){
-        if (event.checked) {
-            this.objectKeys[i].checked = true;
-
-        } else {
-            this.objectKeys[i].checked = false;
-
-        }
-    }
-    religareQuestion(stepper: MatStepper) {
-        this.questionEmpty = false;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if (this.religareQuestionsList[i].answer == '') {
-                this.questionEmpty = false;
-                break;
-            } else {
-                this.questionEmpty = true;
-            }
-        }
-        if (this.questionEmpty ) {
-            stepper.next();
-            this.topScroll();
-
-
-        } else {
-            this.toastr.error('Please fill the all Answers');
-
-        }
-    }
-    //Insure Details
-    religareInsureDetails(stepper: MatStepper, value, key) {
-        sessionStorage.stepper2Details = '';
-        sessionStorage.stepper2Details = JSON.stringify(value);
-        this.insurerData = value;
-        this.proposerInsureData = [];
-        this.totalReligareData = [];
-        this.proposerInsureData.push(this.personalData);
-            for (let i = 0; i < this.insurePersons.length; i++) {
-                this.insurerData.items[i].type = this.insurePersons[i].type;
-            }
-            for (let i = 0; i < this.insurerData.items.length; i++) {
-                this.proposerInsureData.push(this.insurerData.items[i]);
-            }
-
-            for (let i = 0; i < this.proposerInsureData.length; i++) {
-                this.totalReligareData.push({
-                    'title': this.proposerInsureData[i].personalTitle,
-                    'proposer_fname': this.proposerInsureData[i].personalFirstname,
-                    'proposer_lname': this.proposerInsureData[i].personalLastname,
-                    'prop_email_list': [{
-                        'email': this.proposerInsureData[i].personalEmail,
-                        'email_type': 'PERSONAL'
-                    }],
-                    'prop_contact_list': [{
-                        'contact_no': this.proposerInsureData[i].personalMobile,
-                        'contact_type': 'MOBILE',
-                        'std_code': '91'
-                    }],
-                    'prop_identity_list': [
-                        {
-                            'identity_number': this.proposerInsureData[i].personalPan,
-                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
-                        }
-                    ],
-                    'proposer_res_address1': this.proposerInsureData[0].residenceAddress,
-                    'proposer_res_address2': this.proposerInsureData[0].residenceAddress2,
-                    'proposer_res_area': this.proposerInsureData[0].residenceCity,
-                    'proposer_res_city': this.proposerInsureData[0].residenceCity,
-                    'proposer_res_state': this.proposerInsureData[0].residenceState,
-                    'proposer_res_pincode': this.proposerInsureData[0].residencePincode,
-                    'proposer_comm_address1': this.proposerInsureData[0].personalAddress,
-                    'proposer_comm_address2': this.proposerInsureData[0].personalAddress2,
-                    'proposer_comm_area': this.proposerInsureData[0].personalCity,
-                    'proposer_comm_city': this.proposerInsureData[0].personalCity,
-                    'proposer_comm_state': this.proposerInsureData[0].personalState,
-                    'proposer_comm_pincode': this.proposerInsureData[0].personalPincode,
-                    'prop_dob': this.proposerInsureData[i].personalDob,
-                    'prop_gender': this.proposerInsureData[i].personalGender,
-                    'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
-                    'role_cd': this.proposerInsureData[i].rolecd,
-                    'height': this.proposerInsureData[i].personalHeight,
-                    'weight': this.proposerInsureData[i].personalWeight,
-                });
-                if (this.proposerInsureData[i].personalAltnumber != '') {
-                    this.totalReligareData[i].prop_contact_list.push({
-                        'contact_no': this.proposerInsureData[i].personalAltnumber,
-                        'contact_type': 'RESEDENTIAL',
-                        'std_code': '91'
-                    });
-                }
-                if (this.proposerInsureData[i].personalAadhar != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalAadhar,
-                        'identity_type': 'AADHAR'
-                    });
-                }
-                if (this.proposerInsureData[i].personalGst != '') {
-                    this.totalReligareData[i].prop_identity_list.push({
-                        'identity_number': this.proposerInsureData[i].personalGst,
-                        'identity_type': 'GST'
-                    });
-                }
-                // if (this.proposerInsureData[i].personalPan != '') {
-                //     this.totalReligareData[i].prop_identity_list.push({
-                //         'identity_number': this.proposerInsureData[i].personalPan,
-                //         'identity_type': 'PAN'
-                //     });
-                // }
-
-            }
-            let aterMobile = [];
-        if (this.insureArray.valid) {
-            for(let i=0;i<this.insurerData.items.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value.length == 10) {
-                    if (this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value) {
-                        aterMobile.push(0);
-                    } else {
-                        aterMobile.push(1);
-                    }
-                }else {
-                    aterMobile.push(1);
-                }
-                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
-                    aterMobile.push(2);
-
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
-                    aterMobile.push(3);
-
-                }
-            }
-            if (aterMobile.includes(0)) {
-                this.toastr.error('Alternative and personal number should be different');
-            } else if(aterMobile.includes(2)){} else {
-                stepper.next();
-                this.topScroll();
-            }
-        }
-        if(this.insurePersons.length == 1) {
-            this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.value;
-        }
-        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationshipthis.sameRelationship');
-    }
-    //Nominee Details
-    religareNomineeDetails(stepper: MatStepper, value) {
-        this.lastStepper = stepper;
-        if (this.nomineeDetails.valid) {
-            sessionStorage.nomineeData = '';
-            sessionStorage.nomineeData = JSON.stringify(value);
-            this.proposal();
-        }
-    }
-    subStatus(value: any, i, k, j) {
-        if (value.checked) {
-        } else {
-            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-        }
-
-    }
-    medicalHistoryDetails(stepper: MatStepper) {
-        sessionStorage.stepper3Details = '';
-        sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
-        this.questions_list = [];
-        this.getFilterData = [];
-            for (let i = 0; i < this.religareQuestionsList.length; i++) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
-                        this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
-                    }
-                }
-        }
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
-        }
-        for (let i = 0; i < this.totalReligareData.length; i++) {
-                if (i > 0) {
-                    this.totalReligareData[i].questions_list = this.getFilterData[i -1];
-                }
-        }
-        let statusChecked = [];
-            this.medicalStatus = [];
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if(this.religareQuestionsList[i].mStatus == 'No'){
-                this.medicalStatus.push('No');
-            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
-                this.medicalStatus.push('Yes');
-            }
-            for (let i = 0; i < this.totalReligareData.length; i++) {
-                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
-            }
-         if (this.religareQuestionsList[i].answer_status == true) {
-             for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-               for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                   if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                       if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
-                           statusChecked.push(1);
-                       if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
-                           statusChecked.push(0);
-                       }} else {
-                           if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
-                               if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
-                                   statusChecked.push(0);
-                               } else {
-                                   statusChecked.push(1);
-                               }
-                           }  else {
-                               statusChecked.push(1);
-                           }
-                       }
-                   }
-               }
-             }
-             if (statusChecked.length == 0){
-                 statusChecked.push(2);
-             }
-         } else {
-             if (i == this.religareQuestionsList.length - 1) {
-                 statusChecked.push(1);
-             }
-
-         }
-        }
-        if (statusChecked.includes(0)) {
-            this.toastr.error('Please fill the empty field');
-        } else if (statusChecked.includes(2)) {
-            this.toastr.error('Please check atleast one checkbox!');
-        } else {
-            stepper.next();
-            this.topScroll();
-
-        }
-
-    }
-    PreviousInsure(value) {
-        if (value.value == 'true') {
-            this.personal.controls['previousinsurance'].setValue('');
-            this.previousInsuranceStatus = true;
-        } else {
-            this.previousInsuranceStatus = false;
-            this.personal.controls['previousinsurance'].setValue('No');
-        }
-    }
-
     PreviousInsuredDetail(value, i) {
         if (value.value == 'true') {
             this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
@@ -708,38 +765,6 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
         }
     }
-
-    sameAddress(values: any) {
-        this.sameField = values.checked;
-        if (values.checked) {
-            this.inputReadonly = true;
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-
-        } else {
-            this.inputReadonly = false;
-            this.personal.controls['residenceAddress'].setValue('');
-            this.personal.controls['residenceAddress2'].setValue('');
-            this.personal.controls['residenceCity'].setValue('');
-            this.personal.controls['residencePincode'].setValue('');
-            this.personal.controls['residenceState'].setValue('');
-
-        }
-    }
-
-    typeAddressDeatils() {
-        if (this.personal.controls['sameas'].value) {
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-        }
-    }
-
     sameAddressInsurer(values: any, index) {
         if (values.checked) {
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
@@ -759,38 +784,7 @@ export class ReligareHealthProposalComponent implements OnInit {
 
         }
     }
-
-    // proposer dob
-    addEvent(event) {
-        if (event.value != null) {
-            let selectedDate = '';
-            let dob = '';
-            if (typeof event.value._i == 'string') {
-                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-
-                } else {
-                    this.dobError = 'Enter Valid Date';
-                }
-                selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (selectedDate.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                }
-
-            } else if (typeof event.value._i == 'object') {
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (dob.length == 10) {
-                    this.personalAge = this.ageCalculate(dob);
-                }
-                this.dobError = '';
-            }
-            sessionStorage.setItem('proposerAge', this.personalAge);
-        }
-    }
     // insured dob
-
     addEventInsurer(event,  i, type, name) {
         if (event.value != null) {
             let selectedDate = '';
@@ -947,95 +941,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         // }
 
     }
-
-
-
-
-    // addEventInsurer(event,  i, type) {
-    //     this.selectDate = event.value;
-    //     console.log(this.selectDate);
-    //     this.setDate = this.datepipe.transform(this.selectDate, 'dd-MM-y');
-    //     this.setDateAge = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    //     let days = this.DobDaysCalculate(this.setDateAge);
-    //     let age = this.ageCalculate(this.setDateAge);
-    //     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(age);
-    //     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(days);
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >=25 || this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91)  && type == 'Son') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Son')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >=25 || this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91) && type == 'Daughter') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Daughter')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 45');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 45 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //     if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 45');
-    //     } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 45 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-    //         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    //
-    //
-    //     console.log(this.insureArray.value);
-    // }
-
     ageCalculate(dob) {
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring(8, 10), 10);
-        // let monthThen = parseInt(mdate.substring(5, 7), 10);
-        // let dayThen = parseInt(mdate.substring(0, 4), 10);
-        // let todays = new Date();
-        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        // return year_age;
         let today = new Date();
         let birthDate = new Date(dob);
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -1044,66 +950,403 @@ export class ReligareHealthProposalComponent implements OnInit {
         if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
             age = age-1;
         }
-
         return age;
-
     }
 
     DobDaysCalculate(getDays) {
-        // let mdate = dobDays.toString();
-        // let yearThen = parseInt(mdate.substring( 8,10), 10);
-        // let monthThen = parseInt(mdate.substring(5,7), 10);
-        // let dayThen = parseInt(mdate.substring(0,4), 10);
-        // let todays = new Date();
-        // let birthday = new Date( dayThen, monthThen-1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        // return Bob_days;
         let a = moment(getDays, 'DD/MM/YYYY');
         let b = moment(new Date(), 'DD/MM/YYYY');
         let days = b.diff(a, 'days');
         return days;
     }
-    stepback() {
-        this.back = true;
+    sameProposer(value: any) {
+        if (value.checked) {
+            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
+            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue(this.personal.controls['personalAadhar'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value.toUpperCase());
+            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+        } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
+            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+        }
+
     }
-    quesback() {
-        this.back = false;
+    processDiseaseData(diseaseData) {
+
+        let updatedFinalData = [];
+        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
+            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
+                let updatedData = [];
+                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
+                    let newObject = {};
+                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
+
+                    if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
+                        newObject['response'] = true;
+
+                    } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
+                        newObject['response'] = false;
+
+                    }
+                    updatedData.push(newObject);
+
+                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
+                        newObject = {};
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
+                        updatedData.push(newObject);
+
+                    }
+                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
+                        newObject = {};
+
+                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
+                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
+                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
+                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
+                        updatedData.push(newObject);
+
+                    }
+
+                }
+                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
+            }
+        }
+
+
+
     }
 
-    getAddon() {
+
+
+
+
+    religareInsureDetails(stepper: MatStepper, value, key) {
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper2Details = JSON.stringify(value);
+        this.insurerData = value;
+        this.proposerInsureData = [];
+        this.totalReligareData = [];
+        this.proposerInsureData.push(this.personalData);
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.insurerData.items[i].type = this.insurePersons[i].type;
+            }
+            for (let i = 0; i < this.insurerData.items.length; i++) {
+                this.proposerInsureData.push(this.insurerData.items[i]);
+            }
+
+            for (let i = 0; i < this.proposerInsureData.length; i++) {
+                this.totalReligareData.push({
+                    'title': this.proposerInsureData[i].personalTitle,
+                    'proposer_fname': this.proposerInsureData[i].personalFirstname,
+                    'proposer_lname': this.proposerInsureData[i].personalLastname,
+                    'prop_email_list': [{
+                        'email': this.proposerInsureData[i].personalEmail,
+                        'email_type': 'PERSONAL'
+                    }],
+                    'prop_contact_list': [{
+                        'contact_no': this.proposerInsureData[i].personalMobile,
+                        'contact_type': 'MOBILE',
+                        'std_code': '91'
+                    }],
+                    'prop_identity_list': [
+                        {
+                            'identity_number': this.proposerInsureData[i].personalPan,
+                            'identity_type': this.proposerInsureData[i].personalPan != '' ? 'PAN' : ''
+                        }
+                    ],
+                    'proposer_res_address1': this.proposerInsureData[0].residenceAddress,
+                    'proposer_res_address2': this.proposerInsureData[0].residenceAddress2,
+                    'proposer_res_area': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_city': this.proposerInsureData[0].residenceCity,
+                    'proposer_res_state': this.proposerInsureData[0].residenceState,
+                    'proposer_res_pincode': this.proposerInsureData[0].residencePincode,
+                    'proposer_comm_address1': this.proposerInsureData[0].personalAddress,
+                    'proposer_comm_address2': this.proposerInsureData[0].personalAddress2,
+                    'proposer_comm_area': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_city': this.proposerInsureData[0].personalCity,
+                    'proposer_comm_state': this.proposerInsureData[0].personalState,
+                    'proposer_comm_pincode': this.proposerInsureData[0].personalPincode,
+                    'prop_dob': this.proposerInsureData[i].personalDob,
+                    'prop_gender': this.proposerInsureData[i].personalGender,
+                    'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
+                    'role_cd': this.proposerInsureData[i].rolecd,
+                    'height': this.proposerInsureData[i].personalHeight,
+                    'weight': this.proposerInsureData[i].personalWeight,
+                });
+                if (this.proposerInsureData[i].personalAltnumber != '') {
+                    this.totalReligareData[i].prop_contact_list.push({
+                        'contact_no': this.proposerInsureData[i].personalAltnumber,
+                        'contact_type': 'RESEDENTIAL',
+                        'std_code': '91'
+                    });
+                }
+                if (this.proposerInsureData[i].personalAadhar != '') {
+                    this.totalReligareData[i].prop_identity_list.push({
+                        'identity_number': this.proposerInsureData[i].personalAadhar,
+                        'identity_type': 'AADHAR'
+                    });
+                }
+                if (this.proposerInsureData[i].personalGst != '') {
+                    this.totalReligareData[i].prop_identity_list.push({
+                        'identity_number': this.proposerInsureData[i].personalGst,
+                        'identity_type': 'GST'
+                    });
+                }
+                // if (this.proposerInsureData[i].personalPan != '') {
+                //     this.totalReligareData[i].prop_identity_list.push({
+                //         'identity_number': this.proposerInsureData[i].personalPan,
+                //         'identity_type': 'PAN'
+                //     });
+                // }
+
+            }
+            let aterMobile = [];
+        if (this.insureArray.valid) {
+            for(let i=0;i<this.insurerData.items.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value.length == 10) {
+                    if (this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.value) {
+                        aterMobile.push(0);
+                    } else {
+                        aterMobile.push(1);
+                    }
+                }else {
+                    aterMobile.push(1);
+                }
+                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+                    aterMobile.push(2);
+
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
+                    aterMobile.push(3);
+
+                }
+            }
+            if (aterMobile.includes(0)) {
+                this.toastr.error('Alternative and personal number should be different');
+            } else if(aterMobile.includes(2)){} else {
+                stepper.next();
+                this.topScroll();
+            }
+        }
+        if(this.insurePersons.length == 1) {
+            this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.value;
+        }
+        console.log(this.sameRelationship,'this.sameRelationshipthis.sameRelationshipthis.sameRelationship');
+    }
+    //Risk Details
+    religareQuestions() {
         const data = {
             'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'family_group': this.insurePersons,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'prod_id': this.buyProductdetails.product_id
-
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-
-        this.proposalservice.getReligareAddon(data).subscribe(
+        this.proposalservice.getReligareQuestions(data).subscribe(
             (successData) => {
-                this.AddonSuccess(successData);
+                this.religareQuestionsSuccess(successData);
             },
             (error) => {
-                this.AddonFailure(error);
+                this.religareQuestionsFailure(error);
             }
         );
+
     }
 
-    public AddonSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.addon = successData.ResponseObject.addons_list[0];
-            this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
-            for (let i=0; i < this.objectKeys.length; i++) {
-                this.objectKeys[i].checked = false;
+    public religareQuestionsSuccess(successData) {
+        this.religareQuestionsList = successData.ResponseObject;
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            this.religareQuestionsList[i].mStatus = 'No';
+            this.religareQuestionsList[i].answer_status = false;
+            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+
+                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+
+                }
             }
         }
     }
+    public religareQuestionsFailure(error) {
+    }
+    questionYes(id, value: any) {
+        if (value.checked) {
+            this.religareQuestionsList[id].mStatus = 'Yes';
+            this.religareQuestionsList[id].answer_status = true;
+        } else {
+            this.religareQuestionsList[id].mStatus = 'No';
+            this.religareQuestionsList[id].answer_status = false;
+            for (let i = 0; i < this.religareQuestionsList.length; i++) {
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+                    }
+                }
+            }
+        }
+    }
+    medicalHistoryDetails(stepper: MatStepper) {
+        sessionStorage.stepper3Details = '';
+        sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
+        this.questions_list = [];
+        this.getFilterData = [];
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_id = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_id;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_set_code = this.religareQuestionsList[i].sub_questions_list[j].question_set_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.question_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existing_question_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.existing_question_code;
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].otherdetails_desc_code = this.religareQuestionsList[i].sub_questions_list[j].question_details.other_description_code;
+                    this.questions_list.push(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k]);
+                }
+            }
+        }
+        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+            this.getFilterData.push(this.questions_list.filter(data => data.type == this.getFamilyDetails.family_members[i].type ));
+        }
+        for (let i = 0; i < this.totalReligareData.length; i++) {
+            if (i > 0) {
+                this.totalReligareData[i].questions_list = this.getFilterData[i -1];
+            }
+        }
+        let statusChecked = [];
+        this.medicalStatus = [];
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            if(this.religareQuestionsList[i].mStatus == 'No'){
+                this.medicalStatus.push('No');
+            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
+                this.medicalStatus.push('Yes');
+            }
+            for (let i = 0; i < this.totalReligareData.length; i++) {
+                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            }
+            if (this.religareQuestionsList[i].answer_status == true) {
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
+                                statusChecked.push(1);
+                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
+                                    statusChecked.push(0);
+                                }} else {
+                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
+                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+                                        statusChecked.push(0);
+                                    } else {
+                                        statusChecked.push(1);
+                                    }
+                                }  else {
+                                    statusChecked.push(1);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (statusChecked.length == 0){
+                    statusChecked.push(2);
+                }
+            } else {
+                if (i == this.religareQuestionsList.length - 1) {
+                    statusChecked.push(1);
+                }
 
-    public AddonFailure(error) {
+            }
+        }
+        if (statusChecked.includes(0)) {
+            this.toastr.error('Please fill the empty field');
+        } else if (statusChecked.includes(2)) {
+            this.toastr.error('Please check atleast one checkbox!');
+        } else {
+            stepper.next();
+            this.topScroll();
+        }
+    }
+    subStatus(value: any, i, k, j) {
+        if (value.checked) {
+        } else {
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+        }
+
+    }
+
+    religareQuestion(stepper: MatStepper) {
+        this.questionEmpty = false;
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            if (this.religareQuestionsList[i].answer == '') {
+                this.questionEmpty = false;
+                break;
+            } else {
+                this.questionEmpty = true;
+            }
+        }
+        if (this.questionEmpty ) {
+            stepper.next();
+            this.topScroll();
+
+
+        } else {
+            this.toastr.error('Please fill the all Answers');
+
+        }
+    }
+    //Nominee Details
+    religareNomineeDetails(stepper: MatStepper, value) {
+        this.lastStepper = stepper;
+        if (this.nomineeDetails.valid) {
+            sessionStorage.nomineeData = '';
+            sessionStorage.nomineeData = JSON.stringify(value);
+            this.proposal();
+        }
     }
 
     sessionData() {
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
+        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }
+        if (sessionStorage.iPersonalCitys != '' && sessionStorage.iPersonalCitys != undefined) {
+            this.iPersonalCitys = JSON.parse(sessionStorage.iPersonalCitys);
+        }
+        if (sessionStorage.areaNames != '' && sessionStorage.areaNames != undefined) {
+            this.areaNames = JSON.parse(sessionStorage.areaNames);
+        }
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.personal = this.fb.group({
@@ -1140,34 +1383,33 @@ export class ReligareHealthProposalComponent implements OnInit {
                 sameas: this.getStepper1.sameas
             });
 
-            if (this.getStepper1.personalPincode != '') {
-                this.getPostal(this.getStepper1.personalPincode, 'personal');
-                this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-                this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-                this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
-                if (this.getStepper1.sameas) {
-                    this.sameField = this.getStepper1.sameas;
-                    this.inputReadonly = true;
-                    this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
-                    this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
-                    this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
-                }
-                if (sessionStorage.mobileNumber != '' && sessionStorage.mobileNumber != undefined) {
-                    this.mobileNumber = sessionStorage.mobileNumber;
-                } else {
-                    this.mobileNumber = 'true';
-                }
-
-                setTimeout(() => {
-                    if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
-                        this.getPostal(this.getStepper1.residencePincode, 'residence');
-                        this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
-                        this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
-                        this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
-                    }
-                }, 3000);
-            }
-
+            // if (this.getStepper1.personalPincode != '') {
+            //     this.getPostal(this.getStepper1.personalPincode, 'personal');
+            //     this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
+            //     this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
+            //     this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
+            //     if (this.getStepper1.sameas) {
+            //         this.sameField = this.getStepper1.sameas;
+            //         this.inputReadonly = true;
+            //         this.personal.controls['residencePincode'].setValue(this.getStepper1.personalPincode);
+            //         this.personal.controls['residenceState'].setValue(this.getStepper1.personalState);
+            //         this.personal.controls['residenceCity'].setValue(this.getStepper1.personalCity);
+            //     }
+            //     if (sessionStorage.mobileNumber != '' && sessionStorage.mobileNumber != undefined) {
+            //         this.mobileNumber = sessionStorage.mobileNumber;
+            //     } else {
+            //         this.mobileNumber = 'true';
+            //     }
+            //
+            //     setTimeout(() => {
+            //         if (this.getStepper1.sameas == false && this.getStepper1.residencePincode != '') {
+            //             this.getPostal(this.getStepper1.residencePincode, 'residence');
+            //             this.personal.controls['residencePincode'].setValue(this.getStepper1.residencePincode);
+            //             this.personal.controls['residenceState'].setValue(this.getStepper1.residenceState);
+            //             this.personal.controls['residenceCity'].setValue(this.getStepper1.residenceCity);
+            //         }
+            //     }, 3000);
+            // }
             if (sessionStorage.addonDetails != '' && sessionStorage.addonDetails != undefined) {
                 let getAddon = JSON.parse(sessionStorage.addonDetails);
                 setTimeout(() => {
@@ -1260,538 +1502,14 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
 
     }
-    sameProposer(value: any) {
-        if (value.checked) {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue(this.personal.controls['personalAadhar'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue(this.personal.controls['personalrelationship'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue(this.personal.controls['personalPan'].value.toUpperCase());
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue(this.personal.controls['personalGst'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue(this.personal.controls['personalEmail'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue(this.personal.controls['personalAddress'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue(this.personal.controls['personalAddress2'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue(this.personal.controls['personalCity'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue(this.personal.controls['personalPincode'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue(this.personal.controls['personalState'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue(this.personal.controls['personalHeight'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue(this.personal.controls['personalWeight'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue(this.personal.controls['residenceAddress'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue(this.personal.controls['residenceAddress2'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue(this.personal.controls['residenceCity'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue(this.personal.controls['residencePincode'].value);
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue(this.personal.controls['residenceState'].value);
-            //
-
-        } else {
-            this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
-            this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-            this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
-            //
-            //
-            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-            // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
-
-        }
-
-    }
-    processDiseaseData(diseaseData) {
-
-        let updatedFinalData = [];
-        for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
-            if (diseaseData.proposer_insurer_details[i]['role_cd'] == 'PRIMARY') {
-                let updatedData = [];
-                for (let j = 0; j < diseaseData.proposer_insurer_details[i]['questions_list'].length; j++ ) {
-                    let newObject = {};
-                    newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                    newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                    newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_code'];
-
-                    if ( diseaseData.proposer_insurer_details[i]['questions_list'][j]['status'] == true) {
-                        newObject['response'] = true;
-
-                    } else if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['status']  == false) {
-                        newObject['response'] = false;
-
-                    }
-                    updatedData.push(newObject);
-
-                    if (diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'] != '') {
-                        newObject = {};
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existing_question_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['existingSince'];
-                        updatedData.push(newObject);
-
-                    }
-                    if(diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'] != '') {
-                        newObject = {};
-
-                        newObject['question_id'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_id'];
-                        newObject['question_set_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['question_set_code'];
-                        newObject['question_cd'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['otherdetails_desc_code'];
-                        newObject['response'] = diseaseData.proposer_insurer_details[i]['questions_list'][j]['diseasesDescription'];
-                        updatedData.push(newObject);
-
-                    }
-
-                }
-                this.totalData.proposer_insurer_details[i]['questions_list'] = updatedData;
-            }
-        }
-
-
-
-    }
-
-//Summary residence detail
-    public proposalFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-
-    getCityIdF2(title, cid, pincode) {
-        const data = {
-            'platform': 'web',
-            'pincode': pincode,
-            'city_id': cid
-        }
-        this.common.getArea(data).subscribe(
-            (successData) => {
-                this.getCityResistSuccess(successData);
-            },
-            (error) => {
-                this.getCityResistFailure(error);
-            }
-        );
-    }
-
-    public getCityResistSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.rAreaNames = successData.ResponseObject;
-            this.rAreaName = this.rAreaNames.area;
-            if (this.sumTitle == 'residence') {
-                for (let i = 0; i < this.rAreaName.length; i++) {
-                    if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
-                        this.sumAreaName = this.rAreaName[i].areaName;
-                    }
-
-                }
-            }
-        }
-    }
-
-    public getCityResistFailure(error) {
-    }
-
-
-
-
-
-//personal city detail
-    getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalSuccess(successData) {
-
-
-            if (this.title == 'personal') {
-                this.personalCitys = [];
-                this.response = successData.ResponseObject;
-                if (successData.IsSuccess) {
-
-                    this.personal.controls['personalState'].setValue(this.response[0].state);
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.personalCitys.push({city: this.response[i].city});
-                    }
-                } else if(successData.IsSuccess != true) {
-
-                    this.personal.controls['personalState'].setValue('');
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.personalCitys.push({city: this.response[i].city = ''});
-                    }
-                    this.toastr.error('In valid Pincode');
-                }
-            }
-            if (this.title == 'residence') {
-                this.residenceCitys = [];
-                this.rResponse = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.residenceCitys.push({city: this.rResponse[i].city});
-                    }
-                } else if(successData.IsSuccess != true) {
-                    this.personal.controls['residenceState'].setValue('');
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.residenceCitys.push({city: this.rResponse[i].city = ''});
-                    }
-                    this.toastr.error('In valid Pincode');
-                }
-            }
-            }
-
-
-
-
-    public getpostalFailure(error) {
-    }
-
-
-    //insurer city detail
-    getPostalInsurer(pin, index, title) {
-        this.pin = pin;
-        this.title = title;
-        this.index = index;
-        const data = {
-            'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalInsurerSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalInsurerFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalInsurerSuccess(successData) {
-
-
-            if (this.title == 'personal') {
-                this.iPersonalCitys = [];
-                this.response = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.iPersonalCitys.push({city: this.response[i].city});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                } else if(successData.IsSuccess != true && this.title == 'personal') {
-                    for (let i = 0; i < this.response.length; i++) {
-                        this.iPersonalCitys.push({city: this.response[i].city = ''});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                    this.toastr.error('In valid Pincode');
-                }
-            }
-            if (this.title == 'residence') {
-                this.iResidenceCitys = [];
-                this.rResponse = successData.ResponseObject;
-                if (successData.IsSuccess) {
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.iResidenceCitys.push({city: this.rResponse[i].city});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue(this.rResponse[0].state);
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-                }
-                else if (successData.IsSuccess != true && this.title == 'residence') {
-                    for (let i = 0; i < this.rResponse.length; i++) {
-                        this.iResidenceCitys.push({city: this.rResponse[i].city = ''});
-                    }
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].residenceState.patchValue('');
-                    this.insureArray['controls'].items['controls'][this.index]['controls'].cityHide.patchValue(false);
-                    this.toastr.error('In valid Pincode');
-                }
-            }
-
-
-
-    }
-
-    public getpostalInsurerFailure(error) {
-    }
-
-
-
-//summary city detail
-    getPostalSummary(pin, title) {
-        this.sumPin = pin;
-        this.sumTitle = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.sumPin
-        }
-        if (this.pin.length == 6) {
-            this.common.getPostal(data).subscribe(
-                (successData) => {
-                    this.PostalSummarySuccess(successData);
-                },
-                (error) => {
-                    this.PostalSummaryFailure(error);
-                }
-            );
-        }
-    }
-
-    public PostalSummarySuccess(successData) {
-        if (successData.IsSuccess == true) {
-            if (this.sumTitle == 'residence') {
-                this.rResponse = successData.ResponseObject;
-                this.residenceCitys = this.rResponse.city;
-                for (let i = 0; i < this.residenceCitys.length; i++) {
-                    if (this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
-                        this.rSummaryCity = this.residenceCitys[i].city_name;
-
-                    }
-                }
-            }
-
-
-        }
-    }
-
-    public PostalSummaryFailure(error) {
-    }
-
-
-    religareQuestions() {
-        const data = {
-            'platform': 'web',
-            'product_id': this.buyProductdetails.product_id,
-            'family_group': this.insurePersons,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getReligareQuestions(data).subscribe(
-            (successData) => {
-                this.religareQuestionsSuccess(successData);
-            },
-            (error) => {
-                this.religareQuestionsFailure(error);
-            }
-        );
-
-    }
-
-    public religareQuestionsSuccess(successData) {
-        this.religareQuestionsList = successData.ResponseObject;
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            this.religareQuestionsList[i].mStatus = 'No';
-            this.religareQuestionsList[i].answer_status = false;
-            for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-
-                for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-
-                }
-            }
-        }
-    }
-
-    public religareQuestionsFailure(error) {
-    }
-
-
-
-    questionYes(id, value: any) {
-        if (value.checked) {
-            this.religareQuestionsList[id].mStatus = 'Yes';
-            this.religareQuestionsList[id].answer_status = true;
-        } else {
-            this.religareQuestionsList[id].mStatus = 'No';
-            this.religareQuestionsList[id].answer_status = false;
-            for (let i = 0; i < this.religareQuestionsList.length; i++) {
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-                    }
-                }
-            }
-        }
-    }
-
-
-    setOccupationList() {
-        const data = {
-            'platform': 'web',
-            'product_id': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getOccupationList(data).subscribe(
-            (successData) => {
-                this.occupationListSuccess(successData);
-            },
-            (error) => {
-                this.occupationListFailure(error);
-            }
-        );
-
-    }
-
-    public occupationListSuccess(successData) {
-        this.occupationList = successData.ResponseObject;
-    }
-
-    public occupationListFailure(error) {
-    }
-
-
-    setOccupationListCode() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getOccupationCode(data).subscribe(
-            (successData) => {
-                this.occupationCodeSuccess(successData);
-            },
-            (error) => {
-                this.occupationCodeFailure(error);
-            }
-        );
-
-    }
-
-    public occupationCodeSuccess(successData) {
-        this.occupationCode = successData.ResponseObject;
-    }
-    public occupationCodeFailure(error) {
-    }
-    setRelationship() {
-        const data = {
-            'platform': 'web',
-            'product_id': '1',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.getRelationshipList(data).subscribe(
-            (successData) => {
-                this.setRelationshipSuccess(successData);
-            },
-            (error) => {
-                this.setRelationshipFailure(error);
-            }
-        );
-    }
-
-    public setRelationshipSuccess(successData) {
-        this.relationshipList = successData.ResponseObject;
-        //this.relationshipLists = this.relationshipList.name;
-        this.insureRelationList = [];
-        if(this.insurePersons.length > 1){
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                if(this.relationshipList[i].status == 1) {
-                    this.insureRelationList.push({
-                        'relationship_code' : this.relationshipList[i].relationship_code,
-                        'relationship_name' : this.relationshipList[i].relationship_name,
-                        'status' : this.relationshipList[i].status
-                    });
-                }
-            }
-        } else {
-            for (let i = 0; i < this.relationshipList.length; i++) {
-                this.insureRelationList.push({
-                    'relationship_code': this.relationshipList[i].relationship_code,
-                    'relationship_name': this.relationshipList[i].relationship_name,
-                    'status' : this.relationshipList[i].status
-                });
-            }
-        }
-    }
-
-    public setRelationshipFailure(error) {
-    }
-
-    alternateChange(event) {
-        if (this.personal['controls'].personalAltnumber.value.length == 10) {
-            if(this.personal['controls'].personalAltnumber.value == this.personal['controls'].personalMobile.value) {
-                this.mobileNumber = 'Alternate number should be different from mobile number';
-            } else {
-                this.mobileNumber = '';
-            }
-        } else {
-            this.mobileNumber = '';
-        }
-        sessionStorage.mobileNumber = this.mobileNumber;
-    }
-    insurerAlternateChange(event ,index) {
-        if (this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value.length == 10) {
-            if (this.insureArray['controls'].items['controls'][index]['controls'].personalAltnumber.value == this.insureArray['controls'].items['controls'][index]['controls'].personalMobile.value) {
-                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('Alternate number should be different from mobile number')
-
-            } else {
-                this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('');
-
-            }
-        }else{
-            this.insureArray['controls'].items['controls'][index]['controls'].sameInsureAltMobileNumber.patchValue('')
-        }
-        }
 
     //Create Proposal
     proposal() {
-
         this.totalData = {
             'platform': 'web',
             'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
-            'enquiry_id': this.enquiryId,
-            'group_name': 'Group A',
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'group_name': this.getFamilyDetails.name,
             'company_name': 'Religare',
             'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
             'suminsured_amount': this.buyProductdetails.suminsured_amount,
@@ -1837,6 +1555,233 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+    public proposalFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+
+
+
+
+
+
+
+//Summary residence detail
+//     public proposalFailure(error) {
+//         this.settings.loadingSpinner = false;
+//     }
+//
+//     getCityIdF2(title, cid, pincode) {
+//         const data = {
+//             'platform': 'web',
+//             'pincode': pincode,
+//             'city_id': cid
+//         }
+//         this.common.getArea(data).subscribe(
+//             (successData) => {
+//                 this.getCityResistSuccess(successData);
+//             },
+//             (error) => {
+//                 this.getCityResistFailure(error);
+//             }
+//         );
+//     }
+//
+//     public getCityResistSuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             this.rAreaNames = successData.ResponseObject;
+//             this.rAreaName = this.rAreaNames.area;
+//             if (this.sumTitle == 'residence') {
+//                 for (let i = 0; i < this.rAreaName.length; i++) {
+//                     if (this.rAreaName[i].areaID == this.summaryData.prop_res_area) {
+//                         this.sumAreaName = this.rAreaName[i].areaName;
+//                     }
+//
+//                 }
+//             }
+//         }
+//     }
+//
+//     public getCityResistFailure(error) {
+//     }
+
+
+
+    stepback() {
+        this.back = true;
+    }
+    quesback() {
+        this.back = false;
+    }
+
+
+//personal city detail
+//     getPostal(pin, title) {
+//         this.pin = pin;
+//         this.title = title;
+//         const data = {
+//             'platform': 'web',
+//             'user_id': '0',
+//             'role_id': '4',
+//             'pincode': this.pin
+//         }
+//         if (this.pin.length == 6) {
+//             this.proposalservice.getPostalReligare(data).subscribe(
+//                 (successData) => {
+//                     this.getpostalSuccess(successData);
+//                 },
+//                 (error) => {
+//                     this.getpostalFailure(error);
+//                 }
+//             );
+//         }
+//     }
+
+    // public getpostalSuccess(successData) {
+    //
+    //
+    //         if (this.title == 'personal') {
+    //             this.personalCitys = [];
+    //             this.response = successData.ResponseObject;
+    //             if (successData.IsSuccess) {
+    //
+    //                 this.personal.controls['personalState'].setValue(this.response[0].state);
+    //                 for (let i = 0; i < this.response.length; i++) {
+    //                     this.personalCitys.push({city: this.response[i].city});
+    //                 }
+    //             } else if(successData.IsSuccess != true) {
+    //
+    //                 this.personal.controls['personalState'].setValue('');
+    //                 for (let i = 0; i < this.response.length; i++) {
+    //                     this.personalCitys.push({city: this.response[i].city = ''});
+    //                 }
+    //                 this.toastr.error('In valid Pincode');
+    //             }
+    //         }
+    //         if (this.title == 'residence') {
+    //             this.residenceCitys = [];
+    //             this.rResponse = successData.ResponseObject;
+    //             if (successData.IsSuccess) {
+    //                 this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
+    //                 for (let i = 0; i < this.rResponse.length; i++) {
+    //                     this.residenceCitys.push({city: this.rResponse[i].city});
+    //                 }
+    //             } else if(successData.IsSuccess != true) {
+    //                 this.personal.controls['residenceState'].setValue('');
+    //                 for (let i = 0; i < this.rResponse.length; i++) {
+    //                     this.residenceCitys.push({city: this.rResponse[i].city = ''});
+    //                 }
+    //                 this.toastr.error('In valid Pincode');
+    //             }
+    //         }
+    //         }
+    //
+    //
+    //
+    //
+    // public getpostalFailure(error) {
+    // }
+
+
+    //insurer city detail
+
+
+
+// //summary city detail
+//     getPostalSummary(pin, title) {
+//         this.sumPin = pin;
+//         this.sumTitle = title;
+//         const data = {
+//             'platform': 'web',
+//             'pincode': this.sumPin
+//         }
+//         if (this.pin.length == 6) {
+//             this.common.getPostal(data).subscribe(
+//                 (successData) => {
+//                     this.PostalSummarySuccess(successData);
+//                 },
+//                 (error) => {
+//                     this.PostalSummaryFailure(error);
+//                 }
+//             );
+//         }
+//     }
+//
+//     public PostalSummarySuccess(successData) {
+//         if (successData.IsSuccess == true) {
+//             if (this.sumTitle == 'residence') {
+//                 this.rResponse = successData.ResponseObject;
+//                 this.residenceCitys = this.rResponse.city;
+//                 for (let i = 0; i < this.residenceCitys.length; i++) {
+//                     if (this.residenceCitys[i].city_id == this.summaryData.prop_res_city) {
+//                         this.rSummaryCity = this.residenceCitys[i].city_name;
+//
+//                     }
+//                 }
+//             }
+//
+//
+//         }
+//     }
+//
+//     public PostalSummaryFailure(error) {
+//     }
+
+
+
+
+
+    // setOccupationList() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'product_id': '1',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.proposalservice.getOccupationList(data).subscribe(
+    //         (successData) => {
+    //             this.occupationListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.occupationListFailure(error);
+    //         }
+    //     );
+    //
+    // }
+    //
+    // public occupationListSuccess(successData) {
+    //     this.occupationList = successData.ResponseObject;
+    // }
+    //
+    // public occupationListFailure(error) {
+    // }
+    //
+    //
+    // setOccupationListCode() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.proposalservice.getOccupationCode(data).subscribe(
+    //         (successData) => {
+    //             this.occupationCodeSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.occupationCodeFailure(error);
+    //         }
+    //     );
+    //
+    // }
+    //
+    // public occupationCodeSuccess(successData) {
+    //     this.occupationCode = successData.ResponseObject;
+    // }
+    // public occupationCodeFailure(error) {
+    // }
+
+
+
 
 
 }

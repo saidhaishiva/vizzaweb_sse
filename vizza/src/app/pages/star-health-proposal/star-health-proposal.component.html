@@ -408,7 +408,7 @@
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
-                <div class="col-md-12 " >
+                <div class="col-md-12" >
                   <mat-card *ngFor="let nomineeadd of list.nominee; let ci = index" [ngStyle]="{'background-color':nomineeadd.colorStatus === 'green' ? '#dbf1ee' : '#ffffff' }">
                     <h6 class="color-blue mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primaryBlue" *ngIf="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
                     <div class="row"  >
@@ -421,7 +421,7 @@
                         <input matInput placeholder="Age" (keypress)="numberValidate($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" (change)="selectNomineRelation(i, ci)">
+                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" (change)="selectNomineRelation(i, ci, 'first')">
                                 <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}">
                                   {{relationship.value}}
                                 </mat-option>
@@ -442,7 +442,7 @@
                         <input matInput placeholder="Age" (keypress)="numberValidate($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''" >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.arelationship" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
+                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.arelationship" (change)="selectNomineRelation(i, ci, 'second')" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
                                 <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}">
                                   {{relationship.relationship_name}}
                                 </mat-option>
@@ -464,13 +464,13 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-4">{{summaryData.groupname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].premium}}</span> /</li>
-                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].serviceTax}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.proposal_details[0].totalPremium}}</span> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
+                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -481,23 +481,23 @@
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_title}}.{{summaryData.proposer_name}} {{summaryData.proposer_lastname}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.prop_dob | date: 'dd/MM/yyyy'}}</li>
-                    <li class="list-group-item"><strong>Email Id:</strong> {{summaryData.proposer_email}}</li>
-                    <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.proposer_mobile}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && summaryData.prop_alternate_mobile !=null"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
+                    <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.personalTitle}}.{{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Email Id:</strong> {{proposerFormData.personalEmail}}</li>
+                    <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.personalMobile}}</li>
+                    <!--<li class="list-group-item" *ngIf="proposerFormData.personalAltnumber !=''"><strong>Alternate Number:</strong> {{proposerFormData.personalAltnumber}}</li>-->
                   </ul>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="summaryData.prop_occupation !=''"><strong>Occupation:</strong> {{summaryData.prop_occupation}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.prop_annual_income !='' && summaryData.prop_annual_income !=null"><strong>Annual Income:</strong> {{summaryData.prop_annual_income | currency: 'INR'}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.prop_aadhar_no !='' && summaryData.prop_aadhar_no !=null"><strong>Aadhar Number:</strong> {{summaryData.prop_aadhar_no}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.prop_pan_no !='' && summaryData.prop_pan_no !=null"><strong>PAN Number:</strong> {{summaryData.prop_pan_no | uppercase}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.gst_id_no !='' && summaryData.gst_id_no !=null"><strong>GST Number:</strong> {{summaryData.gst_id_no | uppercase}}</li>
-                    <li class="list-group-item" *ngIf="summaryData.previous_medical_insurance !='' && summaryData.previous_medical_insurance !=null"><strong>Previous Medical Insurence:</strong> {{summaryData.previous_medical_insurance}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.personalOccupationName !=''"><strong>Occupation:</strong> {{proposerFormData.personalOccupationName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.personalIncome !='' && proposerFormData.personalIncome !=null"><strong>Annual Income:</strong> {{proposerFormData.personalIncome | currency: 'INR'}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.personalAadhar !='' && proposerFormData.personalAadhar !=null"><strong>Aadhar Number:</strong> {{proposerFormData.personalAadhar}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.personalPan !='' && proposerFormData.personalPan !=null"><strong>PAN Number:</strong> {{proposerFormData.personalPan | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.personalGst !='' && proposerFormData.personalGst !=null"><strong>GST Number:</strong> {{proposerFormData.personalGst | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.previousinsurance !='' && proposerFormData.previousinsurance !=null"><strong>Previous Medical Insurence:</strong> {{proposerFormData.previousinsurance}}</li>
                   </ul>
                 </div>
               </div>
@@ -505,12 +505,12 @@
                 <div class="p-3">
                   <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_comm_address1}}</li>
-                    <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_comm_address2}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_comm_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{summaryCity}}</li>
-                    <li class="list-group-item"><strong>Area:</strong> {{sumAreaNameComm}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_comm_state}}</li>
+                    <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
+                    <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
+                    <li class="list-group-item"><strong>PIN code:</strong>  {{proposerFormData.personalPincode}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCityName}}</li>
+                    <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.personalAreaName}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>
                   </ul>
                 </div>
               </div>
@@ -518,12 +518,12 @@
                 <div class=" p-3">
                   <h6 class="color-blue">RESIDENCE DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.prop_res_address1}}</li>
-                    <li class="list-group-item"><strong>Address 2:</strong> {{summaryData.prop_res_address2}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong>  {{summaryData.prop_res_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{rSummaryCity}}</li>
-                    <li class="list-group-item"><strong>Area:</strong> {{sumAreaName}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{summaryData.prop_res_state}}</li>
+                    <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
+                    <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>
+                    <li class="list-group-item"><strong>PIN code:</strong>  {{proposerFormData.residencePincode}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCityName}}</li>
+                    <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceAreaName}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceState}}</li>
                   </ul>
                 </div>
               </div>
@@ -535,15 +535,15 @@
                 <div class="col-md-6">
                   <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
                   <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="summaryData.social_status_bpl == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="summaryData.social_status_bpl == 0" disabled>No</mat-button-toggle>
+                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == 0" disabled>No</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
                 <div class="col-md-6">
                   <p>Please choose "Yes" if you are working in informal Sector</p>
                   <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="summaryData.social_status_disabled == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="summaryData.social_status_disabled == 0" disabled>No</mat-button-toggle>
+                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == 0" disabled>No</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
               </div>
@@ -552,31 +552,31 @@
                 <div class="col-md-6">
                   <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
                   <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="summaryData.social_status_informal == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="summaryData.social_status_informal == 0" disabled>No</mat-button-toggle>
+                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == 0" disabled>No</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
                 <div class="col-md-6">
                   <p>Please choose “Yes” if you are Other Categories of Persons</p>
                   <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="summaryData.social_status_unorganized == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="summaryData.social_status_unorganized == 0" disabled>No</mat-button-toggle>
+                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == 0" disabled>No</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
               </div>
             </div>
             <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
-            <div class="row box-card" *ngFor="let family of summaryData.insured_details">
+            <div class="row box-card" *ngFor="let list of insuredFormData">
               <div class="col-md-6">
                 <div class="p-3">
-                  <h6 class="color-blue">{{family.ins_member_typename | uppercase}}</h6>
+                  <h6 class="color-blue">{{list.type | uppercase}}</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong> {{family.ins_name}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{family.ins_dob | date: 'dd/MM/yyyy'}}</li>
-                    <li class="list-group-item"><strong>Gender:</strong> {{family.ins_gender}}</li>
-                    <li class="list-group-item"><strong>Illness:</strong> {{family.ins_illness}}</li>
-                    <li class="list-group-item"><strong>Height:</strong> {{family.ins_height}}</li>
-                    <li class="list-group-item"><strong>Weight:</strong> {{family.ins_weight}}</li>
+                    <li class="list-group-item"><strong>Name:</strong> {{list.ins_name}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{list.ins_dob | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Gender:</strong> {{list.ins_gender}}</li>
+                    <li class="list-group-item"><strong>Height:</strong> {{list.ins_height}}</li>
+                    <li class="list-group-item"><strong>Weight:</strong> {{list.ins_weight}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{list.ins_occupation_name}}</li>
                   </ul>
                 </div>
               </div>
@@ -584,79 +584,144 @@
                 <div class="p-3">
                   <h6 class="color-blue mt-4"></h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Occupation:</strong> {{family.occupation_name}}</li>
-                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{family.relationship_name}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> {{family.ins_hospital_cash}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> {{family.ins_is_personal_accident_applicable}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{family.ins_engage_manual_labour}}</li>
-                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{family.ins_engage_winter_sports}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.ins_relationship_name}}</li>
+                      <li class="list-group-item"><strong>Do you have any health problem :</strong> <span *ngIf="list.illness">Yes</span> <span *ngIf="!list.illness">No</span></li>
+                      <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{ist.ins_illness}}</li>
+                      <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> {{list.ins_hospital_cash}}</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>
+                    <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{list.ins_engage_winter_sports}}</li>
                   </ul>
                 </div>
               </div>
-
             </div>
-            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-            <div class="row box-card">
-              <div class="col-md-12 ">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h6 class="color-blue">NOMINEE DETAILS </h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="summaryData.nominee_name_one == ''"> Nill</span> <span *ngIf="summaryData.nominee_name_one != ''">{{summaryData.nominee_name_one}}</span></li>
-                        <li class="list-group-item"><strong>Age:</strong> <span *ngIf="summaryData.nominee_age_one == '' || summaryData.nominee_age_one == 0"> Nill</span> <span *ngIf="summaryData.nominee_age_one != '' && summaryData.nominee_age_one != 0">{{summaryData.nominee_age_one}}</span></li>
-                      </ul>
-                    </div>
-                    <div class="col-md-6">
-                      <h6 class="color-blue mt-4"></h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> <span *ngIf="summaryData.nominee_relationship_one == ''">Nill</span> <span *ngIf="summaryData.nominee_relationship_one != ''">{{summaryData.nominee_relationship_one}}</span></li>
-                        <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="summaryData.nominee_percentclaim_one == '' || summaryData.nominee_percentclaim_one == 0">Nill</span> <span *ngIf="summaryData.nominee_percentclaim_one != ''">{{summaryData.nominee_percentclaim_one | limitTo : 3}}</span></li>
-                      </ul>
-                    </div>
-                    <div class="col-md-6" *ngIf="summaryData.nominee_age_one < 18 && summaryData.appointee_name_one !='' && summaryData.appointee_age_one !='' && summaryData.appointee_relationship_one !=''">
-                      <h6 class="color-blue">APPOINTEE DETAILS  </h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="summaryData.appointee_name_one !='' "><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>
-                        <li class="list-group-item" *ngIf="summaryData.appointee_age_one !='' && summaryData.appointee_age_one != 0"><strong>Age:</strong> {{summaryData.appointee_age_one}}</li>
-                        <li class="list-group-item" *ngIf="summaryData.appointee_relationship_one !=''"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one | limitTo : 3}}</li>
-                      </ul>
-                    </div>
 
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !=''">
-                      <h6 class="color-blue">NOMINEE DETAILS 2 </h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>
-                        <li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>
-                      </ul>
-                    </div>
-                    <div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !='' ">
-                      <h6 class="color-blue mt-3"></h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>
-                        <li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two | limitTo : 3}}</li>
-                      </ul>
-                    </div>
-                    <div class="col-md-6 mt-3" *ngIf="summaryData.appointee_name_two !='' && summaryData.appointee_age_two !='' && summaryData.appointee_name_two !='' ">
-                      <h6 class="color-blue">APPOINTEE DETAILS 2 </h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>
-                        <li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two | limitTo : 3}}</li>
-                      </ul>
-                    </div>
-                  </div>
+              <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+              <div class="row box-card" *ngFor="let allList of nomineeDate">
+                  <div class="col-md-12" *ngFor="let list of allList.nominee; let i = index">
+                      <div class="p-3" *ngIf="i == 0">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item">
+                                              <strong>Name:</strong> <span *ngIf="list.nname ==''"> Nill</span> <span *ngIf="list.nname !=''">{{list.nname}}</span>
+                                          </li>
+                                          <li class="list-group-item"><strong>Age:</strong>
+                                              <span *ngIf="list.nage ==''"> Nill</span> <span *ngIf="list.nage !=''">{{list.nage}}</span>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item">
+                                              <strong>Relationship with insured:</strong>
+                                              <span *ngIf="list.nrelationshipName !='' && list.nrelationship !=''">
+                                                {{list.nrelationshipName}}
+                                              </span>
+                                              <span *ngIf="list.nrelationshipName =='' || list.nrelationship ==''">
+                                                  Nill
+                                              </span>
+                                          </li>
+                                          <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0"> Nill</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
 
-                </div>
+                      <div class="p-3" *ngIf="i == 1">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item" *ngIf="list.aname !=''"><strong>AppointieeName:</strong> {{list.aname}}</li>
+                                          <li class="list-group-item" *ngIf="list.aage !=''"><strong>Age:</strong> {{list.aage}}</li>
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item" *ngIf="list.nrelationshipName !=''"><strong>Relationship with insured:</strong> {{list.nrelationshipName}}</li>
+                                          <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nill</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
               </div>
 
-            </div>
+
+
+
+
+
+            <!--<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>-->
+            <!--<div class="row box-card">-->
+              <!--<div class="col-md-12 ">-->
+                <!--<div class="p-3">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-6">-->
+                      <!--<h6 class="color-blue">NOMINEE DETAILS </h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="summaryData.nominee_name_one == ''"> Nill</span> <span *ngIf="summaryData.nominee_name_one != ''">{{summaryData.nominee_name_one}}</span></li>-->
+                        <!--<li class="list-group-item"><strong>Age:</strong> <span *ngIf="summaryData.nominee_age_one == '' || summaryData.nominee_age_one == 0"> Nill</span> <span *ngIf="summaryData.nominee_age_one != '' && summaryData.nominee_age_one != 0">{{summaryData.nominee_age_one}}</span></li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6">-->
+                      <!--<h6 class="color-blue mt-4"></h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Relationship with Proposer:</strong> <span *ngIf="summaryData.nominee_relationship_one == ''">Nill</span> <span *ngIf="summaryData.nominee_relationship_one != ''">{{summaryData.nominee_relationship_one}}</span></li>-->
+                        <!--<li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="summaryData.nominee_percentclaim_one == '' || summaryData.nominee_percentclaim_one == 0">Nill</span> <span *ngIf="summaryData.nominee_percentclaim_one != ''">{{summaryData.nominee_percentclaim_one | limitTo : 3}}</span></li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6" *ngIf="summaryData.nominee_age_one < 18 && summaryData.appointee_name_one !='' && summaryData.appointee_age_one !='' && summaryData.appointee_relationship_one !=''">-->
+                      <!--<h6 class="color-blue">APPOINTEE DETAILS  </h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item" *ngIf="summaryData.appointee_name_one !='' "><strong>Appointee name:</strong> {{summaryData.appointee_name_one}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="summaryData.appointee_age_one !='' && summaryData.appointee_age_one != 0"><strong>Age:</strong> {{summaryData.appointee_age_one}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="summaryData.appointee_relationship_one !=''"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_one | limitTo : 3}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-12" *ngIf=" summaryData.nominee_percentclaim_one < 100">-->
+                <!--<div class="p-3">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !=''">-->
+                      <!--<h6 class="color-blue">NOMINEE DETAILS 2 </h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.nominee_name_two}}</li>-->
+                        <!--<li class="list-group-item"><strong>Age:</strong> {{summaryData.nominee_age_two}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6" *ngIf="summaryData.nominee_name_two !='' && summaryData.nominee_age_two !='' && summaryData.nominee_relationship_two !='' && summaryData.nominee_percentclaim_two !='' ">-->
+                      <!--<h6 class="color-blue mt-3"></h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.nominee_relationship_two}}</li>-->
+                        <!--<li class="list-group-item"><strong>% of Claim:</strong> {{summaryData.nominee_percentclaim_two | limitTo : 3}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 mt-3" *ngIf="summaryData.appointee_name_two !='' && summaryData.appointee_age_two !='' && summaryData.appointee_name_two !='' ">-->
+                      <!--<h6 class="color-blue">APPOINTEE DETAILS 2 </h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Appointee name:</strong> {{summaryData.appointee_name_two}}</li>-->
+                        <!--<li class="list-group-item"><strong>Age:</strong> {{summaryData.appointee_age_two}}</li>-->
+                        <!--<li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.appointee_relationship_two | limitTo : 3}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</div>-->
+
+            <!--</div>-->
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
           </section>
           <hr>
