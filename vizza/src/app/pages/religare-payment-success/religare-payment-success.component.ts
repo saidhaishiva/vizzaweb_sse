@@ -37,13 +37,16 @@ export class ReligarePaymentSuccessComponent implements OnInit {
 
     constructor(public config: ConfigurationService, public router: Router,public healthService: HealthService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-        let allDetails = JSON.parse(sessionStorage.allGroupDetails);
-        console.log(allDetails, 'allDetailsallDetails');
+        let allDetails = [];
+        if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
+            allDetails = JSON.parse(sessionStorage.allGroupDetails);
+        }
         this.remainingStatus = false;
         if(allDetails.length > 1) {
             console.log('in');
             this.remainingStatus = true;
         }
+
         console.log(this.remainingStatus, 'pppp');
         this.route.params.forEach((params) => {
           console.log(params.id);

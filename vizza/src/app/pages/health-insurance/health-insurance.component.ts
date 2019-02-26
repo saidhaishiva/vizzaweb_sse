@@ -118,7 +118,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-       // this.session.clearSessionData();
+        this.session.clearSessionData();
         this.firstPage = true;
         this.secondPage = false;
         this.sonBTn = false;

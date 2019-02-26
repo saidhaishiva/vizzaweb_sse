@@ -60,7 +60,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
-                                                        <mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation_name}} </mat-option>
+                                                        <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                                                 </mat-form-field>
@@ -68,7 +68,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Nationality" formControlName="nationality" required  class="w-100">
-                                                        <mat-option *ngFor="let list of nationalityList" [value]= 'list.nationality_id'> {{list.nationality}} </mat-option>
+                                                        <mat-option *ngFor="let list of nationalityList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
                                                 </mat-form-field>
@@ -130,7 +130,7 @@
                                             <div class="col-md-3" *ngIf="this.personal.controls['serviceTax'].value == 'Yes'">
                                                 <mat-form-field  class="w-100">
                                                     <mat-select placeholder="Services Tax" formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()">
-                                                        <mat-option *ngFor="let list of ServiceTaxId" value={{list.servicetax_exemp_id}}>{{list.servicetax_exemp_name}}</mat-option>
+                                                        <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}>{{list.value}}</mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="personal.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>-->
                                                 </mat-form-field>
@@ -202,7 +202,7 @@
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
                                                             <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
-                                                                <mat-option *ngFor="let list of proposalPArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                                                <mat-option *ngFor="let list of proposalPArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
                                                             <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
                                                         </mat-form-field>
@@ -278,7 +278,7 @@
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
                                                             <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" [disabled]="inputReadonly">
-                                                                <mat-option *ngFor="let list of proposalRArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                                                <mat-option *ngFor="let list of proposalRArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
                                                             <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
                                                         </mat-form-field>
@@ -360,7 +360,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                         <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100" autocomplete="off">
-                                                            <mat-option *ngFor="let status of maritalDetail" [value]= 'status.marital_status_id'> {{status.marital_status}} </mat-option>
+                                                            <mat-option *ngFor="let status of maritalDetail | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Marital Status is required</mat-error>
                                                     </mat-form-field>
@@ -384,7 +384,7 @@
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
                                                         <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
-                                                            <mat-option *ngFor="let list of occupationList" [value]= 'list.occupation_id'> {{list.occupation_name}} </mat-option>
+                                                            <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                                                     </mat-form-field>
@@ -392,7 +392,7 @@
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required >
-                                                            <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_proposer_id}}" > {{relationship.relationship_proposer_name}} </mat-option>
+                                                            <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                                                     </mat-form-field>
@@ -640,7 +640,7 @@
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
-                                                        <mat-option *ngFor="let relationship of nomineeRelationshipList" [hidden]="sameRelationship == relationship.nominee_relation_id" value="{{relationship.nominee_relation_id}}" > {{relationship.nominee_relation_name}} </mat-option>
+                                                        <mat-option *ngFor="let relationship of nomineeRelationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                                                 </mat-form-field>
@@ -694,7 +694,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Area" formControlName="nomineeArea" required  class="w-100">
-                                                        <mat-option *ngFor="let list of nomineeAreaList" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                                        <mat-option *ngFor="let list of nomineeAreaList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeArea.errors?.required">Area is required</mat-error>
                                                 </mat-form-field>

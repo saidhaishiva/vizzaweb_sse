@@ -34,7 +34,12 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
-      let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      let allDetails;
+      if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
+          allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      } else {
+          allDetails = [];
+      }
       this.remainingStatus = false;
       if(allDetails.length > 1) {
           this.remainingStatus = true;

@@ -1533,4 +1533,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         }
       }
     }
+    medicalHistoryDetails(vvv){
+
+    }
 }

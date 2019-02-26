@@ -421,8 +421,8 @@
                         <input matInput placeholder="Age" (keypress)="numberValidate($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" (change)="selectNomineRelation(i, ci, 'first')">
-                                <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}">
+                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.nrelationship" (change)="selectNomineRelation(i, ci, 'first')">
+                                <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}">
                                   {{relationship.value}}
                                 </mat-option>
                             </mat-select>
@@ -443,8 +443,8 @@
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.arelationship" (change)="selectNomineRelation(i, ci, 'second')" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
-                                <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}">
-                                  {{relationship.relationship_name}}
+                                <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.value}}">
+                                  {{relationship.value}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field></div>
@@ -464,7 +464,7 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-4">{{summaryData.groupname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
@@ -585,8 +585,8 @@
                   <h6 class="color-blue mt-4"></h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.ins_relationship_name}}</li>
-                      <li class="list-group-item"><strong>Do you have any health problem :</strong> <span *ngIf="list.illness">Yes</span> <span *ngIf="!list.illness">No</span></li>
-                      <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{ist.ins_illness}}</li>
+                      <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>
+                      <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>
                       <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> {{list.ins_hospital_cash}}</li>
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>
