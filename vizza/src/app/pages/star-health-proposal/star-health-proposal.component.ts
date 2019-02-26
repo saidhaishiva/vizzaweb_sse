@@ -880,7 +880,10 @@ export class StarHealthProposalComponent implements OnInit {
     numberValidate(event: any){
         this.validation.numberValidate(event);
     }
+    idValidate(event: any){
+        this.validation.idValidate(event);
 
+    }
     // insured dob
     addEventInsurerSelect(event, i, type) {
         if (event.value != null) {
