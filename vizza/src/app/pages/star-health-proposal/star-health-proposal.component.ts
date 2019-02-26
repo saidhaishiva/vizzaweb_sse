@@ -1162,7 +1162,7 @@ export class StarHealthProposalComponent implements OnInit {
             'prop_annual_income': this.personalData.personalIncome,
             'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
-            'gst_id_no': this.personalData.personalGst,
+            'gst_id_no': this.personalData.personalGst.toUpperCase(),
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',

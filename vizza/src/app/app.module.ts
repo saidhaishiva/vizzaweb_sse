@@ -240,6 +240,7 @@ import { ClearSessionService} from './shared/services/clear-session.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
+import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
 
 @NgModule({
   imports: [
@@ -476,6 +477,7 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
       BajajHealthDeactivateGuardService,
       RelianceHealthDeactivateGuardService,
       ClearSessionService,
+      IffcoProposalGuardService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],

@@ -14,6 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -95,9 +96,18 @@ export class IffcoTokioComponent implements OnInit {
     public title: any;
     public proposerAge: any;
     public mobileNumber: any;
+    public currentStep: any;
 
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe,public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true) {
+                stepperindex = 2;
+            }
+        });
+        this.currentStep = stepperindex;
+
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
@@ -116,39 +126,42 @@ export class IffcoTokioComponent implements OnInit {
         this.proposer = this.fb.group({
             proposerTitle: ['',Validators.required],
             proposerFirstname: ['',Validators.required],
-            proposerMidname: '',
             proposerLastname: ['',Validators.required],
             proposerGender: ['', Validators.compose([Validators.required])],
             proposerDob: ['', Validators.compose([Validators.required])],
             proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            proposerAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            proposerPhone: '',
-            proposerMarital: ['', Validators.required],
-            proposerOccupation: ['', Validators.required],
-            proposerRelationship: ['', Validators.required],
-            proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
+            proposerHomephone: '',
+            proposerOfficePhone: '',
+            proposerPassport: '',
+            proposerOccupation: '',
+            proposerPan: '',
             proposerAddress: ['',Validators.required],
             proposerAddress2:'',
+            proposerAddress3:'',
+            proposerAddress4:'',
+            proposerFax:'',
+            proposerMaritalStatus:['', Validators.required],
+            proposerEmergencyName:'',
+            proposerEmergencyMobile:'',
             proposerPincode: ['', Validators.required],
-            proposerNationality: ['', Validators.required],
-            proposerState: ['', Validators.required],
-            proposerDistrict: ['', Validators.required],
-            proposerCity: ['', Validators.required],
+            proposerNationality: '',
+            proposerState: '',
+            proposerCity: '',
             sameas: false,
             rolecd: 'PROPOSER',
             type: ''
 // aadharnumber: ['', Validators.compose([Validators.required])],
         });
-        this.previousInsuranceFrom = this.fb.group({
-            InsuranceCompName: '',
-            PreviousPolNo: '',
-            PolicyStartDate: '',
-            PolicyEndDate: '',
-            CoverTypeID: '',
-            SumInsured:'',
-            AccumulatedCumulativeBonus: ''
-        });
+        // this.previousInsuranceFrom = this.fb.group({
+        //     InsuranceCompName: '',
+        //     PreviousPolNo: '',
+        //     PolicyStartDate: '',
+        //     PolicyEndDate: '',
+        //     CoverTypeID: '',
+        //     SumInsured:'',
+        //     AccumulatedCumulativeBonus: ''
+        // });
         this.nomineeDetails = this.fb.group({
             nomineeTitle: ['', Validators.required],
             nomineeFirstName: ['', Validators.required],
@@ -168,16 +181,16 @@ export class IffcoTokioComponent implements OnInit {
             nomineeArea: ['', Validators.required],
             nearestLandMark: ''
         });
-        this.riskDetails = this.fb.group({
-            serviceTax: 'No',
-            ServicesTaxId: '',
-            relianceAda: 'No',
-            companyname: '',
-            employeeCode: '',
-            emailId:'',
-            crossSell: 'No',
-            crossSellPolicyNo: '',
-        });
+        // this.riskDetails = this.fb.group({
+        //     serviceTax: 'No',
+        //     ServicesTaxId: '',
+        //     relianceAda: 'No',
+        //     companyname: '',
+        //     employeeCode: '',
+        //     emailId:'',
+        //     crossSell: 'No',
+        //     crossSellPolicyNo: '',
+        // });
     }
 
     changeGender() {
@@ -641,25 +654,28 @@ export class IffcoTokioComponent implements OnInit {
             this.proposer = this.fb.group({
                 proposerTitle: this.getStepper1.proposerTitle,
                 proposerFirstname: this.getStepper1.proposerFirstname,
-                proposerMidname: this.getStepper1.proposerMidname,
                 proposerLastname: this.getStepper1.proposerLastname,
                 proposerGender: this.getStepper1.proposerGender,
                 proposerDob: this.getStepper1.proposerDob,
                 proposerEmail: this.getStepper1.proposerEmail,
                 proposerMobile: this.getStepper1.proposerMobile,
-                proposerAltnumber: this.getStepper1.proposerAltnumber,
-                proposerPhone: this.getStepper1.proposerPhone,
-                proposerMarital: this.getStepper1.proposerMarital,
+                proposerHomePhone: this.getStepper1.proposerHomePhone,
+                proposerOfficePhone: this.getStepper1.proposerOfficePhone,
                 proposerOccupation: this.getStepper1.proposerOccupation,
-                proposerRelationship: this.getStepper1.proposerRelationship,
                 proposerPan: this.getStepper1.proposerPan,
+                proposerPassport: this.getStepper1.proposerPassport,
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
+                proposerAddress3: this.getStepper1.proposerAddress3,
+                proposerAddress4: this.getStepper1.proposerAddress4,
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerNationality: this.getStepper1.proposerNationality,
                 proposerState: this.getStepper1.proposerState,
-                proposerDistrict: this.getStepper1.proposerDistrict,
                 proposerCity: this.getStepper1.proposerCity,
+                proposerFax: this.getStepper1.proposerFax,
+                proposerEmergencyMobile: this.getStepper1.proposerEmergencyMobile,
+                proposerEmergencyName: this.getStepper1.proposerEmergencyName,
+                proposerMaritalStatus: this.getStepper1.proposerMaritalStatus,
 
             });
 
