@@ -762,6 +762,7 @@ export class BajajAlianzComponent implements OnInit {
             'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
             'enquiry_id': this.enquiryId,
             'company_name': 'bajajalianz',
+            'group_name': this.getFamilyDetails.name,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',

@@ -410,10 +410,18 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         } else {
             this.toastr.error('In valid Pincode');
-            sessionStorage.residenceCitys = {};
-            sessionStorage.personalCitys = {};
-            this.personalCitys = {};
-            this.residenceCitys = {};
+            if (title == 'personal') {
+                sessionStorage.personalCitys = '';
+                this.personalCitys = {};
+                this.personal.controls['personalState'].setValue('');
+                this.personal.controls['personalCity'].setValue('');
+            } else if (title == 'residence') {
+                sessionStorage.residenceCitys = '';
+                this.residenceCitys = {};
+                this.personal.controls['residenceCity'].setValue('');
+                this.personal.controls['residenceState'].setValue('');
+            }
+
         }
     }
     public getpostalFailure(error) {
@@ -1067,8 +1075,8 @@ export class ReligareHealthProposalComponent implements OnInit {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
-        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
-        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+        // this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+        // this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personal.value);
