@@ -95,14 +95,14 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="keyPress($event)"   maxlength="10" formControlName="proposerMobile" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number"    maxlength="10" formControlName="proposerMobile" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.proposerMobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder=" Office Phonenumber"  (keypress)="keyPress($event)"   maxlength="12" formControlName="proposerOfficePhone" autocomplete="off">
+                          <input matInput placeholder=" Office Phonenumber"     maxlength="12" formControlName="proposerOfficePhone" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
