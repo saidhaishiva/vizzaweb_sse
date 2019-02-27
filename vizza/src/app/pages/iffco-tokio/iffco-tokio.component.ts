@@ -16,6 +16,7 @@ import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -80,6 +81,7 @@ export class IffcoTokioComponent implements OnInit {
     public getStepper3: any;
     public getNomineeData: any;
     public prevviousInsuranceStepperDetails: any;
+    public pincodeValid: any;
 
     public nomineeAge: any;
     public personalAge: any;
@@ -96,10 +98,12 @@ export class IffcoTokioComponent implements OnInit {
     public nomineeData: any;
     public insuredDetails: any;
     public insuredData: any;
-
+    public personalFormData: any;
     public insurePersons: any;
     public items: any;
     public pin: any;
+    public nomineeFormData: any;
+    public insuredFormData: any;
     public setPincode: any;
     public title: any;
     public proposerAge: any;
@@ -108,8 +112,9 @@ export class IffcoTokioComponent implements OnInit {
     public smokeList: boolean;
     public alchocolList: boolean;
     public tobacoList: boolean;
+    public sameValue: boolean;
 
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -118,6 +123,7 @@ export class IffcoTokioComponent implements OnInit {
             }
         });
         this.currentStep = stepperindex;
+        this.sameValue = false;
 
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -150,6 +156,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerOfficePhone: '',
             proposerPassport: '',
             proposerOccupation: '',
+            proposerOccupationName: '',
             proposerPan: '',
             proposerAddress: ['', Validators.required],
             proposerAddress2: '',
@@ -162,7 +169,13 @@ export class IffcoTokioComponent implements OnInit {
             proposerPincode: ['', Validators.required],
             proposerNationality: '',
             proposerState: '',
+            proposerStateName: '',
             proposerCity: '',
+            proposerCityName: '',
+            criticalIllness: 'No',
+            roomRentWaiver: 'No',
+            additionalFacts: 'No',
+            pastInsuranceDeclined: 'No',
             sameas: false,
             rolecd: 'PROPOSER',
             type: ''
@@ -174,8 +187,10 @@ export class IffcoTokioComponent implements OnInit {
             nomineeAddress: ['', Validators.required],
             nomineePincode: ['', Validators.required],
             nomineeCountry: 'IND',
-            nomineeState: ['', Validators.required],
-            nomineeCity: ['', Validators.required],
+            nomineeState: '',
+            nomineeStateName: '',
+            nomineeCity: '',
+            nomineeCityName:'',
         });
 
     }
@@ -196,7 +211,20 @@ export class IffcoTokioComponent implements OnInit {
         }
     }
 
-
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
@@ -378,49 +406,38 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     addEvent(event, type) {
-        let dob = '';
         if (event.value != null) {
             let selectedDate = '';
-            this.personalAge = '';
+            this.proposerAge = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                }
-                if (type == 'personal') {
                     this.dobError = '';
-                } else {
-                    this.dobError = '';
-                }
-            } else {
-                if (type == 'personal') {
-                    this.dobError = 'Enter Valid Date';
                 } else {
                     this.dobError = 'Enter Valid Date';
                 }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    this.proposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAge = this.proposerAge;
 
-            }
-            selectedDate = event.value._i;
-            dob = this.datepipe.transform(event.value, 'y-MM-dd');
-            if (selectedDate.length == 10) {
-                if (type == 'personal') {
-                    this.personalAge = this.ageCalculate(dob);
-                    sessionStorage.personalAge = this.personalAge;
                 }
+
+            } else if (typeof event.value._i == 'object') {
+                // dob = this.datepipe.transform(event.value, 'MMM d, y');
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.proposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAgeiffco = this.proposerAge;
+
+                }
+                this.dobError = '';
             }
 
-        } else if (typeof event.value._i == 'object') {
-            dob = this.datepipe.transform(event.value, 'y-MM-dd');
-            if (dob.length == 10) {
-                if (type == 'personal') {
-                    this.personalAge = this.ageCalculate(dob);
-                    sessionStorage.personalAge = this.personalAge;
-                } else if (type == 'nominee') {
-                    this.nomineeAge = this.ageCalculate(dob);
-                    sessionStorage.nomineeAge = this.nomineeAge;
-                }
-            }
-            this.dobError = '';
         }
+
 
     }
 
@@ -507,15 +524,10 @@ export class IffcoTokioComponent implements OnInit {
     smoking(value, type) {
         if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Yes' && type == 'smoke') {
             this.smokeList = true;
-            // this.tobacoList = false;
-            // this.alchocolList = false;
         } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Yes' && type == 'alcohol') {
-            // this.smokeList = false;
             this.tobacoList = true;
-            // this.alchocolList = false;
+
         } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Yes' && type == 'Tobacco') {
-            // this.smokeListokeList = false;
-            // this.tobacoListst = false;
             this.alchocolList = true;
         }
     }
@@ -615,42 +627,6 @@ export class IffcoTokioComponent implements OnInit {
     }
 
 
-
-    add(event) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
-            }
-        }
-    }
-
-    public onCharacter(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-
-    alternateChange(event) {
-        if (event.target.value.length == 10) {
-            if (event.target.value == this.proposer.get('proposerMobile').value) {
-                this.mobileNumber = 'Alternate number should be different from mobile number';
-            } else {
-                this.mobileNumber = '';
-            }
-        } else {
-            this.mobileNumber = '';
-        }
-        sessionStorage.mobileNumber = this.mobileNumber;
-    }
-
     proposerDetails(stepper: MatStepper, value) {
         this.personalData = value;
         sessionStorage.stepper1IffcoDetails = '';
@@ -713,7 +689,39 @@ export class IffcoTokioComponent implements OnInit {
             this.proposal(stepper);
         }
     }
-
+    pincodevalidationiffco(pin) {
+        this.pin = pin;
+        if (pin == '') {
+            this.pincodeValid = true;
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'Pincode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.proposalservice.getHdfcPincodeLists(data).subscribe(
+                (successData) => {
+                    this.pincodeSuccess(successData);
+                },
+                (error) => {
+                    this.pincodeFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.pincodeValid = true;
+        } else {
+            this.pincodeValid = false;
+            this.toastr.error(successData.ErrorObject);
+        }
+        sessionStorage.pincodeValidiffco = this.pincodeValid;
+    }
+    public pincodeFailure(successData) {
+    }
     proposal(stepper) {
 
         const data = {
@@ -737,10 +745,10 @@ export class IffcoTokioComponent implements OnInit {
                 'NomineeState': this.nomineeData.nomineeState,
                 'NomineePincode': this.nomineeData.nomineePincode,
                 'NomineeRelation': this.nomineeData.nomineeRelationship,
-                'CriticalIllness': "N",
-                'RoomRentWaiver': "Y",
-                'AdditionalFacts': "N",
-                'PastInsuranceDeclined': "N"
+                'CriticalIllness': this.proposer.controls['criticalIllness'].value,
+                'RoomRentWaiver': this.proposer.controls['roomRentWaiver'].value,
+                'AdditionalFacts': this.proposer.controls['additionalFacts'].value,
+                'PastInsuranceDeclined':this.proposer.controls['pastInsuranceDeclined'].value
             },
             "ListOfInsured": {
                 "Insured": this.insuredData,
@@ -789,13 +797,21 @@ export class IffcoTokioComponent implements OnInit {
     public proposalSuccess(successData,stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
-            sessionStorage.appollo_health_proposal_id = this.proposalId;
+            sessionStorage.iffco_health_proposal_id = this.proposalId;
+            this.proposer.controls['proposerOccupationName'].patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
+            this.proposer.controls['proposerStateName'].patchValue(this.stateDetails[this.proposer.controls['proposerState'].value]);
+            this.proposer.controls['proposerCityName'].patchValue(this.cityDetails[this.proposer.controls['proposerCity'].value]);
+            this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+            this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+            this.personalFormData = this.proposer.value;
+            this.nomineeFormData = this.getNomineeData;
+            this.insuredFormData = this.insuredData;
+            stepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);
@@ -824,6 +840,7 @@ export class IffcoTokioComponent implements OnInit {
                 proposerOccupation: this.getStepper1.proposerOccupation,
                 proposerPan: this.getStepper1.proposerPan,
                 proposerPassport: this.getStepper1.proposerPassport,
+                proposerOccupationName: this.getStepper1.proposerOccupationName,
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
                 proposerAddress3: this.getStepper1.proposerAddress3,
@@ -831,12 +848,17 @@ export class IffcoTokioComponent implements OnInit {
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerNationality: this.getStepper1.proposerNationality,
                 proposerState: this.getStepper1.proposerState,
+                proposerStateName: this.getStepper1.proposerStateName,
                 proposerCity: this.getStepper1.proposerCity,
+                proposerCityName: this.getStepper1.proposerCityName,
                 proposerFax: this.getStepper1.proposerFax,
                 proposerEmergencyMobile: this.getStepper1.proposerEmergencyMobile,
                 proposerEmergencyName: this.getStepper1.proposerEmergencyName,
                 proposerMaritalStatus: this.getStepper1.proposerMaritalStatus,
-
+                criticalIllness: this.getStepper1.criticalIllness,
+                roomRentWaiver: this.getStepper1.roomRentWaiver,
+                additionalFacts: this.getStepper1.additionalFacts,
+                pastInsuranceDeclined: this.getStepper1.pastInsuranceDeclined,
             });
         }
 
@@ -850,11 +872,10 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getStepper2.items[i].proposerAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.getStepper2.items[i].proposerLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue(this.getStepper2.items[i].proposerRelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue('Self');
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.patchValue(this.getStepper2.items[i].proposerOccupation);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerFax.patchValue(this.getStepper2.items[i].proposerFax);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
                 this.insureArray['controls'].items['controls'][i]['controls'].Smoke.patchValue(this.getStepper2.items[i].Smoke);
@@ -880,7 +901,9 @@ export class IffcoTokioComponent implements OnInit {
                 nomineePincode: this.getNomineeData.nomineePincode,
                 nomineeCountry: this.getNomineeData.nomineeCountry,
                 nomineeCity: this.getNomineeData.nomineeCity,
+                nomineeCityName: this.getNomineeData.nomineeCityName,
                 nomineeState: this.getNomineeData.nomineeState,
+                nomineeStateName: this.getNomineeData.nomineeStateName,
             });
             let getNomineeDob = this.datepipe.transform(this.getNomineeData.nomineeDob, 'y-MM-dd');
             this.nomineeDetails['controls'].nomineeDob.patchValue(getNomineeDob);
@@ -889,31 +912,27 @@ export class IffcoTokioComponent implements OnInit {
     }
     sameProposer(value: any) {
         if (value.checked) {
+            this.sameValue = true;
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAge);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMaritalStatus.patchValue(this.proposer.controls['proposerMaritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('345');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
 
             let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
         } else {
+            this.sameValue = false;
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
     }
 }
