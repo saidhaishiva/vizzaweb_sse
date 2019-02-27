@@ -17,8 +17,8 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
-                            <mat-option value="MR">Mr</mat-option>
-                            <mat-option value="MS">Ms</mat-option>
+                            <mat-option value="Mr.">Mr</mat-option>
+                            <mat-option value="Ms.">Ms</mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -42,8 +42,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="personalDob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)"
-                                 autocomplete="off" maxlength="10" minlength="10"  required>
+                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="personalDob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10"  required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -204,7 +203,8 @@
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off">
+                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off" required>
+                              <mat-error *ngIf="personal.controls.personalCountry.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
@@ -286,7 +286,8 @@
                         </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="residenceCountry" [readonly]="inputReadonly" autocomplete="off">
+                              <input matInput placeholder="Country Name" formControlName="residenceCountry" [readonly]="inputReadonly" autocomplete="off" required>
+                              <mat-error *ngIf="personal.controls.residenceNearestLandMark.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
@@ -299,7 +300,22 @@
                             <h6 class="color-blue ml-3">University Details</h6>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                          <div class="col-md-3">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Course Name" formControlName="personalCourseName"  (keypress)="nameValidate($event)"  autocomplete="off">
+                                </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Tution FeePer Sem" formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
+                                </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="No Of Sems" formControlName="personalNoOfSems" maxlength="2"  (keypress)="numberValidate($event)"  autocomplete="off">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="University Name" formControlName="personalUniversityName"  (keypress)="nameValidate($event)"  autocomplete="off">
                                 </mat-form-field>
@@ -347,7 +363,7 @@
                     <div class="row">
                       <h6 class="color-blue ml-3">Home Burglary Details</h6>
                       <div class="text-right w-50">
-                        <mat-checkbox formControlName="sameas" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                        <mat-checkbox formControlName="sameasBurglary" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                       </div>
                     </div>
                     <div class="row">
@@ -436,7 +452,7 @@
                     <div class="row">
                       <h6 class="color-blue ml-3">Sponsor Details</h6>
                       <div class="text-right w-50">
-                        <mat-checkbox formControlName="sameas" (change)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                        <mat-checkbox formControlName="sameasSponsor" (change)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                       </div>
                     </div>
                     <div class="row">
@@ -694,8 +710,8 @@
               <div formArrayName="items" *ngFor="let item of relianceInsuredTravel.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <!--<mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}-->
-                    <!--</mat-panel-title>-->
+                    <mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
+                    </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
                   <div class="row mt-3">
@@ -705,36 +721,45 @@
                           <div class="col-md-12 mb-3" *ngIf="i == 0">
                             <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                           </div>
-                          <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
+                          <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" required>
-                                <mat-option value="MR">Mr</mat-option>
-                                <mat-option value="MS">Ms</mat-option>
+                              <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [required]="i == 0">
+                                <mat-option value="Mr.">Mr</mat-option>
+                                <mat-option value="Ms.">Ms</mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Title is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+
+                            <div class="col-md-3" *ngIf="i == 1">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 1" [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                                    <mat-error *ngIf="relianceInsuredTravel.invalid">Full  Name is required</mat-error>
+                                </mat-form-field>
+                            </div>
+                          <div class="col-md-3" *ngIf="i >= 2">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Child Full Name" formControlName="childFullname"  (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                              <input matInput placeholder="Child Full Name" formControlName="insurechildFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i >= 2" [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Child  Name is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+
+
+                          <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                              <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
                               <mat-error *ngIf="relianceInsuredTravel.invalid">First Name is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                              <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Last Name is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Gender" formControlName="personalGender" required readonly autocomplete="off">
+                              <input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Gender is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -747,17 +772,17 @@
                             <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                             <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
+                              <mat-select  placeholder="Occupation" formControlName="occupation" [required]="i == 0"  class="w-100">
                                 <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
+                              <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" [required]="i == 0">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Email Id is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -843,7 +868,6 @@
                         <div class="proposal-buttom mt-3 text-right w-100">
                           <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                           <button mat-raised-button color="primaryBlue"  (click)="relianceInsureDetails(stepper, i, relianceInsuredTravel.value)" >Next</button>
-                          <!--<button mat-button matStepperNext>Next</button>-->
                         </div>
                         </div>
                     </div>
@@ -865,11 +889,11 @@
                           </mat-expansion-panel-header>
                           <ng-template matStepLabel>Risk Details</ng-template>
                           <div class="row mt-1">
-                              <div class="col-md-12 box-card pt-3 pb-3" >
+                              <div class="col-md-6 box-card pt-3 pb-3" >
                                 <h6 class="color-blue">List Of Travel persons Details</h6>
                                 <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Is Indian Citizen
+                                         1.Is Indian Citizen
                                       </div>
                                       <div class="col-md-4 text-right">
                                               <mat-slide-toggle formControlName="riskIndian" (change)="riskDetailsChange($event,'india')"></mat-slide-toggle>
@@ -877,7 +901,7 @@
                                   </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Is Over Seas Citizen
+                                    2.Is Over Seas Citizen
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsOverSeasCitizen" (change)="riskDetailsChange($event,'overseas')"></mat-slide-toggle>
@@ -885,7 +909,7 @@
                                 </div>
                                 <div class="row col-md-12" *ngIf="overseas">
                                     <div class="col-md-8">
-                                      Is Residing In India
+                                      3.Is Residing In India
                                     </div>
                                     <div class="col-md-4 text-right">
                                       <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>
@@ -908,7 +932,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Is Insured On Immigrant Visa
+                                    4.Is Insured On Immigrant Visa
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')"></mat-slide-toggle>
@@ -916,7 +940,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Travel Involves Sporting Activities
+                                    5.Travel Involves Sporting Activities
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')"></mat-slide-toggle>
@@ -938,7 +962,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Is Suffering From Pre-Existing Medical Conditions
+                                    6.Is Suffering From Pre-Existing Medical Conditions
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')"></mat-slide-toggle>
@@ -946,7 +970,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Is Pre-Existing Disease
+                                    7.Is Pre-Existing Disease
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
@@ -954,21 +978,21 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    Is Visiting USA Canada
+                                    8.Is Visiting USA Canada
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')"></mat-slide-toggle>
                                   </div>
                                     <div class="row col-md-12" *ngIf="VisitingListTure">
-                                        <div class="col-md-4">
-                                            <mat-form-field color="accent" class="w-100">
-                                                <mat-label>DOB (DD/MM/YYYY)</mat-label>
-                                                <input matInput [matDatepicker]="picker3" placeholder="End date(DD/MM/YYYY)"  formControlName="riskDOB" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'riskDOB')"  (dateChange)="addEvent($event, 'riskDOB')" maxlength="10" minlength="10">
-                                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker3 color="primary"></mat-datepicker>
-                                            </mat-form-field>
-                                            <div class="error" *ngIf="riskDOBDateError != ''">{{riskDOBDateError}}</div>
-                                        </div>
+                                        <!--<div class="col-md-4">-->
+                                            <!--<mat-form-field color="accent" class="w-100">-->
+                                                <!--<mat-label>DOB (DD/MM/YYYY)</mat-label>-->
+                                                <!--<input matInput [matDatepicker]="picker3" placeholder="End date(DD/MM/YYYY)"  formControlName="riskDOB" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'riskDOB')"  (dateChange)="addEvent($event, 'riskDOB')" maxlength="10" minlength="10">-->
+                                                <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+                                                <!--<mat-datepicker #picker3 color="primary"></mat-datepicker>-->
+                                            <!--</mat-form-field>-->
+                                            <!--<div class="error" *ngIf="riskDOBDateError != ''">{{riskDOBDateError}}</div>-->
+                                        <!--</div>-->
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries">
@@ -976,39 +1000,39 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-4">
-                                            <mat-form-field color="accent" class="w-100">
-                                                <mat-label>Journey Start Date (DD/MM/YYYY)</mat-label>
-                                                <input matInput [matDatepicker]="picker4" placeholder="Start date(DD/MM/YYYY)" formControlName="riskstartDate" [min]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sDate')"  (dateChange)="addEvent($event, 'sDate')"  maxlength="10" minlength="10">
-                                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker4></mat-datepicker>
-                                            </mat-form-field>
-                                            <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <mat-form-field color="accent" class="w-100">
-                                                <mat-label>Journey End Date (DD/MM/YYYY)</mat-label>
-                                                <input matInput [matDatepicker]="picker5" placeholder="End date(DD/MM/YYYY)"  formControlName="riskendDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'eDate')"  (dateChange)="addEvent($event, 'eDate')" maxlength="10" minlength="10">
-                                                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker5 color="primary"></mat-datepicker>
-                                            </mat-form-field>
-                                            <p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="days-count">Travel Days : {{riskdaysCount}}</p>
-                                        </div>
+                                        <!--<div class="col-md-4">-->
+                                            <!--<mat-form-field color="accent" class="w-100">-->
+                                                <!--<mat-label>Journey Start Date (DD/MM/YYYY)</mat-label>-->
+                                                <!--<input matInput [matDatepicker]="picker4" placeholder="Start date(DD/MM/YYYY)" formControlName="riskstartDate" [min]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sDate')"  (dateChange)="addEvent($event, 'sDate')"  maxlength="10" minlength="10">-->
+                                                <!--<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>-->
+                                                <!--<mat-datepicker #picker4></mat-datepicker>-->
+                                            <!--</mat-form-field>-->
+                                            <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-4">-->
+                                            <!--<mat-form-field color="accent" class="w-100">-->
+                                                <!--<mat-label>Journey End Date (DD/MM/YYYY)</mat-label>-->
+                                                <!--<input matInput [matDatepicker]="picker5" placeholder="End date(DD/MM/YYYY)"  formControlName="riskendDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'eDate')"  (dateChange)="addEvent($event, 'eDate')" maxlength="10" minlength="10">-->
+                                                <!--<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>-->
+                                                <!--<mat-datepicker #picker5 color="primary"></mat-datepicker>-->
+                                            <!--</mat-form-field>-->
+                                            <!--<p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-4">-->
+                                            <!--<p class="days-count">Travel Days : {{riskdaysCount}}</p>-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Is Visiting Family
+                                          9.Is Visiting Family
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle (change)="riskDetailsChange($event,'IsVisitingFamily')"></mat-slide-toggle>
                                       </div>
                                       <div class="col-md-4" *ngIf="riskCoverageTypeTrue">
                                         <mat-form-field class="w-100">
-                                          <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType" required>
+                                          <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType">
                                             <mat-option  *ngFor="let cover of CoverType"  value="{{cover.cover_code}}">{{cover.cover_type}}</mat-option>
                                           </mat-select>
                                         </mat-form-field>
@@ -1016,7 +1040,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Is Add On Cover Only Student
+                                          10.Is Add On Cover Only Student
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')"></mat-slide-toggle>
@@ -1024,7 +1048,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Is Annual Multi-trip Individual
+                                          11.Is Annual Multi-trip Individual
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
@@ -1037,7 +1061,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Is Travel Pravasi Number of Years
+                                         12.Is Travel Pravasi Number of Years
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>
@@ -1050,10 +1074,15 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          Senior Citizens Add On Bnifits
+                                          13.Senior Citizens Add On Bnifits
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle formControlName="riskSeniorCitizen" (change)="riskDetailsChange($event,'IsSeniorCitizen')"></mat-slide-toggle>
+                                      </div>
+                                      <div class="col-md-4" *ngIf="riskSeniorCitizenTrue">
+                                        <mat-form-field class="w-100">
+                                          <input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">
+                                        </mat-form-field>
                                       </div>
                                       <div class="col-md-4" *ngIf="riskSeniorCitizenTrue">
                                           <mat-form-field class="w-100">
@@ -1063,11 +1092,11 @@
                                   </div>
                               </div>
                               <!--List Of Travel Cover Details-->
-                              <div class="col-md-12 box-card pt-1 pb-3">
+                              <div class="col-md-6 box-card pt-3 pb-3">
                                   <h6 class="color-blue">List Of Travel Cover Details</h6>
                                     <div class="row col-md-12">
                                         <div class="col-md-8">
-                                            Travel Coverage
+                                            1.Travel Coverage
                                         </div>
                                         <div class="col-md-4 text-right">
                                             <mat-slide-toggle (change)="riskDetailsChange($event,'TravelCoverage')"></mat-slide-toggle>
@@ -1087,15 +1116,15 @@
                                     </div>
                                     <div class="row col-md-12">
                                         <div class="col-md-8">
-                                            Is Standard Limited Plan
+                                            2.Is Standard Limited Plan
                                         </div>
                                         <div class="col-md-4 text-right">
-                                            <mat-slide-toggle formControlName="TravelStandardLimited" (change)="riskDetailsChange($event,'TravelStandardLimit')"></mat-slide-toggle>
+                                            <mat-slide-toggle formControlName="TravelStandardLimitedPlan" (change)="riskDetailsChange($event,'TravelStandardLimit')"></mat-slide-toggle>
                                         </div>
                                         <div class="row col-md-12" *ngIf="TravelStandardLimitTrue">
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Standard Limited Plan" formControlName="TravelStandardLimitedPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
+                                                    <input matInput placeholder="Standard Limited Plan" formControlName="TravelStandardLimited"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-6">
@@ -1107,7 +1136,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                         <div class="col-md-8">
-                                            Is Silver Plan
+                                            3.Is Silver Plan
                                         </div>
                                         <div class="col-md-4 text-right">
                                             <mat-slide-toggle formControlName="TravelIsSilverPlan" (change)="riskDetailsChange($event,'TravelSilverPlan')"></mat-slide-toggle>
@@ -1120,7 +1149,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                       <div class="col-md-8">
-                                        Is Gold Plan
+                                        4.Is Gold Plan
                                       </div>
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsGoldPlan" (change)="riskDetailsChange($event,'TravelGoldPlan')"></mat-slide-toggle>
@@ -1133,7 +1162,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                       <div class="col-md-8">
-                                        Is Platinum Plan
+                                        5.Is Platinum Plan
                                       </div>
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsPlatinumPlan" (change)="riskDetailsChange($event,'TravelPlatinumPlan')"></mat-slide-toggle>
@@ -1146,7 +1175,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                       <div class="col-md-8">
-                                        Is Basic Plan
+                                        6.Is Basic Plan
                                       </div>
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsBasicPlan" (change)="riskDetailsChange($event,'TravelBasicPlan')"></mat-slide-toggle>
@@ -1159,7 +1188,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                       <div class="col-md-8">
-                                        Is Elite Plan
+                                        7.Is Elite Plan
                                       </div>
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsElitePlan" (change)="riskDetailsChange($event,'TravelElitePlan')"></mat-slide-toggle>
@@ -1172,7 +1201,7 @@
                                     </div>
                                     <div class="row col-md-12">
                                       <div class="col-md-8">
-                                        Is Plus Plan
+                                        8.Is Plus Plan
                                       </div>
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsPlusPlan" (change)="riskDetailsChange($event,'TravelPlusPlan')"></mat-slide-toggle>
@@ -1189,13 +1218,193 @@
                               </div>
                               <div class="proposal-buttom mt-3 text-right w-100">
                                   <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
+                                  <button mat-raised-button color="primaryBlue" (click)="relianceRiskDetails(stepper,riskDetails.value)">Next</button>
                               </div>
                               <!--</div>-->
                           </div>
                       </mat-expansion-panel>
                   </form>
               </mat-accordion>
+          </mat-step>
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>SUMMARAY</ng-template>
+              <section class="summary-details" *ngIf="summaryData">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.suminsured_amount}}</span></h4>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <ul class="summary-head">
+                              <li><span>Start Date:</span> &nbsp;{{summaryData.trip_start_on }} </li>
+                              <li><span>End Date:</span> &nbsp; {{summaryData.trip_end_on }} </li>
+                              <li></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <table class="table table-bordered">
+                      <thead class="thead-light">
+                      <tr>
+                          <th>Insurer</th>
+                          <th>Plan Name</th>
+                          <th>Premium</th>
+                          <th>Service Tax</th>
+                          <th>Total Premium</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>
+                              <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
+                          </td>
+                          <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
+                          <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
+                          <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
+                          <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
+                      </tr>
+
+                      </tbody>
+                  </table>
+                  <div *ngFor="let item of summaryData.proposer_insurer_details; let i = index;">
+
+                      <mat-expansion-panel   [expanded]="true">
+                          <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                  Proposer Details
+                              </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                          <div class="row box-card">
+                              <div class="col-md-12">
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Name:</strong>{{summaryData.ClientDetails.Salutation}} {{summaryData.ClientDetails.ForeName}} {{summaryData.ClientDetails.MidName}} {{summaryData.ClientDetails.LastName}}</li>
+                                          <li class="list-group-item"><strong>Gender:</strong> {{summaryData.ClientDetails.Gender}}</li>
+                                          <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.ClientDetails.DOB}}</li>
+                                          <li class="list-group-item"><strong>Email:</strong> {{summaryData.emailId}}</li>
+                                          <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.mobileNumber}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.telephoneNo != '' && summaryData.telephoneNo != 0"><strong>Phone:</strong> {{summaryData.telephoneNo}}</li>
+                                          <li class="list-group-item"><strong>Passport Number:</strong> {{summaryData.passportNumber}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.faxNo != '' && summaryData.faxNo != 0"><strong>Fax No:</strong> {{summaryData.faxNo}}</li>
+                                          <li class="list-group-item"><strong>Purpose of Visit:</strong> {{summaryData.purposeofVisit}}</li>
+                                          <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.ClientDetails.OccupationID}}</li>
+                                          <li class="list-group-item"><strong>Travel Type:</strong> Individual</li>
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Physician Name:</strong> {{summaryData.nameofDoctor}}</li>
+                                          <li class="list-group-item"><strong>Physician Address:</strong> {{summaryData.doctorAddress}}</li>
+                                          <li class="list-group-item"><strong>Medical Report Attachment:</strong> {{summaryData.medicalReportAttachment}}</li>
+                                          <li class="list-group-item"><strong>Medical Report Date:</strong> {{summaryData.medicalReportDate}}</li>
+                                          <li class="list-group-item"><strong>Handicapped:</strong> No</li>
+                                          <li class="list-group-item"><strong>Handicapped:</strong> Yes</li>
+                                          <li class="list-group-item" *ngIf="summaryData.engagedSports== 'N' && summaryData.engagedSports != ''"><strong>Engaged Sports:</strong> No</li>
+                                          <li class="list-group-item" *ngIf="summaryData.engagedSports== 'Y' && summaryData.engagedSports != ''"><strong>Engaged Sports:</strong> Yes</li>
+                                          <li class="list-group-item" *ngIf="summaryData.preExistingDisease != '' && summaryData.preExistingDisease != 0"><strong>Pre Existing Disease:</strong> {{summaryData.preExistingDisease}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.orgAttachment != '' && summaryData.orgAttachment != 0"><strong>Org Attachment:</strong> {{summaryData.orgAttachment}}</li>
+                                          <!--<li class="list-group-item"><strong>Pre-Existing Disease:</strong> {{summaryData.illness}}</li>-->
+                                      </ul>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <h6 class="color-blue">PROPOSER / INSURER COMMUNICATION DETAILS</h6>
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.address1}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.address2 != ''"><strong>Address 2:</strong> {{summaryData.address2}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.address3 != ''"><strong>Address 3:</strong> {{summaryData.address3}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.city != ''"><strong>City:</strong> {{summaryData.city}}</li>
+                                          <li class="list-group-item" *ngIf="summaryData.state != ''"><strong>Sate:</strong> {{summaryData.state}}</li>
+                                          <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.pincode}}</li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </mat-expansion-panel>
+
+                      <mat-expansion-panel   [expanded]="true">
+                          <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                  {{insureReligarePerson.type}} Details
+                              </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                          <div class="row box-card">
+                              <div class="col-md-12">
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}} {{item.first_name}} {{item.last_name}}</li>
+                                          <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
+                                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
+                                          <li class="list-group-item"><strong>Email:</strong> {{item.personal_email}}</li>
+                                          <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile_no}}</li>
+                                          <li class="list-group-item" *ngIf="item.resedential_contact_no != '' && item.resedential_contact_no != null"><strong>Phone:</strong> {{item.resedential_contact_no}}</li>
+                                          <li class="list-group-item" *ngIf="item.official_email != '' && item.official_email != null"><strong>Offical Email:</strong> {{item.official_email}}</li>
+                                          <li class="list-group-item" *ngIf="item.aadhar_no != '' && item.aadhar_no != null"><strong>Aadhar No:</strong> {{item.aadhar_no}}</li>
+                                          <li class="list-group-item" *ngIf="item.pan_no != '' && item.pan_no != null"><strong>Pan No:</strong> {{item.pan_no}}</li>
+                                          <li class="list-group-item"><strong>PassPort:</strong> {{item.gst_no}}</li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong> Address1:</strong> {{item.res_address_line1}}</li>
+                                          <li class="list-group-item"*ngIf="item.res_address_line2 != '' && item.res_address_line2 != null"><strong>Address2 :</strong> {{item.res_address_line2}}</li>
+                                          <li class="list-group-item"><strong>Area:</strong> {{item.res_area}}</li>
+                                          <li class="list-group-item"><strong>City:</strong> {{item.res_city}}</li>
+                                          <li class="list-group-item"><strong>State:</strong> {{item.res_state}}</li>
+                                          <li class="list-group-item"><strong>Pincode:</strong> {{item.res_pincode}}</li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </mat-expansion-panel>
+
+                  </div>
+                  <br>
+                  <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+              </section>
+              <hr>
+              <!--<div class="row">-->
+              <!--<div class="col-md-12 text-center">-->
+              <!--<button mat-button matStepperPrevious >Back</button>-->
+              <!--<button mat-raised-button color="primaryBlue" class="ml-2" [disabled]="!acceptSummaryDeclaration" (click)="paynow();">Pay Now</button>-->
+              <!--</div>-->
+              <!--</div>-->
+              <div class="row"  *ngIf="summaryData">
+                  <div class="col-md-12 text-center">
+                      <form action={{summaryData.action}}  method='post' #form>
+
+                          <div>
+                              <input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>
+                              <input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="proposal-buttom mb-3 text-center w-100">
+                                  <button mat-button matStepperPrevious>Back</button>
+                                  <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
+                              </div>
+                          </div>
+                      </form>
+
+                  </div>
+              </div>
+
           </mat-step>
       </mat-horizontal-stepper>
     </div>
