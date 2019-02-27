@@ -47,6 +47,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public settings: Settings;
   public minDate: any;
   public webhost: any;
+  public reliance_Travel_proposal_id: any;
 
   public getTravelPremiumList: any;
   public getallTravelPremiumList: any;
@@ -86,16 +87,13 @@ export class TravelRelianceProposalComponent implements OnInit {
   public today: any;
   public maxDate: any;
   public sufferingError: any;
-  public startDateError: any;
-  public endDateError: any;
-  public riskDOBDateError: any;
-  public riskstartDate: any;
   public riskdaysBookingCount: any;
   public riskendDate: any;
   public riskdaysCount: any;
 
   public insurerData: any;
   public totalInsureDetails: any;
+  public totalInsureSpouseDetails: any;
   public totalInsureChildDetails: any;
 
   public PersonalOccupation: any;
@@ -126,7 +124,13 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   public getStepper1: any;
   public getStepper2: any;
+  public getStepper3: any;
+  public lastStepper: any;
   public personalData :any;
+  public RiskData :any;
+
+  public proposalId :any;
+  public summaryData :any;
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
@@ -139,6 +143,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
+    this.reliance_Travel_proposal_id ='0';
     this.personal = this.fb.group({
       personalTitle: ['', Validators.required],
       personalFirstname: ['', Validators.required],
@@ -181,6 +186,9 @@ export class TravelRelianceProposalComponent implements OnInit {
       residenceNearestLandMark: '',
       residenceCountry: '',
 
+      personalCourseName:'',
+      personalTutionFeePerSem:'',
+      personalNoOfSems:'',
       personalUniversityName: '',
       personalUniversityEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
       personalUniversityMobileNo: '',
@@ -272,55 +280,77 @@ export class TravelRelianceProposalComponent implements OnInit {
       startDate: '',
       endDate: '',
       sameas: false,
+      sameasBurglary: false,
+      sameasSponsor: false,
       rolecd: 'PROPOSER',
 
     });
 
     this.riskDetails = this.fb.group({
-      riskIndian: '',
-      riskIsOverSeasCitizen: '',
-      riskIsResidingInIndia:'',
+      riskIndian: false,
+      riskIsOverSeasCitizen: false,
+      riskIsResidingInIndia: false,
       riskPermanentResidenceCountry: '',
       riskOCINumber: '',
       riskPassportIssuingCountry: '',
-      riskIsInsuredOnImmigrantVisa: '',
-      riskIsTravelInvolvesSportingActivities: '',
+      riskIsInsuredOnImmigrantVisa: false,
+      riskIsTravelInvolvesSportingActivities: false,
       riskSportsActivities: '',
-      riskIsSufferingFromPEMC: '',
-      riskPreExistDisease: '',
-      riskIsVisitingUSACanada: '',
-      riskDOB: '',
+      riskIsSufferingFromPEMC: false,
+      riskPreExistDisease: false,
+      riskIsVisitingUSACanada: false,
       riskVisitingCountries: '',
-      riskstartDate: '',
-      riskendDate: '',
       riskCoverageType: '',
-      riskIsVisitingStudent: '',
+      riskIsVisitingStudent: false,
       riskMaxDaysPerTrip: '',
       riskNoOfYears: '',
-      riskSeniorCitizen: '',
+      riskSeniorCitizen: false,
       riskSeniorCitizenPlanID: '',
+      riskSeniorCitizenPlanName: 'Standard',
       TravelStandardLimited: '',
 
       TravelCoverageName:'',
-      TravelCoverageDisplayName:'',
-      TravelStandardLimitedPlan:'',
+      TravelCoverageDisplayName: '',
+      TravelStandardLimitedPlan: false,
       TravelStandardDeductiblePlan:'',
-      TravelIsSilverPlan:'',
-      TravelSilverPlan:'',
-      TravelIsGoldPlan:'',
-      TravelGoldPlan:'',
-      TravelIsPlatinumPlan:'',
-      TravelPlatinumPlan:'',
-      TravelIsBasicPlan:'',
-      TravelBasicPlan:'',
-      TravelIsElitePlan:'',
-      TravelElitePlan:'',
-      TravelIsPlusPlan:'',
-      TravelPlusPlan:'',
+      TravelIsSilverPlan: false,
+      TravelSilverPlan: '',
+      TravelIsGoldPlan: false,
+      TravelGoldPlan: '',
+      TravelIsPlatinumPlan: false,
+      TravelPlatinumPlan: '',
+      TravelIsBasicPlan: false,
+      TravelBasicPlan: '',
+      TravelIsElitePlan: false,
+      TravelElitePlan: '',
+      TravelIsPlusPlan: false,
+      TravelPlusPlan: '',
       // TravelIsAllPlan:'',
 
     });
+    this.totalInsureSpouseDetails = {
+      'FirstName': '',
+      'DOB': '',
+      'PassportNo': '',
+      'RelationshipwithInsuredID': '',
+      'NomineeName': '',
+      'NomineeRelationshipID': '',
+      'IsUnderMedication': 'false',
+      'SufferingSince': '',
+      'PreExistingMC': ''
+    };
 
+    this.totalInsureChildDetails = [{
+      'ChildName': '',
+      'ChildRelationID': '',
+      'DOB': '',
+      'PassportNo': '',
+      'NomineeName': '',
+      'NomineeRelationshipID': '',
+      'IsUnderMedication': 'false',
+      'PreExistingMC': '',
+      'SufferingSince': ''
+    }];
   }
 
   ngOnInit() {
@@ -336,16 +366,28 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
     let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
     this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
+    console.log(this.getallTravelPremiumList.start_date, 'this.getallTravelPremiumList');
+    console.log(this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'), 'this.getallTravelPremiumList');
     console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
     this.insuredTravelPerson = this.getTravelPremiumList.family_details;
+    console.log(this.insuredTravelPerson,'insuredTravelPersoninsuredTravelPersoninsuredTravelPerson');
     this.relianceInsuredTravel = this.fb.group({
       items: this.fb.array([])
     });
     for (let i = 0; i < this.insuredTravelPerson.length; i++) {
       this.items = this.relianceInsuredTravel.get('items') as FormArray;
+      console.log(this.items,'itemsssssssss');
       this.items.push(this.initItemRows());
+
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
+      // console.log(this.relianceInsuredTravel,'this.relianceInsuredTravelthis.relianceInsuredTravel');
+      console.log(this.insuredTravelPerson[i].type, 'yyyy');
+      console.log(this.relianceInsuredTravel, 'pppp');
     }
+
+    console.log(this.relianceInsuredTravel, 'Mainnnnnnn');
+    console.log(this.items, 'items');
+
     this.sessionData();
   }
 
@@ -355,7 +397,8 @@ export class TravelRelianceProposalComponent implements OnInit {
           rolecd: 'PRIMARY',
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
-          childFullname: ['', Validators.required],
+          // insurespouseFullname: ['', Validators.required],
+          // insurechildFullname: ['', Validators.required],
           personalLastname: ['', Validators.required],
           personalMidname: '',
           personalGender: ['', Validators.compose([Validators.required])],
@@ -363,10 +406,11 @@ export class TravelRelianceProposalComponent implements OnInit {
           occupation: ['', Validators.required],
           personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
           relationship: ['', Validators.required],
-          passport: ['', Validators.compose([Validators.minLength(10)])],
+          passport: ['', Validators.compose([Validators.minLength(8)])],
           personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
           personalPhone1: '',
           VisitingCountries: '',
+          type:'',
 
           IsUnderMedication: 'false',
           PreExistingIllness: '',
@@ -404,15 +448,15 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper2Details = JSON.stringify(value);
     if (this.relianceInsuredTravel.valid) {
       this.insurerData = value.items;
-      this.totalInsureDetails = [];
+      this.totalInsureDetails = {};
       for (let i = 0; i < this.insuredTravelPerson.length; i++) {
-        this.totalInsureDetails.push({
+        this.totalInsureDetails = {
           'RelationshipWithProposerID': this.insurerData[i].relationship,
           'PassportNumber': this.insurerData[i].passport,
           'NameofNominee': this.insurerData[i].nomineeName,
           'RelationshipWithNomineeID': this.insurerData[i].nomineeRelationship,
           'VisitingCountries': this.insurerData[i].VisitingCountries,
-          'IsUnderMedication': this.insurerData[i].IsUnderMedication,
+          'IsUnderMedication': this.insurerData[i].IsUnderMedication.toString(),
           'PreExistingIllness': this.insurerData[i].PreExistingIllness,
           'SufferingSince': this.insurerData[i].SufferingSince,
           'Salutation': this.insurerData[i].personalTitle,
@@ -420,30 +464,358 @@ export class TravelRelianceProposalComponent implements OnInit {
           'LastName': this.insurerData[i].personalLastname,
           'MidName': this.insurerData[i].personalMidname,
           'Gender': this.insurerData[i].personalGender,
-          'DateofBirth': this.datepipe.transform(this.insurerData[i].InsDOB, 'y-MM-dd'),
+          'DateofBirth': this.datepipe.transform(this.insurerData[i].InsDOB, 'dd/MM/y'),
           'OccupationID': this.insurerData[i].occupation,
           'MobileNo': this.insurerData[i].personalMobile,
           'PhoneNo': this.insurerData[i].personalPhone1,
           'Email': this.insurerData[i].personalEmail
-        })
+        };
       }
+      if(this.insuredTravelPerson.type == 'Spouse'){
+      this.totalInsureSpouseDetails = {};
+      for(let k = 0; k < this.insuredTravelPerson.length; k++){
+          this.totalInsureSpouseDetails = {
+            'FirstName': this.insurerData[k].insurespouseFullname,
+            'RelationshipwithInsuredID': this.insurerData[k].nomineeRelationship,
+            'DOB': this.datepipe.transform(this.insurerData[k].InsDOB, 'dd/MM/y'),
+            'PassportNo': this.insurerData[k].passport,
+            'NomineeName': this.insurerData[k].nomineeName,
+            'NomineeRelationshipID': this.insurerData[k].nomineeRelationship,
+            'IsUnderMedication': this.insurerData[k].IsUnderMedication.toString(),
+            'PreExistingMC': this.insurerData[k].PreExistingIllness,
+            'SufferingSince': this.insurerData[k].SufferingSince
+          }
+        }
+      }
+      if(this.insuredTravelPerson.type == 'Child1' || this.insuredTravelPerson.type == 'Child2'){
       this.totalInsureChildDetails = [];
       for(let j = 0; j < this.insuredTravelPerson.length; j++){
-        if(this.insuredTravelPerson.type != 'self' && this.insuredTravelPerson.type != 'spouse'){
         this.totalInsureChildDetails.push({
-          'childFullname': this.insurerData[j].childFullname,
+          'ChildName': this.insurerData[j].insurechildFullname,
           'ChildRelationID': this.insurerData[j].nomineeRelationship,
-          'DOB': this.datepipe.transform(this.insurerData[j].InsDOB, 'y-MM-dd'),
+          'DOB': this.datepipe.transform(this.insurerData[j].InsDOB, 'dd/MM/y'),
           'PassportNo': this.insurerData[j].passport,
           'NomineeName': this.insurerData[j].nomineeName,
           'NomineeRelationshipID': this.insurerData[j].nomineeRelationship,
-          'IsUnderMedication': this.insurerData[j].IsUnderMedication,
+          'IsUnderMedication': this.insurerData[j].IsUnderMedication.toString(),
           'PreExistingMC': this.insurerData[j].PreExistingIllness,
           'SufferingSince': this.insurerData[j].SufferingSince
         })
         }
       }
+      //age validation
+      let ageValidate = [];
+      for (let i = 0; i< this.insurerData.length; i++){
+        if ( this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+          ageValidate.push(1);
+        } else{
+          ageValidate.push(0);
+        }
+      }
+      if(!ageValidate.includes(1)){
+          stepper.next();
+        } else {
+          this.toastr.error('Sorry, you are not allowed to purchase policy ');
+
+        }
     }
+  }
+
+
+  //reliance Risk Details
+  relianceRiskDetails(stepper: MatStepper, value) {
+    this.RiskData = value;
+    sessionStorage.stepper3Details = '';
+    sessionStorage.stepper3Details = JSON.stringify(value);
+    if (this.riskDetails.valid) {
+      alert('haooo');
+      this.lastStepper = stepper;
+      this.proposal();
+    }
+  }
+
+  //Create Proposal
+
+  proposal() {
+    console.log(sessionStorage.reliance_Travel_proposal_id,'sessionStorage.reliance_Travel_proposal_id');
+    alert('proposal');
+    console.log(this.personalData,'this.personalData');
+    console.log(this.RiskData,'this.RiskData');
+    console.log(this.totalInsureChildDetails,'this.totalInsureChildDetailsthis.totalInsureChildDetails');
+    console.log(this.totalInsureSpouseDetails,'this.totalInsureSpouseDetailsthis.totalInsureSpouseDetails');
+    console.log(this.insurerData,'this.insurerData[1].personalFirstnamethis.insurerData[1].personalFirstname');
+    const data = {
+      'enquiry_id': this.getTravelPremiumList.enquiry_id,
+      "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      "proposal_id": sessionStorage.reliance_Travel_proposal_id ? sessionStorage.reliance_Travel_proposal_id : this.reliance_Travel_proposal_id,
+      "UserID": '100002',
+        "ClientDetails": {
+          'ClientType': '0',
+          'Salutation': this.personalData.personalTitle,
+          'ForeName': this.personalData.personalFirstname,
+          'LastName': this.personalData.personalLastname,
+          'MidName': this.personalData.personalMidname,
+          'DOB': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y'),
+          'Gender': this.personalData.personalGender,
+          'OccupationID': this.personalData.occupation,
+          'MaritalStatus': this.personalData.maritalStatus,
+          'Nationality': this.personalData.nationality,
+          'RegisteredUnderGST': this.personalData.personalGst,
+          'RelatedParty': this.personalData.relatedParty,
+          'GSTIN': this.personalData.gstin,
+          'GroupCorpID': this.personalData.groupCorpID,
+          'ClientAddress': {
+        'CommunicationAddress': {
+          'Address1': this.personalData.personalAddress,
+              'Address2': this.personalData.personalAddress2,
+              'Address3': this.personalData.personalAddress3,
+              'CityID': this.personalData.personalCityIdP,
+              'DistrictID': this.personalData.personalDistrictIdP,
+              'StateID': this.personalData.personalStateIdP,
+              'AreaID': this.personalData.personalArea,
+              'NearestLandmark': this.personalData.personalNearestLandMark,
+              'Country': this.personalData.personalCountry,
+              'Pincode': this.personalData.personalPincode,
+              'MobileNo': this.personalData.personalMobile,
+              'PhoneNo': this.personalData.personalPhone,
+              'Email': this.personalData.personalEmail,
+              'PanNo': this.personalData.personalPan,
+              'Aadhaar': this.personalData.personalAadhar
+        },
+        'PermanentAddress': {
+          'IsPermanentSameasCommAddr': this.personalData.sameas.toString(),
+              'Address': {
+            'Address1': this.personalData.residenceAddress,
+                'Address2': this.personalData.residenceAddress2,
+                'Address3': this.personalData.residenceAddress3,
+                'CityID': this.personalData.personalCityIdR,
+                'DistrictID': this.personalData.residenceDistrictIdR,
+                'StateID': this.personalData.personalStateIdR,
+                'AreaID': this.personalData.residenceArea,
+                'NearestLandmark': this.personalData.residenceNearestLandMark,
+                'Country': this.personalData.residenceCountry,
+                'Pincode': this.personalData.residencePincode
+          }
+        }
+      }
+    },
+      'InsuredDetail': {
+      'RelationshipWithProposerID': this.insurerData[0].relationship,
+          'PassportNumber': this.insurerData[0].passport,
+          'NameofNominee': this.insurerData[0].nomineeName,
+          'RelationshipWithNomineeID': this.insurerData[0].nomineeRelationship,
+          'VisitingCountries': this.insurerData[0].VisitingCountries,
+          'IsUnderMedication': this.insurerData[0].IsUnderMedication.toString(),
+          'PreExistingIllness': this.insurerData[0].PreExistingIllness,
+          'SufferingSince': this.insurerData[0].SufferingSince,
+          'Salutation': this.insurerData[0].personalTitle,
+          'ForeName': this.insurerData[0].personalFirstname,
+          'LastName': this.insurerData[0].personalLastname,
+          'MidName': this.insurerData[0].personalMidname,
+          'Gender': this.insurerData[0].personalGender,
+          'DateofBirth': this.datepipe.transform(this.insurerData[0].InsDOB, 'dd/MM/y'),
+          'OccupationID': this.insurerData[0].occupation,
+          'MobileNo': this.insurerData[0].personalMobile,
+          'PhoneNo': this.insurerData[0].personalPhone1,
+          'Email': this.insurerData[0].personalEmail
+    },
+      'SpouseDetails': this.totalInsureSpouseDetails,
+    //   'SpouseDetails': {
+    //   'FirstName': this.insurerData[1].personalFirstname,
+    //       'DOB': this.datepipe.transform(this.insurerData[1].InsDOB, 'dd/MM/y'),
+    //       'PassportNo': this.insurerData[1].passport,
+    //       'RelationshipwithInsuredID': this.insurerData[1].relationship,
+    //       'NomineeName': this.insurerData[1].nomineeName,
+    //       'NomineeRelationshipID': this.insurerData[1].nomineeRelationship,
+    //       'IsUnderMedication': this.insurerData[1].IsUnderMedication,
+    //       'SufferingSince': this.insurerData[1].SufferingSince,
+    //       'PreExistingMC': this.insurerData[1].PreExistingIllness
+    // },
+      'ChildDetailList': {
+      'ChildDetails': this.totalInsureChildDetails
+    },
+      'UniversityDetails': {
+      'UniversityName': this.personalData.personalUniversityName,
+        'UniversityCountryId': this.personalData.personalUniversityCountry,
+        'UniversityStateName': this.personalData.personalUniversityState,
+        'CityName': this.personalData.personalUniversityCity,
+        'PhoneNumber': this.personalData.personalUniversityPhoneNo,
+        'MobileNumber': this.personalData.personalUniversityMobileNo,
+        'EmailId': this.personalData.personalUniversityEmail,
+        'Fax': this.personalData.personalUniversityFax
+    },
+      'CourseDetails': {
+      'CourseDuration': this.personalData.personalCourseName == null ? '' : this.personalData.personalCourseName,
+          'TutionFeePerSem': this.personalData.personalTutionFeePerSem == null ? '' : this.personalData.personalTutionFeePerSem,
+          'NoOfSems': this.personalData.personalNoOfSems == null ? '' : this.personalData.personalNoOfSems
+    },
+      'HomeBurglaryAddress': {
+      'IsSameAsCommAddr': this.personalData.sameasBurglary.toString(),
+          'Address': {
+        'Address1': this.personalData.personalBurglaryAddress,
+            'Address2': this.personalData.personalBurglaryAddress2,
+            'Address3': this.personalData.personalBurglaryAddress3,
+            'CityID': this.personalData.personalCityIdB,
+            'DistrictID': this.personalData.residenceDistrictIdB,
+            'StateID': this.personalData.personalStateIdB,
+            'AreaID': this.personalData.personalBurglaryArea,
+            'NearestLandmark': this.personalData.personalBurglaryNearestLandMark,
+            'Country': this.personalData.personalBurglaryCountry,
+            'Pincode': this.personalData.personalBurglaryPincode,
+            'MobileNo': this.personalData.personalBurglaryMobileNo,
+            'PhoneNo': this.personalData.personalBurglaryPhoneNo,
+            'Email': this.personalData.personalBurglaryEmail,
+            'Fax': this.personalData.personalBurglaryFax
+      }
+    },
+      'SponsorDetails': {
+      'SponsorName': this.personalData.personalSponsorFullname,
+          'IsSponserAddressSameasCommAddress': this.personalData.sameasSponsor.toString(),
+          'SponserAddress': {
+        'Address1': this.personalData.personalSponsorAddress,
+            'Pincode': this.personalData.personalSponsorPincode,
+            'MobileNo': this.personalData.personalSponsorMobileNo,
+            'PhoneNo': this.personalData.personalSponsorPhoneNo,
+            'Email': this.personalData.personalSponsorEmail,
+            'CityName': this.personalData.personalSponsorCity,
+            'StateName': this.personalData.personalSponsorState,
+            'CountryID': this.personalData.personalSponsorCountry
+      }
+    },
+      'DoctorDetails': {
+      'IsDoctorDetails': this.personalData.IsDoctorDetails.toString(),
+          'Name': this.personalData.personalDoctorFullname,
+          'Address': {
+        'Address1': this.personalData.personalDoctorAddress,
+            'Address2': this.personalData.personalDoctorAddress2,
+            'Address3': this.personalData.personalDoctorAddress3,
+            'CityID': this.personalData.personalCityIdD,
+            'DistrictID':this.personalData.residenceDistrictIdD,
+            'StateID': this.personalData.personalStateIdD,
+            'AreaID': this.personalData.personalDoctorArea,
+            'NearestLandmark':this.personalData.personalDoctorNearestLandMark,
+            'Country': this.personalData.personalDoctorCountry,
+            'Pincode': this.personalData.personalDoctorPincode,
+            'MobileNo': this.personalData.personalDoctorMobileNo,
+            'PhoneNo': this.personalData.personalDoctorPhoneNo,
+            'Email': this.personalData.personalDoctorEmail,
+            'Fax': this.personalData.personalDoctorFax
+      }
+    },
+      'CompanyDetails': {
+      'CompanyName': this.personalData.personalCompanyFullname,
+          'Address': {
+        'Address1': this.personalData.personalCompanyAddress,
+            'Address2': this.personalData.personalCompanyAddress2,
+            'Address3': this.personalData.personalCompanyAddress3,
+            'CityID': this.personalData.personalCityIdC,
+            'DistrictID': this.personalData.residenceDistrictIdC,
+            'StateID': this.personalData.personalStateIdC,
+            'AreaID': this.personalData.personalCompanyArea,
+            'NearestLandmark': this.personalData.personalCompanyNearestLandMark,
+            'Country': this.personalData.personalCompanyCountry,
+            'Pincode': this.personalData.personalCompanyPincode,
+            'MobileNo': this.personalData.personalCompanyMobileNo,
+            'PhoneNo': this.personalData.personalCompanyPhoneNo,
+            'Email': this.personalData.personalCompanyEmail,
+            'Fax': this.personalData.personalCompanyFax
+      }
+    },
+      'Policy': {
+      'BusinessType': '',
+          'AgentCode': '',
+          'AgentName': '',
+          'Branch_Name': '',
+          'Branch_Code': '',
+          'ProductCode': '',
+          'OtherSystemName': ''
+    },
+      'RiskDetails': {
+      'IsIndianCitizen': this.RiskData.riskIndian.toString(),
+          'IsOverSeasCitizen': this.RiskData.riskIsOverSeasCitizen.toString(),
+          'IsOCI': 'false',
+          'IsNONOCI': 'false',
+          'IsResidingInIndia': this.RiskData.riskIsResidingInIndia.toString(),
+          'PermanentResidenceCountry': this.RiskData.riskPermanentResidenceCountry,
+          'OCINumber': this.RiskData.riskOCINumber,
+          'PassportIssuingCountry': this.RiskData.riskPassportIssuingCountry,
+          'IsInsuredOnImmigrantVisa': this.RiskData.riskIsInsuredOnImmigrantVisa.toString(),
+          'IsTravelInvolvesSportingActivities': this.RiskData.riskIsTravelInvolvesSportingActivities.toString(),
+          'SportsActivitiesID': this.RiskData.riskSportsActivities,
+          'IsSufferingFromPEMC': this.RiskData.riskIsSufferingFromPEMC.toString(),
+          'PreExistDiseaseID': this.RiskData.riskPreExistDisease.toString(),
+          'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada.toString(),
+          'VisitingCountriesID': this.RiskData.riskVisitingCountries,
+          'JourneyStartDate': this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'),
+          'JourneyEndDate': this.datepipe.transform(this.getallTravelPremiumList.end_date, 'dd/MM/y'),
+          'TravelDays': this.getallTravelPremiumList.day_count.toString(),
+          'DateOfBirth': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y'),
+          'CoverageTypeID': this.RiskData.riskCoverageType,
+          'IsAddOnCover': this.RiskData.riskIsVisitingStudent.toString(),
+          'MaxDaysPerTrip': this.RiskData.riskMaxDaysPerTrip,
+          'NoOfYears': this.RiskData.riskNoOfYears,
+          'SeniorCitizenPlanID': this.RiskData.riskSeniorCitizenPlanID,
+          'PlanName': this.RiskData.riskSeniorCitizenPlanName,
+          'AddOnBnifitsOpted': this.RiskData.riskSeniorCitizen.toString()
+    },
+      'LstTravelCoverDetails': {
+      'LstTravelCovers': {
+        'CoverageName': this.RiskData.TravelCoverageName,
+            'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
+            'StandardLimit': this.RiskData.TravelStandardLimited,
+            'SilverLimit': this.RiskData.TravelSilverPlan,
+            'GoldLimit': this.RiskData.TravelGoldPlan,
+            'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
+            'BasicLimit': this.RiskData.TravelBasicPlan,
+            'EliteLimit': this.RiskData.TravelElitePlan,
+            'PlusLimit': this.RiskData.TravelPlusPlan,
+            'StandardDeductible': '',
+            'SilverDeductible': '',
+            'GoldDeductible': '',
+            'PlatinumDeductible': '',
+            'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
+            'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
+            'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
+            'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
+            'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
+            'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
+            'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
+            'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
+            'IsChecked': 'false'
+      }
+    }
+    }
+    this.settings.loadingSpinner = true;
+    this.travelservice.createReliancerelainceTravelProposal(data).subscribe(
+        (successData) => {
+          this.proposalSuccess(successData);
+        },
+        (error) => {
+          this.proposalFailure(error);
+        }
+    );
+  }
+
+  public proposalSuccess(successData){
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+
+      console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
+      this.proposalId = this.summaryData.proposal_id;
+      sessionStorage.reliance_Travel_proposal_id = this.proposalId;
+      //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
+      this.lastStepper.next();
+
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+  public proposalFailure(error){
+
   }
 
   topScroll() {
@@ -451,7 +823,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   changeGender() {
-    if (this.personal.controls['personalTitle'].value == 'MR') {
+    if (this.personal.controls['personalTitle'].value == 'Mr.') {
       this.personal.controls['personalGender'].patchValue('Male');
     } else {
       this.personal.controls['personalGender'].patchValue('Female');
@@ -459,7 +831,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   insureChangeGender(index) {
-    if (this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].personalTitle.value == 'MR') {
+    if (this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].personalTitle.value == 'Mr.') {
       this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].personalGender.patchValue('Male');
     } else {
       this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].personalGender.patchValue('Female');
@@ -497,12 +869,6 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.sufferingError = '';
           } else if (type == 'proposer') {
             this.dobError = '';
-          }else if(type == 'riskDOB'){
-            this.riskDOBDateError = '';
-          }else if(type == 'sDate'){
-            this.startDateError = '';
-          }else if(type == 'eDate'){
-            this.endDateError = '';
           } else {
             this.dobError = '';
           }
@@ -511,12 +877,6 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.sufferingError = 'Enter Valid Date';
           } else if (type == 'proposer') {
             this.dobError = 'Enter Valid Date';
-          }else if(type == 'riskDOB'){
-             this.riskDOBDateError = 'Enter Valid Date';
-           }else if(type == 'sDate'){
-            this.startDateError = 'Enter Valid Date';
-          }else if(type == 'eDate'){
-            this.endDateError = 'Enter Valid Date';
           }else {
             this.dobError = 'Enter Valid Date';
           }
@@ -542,43 +902,9 @@ export class TravelRelianceProposalComponent implements OnInit {
             sessionStorage.personalAge = this.personalAge;
           }
         }
-        if (type == 'sDate') {
-          this.startDateError = '';
-        } else if (type == 'eDate') {
-          this.endDateError = '';
-        }
-        console.log(event.value, 'event.value');
-        if(type == 'sDate'){
-          this.maxDate = event.value;
-        }
         this.dobError = '';
         this.sufferingError = '';
-        this.startDateError = '';
-        this.endDateError = '';
-        this.riskDOBDateError = '';
       }
-    }
-    if (type == 'sDate') {
-      sessionStorage.riskstartDate = this.riskstartDate;
-      console.log(this.riskstartDate, 'startDate1111');
-      let fDate = this.datepipe.transform(new Date(), 'MM/dd/yyyy');
-      let tDate = this.datepipe.transform(this.riskstartDate, 'MM/dd/yyyy');
-      let diff = Date.parse(tDate) - Date.parse(fDate);
-      this.riskdaysBookingCount =  Math.floor(diff / 86400000);
-      console.log(this.riskdaysBookingCount, 'daysCount111');
-      sessionStorage.riskdaysBookingCount = this.riskdaysBookingCount;
-      // if (this.daysBookingCount > 60) {
-      //     this.toast.error('Travel booking shoud be less than 60 days ')
-      // }
-
-    } else if (type == 'eDate') {
-      sessionStorage.riskendDate = this.riskendDate;
-      let days = this.dyasCalculation();
-      this.riskdaysCount = days;
-      sessionStorage.riskdaysCount = days;
-
-      console.log(days, 'daysdays');
-
     }
   }
 
@@ -683,13 +1009,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     return Bob_days;
 
   }
-  dyasCalculation() {
-    let fDate = this.datepipe.transform(this.riskstartDate, 'MM/dd/yyyy');
-    let tDate = this.datepipe.transform(this.riskendDate, 'MM/dd/yyyy');
-    let diff = Date.parse(tDate) - Date.parse(fDate);
-    let days = Math.floor(diff / 86400000);
-    return days+1;
-  }
   typeAddressDeatils() {
     if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -702,6 +1021,25 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
       this.personal.controls['residenceCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+    }
+    else if (this.personal.controls['sameasBurglary'].value) {
+      this.personal.controls['personalBurglaryAddress'].setValue(this.personal.controls['personalAddress'].value);
+      this.personal.controls['personalBurglaryAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+      this.personal.controls['personalBurglaryAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
+      this.personal.controls['personalBurglaryCity'].setValue(this.personal.controls['personalCity'].value);
+      this.personal.controls['personalBurglaryPincode'].setValue(this.personal.controls['personalPincode'].value);
+      this.personal.controls['personalBurglaryState'].setValue(this.personal.controls['personalState'].value);
+      this.personal.controls['personalBurglaryDistrict'].setValue(this.personal.controls['personalDistrict'].value);
+      this.personal.controls['personalBurglaryNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
+      this.personal.controls['personalBurglaryCountry'].setValue(this.personal.controls['personalCountry'].value);
+      this.personal.controls['personalBurglaryArea'].setValue(this.personal.controls['personalArea'].value);
+    }
+    else if (this.personal.controls['sameasSponsor'].value) {
+      this.personal.controls['personalSponsorAddress'].setValue(this.personal.controls['personalAddress'].value);
+      this.personal.controls['personalSponsorCity'].setValue(this.personal.controls['personalCity'].value);
+      this.personal.controls['personalSponsorPincode'].setValue(this.personal.controls['personalPincode'].value);
+      this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
+      this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
   }
   sameAddress(values: any) {
@@ -810,7 +1148,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalMidname.patchValue('');
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
-      // this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+      this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
       // this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalAge.patchValue('');
       // this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].occupation.patchValue('');
       // this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
@@ -863,6 +1201,9 @@ export class TravelRelianceProposalComponent implements OnInit {
         residenceState: this.getStepper1.residenceState,
         residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
         residenceCountry: this.getStepper1.residenceCountry,
+        personalCourseName: this.getStepper1.personalCourseName,
+        personalTutionFeePerSem: this.getStepper1.personalTutionFeePerSem,
+        personalNoOfSems: this.getStepper1.personalNoOfSems,
         personalUniversityName: this.getStepper1.personalUniversityName,
         personalUniversityEmail: this.getStepper1.personalUniversityEmail,
         personalUniversityMobileNo: this.getStepper1.personalUniversityMobileNo,
@@ -945,6 +1286,8 @@ export class TravelRelianceProposalComponent implements OnInit {
         startDate: this.getStepper1.startDate,
         endDate: this.getStepper1.endDate,
         sameas: this.getStepper1.sameas,
+        sameasBurglary: this.getStepper1.sameasBurglary,
+        sameasSponsor: this.getStepper1.sameasSponsor,
         rolecd: this.getStepper1.rolecd,
       });
 
@@ -953,14 +1296,18 @@ export class TravelRelianceProposalComponent implements OnInit {
         setTimeout(() =>{
           if(this.getStepper1.sameas == true) {
             this.inputReadonly = true;
-            this.inputBurglaryReadonly = true;
-            this.inputSponsorReadonly = true;
             this.commonPincode(this.getStepper1.personalPincode, 'proposalR');
-            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
-            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
           } else if(this.getStepper1.sameas == false) {
             this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
+          }if(this.getStepper1.sameasBurglary == true){
+            this.inputBurglaryReadonly = true;
             this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
+          }else if(this.getStepper1.sameasBurglary == false){
+            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
+          }if(this.getStepper1.sameasSponsor == true){
+            this.inputSponsorReadonly = true;
+            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
+          }else if(this.getStepper1.sameasSponsor == false){
             this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
           }
         },2000);
@@ -975,7 +1322,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       for (let i = 0; i < this.getStepper2.items.length; i++) {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
-        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].childFullname.patchValue(this.getStepper2.items[i].childFullname);
+        // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurespouseFullname.patchValue(this.getStepper2.items[i].insurespouseFullname);
+        // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurechildFullname.patchValue(this.getStepper2.items[i].insurechildFullname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
@@ -1001,16 +1349,51 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
     }
 
-    if (sessionStorage.riskstartDate != undefined && sessionStorage.riskstartDate != '') {
-      this.riskstartDate = this.datepipe.transform(sessionStorage.riskstartDate, 'y-MM-dd');
-      this.maxDate = this.riskstartDate;
-    }
-    if (sessionStorage.riskdaysCount != undefined && sessionStorage.riskdaysCount != '') {
-      this.riskdaysCount = sessionStorage.riskdaysCount;
-    }
-    if (sessionStorage.riskendDate != undefined && sessionStorage.riskendDate != '') {
-      this.riskendDate = this.datepipe.transform(sessionStorage.riskendDate, 'y-MM-dd');
-
+    if (sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined) {
+      this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+      this.riskDetails = this.fb.group({
+        riskIndian: this.getStepper3.riskIndian,
+        riskIsOverSeasCitizen: this.getStepper3.riskIsOverSeasCitizen,
+        riskIsResidingInIndia: this.getStepper3.riskIsResidingInIndia,
+        riskPermanentResidenceCountry: this.getStepper3.riskPermanentResidenceCountry,
+        riskOCINumber: this.getStepper3.riskOCINumber,
+        riskPassportIssuingCountry: this.getStepper3.riskPassportIssuingCountry,
+        riskIsInsuredOnImmigrantVisa: this.getStepper3.riskIsInsuredOnImmigrantVisa,
+        riskIsTravelInvolvesSportingActivities: this.getStepper3.riskIsTravelInvolvesSportingActivities,
+        riskSportsActivities: this.getStepper3.riskSportsActivities,
+        riskIsSufferingFromPEMC: this.getStepper3.riskIsSufferingFromPEMC,
+        riskPreExistDisease: this.getStepper3.riskPreExistDisease,
+        riskIsVisitingUSACanada: this.getStepper3.riskIsVisitingUSACanada,
+        riskVisitingCountries: this.getStepper3.riskVisitingCountries,
+        riskCoverageType: this.getStepper3.riskCoverageType,
+        riskIsVisitingStudent: this.getStepper3.riskIsVisitingStudent,
+        riskMaxDaysPerTrip: this.getStepper3.riskMaxDaysPerTrip,
+        riskNoOfYears: this.getStepper3.riskNoOfYears,
+        riskSeniorCitizen: this.getStepper3.riskSeniorCitizen,
+        riskSeniorCitizenPlanID: this.getStepper3.riskSeniorCitizenPlanID,
+        riskSeniorCitizenPlanName: this.getStepper3.riskSeniorCitizenPlanName,
+        TravelStandardLimited: this.getStepper3.TravelStandardLimited,
+        TravelCoverageName: this.getStepper3.TravelCoverageName,
+        TravelCoverageDisplayName: this.getStepper3.TravelCoverageDisplayName,
+        TravelStandardLimitedPlan: this.getStepper3.TravelStandardLimitedPlan,
+        TravelStandardDeductiblePlan: this.getStepper3.TravelStandardDeductiblePlan,
+        TravelIsSilverPlan: this.getStepper3.TravelIsSilverPlan,
+        TravelSilverPlan: this.getStepper3.TravelSilverPlan,
+        TravelIsGoldPlan: this.getStepper3.TravelIsGoldPlan,
+        TravelGoldPlan: this.getStepper3.TravelGoldPlan,
+        TravelIsPlatinumPlan: this.getStepper3.TravelIsPlatinumPlan,
+        TravelPlatinumPlan: this.getStepper3.TravelPlatinumPlan,
+        TravelIsBasicPlan: this.getStepper3.TravelIsBasicPlan,
+        TravelBasicPlan: this.getStepper3.TravelBasicPlan,
+        TravelIsElitePlan: this.getStepper3.TravelIsElitePlan,
+        TravelElitePlan: this.getStepper3.TravelElitePlan,
+        TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
+        TravelPlusPlan: this.getStepper3.TravelPlusPlan,
+      });
+      if (sessionStorage.reliance_Travel_proposal_id != '' && sessionStorage.reliance_Travel_proposal_id != undefined) {
+        this.reliance_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;
+        console.log(this.reliance_Travel_proposal_id, 'this.religarePAProposal');
+      }
     }
   }
 
@@ -1381,27 +1764,24 @@ export class TravelRelianceProposalComponent implements OnInit {
   riskDetailsChange(value: any, title) {
     if (title == 'india') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIndian.patchValue('true');
-        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('')
+        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue(false);
         this.overseas = false;
       } else if (value.checked == false) {
-        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('true');
+        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue(true);
         this.overseas = true;
       }
     }
     if (title == 'overseas') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('true');
-        this.riskDetails['controls'].riskIndian.patchValue('');
+        this.riskDetails['controls'].riskIndian.patchValue(false);
         this.overseas = true;
       } else if (value.checked == false) {
-        this.riskDetails['controls'].riskIndian.patchValue('true');
+        this.riskDetails['controls'].riskIndian.patchValue(true);
         this.overseas = false;
       }
     }
     if (title == 'residingIndia') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsResidingInIndia.patchValue('true');
         this.riskIsResidingInIndiaTrue = true;
       } else if (value.checked == false) {
         this.riskIsResidingInIndiaTrue = false;
@@ -1409,25 +1789,21 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     if (title == 'ImmigrantVisa') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsInsuredOnImmigrantVisa.patchValue('true');
       } else if (value.checked == false) {
       }
     }
     if (title == 'IsSufferingFromPEMC') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsSufferingFromPEMC.patchValue('true');
       } else if (value.checked == false) {
       }
     }
     if (title == 'PreExistDisease') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskPreExistDisease.patchValue('true');
       } else if (value.checked == false) {
       }
     }
     if (title == 'TravelInvolvesSporting') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsTravelInvolvesSportingActivities.patchValue('true');
         this.riskSportsActivitiesTrue = true;
       } else if (value.checked == false) {
         this.riskSportsActivitiesTrue = false;
@@ -1435,7 +1811,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     if (title == 'IsVisitingUSACanada') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsVisitingUSACanada.patchValue('true');
         this.VisitingListTure = true;
       } else if (value.checked == false) {
         this.VisitingListTure = false;
@@ -1450,7 +1825,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     if (title == 'IsVisitingStudent') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskIsVisitingStudent.patchValue('true');
       } else if (value.checked == false) {
       }
     }
@@ -1463,7 +1837,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     if (title == 'IsSeniorCitizen') {
       if (value.checked == true) {
-        this.riskDetails['controls'].riskSeniorCitizen.patchValue('true');
         this.riskSeniorCitizenTrue = true;
       } else if (value.checked == false) {
         this.riskSeniorCitizenTrue = false;
@@ -1478,7 +1851,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelStandardLimit') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelStandardLimited.patchValue('true');
           this.TravelStandardLimitTrue = true;
         } else if (value.checked == false) {
           this.TravelStandardLimitTrue = false;
@@ -1486,7 +1858,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelSilverPlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsSilverPlan.patchValue('true');
           this.TravelSilverPlanTrue = true;
         } else if (value.checked == false) {
           this.TravelSilverPlanTrue = false;
@@ -1494,7 +1865,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelGoldPlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsGoldPlan.patchValue('true');
           this.TravelGoldPlanTrue = true;
         } else if (value.checked == false) {
           this.TravelGoldPlanTrue = false;
@@ -1502,7 +1872,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelPlatinumPlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsPlatinumPlan.patchValue('true');
           this.TravelPlatinumPlanTrue = true;
         } else if (value.checked == false) {
           this.TravelPlatinumPlanTrue = false;
@@ -1510,7 +1879,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelBasicPlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsBasicPlan.patchValue('true');
           this.TravelBasicPlanTrue = true;
         } else if (value.checked == false) {
           this.TravelBasicPlanTrue = false;
@@ -1518,7 +1886,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelElitePlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsElitePlan.patchValue('true');
           this.TravelElitePlanTrue = true;
         } else if (value.checked == false) {
           this.TravelElitePlanTrue = false;
@@ -1526,7 +1893,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if (title == 'TravelPlusPlan') {
         if (value.checked == true) {
-          this.riskDetails['controls'].TravelIsPlusPlan.patchValue('true');
           this.TravelPlusPlanTrue = true;
         } else if (value.checked == false) {
           this.TravelPlusPlanTrue = false;
