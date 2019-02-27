@@ -173,7 +173,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalDistrict: ['', Validators.required],
       personalState: ['', Validators.required],
       personalNearestLandMark: '',
-      personalCountry: '',
+      personalCountry: ['', Validators.required],
 
       residenceAddress: ['', Validators.required],
       residenceAddress2: ['', Validators.required],
@@ -184,7 +184,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       residenceDistrict: ['', Validators.required],
       residenceState: ['', Validators.required],
       residenceNearestLandMark: '',
-      residenceCountry: '',
+      residenceCountry: ['', Validators.required],
 
       personalCourseName:'',
       personalTutionFeePerSem:'',
@@ -528,7 +528,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
-      alert('haooo');
       this.lastStepper = stepper;
       this.proposal();
     }
@@ -538,7 +537,6 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   proposal() {
     console.log(sessionStorage.reliance_Travel_proposal_id,'sessionStorage.reliance_Travel_proposal_id');
-    alert('proposal');
     console.log(this.personalData,'this.personalData');
     console.log(this.RiskData,'this.RiskData');
     console.log(this.totalInsureChildDetails,'this.totalInsureChildDetailsthis.totalInsureChildDetails');

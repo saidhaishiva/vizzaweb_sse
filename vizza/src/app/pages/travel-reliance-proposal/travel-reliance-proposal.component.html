@@ -203,7 +203,8 @@
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off">
+                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off" required>
+                              <mat-error *ngIf="personal.controls.personalCountry.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
@@ -285,7 +286,8 @@
                         </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="residenceCountry" [readonly]="inputReadonly" autocomplete="off">
+                              <input matInput placeholder="Country Name" formControlName="residenceCountry" [readonly]="inputReadonly" autocomplete="off" required>
+                              <mat-error *ngIf="personal.controls.residenceNearestLandMark.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
