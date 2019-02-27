@@ -703,6 +703,12 @@ export class StarHealthProposalComponent implements OnInit {
     }
     selectProposerRelation(index) {
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
+        let nominee = JSON.parse(sessionStorage.nomineeDate);
+        if(nominee[0].nominee[0].nrelationship !='') {
+            this.nomineeDate[0].nominee[0].nrelationship = '';
+        } else if(nominee[1].nominee[1].arelationship !='') {
+            this.nomineeDate[1].nominee[1].arelationship = '';
+        }
     }
 
 
@@ -880,7 +886,10 @@ export class StarHealthProposalComponent implements OnInit {
     numberValidate(event: any){
         this.validation.numberValidate(event);
     }
+    idValidate(event: any){
+        this.validation.idValidate(event);
 
+    }
     // insured dob
     addEventInsurerSelect(event, i, type) {
         if (event.value != null) {
@@ -916,15 +925,26 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].insurerDobError = '';
             this.ageCheck = this.datepipe.transform(event.value, 'y-MM-dd');
                 let age = this.ageCalculate(this.ageCheck);
-            if (age < 18 && (type == 'Self' || type == 'Spouse')) {
-                this.familyMembers[i].ageRestriction = 'Self or Spouse age should be 18 and above ';
-            } else {
-                this.familyMembers[i].ageRestriction = '';
-            }
+
                 this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.familyMembers[i].ins_age = age;
                 if (this.buyProductdetails.company_name.toLowerCase() == 'star health') {
-                    if (this.buyProductdetails.product_id == '10') {
+
+                    // if (age < 18 && (type == 'Self' || type == 'Spouse')) {
+                    //     this.familyMembers[i].ageRestriction = 'Self or Spouse age should be 18 and above ';
+                    // } else {
+                    //     this.familyMembers[i].ageRestriction = '';
+                    // }
+
+                    if (this.buyProductdetails.product_id == '9') {
+                        if (age < 18 || age > 60) {
+                            this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
+                        } else {
+                            this.familyMembers[i].ageRestriction = '';
+                        }
+                    }
+
+                        if (this.buyProductdetails.product_id == '10') {
                         if (age < 60 || age > 75) {
                             this.familyMembers[i].ageRestriction = 'Age between 60 years to 75 years';
                         } else {
@@ -956,13 +976,13 @@ export class StarHealthProposalComponent implements OnInit {
                     if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
                         let dobmonth = this.DobMonthCalculate(this.ageCheck);
                         if (dobmonth < 3 || age > 25) {
-                            this.familyMembers[i].ageRestriction = ' Age between 3 months to 60 years';
+                            this.familyMembers[i].ageRestriction = ' Age between 3 months to 25 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
                     } else if (this.buyProductdetails.product_id == '8' && (type != 'Son' || type != 'Daughter')) {
                         if (age < 18 || age > 60) {
-                            this.familyMembers[i].ageRestriction = 'Age between 3 months to 60 years';
+                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 60 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
@@ -1159,7 +1179,7 @@ export class StarHealthProposalComponent implements OnInit {
             'prop_annual_income': this.personalData.personalIncome,
             'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
-            'gst_id_no': this.personalData.personalGst,
+            'gst_id_no': this.personalData.personalGst.toUpperCase(),
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',
@@ -1204,15 +1224,10 @@ export class StarHealthProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
-            this.summaryData = successData.ResponseObject[0];
+            this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
-            this.proposalId = this.summaryData.policyid;
+            this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
-
-
-            console.log(this.occupationList[this.personal.controls['personalOccupation'].value], 'ccccc');
-
-
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
             this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
@@ -1225,12 +1240,9 @@ export class StarHealthProposalComponent implements OnInit {
                 this.personal.controls['residenceAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
             }
             this.proposerFormData = this.personal.value;
+            console.log(this.proposerFormData, 'proposerFormDataproposerFormData');
             this.insuredFormData = this.familyMembers;
             this.nomineeFormData = this.nomineeDate;
-            console.log(this.proposerFormData, 'proposerFormData');
-            console.log(this.insuredFormData, 'insuredFormData');
-            console.log(this.nomineeFormData, 'nomineeFormData');
-
 
             stepper.next();
             this.topScroll();
@@ -1248,7 +1260,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' :  this.summaryData.ProposalNumber,
+            'reference_id' :  this.summaryData.proposalNum,
             'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
@@ -1266,7 +1278,7 @@ export class StarHealthProposalComponent implements OnInit {
     public getPolicyTokenSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
+            // this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
             window.location.href = this.paymentGatewayData.payment_gateway_url;
             this.lastStepper.next();

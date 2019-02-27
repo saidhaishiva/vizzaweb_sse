@@ -203,7 +203,7 @@ export const routes: Routes = [
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
             { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
-            { path: 'iffco', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
+            { path: 'iffco/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},

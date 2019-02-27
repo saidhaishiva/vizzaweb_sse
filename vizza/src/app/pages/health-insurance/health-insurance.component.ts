@@ -118,7 +118,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-       // this.session.clearSessionData();
+        this.session.clearSessionData();
         this.firstPage = true;
         this.secondPage = false;
         this.sonBTn = false;
@@ -1221,7 +1221,8 @@ export class HealthInsuranceComponent implements OnInit {
                             this.router.navigate(['/hdfc-insurance'  + '/' + false]);
                         } else if (value.product_id == 51 || value.product_id == 21) {
                             this.router.navigate(['/bajaj'  + '/' + false]);
-
+                        } else if (value.product_id == 77) {
+                            this.router.navigate(['/iffco'  + '/' + false]);
                         } else {
                             this.router.navigate(['/proposal'  + '/' + false]);
                         }
@@ -1314,7 +1315,10 @@ export class HealthInsuranceComponent implements OnInit {
 
 
                 } else if (value.product_id == 51 || value.product_id == 21) {
-                    this.router.navigate(['/bajaj'  + '/' + false]);
+                    this.router.navigate(['/bajaj' + '/' + false]);
+
+                } else if (value.product_id == 77) {
+                        this.router.navigate(['/iffco'  + '/' + false]);
                 } else {
                     this.router.navigate(['/proposal'  + '/' + false]);
                 }
