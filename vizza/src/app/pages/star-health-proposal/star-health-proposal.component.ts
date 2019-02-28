@@ -16,6 +16,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -884,7 +885,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.toastr.error('Please fill the empty fields', key);
         }
         if (this.insureStatus) {
-            if (sessionStorage.insurerDobError == '') {
+            if (sessionStorage.insurerDobError == '' && sessionStorage.ageRestriction =='') {
                 stepper.next();
                 this.topScroll();
             }
@@ -997,7 +998,10 @@ export class StarHealthProposalComponent implements OnInit {
         if (length == 10) {
             this.familyMembers[i].insurerDobError = '';
             this.ageCheck = this.datepipe.transform(event.value, 'y-MM-dd');
-                let age = this.ageCalculate(this.ageCheck);
+            let monthCheck = this.datepipe.transform(event.value, 'y,MM,dd');
+            let dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+            let age = this.ageCalculate(this.ageCheck);
 
                 this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.familyMembers[i].ins_age = age;
@@ -1015,25 +1019,23 @@ export class StarHealthProposalComponent implements OnInit {
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
-                    }
-
-                        if (this.buyProductdetails.product_id == '10') {
+                    } else if (this.buyProductdetails.product_id == '10') {
                         if (age < 60 || age > 75) {
                             this.familyMembers[i].ageRestriction = 'Age between 60 years to 75 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
                     } else if (this.buyProductdetails.product_id == '6') {
-                        let dobmonth = this.DobMonthCalculate(this.ageCheck);
-                        if (dobmonth < 5 || age > 60) {
-                            this.familyMembers[i].ageRestriction = 'Age between 5 months to 60 years';
+                        let dobmonth = this.DobMonthCalculate(monthCheck);
+                        console.log(dobmonth, 'dobmonth1');
+                        if (age < 18 || age > 60) {
+                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 60 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
 
-                    }
-                    if (this.buyProductdetails.product_id == '7' && (type == 'Son' || type == 'Daughter')) {
-                        let dobdays = this.DobDaysCalculate(this.ageCheck);
+                    } else if (this.buyProductdetails.product_id == '7' && (type == 'Son' || type == 'Daughter')) {
+                        let dobdays = this.DobDaysCalculate(dob_days);
                         if (dobdays < 16 || age > 25) {
                             this.familyMembers[i].ageRestriction = ' Age between 16 days to 25 years';
                         } else {
@@ -1045,9 +1047,8 @@ export class StarHealthProposalComponent implements OnInit {
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
-                    }
-                    if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
-                        let dobmonth = this.DobMonthCalculate(this.ageCheck);
+                    } else if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
+                        let dobmonth = this.DobMonthCalculate(monthCheck);
                         if (dobmonth < 3 || age > 25) {
                             this.familyMembers[i].ageRestriction = ' Age between 3 months to 25 years';
                         } else {
@@ -1081,15 +1082,19 @@ export class StarHealthProposalComponent implements OnInit {
     }
 
     DobDaysCalculate(dobDays) {
-        let mdate = dobDays.toString();
-        let yearThen = parseInt(mdate.substring( 8,10), 10);
-        let monthThen = parseInt(mdate.substring(5,7), 10);
-        let dayThen = parseInt(mdate.substring(0,4), 10);
-        let todays = new Date();
-        let birthday = new Date( dayThen, monthThen-1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
+        // let mdate = dobDays.toString();
+        // let yearThen = parseInt(mdate.substring( 8,10), 10);
+        // let monthThen = parseInt(mdate.substring(5,7), 10);
+        // let dayThen = parseInt(mdate.substring(0,4), 10);
+        // let todays = new Date();
+        // let birthday = new Date( dayThen, monthThen-1, yearThen);
+        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+        // return Bob_days;
+        let a = moment(dobDays, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
 
     }
     DobMonthCalculate(dobMonth) {
@@ -1101,6 +1106,22 @@ export class StarHealthProposalComponent implements OnInit {
         let birthday = new Date( dayThen, monthThen-1, yearThen);
         let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
         let Bob_month = Math.ceil((differenceInMilisecond / (1000 * 60 * 60 * 24)) / 30);
+
+        console.log(dobMonth);
+        // var a = moment([2019,02,28]);
+        // var b =  moment([2018,10,28]);
+        //
+        // var years = a.diff(b, 'year');
+        // b.add(years, 'years');
+        //
+        // var months = a.diff(b, 'months');
+        // b.add(months, 'months');
+        //
+        // var days = a.diff(b, 'days');
+        // alert(months);
+        //
+        // console.log(years + ' years ' + months + ' months ' + days + ' days');
+
         return Bob_month;
 
     }
@@ -1298,8 +1319,11 @@ export class StarHealthProposalComponent implements OnInit {
                     percentValid = false;
                 }
                 if(parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
-                    percentValid = false
+                    percentValid = false;
                     this.toastr.error('Claim percentage should not be grater than 100', key);
+                } else if(parseInt(this.nomineeDate[0].nominee[0].nclaim) < 100) {
+                    percentValid = false;
+                    this.toastr.error('Claim percentage should not be less than 100', key);
                 }
 
             } else if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
@@ -1312,9 +1336,21 @@ export class StarHealthProposalComponent implements OnInit {
                 if(total > 100) {
                     percentValid = false
                     this.toastr.error('Claim percentage should not be grater than 100', key);
+                } else if(total < 100) {
+                    percentValid = false;
+                    this.toastr.error('Claim percentage should not be less than 100', key);
                 }
             }
             console.log(percentValid, 'percentValid');
+            if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+
+            }
+            if (this.nomineeDate[0].nominee[0].nname == '' &&
+                this.nomineeDate[0].nominee[0].nage == '' &&
+                this.nomineeDate[0].nominee[0].nrelationship == '' &&
+                this.nomineeDate[0].nominee[0].nclaim == '' && this.nomineeDate[0].nominee.length < 2) {
+                percentValid = true;
+            }
             if(percentValid){
                 this.proposal(stepper);
             }
@@ -1420,10 +1456,10 @@ export class StarHealthProposalComponent implements OnInit {
             this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
             this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
 
-            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
                 this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
                 this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
-            } else {
+            } else if(this.personal.controls['sameas'].value){
                 this.personal.controls['residenceCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
                 this.personal.controls['residenceAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
             }

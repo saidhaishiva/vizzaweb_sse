@@ -431,8 +431,8 @@
               <div class="row">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <!--<h6 class="color-blue mb-3" >MEDICAL HISTORY </h6>-->
-                  <mat-accordion class="question-panel">
-                    <mat-expansion-panel *ngFor="let item of religareQuestionsList; let i = index" [disabled]="item.answer_status == false" [expanded]="item.answer_status">
+                  <mat-accordion class="question-panel" *ngFor="let item of religareQuestionsList; let i = index">
+                    <mat-expansion-panel [disabled]="item.answer_status == false" [expanded]="item.answer_status">
 
                       <mat-expansion-panel-header>
                         <mat-panel-title>

@@ -131,6 +131,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   public proposalId :any;
   public summaryData :any;
+  public acceptSummaryDeclaration :any;
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
