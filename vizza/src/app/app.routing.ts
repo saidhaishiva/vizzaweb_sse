@@ -51,6 +51,7 @@ import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-h
 import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
 import {RenewExistingPolicyComponent} from './pages/renew-existing-policy/renew-existing-policy.component';
 import {HdfcPaPaymentSuccessComponent} from './pages/hdfc-pa-payment-success/hdfc-pa-payment-success.component';
+import {TravelReliancePaymentSuccessComponent} from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 //import {PersonalAccidentProposalComponent} from './pages/personal-accident-star-health-proposal/personal-accident-star-health-proposal.component';
 import {PosCertificateComponent} from './pages/pos-certificate/pos-certificate.component';
 import {TrainingComponent} from './pages/training/training.component';
@@ -205,6 +206,7 @@ export const routes: Routes = [
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
             { path: 'iffco/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
+            { path: 'travel-reliance-payment-success/:status/:proId/:mailStatus', component:TravelReliancePaymentSuccessComponent, data: { breadcrumb: 'Travel reliance payment success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
