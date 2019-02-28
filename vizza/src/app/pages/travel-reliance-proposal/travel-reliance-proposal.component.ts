@@ -799,6 +799,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public proposalSuccess(successData){
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      alert();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
 
@@ -925,12 +926,12 @@ export class TravelRelianceProposalComponent implements OnInit {
         if (selectedDate.length == 10) {
           this.getAge = this.ageCalculate(dob);
           this.getDays = this.ageCalculateInsurer(dob);
-          this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
+          // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
           this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
 
 
         } else {
-          this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue('');
+          // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue('');
         }
       } else if (typeof event.value._i == 'object') {
 
@@ -950,8 +951,8 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (length.length == 10) {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-      // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
-      // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
       this.ageValidation(i, type);
     } else {
 
