@@ -765,8 +765,8 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-3"><mat-form-field class="w-100">
-                            <input matInput [max]="minDate" [matDatepicker]="picker1" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                            <mat-datepicker-toggle matSuffix [for]="picker1"  disabled="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></mat-datepicker-toggle>
+                            <input matInput [max]="minDate" [matDatepicker]="picker1" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"  disabled="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value}}"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="relianceInsuredTravel.invalid">DOB is required</mat-error>
                           </mat-form-field>
@@ -775,7 +775,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select  placeholder="Occupation" formControlName="occupation" [required]="i == 0"  class="w-100">
+                              <mat-select  placeholder="Occupation" formControlName="occupation"  [disabled]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value" [required]="i == 0">
                                 <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
