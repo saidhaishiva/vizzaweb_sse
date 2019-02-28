@@ -241,6 +241,7 @@ import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivat
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
 import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
+import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 
 @NgModule({
   imports: [
@@ -444,7 +445,8 @@ import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
       TravelReligarePaymentSuccessComponent,
       DownloadMessageReligareTravel,
       DisclaimerDialog,
-      TravelRelianceProposalComponent
+      TravelRelianceProposalComponent,
+      TravelReliancePaymentSuccessComponent
   ],
   providers: [
       AppSettings,
