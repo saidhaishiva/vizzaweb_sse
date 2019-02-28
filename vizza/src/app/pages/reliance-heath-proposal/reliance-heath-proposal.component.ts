@@ -1616,24 +1616,16 @@ export class RelianceHeathProposalComponent implements OnInit {
     public proposalSuccess(successData,stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.insureArray.value;
             this.previousInsuranceFromData = this.previousInsuranceFrom.value;
             this.nomineeFormData = this.nomineeDetails.value;
-
-            this.RediretUrlLink = successData.RediretUrlLink;
-            this.proposalId = this.summaryData.proposal_id;
+            this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
             sessionStorage.summaryData = JSON.stringify(successData);
-
             stepper.next();
-
-            if(successData.ResponseObject.ErrorMessages.ErrMessages == ''){
-                this.toastr.success('Proposal created successfully!!');
-            } else{
-                this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
-            }
 
         } else {
             this.toastr.error(successData.ErrorObject);
