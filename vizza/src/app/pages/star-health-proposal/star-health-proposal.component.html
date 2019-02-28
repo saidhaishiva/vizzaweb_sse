@@ -412,7 +412,11 @@
               <div class="row mt-3" *ngFor="let list of nomineeDate; let i = index">
                 <div class="col-md-12" >
                   <mat-card *ngFor="let nomineeadd of list.nominee; let ci = index" [ngStyle]="{'background-color':nomineeadd.colorStatus === 'green' ? '#dbf1ee' : '#ffffff' }">
-                    <h6 class="color-blue mb-3" >NOMINEE DETAILS  <span class="add-nominee"> <button mat-raised-button color="primaryBlue" *ngIf="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button></span></h6>
+                    <h6 class="color-blue mb-3" >NOMINEE DETAILS
+                      <!--<span class="add-nominee"> -->
+                      <!--<button mat-raised-button color="primaryBlue" *ngIf="nomineeadd.addBtn" class="float-right" (click)="addNominee('add')"> <i class="material-icons">add</i> Add Nominee</button> <button mat-raised-button [disabled]="nomineeadd.removeBtn" (click)="addNominee('delete')" class="mr-3" color="accent"><i class="material-icons">delete_sweep</i> Remove</button>-->
+                      <!--</span>-->
+                    </h6>
                     <div class="row"  >
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -430,7 +434,7 @@
                             </mat-select>
                         </mat-form-field></div>
                       <div class="col-md-2"><mat-form-field class="w-100">
-                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="numberValidate($event)"   maxlength="3" (keyup)="claimPercent(nomineeadd.nclaim, i, ci)"  >
+                        <input matInput placeholder="% Of the Claim" [(ngModel)]="nomineeadd.nclaim" (keypress)="numberValidate($event)"   maxlength="3" (keyup)="claimPercent1(nomineeadd.nclaim, i, ci)"  >
                       </mat-form-field></div>
                     </div>
                     <h6 class="color-blue  mt-4" *ngIf="nomineeadd.ageSetting">APPOINTEE DETAILS</h6>
