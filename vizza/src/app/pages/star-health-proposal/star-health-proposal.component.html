@@ -194,7 +194,8 @@
                             <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field></div>
-                          <div class="col-md-6"><mat-form-field class="w-100" >
+                          <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
+                            <mat-form-field class="w-100" >
                             <mat-select placeholder="City" formControlName="residenceCity"  (change)="getAreas('residence', 'rmanual')"  autocomplete="off">
                               <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                                 {{citys.value}}
@@ -205,7 +206,7 @@
                           <div class="col-md-6"><mat-form-field class="w-100">
                             <input matInput placeholder="State" formControlName="residenceState"  autocomplete="off" readonly>
                           </mat-form-field></div>
-                          <div class="col-md-6"><mat-form-field class="w-100" >
+                          <div class="col-md-6"><mat-form-field class="w-100" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                             <mat-select placeholder="Area" formControlName="residenceArea"   autocomplete="off" >
                               <mat-option *ngFor="let rarea of rAreaNames | keys" [value]= 'rarea.key'>
                                 {{rarea.value}}
@@ -299,6 +300,7 @@
                       <div class="error" *ngIf="item.ageRestriction != ''">{{item.ageRestriction}}</div>
                       <div class="error" *ngIf="item.insurerDobError != ''">{{item.insurerDobError}}</div>
                     </div>
+                    <!--<div class="col-md-3" *ngIf="item.type == 'Self'">-->
                     <div class="col-md-3" *ngIf="item.type == 'Self'">
                       <mat-form-field class="w-100">
                         <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
@@ -307,11 +309,11 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col-md-3" *ngIf="item.type != 'Self'">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="Gender" [(ngModel)]="item.ins_gender" required readonly>
-                      </mat-form-field>
-                    </div>
+                    <!--<div class="col-md-3" *ngIf="item.type != 'Self'">-->
+                      <!--<mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Gender" [(ngModel)]="item.ins_gender" required readonly>-->
+                      <!--</mat-form-field>-->
+                    <!--</div>-->
                     <div class="col-md-3"><mat-form-field class="w-100">
                       <input matInput placeholder="Height(cms)" (keypress)="numberValidate($event)"  maxlength="3"  [(ngModel)]="item.ins_height" autocomplete="off" required >
                     </mat-form-field></div>
@@ -421,8 +423,8 @@
                         <input matInput placeholder="Age" (keypress)="numberValidate($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.nrelationship" (change)="selectNomineRelation(i, ci, 'first')">
-                                <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}">
+                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.nrelationship" >
+                                <mat-option *ngFor="let relationship of relationshipListNomine | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}">
                                   {{relationship.value}}
                                 </mat-option>
                             </mat-select>
@@ -442,8 +444,8 @@
                         <input matInput placeholder="Age" (keypress)="numberValidate($event)"   maxlength="3" [(ngModel)]="nomineeadd.aage" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''" >
                       </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.arelationship" (change)="selectNomineRelation(i, ci, 'second')" [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
-                                <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.value}}">
+                            <mat-select placeholder="Relationship with Insurer" [(ngModel)]="nomineeadd.arelationship"  [required]="nomineeadd.nage < 18 && nomineeadd.nage != ''">
+                                <mat-option *ngFor="let relationship of relationshipListAppointe | keys" value="{{relationship.value}}">
                                   {{relationship.value}}
                                 </mat-option>
                             </mat-select>
@@ -557,7 +559,7 @@
                   </mat-button-toggle-group>
                 </div>
                 <div class="col-md-6">
-                  <p>Please choose “Yes” if you are Other Categories of Persons</p>
+                  <p>Please Choose “Yes” if you are physical challenged person </p>
                   <mat-button-toggle-group #group="matButtonToggleGroup">
                     <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>
                     <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == 0" disabled>No</mat-button-toggle>
@@ -618,10 +620,10 @@
                                       <ul class="m-0 list-group">
                                           <li class="list-group-item">
                                               <strong>Relationship with insured:</strong>
-                                              <span *ngIf="list.nrelationshipName !='' && list.nrelationship !=''">
-                                                {{list.nrelationshipName}}
+                                              <span *ngIf="list.nrelationship !=''">
+                                                {{list.nrelationship}}
                                               </span>
-                                              <span *ngIf="list.nrelationshipName =='' || list.nrelationship ==''">
+                                              <span *ngIf="list.nrelationship ==''">
                                                   Nill
                                               </span>
                                           </li>
@@ -645,7 +647,7 @@
                               <div class="col-md-6">
                                   <div class="p-3">
                                       <ul class="m-0 list-group">
-                                          <li class="list-group-item" *ngIf="list.nrelationshipName !=''"><strong>Relationship with insured:</strong> {{list.nrelationshipName}}</li>
+                                          <li class="list-group-item" *ngIf="list.arelationship !=''"><strong>Relationship with insured:</strong> {{list.arelationship}}</li>
                                           <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nill</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>
                                       </ul>
                                   </div>

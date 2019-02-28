@@ -46,7 +46,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"    formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"    formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" minlength="10"  maxlength="10"   autocomplete="off"  required >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -124,7 +124,7 @@
                         </mat-form-field></div>
                         <div class="col-md-6"><mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="personalCity" (change)="typeAddressDeatils()" autocomplete="off" required>
-                            <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
+                            <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>
                               {{city.value}}
                             </mat-option>
                           </mat-select>
@@ -173,7 +173,7 @@
                             <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['sameas'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                               <mat-select placeholder="City" formControlName="residenceCity" autocomplete="off"  required>
-                                <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
+                                <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.value'>
                                   {{citys.value}}
                                 </mat-option>
                               </mat-select>
@@ -448,13 +448,17 @@
                             {{j + 1}}) {{subQes.question_details.question_description}}
                           </td>
                           <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
+
                           </mat-checkbox>
                             <section class="w-100" *ngIf="fGroup.status">
                             <div class="w-100" *ngIf="subQes.question_details.existing_question_code != ''"><mat-form-field>
-                              <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
+                              <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since (DD/MM/YYYY)" maxlength="10" minlength="10" (dateInput)="existingDob($event,i,j,k)" (dateChange)="existingDob($event,i,j,k)"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field></div>
+                            </mat-form-field>
+                              <p class="color-red" *ngIf="fGroup.dobError != '' "> Enter valid DOB</p>
+
+                            </div>
                             <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
                               <textarea matInput placeholder="other Description"  [(ngModel)]="fGroup.diseasesDescription"></textarea>
                             </mat-form-field></div>
@@ -534,10 +538,9 @@
               </div>
             </div>
             <section *ngFor="let item of proposerInsureData; let i = index;">
-              <h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.relationship_code | uppercase}} </span> </h5>
+              <h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.type | uppercase}} </span> </h5>
             <div class="row box-card">
               <div class="col-md-12">
-              <h6> DETAILS</h6>
               </div>
               <div class="col-md-6">
                 <div class="p-3">
@@ -577,7 +580,7 @@
                     <li class="list-group-item" *ngIf="item.personalAddress"><strong>Address 1:</strong> {{item.personalAddress}}</li>
                     <li class="list-group-item" *ngIf="item.personalAddress2"><strong>Address 2:</strong> {{item.personalAddress2}}</li>
                     <li class="list-group-item" *ngIf="item.personalPincode"><strong>PIN code:</strong>  {{item.personalPincode}}</li>
-                    <li class="list-group-item" *ngIf="item.personalCityName"><strong>City:</strong> {{item.personalCityName}}</li>
+                    <li class="list-group-item" *ngIf="item.personalCity"><strong>City:</strong> {{item.personalCity}}</li>
                     <li class="list-group-item" *ngIf="item.personalState"><strong>State:</strong> {{item.personalState}}</li>
                   </ul>
                 </div>
@@ -589,7 +592,7 @@
                     <li class="list-group-item" *ngIf="item.residenceAddress"><strong>Address 1:</strong> {{item.residenceAddress}}</li>
                     <li class="list-group-item" *ngIf="item.residenceAddress2"><strong>Address 2:</strong> {{item.residenceAddress2}}</li>
                     <li class="list-group-item" *ngIf="item.residencePincode"><strong>PIN code:</strong>  {{item.residencePincode}}</li>
-                    <li class="list-group-item" *ngIf="item.residenceCityName"><strong>City:</strong> {{item.residenceCityName}}</li>
+                    <li class="list-group-item" *ngIf="item.residenceCity"><strong>City:</strong> {{item.residenceCity}}</li>
                     <li class="list-group-item" *ngIf="item.residenceState"><strong>State:</strong> {{item.residenceState}}</li>
                   </ul>
                 </div>

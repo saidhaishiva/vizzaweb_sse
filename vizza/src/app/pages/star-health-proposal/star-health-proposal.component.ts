@@ -111,6 +111,8 @@ export class StarHealthProposalComponent implements OnInit {
     proposerFormData: any;
     insuredFormData: any;
     nomineeFormData: any;
+    relationshipListAppointe: any;
+    relationshipListNomine: any;
 
     constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -190,6 +192,8 @@ export class StarHealthProposalComponent implements OnInit {
         this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
         this.setOccupationList();
         this.setRelationship();
+        this.appointeRelationship();
+        this.nomineRelationship();
         if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined ) {
             this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         }
@@ -439,6 +443,57 @@ export class StarHealthProposalComponent implements OnInit {
     public setRelationshipFailure(error) {
         console.log(error);
     }
+
+    nomineRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getNomieRelationshipList(data).subscribe(
+            (successData) => {
+                this.setNomieRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setNomieRelationshipFailure(error);
+            }
+        );
+    }
+    public setNomieRelationshipSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipListNomine = successData.ResponseObject;
+        }
+    }
+    public setNomieRelationshipFailure(error) {
+        console.log(error);
+    }
+    appointeRelationship() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppointeRelationshipList(data).subscribe(
+            (successData) => {
+                this.setAppointeRelationshipSuccess(successData);
+            },
+            (error) => {
+                this.setAppointeRelationshipFailure(error);
+            }
+        );
+    }
+    public setAppointeRelationshipSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipListAppointe = successData.ResponseObject;
+        }
+    }
+    public setAppointeRelationshipFailure(error) {
+        console.log(error);
+    }
+
+
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }
@@ -511,7 +566,7 @@ export class StarHealthProposalComponent implements OnInit {
                     this.personal.controls['personalState'].setValue('');
                     this.personal.controls['personalCity'].setValue('');
                     this.personal.controls['personalArea'].setValue('');
-                    this.personalCitys = [];
+                    this.personalCitys = {};
                 } else {
                     this.personal.controls['personalState'].setValue(this.response.state);
                     this.personalCitys = this.response.city;
@@ -522,7 +577,7 @@ export class StarHealthProposalComponent implements OnInit {
                     this.personal.controls['residenceCity'].setValue('');
                     this.personal.controls['residenceState'].setValue('');
                     this.personal.controls['residenceArea'].setValue('');
-                    this.residenceCitys = [];
+                    this.residenceCitys = {};
                 } else {
                     this.personal.controls['residenceState'].setValue(this.response.state);
                     this.residenceCitys = this.response.city;
@@ -531,6 +586,19 @@ export class StarHealthProposalComponent implements OnInit {
             }
         } else {
             this.toastr.error('In valid Pincode');
+            if (title == 'personal') {
+                this.personalCitys = {};
+                sessionStorage.personalCitys = '';
+                this.personal.controls['personalState'].setValue('');
+                this.personal.controls['personalArea'].setValue('');
+                this.personal.controls['personalCity'].setValue('');
+            } else if (title == 'residence') {
+                this.residenceCitys = {};
+                sessionStorage.residenceCitys = '';
+                this.personal.controls['residenceCity'].setValue('');
+                this.personal.controls['residenceState'].setValue('');
+                this.personal.controls['residenceArea'].setValue('');
+            }
         }
     }
     public getpostalFailure(error) {
@@ -594,13 +662,17 @@ export class StarHealthProposalComponent implements OnInit {
             this.personal.controls['residenceState'].setValue('');
             this.personal.controls['residenceCity'].setValue('');
             this.personal.controls['residenceArea'].setValue('');
-            if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
-                this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
-                this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
-            } else {
-                this.residenceCitys = [];
-                this.rAreaNames = [];
-            }
+            sessionStorage.residenceCitys = '';
+            sessionStorage.rAreaNames = '';
+            this.residenceCitys = {};
+            this.rAreaNames = {};
+            // if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            //     this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+            //     this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
+            // } else {
+            //     this.residenceCitys = [];
+            //     this.rAreaNames = [];
+            // }
         }
     }
     typeAddressDeatils() {
@@ -1089,18 +1161,20 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
     }
 
-    selectNomineRelation(index, cIndex, type) {
-        if(type == 'first') {
-            this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationship];
-        } else if(type == 'second') {
-            this.nomineeDate[index].nominee[cIndex].arelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].arelationship];
-        }
-
-
-    }
+    // selectNomineRelation(index, cIndex, type) {
+    //     if(type == 'first') {
+    //         this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationship];
+    //     } else if(type == 'second') {
+    //         this.nomineeDate[index].nominee[cIndex].arelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].arelationship];
+    //     }
+    //
+    //
+    // }
     nomineeDetails(stepper: MatStepper, index, key) {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
         this.lastStepper = stepper;
+
+        let valid = false;
         if (key == 'Nominee Details' && this.nomineeDate[index].nominee[0].nage != '' ) {
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
                 if (this.nomineeDate[index].nominee[i].nname != '' &&
@@ -1111,24 +1185,29 @@ export class StarHealthProposalComponent implements OnInit {
                         if (this.nomineeDate[index].nominee[i].aname != '' &&
                             this.nomineeDate[index].nominee[i].aage != '' &&
                             this.nomineeDate[index].nominee[i].arelationship != '') {
-                            this.proposal(stepper);
-
+                            valid = true;
                         } else {
                             if (i == this.nomineeDate[index].nominee.length - 1) {
+                                valid = false;
                                 this.toastr.error('Please fill the empty fields', key);
+                                break;
                             }
                         }
                     } else {
-                        this.proposal(stepper);
-
+                        valid = true;
                     }
                 } else {
                     if (i == this.nomineeDate[index].nominee.length - 1) {
+                        valid = false;
                         this.toastr.error('Please fill the empty fields', key);
+                        break;
                     }
                 }
             }
         } else {
+            valid = true;
+        }
+        if(valid){
             this.proposal(stepper);
         }
     }

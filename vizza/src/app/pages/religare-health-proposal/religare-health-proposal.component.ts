@@ -128,6 +128,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     proposerFormData: any;
     insuredFormData: any;
     nomineeFormData: any;
+    personalmedicalAge: any;
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -410,10 +411,18 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         } else {
             this.toastr.error('In valid Pincode');
-            sessionStorage.residenceCitys = {};
-            sessionStorage.personalCitys = {};
-            this.personalCitys = {};
-            this.residenceCitys = {};
+            if (title == 'personal') {
+                sessionStorage.personalCitys = '';
+                this.personalCitys = {};
+                this.personal.controls['personalState'].setValue('');
+                this.personal.controls['personalCity'].setValue('');
+            } else if (title == 'residence') {
+                sessionStorage.residenceCitys = '';
+                this.residenceCitys = {};
+                this.personal.controls['residenceCity'].setValue('');
+                this.personal.controls['residenceState'].setValue('');
+            }
+
         }
     }
     public getpostalFailure(error) {
@@ -609,6 +618,36 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.dobError = '';
             }
             sessionStorage.setItem('proposerAge', this.personalAge);
+        }
+    }
+    existingDob(event,i,j,k) {
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
+                } else {
+
+
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = 'Enter Valid Date';
+                }
+                // selectedDate = event.value._i;
+                // dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                // if (selectedDate.length == 10) {
+                //     this.personalmedicalAge = this.ageCalculate(dob);
+                // }
+
+            } else if (typeof event.value._i == 'object') {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
+                }
+                this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = 'Enter Valid Date';
+            }
+            // sessionStorage.setItem('proposermedicalAge', this.personalmedicalAge);
         }
     }
 
@@ -1067,8 +1106,8 @@ export class ReligareHealthProposalComponent implements OnInit {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         this.insurerData = value;
-        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
-        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+        // this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+        // this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personal.value);
@@ -1221,6 +1260,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
                     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
                     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
                     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
 
                 }
@@ -1240,6 +1280,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
                         this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
                     }
@@ -1328,6 +1369,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (value.checked) {
         } else {
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
         }
 
     }
