@@ -276,7 +276,7 @@
 
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                              <input matInput placeholder="PAN Number" class="text-uppercase"  (input)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                               <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
@@ -456,7 +456,7 @@
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
-                              <p class="color-red" *ngIf="fGroup.dobError != '' "> Enter valid DOB</p>
+                              <p class="error" *ngIf="fGroup.dobError != '' "> Enter valid Date</p>
 
                             </div>
                             <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
