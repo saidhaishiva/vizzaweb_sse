@@ -276,7 +276,7 @@
 
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="PAN Number" class="text-uppercase"  (input)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                              <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                               <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">

@@ -113,6 +113,7 @@ export class StarHealthProposalComponent implements OnInit {
     nomineeFormData: any;
     relationshipListAppointe: any;
     relationshipListNomine: any;
+    total: number;
 
     constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -893,7 +894,7 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     typeAge(value, index, ci) {
-        if (value <= 18 && value != '') {
+        if (value < 18 && value != '') {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
         } else {
             this.nomineeDate[index].nominee[ci].ageSetting = false;
@@ -1161,6 +1162,80 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
     }
 
+
+    claimPercent1(percent, i, ci) {
+        if (ci == 0) {
+            console.log(this.nomineeDate[0].nominee[0].nclaim, 'ft');
+            if (this.nomineeDate[0].nominee[0].nclaim >= 100 || this.nomineeDate[0].nominee[0].nclaim == '') {
+                this.nomineeDate[0].nominee.splice(1, 1);
+            } else {
+                if (this.nomineeDate[0].nominee.length >= 1 && this.nomineeDate[0].nominee.length < 2) {
+                    this.nomineeDate[0].nominee.push({
+                        nname: '',
+                        nage: '',
+                        nrelationship: '',
+                        nrelationshipName: '',
+                        nclaim:'',
+                        aname: '',
+                        aage: '',
+                        arelationship: '',
+                        arelationshipName: '',
+                        removeBtn: false,
+                        addBtn: false,
+                        ageSetting: false,
+                        colorStatus: 'green'
+                    });
+                }
+                // this.nomineeDate[0].nominee[1].nclaim = (100 - parseInt(this.nomineeDate[0].nominee[0].nclaim));
+            }
+
+        }
+
+    }
+       // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+
+        //
+        // if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+        //     this.nomineeDate[0].nominee.push({
+        //         nname: '',
+        //         nage: '',
+        //         nrelationship: '',
+        //         nrelationshipName: '',
+        //         nclaim: '',
+        //         aname: '',
+        //         aage: '',
+        //         arelationship: '',
+        //         arelationshipName: '',
+        //         removeBtn: false,
+        //         addBtn: false,
+        //         ageSetting: false,
+        //         colorStatus: 'green'
+        //
+        //     });
+        //     this.nomineeDate[0].nominee[0].addBtn = false;
+        //
+        //     //
+        //     this.nomineeAdd = true;
+        //     this.nomineeRemove = false;
+        // } if (value == 'delete') {
+        //     if (this.nomineeDate[0].nominee.length == 2) {
+        //         this.nomineeDate[0].nominee.splice(1, 1);
+        //         this.nomineeAdd = false;
+        //         this.nomineeRemove = true;
+        //         this.nomineeDate[0].nominee[0].removeBtn = true;
+        //         this.nomineeDate[0].nominee[0].addBtn = true;
+        //     }
+        // }
+        // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+
+   // }
+
+
+
+
+
+
+
     // selectNomineRelation(index, cIndex, type) {
     //     if(type == 'first') {
     //         this.nomineeDate[index].nominee[cIndex].nrelationshipName = this.relationshipList[this.nomineeDate[index].nominee[cIndex].nrelationship];
@@ -1185,7 +1260,13 @@ export class StarHealthProposalComponent implements OnInit {
                         if (this.nomineeDate[index].nominee[i].aname != '' &&
                             this.nomineeDate[index].nominee[i].aage != '' &&
                             this.nomineeDate[index].nominee[i].arelationship != '') {
-                            valid = true;
+                            if (this.nomineeDate[index].nominee[i].aage >= 18) {
+                                valid = true;
+                            } else {
+                                valid = false;
+                                this.toastr.error('Appointee age should be 18 and above', key);
+                                break;
+                            }
                         } else {
                             if (i == this.nomineeDate[index].nominee.length - 1) {
                                 valid = false;
@@ -1208,7 +1289,35 @@ export class StarHealthProposalComponent implements OnInit {
             valid = true;
         }
         if(valid){
-            this.proposal(stepper);
+            let percentValid = true;
+            if(this.nomineeDate[0].nominee.length < 2 && this.nomineeDate[0].nominee.length >=1) {
+                console.log(parseInt(this.nomineeDate[0].nominee[0].nclaim), 'ppp');
+                if(parseInt(this.nomineeDate[0].nominee[0].nclaim) == 100) {
+                    percentValid = true;
+                } else {
+                    percentValid = false;
+                }
+                if(parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
+                    percentValid = false
+                    this.toastr.error('Claim percentage should not be grater than 100', key);
+                }
+
+            } else if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+                let total = parseInt(this.nomineeDate[0].nominee[0].nclaim) + parseInt(this.nomineeDate[0].nominee[1].nclaim);
+                if(total == 100) {
+                    percentValid = true;
+                } else {
+                    percentValid = false;
+                }
+                if(total > 100) {
+                    percentValid = false
+                    this.toastr.error('Claim percentage should not be grater than 100', key);
+                }
+            }
+            console.log(percentValid, 'percentValid');
+            if(percentValid){
+                this.proposal(stepper);
+            }
         }
     }
 
