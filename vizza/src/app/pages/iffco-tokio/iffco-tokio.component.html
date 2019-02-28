@@ -248,13 +248,13 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="proposerFirstname" [readonly]="sameValue"  (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="First Name" formControlName="proposerFirstname"   (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value" >
                             <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="proposerLastname"  [readonly]="sameValue" (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <input matInput placeholder="Last Name" formControlName="proposerLastname" (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value" >
                             <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -266,7 +266,7 @@
                         </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"  [readonly]="sameValue" (keypress)="dobValidate($event)"  formControlName="proposerDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')"  autocomplete="off"  minlength="10" maxlength="10" required >
+                                  <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="proposerDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')"  autocomplete="off"  minlength="10" maxlength="10" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value">
                                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                   <mat-datepicker #picker></mat-datepicker>
                                   <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
@@ -474,21 +474,25 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{personalFormData.proposerDob}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong> {{personalFormData.proposerEmail}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong> {{personalFormData.proposerMobile}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerHomePhone !=''"><strong>Home Phone Number:</strong> {{personalFormData.proposerHomePhone}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerHomePhone !=''"><strong>Home Phone Number:</strong> {{personalFormData.proposerHomePhone}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
-                      <li class="list-group-item"><strong>Marital Status:</strong> {{personalFormData.proposerMaritalStatus}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupation}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerPassport !=''"><strong>Pass Port:</strong> {{personalFormData.proposerPassport}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerPan !=''"><strong>PAN Number:</strong> {{personalFormData.proposerPan}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerEmergencyName !=''"><strong>Emergency Name:</strong> {{personalFormData.proposerEmergencyName}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerEmergencyMobile !=''"><strong>Emergency Mobile No:</strong> {{personalFormData.proposerEmergencyMobile}}</li>
+                      <!--<li class="list-group-item"><strong>Marital Status:</strong> {{personalFormData.proposerMarital}}</li>-->
+                      <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupationName}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerPassport !=''"><strong>Pass Port:</strong> {{personalFormData.proposerPassport}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerPan !=''"><strong>PAN Number:</strong> {{personalFormData.proposerPan}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerEmergencyName !=''"><strong>Emergency Name:</strong> {{personalFormData.proposerEmergencyName}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerEmergencyMobile !=''"><strong>Emergency Mobile No:</strong> {{personalFormData.proposerEmergencyMobile}}</li>
+                      <li class="list-group-item"><strong>Past Insurance Declined:</strong> {{personalFormData.pastInsuranceDeclined}}</li>
+                      <li class="list-group-item"><strong>RoomRent Waiver:</strong> {{personalFormData.roomRentWaiver}}</li>
+                      <li class="list-group-item"><strong>Critical Illness:</strong> {{personalFormData.criticalIllness}}</li>
+                      <li class="list-group-item"><strong>Additional Facts:</strong> {{personalFormData.additionalFacts}}</li>
                     </ul>
                   </div>
                 </div>
@@ -498,97 +502,96 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong> {{personalFormData.proposerAddress}}</li>
                       <li class="list-group-item"><strong>Address 2:</strong> {{personalFormData.proposerAddress2}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerAddress3 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress3}}</li>
-                      <li class="list-group-item" *ngIf="personalFormData.proposerAddress4 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress4}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerAddress3 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress3}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerAddress4 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress4}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{personalFormData.proposerPincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{personalFormData.proposerCity}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{personalFormData.proposerState}}</li>
-                      <!--<li class="list-group-item"><strong>Fax:</strong> {{personalFormData.proposerFax}}</li>-->
+                      <li class="list-group-item"><strong>City:</strong> {{personalFormData.proposerCityName}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{personalFormData.proposerStateName}}</li>
+                      <li class="list-group-item"  *ngIf="personalFormData.proposerFax !=''"><strong>Fax:</strong> {{personalFormData.proposerFax}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </section>
-            <section *ngFor="let items of insuredFormData">{{items | json}}
-              <h5 class="mt-3 sub-title">{{items.RelationtoInsured}} DETAILS </h5>
+            <section *ngFor="let items of insuredFormData;  let i = index;">
+              <h5 class="mt-3 sub-title">{{items.RelationtoInsured | uppercase}} DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-12">
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{items.proposerTitle}}. {{items.proposerFirstname}} {{items.proposerLastname}}</li>
-                      <!--<li class="list-group-item"><strong>Gender:</strong> {{item.proposerGender}}</li>-->
-                      <!--<li class="list-group-item"><strong>Marital Status:</strong> {{item.marital_status}}</li>-->
-                      <!--<li class="list-group-item"><strong>D.O.B:</strong> {{item.proposerDob}}</li>-->
-                      <!--<li class="list-group-item"><strong>Age:</strong> {{item.proposerAge}}</li>-->
-                      <!--<li class="list-group-item"><strong>Occupation:</strong> {{item.proposerOccupation}}</li>-->
-                      <!--<li class="list-group-item"><strong>Relationship:</strong> {{item.proposerRelationship}}</li>-->
+                      <li class="list-group-item"><strong>Name:</strong> {{items.Salutation}}. {{items.FirstName}} {{items.LastName}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{items.Gender}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth}}</li>
+                      <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
+                      <li class="list-group-item"><strong>Relationship:</strong> {{items.RelationtoInsured}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.IsExistingIllness == 'false'"><strong >Existing Illness:  </strong> No </li>-->
-                      <!--<li class="list-group-item"  *ngIf="item.PreExistingDisease.IsExistingIllness == 'true'"><strong >Existing Illness:  </strong> Yes </li>-->
-                      <!--<li class="list-group-item"><strong>Height:</strong> {{item.proposerHeight}}</li>-->
-                      <!--<li class="list-group-item"><strong>Weight:</strong> {{item.proposerWeight}}</li>-->
-                      <!--<li class="list-group-item"><strong>smoke:</strong> {{item.Smoke}}</li>-->
-                      <!--<li class="list-group-item"><strong>Alcohol:</strong> {{item.Alcohol}}</li>-->
-                      <!--<li class="list-group-item"><strong>Tobacco:</strong> {{item.Tobacco}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.smokeQuantity!=''"><strong>Smoke Quantity:</strong> {{item.smokeQuantity}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.alcoholQuantity!=''"><strong>Alcohol Quantity:</strong> {{item.alcoholQuantity}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.tobaccoQuantity !=''"><strong>Tobacco Quantity:</strong> {{item.tobaccoQuantity}}</li>-->
+                      <li class="list-group-item"><strong >Existing Illness:  </strong> {{items.PreExistingDisease}}</li>
+                      <li class="list-group-item"><strong>Height:</strong> {{items.Height}}</li>
+                      <li class="list-group-item"><strong>Weight:</strong> {{items.Weight}}</li>
+                      <li class="list-group-item"><strong>smoke:</strong> {{items.Smoke}}</li>
+                      <li class="list-group-item"><strong>Alcohol:</strong> {{items.Alcohol}}</li>
+                      <li class="list-group-item"><strong>Tobacco:</strong> {{items.Tobacco}}</li>
+                      <!--<li class="list-group-item"><strong>Smoke Quantity:</strong> {{item.SmokeQuantity}}</li>-->
+                      <!--<li class="list-group-item"><strong>Alcohol Quantity:</strong> {{item.AlcoholQuantity}}</li>-->
+                      <!--<li class="list-group-item"><strong>Tobacco Quantity:</strong> {{item.TobaccoQuantity}}</li>-->
                     </ul>
                   </div>
                 </div>
               </div>
             </section>
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-            <!--<div class="row box-card">-->
-              <!--<div class="col-md-6">-->
-                <!--<div class="p-3">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-12">-->
-                      <!--<ul class="m-0 list-group">-->
-                        <!--<li class="list-group-item"><strong>Nominee name:</strong>{{nomineeFormData.nomineeFirstName}}</li>-->
-                        <!--<li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeFormData.nomineeRelationship}}</li>-->
-                      <!--</ul>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="col-md-6">-->
-                <!--<div class="p-3">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-12">-->
-                      <!--<ul class="m-0 list-group">-->
+            <div class="row box-card">
+              <div class="col-md-6">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Nominee name:</strong>{{nomineeFormData.nomineeFirstName}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeFormData.nomineeRelationship}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="m-0 list-group">
                         <!--<li class="list-group-item"><strong>Address:</strong> {{nomineeFormData.nomineeAddress}}</li>-->
                         <!--<li class="list-group-item"><strong>Pincode:</strong> {{nomineeFormData.nomineePincode}}</li>-->
-                        <!--<li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCity}}</li>-->
-                        <!--<li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeState}}</li>-->
-                      <!--</ul>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+                        <!--<li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCityName}}</li>-->
+                        <!--<li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeStateName}}</li>-->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <p class="mt-2 pl-3">
               <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
             </p>
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">
-                <form action="https://staging.iffcotokio.co.in/portaltest/ihpReq" method='POST' #form>
-                  <input id="PARTNERCODE" type="hidden" value="ITGIHLT034" name="PARTNER_CODE"><br/>
-                  <input id="UNIQUEQUOTEID" type="hidden" value="1" name="UNIQUE_QUOTEID"><br/>
-                  <input id="policyid" type="hidden" value="1" name="policy_id"><br/>
-                  <input id="XMLDATA" type="hidden" value="{{summaryData}}" name="XML_DATA"><br/>
-                  <input id="RESPONSEURL" type="hidden" value="http://13.127.24.123/vizza/api/index.php/health/iffcotokio/payment_response" name="RESPONSE_URL"><br/>
+                <form action={{summaryData.ACTION_URL}} method='POST' #form>
+                  <input id="PARTNERCODE" type="text" value={{summaryData.PARTNER_CODE}} name="PARTNER_CODE"><br/>
+                  <input id="UNIQUEQUOTEID" type="text" value={{summaryData.UNIQUE_QUOTEID}} name="UNIQUE_QUOTEID"><br/>
+                  <!--<input id="policyid" type="hidden" value="1" name="policy_id"><br/>-->
+                  <input id="XMLDATA" type="text" value="{{xmlString}}" name="XML_DATA"><br/>
+                  <input id="RESPONSEURL" type="text" value={{summaryData.RESPONSE_URL}} name="RESPONSE_URL"><br/>
 
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                   <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+
                 </form>
 
 
