@@ -792,6 +792,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         },
         (error) => {
           this.proposalFailure(error);
+
         }
     );
   }
