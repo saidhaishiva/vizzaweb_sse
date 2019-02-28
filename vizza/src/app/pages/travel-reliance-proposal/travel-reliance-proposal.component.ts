@@ -129,6 +129,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   public proposalId :any;
   public summaryData :any;
+  public rediretUrlLink :any;
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
@@ -534,12 +535,6 @@ export class TravelRelianceProposalComponent implements OnInit {
   //Create Proposal
 
   proposal() {
-    console.log(sessionStorage.reliance_Travel_proposal_id,'sessionStorage.reliance_Travel_proposal_id');
-    console.log(this.personalData,'this.personalData');
-    console.log(this.RiskData,'this.RiskData');
-    console.log(this.totalInsureChildDetails,'this.totalInsureChildDetailsthis.totalInsureChildDetails');
-    console.log(this.totalInsureSpouseDetails,'this.totalInsureSpouseDetailsthis.totalInsureSpouseDetails');
-    console.log(this.insurerData,'this.insurerData[1].personalFirstnamethis.insurerData[1].personalFirstname');
     const data = {
       'enquiry_id': this.getTravelPremiumList.enquiry_id,
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -791,11 +786,12 @@ export class TravelRelianceProposalComponent implements OnInit {
       console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
       this.proposalId = this.summaryData.proposal_id;
       sessionStorage.reliance_Travel_proposal_id = this.proposalId;
-      //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
+      this.rediretUrlLink = successData.RediretUrlLink;
       this.lastStepper.next();
       this.toastr.success('Proposal created successfully!!');
     } else {
       this.toastr.error(successData.ErrorObject);
+
     }
   }
   public proposalFailure(error){
@@ -1121,7 +1117,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
-      this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalPhone1.patchValue(this.personal.controls['personalPhone1'].value);
+      this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalPhone1.patchValue(this.personal.controls['personalPhone'].value);
 
       let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].InsDOB.patchValue(getDob);
