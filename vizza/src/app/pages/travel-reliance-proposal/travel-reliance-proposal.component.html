@@ -719,7 +719,7 @@
                     <div class="col-md-12 box-card pt-3">
                       <h6 class="color-blue">INSURED DETAILS</h6>
                         <div class="row">
-                          <div class="col-md-12 mb-3" *ngIf="i == 0">
+                          <div class="col-md-12 mb-3 pt-2" *ngIf="i == 0">
                             <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                           </div>
                           <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
@@ -915,17 +915,17 @@
                                     <div class="col-md-4 text-right">
                                       <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>
                                     </div>
-                                    <div class="col-md-4" *ngIf="overseas">
+                                    <div class="col-md-12" *ngIf="overseas">
                                       <mat-form-field class="w-100">
                                         <input matInput placeholder="Permanent Residence Country Name"  formControlName="riskPermanentResidenceCountry" (keypress)="nameValidate($event)" autocomplete="off">
                                       </mat-form-field >
                                     </div>
-                                    <div class="col-md-4" *ngIf="riskIsResidingInIndiaTrue">
+                                    <div class="col-md-12" *ngIf="riskIsResidingInIndiaTrue">
                                       <mat-form-field class="w-100">
                                         <input matInput placeholder="OCI Number"  formControlName="riskOCINumber" (keypress)="idValidate($event)" autocomplete="off">
                                       </mat-form-field>
                                     </div>
-                                  <div class="col-md-4" *ngIf="riskIsResidingInIndiaTrue">
+                                  <div class="col-md-12" *ngIf="riskIsResidingInIndiaTrue">
                                     <mat-form-field class="w-100">
                                     <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" (keypress)="idValidate($event)" autocomplete="off">
                                     </mat-form-field>
@@ -994,7 +994,7 @@
                                             <!--</mat-form-field>-->
                                             <!--<div class="error" *ngIf="riskDOBDateError != ''">{{riskDOBDateError}}</div>-->
                                         <!--</div>-->
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries">
                                                     <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.visiting_name}}">{{countries.visiting_name}}</mat-option>
@@ -1031,7 +1031,7 @@
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle (change)="riskDetailsChange($event,'IsVisitingFamily')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-4" *ngIf="riskCoverageTypeTrue">
+                                      <div class="col-md-12" *ngIf="riskCoverageTypeTrue">
                                         <mat-form-field class="w-100">
                                           <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType">
                                             <mat-option  *ngFor="let cover of CoverType"  value="{{cover.cover_code}}">{{cover.cover_type}}</mat-option>
@@ -1054,7 +1054,7 @@
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-4" *ngIf="riskMaxDaysPerTripTrue">
+                                      <div class="col-md-12" *ngIf="riskMaxDaysPerTripTrue">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Enter The Maximum Days Per Trip" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskMaxDaysPerTrip" autocomplete="off">
                                           </mat-form-field>
@@ -1067,7 +1067,7 @@
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-4" *ngIf="riskNoOfYearsTrue">
+                                      <div class="col-md-12" *ngIf="riskNoOfYearsTrue">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Enter The Number Of Years" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskNoOfYears" autocomplete="off">
                                           </mat-form-field>
@@ -1080,12 +1080,12 @@
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle formControlName="riskSeniorCitizen" (change)="riskDetailsChange($event,'IsSeniorCitizen')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-4" *ngIf="riskSeniorCitizenTrue">
+                                      <div class="col-md-12" *ngIf="riskSeniorCitizenTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">
                                         </mat-form-field>
                                       </div>
-                                      <div class="col-md-4" *ngIf="riskSeniorCitizenTrue">
+                                      <div class="col-md-12" *ngIf="riskSeniorCitizenTrue">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Senior Citizen Plan ID" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskSeniorCitizenPlanID" autocomplete="off">
                                           </mat-form-field>
@@ -1094,7 +1094,7 @@
                               </div>
                               <!--List Of Travel Cover Details-->
                               <div class="col-md-6 box-card pt-3 pb-3">
-                                  <h6 class="color-blue">List Of Travel Cover Details</h6>
+                                  <h6 class="color-blue">Last Of Travel Cover Details</h6>
                                     <div class="row col-md-12">
                                         <div class="col-md-8">
                                             1.Travel Coverage
@@ -1103,12 +1103,12 @@
                                             <mat-slide-toggle (change)="riskDetailsChange($event,'TravelCoverage')"></mat-slide-toggle>
                                         </div>
                                         <div class="row col-md-12" *ngIf="TravelCoverageTrue">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Coverage Name" formControlName="TravelCoverageName"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Coverage Display Name" formControlName="TravelCoverageDisplayName"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                                 </mat-form-field>
@@ -1123,12 +1123,12 @@
                                             <mat-slide-toggle formControlName="TravelStandardLimitedPlan" (change)="riskDetailsChange($event,'TravelStandardLimit')"></mat-slide-toggle>
                                         </div>
                                         <div class="row col-md-12" *ngIf="TravelStandardLimitTrue">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Standard Limited Plan" formControlName="TravelStandardLimited"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Standard Deductible Plan" formControlName="TravelStandardDeductiblePlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                                 </mat-form-field>
@@ -1142,7 +1142,7 @@
                                         <div class="col-md-4 text-right">
                                             <mat-slide-toggle formControlName="TravelIsSilverPlan" (change)="riskDetailsChange($event,'TravelSilverPlan')"></mat-slide-toggle>
                                         </div>
-                                        <div class="col-md-6" *ngIf="TravelSilverPlanTrue">
+                                        <div class="col-md-12" *ngIf="TravelSilverPlanTrue">
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="Silver Plan" formControlName="TravelSilverPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                             </mat-form-field>
@@ -1155,7 +1155,7 @@
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsGoldPlan" (change)="riskDetailsChange($event,'TravelGoldPlan')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="TravelGoldPlanTrue">
+                                      <div class="col-md-12" *ngIf="TravelGoldPlanTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Gold Plan" formControlName="TravelGoldPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                         </mat-form-field>
@@ -1168,7 +1168,7 @@
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsPlatinumPlan" (change)="riskDetailsChange($event,'TravelPlatinumPlan')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="TravelPlatinumPlanTrue">
+                                      <div class="col-md-12" *ngIf="TravelPlatinumPlanTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Platinum Plan" formControlName="TravelPlatinumPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                         </mat-form-field>
@@ -1181,7 +1181,7 @@
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsBasicPlan" (change)="riskDetailsChange($event,'TravelBasicPlan')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="TravelBasicPlanTrue">
+                                      <div class="col-md-12" *ngIf="TravelBasicPlanTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Basic Plan" formControlName="TravelBasicPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                         </mat-form-field>
@@ -1194,7 +1194,7 @@
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsElitePlan" (change)="riskDetailsChange($event,'TravelElitePlan')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="TravelElitePlanTrue">
+                                      <div class="col-md-12" *ngIf="TravelElitePlanTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Elite Plan" formControlName="TravelElitePlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                         </mat-form-field>
@@ -1207,7 +1207,7 @@
                                       <div class="col-md-4 text-right">
                                         <mat-slide-toggle formControlName="TravelIsPlusPlan" (change)="riskDetailsChange($event,'TravelPlusPlan')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="TravelPlusPlanTrue">
+                                      <div class="col-md-12" *ngIf="TravelPlusPlanTrue">
                                         <mat-form-field class="w-100">
                                           <input matInput placeholder="Plus Plan" formControlName="TravelPlusPlan"  (keypress)="nameValidate($event)" maxlength="100" autocomplete="off">
                                         </mat-form-field>
@@ -1465,7 +1465,7 @@
                           <li class="list-group-item"><strong>Mobile Number:</strong> {{summaryData.InsuredDetail.MobileNo}}</li>
                           <li class="list-group-item" *ngIf="summaryData.InsuredDetail.PhoneNo != '' && summaryData.InsuredDetail.PhoneNo != 0"><strong>Phone:</strong> {{summaryData.InsuredDetail.PhoneNo}}</li>
                           <li class="list-group-item"><strong>Passport Number:</strong> {{summaryData.InsuredDetail.PassportNumber}}</li>
-                          <li class="list-group-item"><strong>Visiting Countries:</strong> {{summaryData.InsuredDetail.VisitingCountries}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.InsuredDetail.VisitingCountries != null"><strong>Visiting Countries:</strong> {{summaryData.InsuredDetail.VisitingCountries}}</li>
                           <li class="list-group-item"><strong>Occupation:</strong> {{summaryData.InsuredDetail.OccupationID}}</li>
                           <li class="list-group-item"><strong>Is Under Medication:</strong> {{summaryData.InsuredDetail.IsUnderMedication}}</li>
                           <li class="list-group-item" *ngIf="summaryData.InsuredDetail.PreExistingIllness != ''"><strong>Pre-Existing Illness:</strong> {{summaryData.InsuredDetail.PreExistingIllness}}</li>
@@ -1551,7 +1551,7 @@
                           <li class="list-group-item" *ngIf="summaryData.RiskDetails.PassportIssuingCountry != ''"><strong>Passport Issuing Country</strong> {{summaryData.RiskDetails.PassportIssuingCountry}}</li>
                           <li class="list-group-item"><strong>Is Insured On Immigrant Visa</strong> {{summaryData.RiskDetails.IsInsuredOnImmigrantVisa}}</li>
                           <li class="list-group-item"><strong>Is Travel Involves Sporting Activities</strong> {{summaryData.RiskDetails.IsTravelInvolvesSportingActivities}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.SportsActivitiesID != '' && summaryData.RiskDetails.SportsActivitiesID != null"><strong>Sports Activities</strong> {{summaryData.RiskDetails.SportsActivitiesID}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.SportsActivitiesID != '' && summaryData.RiskDetails.SportsActivitiesID != 'null'"><strong>Sports Activities</strong> {{summaryData.RiskDetails.SportsActivitiesID}}</li>
                           <li class="list-group-item"><strong>Is Suffering From PEMC</strong> {{summaryData.RiskDetails.IsSufferingFromPEMC}}</li>
                           <li class="list-group-item"><strong>Pre-Exist Disease</strong> {{summaryData.RiskDetails.PreExistDiseaseID}}</li>
                           <li class="list-group-item"><strong>Is Visiting USA Canada</strong> {{summaryData.RiskDetails.IsVisitingUSACanada}}</li>
@@ -1568,26 +1568,25 @@
                     </div>
                     <div class="col-md-6">
                       <div class="p-3">
-                        <h6 class="color-blue">List Of Travel Cover Details</h6>
+                        <h6 class="color-blue">Last Of Travel Cover Details</h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.CoverageName != ''"><strong>Coverage Name</strong> {{summaryData.LstTravelCoverDetails.CoverageName}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.CoverageDisplayName != ''"><strong>Coverage Display Name</strong> {{summaryData.LstTravelCoverDetails.CoverageDisplayName}}</li>
-                          <li class="list-group-item"><strong>Is Standard Plan</strong> {{summaryData.LstTravelCoverDetails.IsStandardPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.StandardLimit != ''"><strong>Standard Limit</strong> {{summaryData.LstTravelCoverDetails.StandardLimit}}</li>
-                          <li class="list-group-item"><strong>Is Silver Plan</strong> {{summaryData.LstTravelCoverDetails.IsSilverPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.SilverLimit != ''"><strong>Silver Limit</strong> {{summaryData.LstTravelCoverDetails.SilverLimit}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.TravelStandardDeductiblePlan != ''"><strong>Travel Standard Deductible Plan</strong> {{summaryData.LstTravelCoverDetails.TravelStandardDeductiblePlan}}</li>
-                          <li class="list-group-item"><strong>Is Gold Plan</strong> {{summaryData.LstTravelCoverDetails.IsGoldPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.GoldLimit != ''"><strong>Gold Limit</strong> {{summaryData.LstTravelCoverDetails.GoldLimit}}</li>
-                          <li class="list-group-item"><strong>Is Platinum Plan</strong> {{summaryData.LstTravelCoverDetails.IsPlatinumPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.PlatinumLimit != ''"><strong>Platinum Limit</strong> {{summaryData.LstTravelCoverDetails.PlatinumLimit}}</li>
-                          <li class="list-group-item"><strong>Is Basic Plan</strong> {{summaryData.LstTravelCoverDetails.IsBasicPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.BasicLimit != ''"><strong>Basic Limit</strong> {{summaryData.LstTravelCoverDetails.BasicLimit}}</li>
-                          <li class="list-group-item"><strong>Is Elite Plan</strong> {{summaryData.LstTravelCoverDetails.IsElitePlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.EliteLimit != ''"><strong>Elite Limit</strong> {{summaryData.LstTravelCoverDetails.EliteLimit}}</li>
-                          <li class="list-group-item"><strong>Is Plus Plan</strong> {{summaryData.LstTravelCoverDetails.IsPlusPlan}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails.PlusLimit != ''"><strong>Plus Limit</strong> {{summaryData.LstTravelCoverDetails.PlusLimit}}</li>
-
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].CoverageName != ''"><strong>Coverage Name</strong> {{summaryData.LstTravelCoverDetails[0].CoverageName}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].CoverageDisplayName != ''"><strong>Coverage Display Name</strong> {{summaryData.LstTravelCoverDetails[0].CoverageDisplayName}}</li>
+                          <li class="list-group-item"><strong>Is Standard Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsStandardPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].StandardLimit != ''"><strong>Standard Limit</strong> {{summaryData.LstTravelCoverDetails[0].StandardLimit}}</li>
+                          <li class="list-group-item"><strong>Is Silver Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsSilverPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].SilverLimit != ''"><strong>Silver Limit</strong> {{summaryData.LstTravelCoverDetails[0].SilverLimit}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].StandardDeductible != '' && summaryData.LstTravelCoverDetails[0].StandardDeductible != 'null'"><strong>Travel Standard Deductible Plan</strong> {{summaryData.LstTravelCoverDetails[0].StandardDeductible}}</li>
+                          <li class="list-group-item"><strong>Is Gold Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsGoldPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].GoldLimit != ''"><strong>Gold Limit</strong> {{summaryData.LstTravelCoverDetails[0].GoldLimit}}</li>
+                          <li class="list-group-item"><strong>Is Platinum Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsPlatinumPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].PlatinumLimit != ''"><strong>Platinum Limit</strong> {{summaryData.LstTravelCoverDetails[0].PlatinumLimit}}</li>
+                          <li class="list-group-item"><strong>Is Basic Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsBasicPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].BasicLimit != ''"><strong>Basic Limit</strong> {{summaryData.LstTravelCoverDetails[0].BasicLimit}}</li>
+                          <li class="list-group-item"><strong>Is Elite Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsElitePlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].EliteLimit != ''"><strong>Elite Limit</strong> {{summaryData.LstTravelCoverDetails[0].EliteLimit}}</li>
+                          <li class="list-group-item"><strong>Is Plus Plan</strong> {{summaryData.LstTravelCoverDetails[0].IsPlusPlan}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.LstTravelCoverDetails[0].PlusLimit != ''"><strong>Plus Limit</strong> {{summaryData.LstTravelCoverDetails[0].PlusLimit}}</li>
                         </ul>
                       </div>
                     </div>
