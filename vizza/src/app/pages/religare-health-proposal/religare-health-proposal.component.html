@@ -46,7 +46,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"    formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                        <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"    formControlName="personalDob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)" minlength="10"  maxlength="10"   autocomplete="off"  required >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
@@ -448,13 +448,17 @@
                             {{j + 1}}) {{subQes.question_details.question_description}}
                           </td>
                           <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
+
                           </mat-checkbox>
                             <section class="w-100" *ngIf="fGroup.status">
                             <div class="w-100" *ngIf="subQes.question_details.existing_question_code != ''"><mat-form-field>
-                              <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
+                              <input matInput [matDatepicker]="picker" [max]="today" placeholder="Existing Since (DD/MM/YYYY)" maxlength="10" minlength="10" (dateInput)="existingDob($event,i,j,k)" (dateChange)="existingDob($event,i,j,k)"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field></div>
+                            </mat-form-field>
+                              <p class="color-red" *ngIf="fGroup.dobError != '' "> Enter valid DOB</p>
+
+                            </div>
                             <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
                               <textarea matInput placeholder="other Description"  [(ngModel)]="fGroup.diseasesDescription"></textarea>
                             </mat-form-field></div>
