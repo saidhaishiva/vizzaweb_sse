@@ -114,6 +114,9 @@ export class IffcoTokioComponent implements OnInit {
     public tobacoList: boolean;
     public sameValue: boolean;
     public policy: any;
+    public xmlData: any;
+    public nomineecityDetails: any;
+    public xmlString: any;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -158,6 +161,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerOccupation: '',
             proposerOccupationName: '',
             proposerPan: '',
+            proposerMarital: '',
             proposerAddress: ['', Validators.required],
             proposerAddress2: '',
             proposerAddress3: '',
@@ -187,9 +191,9 @@ export class IffcoTokioComponent implements OnInit {
             nomineeAddress: ['', Validators.required],
             nomineePincode: ['', Validators.required],
             nomineeCountry: 'IND',
-            nomineeState: '',
+            nomineeState:  '',
             nomineeStateName: '',
-            nomineeCity: '',
+            nomineeCity:  '',
             nomineeCityName:'',
         });
 
@@ -233,6 +237,9 @@ export class IffcoTokioComponent implements OnInit {
 
         }
     ngOnInit() {
+        console.log(this.personalFormData,'1');
+        console.log(this.insuredFormData,'2');
+        console.log(this.nomineeFormData,'3');
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
@@ -295,6 +302,7 @@ export class IffcoTokioComponent implements OnInit {
                 tobaccoQuantity: '',
                 sameAsProposer: false,
                 sameas: false,
+                sameasreadonly:false,
                 type: '',
                 ins_age: '',
                 ins_days: '',
@@ -411,6 +419,33 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     public cityListFailure(error) {
+    }
+    nomineecityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'state_code':this.nomineeDetails.controls['nomineeState'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.cityListIffco(data).subscribe(
+            (successData) => {
+                this.nomineecityListSuccess(successData);
+            },
+            (error) => {
+                this.nomineecityListFailure(error);
+            }
+        );
+    }
+
+    public nomineecityListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.nomineecityDetails = successData.ResponseObject;
+
+        }
+    }
+
+    public nomineecityListFailure(error) {
     }
 
     addEvent(event, type) {
@@ -731,7 +766,7 @@ export class IffcoTokioComponent implements OnInit {
     public pincodeFailure(successData) {
     }
     proposal(stepper) {
-
+        // IHP FHP
         const data = {
             'enquiry_id': this.enquiryId,
             'proposal_id': 0,
@@ -743,7 +778,7 @@ export class IffcoTokioComponent implements OnInit {
             'group_name': "Group A",
             'company_name': this.buyProductdetails.company_name,
             'Policy': {
-                'Product': this.buyProductdetails.product_name,
+                'Product': this.buyProductdetails.product_name == 'IFFCO-TOKIO(FAMILY HEALTH PROTECTOR) Individual' ? 'FHP' : 'IHP',
                 'GrossPremium': "5317.44",
                 'NetPremiumPayable': "6274.58",
                 'ServiceTax': "957.14",
@@ -809,27 +844,50 @@ export class IffcoTokioComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
             this.policy =  this.summaryData.XML_DATA.Request.Policy;
-            console.log(this.policy,'jhjgfhjk');
+            this.xmlData =  this.summaryData.XML_DATA;
+            this.xmlString = this.objectToXml(this.xmlData);
+
+            console.log(this.xmlData,'xmlData');
+            console.log(this.xmlString,'xmlString');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             this.proposer.controls['proposerOccupationName'].patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
+            console.log(this.proposer.controls['proposerOccupationName'].value,'uytiyu');
+            // this.proposer.controls['proposerMarital'].patchValue(this.occupationDetails[this.proposer.controls['proposerMaritalStatus'].value]);
             this.proposer.controls['proposerStateName'].patchValue(this.stateDetails[this.proposer.controls['proposerState'].value]);
             this.proposer.controls['proposerCityName'].patchValue(this.cityDetails[this.proposer.controls['proposerCity'].value]);
-            this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
-            this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+            // this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+            // this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
             this.personalFormData = this.proposer.value;
-            this.nomineeFormData = this.getNomineeData;
+            this.nomineeFormData = this.nomineeDetails.value;
             this.insuredFormData = this.insuredData;
             console.log(this.insuredFormData,'insuredFormData');
+            console.log(this.nomineeFormData,'nomineeFormData');
+            console.log(this.personalFormData,'personalFormData');
             stepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);
         }
     }
+     public objectToXml(xmlData){
+        var xml = '';
 
+        for (var prop in xmlData) {
+
+            xml += "<" + prop + ">";
+            if (typeof xmlData[prop] == "object")
+                xml += this.objectToXml(new Object(xmlData[prop]));
+            else
+                xml += xmlData[prop];
+
+            xml +="</" + prop + ">";
+        }
+
+        return xml;
+    }
 //Summary residence detail
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
@@ -901,6 +959,8 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
+
             }
         }
 
@@ -924,11 +984,11 @@ export class IffcoTokioComponent implements OnInit {
     }
     sameProposer(value: any) {
         if (value.checked) {
-            this.sameValue = true;
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAge);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAgeiffco);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('Self');
@@ -937,7 +997,7 @@ export class IffcoTokioComponent implements OnInit {
             let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
         } else {
-            this.sameValue = false;
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue('');
