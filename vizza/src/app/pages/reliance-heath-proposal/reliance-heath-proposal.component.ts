@@ -358,7 +358,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 personalGender: ['', Validators.compose([Validators.required])],
                 personalAge: ['', Validators.compose([Validators.required])],
                 maritalStatus: ['', Validators.compose([Validators.required])],
-                maritalStatusName: ['', Validators.compose([Validators.required])],
+                maritalStatusName: '',
                 personalrelationship: ['', Validators.required],
                 personalrelationshipName: '',
                 occupation: ['', Validators.required],
@@ -590,14 +590,19 @@ export class RelianceHeathProposalComponent implements OnInit {
     sameAddress(values: any) {
         this.sameField = values.checked;
         if (values.checked) {
+            console.log(this.personal.controls['personalCity'].value, 'ctyy');
+
             this.inputReadonly = true;
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['residenceAddress3'].setValue(this.personal.controls['personalAddress3'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['personalCityIdR'].setValue(this.personal.controls['personalCityIdP'].value);
             this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
             this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['personalStateIdR'].setValue(this.personal.controls['personalStateIdP'].value);
             this.personal.controls['residenceDistrict'].setValue(this.personal.controls['personalDistrict'].value);
+            this.personal.controls['residenceDistrictIdR'].setValue(this.personal.controls['personalDistrictIdP'].value);
             this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
             this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
 
@@ -614,12 +619,18 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.personal.controls['residenceDistrict'].setValue('');
             this.personal.controls['residenceNearestLandMark'].setValue('');
             this.personal.controls['residenceArea'].setValue('');
+            this.personal.controls['personalCityIdR'].setValue('');
+            this.personal.controls['personalStateIdR'].setValue('');
+            this.personal.controls['residenceDistrictIdR'].setValue('');
+
+
+
 
             this.proposalRArea = {};
             sessionStorage.proposalRArea = '';
-
-
         }
+        console.log(this.personal.value, 'valueeee');
+
     }
 
     typeAddressDeatils() {
@@ -975,7 +986,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].occupation.patchValue(this.personal.controls['occupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue("345");
-            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipNmae.patchValue(this.relationshipList["345"]);
+            this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList["345"]);
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.personal.controls['sameas'].value);
             let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
             console.log(getDob, 'getDob');
@@ -1164,6 +1175,8 @@ export class RelianceHeathProposalComponent implements OnInit {
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
+        console.log(this.insureArray, 'this.insureArray');
+        console.log(this.insureArray.valid, 'this.valid');
         if (this.insureArray.valid) {
             this.insurerData = value.items;
             this.totalInsureDetails = [];
