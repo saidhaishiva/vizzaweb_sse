@@ -680,18 +680,22 @@
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 10)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 10)"> Yes</b>
                         </li>
-
-                        <li class="list-group-item" *ngIf="i == 11">12.Has any of the Insured been hosp. or has been under any prolonged treatment for illness or undergone surgery other than for childbirth/minor injuries? :
+                        <li class="list-group-item" *ngIf="i == 11">12.Any Other Disease / Health Adversity / Condition / Treatment Not Mentioned Above? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 11)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 11)"> Yes</b>
                         </li>
-                        <li class="list-group-item" *ngIf="i == 12">13.Has any of the Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? :
+
+                        <li class="list-group-item" *ngIf="i == 12">13.Has any of the Insured been hosp. or has been under any prolonged treatment for illness or undergone surgery other than for childbirth/minor injuries? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 12)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 12)"> Yes</b>
                         </li>
-                        <li class="list-group-item" *ngIf="i == 13">14.If Your response is yes to any of the following questions, please specify details of the same in the additional information section? :
+                        <li class="list-group-item" *ngIf="i == 13">14.Has any of the Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 13)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 13)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 14">15.If Your response is yes to any of the following questions, please specify details of the same in the additional information section? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 14)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 14)"> Yes</b>
                         </li>
                       </ul>
                     </div>

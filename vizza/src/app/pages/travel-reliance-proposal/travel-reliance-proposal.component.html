@@ -203,7 +203,7 @@
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off">
+                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                               <mat-error *ngIf="personal.controls.personalCountry.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -768,7 +768,7 @@
                             <input matInput [max]="minDate" [matDatepicker]="picker1" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="sameValue">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
-                            <mat-error *ngIf="relianceInsuredTravel.invalid">DOB is required</mat-error>
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Date is required</mat-error>
                           </mat-form-field>
                             <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                             <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
