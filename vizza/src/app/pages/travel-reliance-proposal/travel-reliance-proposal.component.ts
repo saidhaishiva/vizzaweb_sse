@@ -419,7 +419,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           nomineeName: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
 
-          InsuredAge: '',
+          // InsuredAge: '',
+          ins_age: '',
+          ins_days: '',
           insurerDobError: '',
           insurerDobValidError: '',
           sameAsProposer: false,
@@ -900,7 +902,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
         } else {
-          this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+          this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
         }
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
@@ -908,7 +910,7 @@ export class TravelRelianceProposalComponent implements OnInit {
           this.getAge = this.ageCalculate(dob);
           this.getDays = this.ageCalculateInsurer(dob);
           // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
-          this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
+          // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
 
 
         } else {
@@ -932,29 +934,26 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (length.length == 10) {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
+      // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
       this.ageValidation(i, type);
-    } else {
-
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue('');
     }
   }
 
 
   ageValidation(i, type) {
 
-    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Self') {
+    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Self') {
+    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self') {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-      this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+      this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
     }
-    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Spouse') {
+    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Spouse') {
+    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse') {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-      this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+      this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
     }
     let smallest = this.arr[0];
     for (let i = 1; i < this.arr.length; i++) {
@@ -1318,7 +1317,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].SufferingSince.patchValue(this.getStepper2.items[i].SufferingSince);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeName.patchValue(this.getStepper2.items[i].nomineeName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeRelationship.patchValue(this.getStepper2.items[i].nomineeRelationship);
-        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getStepper2.items[i].InsuredAge);
+        // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getStepper2.items[i].InsuredAge);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
