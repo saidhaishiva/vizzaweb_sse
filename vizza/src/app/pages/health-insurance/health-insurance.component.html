@@ -137,7 +137,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'premium_amount';let i = index">
                   <td align="left">
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>
