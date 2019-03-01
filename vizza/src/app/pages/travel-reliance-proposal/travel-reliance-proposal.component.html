@@ -1435,27 +1435,20 @@
                                 </ul>
                               </div>
                             </div>
-                            <div class="col-md-6">
-                              <div class="p-3">
-                                <h6 class="color-blue"></h6>
-                                <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong></strong></li>
-                                </ul>
-                              </div>
-                            </div>
                           </div>
                       </mat-expansion-panel>
 
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      Self Details
+                      Insurer Details
                     </mat-panel-title>
                   </mat-expansion-panel-header>
 
                   <div class="row box-card">
                     <div class="col-md-6">
                       <div class="p-3">
+                        <h6 class="color-blue">INSURED DETAILS FOR SELF</h6>
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Name:</strong>{{summaryData.InsuredDetail.Salutation}} {{summaryData.InsuredDetail.ForeName}} {{summaryData.InsuredDetail.MidName}} {{summaryData.InsuredDetail.LastName}}</li>
                           <li class="list-group-item"><strong>Gender:</strong> {{summaryData.InsuredDetail.Gender}}</li>
@@ -1475,18 +1468,9 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel   [expanded]="true" *ngIf="summaryData.SpouseDetails.FirstName != ''">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Spouse Details
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div class="row box-card" >
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="summaryData.SpouseDetails.FirstName != ''">
                       <div class="p-3">
+                        <h6 class="color-blue">INSURED DETAILS FOR SPOUSE</h6>
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Name:</strong>{{summaryData.SpouseDetails.FirstName}}</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{summaryData.SpouseDetails.DOB}}</li>
@@ -1500,37 +1484,28 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
-                </mat-expansion-panel>
-
-                <div *ngFor="let item of summaryData.ChildDetailList; let i = index;">
-                  <mat-expansion-panel   [expanded]="true" *ngIf="item.ChildName != ''">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        Child Details
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-
-                    <div class="row box-card" *ngIf="item.ChildName != ''">
-                      <div class="col-md-6">
-                        <div class="p-3">
-                          <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Name:</strong>{{item.ChildName}}</li>
-                            <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB}}</li>
-                            <li class="list-group-item"><strong>RelationShip:</strong> {{item.ChildRelationID}}</li>
-                            <li class="list-group-item"><strong>Passport Number:</strong> {{item.PassportNo}}</li>
-                            <li class="list-group-item"><strong>Is Under Medication:</strong> {{item.IsUnderMedication}}</li>
-                            <li class="list-group-item" *ngIf="item.PreExistingMC != ''"><strong>Pre-Existing Illness:</strong> {{item.PreExistingMC}}</li>
-                            <li class="list-group-item" *ngIf="item.SufferingSince != ''"><strong>Suffering Since:</strong> {{item.SufferingSince}}</li>
-                            <li class="list-group-item"><strong>Nominee Name:</strong> {{item.NomineeName}}</li>
-                            <li class="list-group-item"><strong>Nominee Relationship:</strong> {{item.NomineeRelationshipID}}</li>
-                          </ul>
+                    <section class="col-md-6" *ngFor="let item of summaryData.ChildDetailList">
+                      <div class="row box-card">
+                        <div class="col-md-12">
+                          <h6 class="color-blue">INSURED DETAILS FOR {{item.ChildRelationID | uppercase}}</h6>
+                            <div class="p-3">
+                              <ul class="m-0 list-group">
+                                <li class="list-group-item"><strong>Name:</strong>{{item.ChildName}}</li>
+                                <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB}}</li>
+                                <li class="list-group-item"><strong>RelationShip:</strong> {{item.ChildRelationID}}</li>
+                                <li class="list-group-item"><strong>Passport Number:</strong> {{item.PassportNo}}</li>
+                                <li class="list-group-item"><strong>Is Under Medication:</strong> {{item.IsUnderMedication}}</li>
+                                <li class="list-group-item" *ngIf="item.PreExistingMC != ''"><strong>Pre-Existing Illness:</strong> {{item.PreExistingMC}}</li>
+                                <li class="list-group-item" *ngIf="item.SufferingSince != ''"><strong>Suffering Since:</strong> {{item.SufferingSince}}</li>
+                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.NomineeName}}</li>
+                                <li class="list-group-item"><strong>Nominee Relationship:</strong> {{item.NomineeRelationshipID}}</li>
+                              </ul>
+                            </div>
                         </div>
                       </div>
-                    </div>
-                  </mat-expansion-panel>
-                </div>
-
+                    </section>
+                  </div>
+                </mat-expansion-panel>
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -1551,11 +1526,11 @@
                           <li class="list-group-item" *ngIf="summaryData.RiskDetails.PassportIssuingCountry != ''"><strong>Passport Issuing Country</strong> {{summaryData.RiskDetails.PassportIssuingCountry}}</li>
                           <li class="list-group-item"><strong>Is Insured On Immigrant Visa</strong> {{summaryData.RiskDetails.IsInsuredOnImmigrantVisa}}</li>
                           <li class="list-group-item"><strong>Is Travel Involves Sporting Activities</strong> {{summaryData.RiskDetails.IsTravelInvolvesSportingActivities}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.SportsActivitiesID != '' && summaryData.RiskDetails.SportsActivitiesID != 'null'"><strong>Sports Activities</strong> {{summaryData.RiskDetails.SportsActivitiesID}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.SportsActivitiesID != '' && summaryData.RiskDetails.SportsActivitiesID != null"><strong>Sports Activities</strong> {{summaryData.RiskDetails.SportsActivitiesID}}</li>
                           <li class="list-group-item"><strong>Is Suffering From PEMC</strong> {{summaryData.RiskDetails.IsSufferingFromPEMC}}</li>
                           <li class="list-group-item"><strong>Pre-Exist Disease</strong> {{summaryData.RiskDetails.PreExistDiseaseID}}</li>
                           <li class="list-group-item"><strong>Is Visiting USA Canada</strong> {{summaryData.RiskDetails.IsVisitingUSACanada}}</li>
-                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.VisitingCountriesID != ''"><strong>Visiting Countries</strong> {{summaryData.RiskDetails.VisitingCountriesID}}</li>
+                          <li class="list-group-item" *ngIf="summaryData.RiskDetails.VisitingCountriesID != '' && summaryData.RiskDetails.VisitingCountriesID != null" ><strong>Visiting Countries</strong> {{summaryData.RiskDetails.VisitingCountriesID}}</li>
                           <li class="list-group-item" *ngIf="summaryData.RiskDetails.CoverageTypeID != ''"><strong>Coverage Type</strong> {{summaryData.RiskDetails.CoverageTypeID}}</li>
                           <li class="list-group-item"><strong>Coverage Type</strong> {{summaryData.RiskDetails.IsAddOnCover}}</li>
                           <li class="list-group-item" *ngIf="summaryData.RiskDetails.MaxDaysPerTrip != ''"><strong>Max Days Per Trip</strong> {{summaryData.RiskDetails.MaxDaysPerTrip}}</li>
