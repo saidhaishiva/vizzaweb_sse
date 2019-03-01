@@ -944,22 +944,22 @@ export class TravelRelianceProposalComponent implements OnInit {
 
 
   ageValidation(i, type) {
-
-    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self') {
+    if(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Self') {
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
+    } else if(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Self')  {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
       this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
     }
-    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-    } else if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse') {
+    console.log(this.arr,'gfghj');
+    if(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Spouse') {
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
+    } else if(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Spouse')  {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
       this.arr.push(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
     }
     let smallest = this.arr[0];
-    for (let i = 1; i < this.arr.length; i++) {
-      if (this.arr[i] < smallest) {
+    for(let i = 1; i<this.arr.length; i++){
+      if(this.arr[i] < smallest){
         smallest = this.arr[i];
       }
     }
