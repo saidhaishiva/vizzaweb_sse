@@ -277,7 +277,7 @@
 
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
-                                                            <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" [disabled]="inputReadonly">
+                                                            <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" (change)="selectResArea()" [disabled]="inputReadonly">
                                                                 <mat-option *ngFor="let list of proposalRArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
                                                             <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
@@ -639,7 +639,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
+                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
                                                         <mat-option *ngFor="let relationship of nomineeRelationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -693,7 +693,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Area" formControlName="nomineeArea" required  class="w-100">
+                                                    <mat-select  placeholder="Area" formControlName="nomineeArea" required  class="w-100" (change)="selectNomineResArea()" >
                                                         <mat-option *ngFor="let list of nomineeAreaList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeArea.errors?.required">Area is required</mat-error>
@@ -770,7 +770,7 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.personalAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.personalAddress3 !=''"><strong>Address 3:</strong> {{proposerFormData.personalAddress3}}</li>
-                                            <li class="list-group-item" ><strong>Area:</strong> {{proposerFormData.personalArea}}</li>
+                                            <li class="list-group-item" ><strong>Area:</strong> {{proposerFormData.personalAreaName}}</li>
                                             <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>
                                             <li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>
                                             <li class="list-group-item"><strong>District:</strong> {{proposerFormData.personalDistrict}}</li>
@@ -788,7 +788,7 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.residenceAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.residenceAddress3 !=''"><strong>Address 3:</strong> {{proposerFormData.residenceAddress3}}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.residenceArea !=''"><strong>Area:</strong> {{proposerFormData.residenceArea}}</li>
+                                            <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceAreaName}}</li>
                                             <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>
                                             <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceState}}</li>
                                             <li class="list-group-item"><strong>District:</strong> {{proposerFormData.residenceDistrict}}</li>
@@ -850,14 +850,13 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="previousInsuranceFromData.InsuranceCompName != ''"> <strong>Previous Insurance ID : </strong> {{previousInsuranceFromData.InsuranceCompName}}</li>
-                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousPolNo == ''"> <strong>Previous Insurance ID : </strong> Nil</li>
+                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.InsuranceCompName == ''"> <strong>Previous Insurance ID : </strong> Nil</li>
                                                 <li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousPolNo != ''"><strong>Previous Year Policy No : </strong> {{previousInsuranceFromData.PreviousPolNo}}</li>
                                                 <li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousPolNo == ''"><strong>Previous Year Policy No : </strong> Nil</li>
-                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate != ''"><strong>Previous Year Start Date : </strong> {{previousInsuranceFromData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>
-                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate == ''"><strong>Previous Year Start Date : </strong> Nil</li>
-                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate != ''"><strong>Previous Year End Date : </strong> {{previousInsuranceFromData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>
-                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate == ''"><strong>Previous Year End Date : </strong> Nil</li>
-
+                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate != '' && previousInsuranceFromData.PolicyStartDate != null && previousInsuranceFromData.PolicyStartDate != undefined"><strong>Previous Year Start Date : </strong> {{previousInsuranceFromData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>
+                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate == '' || previousInsuranceFromData.PolicyStartDate == null || previousInsuranceFromData.PolicyStartDate == undefined"><strong>Previous Year Start Date : </strong> Nil</li>
+                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate != '' && previousInsuranceFromData.PolicyEndDate != null && previousInsuranceFromData.PolicyEndDate != undefined"><strong>Previous Year End Date : </strong> {{previousInsuranceFromData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>
+                                                <li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate == '' || previousInsuranceFromData.PolicyEndDate == null || previousInsuranceFromData.PolicyEndDate == undefined"><strong>Previous Year End Date : </strong> Nil</li>
 
                                                 <!--<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousInsuranceDetails.PrevYearPolicyEndDate != ''"><strong>Previous Year End Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate | date: 'dd/MM/yyyy'}}</li>-->
                                                 <!--<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousInsuranceDetails.PrevYearPolicyEndDate == ''"><strong>Previous Year End Date : </strong> Nil</li>-->
@@ -878,7 +877,7 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item"><strong>Nominee name:</strong>{{nomineeFormData.nomineeTitle}}.{{nomineeFormData.nomineeFirstName}} {{nomineeFormData.nomineeMidName}} {{nomineeFormData.nomineeLastName}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeDob !=''"><strong>DOB:</strong> {{nomineeFormData.nomineeDob | date: 'dd/MM/yyyy'}}</li>
-                                                <li class="list-group-item" *ngIf="nomineeFormData.nomineeRelationship !=''"><strong>Relationship with Insurer:</strong> {{nomineeFormData.nomineeRelationship}}</li>
+                                                <li class="list-group-item" *ngIf="nomineeFormData.nomineeRelationshipName !=''"><strong>Relationship with Insured:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress !=''"><strong>Address 1:</strong> {{nomineeFormData.nomineeAddress}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 !=''"><strong>Address 2:</strong> {{nomineeFormData.nomineeAddress2}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress3 !=''"><strong>Address 3:</strong> {{nomineeFormData.nomineeAddress3}}</li>
@@ -893,7 +892,7 @@
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
                                                 <!--<li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther !=''"><strong>Relationship Other:</strong> {{summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther}}</li>-->
-                                                <li class="list-group-item"><strong *ngIf="nomineeFormData.nomineeArea !=''">Area:</strong> {{nomineeFormData.nomineeArea}}</li>
+                                                <li class="list-group-item"><strong *ngIf="nomineeFormData.nomineeAreaName !=''">Area:</strong> {{nomineeFormData.nomineeAreaName}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nearestLandMark !=''"><strong>LandMark:</strong> {{nomineeFormData.nearestLandMark}}</li>
                                                 <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCity}}</li>
                                                 <li class="list-group-item"><strong>District:</strong> {{nomineeFormData.nomineeDistrict}}</li>

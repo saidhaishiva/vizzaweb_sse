@@ -899,9 +899,9 @@ export class StarHealthProposalComponent implements OnInit {
             this.nomineeDate[index].nominee[ci].ageSetting = true;
         } else {
             this.nomineeDate[index].nominee[ci].ageSetting = false;
-            this.nomineeDate[index].nominee[1].aname = '';
-            this.nomineeDate[index].nominee[1].aage = '';
-            this.nomineeDate[index].nominee[1].arelationship = '';
+            this.nomineeDate[index].nominee[ci].aname = '';
+            this.nomineeDate[index].nominee[ci].aage = '';
+            this.nomineeDate[index].nominee[ci].arelationship = '';
 
         }
     }
