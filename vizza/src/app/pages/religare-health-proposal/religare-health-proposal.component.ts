@@ -1607,9 +1607,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
-
             this.proposerFormData = this.personal.value;
-           console.log(this.insureArray, 'this.insureArray');
             this.insuredFormData = this.insureArray.value;
             this.nomineeFormData = this.nomineeDetails.value;
             stepper.next();
