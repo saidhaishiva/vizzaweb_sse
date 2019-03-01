@@ -591,9 +591,9 @@
                     <mat-accordion class="w-100 float-left">
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
-                                <mat-panel-title> INSURED DETAILS </mat-panel-title>
+                                <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>INSURED DETAILS</ng-template>
+                            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
@@ -639,7 +639,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
+                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
                                                         <mat-option *ngFor="let relationship of nomineeRelationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -758,7 +758,7 @@
                                             <li class="list-group-item" *ngIf="proposerFormData.personalPan !=''"><strong>PAN Number:</strong> {{proposerFormData.personalPan | uppercase}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.serviceTax == 'No'"><strong>Is ServiceTax Applicable: </strong> NO</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.serviceTax == 'Yes'"><strong>Is ServiceTax Applicable: </strong> YES</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.ServicesTaxId != ''"><strong>Services Tax : </strong> {{proposerFormData.ServicesTaxId}} </li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.ServicesTaxName != ''"><strong>Services Tax : </strong> {{proposerFormData.ServicesTaxName}} </li>
 
                                         </ul>
                                     </div>
@@ -906,7 +906,7 @@
                             </div>
                         </div>
                         <p class="mt-2 pl-3">
-                            <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                         </p>
                         <hr>
 

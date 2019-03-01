@@ -237,7 +237,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             rolecd: 'PROPOSER',
             type: '',
             serviceTax: 'No',
-            ServicesTaxId: ''
+            ServicesTaxId: '',
+            ServicesTaxName: ''
 
         });
         this.previousInsuranceFrom = this.fb.group({
@@ -545,7 +546,9 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     public setRelationshipSuccess(successData) {
-        this.relationshipList = successData.ResponseObject;
+        if (successData.IsSuccess == true) {
+            this.relationshipList = successData.ResponseObject;
+        }
 
     }
     public setRelationshipFailure(error) {
@@ -569,7 +572,9 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     public setNomineeRelationshipSuccess(successData) {
-        this.nomineeRelationshipList = successData.ResponseObject;
+        if (successData.IsSuccess == true) {
+            this.nomineeRelationshipList = successData.ResponseObject;
+        }
     }
 
     public setNomineeRelationshipFailure(error) {
@@ -590,6 +595,9 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.personal.controls['ServicesTaxId'].value != '') {
             this.taxRequired = '';
         }
+        this.personal.controls['ServicesTaxName'].patchValue(this.ServiceTaxId[this.personal.controls['ServicesTaxId'].value]);
+
+
     }
     sameAddress(values: any) {
         this.sameField = values.checked;
@@ -891,7 +899,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         return days;
     }
     ageValidation(i, type) {
-        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 16800) {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 16800 && (type == 'Self' || type == 'Spouse')) {
             if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Self') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 6573 && type == 'Self')  {
@@ -911,18 +919,23 @@ export class RelianceHeathProposalComponent implements OnInit {
                     smallest = this.arr[i];
                 }
             }
-        } else{
+        } else if(type == 'Self' || type == 'Spouse'){
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('The age of 46 Years will have to under-go Compulsory Health / Medical Check');
         }
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Son')  {
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysss');
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 9495 && type == 'Son')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
             }
+            // else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Son')  {
+            //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            // }
 
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 9495 && type == 'Daughter')  {
+
+                if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Daughter')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
@@ -1404,6 +1417,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 relationshipcd: this.getStepper1.relationshipcd,
                 sameas: this.getStepper1.sameas,
                 ServicesTaxId: this.getStepper1.ServicesTaxId,
+                ServicesTaxName: this.getStepper1.ServicesTaxName,
                 serviceTax: this.getStepper1.serviceTax,
             });
             if (this.getStepper1.ServicesTaxId == '') {

@@ -732,7 +732,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
+                          <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" required >
                             <mat-option *ngFor="let relationship of relationshipList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
@@ -979,7 +979,7 @@
 
                       </div>
                   <p class="mt-2 pl-3">
-                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                   </p>
                   <hr>
                   <div class="row">

@@ -502,7 +502,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Insurer"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
+                        <mat-select placeholder="Relationship with Insured"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
                           <mat-option *ngFor="let relationship of insureRelationList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}" >
                             {{relationship.value}}
                           </mat-option>
@@ -861,7 +861,7 @@
               </div>
             </div>
           </div>
-            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">

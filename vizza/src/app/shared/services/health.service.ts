@@ -896,7 +896,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'hdfc/create_proposal_details';
+        const url = this.configurationService.getHostHealth() + 'hdfc/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -919,7 +919,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'bajajalianz/create_proposal';
+        const url = this.configurationService.getHostHealth() + 'bajajalianz/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
