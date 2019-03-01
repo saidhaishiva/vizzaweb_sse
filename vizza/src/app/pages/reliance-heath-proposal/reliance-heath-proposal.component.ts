@@ -213,6 +213,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             residenceDistrictIdR: '',
             personalDistrict: ['', Validators.required],
             personalArea: ['', Validators.required],
+            personalAreaName: '',
             personalNearestLandMark: '',
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalEmail2: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -228,6 +229,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             residencePincode: ['', Validators.required],
             residenceCity: ['', Validators.required],
             residenceArea: ['', Validators.required],
+            residenceAreaName: '',
             residenceCountry: 'IND',
             residenceDistrict: ['', Validators.required],
             residenceState: ['', Validators.required],
@@ -253,6 +255,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             nomineeLastName: ['', Validators.required],
             nomineeRelationship: ['', Validators.required],
             nomineeOtherRelationship: '',
+            nomineeRelationshipName: '',
             nomineeAddress: ['', Validators.required],
             nomineeAddress2: ['', Validators.required],
             nomineeAddress3: '',
@@ -266,6 +269,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             nomineeDistrictId: '',
             nomineeCity: ['', Validators.required],
             nomineeArea: ['', Validators.required],
+            nomineeAreaName: '',
             nearestLandMark: '',
             nomineeTitle: ['', Validators.required],
             nomineeDob: ['', Validators.compose([Validators.required])]
@@ -316,7 +320,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.patchValue(this.getFamilyDetails.family_members[i].type);
         }
 
         this.sessionData();
@@ -574,13 +578,13 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     // Proposer Details
     selectMarital(){
-        this.personal.controls['maritalStatusName'].setValue(this.maritalDetail[this.personal.controls['maritalStatus'].value]);
+        this.personal.controls['maritalStatusName'].patchValue(this.maritalDetail[this.personal.controls['maritalStatus'].value]);
     }
     selectOccupation(){
-        this.personal.controls['occupationName'].setValue(this.occupationList[this.personal.controls['occupation'].value]);
+        this.personal.controls['occupationName'].patchValue(this.occupationList[this.personal.controls['occupation'].value]);
     }
     selectNationality(){
-        this.personal.controls['nationalityName'].setValue(this.nationalityList[this.personal.controls['nationality'].value]);
+        this.personal.controls['nationalityName'].patchValue(this.nationalityList[this.personal.controls['nationality'].value]);
     }
     isServiceTax() {
         if (this.personal.controls['ServicesTaxId'].value != '') {
@@ -593,35 +597,36 @@ export class RelianceHeathProposalComponent implements OnInit {
             console.log(this.personal.controls['personalCity'].value, 'ctyy');
 
             this.inputReadonly = true;
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceAddress3'].setValue(this.personal.controls['personalAddress3'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['personalCityIdR'].setValue(this.personal.controls['personalCityIdP'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['personalStateIdR'].setValue(this.personal.controls['personalStateIdP'].value);
-            this.personal.controls['residenceDistrict'].setValue(this.personal.controls['personalDistrict'].value);
-            this.personal.controls['residenceDistrictIdR'].setValue(this.personal.controls['personalDistrictIdP'].value);
-            this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-
+            this.personal.controls['residenceAddress'].patchValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].patchValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceAddress3'].patchValue(this.personal.controls['personalAddress3'].value);
+            this.personal.controls['residenceCity'].patchValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['personalCityIdR'].patchValue(this.personal.controls['personalCityIdP'].value);
+            this.personal.controls['residencePincode'].patchValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].patchValue(this.personal.controls['personalState'].value);
+            this.personal.controls['personalStateIdR'].patchValue(this.personal.controls['personalStateIdP'].value);
+            this.personal.controls['residenceDistrict'].patchValue(this.personal.controls['personalDistrict'].value);
+            this.personal.controls['residenceDistrictIdR'].patchValue(this.personal.controls['personalDistrictIdP'].value);
+            this.personal.controls['residenceNearestLandMark'].patchValue(this.personal.controls['personalNearestLandMark'].value);
+            this.personal.controls['residenceArea'].patchValue(this.personal.controls['personalArea'].value);
             this.proposalRArea = JSON.parse(sessionStorage.proposalPArea);
             sessionStorage.proposalRArea = JSON.stringify(this.proposalRArea);
+            this.personal.controls['residenceAreaName'].patchValue(this.proposalRArea[this.personal.controls['residenceArea'].value]);
+
         } else {
             this.inputReadonly = false;
-            this.personal.controls['residenceAddress'].setValue('');
-            this.personal.controls['residenceAddress2'].setValue('');
-            this.personal.controls['residenceAddress3'].setValue('');
-            this.personal.controls['residenceCity'].setValue('');
-            this.personal.controls['residencePincode'].setValue('');
-            this.personal.controls['residenceState'].setValue('');
-            this.personal.controls['residenceDistrict'].setValue('');
-            this.personal.controls['residenceNearestLandMark'].setValue('');
-            this.personal.controls['residenceArea'].setValue('');
-            this.personal.controls['personalCityIdR'].setValue('');
-            this.personal.controls['personalStateIdR'].setValue('');
-            this.personal.controls['residenceDistrictIdR'].setValue('');
+            this.personal.controls['residenceAddress'].patchValue('');
+            this.personal.controls['residenceAddress2'].patchValue('');
+            this.personal.controls['residenceAddress3'].patchValue('');
+            this.personal.controls['residenceCity'].patchValue('');
+            this.personal.controls['residencePincode'].patchValue('');
+            this.personal.controls['residenceState'].patchValue('');
+            this.personal.controls['residenceDistrict'].patchValue('');
+            this.personal.controls['residenceNearestLandMark'].patchValue('');
+            this.personal.controls['residenceArea'].patchValue('');
+            this.personal.controls['personalCityIdR'].patchValue('');
+            this.personal.controls['personalStateIdR'].patchValue('');
+            this.personal.controls['residenceDistrictIdR'].patchValue('');
 
 
 
@@ -634,17 +639,25 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     typeAddressDeatils() {
+        this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+
         if (this.personal.controls['sameas'].value) {
-            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-            this.personal.controls['residenceAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
-            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-            this.personal.controls['residenceDistrict'].setValue(this.personal.controls['residenceDistrict'].value);
-            this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['residenceNearestLandMark'].value);
-            this.personal.controls['residenceArea'].setValue(this.personal.controls['residenceArea'].value);
+            this.personal.controls['residenceAddress'].patchValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].patchValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceAddress3'].patchValue(this.personal.controls['residenceAddress3'].value);
+            this.personal.controls['residenceCity'].patchValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].patchValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].patchValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceDistrict'].patchValue(this.personal.controls['residenceDistrict'].value);
+            this.personal.controls['residenceNearestLandMark'].patchValue(this.personal.controls['residenceNearestLandMark'].value);
+            this.personal.controls['residenceArea'].patchValue(this.personal.controls['residenceArea'].value);
+            this.personal.controls['residenceAreaName'].patchValue(this.proposalRArea[this.personal.controls['residenceArea'].value]);
         }
+
+
+    }
+    selectResArea(){
+        this.personal.controls['residenceAreaName'].patchValue(this.proposalRArea[this.personal.controls['residenceArea'].value]);
     }
     addEvent(event, type) {
         if (event.value != null) {
@@ -760,10 +773,10 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     // Insurer Details
     selecInsurertMarital(index){
-        this.insureArray['controls'].items['controls'][index]['controls'].maritalStatusName.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].maritalStatus.value);
+        this.insureArray['controls'].items['controls'][index]['controls'].maritalStatusName.patchValue(this.maritalDetail[this.insureArray['controls'].items['controls'][index]['controls'].maritalStatus.value]);
     }
     selectInsurerOccupation(index){
-        this.insureArray['controls'].items['controls'][index]['controls'].occupationName.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].occupation.value);
+        this.insureArray['controls'].items['controls'][index]['controls'].occupationName.patchValue(this.occupationList[this.insureArray['controls'].items['controls'][index]['controls'].occupation.value]);
     }
 
     // selectInsurerNationality(index){
@@ -997,6 +1010,9 @@ export class RelianceHeathProposalComponent implements OnInit {
             } else {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
             }
+            this.insureArray['controls'].items['controls'][0]['controls'].occupationName.patchValue(this.occupationList[this.insureArray['controls'].items['controls'][0]['controls'].occupation.value]);
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatusName.patchValue(this.maritalDetail[this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.value]);
+
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
@@ -1010,6 +1026,9 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].occupationName.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatusName.patchValue('');
+
 
         }
 
@@ -1304,6 +1323,13 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.proposal(stepper);
         }
     }
+    selectNomineRelation(){
+        this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeRelationshipList[this.nomineeDetails.controls['nomineeRelationship'].value]);
+    }
+    selectNomineResArea(){
+        this.nomineeDetails.controls['nomineeAreaName'].patchValue(this.nomineeAreaList[this.nomineeDetails.controls['nomineeArea'].value]);
+    }
+
 
     // Session Details
 
@@ -1333,6 +1359,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 personalFax: this.getStepper1.personalFax,
                 personalDob: this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd'),
                 personalArea: this.getStepper1.personalArea,
+                personalAreaName: this.getStepper1.personalAreaName,
                 personalrelationship: this.getStepper1.personalrelationship,
                 sameAsProposer: this.getStepper1.sameAsProposer,
                 personalGender: this.getStepper1.personalGender,
@@ -1368,6 +1395,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 residencePincode: this.getStepper1.residencePincode,
                 personalNationality: this.getStepper1.personalNationality,
                 residenceCity: this.getStepper1.residenceCity,
+                residenceAreaName: this.getStepper1.residenceAreaName,
                 residenceArea: this.getStepper1.residenceArea,
                 residenceCountry: this.getStepper1.residenceCountry,
                 residenceDistrict: this.getStepper1.residenceDistrict,
@@ -1457,6 +1485,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 nomineeMidName: this.getNomineeData.nomineeMidName,
                 nomineeLastName: this.getNomineeData.nomineeLastName,
                 nomineeRelationship: this.getNomineeData.nomineeRelationship,
+                nomineeRelationshipName: this.getNomineeData.nomineeRelationshipName,
                 nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
                 nomineeAddress: this.getNomineeData.nomineeAddress,
                 nomineeAddress2: this.getNomineeData.nomineeAddress2,
@@ -1471,6 +1500,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 nomineeStateId: this.getNomineeData.nomineeStateId,
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
                 nomineeArea: this.getNomineeData.nomineeArea,
+                nomineeAreaName: this.getNomineeData.nomineeAreaName,
                 nearestLandMark: this.getNomineeData.nearestLandMark,
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob
@@ -1616,24 +1646,20 @@ export class RelianceHeathProposalComponent implements OnInit {
     public proposalSuccess(successData,stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.proposerFormData = this.personal.value;
-            this.insuredFormData = this.insureArray.value;
+            this.insuredFormData = this.insureArray.value.items;
+            console.log(this.insureArray, 'this.insureArray');
+            console.log(this.insureArray.value.items, 'this.bbbb');
+            console.log(this.insuredFormData, 'this.fhfhhffh');
+
             this.previousInsuranceFromData = this.previousInsuranceFrom.value;
             this.nomineeFormData = this.nomineeDetails.value;
-
-            this.RediretUrlLink = successData.RediretUrlLink;
-            this.proposalId = this.summaryData.proposal_id;
+            this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
             sessionStorage.summaryData = JSON.stringify(successData);
-
             stepper.next();
-
-            if(successData.ResponseObject.ErrorMessages.ErrMessages == ''){
-                this.toastr.success('Proposal created successfully!!');
-            } else{
-                this.toastr.error(successData.ResponseObject.ErrorMessages.ErrMessages);
-            }
 
         } else {
             this.toastr.error(successData.ErrorObject);

@@ -276,7 +276,7 @@
 
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                              <input matInput placeholder="PAN Number" class="text-uppercase"  (input)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                               <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
@@ -431,8 +431,8 @@
               <div class="row">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <!--<h6 class="color-blue mb-3" >MEDICAL HISTORY </h6>-->
-                  <mat-accordion class="question-panel">
-                    <mat-expansion-panel *ngFor="let item of religareQuestionsList; let i = index" [disabled]="item.answer_status == false" [expanded]="item.answer_status">
+                  <mat-accordion class="question-panel" *ngFor="let item of religareQuestionsList; let i = index">
+                    <mat-expansion-panel [disabled]="item.answer_status == false" [expanded]="item.answer_status">
 
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -456,7 +456,7 @@
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
-                              <p class="color-red" *ngIf="fGroup.dobError != '' "> Enter valid DOB</p>
+                              <p class="error" *ngIf="fGroup.dobError != '' "> Enter valid Date</p>
 
                             </div>
                             <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
@@ -680,18 +680,22 @@
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 10)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 10)"> Yes</b>
                         </li>
-
-                        <li class="list-group-item" *ngIf="i == 11">12.Has any of the Insured been hosp. or has been under any prolonged treatment for illness or undergone surgery other than for childbirth/minor injuries? :
+                        <li class="list-group-item" *ngIf="i == 11">12.Any Other Disease / Health Adversity / Condition / Treatment Not Mentioned Above? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 11)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 11)"> Yes</b>
                         </li>
-                        <li class="list-group-item" *ngIf="i == 12">13.Has any of the Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? :
+
+                        <li class="list-group-item" *ngIf="i == 12">13.Has any of the Insured been hosp. or has been under any prolonged treatment for illness or undergone surgery other than for childbirth/minor injuries? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 12)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 12)"> Yes</b>
                         </li>
-                        <li class="list-group-item" *ngIf="i == 13">14.If Your response is yes to any of the following questions, please specify details of the same in the additional information section? :
+                        <li class="list-group-item" *ngIf="i == 13">14.Has any of the Insured consulted/taken treatment or recommended to take investigations/medication/surgery other than for childbirth/minor injuries? :
                           <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 13)"> No</b>
                           <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 13)"> Yes</b>
+                        </li>
+                        <li class="list-group-item" *ngIf="i == 14">15.If Your response is yes to any of the following questions, please specify details of the same in the additional information section? :
+                          <b *ngIf="(items.answer_status == false || items.answer_status == '') && (i == 14)"> No</b>
+                          <b *ngIf="(items.answer_status != false && items.answer_status != '') && (i == 14)"> Yes</b>
                         </li>
                       </ul>
                     </div>

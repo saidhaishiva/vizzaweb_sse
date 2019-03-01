@@ -600,7 +600,6 @@ export class ReligareHealthProposalComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
-
                 } else {
                     this.dobError = 'Enter Valid Date';
                 }
@@ -644,9 +643,11 @@ export class ReligareHealthProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
+                }else{
+                    this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = 'Enter Valid Date';
                 }
-                this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = 'Enter Valid Date';
             }
+            console.log(dob.length,'deeeeee');
             // sessionStorage.setItem('proposermedicalAge', this.personalmedicalAge);
         }
     }
@@ -845,7 +846,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                 }
                 selectedDate = event.value._i;
                 if (selectedDate.length == 10) {
@@ -888,7 +889,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     ageValidation(i, type) {
 
         if(this.buyProductdetails.product_id == "2") {
-            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 16800 && type == 'Self') {
+            if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 16800 && type == 'Self') {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 46 and above');
             } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >=16800 && type == 'Self')  {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
@@ -1025,7 +1026,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             if (sessionStorage.proposerAge >= 18) {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('');
             } else {
-                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
             }
 
         } else {
@@ -1606,9 +1607,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
-
             this.proposerFormData = this.personal.value;
-           console.log(this.insureArray, 'this.insureArray');
             this.insuredFormData = this.insureArray.value;
             this.nomineeFormData = this.nomineeDetails.value;
             stepper.next();
