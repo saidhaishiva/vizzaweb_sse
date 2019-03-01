@@ -85,7 +85,7 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
 
 
   downloadMessage() {
-    const dialogRef = this.dialog.open(DownloadMessageReligareTravel, {
+    const dialogRef = this.dialog.open(DownloadMessageRelianceTravel, {
       width: '400px',
       data: this.path
 
@@ -100,7 +100,7 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
 }
 
 @Component({
-  selector: 'downloadmessagetravel',
+  selector: 'downloadmessageReliancetravel',
   template: `<div mat-dialog-content class="text-center">
         <label> {{data}} </label>
     </div>
@@ -108,10 +108,10 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
         <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
     </div>`,
 })
-export class DownloadMessageReligareTravel {
+export class DownloadMessageRelianceTravel {
 
   constructor(
-      public dialogRef: MatDialogRef<DownloadMessageReligareTravel>,
+      public dialogRef: MatDialogRef<DownloadMessageRelianceTravel>,
       @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
