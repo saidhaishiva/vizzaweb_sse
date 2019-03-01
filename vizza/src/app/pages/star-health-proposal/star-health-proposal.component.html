@@ -29,13 +29,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -288,7 +288,7 @@
                   <div class="row">
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Name" [(ngModel)]="item.ins_name"  (keypress)="nameValidate($event)" required>
+                        <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
@@ -420,7 +420,7 @@
                     <div class="row"  >
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname" (keypress)="nameValidate($event)" autocomplete="off" >
+                          <input matInput placeholder="Name of Nominee" [(ngModel)]="nomineeadd.nname"  maxlength="50" (keypress)="nameValidate($event)" autocomplete="off" >
                         </mat-form-field>
                       </div>
                       <div class="col-md-2"><mat-form-field class="w-100">
@@ -475,7 +475,7 @@
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
+                  <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
                   <li></li>
                 </ul>
@@ -663,7 +663,7 @@
                   </div>
               </div>
 
-            <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
           </section>
           <hr>
           <div class="row">

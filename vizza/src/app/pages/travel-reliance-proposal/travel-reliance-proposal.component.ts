@@ -395,19 +395,19 @@ export class TravelRelianceProposalComponent implements OnInit {
     return this.fb.group(
         {
           rolecd: 'PRIMARY',
-          personalTitle: ['', Validators.required],
-          personalFirstname: ['', Validators.required],
-          // insurespouseFullname: ['', Validators.required],
-          // insurechildFullname: ['', Validators.required],
-          personalLastname: ['', Validators.required],
+          personalTitle: '',
+          personalFirstname: '',
+          insurespouseFullname: '',
+          insurechildFullname: '',
+          personalLastname: '',
           personalMidname: '',
-          personalGender: ['', Validators.compose([Validators.required])],
+          personalGender: '',
           InsDOB: ['', Validators.required],
-          occupation: ['', Validators.required],
-          personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+          occupation: '',
+          personalEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
           relationship: ['', Validators.required],
           passport: ['', Validators.compose([Validators.minLength(8)])],
-          personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+          personalMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           personalPhone1: '',
           VisitingCountries: '',
           type:'',
@@ -449,59 +449,61 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper2Details = JSON.stringify(value);
     if (this.relianceInsuredTravel.valid) {
       this.insurerData = value.items;
-      this.totalInsureDetails = {};
-      for (let i = 0; i < this.insuredTravelPerson.length; i++) {
-        this.totalInsureDetails = {
-          'RelationshipWithProposerID': this.insurerData[i].relationship,
-          'PassportNumber': this.insurerData[i].passport,
-          'NameofNominee': this.insurerData[i].nomineeName,
-          'RelationshipWithNomineeID': this.insurerData[i].nomineeRelationship,
-          'VisitingCountries': this.insurerData[i].VisitingCountries,
-          'IsUnderMedication': this.insurerData[i].IsUnderMedication.toString(),
-          'PreExistingIllness': this.insurerData[i].PreExistingIllness,
-          'SufferingSince': this.insurerData[i].SufferingSince,
-          'Salutation': this.insurerData[i].personalTitle,
-          'ForeName': this.insurerData[i].personalFirstname,
-          'LastName': this.insurerData[i].personalLastname,
-          'MidName': this.insurerData[i].personalMidname,
-          'Gender': this.insurerData[i].personalGender,
-          'DateofBirth': this.datepipe.transform(this.insurerData[i].InsDOB, 'dd/MM/y'),
-          'OccupationID': this.insurerData[i].occupation,
-          'MobileNo': this.insurerData[i].personalMobile,
-          'PhoneNo': this.insurerData[i].personalPhone1,
-          'Email': this.insurerData[i].personalEmail
-        };
-      }
-      if(this.insuredTravelPerson.type == 'Spouse'){
-      this.totalInsureSpouseDetails = {};
-      for(let k = 0; k < this.insuredTravelPerson.length; k++){
-          this.totalInsureSpouseDetails = {
-            'FirstName': this.insurerData[k].insurespouseFullname,
-            'RelationshipwithInsuredID': this.insurerData[k].nomineeRelationship,
-            'DOB': this.datepipe.transform(this.insurerData[k].InsDOB, 'dd/MM/y'),
-            'PassportNo': this.insurerData[k].passport,
-            'NomineeName': this.insurerData[k].nomineeName,
-            'NomineeRelationshipID': this.insurerData[k].nomineeRelationship,
-            'IsUnderMedication': this.insurerData[k].IsUnderMedication.toString(),
-            'PreExistingMC': this.insurerData[k].PreExistingIllness,
-            'SufferingSince': this.insurerData[k].SufferingSince
-          }
+      console.log(this.insuredTravelPerson, 'insuredTravelPerson');
+      console.log(this.insurerData, 'insurerData');
+      for(let a=0; a < this.insurerData.length; a++) {
+        if (this.insurerData[a].type == 'Self') {
+          console.log('inside self');
+          this.totalInsureDetails = {};
+            this.totalInsureDetails = {
+              'RelationshipWithProposerID': this.insurerData[a].relationship,
+              'PassportNumber': this.insurerData[a].passport,
+              'NameofNominee': this.insurerData[a].nomineeName,
+              'RelationshipWithNomineeID': this.insurerData[a].nomineeRelationship,
+              'VisitingCountries': this.insurerData[a].VisitingCountries,
+              'IsUnderMedication': this.insurerData[a].IsUnderMedication.toString(),
+              'PreExistingIllness': this.insurerData[a].PreExistingIllness,
+              'SufferingSince': this.insurerData[a].SufferingSince,
+              'Salutation': this.insurerData[a].personalTitle,
+              'ForeName': this.insurerData[a].personalFirstname,
+              'LastName': this.insurerData[a].personalLastname,
+              'MidName': this.insurerData[a].personalMidname,
+              'Gender': this.insurerData[a].personalGender,
+              'DateofBirth': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
+              'OccupationID': this.insurerData[a].occupation,
+              'MobileNo': this.insurerData[a].personalMobile,
+              'PhoneNo': this.insurerData[a].personalPhone1,
+              'Email': this.insurerData[a].personalEmail
+            };
         }
-      }
-      if(this.insuredTravelPerson.type == 'Child1' || this.insuredTravelPerson.type == 'Child2'){
-      this.totalInsureChildDetails = [];
-      for(let j = 0; j < this.insuredTravelPerson.length; j++){
-        this.totalInsureChildDetails.push({
-          'ChildName': this.insurerData[j].insurechildFullname,
-          'ChildRelationID': this.insurerData[j].nomineeRelationship,
-          'DOB': this.datepipe.transform(this.insurerData[j].InsDOB, 'dd/MM/y'),
-          'PassportNo': this.insurerData[j].passport,
-          'NomineeName': this.insurerData[j].nomineeName,
-          'NomineeRelationshipID': this.insurerData[j].nomineeRelationship,
-          'IsUnderMedication': this.insurerData[j].IsUnderMedication.toString(),
-          'PreExistingMC': this.insurerData[j].PreExistingIllness,
-          'SufferingSince': this.insurerData[j].SufferingSince
-        })
+        if (this.insurerData[a].type == 'Spouse') {
+          console.log('inside spouse');
+          this.totalInsureSpouseDetails = {};
+            this.totalInsureSpouseDetails = {
+              'FirstName': this.insurerData[a].insurespouseFullname,
+              'RelationshipwithInsuredID': this.insurerData[a].nomineeRelationship,
+              'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
+              'PassportNo': this.insurerData[a].passport,
+              'NomineeName': this.insurerData[a].nomineeName,
+              'NomineeRelationshipID': this.insurerData[a].nomineeRelationship,
+              'IsUnderMedication': this.insurerData[a].IsUnderMedication.toString(),
+              'PreExistingMC': this.insurerData[a].PreExistingIllness,
+              'SufferingSince': this.insurerData[a].SufferingSince
+            }
+        }
+        if (this.insurerData[a].type == 'Child1' || this.insurerData[a].type == 'Child2') {
+          this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '' ;
+            this.totalInsureChildDetails.push({
+              'ChildName': this.insurerData[a].insurechildFullname,
+              'ChildRelationID': this.insurerData[a].nomineeRelationship,
+              'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
+              'PassportNo': this.insurerData[a].passport,
+              'NomineeName': this.insurerData[a].nomineeName,
+              'NomineeRelationshipID': this.insurerData[a].nomineeRelationship,
+              'IsUnderMedication': this.insurerData[a].IsUnderMedication.toString(),
+              'PreExistingMC': this.insurerData[a].PreExistingIllness,
+              'SufferingSince': this.insurerData[a].SufferingSince
+            })
         }
       }
       //age validation
@@ -1299,8 +1301,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       for (let i = 0; i < this.getStepper2.items.length; i++) {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
-        // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurespouseFullname.patchValue(this.getStepper2.items[i].insurespouseFullname);
-        // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurechildFullname.patchValue(this.getStepper2.items[i].insurechildFullname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurespouseFullname.patchValue(this.getStepper2.items[i].insurespouseFullname);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurechildFullname.patchValue(this.getStepper2.items[i].insurechildFullname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
