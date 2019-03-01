@@ -86,6 +86,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public checkotp: any;
     public hdfc_health_proposal_id: any;
     public currentStep: any;
+    public personlData: any;
+    public insuredFormData: any;
+    public nomineeData: any;
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -127,6 +130,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             address2: '',
             address3: '',
             pincode: '',
+            stateName: '',
+            cityName: '',
+            titleName: '',
             otp: ['', Validators.required],
             city: ['', Validators.required],
             state: ['', Validators.required],
@@ -266,6 +272,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 type: '',
                 ins_age: '',
                 accepted: '',
+                titleName:'',
+                relationshipName:'',
 
             }
         );
@@ -447,9 +455,20 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         // }
 
     }
+    // title
+    changeTitle(index){
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].titleName.patchValue( this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value);
+    }
 
+    relationshipchange(index){
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue( this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value);
 
-    ageData(age, type) {
+    }
+    // nomineeRelationship
+    nomineeRelationshipChange(){
+        this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeDetails.controls['nomineeRelationship'].value);
+    }
+     ageData(age, type) {
 
         if (age && type == 'personal') {
             sessionStorage.hdfcHealthProposerAge = age;
@@ -793,6 +812,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcStep2 = '';
         sessionStorage.hdfcStep2 = JSON.stringify(value);
         this.insurerData = value;
+        console.log(this.insurerData,'');
         for(let i=0; i<this.insurerData.items.length; i++ ){
             if(this.insurerData.items[i].genderStatus == 'Male'){
                 this.insurerData.items[i].gender = 'M';
@@ -911,6 +931,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             stepper.next();
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.personlData = this.hdfcPersonal.value;
+            this.insuredFormData = this.insurerData;
+            this.nomineeData = this.nomineeDetails.value;
+            this.hdfcPersonal.controls['stateName'].patchValue(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value]);
+            this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
+            this.hdfcPersonal.controls['titleName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['title'].value]);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
             this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
             this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];

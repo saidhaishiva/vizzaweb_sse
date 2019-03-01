@@ -18,9 +18,9 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Title" formControlName="title"  required >
-                          <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
-                            {{lists.tittle}}
+                        <mat-select placeholder="Title" formControlName="title"  required>
+                          <mat-option *ngFor="let lists of titleList | keys" value="{{lists.key}}" >
+                            {{lists.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hdfcPersonal.controls.title.errors?.required">Title is required</mat-error>
@@ -135,8 +135,8 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="State" formControlName="state" autocomplete="off" (change)="selectedSate(hdfcPersonal.value, 'personal', 'index')" required>
-                            <mat-option *ngFor="let state of hdfcHealthStates" value='{{state.state_id}}'>
-                              {{state.state}}
+                            <mat-option *ngFor="let state of hdfcHealthStates | keys" value='{{state.key}}'>
+                              {{state.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcPersonal.controls.state.errors?.required">State is required</mat-error>
@@ -145,8 +145,8 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
-                            <mat-option *ngFor="let city of hdfcHealthCitys" [value]= 'city.city'>
-                              {{city.city}}
+                            <mat-option *ngFor="let city of hdfcHealthCitys | keys" [value]= 'city.key'>
+                              {{city.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcPersonal.controls.city.errors?.required">City is required</mat-error>
@@ -186,9 +186,9 @@
                       <div class="row">
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
-                            <mat-select placeholder="Title" formControlName="title" required >
-                              <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
-                                {{lists.tittle}}
+                            <mat-select placeholder="Title" formControlName="title" required  (change)="changeTitle(i)">
+                              <mat-option *ngFor="let lists of titleList | keys" value="{{lists.key}}" >
+                                {{lists.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>
@@ -258,9 +258,9 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required >
-                            <mat-option *ngFor="let lists of insuredHdfcRelationList" value="{{lists.relationship_code}}" >
-                              {{lists.Relation_code}}
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="relationshipchange()"required >
+                            <mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
@@ -323,9 +323,9 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
-                            <mat-option *ngFor="let lists of nomineeHdfcRelationList" value="{{lists.relation_code}}" >
-                              {{lists.relation}}
+                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" (change)="nomineeRelationshipChange()" required >
+                            <mat-option *ngFor="let lists of nomineeHdfcRelationList | keys" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
@@ -372,24 +372,24 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposalDtails.tittle}}.{{proposalDtails.fname}} {{proposalDtails.lname}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{proposalDtails.gender}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposalDtails.dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Email:</strong> {{proposalDtails.emailid}}</li>
-                      <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.mobile}}</li>
-                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="proposalDtails.paymentMode == 'CC'">Credit Card</span> <span *ngIf="proposalDtails.paymentMode == 'DD'">Debit Card</span></li>
+                      <li class="list-group-item"><strong>Name:</strong> {{personlData.titleName}}.{{personlData.firstname}} {{personlData.lastname}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{personlData.gender}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{personlData.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Email:</strong> {{personlData.email}}</li>
+                      <li class="list-group-item"><strong>Mobile:</strong> {{personlData.mobile}}</li>
+                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="personlData.paymentmode == 'CC'">Credit Card</span> <span *ngIf="personlData.paymentmode == 'DD'">Debit Card</span></li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{proposalDtails.address1}}</li>
-                      <li class="list-group-item" *ngIf ="proposalDtails.address2 != ''" ><strong>Address 2:</strong> {{proposalDtails.address2}}</li>
-                      <li class="list-group-item" *ngIf ="proposalDtails.address3 != ''"><strong>Address 3:</strong> {{proposalDtails.address3}}</li>
-                      <li class="list-group-item"><strong>Pincode:</strong>  {{proposalDtails.pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{proposalDtails.city}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{proposalDtails.state}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong> {{personlData.address1}}</li>
+                      <li class="list-group-item" *ngIf ="personlData.address2 != ''" ><strong>Address 2:</strong> {{personlData.address2}}</li>
+                      <li class="list-group-item" *ngIf ="personlData.address3 != ''"><strong>Address 3:</strong> {{personlData.address3}}</li>
+                      <li class="list-group-item"><strong>Pincode:</strong>  {{personlData.pincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{personlData.cityName}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{personlData.stateName}}</li>
                     </ul>
                   </div>
                 </div>
@@ -397,7 +397,7 @@
               </mat-expansion-panel>
             </div>
             <div>
-              <div *ngFor="let item of insurerDtails; let i = index;">
+              <div *ngFor="let item of insuredFormData; let i = index;">
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -438,7 +438,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeDtails.nomineeName}}</li>
+                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeData.nomineeName}}</li>
                           </ul>
                         </div>
                       </div>
@@ -449,7 +449,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong style="width: 229px !important;">Relationship with Proposer:</strong> {{nomineeDtails.relation}}</li>
+                            <li class="list-group-item"><strong style="width: 229px !important;">Relationship with Proposer:</strong> {{nomineeData.nomineeRelationshipName}}</li>
                           </ul>
                         </div>
 
