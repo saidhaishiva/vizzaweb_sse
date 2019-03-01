@@ -274,7 +274,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 accepted: '',
                 titleName:'',
                 relationshipName:'',
-
+                nomineeRelationshipName:'',
             }
         );
     }
@@ -457,16 +457,18 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
     // title
     changeTitle(index){
-        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].titleName.patchValue( this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value);
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].titleName.patchValue(this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value);
     }
 
     relationshipchange(index){
-        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue( this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value);
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[(this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value)]);
 
     }
     // nomineeRelationship
     nomineeRelationshipChange(){
-        this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeDetails.controls['nomineeRelationship'].value);
+        this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationshipName.patchValue(this.nomineeHdfcRelationList[(this.hdfcInsureArray['controls'].items['controls'][0]['controls'].NomineeRelationship.value)]);
+
+        // this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeDetails.controls['nomineeRelationship'].value);
     }
      ageData(age, type) {
 
@@ -540,6 +542,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     // city lists
     selectedSate(event, type, i) {
+        console.log(this.hdfcPersonal.controls['state'].value,'0000');
+        console.log(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value], 'lll');
+        this.hdfcPersonal.controls['stateName'].patchValue(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value]);
+
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -881,6 +887,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'enquiry_id': this.getFamilyDetails.enquiry_id,
+                'group_name': this.getFamilyDetails.name,
                 'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
                 'InsuranceDetails': {
                     'CustDetails': {
@@ -932,17 +939,23 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.personlData = this.hdfcPersonal.value;
-            this.insuredFormData = this.insurerData;
+            this.insuredFormData = this.insurerData.items;
             this.nomineeData = this.nomineeDetails.value;
-            this.hdfcPersonal.controls['stateName'].patchValue(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value]);
-            this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
-            this.hdfcPersonal.controls['titleName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['title'].value]);
+                      // this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
+            // this.hdfcPersonal.controls['titleName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['title'].value]);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
-            this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
-            this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
-            this.proposalDtails = successData.ResponseObject.ProposalDetails;
-            this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
-            this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
+            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationshipName.patchValue(this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationship.value);
+    console.log(this.personlData,' this.personlData');
+    console.log(this.insuredFormData,' this.personlData');
+    console.log(this.nomineeData,' this.personlData');
+            //
+            // this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
+            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
+            // this.proposalDtails = successData.ResponseObject.ProposalDetails;
+            //
+
+            this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
+            this.totalAmount = parseFloat(this.summaryData.totalPremium);
 
 
         } else {
@@ -969,14 +982,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 state: this.hdfcStep1.state,
                 city: this.hdfcStep1.city,
                 email: this.hdfcStep1.email,
+                stateName: this.hdfcStep1.stateName,
+                cityName: this.hdfcStep1.cityName,
                 mobile: '',
                 paymentmode: this.hdfcStep1.paymentmode,
                 otp: ''
             });
-            if (this.hdfcStep1.state != '') {
-                this.selectedSate(this.hdfcPersonal.value, 'personal', 'index');
-                this.hdfcPersonal.controls['city'].patchValue(this.hdfcStep1.city);
-            }
 
             if (sessionStorage.pincodeValid != '' && sessionStorage.pincodeValid != undefined) {
                 this.pincodeValid =  sessionStorage.pincodeValid;
@@ -1019,6 +1030,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcStep2.items[i].insurerDobValidError);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].accepted.patchValue(this.hdfcStep2.items[i].accepted);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.patchValue(this.hdfcStep2.items[i].sameasInsurer);
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.hdfcStep2.items[i].relationshipName);
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.hdfcStep2.items[i].nomineeRelationshipName);
                 }
             }
             if(this.hdfcStep2.items[0].accepted){
