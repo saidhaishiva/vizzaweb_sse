@@ -98,8 +98,8 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select  placeholder="Occupation" formControlName="insureoccupation" required  class="w-100">
-                                                                        <mat-option *ngFor="let occupation of occupationList" value="{{occupation.occupation_id}}">{{occupation.occupation_name}}</mat-option>
+                                                                    <mat-select  placeholder="Occupation" formControlName="insureoccupation" (change)="selectOccupation(i)" required  class="w-100">
+                                                                        <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                                                                 </mat-form-field>
@@ -112,7 +112,7 @@
                                                             <div class="col-md-3" *ngIf="i != 0">
                                                                 <mat-form-field class="w-100">
                                                                     <mat-select placeholder="Relationship with Insurer"  formControlName="insurerelationship" required >
-                                                                        <mat-option *ngFor="let relation of insureRelation" value="{{relation.relationship_name}}" >{{relation.relationship_name}}</mat-option>
+                                                                        <mat-option *ngFor="let relation of insureRelation | keys" value="{{relation.value}}" >{{relation.value}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                                                                 </mat-form-field>
@@ -259,8 +259,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select placeholder="Relationship with Insurer" formControlName="bajajRelationship" required>
-                                                                        <mat-option  *ngFor="let relation of nomeeRelation" [hidden]="sameRelationship == relation.relationship_name" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
+                                                                    <mat-select placeholder="Relationship with Insured" formControlName="bajajRelationship" required>
+                                                                        <mat-option  *ngFor="let relation of nomeeRelation | keys" [hidden]="sameRelationship == relation.value" value="{{relation.value}}">{{relation.value}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Nominee Relationship is required</mat-error>
                                                                 </mat-form-field>
@@ -309,23 +309,23 @@
                                 </ul>
                             </div>
                         </div>
-                        <section *ngFor="let item of summaryData.insured_details; let i = index;">
+                        <section *ngFor="let item of insuredFormData; let i = index;">
                             <h5 class="mt-3 sub-title">{{item.ins_relationship | uppercase}} DETAILS </h5>
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <h6 class="color-blue mt-2"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Insured Name :</strong>Ms. {{item.ins_name}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Insured Name :</strong>Mr. {{item.ins_name}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong>Gender :</strong> Male</li>
-                                            <li class="list-group-item" *ngIf="item.ins_gender == 'F'"><strong>Gender :</strong> Female</li>
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{summaryData.proposer_dob | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.ins_dob| date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{summaryData.proposer_email}}</li>
+                                            <li class="list-group-item"><strong> Name :</strong> {{item.insureTitle}}.{{item.insureName}}</li>
+                                            <!--<li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong> Name :</strong>Mr. {{item.ins_name}}</li>-->
+                                            <li class="list-group-item" *ngIf="item.insureGender == 'M'"><strong>Gender :</strong> Male</li>
+                                            <li class="list-group-item" *ngIf="item.insureGender == 'F'"><strong>Gender :</strong> Female</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{item.insureDob | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.insureDob| date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{item.insureEmail}}</li>
                                             <!--<li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
-                                            <li class="list-group-item" *ngIf="item.ins_age !=''"><strong>Age :</strong> {{item.ins_age}}</li>
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{summaryData.proposer_mobile}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureAge !=''"><strong>Age :</strong> {{item.insureAge}}</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{item.insureMobile}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -334,13 +334,13 @@
                                     <div class="p-3">
                                         <h6 class="mt-2"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="summaryData.prop_alternate_mobile !='' && i == 0"><strong>Alternate Number:</strong> {{summaryData.prop_alternate_mobile}}</li>
-                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.ins_relationship}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{summaryData.polcovvolntrycp}} %</li>
-                                            <li class="list-group-item"><strong>Height:</strong> {{item.ins_height}}</li>
-                                            <li class="list-group-item"><strong>Weight:</strong> {{item.ins_weight}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.mem_occupation}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memgrossmonthlyincome !='' && item.ins_memgrossmonthlyincome != 0"><strong>Gross Monthly Income:</strong> {{item.ins_memgrossmonthlyincome}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePhone !='' && i == 0"><strong>Alternate Number:</strong> {{item.insurePhone}}</li>
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.insurerelationship}}</li>
+                                            <li class="list-group-item" *ngIf="item.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{item.polcovvolntrycp}} %</li>
+                                            <li class="list-group-item"><strong>Height:</strong> {{item.insureHeight}}</li>
+                                            <li class="list-group-item"><strong>Weight:</strong> {{item.insureWeight}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureGMIncome !='' && item.insureGMIncome != 0"><strong>Gross Monthly Income:</strong> {{item.insureGMIncome}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -350,9 +350,9 @@
                                     <div class="p-3">
                                         <h6 class="color-blue">ADDRESS DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="i == 0"><strong>Address1 :</strong> {{summaryData.prop_address1}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_address2 !='' && i == 0"><strong>Address2 :</strong> {{summaryData.prop_address2}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_area !='' && i == 0"><strong>Area :</strong> {{summaryData.prop_area}}</li>
+                                            <li class="list-group-item" *ngIf="i == 0"><strong>Address1 :</strong> {{item.insureAddress}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureAddress2 !='' && i == 0"><strong>Address2 :</strong> {{item.insureAddress2}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureArea !='' && i == 0"><strong>Area :</strong> {{item.insureArea}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -360,25 +360,24 @@
                                     <div class="p-3">
                                         <h6 class="color-blue mt-4"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="summaryData.prop_city !='' && i == 0"><strong>City :</strong> {{summaryData.prop_city}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_state !='' && i == 0"><strong>State :</strong> {{summaryData.prop_state}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_postcode !='' && i == 0"><strong>Pincode :</strong> {{summaryData.prop_postcode}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureCity !='' && i == 0"><strong>City :</strong> {{item.insureCity}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureState !='' && i == 0"><strong>State :</strong> {{item.insureState}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePincode !='' && i == 0"><strong>Pincode :</strong> {{item.insurePincode}}</li>
                                         </ul>
                                     </div>
                                 </div>
 
-
-                                <div class="col-md-6" *ngIf="summaryData.prop_previnsname !='' || item.ins_memcompname !='' || item.ins_memprvpolno !='' || (item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null) || (item.ins_memprvsi !='' && item.ins_memprvsi != 0.00) || (summaryData.prop_noofclaims !='' && summaryData.prop_noofclaims !='0') || summaryData.prop_previnsaddress !=''">
+                                <div class="col-md-6" *ngIf="item.insurePIName !='' || item.insureCName !='' || item.insurePINumber !='' || (item.insurePItDate !='' && item.insurePItDate != null) || (item.insureSInsurance !='' && item.insureSInsurance != 0.00) || (item.insurePIClaims !='' && item.insurePIClaims !='0') || item.insurePIAddress !=''">
                                     <div class="p-3">
                                         <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePIName !='' && i == 0"><strong>Previous Insured Name:</strong> {{item.insurePIName}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureCName !=''"><strong>Company Name:</strong> {{item.insureCName}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePINumber !='' "><strong>Previous Policy Number:</strong> {{item.insurePINumber}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePItDate !='' && item.insurePItDate != null"><strong>Previous Policy Expiry Date:</strong> {{item.insurePItDate | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureSInsurance !='' && item.insureSInsurance != 0.00"><strong>Previous Sum Insurance:</strong> {{item.insureSInsurance}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePIClaims !='' && i == 0 && item.insurePIClaims != 0"><strong>Number Of Claims:</strong> {{item.insurePIClaims}}</li>
+                                            <li class="list-group-item" *ngIf="item.insurePIAddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{item.insurePIAddress}}</li>
                                         </ul>
                                     </div>
                                     <!--<div class="p-3" *ngIf="i != 0">-->
@@ -400,8 +399,9 @@
                                     <div class="p-3">
                                         <h6 class="color-blue">NOMINEE DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.ins_memnomineename}}</li>
-                                            <li class="list-group-item"><strong>Relationship with Insurer:</strong> {{item.ins_memnomineerelation}}</li>
+                                            <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.bajajNomineeName}}</li>
+                                            <li class="list-group-item"><strong>Relationship with Insured:</strong> {{item.bajajRelationship}}</li>
+                                            <li class="list-group-item" *ngIf="item.insureCoPayment !=''"><strong>Voluntary Co-Payment:</strong> {{item.insureCoPayment}}</li>
                                         </ul>
                                     </div>
                                 </div>
