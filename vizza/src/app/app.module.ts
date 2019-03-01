@@ -90,7 +90,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import {DownloadMessageReligare} from './pages/religare-payment-success/religare-payment-success.component';
-// import {DownloadMessageRelianceTravel} from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
+import {DownloadMessageRelianceTravel} from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
 import { ReligareHealthProposalComponent } from './pages/religare-health-proposal/religare-health-proposal.component';
@@ -310,7 +310,7 @@ import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-p
       DownloadMessage,
       DownloadtravelMessage,
       DownloadMessageReligare,
-      // DownloadMessageRelianceTravel,
+      DownloadMessageRelianceTravel,
       PosstatusAlert,
       TruncatePipe,
       ReligareHealthProposalComponent,
@@ -488,7 +488,7 @@ import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-p
     bootstrap: [AppComponent],
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer
     ]
