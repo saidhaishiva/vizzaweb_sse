@@ -104,12 +104,16 @@
               </mat-tab-group>
           </div>
         </div>
+
+
+
+
             <div *ngFor="let lists of insuranceLists;let pi = index" >
               <div class="flex-p" *ngIf="lists.product_lists !=''">
-               <table class="table health-table">
+               <table class="table health-table table-scroll">
                 <thead>
                 <tr>
-                  <th >
+                  <th class="col-md-3">
                     <mat-form-field class="w-100">
                       <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
                       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
@@ -118,7 +122,7 @@
                       </mat-select>
                     </mat-form-field>
                   </th>
-                  <th class="sun-insured">
+                  <th class="sun-insured col-md-2">
                     <mat-form-field >
                       <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
                       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
@@ -127,36 +131,36 @@
                       </mat-select>
                     </mat-form-field>
                   </th>
-                  <th >COPAY</th>
-                  <th>PRE EXIXTING DISEASE</th>
-                  <th>PRE HOSPITALIZATION</th>
-                  <th>POST HOSPITALIZATION</th>
-                  <th>COMPARE</th>
-                  <th>PREMIUM ( &#8377; )</th>
-                  <th>BUY ( &#8377; )</th>
+                  <th class="col-md-1">COPAY</th>
+                  <th class="col-md-1">PRE EXIXTING DISEASE</th>
+                  <th class="col-md-1">PRE HOSPITALIZATION</th>
+                  <th class="col-md-1">POST HOSPITALIZATION</th>
+                  <th class="col-md-1">COMPARE</th>
+                  <th class="col-md-1">PREMIUM ( &#8377; )</th>
+                  <th class="col-md-1">BUY ( &#8377; )</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'premium_amount';let i = index">
-                  <td align="left">
+                  <td align="left"  class="col-md-3">
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>
-                  <td >
+                  <td  class="col-md-2">
                     <p>&#8377; {{plists.suminsured_amount_format}}</p>
                   </td>
-                  <td *ngFor="let keys of plists.key_features; let i = index;" >
+                  <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                     <p class="text-center">{{keys.key_features_value}}</p>
                   </td>
-                  <td>
+                  <td class="col-md-1">
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                   </td>
-                  <td >
+                  <td class="col-md-1">
                     <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                     <p class="text-center change-p">(Including.GST)</p>
                   </td>
-                  <td >
+                  <td class="col-md-1">
                     <p><button mat-raised-button color="accent" (click)="buyProduct(plists, lists.enquiry_id,lists.name)">Buy</button></p>
                   </td>
                 </tr>
