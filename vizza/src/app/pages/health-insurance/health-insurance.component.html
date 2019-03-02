@@ -117,7 +117,7 @@
                     <mat-form-field class="w-100">
                       <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
                       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                        <!--<mat-option value="all"  (click)="selectAll($event)">Select All</mat-option>-->
+                        <!--<mat-option value="all" (click)="selectAll($event)">Select All</mat-option>-->
                         <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
                       </mat-select>
                     </mat-form-field>

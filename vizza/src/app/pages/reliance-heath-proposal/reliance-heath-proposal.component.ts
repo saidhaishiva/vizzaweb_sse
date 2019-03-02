@@ -351,6 +351,9 @@ export class RelianceHeathProposalComponent implements OnInit {
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
     initItemRows() {
         return this.fb.group(
             {
@@ -597,7 +600,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
         this.personal.controls['ServicesTaxName'].patchValue(this.ServiceTaxId[this.personal.controls['ServicesTaxId'].value]);
 
-
     }
     sameAddress(values: any) {
         this.sameField = values.checked;
@@ -760,10 +762,14 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.personal.controls['ServicesTaxId'].patchValue('');
                         this.taxRequired = '';
                         stepper.next();
+                        this.topScroll();
+
                     } else {
                         if(this.personal.controls['ServicesTaxId'].value != '') {
                             this.taxRequired = '';
                             stepper.next();
+                            this.topScroll();
+
                         } else {
                             this.taxRequired = 'Services Tax is required';
                         }
@@ -1202,6 +1208,8 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.prevviousInsuranceStepperDetails = '';
         sessionStorage.prevviousInsuranceStepperDetails = JSON.stringify(value);
         stepper.next();
+        this.topScroll();
+
     }
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
@@ -1270,6 +1278,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             if(!ageValidate.includes(1)){
                 if(!diseases.includes('Yes')){
                     stepper.next();
+                    this.topScroll();
+
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -1325,6 +1335,8 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.riskDetails.valid) {
             this.riskData = value;
             stepper.next();
+            this.topScroll();
+
         }
     }
     //Nominee Details
@@ -1342,7 +1354,10 @@ export class RelianceHeathProposalComponent implements OnInit {
     selectNomineResArea(){
         this.nomineeDetails.controls['nomineeAreaName'].patchValue(this.nomineeAreaList[this.nomineeDetails.controls['nomineeArea'].value]);
     }
+    selectInsuredRelation(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
 
+    }
 
     // Session Details
 

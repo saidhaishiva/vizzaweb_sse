@@ -121,16 +121,18 @@
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
-                                                <p>Is service tax Applicable <span class="error">*</span></p>
-                                                <mat-radio-group formControlName="serviceTax" >
+                                                <p>Is Service Tax Exemption Application Applicable <span class="error">*</span></p>
+                                                <mat-radio-group formControlName="serviceTax">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
                                             <div class="col-md-3" *ngIf="this.personal.controls['serviceTax'].value == 'Yes'">
                                                 <mat-form-field  class="w-100">
-                                                    <mat-select placeholder="Services Tax" formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()">
-                                                        <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}>{{list.value}}</mat-option>
+                                                    <mat-placeholder>Service Tax Exemption<span class="error">*</span></mat-placeholder>
+
+                                                    <mat-select formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()" >
+                                                        <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}   matTooltip="{{list.value}}">{{list.value}}</mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="personal.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>-->
                                                 </mat-form-field>
@@ -391,7 +393,7 @@
                                                 </div>
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required >
+                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" (change)="selectInsuredRelation(i)"  required >
                                                             <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -455,7 +457,7 @@
 
                                     <div class="col-md-3">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Previous Insurance Company Name" formControlName="InsuranceCompName" (keypress)="idValidate($event)" autocomplete="off">
+                                            <input matInput placeholder="Previous Insurance Company Name" formControlName="InsuranceCompName" (keypress)="nameValidate($event)" autocomplete="off">
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3">
@@ -483,7 +485,8 @@
                                     </div>
 
                                     <div class="col-md-12 mt-3">
-                                        <p style="font-size:12px;"><strong>Notes: </strong>This policy is consider as fresh policy and previous insurance details are for our internal reference</p>
+                                        <p style="font-size:12px;"><strong>Notes: </strong>This policy is considered as fresh policy and previous insurance details are for our internal reference
+                                        </p>
                                     </div>
 
                                 </div>
@@ -639,7 +642,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
+                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
                                                         <mat-option *ngFor="let relationship of nomineeRelationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -721,7 +724,7 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{summaryData.group_name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">
@@ -825,10 +828,10 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>
                                             <li class="list-group-item"  *ngIf="item.IsExistingIllness == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>
-                                            <li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'No'"><strong>Insured Consumetobacco : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consumetobacco : </strong> Yes</li>
-                                            <li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre ClaimOnInsured : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre ClaimOnInsured : </strong>Yes</li>
+                                            <li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>
+                                            <li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consume Tobacco : </strong> Yes</li>
+                                            <li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre Claim On Insured : </strong> No</li>
+                                            <li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>
                                             <li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>
                                             <li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>
 

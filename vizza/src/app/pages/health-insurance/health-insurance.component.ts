@@ -765,32 +765,40 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     // filter by product
-    filterByProducts(){
+    filterByProducts() {
        // this.insuranceLists = [];
         let index = sessionStorage.changedTabIndex;
         console.log(this.filterCompany, 'this.filterCompany');
-       // console.log(this.insuranceLists, ' this.insuranceList2222');
+        console.log(this.filterCompany.includes('all'), 'this.hhhjjjj');
 
+        // if(this.filterCompany.includes('all')){
+        //     this.insuranceLists[index].product_lists = this.insuranceLists[index].all_product_list;
+        // } else {
+        //     this.insuranceLists[index].product_lists = [];
+        // }
+
+       // console.log(this.insuranceLists, ' this.insuranceList2222');
         let cmpy = [];
-        for (let k = 0; k < this.filterCompany.length; k++) {
-            for (let j = 0; j < this.insuranceLists[index].all_product_list.length; j++) {
-                if (this.filterCompany[k] == this.insuranceLists[index].all_product_list[j].company_name) {
-                    // this.insuranceLists[0].product_lists.push(this.insuranceLists[0].product_lists[j]);
-                    cmpy.push(this.insuranceLists[index].all_product_list[j]);
+        if(this.filterCompany.length > 0) {
+            for (let k = 0; k < this.filterCompany.length; k++) {
+                for (let j = 0; j < this.insuranceLists[index].all_product_list.length; j++) {
+                    if (this.filterCompany[k] == this.insuranceLists[index].all_product_list[j].company_name) {
+                        cmpy.push(this.insuranceLists[index].all_product_list[j]);
+                    }
                 }
             }
+            console.log(this.insuranceLists[index].all_product_list, 'popp');
         }
-        console.log(this.insuranceLists[index].all_product_list, 'popp');
-
-        if(this.filterCompany.length < 1) {
+        if (this.filterCompany.length < 1) {
             console.log('innnn');
             this.insuranceLists[index].product_lists = this.insuranceLists[index].all_product_list;
+           // this.insuranceLists[index].product_lists = [];
         } else {
             this.insuranceLists[index].product_lists = cmpy;
         }
-
-        // this.insuranceLists[0].product_lists = [];
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+        sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
+
 
     }
 
