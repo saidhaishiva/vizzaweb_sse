@@ -139,6 +139,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public insuredFormData : any;
     public previousInsuranceFromData : any;
     public nomineeFormData : any;
+    public serviceTaxrequired: boolean;
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -175,6 +176,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.sameField = false;
         this.isDisable = false;
         this.insureCity = false;
+        this.serviceTaxrequired = false;
         this.proposerInsureData = [];
         this.totalInsureDetails = [];
         this.questions_list = [];
@@ -594,9 +596,11 @@ export class RelianceHeathProposalComponent implements OnInit {
     isServiceTax() {
         if (this.personal.controls['ServicesTaxId'].value != '') {
             this.taxRequired = '';
+            this.serviceTaxrequired = false;
+
         }
         this.personal.controls['ServicesTaxName'].patchValue(this.ServiceTaxId[this.personal.controls['ServicesTaxId'].value]);
-
+        this.serviceTaxrequired = true;
 
     }
     sameAddress(values: any) {
@@ -1342,7 +1346,10 @@ export class RelianceHeathProposalComponent implements OnInit {
     selectNomineResArea(){
         this.nomineeDetails.controls['nomineeAreaName'].patchValue(this.nomineeAreaList[this.nomineeDetails.controls['nomineeArea'].value]);
     }
+    selectInsuredRelation(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
 
+    }
 
     // Session Details
 

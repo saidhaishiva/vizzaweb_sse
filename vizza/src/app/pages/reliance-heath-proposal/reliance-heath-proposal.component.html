@@ -129,8 +129,8 @@
                                             </div>
                                             <div class="col-md-3" *ngIf="this.personal.controls['serviceTax'].value == 'Yes'">
                                                 <mat-form-field  class="w-100">
-                                                    <mat-select placeholder="Services Tax" formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()">
-                                                        <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}>{{list.value}}</mat-option>
+                                                    <mat-select placeholder="Services Tax"  formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()" [required]="serviceTaxrequired">
+                                                        <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}   matTooltip="{{list.value}}">{{list.value}}</mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="personal.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>-->
                                                 </mat-form-field>
@@ -391,7 +391,7 @@
                                                 </div>
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required >
+                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" (change)="selectInsuredRelation(i)"  required >
                                                             <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -455,7 +455,7 @@
 
                                     <div class="col-md-3">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Previous Insurance Company Name" formControlName="InsuranceCompName" (keypress)="idValidate($event)" autocomplete="off">
+                                            <input matInput placeholder="Previous Insurance Company Name" formControlName="InsuranceCompName" (keypress)="nameValidate($event)" autocomplete="off">
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3">
@@ -483,7 +483,8 @@
                                     </div>
 
                                     <div class="col-md-12 mt-3">
-                                        <p style="font-size:12px;"><strong>Notes: </strong>This policy is consider as fresh policy and previous insurance details are for our internal reference</p>
+                                        <p style="font-size:12px;"><strong>Notes: </strong>This policy is considered as fresh policy and previous insurance details are for our internal reference
+                                        </p>
                                     </div>
 
                                 </div>
@@ -721,7 +722,7 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{summaryData.group_name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">

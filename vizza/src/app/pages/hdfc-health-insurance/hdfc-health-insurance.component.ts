@@ -876,7 +876,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 // star-health-proposal Creation
     createProposal(stepper){
-
         for(let i=0; i < this.insurerData.items.length; i++) {
             this.insurerData.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
             this.insurerData.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;

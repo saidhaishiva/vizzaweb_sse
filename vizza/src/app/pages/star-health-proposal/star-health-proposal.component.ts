@@ -1320,7 +1320,7 @@ export class StarHealthProposalComponent implements OnInit {
                 }
                 if(parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
                     percentValid = false;
-                    this.toastr.error('Claim percentage should not be grater than 100', key);
+                    this.toastr.error('Claim percentage should not be greater than 100', key);
                 } else if(parseInt(this.nomineeDate[0].nominee[0].nclaim) < 100) {
                     percentValid = false;
                     this.toastr.error('Claim percentage should not be less than 100', key);
@@ -1335,7 +1335,7 @@ export class StarHealthProposalComponent implements OnInit {
                 }
                 if(total > 100) {
                     percentValid = false
-                    this.toastr.error('Claim percentage should not be grater than 100', key);
+                    this.toastr.error('Claim percentage should not be greater than 100', key);
                 } else if(total < 100) {
                     percentValid = false;
                     this.toastr.error('Claim percentage should not be less than 100', key);
