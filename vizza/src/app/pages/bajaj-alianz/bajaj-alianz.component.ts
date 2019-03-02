@@ -70,10 +70,6 @@ export class BajajAlianzComponent implements OnInit {
     public title: any;
     public setPincode: any;
     public insureMArea: any;
-    public mitems: any;
-    public medicalData: any;
-    public totalMedicalDetails: any;
-    public medicalPersons: any;
     public zonemessage: any;
     // public grossAmountAge: any;
 
@@ -101,6 +97,7 @@ export class BajajAlianzComponent implements OnInit {
     public zoneList: any;
     public zonepanvalue: any;
     public sameRelationship: any;
+    public insuredFormData: any;
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -151,7 +148,8 @@ export class BajajAlianzComponent implements OnInit {
 
     ngOnInit() {
         this.setOccupationList();
-        this.setrelationshipList();
+        this.relationshipListForInsured();
+        this.relationshipListForNominee();
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.enquiryId = sessionStorage.enquiryId;
         this.groupName = sessionStorage.groupName;
@@ -191,6 +189,7 @@ export class BajajAlianzComponent implements OnInit {
                 insureHeight: ['', Validators.compose([Validators.required])],
                 insureWeight: ['', Validators.compose([Validators.required])],
                 insureoccupation: ['', Validators.required],
+                insureoccupationName: '',
                 insurerelationship: ['', Validators.required],
                 insureGMIncome: '',
                 insureEmail: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -322,8 +321,7 @@ export class BajajAlianzComponent implements OnInit {
             if(!ageValidate.includes(1)){
                 if(!diseaseValidate.includes('No')) {
                     if(!relationshipValidate.includes('No')) {
-                        this.lastStepper = stepper;
-                        this.proposal();
+                        this.proposal(stepper);
                     }  else{
                         this.toastr.error('Insurer and Nominee relationship should be different');
                     }
@@ -457,16 +455,6 @@ export class BajajAlianzComponent implements OnInit {
 
     }
     ageCalculate(dob) {
-        // const mdate = dob.toString();
-        // const yearThen = parseInt(mdate.substring(8, 10), 10);
-        // const monthThen = parseInt(mdate.substring(5, 7), 10);
-        // const dayThen = parseInt(mdate.substring(0, 4), 10);
-        // const todays = new Date();
-        // const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        // this.agecal = yearAge;
-        // return yearAge;
         let today = new Date();
         let birthDate = new Date(dob);
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -479,16 +467,6 @@ export class BajajAlianzComponent implements OnInit {
         return age;
     }
     ageCalculateInsurer(getDays) {
-
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring( 8,10), 10);
-        // let monthThen = parseInt(mdate.substring(5,7), 10);
-        // let dayThen = parseInt(mdate.substring(0,4), 10);
-        // let todays = new Date();
-        // let birthday = new Date( dayThen, monthThen-1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        // return Bob_days;
         let a = moment(getDays, 'DD/MM/YYYY');
         let b = moment(new Date(), 'DD/MM/YYYY');
         let days = b.diff(a, 'days');
@@ -637,13 +615,13 @@ export class BajajAlianzComponent implements OnInit {
         }
         // sessionStorage.insuremobileNumber = this.insuremobileNumber;
     }
-
-    setrelationshipList() {
+    relationshipListForInsured() {
         const data = {
             'platform': 'web',
             'product_id': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'relationship_for': '1'
         }
         this.proposalservice.getBajajRelationship(data).subscribe(
             (successData) => {
@@ -655,31 +633,37 @@ export class BajajAlianzComponent implements OnInit {
         );
 
     }
-
     public relationListSuccess(successData) {
-        this.relationshipList = successData.ResponseObject;
-        this.insureRelation = [];
-        this.nomeeRelation = [];
-        for (let i = 0; i < this.relationshipList.length; i++) {
-            if(this.relationshipList[i].show_prop_relationship == 1) {
-                this.insureRelation.push(
-                    {
-                        'relationship_name': this.relationshipList[i].relationship_name,
-                        'relationship_id': this.relationshipList[i].relationship_id
-                    });
-            }
-            if(this.relationshipList[i].show_nominee_relationship == 1) {
-                this.nomeeRelation.push(
-                    {
-                        'relationship_name': this.relationshipList[i].relationship_name,
-                        'relationship_id': this.relationshipList[i].relationship_id
-                    });
-            }
-
+        if (successData.IsSuccess) {
+            this.relationshipList = successData.ResponseObject;
         }
     }
-
     public relationListFailure(error) {
+    }
+    relationshipListForNominee() {
+        const data = {
+            'platform': 'web',
+            'product_id': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'relationship_for': '2'
+        }
+        this.proposalservice.getBajajRelationship(data).subscribe(
+            (successData) => {
+                this.nomieRelationListSuccess(successData);
+            },
+            (error) => {
+                this.nomineRelationListFailure(error);
+            }
+        );
+
+    }
+    public nomieRelationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.nomeeRelation = successData.ResponseObject;
+        }
+    }
+    public nomineRelationListFailure(error) {
     }
     sessionData() {
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -704,6 +688,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureCity.patchValue(this.getStepper1.items[i].insureCity);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureArea.patchValue(this.getStepper1.items[i].insureArea);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureoccupation.patchValue(this.getStepper1.items[i].insureoccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureoccupationName.patchValue(this.getStepper1.items[i].insureoccupationName);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerelationship.patchValue(this.getStepper1.items[i].insurerelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue(this.getStepper1.items[i].insureGMIncome);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurePIName.patchValue(this.getStepper1.items[i].insurePIName);
@@ -732,9 +717,6 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureCoPayment.patchValue(this.getStepper1.items[i].insureCoPayment);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureCheckCopay.patchValue(this.getStepper1.items[i].insureCheckCopay);
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper1.items[i].dobErrorStartDate);
-                this.commonPincode(this.getStepper1.items[i].insurePincode, 'insurer');
-                this.zoneValidate(this.getStepper1.items[i].insurePincode, 'insurer');
-                this.zonecheckingList(this.getStepper1.items[i].zoneCheck);
                 this.insureArray['controls'].items['controls'][i]['controls'].zoneCheck.patchValue(this.getStepper1.items[i].zoneCheck);
 
             }
@@ -754,7 +736,7 @@ export class BajajAlianzComponent implements OnInit {
     }
 
     //create poposal
-    proposal(){
+    proposal(stepper){
         this.settings.loadingSpinner = true;
         const data  = {
             'platform': 'web',
@@ -762,6 +744,7 @@ export class BajajAlianzComponent implements OnInit {
             'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
             'enquiry_id': this.enquiryId,
             'company_name': 'bajajalianz',
+            'group_name': this.getFamilyDetails.name,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -804,22 +787,25 @@ export class BajajAlianzComponent implements OnInit {
         };
         this.proposalservice.getbajajProposal(data).subscribe(
             (successData) => {
-                this.proposalSuccess(successData);
+                this.proposalSuccess(successData,stepper);
             },
             (error) => {
                 this.proposalFailure(error);
             });
     }
-    proposalSuccess(successData){
+    proposalSuccess(successData,stepper){
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
+            stepper.next();
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
-            this.RediretUrlLink = this.summaryData.payment_url;
-            this.proposalId = this.summaryData.proposal_id;
+            this.insuredFormData = this.insureArray.value.items;
+
+
+            // this.RediretUrlLink = this.summaryData.payment_url;
+          //  this.proposalId = this.summaryData.proposal_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
-            this.lastStepper.next();
         } else{
             this.toastr.error(successData.ErrorObject);
         }
@@ -840,19 +826,23 @@ export class BajajAlianzComponent implements OnInit {
             }
         }
     }
+    selectOccupation(i){
+        this.insureArray['controls'].items['controls'][i]['controls'].insureoccupationName.patchValue(this.occupationList[this.insureArray['controls'].items['controls'][i]['controls'].insureoccupation.value]);
+
+    }
 
 
     commonPincode(pin, title){
-        this.pin = pin;
-        this.title = title;
         const data = {
             'platform': 'web',
-            'postcode': this.pin
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'postcode': pin
         }
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getCheckpincodeBajai(data).subscribe(
                 (successData) => {
-                    this.commonPincodeSuccess(successData);
+                    this.commonPincodeSuccess(successData, title);
                 },
                 (error) => {
                     this.commonPincodeFailure(error);
@@ -860,20 +850,25 @@ export class BajajAlianzComponent implements OnInit {
             );
         }
     }
-    commonPincodeSuccess(successData){
-        this.setPincode = successData.ResponseObject;
-        if (this.title == 'insurer') {
-            if (successData.IsSuccess) {
-                this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue(this.setPincode.state);
-               this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue(this.setPincode.city);
-                this.insureMArea = this.setPincode.area_details;
-                this.zonemessage = this.setPincode.message;
-            } else {
-                this.toastr.error('In valid Pincode');
-                this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue('');
-               this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue('');
-                this.insureMArea = [];
+    commonPincodeSuccess(successData, title){
+        if (successData.IsSuccess) {
+            this.setPincode = successData.ResponseObject;
+            if (title == 'insurer') {
+                if (Object.keys(this.setPincode).length === 0) {
+                    this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue('');
+                    this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue('');
+                    this.zonemessage = '';
+                } else {
+                    this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue(this.setPincode.state);
+                    this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue(this.setPincode.city);
+                    this.zonemessage = this.setPincode.message;
+                }
             }
+        } else {
+            this.toastr.error('In valid Pincode');
+            this.insureArray['controls'].items['controls'][0]['controls'].insureState.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].insureCity.patchValue('');
+            this.zonemessage = '';
         }
     }
     commonPincodeFailure(error){
@@ -881,9 +876,11 @@ export class BajajAlianzComponent implements OnInit {
     zoneValidate(pin, title){
         const data = {
             'platform': 'web',
-            'postcode': this.pin
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'postcode': pin
         }
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getZoneCode(data).subscribe(
                 (successData) => {
                     this.zoneCodeSuccess(successData);
@@ -895,12 +892,13 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     zoneCodeSuccess(successData){
-        this.setZonePincode = successData.ResponseObject;
-        if(this.setZonePincode.zone_value == 2){
-            this.zoneList = true;
-        } else {
-            this.zoneList = false;
-
+        if(successData.IsSuccess) {
+            this.setZonePincode = successData.ResponseObject;
+            if(this.setZonePincode.zone_value == 2){
+                this.zoneList = true;
+            } else {
+                this.zoneList = false;
+            }
         }
     }
     zoneCodeFailure(error){

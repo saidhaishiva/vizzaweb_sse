@@ -14,6 +14,9 @@ import {CommonService} from '../../shared/services/common.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
+import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -78,6 +81,7 @@ export class IffcoTokioComponent implements OnInit {
     public getStepper3: any;
     public getNomineeData: any;
     public prevviousInsuranceStepperDetails: any;
+    public pincodeValid: any;
 
     public nomineeAge: any;
     public personalAge: any;
@@ -87,17 +91,43 @@ export class IffcoTokioComponent implements OnInit {
     public getAge: any;
     public getDays: any;
     public arr: any;
-
+    public relationshipDetails: any;
+    public occupationDetails: any;
+    public stateDetails: any;
+    public cityDetails: any;
+    public nomineeData: any;
+    public insuredDetails: any;
+    public insuredData: any;
+    public personalFormData: any;
     public insurePersons: any;
     public items: any;
     public pin: any;
+    public nomineeFormData: any;
+    public insuredFormData: any;
     public setPincode: any;
     public title: any;
     public proposerAge: any;
     public mobileNumber: any;
-
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    public currentStep: any;
+    public smokeList: boolean;
+    public alchocolList: boolean;
+    public tobacoList: boolean;
+    public sameValue: boolean;
+    public policy: any;
+    public xmlData: any;
+    public nomineecityDetails: any;
+    public xmlString: any;
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if (params.stepper == true) {
+                stepperindex = 2;
+            }
+        });
+        this.currentStep = stepperindex;
+        this.sameValue = false;
+
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
@@ -112,81 +142,71 @@ export class IffcoTokioComponent implements OnInit {
         this.proposalId = 0;
         this.step = 0;
         this.totalInsureDetails = [];
+        this.insuredData = [];
 
+        this.smokeList = false;
+        this.tobacoList = false;
+        this.alchocolList = false;
         this.proposer = this.fb.group({
-            proposerTitle: ['',Validators.required],
-            proposerFirstname: ['',Validators.required],
-            proposerMidname: '',
-            proposerLastname: ['',Validators.required],
+            proposerTitle: ['', Validators.required],
+            proposerFirstname: ['', Validators.required],
+            proposerLastname: ['', Validators.required],
             proposerGender: ['', Validators.compose([Validators.required])],
             proposerDob: ['', Validators.compose([Validators.required])],
             proposerEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             proposerMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-            proposerAltnumber: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            proposerPhone: '',
-            proposerMarital: ['', Validators.required],
-            proposerOccupation: ['', Validators.required],
-            proposerRelationship: ['', Validators.required],
-            proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
-            proposerAddress: ['',Validators.required],
-            proposerAddress2:'',
+            proposerHomePhone: '',
+            proposerOfficePhone: '',
+            proposerPassport: '',
+            proposerOccupation: '',
+            proposerOccupationName: '',
+            proposerPan: '',
+            proposerMarital: '',
+            proposerAddress: ['', Validators.required],
+            proposerAddress2: '',
+            proposerAddress3: '',
+            proposerAddress4: '',
+            proposerFax: '',
+            proposerMaritalStatus: ['', Validators.required],
+            proposerEmergencyName: '',
+            proposerEmergencyMobile: '',
             proposerPincode: ['', Validators.required],
-            proposerNationality: ['', Validators.required],
-            proposerState: ['', Validators.required],
-            proposerDistrict: ['', Validators.required],
-            proposerCity: ['', Validators.required],
+            proposerNationality: '',
+            proposerState: '',
+            proposerStateName: '',
+            proposerCity: '',
+            proposerCityName: '',
+            criticalIllness: 'No',
+            roomRentWaiver: 'No',
+            additionalFacts: 'No',
+            pastInsuranceDeclined: 'No',
             sameas: false,
             rolecd: 'PROPOSER',
             type: ''
-// aadharnumber: ['', Validators.compose([Validators.required])],
         });
-        this.previousInsuranceFrom = this.fb.group({
-            InsuranceCompName: '',
-            PreviousPolNo: '',
-            PolicyStartDate: '',
-            PolicyEndDate: '',
-            CoverTypeID: '',
-            SumInsured:'',
-            AccumulatedCumulativeBonus: ''
-        });
+
         this.nomineeDetails = this.fb.group({
-            nomineeTitle: ['', Validators.required],
             nomineeFirstName: ['', Validators.required],
-            nomineeMidName: '',
-            nomineeLastName: ['', Validators.required],
-            nomineeDob: ['', Validators.compose([Validators.required])],
             nomineeRelationship: ['', Validators.required],
-            nomineeOtherRelationship: '',
             nomineeAddress: ['', Validators.required],
-            nomineeAddress2: ['', Validators.required],
-            nomineeAddress3: '',
             nomineePincode: ['', Validators.required],
             nomineeCountry: 'IND',
-            nomineeState: ['', Validators.required],
-            nomineeDistrict: ['', Validators.required],
-            nomineeCity: ['', Validators.required],
-            nomineeArea: ['', Validators.required],
-            nearestLandMark: ''
+            nomineeState:  '',
+            nomineeStateName: '',
+            nomineeCity:  '',
+            nomineeCityName:'',
         });
-        this.riskDetails = this.fb.group({
-            serviceTax: 'No',
-            ServicesTaxId: '',
-            relianceAda: 'No',
-            companyname: '',
-            employeeCode: '',
-            emailId:'',
-            crossSell: 'No',
-            crossSellPolicyNo: '',
-        });
+
     }
 
     changeGender() {
-        if (this.proposer.controls['proposerTitle'].value == 'MR'){
+        if (this.proposer.controls['proposerTitle'].value == 'MR') {
             this.proposer.controls['proposerGender'].patchValue('Male');
         } else {
             this.proposer.controls['proposerGender'].patchValue('Female');
         }
     }
+
     insureChangeGender(index) {
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR') {
             this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
@@ -195,28 +215,58 @@ export class IffcoTokioComponent implements OnInit {
         }
     }
 
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
+    range(value){
+            if (this.proposer.controls['proposerOfficePhone'].value > 100) {
+            alert('error');
+            } else {
+            }
 
-
-
+        }
     ngOnInit() {
-        // this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        // this.enquiryId = sessionStorage.enquiryId;
-        // this.groupName = sessionStorage.groupName;
-        // this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        // this.insurePersons = this.getFamilyDetails.family_members;
+        console.log(this.personalFormData,'1');
+        console.log(this.insuredFormData,'2');
+        console.log(this.nomineeFormData,'3');
+        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        this.enquiryId = sessionStorage.enquiryId;
+        this.groupName = sessionStorage.groupName;
+        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+        this.insurePersons = this.getFamilyDetails.family_members;
+
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
-        let family_members = [{'type':'Self', 'age': '25'}];
-        for (let i = 0; i < family_members.length; i++) {
+        // let family_members = [{'type':'Self', 'age': '25'}];
+        // for (let i = 0; i < family_members.length; i++) {
+        //     this.items = this.insureArray.get('items') as FormArray;
+        //     this.items.push(this.initItemRows());
+        //     this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(family_members[i].type);
+        // }
+        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(family_members[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
-
+        this.relationshipList();
+        this.occupationList();
+        this.stateList();
         this.sessionData();
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+        console.log(this.proposer.controls['proposerState'].value,'stateee');
+        // this.setDate = Date.now();
+        // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
     }
 
 
@@ -234,33 +284,26 @@ export class IffcoTokioComponent implements OnInit {
                 rolecd: 'PRIMARY',
                 proposerTitle: ['', Validators.required],
                 proposerFirstname: ['', Validators.required],
-                // proposerFirstname: ['',Validators.compose([Validators.required, Validators.pattern('[^-\s][a-zA-Z_\s-]+$')])],
                 proposerLastname: ['', Validators.required],
-                proposerMidname: '',
                 proposerDob: ['', Validators.compose([Validators.required])],
                 proposerGender: ['', Validators.compose([Validators.required])],
                 proposerAge: ['', Validators.compose([Validators.required])],
-                proposerMaritalStatus: ['', Validators.compose([Validators.required])],
-                proposerRelationship: ['', Validators.required],
-                proposerOccupation: ['', Validators.required],
+                proposerMaritalStatus: '',
+                proposerRelationship: '',
+                proposerOccupation: '',
                 proposerHeight: ['', Validators.required],
                 proposerWeight: ['', Validators.required],
-                proposerFax: ['', Validators.compose([ Validators.minLength(10)])],
-                proposerAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                IsExistingIllness: 'No',
-                DiseaseID: '',
-                IsInsuredConsumetobacco: 'No',
-                HasAnyPreClaimOnInsured: 'No',
-                HasAnyPreHealthInsuranceCancelled: 'No',
-                DetailsOfPreClaimOnInsured: '',
-                DetailsOfPrevInsuranceCancelled: '',
-                OtherDisease: '',
+                PreExistingDisease: 'No',
+                Smoke: 'No',
+                Alcohol: 'No',
+                Tobacco: 'No',
+                smokeQuantity: '',
+                alcoholQuantity: '',
+                tobaccoQuantity: '',
                 sameAsProposer: false,
                 sameas: false,
+                sameasreadonly:false,
                 type: '',
-                cityHide: '',
-                pCityHide: '',
-                altmobileNumber:'',
                 ins_age: '',
                 ins_days: '',
                 insurerDobError: '',
@@ -269,123 +312,208 @@ export class IffcoTokioComponent implements OnInit {
         );
     }
 
-
-    boolenHide(evnt, i, ii){
-
-    }
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
+    relationshipList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.relationshipListIffco(data).subscribe(
+            (successData) => {
+                this.relationshipListIffcoSuccess(successData);
+            },
+            (error) => {
+                this.relationshipListIffcoFailure(error);
             }
+        );
+    }
+
+    public relationshipListIffcoSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.relationshipDetails = successData.ResponseObject;
+
         }
     }
-    public keyEvent(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9a-zA-Z ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
+
+    public relationshipListIffcoFailure(error) {
+    }
+
+    occupationList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.occupationListIffco(data).subscribe(
+            (successData) => {
+                this.occupationListSuccess(successData);
+            },
+            (error) => {
+                this.occupationListFailure(error);
             }
+        );
+    }
+
+    public occupationListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.occupationDetails = successData.ResponseObject;
+
         }
     }
+
+    public occupationListFailure(error) {
+    }
+
+    stateList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.stateListIffco(data).subscribe(
+            (successData) => {
+                this.stateListSuccess(successData);
+            },
+            (error) => {
+                this.stateListFailure(error);
+            }
+        );
+    }
+
+    public stateListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.stateDetails = successData.ResponseObject;
+            this.cityList();
+        }
+    }
+
+    public stateListFailure(error) {
+    }
+
+    cityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'state_code':this.proposer.controls['proposerState'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.cityListIffco(data).subscribe(
+            (successData) => {
+                this.cityListSuccess(successData);
+            },
+            (error) => {
+                this.cityListFailure(error);
+            }
+        );
+    }
+
+    public cityListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.cityDetails = successData.ResponseObject;
+
+        }
+    }
+
+    public cityListFailure(error) {
+    }
+    nomineecityList() {
+        const data = {
+            'platform': 'web',
+            'product_id': '11',
+            'state_code':this.nomineeDetails.controls['nomineeState'].value,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.cityListIffco(data).subscribe(
+            (successData) => {
+                this.nomineecityListSuccess(successData);
+            },
+            (error) => {
+                this.nomineecityListFailure(error);
+            }
+        );
+    }
+
+    public nomineecityListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.nomineecityDetails = successData.ResponseObject;
+
+        }
+    }
+
+    public nomineecityListFailure(error) {
+    }
+
     addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
-            this.personalAge = '';
+            this.proposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    if(type == 'nominee') {
-                        this.nomineeDateError = '';
-                    } else if(type == 'previousStartDate'){
-                        this.previousStartDateError = '';
-                    } else if(type == 'previousEndStartDate'){
-                        this.previousEndtDateError = '';
-                    }else if (type == 'personal') {
-                        this.dobError = '';
-                    }
-                    else {
-                        this.dobError = '';
-                    }
+                    this.dobError = '';
                 } else {
-                    if(type == 'nominee') {
-                        this.nomineeDateError = 'Enter Valid Date';
-                    } else if(type == 'previousStartDate'){
-                        this.previousStartDateError = 'Enter Valid Date';
-                    } else if(type == 'previousEndStartDate'){
-                        this.previousEndtDateError = 'Enter Valid Date';
-                    } else if(type == 'personal'){
-                        this.dobError = 'Enter Valid Date';
-                    }else {
-                        this.dobError = 'Enter Valid Date';
-                    }
-
+                    this.dobError = 'Enter Valid Date';
                 }
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
-                    if(type == 'personal') {
-                        this.personalAge = this.ageCalculate(dob);
-                        sessionStorage.personalAge = this.personalAge;
-                    } else if(type == 'nominee') {
-                        this.nomineeAge = this.ageCalculate(dob);
-                        sessionStorage.nomineeAge = this.nomineeAge;
-                    }
-
+                    this.proposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAgeiffco = this.proposerAge;
 
                 }
 
             } else if (typeof event.value._i == 'object') {
+                // dob = this.datepipe.transform(event.value, 'MMM d, y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    if(type == 'personal') {
-                        this.personalAge = this.ageCalculate(dob);
-                        sessionStorage.personalAge = this.personalAge;
-                    }
-                    else if(type == 'nominee') {
-                        this.nomineeAge = this.ageCalculate(dob);
-                        sessionStorage.nomineeAge = this.nomineeAge;
-                    }
+                    this.proposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAgeiffco = this.proposerAge;
+
                 }
                 this.dobError = '';
-                this.nomineeDateError = '';
-                this.previousStartDateError = '';
-                this.previousEndtDateError = '';
             }
 
         }
+
+
     }
 
-    addEventInsurer(event, name, i, type) {
+
+    addEventInsurer(event, i, type, name) {
 
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
+            let dob_days = '';
             this.getAge = '';
             this.getDays;
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                } else {
-                    this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                if (name == 'insurer') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                    } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                    }
                 }
                 selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
                 if (selectedDate.length == 10) {
 
                     if (name == 'startDate') {
-                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                        // this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
-                        // this.maxDate = dob;
                     } else {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
-                        this.getDays = this.ageCalculateInsurer(dob);
+                        this.getDays = this.ageCalculateInsurer(dob_days);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
 
@@ -393,45 +521,39 @@ export class IffcoTokioComponent implements OnInit {
 
                 } else {
                     if (name == 'startDate') {
-                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
+                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
                     }
 
                 }
-            }else if (typeof event.value._i == 'object') {
+            } else if (typeof event.value._i == 'object') {
 
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
+                console.log(name, 'name');
                 if (dob.length == 10) {
                     if (name == 'startDate') {
-                        // this.insureArray['controls'].items['controls'][i]['controls'].PolicyStartDate.patchValue(dob);
-                        // this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('');
-                        // this.maxDate = dob;
-                    } else {
+
+                    } else if (name == 'insurer') {
+                        this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
-                        this.getDays = this.ageCalculateInsurer(dob);
+                        console.log(this.getAge, 'age');
+                        this.getDays = this.ageCalculateInsurer(dob_days);
+                        console.log(this.getDays, 'das');
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(dob);
                     }
-
                 }
-
             }
-            console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'opopp1');
-            console.log(this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd'), 'opopp23');
-            let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
-            if (length.length == 10) {
-                if (name == 'startDate') {
-                } else {
+            if (name == 'insurer') {
+                console.log(name, 'typettttt');
+
+                let length = this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value, 'y-MM-dd');
+                if (length.length == 10) {
+                    console.log(length, 'length');
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getAge);
                     this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
                     this.ageValidation(i, type);
-                }
-
-            } else {
-                if (name == 'startDate') {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
                 }
@@ -440,248 +562,378 @@ export class IffcoTokioComponent implements OnInit {
         }
 
     }
-    ageCalculateInsurer(dob) {
 
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring( 8,10), 10);
-        let monthThen = parseInt(mdate.substring(5,7), 10);
-        let dayThen = parseInt(mdate.substring(0,4), 10);
-        let todays = new Date();
-        let birthday = new Date( dayThen, monthThen-1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        return Bob_days;
+
+    smoking(value, type) {
+        if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Yes' && type == 'smoke') {
+            this.smokeList = true;
+        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Yes' && type == 'alcohol') {
+            this.tobacoList = true;
+
+        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Yes' && type == 'Tobacco') {
+            this.alchocolList = true;
+        }
     }
-    ageValidation(i, type) {
-        console.log(type);
-        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value, 'pppp');
-        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'dysssss');
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Self')  {
+    ageCalculateInsurer(getDays) {
+        let a = moment(getDays, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
+    }
+
+    ageValidation(i, type) {
+        console.log(type, 'type');
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
+
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Self')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 55');
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && type == 'Spouse')  {
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 55');
+            // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
         let smallest = this.arr[0];
-        for(let i = 1; i<this.arr.length; i++){
-            if(this.arr[i] < smallest){
+        for (let i = 1; i < this.arr.length; i++) {
+            if (this.arr[i] < smallest) {
                 smallest = this.arr[i];
             }
         }
 
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9131 && type == 'Son')  {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Son')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Son')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 9495 && type == 'Son') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 91 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9131 && type == 'Daughter')  {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Daughter') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 91 && type == 'Daughter')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value >= 9131 && type == 'Daughter')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 9495 && type == 'Daughter') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
         }
 
 
-
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Mother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == 'Father') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Sister age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Sister') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Brother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Brother age should be above 1');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
+        if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-        } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
+        } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
 
     }
 
     ageCalculate(dob) {
-        const mdate = dob.toString();
-        const yearThen = parseInt(mdate.substring(8, 10), 10);
-        const monthThen = parseInt(mdate.substring(5, 7), 10);
-        const dayThen = parseInt(mdate.substring(0, 4), 10);
-        const todays = new Date();
-        const birthday = new Date(dayThen, monthThen - 1, yearThen);
-        const differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        const yearAge = Math.floor(differenceInMilisecond / 31536000000);
-        return yearAge;
-    }
-    commonPincode(pin, title){
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'pincode': this.pin
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate() - birthDate.getDate();
+        if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+            age = age - 1;
         }
-        if (this.pin.length == 6) {
-            this.proposalservice.getCheckpincode(data).subscribe(
-                (successData) => {
-                    this.commonPincodeSuccess(successData);
-                },
-                (error) => {
-                    this.commonPincodeFailure(error);
-                }
-            );
-        }
+        return age;
     }
 
-    public commonPincodeSuccess(successData) {
-        this.setPincode = successData.ResponseObject;
-        if (this.title == 'proposalP') {
-            if (successData.IsSuccess) {
-            }
-        }
-    }
 
-    public commonPincodeFailure(error) {
-    }
-
-    //Create IffcoTokio star-health-proposal
-    proposal() {
-
-    }
-
-    public proposalSuccess(successData) {
-    }
-    add(event){
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                // invalid character, prevent input
-                event.preventDefault();
-            }
-        }
-    }
-    public onCharacter(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    alternateChange(event) {
-        if (event.target.value.length == 10) {
-            if(event.target.value == this.proposer.get('proposerMobile').value) {
-                this.mobileNumber = 'Alternate number should be different from mobile number';
-            } else {
-                this.mobileNumber = '';
-            }
-        } else {
-            this.mobileNumber = '';
-        }
-        sessionStorage.mobileNumber = this.mobileNumber;
-    }
-
-    proposerDetails(stepper: MatStepper, value){
+    proposerDetails(stepper: MatStepper, value) {
         this.personalData = value;
-        sessionStorage.stepper1Details = '';
-        sessionStorage.stepper1Details = JSON.stringify(value);
-        if(this.proposer.valid){
-            if (sessionStorage.personalAge >= 18) {
+        sessionStorage.stepper1IffcoDetails = '';
+        sessionStorage.stepper1IffcoDetails = JSON.stringify(value);
+        if (this.proposer.valid) {
+            if (sessionStorage.proposerAgeiffco >= 18) {
                 stepper.next();
-            }else {
+            } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
-        }else{
+        } else {
             this.toastr.error('please enter all filed');
         }
     }
 
+    iffcoInsureDetails(stepper: MatStepper, index,value) {
+        sessionStorage.stepper2IffcoDetails = '';
+        sessionStorage.stepper2IffcoDetails = JSON.stringify(value);
+        this.insuredDetails = value;
+        console.log(this.insuredDetails,'uytrtruty');
+        if (this.insureArray.valid) {
+            this.insuredData = [];
+            for(let i=0;i < this.insuredDetails.items.length; i++){
+                this.insuredData.push({
+                    'PreExistingDisease': 'No',
+                    'Age': this.insuredDetails.items[i].proposerAge,
+                    'DateOfBirth': this.insuredDetails.items[i].proposerDob,
+                    'FirstName': this.insuredDetails.items[i].proposerFirstname,
+                    'Gender': this.insuredDetails.items[i].proposerGender,
+                    'Height': this.insuredDetails.items[i].proposerHeight,
+                    'Weight': this.insuredDetails.items[i].proposerWeight,
+                    'GrossMonthlyIncome': "",
+                    'Occupation':this.insuredDetails.items[i].proposerOccupation,
+                    'PreviousPolicyFlag': "N",
+                    'InsuredPrimaryFlag': "Y",
+                    'SumInsured': "300000",
+                    'LastName': this.insuredDetails.items[i].proposerLastname,
+                    'Salutation': this.insuredDetails.items[i].proposerTitle,
+                    'MemberId': "17680879",
+                    'RelationtoInsured':this.insuredDetails.items[i].proposerRelationship,
+                    'Smoke': this.insuredDetails.items[i].Smoke,
+                    'SmokeQuantity': this.insuredDetails.items[i].smokeQuantity,
+                    'Alcohol':this.insuredDetails.items[i].Alcohol,
+                    'AlcoholQuantity':this.insuredDetails.items[i].alcoholQuantity,
+                    'Tobacco': this.insuredDetails.items[i].Tobacco,
+                    'TobaccoQuantity': this.insuredDetails.items[i].tobaccoQuantity
+                });
+            }
+            console.log(this.insuredData,'data');
+
+            stepper.next();
+        }
+    }
+
+    nomineeList(stepper: MatStepper, value) {
+        sessionStorage.nomineeData1 = '';
+        sessionStorage.nomineeData1 = JSON.stringify(value);
+        if (this.nomineeDetails.valid) {
+            this.nomineeData = value;
+            this.proposal(stepper);
+        }
+    }
+    pincodevalidationiffco(pin) {
+        this.pin = pin;
+        if (pin == '') {
+            this.pincodeValid = true;
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'Pincode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.proposalservice.getHdfcPincodeLists(data).subscribe(
+                (successData) => {
+                    this.pincodeSuccess(successData);
+                },
+                (error) => {
+                    this.pincodeFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.pincodeValid = true;
+        } else {
+            this.pincodeValid = false;
+            this.toastr.error(successData.ErrorObject);
+        }
+        sessionStorage.pincodeValidiffco = this.pincodeValid;
+    }
+    public pincodeFailure(successData) {
+    }
+    proposal(stepper) {
+        // IHP FHP
+        const data = {
+            'enquiry_id': this.enquiryId,
+            'proposal_id': 0,
+            'product_id': this.buyProductdetails.product_id,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'platform': "web",
+            'group_name': "Group A",
+            'company_name': this.buyProductdetails.company_name,
+            'Policy': {
+                'Product': this.buyProductdetails.product_name == 'IFFCO-TOKIO(FAMILY HEALTH PROTECTOR) Individual' ? 'FHP' : 'IHP',
+                'GrossPremium': "5317.44",
+                'NetPremiumPayable': "6274.58",
+                'ServiceTax': "957.14",
+                'PromoCode': "",
+                'NomineeName': this.nomineeData.nomineeFirstName,
+                'NomineeCity': this.nomineeData.nomineeCity,
+                'NomineeState': this.nomineeData.nomineeState,
+                'NomineePincode': this.nomineeData.nomineePincode,
+                'NomineeRelation': this.nomineeData.nomineeRelationship,
+                'CriticalIllness': this.proposer.controls['criticalIllness'].value,
+                'RoomRentWaiver': this.proposer.controls['roomRentWaiver'].value,
+                'AdditionalFacts': this.proposer.controls['additionalFacts'].value,
+                'PastInsuranceDeclined':this.proposer.controls['pastInsuranceDeclined'].value
+            },
+            "ListOfInsured": {
+                "Insured": this.insuredData,
+            },
+            "Contact": {
+                'DOB': this.proposer.controls['proposerDob'].value,
+                'PassPort': this.proposer.controls['proposerPassport'].value,
+                'PAN': this.proposer.controls['proposerPan'].value,
+                'Salutation': this.proposer.controls['proposerTitle'].value,
+                'FirstName': this.proposer.controls['proposerFirstname'].value,
+                'LastName': this.proposer.controls['proposerLastname'].value,
+                'Sex': this.proposer.controls['proposerGender'].value,
+                'AddressType': this.proposer.controls['proposerDob'].value,
+                'PinCode': this.proposer.controls['proposerPincode'].value,
+                'State': this.proposer.controls['proposerState'].value,
+                'AddressLine1': this.proposer.controls['proposerAddress'].value,
+                'AddressLine2': this.proposer.controls['proposerAddress2'].value,
+                'FaxNo': this.proposer.controls['proposerFax'].value,
+                'Country': "IND",
+                'Occupation': this.proposer.controls['proposerOccupation'].value,
+                'City': this.proposer.controls['proposerCity'].value,
+                'Nationality': "IND",
+                'Married': this.proposer.controls['proposerMaritalStatus'].value,
+                'HomePhone': this.proposer.controls['proposerHomePhone'].value,
+                'OfficePhone': this.proposer.controls['proposerOfficePhone'].value,
+                'MobilePhone': this.proposer.controls['proposerMobile'].value,
+                'MailId': this.proposer.controls['proposerEmail'].value,
+                'AddressLine3': this.proposer.controls['proposerAddress3'].value,
+                'AddressLine4': this.proposer.controls['proposerAddress4'].value,
+                'EmergencyContactName': this.proposer.controls['proposerEmergencyName'].value,
+                'EmergencyContactMobile': this.proposer.controls['proposerEmergencyMobile'].value
+            }
+        };
+        console.log(data,'fghjkjh');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalcreationIffco(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData, stepper);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            }
+        );
+
+    }
+    public proposalSuccess(successData,stepper) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'this.summaryData');
+            this.policy =  this.summaryData.XML_DATA.Request.Policy;
+            this.xmlData =  this.summaryData.XML_DATA;
+            this.xmlString = this.objectToXml(this.xmlData);
+
+            console.log(this.xmlData,'xmlData');
+            console.log(this.xmlString,'xmlString');
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.RediretUrlLink = this.summaryData.PaymentURL;
+            this.proposalId = this.summaryData.ProposalId;
+            sessionStorage.iffco_health_proposal_id = this.proposalId;
+            this.proposer.controls['proposerOccupationName'].patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
+            console.log(this.proposer.controls['proposerOccupationName'].value,'uytiyu');
+            // this.proposer.controls['proposerMarital'].patchValue(this.occupationDetails[this.proposer.controls['proposerMaritalStatus'].value]);
+            this.proposer.controls['proposerStateName'].patchValue(this.stateDetails[this.proposer.controls['proposerState'].value]);
+            this.proposer.controls['proposerCityName'].patchValue(this.cityDetails[this.proposer.controls['proposerCity'].value]);
+            // this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+            // this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+            this.personalFormData = this.proposer.value;
+            this.nomineeFormData = this.nomineeDetails.value;
+            this.insuredFormData = this.insuredData;
+            console.log(this.insuredFormData,'insuredFormData');
+            console.log(this.nomineeFormData,'nomineeFormData');
+            console.log(this.personalFormData,'personalFormData');
+            stepper.next();
+        }
+        else{
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+     public objectToXml(xmlData){
+        var xml = '';
+
+        for (var prop in xmlData) {
+
+            xml += "<" + prop + ">";
+            if (typeof xmlData[prop] == "object")
+                xml += this.objectToXml(new Object(xmlData[prop]));
+            else
+                xml += xmlData[prop];
+
+            xml +="</" + prop + ">";
+        }
+
+        return xml;
+    }
+//Summary residence detail
+    public proposalFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+
     sessionData() {
-        if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-            this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+        if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
+            this.getStepper1 = JSON.parse(sessionStorage.stepper1IffcoDetails);
             this.proposer = this.fb.group({
                 proposerTitle: this.getStepper1.proposerTitle,
                 proposerFirstname: this.getStepper1.proposerFirstname,
-                proposerMidname: this.getStepper1.proposerMidname,
                 proposerLastname: this.getStepper1.proposerLastname,
                 proposerGender: this.getStepper1.proposerGender,
                 proposerDob: this.getStepper1.proposerDob,
                 proposerEmail: this.getStepper1.proposerEmail,
                 proposerMobile: this.getStepper1.proposerMobile,
-                proposerAltnumber: this.getStepper1.proposerAltnumber,
-                proposerPhone: this.getStepper1.proposerPhone,
-                proposerMarital: this.getStepper1.proposerMarital,
+                proposerHomePhone: this.getStepper1.proposerHomePhone,
+                proposerOfficePhone: this.getStepper1.proposerOfficePhone,
                 proposerOccupation: this.getStepper1.proposerOccupation,
-                proposerRelationship: this.getStepper1.proposerRelationship,
                 proposerPan: this.getStepper1.proposerPan,
+                proposerPassport: this.getStepper1.proposerPassport,
+                proposerOccupationName: this.getStepper1.proposerOccupationName,
                 proposerAddress: this.getStepper1.proposerAddress,
                 proposerAddress2: this.getStepper1.proposerAddress2,
+                proposerAddress3: this.getStepper1.proposerAddress3,
+                proposerAddress4: this.getStepper1.proposerAddress4,
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerNationality: this.getStepper1.proposerNationality,
                 proposerState: this.getStepper1.proposerState,
-                proposerDistrict: this.getStepper1.proposerDistrict,
+                proposerStateName: this.getStepper1.proposerStateName,
                 proposerCity: this.getStepper1.proposerCity,
-
+                proposerCityName: this.getStepper1.proposerCityName,
+                proposerFax: this.getStepper1.proposerFax,
+                proposerEmergencyMobile: this.getStepper1.proposerEmergencyMobile,
+                proposerEmergencyName: this.getStepper1.proposerEmergencyName,
+                proposerMaritalStatus: this.getStepper1.proposerMaritalStatus,
+                criticalIllness: this.getStepper1.criticalIllness,
+                roomRentWaiver: this.getStepper1.roomRentWaiver,
+                additionalFacts: this.getStepper1.additionalFacts,
+                pastInsuranceDeclined: this.getStepper1.pastInsuranceDeclined,
             });
-
-            if (this.getStepper1.proposerPincode != '') {
-                this.commonPincode(this.getStepper1.proposerPincode, 'proposalP');
-                setTimeout(() =>{
-                    if(this.getStepper1.sameas == true) {
-                        // this.inputReadonly = true;
-                        this.commonPincode(this.getStepper1.proposerPincode, 'proposalR');
-                    } else if(this.getStepper1.sameas == false) {
-                        this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
-                    }
-                },2000);
-            };
-
-            let getPerDob = this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd');
-            this.proposer['controls'].personalDob.patchValue(getPerDob);
-
         }
 
-        if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
-            this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+        if (sessionStorage.stepper2IffcoDetails != '' && sessionStorage.stepper2IffcoDetails != undefined) {
+            this.getStepper2 = JSON.parse(sessionStorage.stepper2IffcoDetails);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.getStepper2.items[i].proposerTitle);
@@ -690,121 +942,72 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.getStepper2.items[i].proposerAge);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.getStepper2.items[i].proposerLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue(this.getStepper2.items[i].proposerRelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue('Self');
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.patchValue(this.getStepper2.items[i].proposerOccupation);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.getStepper2.items[i].proposerHeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerMaritalStatus.patchValue(this.getStepper2.items[i].proposerMaritalStatus);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerFax.patchValue(this.getStepper2.items[i].proposerFax);
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerAadhar.patchValue(this.getStepper2.items[i].proposerAadhar);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-                this.insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.patchValue(this.getStepper2.items[i].IsExistingIllness);
-                this.insureArray['controls'].items['controls'][i]['controls'].DiseaseID.patchValue(this.getStepper2.items[i].DiseaseID);
-                this.insureArray['controls'].items['controls'][i]['controls'].IsInsuredConsumetobacco.patchValue(this.getStepper2.items[i].IsInsuredConsumetobacco);
-                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreClaimOnInsured.patchValue(this.getStepper2.items[i].HasAnyPreClaimOnInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].HasAnyPreHealthInsuranceCancelled.patchValue(this.getStepper2.items[i].HasAnyPreHealthInsuranceCancelled);
-                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPreClaimOnInsured.patchValue(this.getStepper2.items[i].DetailsOfPreClaimOnInsured);
-                this.insureArray['controls'].items['controls'][i]['controls'].DetailsOfPrevInsuranceCancelled.patchValue(this.getStepper2.items[i].DetailsOfPrevInsuranceCancelled);
-                this.insureArray['controls'].items['controls'][i]['controls'].OtherDisease.patchValue(this.getStepper2.items[i].OtherDisease);
+                this.insureArray['controls'].items['controls'][i]['controls'].Smoke.patchValue(this.getStepper2.items[i].Smoke);
+                this.insureArray['controls'].items['controls'][i]['controls'].Alcohol.patchValue(this.getStepper2.items[i].Alcohol);
+                this.insureArray['controls'].items['controls'][i]['controls'].Tobacco.patchValue(this.getStepper2.items[i].Tobacco);
+                this.insureArray['controls'].items['controls'][i]['controls'].smokeQuantity.patchValue(this.getStepper2.items[i].smokeQuantity);
+                this.insureArray['controls'].items['controls'][i]['controls'].alcoholQuantity.patchValue(this.getStepper2.items[i].alcoholQuantity);
+                this.insureArray['controls'].items['controls'][i]['controls'].tobaccoQuantity.patchValue(this.getStepper2.items[i].tobaccoQuantity);
+                this.insureArray['controls'].items['controls'][i]['controls'].PreExistingDisease.patchValue(this.getStepper2.items[i].PreExistingDisease);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
+
             }
         }
 
-        if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
 
-            this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
-            this.riskDetails = this.fb.group({
-                serviceTax: this.getStepper3.serviceTax,
-                ServicesTaxId: this.getStepper3.ServicesTaxId,
-                relianceAda: this.getStepper3.relianceAda,
-                companyname: this.getStepper3.companyname,
-                employeeCode: this.getStepper3.employeeCode,
-                emailId: this.getStepper3.emailId,
-                crossSell: this.getStepper3.crossSell,
-                crossSellPolicyNo: this.getStepper3.crossSellPolicyNo
-            });
-        }
-
-        // if (sessionStorage.nomineeAreaList != '' && sessionStorage.nomineeAreaList != undefined) {
-        //     let nomineeRelations = JSON.parse(sessionStorage.nomineeAreaList);
-        //     this.nomineeAreaList = nomineeRelations;
-        // }
-
-
-        if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
-            this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
+        if (sessionStorage.nomineeData1 != '' && sessionStorage.nomineeData1 != undefined) {
+            this.getNomineeData = JSON.parse(sessionStorage.nomineeData1);
             this.nomineeDetails = this.fb.group({
                 nomineeFirstName: this.getNomineeData.nomineeFirstName,
-                nomineeMidName: this.getNomineeData.nomineeMidName,
-                nomineeLastName: this.getNomineeData.nomineeLastName,
-                nomineeRelationship: this.getNomineeData.nomineeRelationship,
-                nomineeOtherRelationship: this.getNomineeData.nomineeOtherRelationship,
                 nomineeAddress: this.getNomineeData.nomineeAddress,
-                nomineeAddress2: this.getNomineeData.nomineeAddress2,
-                nomineeAddress3: this.getNomineeData.nomineeAddress3,
                 nomineePincode: this.getNomineeData.nomineePincode,
                 nomineeCountry: this.getNomineeData.nomineeCountry,
                 nomineeCity: this.getNomineeData.nomineeCity,
+                nomineeCityName: this.getNomineeData.nomineeCityName,
                 nomineeState: this.getNomineeData.nomineeState,
-                nomineeCountryId: this.getNomineeData.nomineeCountryId,
-                nomineeDistrictId: this.getNomineeData.nomineeDistrictId,
-                nomineeCityId: this.getNomineeData.nomineeCityId,
-                nomineeStateId: this.getNomineeData.nomineeStateId,
-                nomineeDistrict: this.getNomineeData.nomineeDistrict,
-                nomineeArea: this.getNomineeData.nomineeArea,
-                nearestLandMark: this.getNomineeData.nearestLandMark,
-                nomineeTitle: this.getNomineeData.nomineeTitle,
-                nomineeDob: this.getNomineeData.nomineeDob
+                nomineeStateName: this.getNomineeData.nomineeStateName,
+                nomineeRelationship: this.getNomineeData.nomineeRelationship,
             });
-            let getNomineeDob = this.datepipe.transform(this.getNomineeData.nomineeDob, 'y-MM-dd');
-            this.nomineeDetails['controls'].nomineeDob.patchValue(getNomineeDob);
+
         }
-        if (sessionStorage.prevviousInsuranceStepperDetails != '' && sessionStorage.prevviousInsuranceStepperDetails != undefined) {
-            console.log(sessionStorage.prevviousInsuranceStepperDetails, 'uii');
-            let prevviousInsuranceDetails = JSON.parse(sessionStorage.prevviousInsuranceStepperDetails);
-            console.log(prevviousInsuranceDetails, 'prevviousInsuranceDetails');
-            this.previousInsuranceFrom = this.fb.group({
-                InsuranceCompName: prevviousInsuranceDetails.InsuranceCompName,
-                PreviousPolNo: prevviousInsuranceDetails.PreviousPolNo,
-                PolicyStartDate: this.datepipe.transform(prevviousInsuranceDetails.PolicyStartDate, 'y-MM-dd'),
-                PolicyEndDate: this.datepipe.transform(prevviousInsuranceDetails.PolicyEndDate, 'y-MM-dd'),
-                CoverTypeID: prevviousInsuranceDetails.CoverTypeID,
-                SumInsured: prevviousInsuranceDetails.SumInsured,
-                AccumulatedCumulativeBonus: prevviousInsuranceDetails.AccumulatedCumulativeBonus
-            });
-        }
+
     }
     sameProposer(value: any) {
         if (value.checked) {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue(this.proposer.controls['proposerMidname'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAge);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMaritalStatus.patchValue(this.proposer.controls['proposerMaritalStatus'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAgeiffco);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('345');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('Self');
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
 
             let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
         } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].proposerMidname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('');
-            this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+
+            // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
     }
 }

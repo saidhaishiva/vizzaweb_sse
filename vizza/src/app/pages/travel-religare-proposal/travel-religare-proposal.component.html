@@ -79,7 +79,7 @@
                       <mat-error *ngIf="religarePersonal.controls.pannumber.hasError('pattern')">Enter Valid  PAN</mat-error>
                     </mat-form-field></div>
                   <div class="col-md-4"><mat-form-field class="w-100">
-                    <input matInput placeholder="Aadhar Number" class="text-uppercase"  formControlName="adharnumber"  (keypress)="idValidate($event)" autocomplete="off" >
+                    <input matInput placeholder="Aadhar Number" class="text-uppercase"  formControlName="adharnumber"  (keypress)="numberValidate($event)" autocomplete="off" >
                     <mat-error *ngIf="religarePersonal.controls.adharnumber.errors?.required">Aadhar Number is required</mat-error>
                     <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid  Aadhar Number</mat-error>
                   </mat-form-field></div>

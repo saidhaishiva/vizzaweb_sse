@@ -57,6 +57,9 @@ export class LifeInsuranceComponent implements OnInit {
 
       });
   }
+    lifeInsurance(){
+
+    }
     // addEvent(event) {
     //     this.selectDate = event.value;
     //     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');

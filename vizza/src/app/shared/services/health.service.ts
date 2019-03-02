@@ -346,6 +346,27 @@ export class HealthService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getNomieRelationshipList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth/nomineeRelationship';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getAppointeRelationshipList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth/appointeeRelationship';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     getPolicyToken(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -363,7 +384,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'religare/create_proposal';
+        const url = this.configurationService.getHostHealth() + 'religare/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -677,7 +698,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'reliance/create_proposal_details';
+        const url = this.configurationService.getHostHealth() + 'reliance/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -875,7 +896,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'hdfc/create_proposal_details';
+        const url = this.configurationService.getHostHealth() + 'hdfc/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -898,7 +919,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'bajajalianz/create_proposal';
+        const url = this.configurationService.getHostHealth() + 'bajajalianz/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -952,6 +973,57 @@ export class HealthService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostHealth() + 'bajajalianz/check_zone';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // iffco tokyo
+    relationshipListIffco(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'iffcotokio/get_relationship_details';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    occupationListIffco(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'iffcotokio/get_occupation_list';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    stateListIffco(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'iffcotokio/get_state_details';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    cityListIffco(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'iffcotokio/get_city_details';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    proposalcreationIffco(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'iffcotokio/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

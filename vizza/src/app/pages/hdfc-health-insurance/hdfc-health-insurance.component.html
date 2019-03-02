@@ -18,9 +18,9 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Title" formControlName="title"  required >
-                          <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
-                            {{lists.tittle}}
+                        <mat-select placeholder="Title" formControlName="title"  required>
+                          <mat-option *ngFor="let lists of titleList | keys" value="{{lists.key}}" >
+                            {{lists.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="hdfcPersonal.controls.title.errors?.required">Title is required</mat-error>
@@ -135,8 +135,8 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="State" formControlName="state" autocomplete="off" (change)="selectedSate(hdfcPersonal.value, 'personal', 'index')" required>
-                            <mat-option *ngFor="let state of hdfcHealthStates" value='{{state.state_id}}'>
-                              {{state.state}}
+                            <mat-option *ngFor="let state of hdfcHealthStates | keys" value='{{state.key}}'>
+                              {{state.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcPersonal.controls.state.errors?.required">State is required</mat-error>
@@ -145,8 +145,8 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
-                            <mat-option *ngFor="let city of hdfcHealthCitys" [value]= 'city.city'>
-                              {{city.city}}
+                            <mat-option *ngFor="let city of hdfcHealthCitys | keys" [value]= 'city.key'>
+                              {{city.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcPersonal.controls.city.errors?.required">City is required</mat-error>
@@ -186,9 +186,9 @@
                       <div class="row">
                         <div class="col-md-4" [hidden]="(hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') || (hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter')" [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
-                            <mat-select placeholder="Title" formControlName="title" required >
-                              <mat-option *ngFor="let lists of titleList" value="{{lists.tittle}}" >
-                                {{lists.tittle}}
+                            <mat-select placeholder="Title" formControlName="title" required  (change)="changeTitle(i)">
+                              <mat-option *ngFor="let lists of titleList | keys" value="{{lists.key}}" >
+                                {{lists.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>
@@ -258,9 +258,9 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required >
-                            <mat-option *ngFor="let lists of insuredHdfcRelationList" value="{{lists.relationship_code}}" >
-                              {{lists.Relation_code}}
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="relationshipchange(i)"required >
+                            <mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
@@ -323,9 +323,9 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
-                            <mat-option *ngFor="let lists of nomineeHdfcRelationList" value="{{lists.relation_code}}" >
-                              {{lists.relation}}
+                          <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (change)="nomineeRelationshipChange()" required >
+                            <mat-option *ngFor="let lists of nomineeHdfcRelationList | keys" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
@@ -349,13 +349,13 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{proposalDtails.sumInsured}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getFamilyDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getHdfcHealthPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{proposalDtails.basePremium}}</span> /</li>
-                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{proposalDtails.serviceTax}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{proposalDtails.totalPremium}}</span> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span> /</li>
+                  <li><span>GST:</span>&nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -372,48 +372,47 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposalDtails.tittle}}.{{proposalDtails.fname}} {{proposalDtails.lname}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{proposalDtails.gender}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposalDtails.dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Email:</strong> {{proposalDtails.emailid}}</li>
-                      <li class="list-group-item"><strong>Mobile:</strong> {{proposalDtails.mobile}}</li>
-                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="proposalDtails.paymentMode == 'CC'">Credit Card</span> <span *ngIf="proposalDtails.paymentMode == 'DD'">Debit Card</span></li>
+                      <li class="list-group-item"><strong>Name:</strong> {{personlData.title}}.{{personlData.firstname}} {{personlData.lastname}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{personlData.gender}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{personlData.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Email:</strong> {{personlData.email}}</li>
+                      <li class="list-group-item"><strong>Mobile:</strong> {{personlData.mobile}}</li>
+                      <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="personlData.paymentmode == 'CC'">Credit Card</span> <span *ngIf="personlData.paymentmode == 'DD'">Debit Card</span></li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{proposalDtails.address1}}</li>
-                      <li class="list-group-item" *ngIf ="proposalDtails.address2 != ''" ><strong>Address 2:</strong> {{proposalDtails.address2}}</li>
-                      <li class="list-group-item" *ngIf ="proposalDtails.address3 != ''"><strong>Address 3:</strong> {{proposalDtails.address3}}</li>
-                      <li class="list-group-item"><strong>Pincode:</strong>  {{proposalDtails.pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{proposalDtails.city}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{proposalDtails.state}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong> {{personlData.address1}}</li>
+                      <li class="list-group-item" *ngIf ="personlData.address2 != ''" ><strong>Address 2:</strong> {{personlData.address2}}</li>
+                      <li class="list-group-item" *ngIf ="personlData.address3 != ''"><strong>Address 3:</strong> {{personlData.address3}}</li>
+                      <li class="list-group-item"><strong>Pincode:</strong>  {{personlData.pincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{personlData.city}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{personlData.stateName}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
               </mat-expansion-panel>
             </div>
-            <div>
-              <div *ngFor="let item of insurerDtails; let i = index;">
+              <div *ngFor="let item of insuredFormData; let i = index;">
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <span class="titleCls">INSURED DETAILS FOR {{item.Relation_code | uppercase}}  </span>
+                      <span class="titleCls">INSURED DETAILS FOR {{item.relationshipName | uppercase}}  </span>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
               <div class="row box-card">
                 <div class="col-md-12">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{item.title}}{{item.fname}} {{item.lname}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{item.title}}.{{item.firstname}} {{item.lastname}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{item.genderStatus}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Relationship:</strong> {{item.Relation_code}}</li>
+                      <li class="list-group-item"><strong>Relationship:</strong> {{item.relationshipName}}</li>
                       <li class="list-group-item" *ngIf="item.preDisease !=''"><strong>Pre Existing Disease:</strong> {{item.preDisease}}</li>
-                      <li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !='' && i == 0"><strong>Is Customer Accepted PED and PPC :</strong> Yes</li>
+                      <!--<li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !='' && i == 0"><strong>Is Customer Accepted PED and PPC :</strong> Yes</li>-->
                       <!--<li class="list-group-item"><strong>Same As Insurer:</strong> <span *ngIf="proposalDtails.sameAsInsurer == 'Y' && i == 0">Yes</span><span *ngIf="proposalDtails.sameAsInsurer == 'N' && i == 0">No</span></li>-->
 
 
@@ -423,9 +422,8 @@
               </div>
                 </mat-expansion-panel>
               </div>
-            </div>
 
-            <div>
+            <div *ngFor="let item of insuredFormData; let i = index;">
               <mat-expansion-panel   [expanded]="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -435,10 +433,10 @@
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
-                      <div class="row">
+                      <div class="row" >
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeDtails.nomineeName}}</li>
+                            <li class="list-group-item"><strong>Nominee name:</strong> {{item.NomineeName}}</li>
                           </ul>
                         </div>
                       </div>
@@ -449,7 +447,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong style="width: 229px !important;">Relationship with Proposer:</strong> {{nomineeDtails.relation}}</li>
+                            <li class="list-group-item"><strong style="width: 229px !important;">Relationship with Proposer:</strong> {{item.NomineeRelationship}}</li>
                           </ul>
                         </div>
 
@@ -460,13 +458,7 @@
                 </div>
               </mat-expansion-panel>
             </div>
-
-
-
-
-
-
-            <p class="mt-3 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="mt-3 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
             <div class="row">
               <div class="col-md-12 text-center">
                 <form action={{summaryData.PaymentActionUrl}}  method='POST' #form>
@@ -478,9 +470,9 @@
                     <input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1"><br/>
                     <input id="AdditionalInfo2" type="hidden" value="HSP" name="AdditionalInfo2"><br/>
                     <input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3"><br/>
-                    <input id="hdnPayMode" type="hidden" value="{{proposalDtails.paymentMode}}" name="hdnPayMode"><br/>
+                    <input id="hdnPayMode" type="hidden" value="{{personlData.paymentmode}}" name="hdnPayMode"><br/>
                     <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
-                    <input id="UserMailId" type="hidden" value="{{proposalDtails.emailid}}" name="UserMailId"><br/>
+                    <input id="UserMailId" type="hidden" value="{{personlData.email}}" name="UserMailId"><br/>
                     <input id="ProductCd" type="hidden" value="HSP" name="ProductCd"><br/>
                     <input id="ProducerCd" type="hidden" value="HSC00056" name="ProducerCd"><br/>
 

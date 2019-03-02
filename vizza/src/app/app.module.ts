@@ -90,6 +90,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { DownloadPolicyComponent } from './pages/download-policy/download-policy.component';
 import {DownloadMessage} from './pages/payment-success/payment-success.component';
 import {DownloadMessageReligare} from './pages/religare-payment-success/religare-payment-success.component';
+import {DownloadMessageRelianceTravel} from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 import { PosstatusAlert} from './pages/health-insurance/health-insurance.component';
 import { TruncatePipe} from '../limit.pipe';
 import { ReligareHealthProposalComponent } from './pages/religare-health-proposal/religare-health-proposal.component';
@@ -240,6 +241,8 @@ import { ClearSessionService} from './shared/services/clear-session.service';
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
+import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
+import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 
 @NgModule({
   imports: [
@@ -307,6 +310,7 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
       DownloadMessage,
       DownloadtravelMessage,
       DownloadMessageReligare,
+      DownloadMessageRelianceTravel,
       PosstatusAlert,
       TruncatePipe,
       ReligareHealthProposalComponent,
@@ -443,7 +447,8 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
       TravelReligarePaymentSuccessComponent,
       DownloadMessageReligareTravel,
       DisclaimerDialog,
-      TravelRelianceProposalComponent
+      TravelRelianceProposalComponent,
+      TravelReliancePaymentSuccessComponent
   ],
   providers: [
       AppSettings,
@@ -476,15 +481,18 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
       BajajHealthDeactivateGuardService,
       RelianceHealthDeactivateGuardService,
       ClearSessionService,
+      IffcoProposalGuardService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
     bootstrap: [AppComponent],
     entryComponents: [
        // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
-        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer
+        ,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,FireInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
+        DownloadMessageRelianceTravel
     ]
 })
 export class AppModule { }
+

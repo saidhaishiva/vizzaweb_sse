@@ -103,7 +103,7 @@ public insuredage: any;
 public maxStartdate:any;
 public currentStep:any;
 public sameRelationship:any;
-
+public sameaddress:boolean;
     CheckHabits : boolean;
     readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
@@ -124,6 +124,7 @@ public sameRelationship:any;
       this.proposerAgeP = '';
       this.insuredAgeP = '';
       this.maxStartdate = '';
+      this.sameaddress = false;
       // let stepperindex = 0;
       // this.route.params.forEach((params) => {
       //     if(params.stepper == true) {
@@ -243,7 +244,9 @@ public sameRelationship:any;
           paNomineeCityIdP: '',
           paNomineeStateIdP: '',
           paNomineeCountryIdP: '',
-          paNomineeDistrictIdP: ''
+          paNomineeDistrictIdP: '',
+          sameAsProposer:false
+
       });
       this.insured.controls['insuredPouchesList'].disable();
       this.insured.controls['insuredSmokeList'].disable();
@@ -509,6 +512,7 @@ public sameRelationship:any;
                 paNomineeStateIdP: this.getpanomineeData.paNomineeStateIdP,
                 paNomineeDistrictIdP: this.getpanomineeData.paNomineeDistrictIdP,
                 paNomineeTitle: this.getpanomineeData.paNomineeTitle,
+                sameAsProposer: this.getpanomineeData.sameAsProposer,
             });
         }
         if (sessionStorage.appolloPAproposalID != '' && sessionStorage.appolloPAproposalID != undefined) {
@@ -1276,6 +1280,34 @@ preInsureList() {
     }
 
     public pinPanomineeListFailure(error){
+    }
+    sameasProposer(){
+      if(this.nomineeDetail.controls['sameAsProposer'].value){
+          this.sameaddress = true;
+          this.insured.controls['paNomineeAddress'].patchValue(this.ProposerPa.controls['proposerPaAddress'].value);
+          this.insured.controls['paNomineeAddress2'].patchValue(this.ProposerPa.controls['proposerPaAddress2'].value);
+          this.insured.controls['paNomineeAddress3'].patchValue(this.ProposerPa.controls['proposerPaAddress3'].value);
+          this.insured.controls['paNomineeCity'].patchValue(this.ProposerPa.controls['proposerPaCity'].value);
+          this.insured.controls['paNomineeState'].patchValue(this.ProposerPa.controls['proposerPaState'].value);
+          this.insured.controls['paNomineeDistrict'].patchValue(this.ProposerPa.controls['proposerPaDistrict'].value);
+          this.insured.controls['paNomineeStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
+          this.insured.controls['paNomineeCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
+          this.insured.controls['paNomineeDistrictIdP'].patchValue(this.ProposerPa.controls['proposerPaDistrictIdP'].value);
+
+      } else {
+          this.sameaddress = false;
+
+          this.insured.controls['paNomineeAddress'].patchValue('');
+          this.insured.controls['paNomineeAddress2'].patchValue('');
+          this.insured.controls['paNomineeAddress3'].patchValue('');
+          this.insured.controls['paNomineeCity'].patchValue('');
+          this.insured.controls['paNomineeState'].patchValue('');
+          this.insured.controls['paNomineeDistrict'].patchValue('');
+          this.insured.controls['paNomineeStateIdP'].patchValue('');
+          this.insured.controls['paNomineeCityIdP'].patchValue('');
+          this.insured.controls['paNomineeDistrictIdP'].patchValue('');
+
+      }
     }
     // sameProposer() {
     //

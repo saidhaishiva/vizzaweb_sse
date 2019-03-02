@@ -113,7 +113,7 @@
                     <mat-form-field class="w-100">
                       <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
                       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                        <!--<mat-option value="all"  (click)="selectAll($event)">Select All</mat-option>-->
+                        <!--<mat-option value="all" (click)="selectAll($event)">Select All</mat-option>-->
                         <mat-option *ngFor="let lists of allCompanyList" value="{{lists}}">{{lists}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -137,7 +137,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'premium_amount';let i = index">
                   <td align="left">
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>

@@ -29,7 +29,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="proposerFirstname"  (input)="nameValidate($event)"  autocomplete="off" maxlength="30" required >
+                          <input matInput placeholder="First Name" formControlName="proposerFirstname"  (keypress)="space($event)"  autocomplete="off" maxlength="30" required >
                           <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -732,7 +732,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insurer"  formControlName="nomineeRelationship" required >
+                          <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" required >
                             <mat-option *ngFor="let relationship of relationshipList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
@@ -774,15 +774,15 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="nomineeDistrict">
+                          <mat-select placeholder="District"  formControlName="nomineeDistrict"  [disabled]="nomineesame" >
                             <mat-option *ngFor="let AppolloDistrict of nomineeAppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="City"  formControlName="nomineeCity"  required>
+                        <mat-form-field class="w-100" >
+                          <mat-select placeholder="City"  formControlName="nomineeCity" [disabled]="nomineesame" required>
                             <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
@@ -936,7 +936,7 @@
                                       <li class="list-group-item" *ngIf="item.PreviousInsurerCode != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
                                       <li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>
                                       <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
-                                      <li class="list-group-item"  *ngIf="item.QualifyingAmount != ''"><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
+                                      <li class="list-group-item"  *ngIf="item.QualifyingAmount != '' && item.QualifyingAmount != 0 "><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
                                       <li class="list-group-item"  *ngIf="item.WaivePeriod != ''"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>
                                       <li class="list-group-item"  *ngIf="item.Remarks != ''"><strong>Remark Details:</strong> {{item.Remarks}}</li>
                                   </ul>
@@ -979,7 +979,7 @@
 
                       </div>
                   <p class="mt-2 pl-3">
-                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                   </p>
                   <hr>
                   <div class="row">

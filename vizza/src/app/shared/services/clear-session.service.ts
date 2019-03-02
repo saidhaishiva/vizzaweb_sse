@@ -12,6 +12,11 @@ export class ClearSessionService {
         sessionStorage.stepper3Details = '';
         sessionStorage.nomineeData = '';
         sessionStorage.nomineeDate = '';
+        sessionStorage.familyMembers = '';
+        sessionStorage.personalCitys = '';
+        sessionStorage.residenceCitys = '';
+        sessionStorage.rAreaNames = '';
+        sessionStorage.areaNames = '';
 
         sessionStorage.mobileNumber = '';
         sessionStorage.ageRestriction = '';

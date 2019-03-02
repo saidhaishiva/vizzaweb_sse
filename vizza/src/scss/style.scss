@@ -988,7 +988,7 @@ a:hover {
       margin-right: 10px;
 
       strong{
-        width: 210px;
+        width: 240px;
         float: left;
       }
     }
@@ -1309,7 +1309,7 @@ a:hover {
       margin-right: 10px;
 
       strong{
-        width: 180px;
+        width: 234px;
         float: left;
       }
     }
@@ -1563,7 +1563,6 @@ a:hover {
     //background: #fff;
     color: #656464;
     text-align: center;
-    padding: 10px;
     margin-top: 15px;
   }
   .h-testimonial{
@@ -1847,7 +1846,7 @@ a:hover {
 .f-social-icons{
   ul{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
   }
   i{
@@ -1927,8 +1926,6 @@ footer{
     width: 120px;
   }
   p{
-   // background: #676767;
-    padding: 10px;
     margin-bottom: 0;
     color: black;
     margin-top: 15px;
