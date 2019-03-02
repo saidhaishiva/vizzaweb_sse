@@ -658,7 +658,7 @@ a:hover {
       text-align: center;
       border-collapse: collapse;
       border: 1px solid #ccc !important;
-      padding: 0px !important;
+      padding: 5px !important;
     }
     td{
       vertical-align: middle;
@@ -2969,4 +2969,38 @@ fieldset {
   }
 
 }
+
+
+.table-scroll{
+  width: 100%;
+
+  tbody{
+    height:600px;
+    overflow-y:auto;
+    width: 100%;
+  }
+  thead,tbody,tr,td,th{
+    display:block;
+  }
+  tbody{
+    td{
+      float:left;
+      height:70px;
+    }
+  }
+  thead {
+    tr{
+      th{
+        float:left;
+        height:50px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
 
