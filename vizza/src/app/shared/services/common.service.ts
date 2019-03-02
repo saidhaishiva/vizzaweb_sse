@@ -186,6 +186,18 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    getInsurerDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        // const url = this.configurationService.getHostHome() + 'Lifeendowment/lifeendowment' ;
+        return this.http.post('http://localhost/vizza/api/index.php/lic/Lifeendowment/lifeendowment', json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     fileUpload(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();

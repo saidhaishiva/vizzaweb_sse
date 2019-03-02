@@ -17,10 +17,13 @@ export class LifeInsuranceComponent implements OnInit {
     public setDate: any;
     public selectDate: any;
     public productName: any;
-    public pin:any;
+    public pin: any;
     public title: any;
     public response: any;
     public pincodeErrors: any;
+
+    public insurerLists: any;
+    public listAll: any;
     // firstPage: any;
     //     // secondPage: any;
 
@@ -40,8 +43,13 @@ export class LifeInsuranceComponent implements OnInit {
   }
 
   ngOnInit() {
+
       // this.firstPage = true;
       // this.secondPage = false;
+      this.insurerLists = [];
+      this.listAll = [];
+
+      this.getDetails();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
@@ -114,7 +122,7 @@ export class LifeInsuranceComponent implements OnInit {
         if (successData.ErrorObject) {
             this.toastr.error(successData.ErrorObject);
             this.pincodeErrors = false;
-        }else {
+        } else {
             this.pincodeErrors = true;
         }
     }
@@ -139,6 +147,67 @@ export class LifeInsuranceComponent implements OnInit {
                 event.preventDefault();
             }
         }
+    }
+    // public keyPress(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[0-9\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
+
+    public tab() {
+        console.log(this.listAll);
+        return this.listAll;
+    }
+
+    public getDetails() {
+        const data = {
+          'platform': 'web',
+          'userid': '0',
+          'roleid': '4'
+      };
+        this.commonservices.getInsurerDetails(data).subscribe(
+            (successData) => {
+                this.getInsurerDetailsSuccess(successData);
+            },
+            (error) => {
+                this.getInsurerDetailsFailure(error);
+            }
+        );
+    }
+
+    public getInsurerDetailsSuccess(successData) {
+        this.listAll.push(successData.ResponseObject);
+        console.log(this.listAll);
+        let all= [];
+        if (successData.IsSuccess) {
+            for (let i = 0; i < successData.ResponseObject.length; i++) {
+                let keyfeatureArray = [];
+                for ( let j = 0; j < successData.ResponseObject[i].keyfeature.length; j++) {
+                    if (successData.ResponseObject[i].keyfeature[j]['primary_key'] == 1) {
+                        keyfeatureArray.push({
+                                                key_name: successData.ResponseObject[i].keyfeature[j].key_name,
+                                                key_value: successData.ResponseObject[i].keyfeature[j].key_value,
+                                                primary_key: successData.ResponseObject[i].keyfeature[j].primary_key
+                        });
+                    }
+                }
+                if ( keyfeatureArray.length > 0) {
+                    this.insurerLists.push({product_name: successData.ResponseObject[i].product_name,
+                        company_name: successData.ResponseObject[i].company_name, keyfeature: keyfeatureArray});
+                }
+
+            }
+            console.log(this.insurerLists);
+            // let id = 1;
+        }
+    }
+
+    public getInsurerDetailsFailure(error) {
     }
     // lifeInsurance(){
     //     this.firstPage = true;
