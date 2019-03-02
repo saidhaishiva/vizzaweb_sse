@@ -139,7 +139,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     public insuredFormData : any;
     public previousInsuranceFromData : any;
     public nomineeFormData : any;
-    public serviceTaxrequired: boolean;
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -176,7 +175,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.sameField = false;
         this.isDisable = false;
         this.insureCity = false;
-        this.serviceTaxrequired = false;
         this.proposerInsureData = [];
         this.totalInsureDetails = [];
         this.questions_list = [];
@@ -352,6 +350,9 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
     idValidate(event: any){
         this.validation.idValidate(event);
+    }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
     }
     initItemRows() {
         return this.fb.group(
@@ -596,11 +597,8 @@ export class RelianceHeathProposalComponent implements OnInit {
     isServiceTax() {
         if (this.personal.controls['ServicesTaxId'].value != '') {
             this.taxRequired = '';
-            this.serviceTaxrequired = false;
-
         }
         this.personal.controls['ServicesTaxName'].patchValue(this.ServiceTaxId[this.personal.controls['ServicesTaxId'].value]);
-        this.serviceTaxrequired = true;
 
     }
     sameAddress(values: any) {
@@ -764,10 +762,14 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.personal.controls['ServicesTaxId'].patchValue('');
                         this.taxRequired = '';
                         stepper.next();
+                        this.topScroll();
+
                     } else {
                         if(this.personal.controls['ServicesTaxId'].value != '') {
                             this.taxRequired = '';
                             stepper.next();
+                            this.topScroll();
+
                         } else {
                             this.taxRequired = 'Services Tax is required';
                         }
@@ -1206,6 +1208,8 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.prevviousInsuranceStepperDetails = '';
         sessionStorage.prevviousInsuranceStepperDetails = JSON.stringify(value);
         stepper.next();
+        this.topScroll();
+
     }
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
@@ -1274,6 +1278,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             if(!ageValidate.includes(1)){
                 if(!diseases.includes('Yes')){
                     stepper.next();
+                    this.topScroll();
+
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -1329,6 +1335,8 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.riskDetails.valid) {
             this.riskData = value;
             stepper.next();
+            this.topScroll();
+
         }
     }
     //Nominee Details

@@ -121,15 +121,17 @@
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
-                                                <p>Is service tax Applicable <span class="error">*</span></p>
-                                                <mat-radio-group formControlName="serviceTax" >
+                                                <p>Is Service Tax Exemption Application Applicable <span class="error">*</span></p>
+                                                <mat-radio-group formControlName="serviceTax">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
                                             <div class="col-md-3" *ngIf="this.personal.controls['serviceTax'].value == 'Yes'">
                                                 <mat-form-field  class="w-100">
-                                                    <mat-select placeholder="Services Tax"  formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()" [required]="serviceTaxrequired">
+                                                    <mat-placeholder>Service Tax Exemption<span class="error">*</span></mat-placeholder>
+
+                                                    <mat-select formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()" >
                                                         <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}   matTooltip="{{list.value}}">{{list.value}}</mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="personal.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>-->

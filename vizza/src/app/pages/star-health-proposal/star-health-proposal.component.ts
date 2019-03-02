@@ -727,7 +727,7 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
         if (this.personal.valid) {
-            if (sessionStorage.proposerAge >= 18) {
+            if (sessionStorage.proposerAge >= 18 && sessionStorage.proposerAge < 90) {
                 if(this.personal.controls['socialStatus'].value == true || this.personal.controls['socialStatus'].value == 'true') {
                     if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
                         stepper.next();
