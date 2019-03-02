@@ -742,7 +742,7 @@ export class StarHealthProposalComponent implements OnInit {
                     // }
                 }
             } else {
-                this.toastr.error('Proposer age should be 18 or above');
+                this.toastr.error('Proposer age should be greater than 18 and less than 90');
             }
         }
     }
