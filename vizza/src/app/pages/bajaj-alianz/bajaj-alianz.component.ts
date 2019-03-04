@@ -151,8 +151,6 @@ export class BajajAlianzComponent implements OnInit {
         this.relationshipListForInsured();
         this.relationshipListForNominee();
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
         this.insureArray = this.fb.group({
@@ -742,7 +740,7 @@ export class BajajAlianzComponent implements OnInit {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
             'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
-            'enquiry_id': this.enquiryId,
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
             'company_name': 'bajajalianz',
             'group_name': this.getFamilyDetails.name,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
